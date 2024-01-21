@@ -1,0 +1,691 @@
+C     Output of FBtoFO from GEFSUB.BAS
+      REAL*4 Getyield
+      REAL*4 Masscurv
+      REAL*4 Masscurv1
+C     '
+      REAL*4 De_Saddle_Scission
+C     '
+      REAL*4 TEgidy
+C     '
+      REAL*4 TRusanov
+C     '
+      REAL*4 LyMass
+C     '
+      REAL*4 LyPair
+C     '
+      REAL*4 TFPair
+C     '
+      REAL*4 Pmass
+C     '
+      REAL*4 FEDEFOLys
+C     '
+      REAL*4 FEDEFOP
+C     '
+      REAL*4 LDMass
+C     '
+      REAL*4 AME2012
+C     '
+      REAL*4 U_SHELL
+C     '
+      REAL*4 U_SHELL_exp
+C     '
+      REAL*4 U_SHELL_EO_exp
+C     '
+      REAL*4 U_MASS
+C     '
+      REAL*4 ECOUL
+C     '
+      REAL*4 beta_light
+C     '
+      REAL*4 beta_heavy
+C     '
+      REAL*4 Z_equi
+C     '
+C     '
+C     '
+      REAL*4 U_Ired
+C     '
+      REAL*4 U_IredFF
+C     '
+      REAL*4 U_I_Shell
+C     '
+      REAL*4 U_alev_ld
+C     '
+      REAL*4 U_Temp
+C     '
+      REAL*4 U_Even_Odd
+C     '
+      REAL*4 BFTF
+      REAL*4 BFTFA
+      REAL*4 BFTFB
+C     '
+      REAL*4 Gaussintegral
+C     '
+C     /' Utility functions '/
+C     '
+C     '
+      REAL*4 U_Box
+      REAL*4 U_Box2
+      REAL*4 U_Gauss
+      REAL*4 U_Gauss_mod
+      REAL*4 U_LinGauss
+C     '
+      INTEGER*4 U_Valid
+C     '
+C     '
+      REAL*4 U_Delta_S0
+C     '
+C     '
+C     '
+C     /' Internal variables '/
+      REAL*4  pi
+      PARAMETER (pi=3.14159)
+      INTEGER*4  I_N_CN
+C     /' Neutron number of fissioning nucleus '/
+      INTEGER*4  I,J,K
+      REAL*4  T_coll_Mode_1,T_coll_Mode_2,T_coll_Mode_3,T_coll_Mode_4
+      REAL*4  T_asym_Mode_1,T_asym_Mode_2,T_asym_Mode_3,T_asym_Mode_4,
+     *T_asym_Mode_0
+      REAL*4  Sigpol_Mode_1,Sigpol_Mode_2,Sigpol_Mode_3,Sigpol_Mode_4
+      REAL*4  R_Z_Curv_S0,R_Z_Curv1_S0,R_A_Curv1_S0
+      REAL*4  ZC_Mode_0,ZC_Mode_1,ZC_Mode_2,ZC_Mode_3,ZC_Mode_4
+      REAL*4  SigZ_Mode_0,SigZ_Mode_1,SigZ_Mode_2,SigZ_Mode_3,
+     *SigZ_Mode_4
+      REAL*4  SN,Sprot
+      REAL*4  E_exc_S0_prov,E_exc_S1_prov,E_exc_S2_prov,E_exc_S3_prov,
+     *E_exc_S4_prov
+      REAL*4  E_exc_S11_prov,E_exc_S22_prov
+      REAL*4  E_exc_Barr
+      REAL*4  E_LD_S1,E_LD_S2,E_LD_S3,E_LD_S4
+      REAL*4  R_Shell_S1_eff,R_Shell_S2_eff,R_Shell_S3_eff,
+     *R_Shell_S4_eff
+      REAL*4  Yield_Norm
+      REAL*4  R_E_exc_eff
+      REAL*4  R_Z_Heavy,R_Z_Light
+      INTEGER*4  I_Mode
+      REAL*4  T_Pol_Mode_0,T_Pol_Mode_1,T_Pol_Mode_2,T_Pol_Mode_3,
+     *T_Pol_Mode_4
+      REAL*4  E_Min_Barr
+      REAL*4  RI
+      REAL*4  rbeta,beta1,beta2
+      REAL*4  rbeta_ld,rbeta_shell
+      REAL*4  ZUCD
+      REAL*4  Z
+      REAL*4  E_tunn
+      REAL*4  beta1_opt,beta2_opt,beta1_prev,beta2_prev
+      REAL*4  Z1,Z2
+      INTEGER*4  IZ1,IN1,IZ2,IN2
+      REAL*4  A1,A2
+      INTEGER*4  IA1,IA2
+      REAL*4  E_defo
+      REAL*4  R_Pol_Curv_S0,R_Pol_Curv_S1,R_Pol_Curv_S2,R_Pol_Curv_S3,
+     *R_Pol_Curv_S4
+      REAL*4  RA,RZ
+      REAL*4  SigA_Mode_0,SigA_Mode_1,SigA_Mode_2,SigA_Mode_3,
+     *SigA_Mode_4
+      REAL*4  AC_Mode_0,AC_Mode_1,AC_Mode_2,AC_Mode_3,AC_Mode_4
+      REAL*4  R_A_heavy,R_A_light
+      REAL*4  RZpol
+      REAL*4  T_intr_Mode_0,T_intr_Mode_1_heavy,T_intr_Mode_1_light
+      REAL*4  T_intr_Mode_2_heavy,T_intr_Mode_2_light
+      REAL*4  T_intr_Mode_3_heavy,T_intr_Mode_3_light
+      REAL*4  T_intr_Mode_4_heavy,T_intr_Mode_4_light
+      REAL*4  T
+      REAL*4  DU0,DU1,DU2,DU3,DU4
+      REAL*4  T_low_S1_used
+      REAL*4  SigA_Mode_11,SigA_Mode_22
+      INTEGER*4  Ngtot
+      DATA Ngtot/0/
+      INTEGER*4  Nglight
+      DATA Nglight/0/
+      INTEGER*4  Ngheavy
+      DATA Ngheavy/0/
+      REAL*4  Egtot1000
+      DATA Egtot1000/0/
+      REAL*4  S1_enhance,S2_enhance
+      REAL*4  DZ_S2_lowE
+      DATA DZ_S2_lowE/0/
+      INTEGER*4  I_A_CN,I_Z_CN
+      REAL*4  P_I_rms_CN
+C     /' rms initial angular momentum '/
+      DATA P_I_rms_CN/0/
+C     '
+C     ' Model parameters of GEF
+C     '
+      REAL*4  Emax_valid
+C     /' Maximum allowed excitation energy '/
+      DATA Emax_valid/100/
+      REAL*4  xP_DZ_Mean_S1
+      DATA xP_DZ_Mean_S1/0.05/
+      REAL*4  xP_DZ_Mean_S2
+      DATA xP_DZ_Mean_S2/-1.0/
+      REAL*4  xP_DZ_Mean_S3
+C     /' Shift of mean Z of Mode 3 '/
+      DATA xP_DZ_Mean_S3/0/
+      REAL*4  xP_DZ_Mean_S4
+C     /' Shell for structure at A around 190 '/
+      DATA xP_DZ_Mean_S4/0/
+      REAL*4  ZC_Mode_4L
+C     ' enhances S1
+      DATA ZC_Mode_4L/41.90/
+      REAL*4  xP_Z_Curv_S1
+      DATA xP_Z_Curv_S1/0.30/
+      REAL*4  P_Z_Curvmod_S1
+C     /' Scales energy-dependent shift '/
+      DATA P_Z_Curvmod_S1/1.75/
+      REAL*4  xP_Z_CurV_S2
+      DATA xP_Z_CurV_S2/0.095/
+      REAL*4  S2leftmod
+C     /' Asymmetry in diffuseness of S2 mass peak '/
+      DATA S2leftmod/0.55/
+      REAL*4  S2leftmod_global
+      DATA S2leftmod_global/0.6/
+      REAL*4  P_Z_Curvmod_S2
+C     /' Scales energy-dependent shift '/
+      DATA P_Z_Curvmod_S2/10/
+      REAL*4  xP_A_Width_S2
+C     /' A width of Mode 2 (box) '/
+      DATA xP_A_Width_S2/14.5/
+C     '  Dim Shared As Single _P_Z_Curv_S3 = 0.076
+      REAL*4  xP_Z_Curv_S3
+      DATA xP_Z_Curv_S3/0.068/
+      REAL*4  P_Z_Curvmod_S3
+C     /' Scales energy-dependent shift '/
+      DATA P_Z_Curvmod_S3/10/
+      REAL*4  P_Z_Curv_SL4
+      DATA P_Z_Curv_SL4/0.28/
+C     'Dim Shared As Single P_Z_Curv_SL4 = 0.2
+C     '  Dim Shared As Single _P_Z_Curv_S4 = 0.025  /' Curvature in Z of Mode 4 '/
+      REAL*4  xP_Z_Curv_S4
+      DATA xP_Z_Curv_S4/0.05/
+      REAL*4  P_Z_Curvmod_S4
+C     /' Scales energy-dependent shift '/
+      DATA P_Z_Curvmod_S4/10/
+      REAL*4  xDelta_S0
+C     /' Shell effect for SL,for individual systems '/
+      DATA xDelta_S0/0/
+      REAL*4  xP_Shell_S1
+C     /' Shell effect for Mode 1 '/
+      DATA xP_Shell_S1/-1.85/
+      REAL*4  xP_Shell_S2
+C     /' Shell effect for Mode 2 '/
+      DATA xP_Shell_S2/-4.0/
+      REAL*4  xP_Shell_S3
+C     /' Shell effect for Mode 3 '/
+      DATA xP_Shell_S3/-6.0/
+      REAL*4  P_Shell_SL4
+C     /' Shell enhancing S1 '/
+      DATA P_Shell_SL4/-1.3/
+      REAL*4  xP_Shell_S4
+C     /' Shell effect for Mode 4 '/
+      DATA xP_Shell_S4/-1.0/
+      REAL*4  PZ_S3_olap_pos
+C     /' Pos. of S3 shell in light fragment (in Z) '/
+      DATA PZ_S3_olap_pos/39.7/
+C     ' Dim Shared As Single PZ_S3_olap_curv = 0.008 /' for width of S3 shell in light fragment '/
+      REAL*4  PZ_S3_olap_curv
+      DATA PZ_S3_olap_curv/0.0065/
+      REAL*4  Level_S11
+C     /' Level for mode S11 '/
+      DATA Level_S11/-1.3/
+      REAL*4  Shell_fading
+C     /' fading of shell effect with E* '/
+      DATA Shell_fading/50/
+      REAL*4  xT_low_S1
+      DATA xT_low_S1/0.342/
+      REAL*4  xT_low_S2
+C     /' Slope parameter for tunneling '/
+      DATA xT_low_S2/0.31/
+      REAL*4  xT_low_S3
+C     /' Slope parameter for tunneling '/
+      DATA xT_low_S3/0.31/
+      REAL*4  xT_low_S4
+C     /' Slope parameter for tunneling '/
+      DATA xT_low_S4/0.31/
+      REAL*4  xT_low_SL
+C     /' Slope parameter for tunneling '/
+      DATA xT_low_SL/0.31/
+      REAL*4  T_low_S11
+C     /' Slope parameter for tunneling '/
+      DATA T_low_S11/0.36/
+      REAL*4  xP_att_pol
+C     /' Attenuation of 132Sn shell '/
+      DATA xP_att_pol/4.5/
+      REAL*4  dE_Defo_S1
+C     /' Deformation energy expense for Mode 1 '/
+      DATA dE_Defo_S1/-2.8/
+      REAL*4  dE_Defo_S2
+C     /' Deformation energy expense for Mode 2 '/
+      DATA dE_Defo_S2/0/
+      REAL*4  dE_Defo_S3
+C     /' Deformation energy expense for Mode 3 '/
+      DATA dE_Defo_S3/0/
+      REAL*4  dE_Defo_S4
+      DATA dE_Defo_S4/0/
+C     /' Deformation energy expense for Mode 4 '/
+C     '    Dim Shared As Single betaL0 = 24.5
+C     '    Dim Shared As Single betaL1 = 0.65
+      REAL*4  betaL0
+      DATA betaL0/25.9/
+      REAL*4  betaL1
+      DATA betaL1/0.72/
+C     '    Dim Shared As Single betaL0 = 25.4  ' last value
+C     '    Dim Shared As Single betaL1 = 0.69  ' last value
+      REAL*4  betaH0
+C     /' Offset for deformation of heavy fragment '/
+      DATA betaH0/48.0/
+      REAL*4  betaH1
+      DATA betaH1/0.55/
+      REAL*4  kappa
+C     /' N/Z dedendence of A-asym. potential '/
+      DATA kappa/0/
+      REAL*4  TCOLLFRAC
+C     /' Tcoll per energy gain from saddle to scission '/
+      DATA TCOLLFRAC/0.04/
+      REAL*4  ECOLLFRAC
+C     'last value
+      DATA ECOLLFRAC/0.055/
+C     '  Dim Shared As Single ECOLLFRAC = 0.1
+      REAL*4  TFCOLL
+      DATA TFCOLL/0.034/
+      REAL*4  TCOLLMIN
+      DATA TCOLLMIN/0.12/
+C     '    Dim Shared As Single ESHIFTSASCI_intr = -58   /' Shift of saddle-scission energy '/ ' last value
+      REAL*4  ESHIFTSASCI_intr
+C     /' Shift of saddle-scission energy '/
+      DATA ESHIFTSASCI_intr/-67/
+      REAL*4  ESHIFTSASCI_coll
+C     /' Shift of saddle-scission energy '/
+      DATA ESHIFTSASCI_coll/-90/
+      REAL*4  ESHIFTSASCI_coll_global
+      DATA ESHIFTSASCI_coll_global/-90/
+      REAL*4  EDISSFRAC
+      DATA EDISSFRAC/0.35/
+      REAL*4  SIGDEFO
+      DATA SIGDEFO/0.165/
+      REAL*4  SIGDEFO_0
+      DATA SIGDEFO_0/0.165/
+      REAL*4  SIGDEFO_slope
+      DATA SIGDEFO_slope/0/
+      REAL*4  EexcSIGrel
+      DATA EexcSIGrel/0.7/
+      REAL*4  DNECK
+C     /' Tip distance at scission / fm '/
+      DATA DNECK/1/
+      REAL*4  FTRUNC50
+C     /' Truncation near Z=50 '/
+      DATA FTRUNC50/1/
+      REAL*4  ZTRUNC50
+C     /' Z value for truncation '/
+      DATA ZTRUNC50/50/
+      REAL*4  FTRUNC28
+C     /' Truncation near Z=28 '/
+      DATA FTRUNC28/0.56/
+      REAL*4  ZTRUNC28
+C     /' Z value for truncation '/
+      DATA ZTRUNC28/30.5/
+      REAL*4  ZMAX_S2
+C     /' Maximum Z of S2 channel in light fragment '/
+      DATA ZMAX_S2/60/
+      REAL*4  NTRANSFEREO
+C     /' Steps for E sorting for even-odd effect '/
+      DATA NTRANSFEREO/6/
+      REAL*4  NTRANSFERE
+C     /' Steps for E sorting for energy division '/
+      DATA NTRANSFERE/12/
+      REAL*4  Csort
+C     /' Smoothing of energy sorting '/
+      DATA Csort/0.1/
+      REAL*4  PZ_EO_symm
+C     /' Even-odd effect in Z at symmetry '/
+      DATA PZ_EO_symm/2.25/
+      REAL*4  PN_EO_Symm
+C     /' Even-odd effect in N at symmetry '/
+      DATA PN_EO_Symm/0.5/
+      REAL*4  R_EO_THRESH
+C     /' Threshold for asymmetry-driven even-odd effect'/
+      DATA R_EO_THRESH/0.04/
+      REAL*4  R_EO_SIGMA
+      DATA R_EO_SIGMA/0.35/
+      REAL*4  R_EO_MAX
+C     /' Maximum even-odd effect '/
+      DATA R_EO_MAX/0.40/
+C     '    Dim Shared As Single _POLARadd = 0.32 /' Offset for enhanced polarization '/
+      REAL*4  xPOLARadd
+C     /' Offset for enhanced polarization '/
+      DATA xPOLARadd/0.35/
+      REAL*4  POLARfac
+C     /' Enhancement of polarization of ligu. drop '/
+      DATA POLARfac/1/
+      REAL*4  T_POL_RED
+C     /' Reduction of temperature for sigma(Z) '/
+      DATA T_POL_RED/0.01/
+      REAL*4  xHOMPOL
+C     /' hbar omega of polarization oscillation '/
+      DATA xHOMPOL/2.0/
+      REAL*4  ZPOL1
+C     /' Extra charge polarization of S1 '/
+      DATA ZPOL1/0/
+      REAL*4  P_n_x
+C     /' Enhanced inverse neutron x section '/
+      DATA P_n_x/0/
+      REAL*4  Tscale
+      DATA Tscale/1/
+      REAL*4  EOscale
+C     /' Scaling factor for even-odd structure in yields '/
+      DATA EOscale/1.0/
+      REAL*4  Econd
+      DATA Econd/2/
+      INTEGER*4  Emode
+C     /' 0: E over BF_B; 1: E over gs; 2: E_neutron; 12: E_proton '/
+      DATA Emode/1/
+      REAL*4  T_orbital
+C     /' From orbital ang. momentum '/
+      DATA T_orbital/0/
+      REAL*4  xJscaling
+C     /' General scaling of fragment angular momenta '/
+      DATA xJscaling/1.0/
+      REAL*4  Spin_odd
+C     /' RMS Spin enhancement for odd Z '/
+      DATA Spin_odd/0.4/
+C     '
+C     /' I. Properties of nuclide distributions '/
+C     '
+      REAL*4 , DIMENSION(0:6,1:2,150) :: Beta
+C     '
+      REAL*4 , DIMENSION(0:4,1:2,150) :: Edefo
+C     '
+      REAL*4 , DIMENSION(0:4,1:2,350) :: Zmean
+C     '
+      REAL*4 , DIMENSION(0:4,1:2,350) :: Zshift
+C     '
+      REAL*4 , DIMENSION(0:4,1:2,350) :: Temp
+C     '
+      REAL*4 , DIMENSION(0:4,1:2,350) :: TempFF
+C     '
+      REAL*4 , DIMENSION(0:4,1:2,350) :: Eshell
+C     '
+      REAL*4 , DIMENSION(0:6,1:2,350) :: PEOZ
+C     '
+      REAL*4 , DIMENSION(0:6,1:2,350) :: PEON
+C     ' pre-neutron evaporation
+C     '
+      REAL*4 , DIMENSION(0:6,1:2,350) :: EPART
+C     '
+      REAL*4 , DIMENSION(0:6,1:2,1:200,1:150) :: SpinRMSNZ
+C     '
+C     '
+C     /' Masses etc. '/
+C     '
+CAK   REAL*4 , DIMENSION(0:203,0:136) :: BEldmTF
+C     '
+CAK   REAL*4 , DIMENSION(0:203,0:136) :: BEexp
+C     '
+CAK   REAL*4 , DIMENSION(0:203,0:136) :: DEFOtab
+C     '
+CAK   REAL*4 , DIMENSION(0:203,0:136) :: ShellMO
+C     '
+CAK   REAL*4 , DIMENSION(0:203,0:136) :: EVOD
+C     '
+C     '
+      REAL*4 , DIMENSION(0:200,0:150) :: NZPRE
+C     '
+      REAL*4 , DIMENSION(0:6,0:200,0:150) :: NZMPRE
+C     /' Internal parameters for error analysis: '/
+      REAL*4  P_DZ_Mean_S1
+      REAL*4  P_DZ_Mean_S2
+      REAL*4  P_DZ_Mean_S3
+      REAL*4  P_DZ_Mean_S4
+      REAL*4  P_Z_Curv_S1
+      REAL*4  P_Z_Curv_S2
+      REAL*4  P_A_Width_S2
+      REAL*4  P_Z_Curv_S3
+      REAL*4  P_Z_Curv_S4
+      REAL*4  Delta_S0
+      REAL*4  P_Shell_S1
+      REAL*4  P_Shell_S2
+      REAL*4  P_Shell_S3
+      REAL*4  P_Shell_S4
+      REAL*4  T_low_S1
+      REAL*4  T_low_S2
+      REAL*4  T_low_S3
+      REAL*4  T_low_S4
+      REAL*4  T_low_SL
+      REAL*4  P_att_pol
+      REAL*4  HOMPOL
+      REAL*4  POLARadd
+      REAL*4  Jscaling
+C     '
+C     '
+C     '
+C     /' Control parameters: '/
+      REAL*4  B_F
+C     /' Fission barrier '/
+      DATA B_F/0/
+      REAL*4  B_F_ld
+C     /' Fission barrier,liquid drop '/
+      DATA B_F_ld/0/
+      REAL*4  E_B
+C     /' Outer fission barrier '/
+      DATA E_B/0/
+      REAL*4  E_B_ld
+C     /' Outer fission barrier,liquid drop '/
+      DATA E_B_ld/0/
+      REAL*4  R_E_exc_Eb
+C     /' Energy above outer barrier '/
+      DATA R_E_exc_Eb/0/
+      REAL*4  R_E_exc_GS
+C     /' Energy above ground state '/
+      DATA R_E_exc_GS/0/
+      REAL*4  P_Z_Mean_S0
+C     /' Mean Z of Mode 1 '/
+      DATA P_Z_Mean_S0/0/
+      REAL*4  P_Z_Mean_S1
+C     /' Mean Z of Mode 1 '/
+      DATA P_Z_Mean_S1/52.8/
+      REAL*4  P_Z_Mean_S2
+C     /' Mean Z of Mode 2 '/
+      DATA P_Z_Mean_S2/55/
+      REAL*4  P_Z_Mean_S3
+C     /' Mean Z of Mode 3 '/
+      DATA P_Z_Mean_S3/65/
+      REAL*4  P_Z_Mean_S4
+C     /' Mean Z of Mode 4 '/
+      DATA P_Z_Mean_S4/42.05/
+      REAL*4  NC_Mode_0
+C     /' Mean N of symm. Mode '/
+      DATA NC_Mode_0/0/
+      REAL*4  NC_Mode_1
+C     /' Mean N of Mode 1 '/
+      DATA NC_Mode_1/0/
+      REAL*4  NC_Mode_2
+C     /' Mean N of Mode 2 '/
+      DATA NC_Mode_2/0/
+      REAL*4  NC_Mode_3
+C     /' Mean N of Mode 3 '/
+      DATA NC_Mode_3/0/
+      REAL*4  NC_Mode_4
+      DATA NC_Mode_4/0/
+      REAL*4  B_S1
+C     /' Barrier S1,relative to SL '/
+      DATA B_S1/0/
+      REAL*4  B_S2
+C     /' Barrier S2,relative to SL '/
+      DATA B_S2/0/
+      REAL*4  B_S3
+C     /' Barrier S3,relative to SL '/
+      DATA B_S3/0/
+      REAL*4  B_S4
+      DATA B_S4/0/
+      REAL*4  B_S11
+C     /' Barrier S11,relative to SL '/
+      DATA B_S11/0/
+      REAL*4  B_S22
+C     /' Barrier S22,relative to SL '/
+      DATA B_S22/0/
+      REAL*4  DES11ZPM
+C     /' Mod. of eff. barrier due to ZPM in overlap '/
+      DATA DES11ZPM/0/
+      REAL*4  Delta_NZ_Pol
+C     /' Polarization for 132Sn '/
+      DATA Delta_NZ_Pol/0/
+      REAL*4  Yield_Mode_0
+C     /' Relative yield of SL '/
+      DATA Yield_Mode_0/0/
+      REAL*4  Yield_Mode_1
+C     /' Relative yield of S1 '/
+      DATA Yield_Mode_1/0/
+      REAL*4  Yield_Mode_2
+C     /' Relative yield of S2 '/
+      DATA Yield_Mode_2/0/
+      REAL*4  Yield_Mode_3
+C     /' Relative yield of S3 '/
+      DATA Yield_Mode_3/0/
+      REAL*4  Yield_Mode_4
+C     /' Relative yield of S4 '/
+      DATA Yield_Mode_4/0/
+      REAL*4  Yield_Mode_11
+C     /' Relative yield of S11 '/
+      DATA Yield_Mode_11/0/
+      REAL*4  Yield_Mode_22
+C     /' Relative yield of S22 '/
+      DATA Yield_Mode_22/0/
+      REAL*4  P_POL_CURV_S0
+C     /' Stiffnes in N/Z '/
+      DATA P_POL_CURV_S0/0/
+      REAL*4  T_Coll_Mode_0
+C     /' Effective collective temperature '/
+      DATA T_Coll_Mode_0/0/
+      REAL*4  E_Exc_S0
+C     /' Energy over barrier of symmetric channel '/
+      DATA E_Exc_S0/0/
+      REAL*4  E_Exc_S1
+C     /' Energy over barrier of S1 channel '/
+      DATA E_Exc_S1/0/
+      REAL*4  E_Exc_S2
+C     /' Energy over barrier of S2 channel '/
+      DATA E_Exc_S2/0/
+      REAL*4  E_Exc_S3
+C     /' Energy over barrier of S3 channel '/
+      DATA E_Exc_S3/0/
+      REAL*4  E_Exc_S4
+C     /' Energy over barrier of S4 channel '/
+      DATA E_Exc_S4/0/
+      REAL*4  E_Exc_S11
+C     /' Energy over barrier of S11 channel '/
+      DATA E_Exc_S11/0/
+      REAL*4  E_Exc_S22
+C     /' Energy over barrier of S22 channel '/
+      DATA E_Exc_S22/0/
+      REAL*4  E_POT_SCISSION
+C     /' Potential-energy gain saddle-scission '/
+      DATA E_POT_SCISSION/0/
+      REAL*4  EINTR_SCISSION
+C     /' Intrinsic excitation energy at scission '/
+      DATA EINTR_SCISSION/0/
+      REAL*4  EeffS2
+C     /' Governs S1 reduction by pairing '/
+      DATA EeffS2/0/
+      REAL*4  Sigpol_Mode_0
+C     /' Width of isobaric Z distribution '/
+      DATA Sigpol_Mode_0/0/
+C     '
+C     '  #Include Once "BEldmTF.bas"
+C     '
+C     '  #Include Once "BEexp.bas"
+C     '
+C     '  #Include Once "DEFO.bas"
+C     '
+C     '  #Include Once "ShellMO.bas"
+C     '
+C     '
+C     '
+C     '
+C     '
+      INTEGER*4  I_E_iso
+C     ' numbered in sequence of increasing energy
+      REAL*4  Spin_CN
+      REAL*4  Spin_pre_fission
+      REAL*4  Spin_gs_light
+      REAL*4  Spin_gs_heavy
+C     '
+C     /' Shell effects for the symmetric fission channel '/
+      REAL*4  R_E_exc_used
+      REAL*4  R_Z_mod
+      REAL*4  T_Rusanov
+      REAL*4  R_E_intr_S1,R_E_intr_S2,R_E_intr_S3
+C     ' intrinsic exc. energies at barrier
+      REAL*4  R_E_intr_S4
+      REAL*4 , DIMENSION(6) :: R_Att
+C     ' attenuation of shell
+      REAL*4 , DIMENSION(6) :: R_Att_Sad
+C     '  Dim As Single E_backshift
+C     '  E_backshift = -3
+C     '
+C     '
+      REAL*4  DZ_S1,DZ_S2,DZ_S3,DZ_S4
+      REAL*4  EtotS2
+      REAL*4  P_Z_Curv_S1_eff
+      REAL*4  P_Z_Curv_S2_eff
+      REAL*4  P_Z_Curv_S3_eff
+      REAL*4  P_Z_Curv_S4_eff
+      REAL*4  Etot,E1FG,E1ES
+      REAL*4  Rincr1P,Rincr1N,Rincr2,Rincr2P,Rincr2N
+      REAL*4  T1,T2,E1,E2
+      REAL*4 , DIMENSION(0:6) :: E_coll_saddle
+      REAL*4  Ediff
+C     '
+C     '
+      REAL*4  DT
+C     '
+      REAL*4  AUCD
+C     /' UCD fragment mass '/
+      REAL*4  I_rigid_spher
+C     /' I rigid for spherical shape '/
+      REAL*4  I_rigid
+C     /' I rigid for deformed scission shape '/
+      REAL*4  I_eff
+C     /' I with reduction due to pairing '/
+      REAL*4  alph
+C     /' deformation parameter '/
+      REAL*4  E_exc
+C     /' Excitation energy '/
+      REAL*4  J_rms
+C     /' rms angular momentum '/
+      INTEGER*4  Ic,Jc
+      REAL*4  R_Help,Zs,R_Sum
+C     '
+      REAL*4  R_Cut1,R_Cut2
+      INTEGER*4  N_index,Z_index,A_index,M_index
+      REAL*4  Ymin
+C     ' Minimum yield to be stored
+      DATA Ymin/1.E-7/
+      REAL*4  Eexc_mean,Eexc_sigma
+      REAL*4  Eexc_intr,Eexc_coll
+C     '
+C     /' ***************** Begin Module GEFRESULTS ********************* '/
+CAK   INTEGER*4  N_cases
+C     ' Number of cases in NZMkey,Etab,Jtab and Ytab
+C     ' (First dimension of NZMkey,Etab,Jtab and Ytab)
+CAK   INTEGER*4 , DIMENSION(10000,3) :: NZMkey
+C     ' Key (Mode,N,Z) for E*,spin and yield distr. of fragments
+CAK   REAL*4 , DIMENSION(10000,1000) :: Etab
+C     ' Distribution of E*(exc. energy above yrast line
+C     ' of fragments at scission (0.1 MeV bins).
+C     ' Note that E* = Etab + Erot_fragment with
+C     '      Erot_fragment =  Jtab * (Jtab + 1) / (2.0 * IfragEff),
+C     '      IfragEff = U_Ired(I_Z_fragment,I_A_fragment).
+C     '      Erot and Jtab are correlated!
+CAK   REAL*4 , DIMENSION(10000,100) :: Jtab
+C     ' Spin distribution of fragments
+C     ' (0 to 100 hbar for even-A or 1/2 to 201/2 hbar for odd-A nuclei)
+CAK   REAL*4 , DIMENSION(10000) :: Ytab
+C     ' Yield of fragments
+C     /' ****************** End Module GEFRESULTS ********************* '/
+C     '
+C     '
+      REAL*4  Rint
+      REAL*4  RS
+      REAL*4  RintE
+      REAL*4 F1
+      REAL*4 F2

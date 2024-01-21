@@ -1,0 +1,20 @@
+!
+!                      GEF.CMB for TALYS-1.951
+!
+! +---------------------------------------------------------------------
+! | Author: Vasily Simutkin, Michail Onegin and Arjan Koning
+! | Date  : March 2, 2020
+! | Task  : File with common blocks for GEF routines
+! +---------------------------------------------------------------------
+!
+      common /datain/beldm(203,136),ushel(203,136),RNucTab(3885,8)
+      real beldm,ushel,RNucTab
+      common /outgef1/ysum(350),ysump(350),yAZ(350,150),yAZp(350,150)
+      common /outgef2/ anpre_sum(350),anpost_sum(350)
+      common /outgef3/ ann_sum(0:50),anMean_sum
+      real ysum,ysump,yAZ,yAZp,anpre_sum,anpost_sum,ann_sum,anMean_sum
+      common /gefsubi/ NZMkey(10000,3),N_cases
+      common /gefsubr/ Etab(10000,0:1000),Jtab(10000,100),Ytab(10000)
+      common /gefsubr2/ Emean(10000),dEmean(10000)
+      integer NZMkey,N_cases
+      real Etab,Jtab,Ytab,Emean,dEmean

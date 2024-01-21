@@ -1,0 +1,25 @@
+                              tplot
+
+I have included the 'tplot' script in this release. This is a bash script for plotting
+cross sections calculated by TALYS versus experimental data from the EXFOR database.
+For this you need to download the 'exfortables' package and make sure that the
+exfortables/ directory is placed in your home directory.
+
+To test whether this works I suggest to go to the directory talys/samples/n-Pb208-xs/org 
+and try (I assume that talys/ is in your home directory here, you may move the 'tplot'
+script somewhere else)
+
+~/talys/misc/tplot nnn Pb 208 nn
+
+~/talys/misc/tplot nnn Pb 208 nn1
+
+~/talys/misc/tplot nnn Pb 208 totlin -xsend 10000
+
+~/talys/misc/tplot n Pb 208 082207
+
+Simply giving the command ~/talys/misc/tplot will give you all the flags.
+
+It is also possible to plot the latest world nuclear data libraries, but for that
+you need to download the entire Libraries-2023 package, call it libraries/ and put
+that in your home directory. The nuclear data libraries are then plotted when you add
+the 'lib' flag to the above commands

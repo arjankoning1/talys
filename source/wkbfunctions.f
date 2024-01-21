@@ -1,0 +1,419 @@
+      function Fmoment(Eps)
+C
+C     Integrand (To be called from Gauss-Legendre integration routine)
+C
+C     To be defined as external function
+C
+      IMPLICIT NONE
+      real Fmoment
+      real Eps, Vdef
+      include "wkb.cmb"
+      Fmoment = 2.d0*SMIU* sqrt( abs (UEXC - Vdef(Eps)) )
+      return
+      end
+      function FmomentParab(Eps)
+C
+C     Integrand (To be called from Gauss-Legendre integration routine)
+C
+C     To be defined as external function
+C
+      IMPLICIT NONE
+      real FmomentParab
+      real Eps, VdefParab
+      include "wkb.cmb"
+      FmomentParab=2.d0*Smiu*sqrt(abs(Uexc-VdefParab(Eps,Smiu,K)))
+      return
+      end
+      FUNCTION GaussLegendre41(F,Ea,Eb,ABSERR)
+      IMPLICIT NONE
+      real F
+      real GaussLegendre41
+      real Eb,Ea,ABSERR
+      real wg(10),xgk(21),wgk(21)
+      real CENTR1,HLGTH1,RESG1,RESK1
+      INTEGER J,JTW,JTWM1
+      real ABSC,FSUM,ABSCM1
+      EXTERNAL F
+      SAVE WG, XGK, WGK
+C
+C     THE ABSCISSAE AND WEIGHTS ARE GIVEN FOR THE INTERVAL (-1,1).
+C     BECAUSE OF SYMMETRY ONLY THE POSITIVE ABSCISSAE AND THEIR
+C     CORRESPONDING WEIGHTS ARE GIVEN.
+C
+C     XG - ABSCISSAE OF THE 41-POINT GAUSS-KRONROD RULE
+C     WG - WEIGHTS OF THE 20-POINT GAUSS RULE
+C
+C GAUSS QUADRATURE WEIGHTS AND KRONROD QUADRATURE ABSCISSAE AND WEIGHTS
+C AS EVALUATED WITH 80 DECIMAL DIGIT ARITHMETIC BY L. W. FULLERTON,
+C BELL LABS, NOV. 1981.
+C
+      DATA WG  (  1) / 0.0176140071 3915211831 1861962351 853 D0 /
+      DATA WG  (  2) / 0.0406014298 0038694133 1039952274 932 D0 /
+      DATA WG  (  3) / 0.0626720483 3410906356 9506535187 042 D0 /
+      DATA WG  (  4) / 0.0832767415 7670474872 4758143222 046 D0 /
+      DATA WG  (  5) / 0.1019301198 1724043503 6750135480 350 D0 /
+      DATA WG  (  6) / 0.1181945319 6151841731 2377377711 382 D0 /
+      DATA WG  (  7) / 0.1316886384 4917662689 8494499748 163 D0 /
+      DATA WG  (  8) / 0.1420961093 1838205132 9298325067 165 D0 /
+      DATA WG  (  9) / 0.1491729864 7260374678 7828737001 969 D0 /
+      DATA WG  ( 10) / 0.1527533871 3072585069 8084331955 098 D0 /
+C
+      DATA XGK (  1) / 0.9988590315 8827766383 8315576545 863 D0 /
+      DATA XGK (  2) / 0.9931285991 8509492478 6122388471 320 D0 /
+      DATA XGK (  3) / 0.9815078774 5025025919 3342994720 217 D0 /
+      DATA XGK (  4) / 0.9639719272 7791379126 7666131197 277 D0 /
+      DATA XGK (  5) / 0.9408226338 3175475351 9982722212 443 D0 /
+      DATA XGK (  6) / 0.9122344282 5132590586 7752441203 298 D0 /
+      DATA XGK (  7) / 0.8782768112 5228197607 7442995113 078 D0 /
+      DATA XGK (  8) / 0.8391169718 2221882339 4529061701 521 D0 /
+      DATA XGK (  9) / 0.7950414288 3755119835 0638833272 788 D0 /
+      DATA XGK ( 10) / 0.7463319064 6015079261 4305070355 642 D0 /
+      DATA XGK ( 11) / 0.6932376563 3475138480 5490711845 932 D0 /
+      DATA XGK ( 12) / 0.6360536807 2651502545 2836696226 286 D0 /
+      DATA XGK ( 13) / 0.5751404468 1971031534 2946036586 425 D0 /
+      DATA XGK ( 14) / 0.5108670019 5082709800 4364050955 251 D0 /
+      DATA XGK ( 15) / 0.4435931752 3872510319 9992213492 640 D0 /
+      DATA XGK ( 16) / 0.3737060887 1541956067 2548177024 927 D0 /
+      DATA XGK ( 17) / 0.3016278681 1491300432 0555356858 592 D0 /
+      DATA XGK ( 18) / 0.2277858511 4164507808 0496195368 575 D0 /
+      DATA XGK ( 19) / 0.1526054652 4092267550 5220241022 678 D0 /
+      DATA XGK ( 20) / 0.0765265211 3349733375 4640409398 838 D0 /
+      DATA XGK ( 21) / 0.0000000000 0000000000 0000000000 000 D0 /
+C
+      DATA WGK (  1) / 0.0030735837 1852053150 1218293246 031 D0 /
+      DATA WGK (  2) / 0.0086002698 5564294219 8661787950 102 D0 /
+      DATA WGK (  3) / 0.0146261692 5697125298 3787960308 868 D0 /
+      DATA WGK (  4) / 0.0203883734 6126652359 8010231432 755 D0 /
+      DATA WGK (  5) / 0.0258821336 0495115883 4505067096 153 D0 /
+      DATA WGK (  6) / 0.0312873067 7703279895 8543119323 801 D0 /
+      DATA WGK (  7) / 0.0366001697 5820079803 0557240707 211 D0 /
+      DATA WGK (  8) / 0.0416688733 2797368626 3788305936 895 D0 /
+      DATA WGK (  9) / 0.0464348218 6749767472 0231880926 108 D0 /
+      DATA WGK ( 10) / 0.0509445739 2372869193 2707670050 345 D0 /
+      DATA WGK ( 11) / 0.0551951053 4828599474 4832372419 777 D0 /
+      DATA WGK ( 12) / 0.0591114008 8063957237 4967220648 594 D0 /
+      DATA WGK ( 13) / 0.0626532375 5478116802 5870122174 255 D0 /
+      DATA WGK ( 14) / 0.0658345971 3361842211 1563556969 398 D0 /
+      DATA WGK ( 15) / 0.0686486729 2852161934 5623411885 368 D0 /
+      DATA WGK ( 16) / 0.0710544235 5344406830 5790361723 210 D0 /
+      DATA WGK ( 17) / 0.0730306903 3278666749 5189417658 913 D0 /
+      DATA WGK ( 18) / 0.0745828754 0049918898 6581418362 488 D0 /
+      DATA WGK ( 19) / 0.0757044976 8455667465 9542775376 617 D0 /
+      DATA WGK ( 20) / 0.0763778676 7208073670 5502835038 061 D0 /
+      DATA WGK ( 21) / 0.0766007119 1799965644 5049901530 102 D0 /
+C Integrating from Ea to Eb, converting to symmetric grid from -1 to +1
+      CENTR1 = 0.5D+00*(Ea+Eb)
+      HLGTH1 = 0.5D+00*(Eb-Ea)
+C
+C     COMPUTE THE 41-POINT GAUSS-KRONROD APPROXIMATION TO
+C     THE INTEGRAL, AND ESTIMATE THE ABSOLUTE ERROR USING ONLY 21 points
+C
+      RESG1 = 0.0D+00
+      RESK1 = WGK(21)*F(CENTR1)
+      DO J=1,10
+        JTW = J*2
+        JTWM1 = JTW-1
+        ABSC = HLGTH1*XGK(JTW)
+        FSUM = F(CENTR1-ABSC) + F(CENTR1+ABSC)
+        ABSCM1 = HLGTH1*XGK(JTWM1)
+        RESG1 = RESG1+WG(J)*FSUM
+        RESK1 = RESK1+WGK(JTW)*FSUM+WGK(JTWM1)*
+     &              (F(CENTR1-ABSCM1)+F(CENTR1+ABSCM1))
+      ENDDO
+
+      GaussLegendre41 = RESK1*HLGTH1
+      ABSERR = ABS((RESK1-RESG1)*HLGTH1)
+
+      RETURN
+      END
+      SUBROUTINE ParabFit(Imax,Npfit,RMIU,EPS,VDEFORM,
+     &                     CENTR,  HEIGTH,  WIDTH,
+     &                    uCENTR, uHEIGTH, uWIDTH)
+      IMPLICIT NONE
+      INTEGER Imax  ! Position of the maximum
+      INTEGER Npfit ! Number of points to fit
+      REAL   RMIU   ! MIU = 0.054d0*ANUC**(5.d0/3.d0)
+      REAL   EPS(*) ! Deformation Array          (X)
+      REAL   VDEFORM(*)! Deformation Energy Array (Y)
+      REAL    CENTR,  HEIGTH,  WIDTH ! BARRIER'S PARAMETER
+      REAL   uCENTR, uHEIGTH, uWIDTH ! BARRIER'S PARAMETER UNCERTAINTIES
+
+C     Local variables
+      integer i,npts,ierr
+      real   x(1024),y(1024),a(3),siga(3),chisqr
+
+      npts = 0
+      do i = Imax - Npfit, Imax + Npfit
+        npts = npts + 1
+        x(npts) = EPS(i) - EPS(imax)
+        y(npts) = VDEFORM(i)
+      enddo
+C
+C FITS A POLYNOMIAL OF THE FORM:
+C   Y=A(1)+A(2)*X+A(3)*X**2+...+A(NTERMS)*X**(NTERMS-1)
+C THOUGH THE NPTS POINTS (X,Y)
+C IERR=0 OK
+C IERR=2 SINGULAR MATRIX
+C IERR=3 REQUIREMENTS FOR USE OF THIS ROUTINE NOT FULLFILLED
+C
+      CALL WPLFT(npts,3,ierr,1,x,y,a,siga,chisqr)
+C     do i = 1,npts
+C       write(*,'(1x,F5.3,2x,d15.8,3x,d15.8)') x(i), y(i),
+C    &              a(1)+a(2)*x(i)+a(3)*x(i)**2
+C     enddo
+C     write(*,*) a(1),a(2),a(3)
+C     write(*,*) sigmaa(1),sigmaa(2),sigmaa(3)
+C
+c write(22,*) ' PARABOLIC FITTING CHISQR = ',CHISQR
+       HEIGTH = a(1)
+      uHEIGTH = siga(1)
+       WIDTH  =  SQRT(2.d0*abs(   a(3))/RMIU)
+      uWIDTH  =  SQRT(2.d0*abs(siga(3))/RMIU)
+       CENTR  = EPS(imax)
+      IF(a(3).ne.0.d0) CENTR = 0.5d0 * a(2) / a(3)
+      uCENTR  = ABS(CENTR) * SQRT((siga(2)/a(2))**2 + (siga(3)/a(3))**2)
+      CENTR = EPS(imax) + CENTR
+      return
+      end
+      SUBROUTINE WPLFT(NPTS,NTERMS,IERR,MODE,X,Y,A,SIGMAA,CHISQR)
+
+C FITS A POLYNOMIAL OF THE FORM:
+C   Y=A(1)+A(2)*X+A(3)*X**2+...+A(NTERMS)*X**(NTERMS-1)
+C THOUGH THE NTPS POINTS (X,Y)
+C MODE 0 = WEIGTH 0 != UNWEIGHTED
+C IERR=0 OK
+C IERR=2 SINGULAR MATRIX
+C IERR=3 REQUIREMENTS FOR USE OF THIS ROUTINE NOT FULLFILLED
+C REQUIREMENTS ARE:
+C        MAX NUM TERMS = 12
+C        MIN NUM TERMS = 2
+C        NTPS >= NTERMS
+        INTEGER MAXDEG
+        PARAMETER (MAXDEG=3)
+
+        INTEGER NPTS, NTERMS, IERR, MODE
+        real X(NPTS), Y(NPTS), W(NPTS)
+        real A(NTERMS), SIGMAA(NTERMS), CHISQR
+        DOUBLE PRECISION ARRAY(MAXDEG,MAXDEG)
+
+        DOUBLE PRECISION XMEAN(MAXDEG)
+        DOUBLE PRECISION SIGMAX(MAXDEG), WMEAN, FNPTS
+        DOUBLE PRECISION SUM,YMEAN,DET,FREE1,SIGMA,VARNCE,CHISQ
+        DOUBLE PRECISION R(MAXDEG)
+        INTEGER WEIGHT
+        INTEGER DEG,I,J,K
+
+        WEIGHT=0
+        IERR = 0
+        DEG=NTERMS-1
+        IF(DEG.LT.1.OR.DEG.GT.MAXDEG.OR.NPTS.LT.NTERMS) THEN
+          IERR=3
+          RETURN
+        ENDIF
+
+C       INITIALIZE SUMS AND ARRAYS
+        SUM = 0.D0
+        YMEAN=0.D0
+        SIGMA = 0.D0
+        CHISQ = 0.D0
+        A(1) = 0.
+        SIGMAA(1) = 0.
+        DO 28 J=1,DEG
+        XMEAN(J)=0.D0
+        SIGMAX(J)=0.D0
+        R(J)=0.D0
+        A(1+J) = 0.
+        SIGMAA(1+J) = 0.
+C       DO 28 K=1,DEG
+C28      ARRAY(J,K)=0.D0
+        DO 28 K=1,NTERMS
+28      ARRAY(J,K)=0.D0
+
+
+C       ACCUMULATE WEIGHTED SUMS
+
+        DO 50 I = 1, NPTS
+        W(I) = ABS(Y(I))
+        IF( MODE.NE.WEIGHT ) W(I) = 1.
+        SUM = SUM + DBLE(W(I))
+C       YMEAN = Sy
+        YMEAN = YMEAN + DBLE(W(I)*Y(I))
+C       XMEAN(1)=Sx, XMEAN(2)=Sxx
+C       S=NPTS*(NPTS+1)/2
+        DO 50 J = 1, DEG
+50      XMEAN(J) = XMEAN(J) + DBLE(W(I)*X(I)**J)
+        YMEAN = YMEAN / SUM
+        DO 53 J = 1, DEG
+53      XMEAN(J) = XMEAN(J) / SUM
+        FNPTS = NPTS
+        WMEAN = SUM / FNPTS
+        DO 57 I = 1, NPTS
+57      W(I) = W(I) / WMEAN
+
+        DO 67 I=1,NPTS
+        SIGMA=SIGMA+DBLE(W(I)*(Y(I)-YMEAN)**2)
+        DO 67 J=1,DEG
+        SIGMAX(J)=SIGMAX(J)+DBLE(W(I)*(X(I)**J-XMEAN(J))**2)
+        R(J)=R(J)+DBLE(W(I)*(X(I)**J-XMEAN(J))*(Y(I)-YMEAN))
+        DO 67 K=1,J
+67      ARRAY(J,K)=ARRAY(J,K)+
+     1             DBLE(W(I)*(X(I)**J-XMEAN(J))*(X(I)**K-XMEAN(K)))
+        FREE1 = NPTS-1
+        SIGMA=sqrt(SIGMA/FREE1)
+        DO 78 J=1,DEG
+        SIGMAX(J)=sqrt(SIGMAX(J)/FREE1)
+        R(J)=R(J)/(FREE1*SIGMAX(J)*SIGMA)
+        DO 78 K=1,J
+        ARRAY(J,K)=ARRAY(J,K)/(FREE1*SIGMAX(J)*SIGMAX(K))
+78      ARRAY(K,J)=ARRAY(J,K)
+
+C       INVERT SYMMETRIC MATRIX
+
+        CALL MATINVM( DEG, DET, ARRAY )
+        IF(DET.NE.0.D0) GOTO 101
+        IERR = 2
+        RETURN
+
+C       CALCULATE COEFFICIENTS
+
+101     A(1)=YMEAN
+        DO J=1,DEG
+          DO K=1,DEG
+            A(J+1)=A(J+1)+R(K)*ARRAY(J,K)
+          ENDDO
+          A(J+1)=A(J+1)*SIGMA/SIGMAX(J)
+          A(1)=A(1)-A(J+1)*XMEAN(J)
+        ENDDO
+
+        DO 113 I = 1, NPTS
+        YFIT = A(1)
+        DO 112 J = 1, DEG
+112     YFIT = YFIT + A(J+1)*X(I)**J
+113     CHISQ = CHISQ + W(I)*(Y(I)-YFIT)**2
+        FREEN = NPTS - NTERMS
+        IF( FREEN.EQ.0 ) FREEN = 1.
+        CHISQR = CHISQ*WMEAN/FREEN
+
+C       CALCULATE UNCERTAINTIES
+
+        IF( MODE.EQ.WEIGHT ) THEN
+          VARNCE = 1./WMEAN
+        ELSE
+          VARNCE = CHISQR
+        ENDIF
+        DO 133 J = 1, DEG
+        SIGMAA(1+J) = ARRAY(J,J)*VARNCE/(FREE1*SIGMAX(J)**2)
+133     SIGMAA(1+J) = SQRT(SIGMAA(1+J))
+        SIGMAA(1) = VARNCE / FNPTS
+        DO 145 J = 1, DEG
+        DO 145 K = 1, DEG
+145     SIGMAA(1) = SIGMAA(1) + VARNCE*XMEAN(J)*XMEAN(K)*ARRAY(J,K) /
+     1              (FREE1*SIGMAX(J)*SIGMAX(K))
+
+        SIGMAA(1) = SQRT(SIGMAA(1))
+        DO 160 J = 1, DEG
+        DO 160 K = 1, DEG
+160     ARRAY(J,K) = ARRAY(J,K)*VARNCE/(FREE1*SIGMAX(J)*SIGMAX(K))
+
+        RETURN
+        END
+        SUBROUTINE MATINVM( NORDER, DET, ARRAY )
+
+        INTEGER MAXDEG
+        PARAMETER (MAXDEG=3)
+        INTEGER NORDER,IK(MAXDEG),JK(MAXDEG)
+        DOUBLE PRECISION DET
+        DOUBLE PRECISION ARRAY(MAXDEG,MAXDEG)
+
+        INTEGER I,J,K,L
+        DOUBLE PRECISION AMAX,DSAVE
+
+        DET=1.D0
+        DO 100 K=1,NORDER
+
+C       FIND LARGEST ELEMENT ARRAY(I,J) IN REST OF MATRIX
+
+        AMAX=0.D0
+21      DO 30 I=K,NORDER
+        DO 30 J=K,NORDER
+        IF(abs(AMAX).GT.abs(ARRAY(I,J))) GOTO 30
+        AMAX=ARRAY(I,J)
+        IK(K)=I
+        JK(K)=J
+30      CONTINUE
+
+C       INTERCHANGE ROWS AND COLUMNS TO PUT AMAX IN ARRAY(K,K)
+
+        IF(AMAX.NE.0.D0) GOTO 41
+        DET=0.D0
+        RETURN
+41      I=IK(K)
+        IF(I-K)21,51,43
+43      DO 50 J=1,NORDER
+        DSAVE=ARRAY(K,J)
+        ARRAY(K,J)=ARRAY(I,J)
+50      ARRAY(I,J)=-DSAVE
+51      J=JK(K)
+        IF(J-K)21,61,53
+53      DO 60 I=1,NORDER
+        DSAVE=ARRAY(I,K)
+        ARRAY(I,K)=ARRAY(I,J)
+60      ARRAY(I,J)=-DSAVE
+
+C       ACCUMULATE ELEMENTS OF INVERSE MATRIX
+
+61      DO 70 I=1,NORDER
+        IF(I-K)63,70,63
+63      ARRAY(I,K)=-ARRAY(I,K)/AMAX
+70      CONTINUE
+        DO 80 I=1,NORDER
+        DO 80 J=1,NORDER
+        IF(I-K)74,80,74
+74      IF (J-K)75,80,75
+75      ARRAY(I,J)=ARRAY(I,J)+ARRAY(I,K)*ARRAY(K,J)
+80      CONTINUE
+        DO 90 J=1,NORDER
+        IF(J-K)83,90,83
+83      ARRAY(K,J)=ARRAY(K,J)/AMAX
+90      CONTINUE
+        ARRAY(K,K)=1./AMAX
+100     DET=DET*AMAX
+
+C       RESTORE ORDENING OF MATRIX
+
+        DO 130 L=1,NORDER
+        K= NORDER-L+1
+        J=IK(K)
+        IF(J-K)111,111,105
+105     DO 110 I=1,NORDER
+        DSAVE=ARRAY(I,K)
+        ARRAY(I,K)=-ARRAY(I,J)
+110     ARRAY(I,J)=DSAVE
+111     I=JK(K)
+        IF(I-K)130,130,113
+113     DO 120 J=1,NORDER
+        DSAVE=ARRAY(K,J)
+        ARRAY(K,J)=-ARRAY(I,J)
+120     ARRAY(I,J)=DSAVE
+130     CONTINUE
+        RETURN
+        END
+C+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+c       real FUNCTION SPOLFT(X,NTERMS,SIGMAA,ARRAY)
+c       real X, SIGMAA
+c       INTEGER NTERMS
+c       INTEGER MAXDEG
+c       PARAMETER (MAXDEG=3)
+c       real ARRAY(MAXDEG,MAXDEG)
+
+c       INTEGER DEG
+
+c       DEG = NTERMS-1
+c       S2YFIT = SIGMAA
+c       DO 160 J = 1, DEG
+c       S2YFIT = S2YFIT + X**(J+J) * ARRAY(J,J)
+c       DO 160 K = J+1, DEG
+c160     S2YFIT = S2YFIT + 2.*X**(J+K) * ARRAY(J,K)
+c       SPOLFT = SQRT( S2YFIT )
+c       RETURN
+c       END

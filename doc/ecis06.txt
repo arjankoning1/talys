@@ -1,0 +1,1987 @@
+15/02/07                                                                ecis-000
+               description of input of ecis06                           ecis-001
+               ******************************                           ecis-002
+                                                                        ecis-003
+                                                                        ecis-004
+                                                                        ecis-005
+cards read in subroutine calx                                           ecis-006
+*****************************                                           ecis-007
+                                                                        ecis-008
+card 1                                  format (18a4)                   ecis-009
+******                                                                  ecis-010
+      title of the run which will be printed as heading of results.     ecis-011
+                                                                        ecis-012
+      if title="description " this input description is listed.         ecis-013
+         (1957 lines correctly printed in 32 pages)                     ecis-014
+          after this listing, go back to card 1.                        ecis-015
+                                                                        ecis-016
+      if title="fin " the calculation is stopped.                       ecis-017
+                                                                        ecis-018
+           these control words must be punched from column 1.           ecis-019
+                                                                        ecis-020
+card 2                                  format (50l1)                   ecis-021
+******                                                                  ecis-022
+      50 first logical controls lo. enter "t" in the corresponding      ecis-023
+      column for .true. and nothing for .false. unless "f" is needed.   ecis-024
+                                                                        ecis-025
+ model                                                                  ecis-026
+       1- lo(1)  rotational model-(inverse: vibrational model).         ecis-027
+       2- lo(2)  second order vibrational model-(inverse: first order). ecis-028
+                 or constrained asymmetric rotational model (band mixingecis-029
+                 parameters of the first two 2+ computed from the       ecis-030
+                 quadrupole "gamma" in the davydov-filippov model).     ecis-031
+       3- lo(3)  anharmonic vibrational model-(inverse: harmonic) or    ecis-032
+                 asymmetric rotational model-(inverse: symmetric).      ecis-033
+       4- lo(4)  parametrised spin-orbit deformation-(inverse: standard)ecis-034
+       5- lo(5)  different deformation for each potential-(inverse: sameecis-035
+                 deformation).                                          ecis-036
+       6- lo(6)  deformation lengths read instead of deformations for   ecis-037
+                 woods-saxon form factors.                              ecis-038
+       7- lo(7)  nuclear matrix element and form factors read on cards. ecis-039
+                 this is not allowed for schroedinger equivalent of     ecis-040
+                 dirac equation.                                        ecis-041
+       8- lo(8)  relativistic kinematics. for the reduced mass, see     ecis-042
+                 lo(94) to lo(97).                                      ecis-043
+       9- lo(9)  symmetrised woods-saxon form factors when the radius isecis-044
+                 negative.                                              ecis-045
+      10- lo(10) energy dependent potentials by dispersion relations.   ecis-046
+                 now allowed with external potentials (lo(7)=.true.).   ecis-047
+                                                                        ecis-048
+ interaction                                                            ecis-049
+      11- lo(11) deformed coulomb potential. with lo(7)=.false., it is  ecis-050
+                 set .false. by the code if no charge is read.          ecis-051
+      12- lo(12) deformed imaginary potential (volume and surface or    ecis-052
+                 scalar and vector).                                    ecis-053
+      13- lo(13) deformed real spin-orbit or tensor potential. with     ecis-054
+                 lo(7)=.false., it is set .false. by the code if no     ecis-055
+                 non zero spin and no related potential are read.       ecis-056
+      14- lo(14) deformed imaginary spin-orbit or tensor potential. if  ecis-057
+                 .true., lo(13) is set .true.. with lo(7)=.false., it isecis-058
+                 set .false. by the code as for lo(13).                 ecis-059
+      15- lo(15) reduced nuclear matrix elements read from cards.       ecis-060
+                 it is necessary for the anharmonic vibrational model.  ecis-061
+
+      16- lo(16) heavy-ion definition of reduced radii and deformations.ecis-062
+                 when there are different masses in different channels, ecis-063
+                 the masses to be used can be indicated by the first    ecis-064
+                 input, but only the masses of the first level can be   ecis-065
+                 used for the back transformation of the results of a   ecis-066
+                 search or in the subroutine eval (lo(34)=.true.).      ecis-067
+                 if lo(6)=.true., only coulomb deformation lengths are  ecis-068
+                 changed.                                               ecis-069
+      17- lo(17) folding model. with external form factors the folding  ecis-070
+                 parameters are used independently of this logical.     ecis-071
+      18- lo(18) projectile-target antisymmetrisation, valid only for   ecis-072
+                 same spin of the particle and the target and positive  ecis-073
+                 parity in the schroedinger formalism. for spin 0,      ecis-074
+                 the s-matrix is computed only for even total spins.    ecis-075
+                 for spin non 0., the amplitudes are symmetrised but    ecis-076
+                 this do not correct the lack of symmetry of the        ecis-077
+                 interaction between particle and target.               ecis-078
+      19- lo(19) deformed coulomb spin-orbit potential. if .true.,      ecis-079
+                 lo(11) is set .true.. with lo(7)=.false., it is set    ecis-080
+                 .false. by the code as for lo(13). (needs lo(13)=.true.ecis-081
+                 with a real spin-orbit potential, even very small)     ecis-082
+      20- lo(20) energy dependence of transition form-factors when      ecis-083
+                 lo(10)=.true. . this dependence is the arithmetic mean ecis-084
+                 value of the dependence of the levels between which    ecis-085
+                 the transition form-factor occurs. it cannot be used   ecis-086
+                 with lo(12)=.false. .                                  ecis-087
+  note:  in the rotational models, the optical potentials (for elastic  ecis-088
+  ****  scattering) are always deformed. to avoid this, when lo(11),    ecis-089
+        lo(12),lo(13),lo(14) or lo(19) is .false., use lo(5)=.true.     ecis-090
+        and enter 0. for the corresponding deformations.                ecis-091
+        if lo(14)=.true., lo(13) is set .true.; if lo(19)=.true.,       ecis-092
+        lo(11) is set .true.; this can be avoided with lo(5)=.true.     ecis-093
+                                                                        ecis-094
+ integration                                                            ecis-095
+      21- lo(21) usual coupled equations-(inverse: iterations).         ecis-096
+                 not allowed with dirac equation. when it is used with  ecis-097
+                 deformed spin-orbit, the derivative terms are not takenecis-098
+                 into account and the computation is incorrect.         ecis-099
+      22- lo(22) no use of pade approximants for convergence of the     ecis-100
+                 iterations.                                            ecis-101
+      23- lo(23) no use of pade approximant results and shift to usual  ecis-102
+                 coupled equations when convergence is not obtained.    ecis-103
+      24- lo(24) computation of coupling potentials at each iteration.  ecis-104
+                 (saves space but loses time, chiefly in rotational     ecis-105
+                 model).                                                ecis-106
+      25- lo(25) complete calculation up to the end-(inverse: one       ecis-107
+                 iteration only as soon as two iterations are enough).  ecis-108
+      26- lo(26) stabilisation of integration for long range constant   ecis-109
+                 potentials. an additional term in h**6 is introduced inecis-110
+                 the truncation in such a way that the term in h**6 of  ecis-111
+                 the total truncation error cancels out for a constant  ecis-112
+                 potential. this term is -h**6*v**3/240 for numerov's   ecis-113
+                 method and +h**6*v**3/360 for modified numerov's methodecis-114
+                 with the real potential v.                             ecis-115
+      27- lo(27) numerov's method for single equations-(inverse:        ecis-116
+                 modified numerov's method). for single equation and    ecis-117
+                 constant potential, truncation errors are of opposite  ecis-118
+                 sign.                                                  ecis-119
+      28- lo(28) computation up to j-convergence-(inverse: stop when allecis-120
+                 the inhomogeneous terms are negligible). for elastic   ecis-121
+                 scattering (only one channel) lo(21) or lo(28) must be ecis-122
+                 .true.. in this case lo(28) is set .true. by the code. ecis-123
+
+      29- lo(29) no diagonal terms in second members for iterations of  ecis-124
+                 schroedinger equations. (inverse: all couplings are in ecis-125
+                 second members. the uncoupled solutions do not depend  ecis-126
+                 on the channel spin but convergence can be slower in   ecis-127
+                 some problems. no effect in first order vibrational    ecis-128
+                 model, no use in dirac equations: if lo(100)=.true.,   ecis-129
+                 lo(29) is set .false.). for convenience, lo(29) is set ecis-130
+                 .false. if lo(18)=.true. .                             ecis-131
+      30- lo(30) pure dwba calculation.                                 ecis-132
+                                                                        ecis-133
+ search                                                                 ecis-134
+      31- lo(31) input of experimental data and calculation of a chi2.  ecis-135
+                 it is set .false. if no experimental data are read.    ecis-136
+      32- lo(32) automatic search on some parameters. it is set .false. ecis-137
+                 if no parameters are in search.                        ecis-138
+      33- lo(33) symmetrised chi2 for cross-sections with fixed         ecis-139
+                 normalisation-(inverse: usual chi2). the chi2          ecis-140
+                 contribution is multiplied by the ratio of             ecis-141
+                 experimental to calculated value.                      ecis-142
+      34- lo(34) next calculation changing only energy and some optical ecis-143
+                 parameters.                                            ecis-144
+      35- lo(35) search saved on tape 8 if correctly ended or stopped byecis-145
+                 the number of evaluations.                             ecis-146
+      36- lo(36) restart a search from tape 8.                          ecis-147
+                                                                        ecis-148
+ long range interaction                                                 ecis-149
+      41- lo(41) factorisation of 1/(1-cos(theta)) in the amplitudes. itecis-150
+                 is needed for dirac equation or with spin-orbit coulombecis-151
+                 potential.                                             ecis-152
+      42- lo(42) schmidt's orthogonalisation of solutions in usual      ecis-153
+                 coupled equations.                                     ecis-154
+      43- lo(43) interpolation on total spin.                           ecis-155
+      44- lo(44) coulomb corrections. lo(44) is set .false. if lo(11) isecis-156
+                 .false. . outside the dirac formalism it is better to  ecis-157
+                 use also lo(29)=.true..                                ecis-158
+      45- lo(45) limitation on the angular momenta for coulomb          ecis-159
+                 corrections. default values are 3 for central term     ecis-160
+                 and 2 for spin-orbit term. maximum values are          ecis-161
+                 respectively 5 and 4.                                  ecis-162
+      46- lo(46) restricted coulomb corrections. (saves storage).       ecis-163
+                 if lo(44)=.false. the diagonal corrections used in     ecis-164
+                 dirac formalism or for the coulomb spin-orbit are      ecis-165
+                 suppressed. if lo(44)=.true. indications for these     ecis-166
+                 restrictions between channels will be read.            ecis-167
+      47- lo(47) no recoil correction for bound states.                 ecis-168
+  note:  if lo(36)=.true. a search saved on tape 8 is restarted;        ecis-169
+  ****  no other logical control from this card is taken into account.  ecis-170
+        instead of the following cards, go to "restart input: cards     ecis-171
+        read in subroutine rest".                                       ecis-172
+                                                                        ecis-173
+card 3                                  format (50l1)                   ecis-174
+******                                                                  ecis-175
+      logical controls from 51 to 100 (as for previous card).           ecis-176
+                                                                        ecis-177
+ printing in complete output                                            ecis-178
+       1- lo(51) output of potentials.                                  ecis-179
+       2- lo(52) output of reduced nuclear matrix elements.             ecis-180
+       3- lo(53) output of the number of iterations.                    ecis-181
+       4- lo(54) output of the length used in the working field.        ecis-182
+       5- lo(55) output of c-matrix elements and of compound nucleus    ecis-183
+                 intermediate results.                                  ecis-184
+       6- lo(56) output of s-matrix elements.                           ecis-185
+       7- lo(57) output of phase-shifts at each e.c.i.s. iteration.     ecis-186
+       8- lo(58) output of the coefficients of each form factor for all ecis-187
+                 sets of equations.                                     ecis-188
+  note:  in a search, lo(51) to lo(58) are used for the complete resultsecis-189
+  ****  (at the first calculation if lo(75)=.false. and always at the   ecis-190
+        end of the search).                                             ecis-191
+                                                                        ecis-192
+ punch and results in last output                                       ecis-193
+       9- lo(59) total cross section, total reaction cross section      ecis-194
+                 (including compound elastic), total sum of compound    ecis-195
+                 contributions and total elastic cross section written  ecis-196
+                 on file 58 if they are defined.                        ecis-197
+                 inelastic cross-sections written on file 59.           ecis-198
+      10- lo(60) s-matrix elements written on file 60.                  ecis-199
+      11- lo(61) reduced nuclear matrix elements written on file 61.    ecis-200
+      12- lo(62) potentials written on file 62.                         ecis-201
+      13- lo(63) penetrabilities written on file 63. with iterations,   ecis-202
+                 the code computes all the solutions.                   ecis-203
+      14- lo(64) results for experimental data written on file 64       ecis-204
+                 and at equidistant angles written on file 66.          ecis-205
+      15- lo(65) coefficients of the expansion in legendre polynomials  ecis-206
+                 written on file 65.                                    ecis-207
+  note:  in a search, lo(59) to lo(65) are used only in the last result.ecis-208
+  ****  there are introduced for neutron scattering, in peculiar, on theecis-209
+        suggestion of e. bauge, r. capote and a. koning. for each run,  ecis-210
+        the first line (format a10,,f10.2,f10.5,f10.2,2i5) with the     ecis-211
+    1-10  identification <cross-s.>, <ine.c.s.>, <s-matrix>, <red.mat.>,ecis-212
+          <potenti.>, <tlj     >, <exp.dat.>, <legendre>, <ang.dis.> forecis-213
+          files 58 to 66.                                               ecis-214
+   11-20 the mass of the incident particle.                             ecis-215
+   21-30 the energy in the laboratory system.                           ecis-216
+   31-40 the mass of the target.                                        ecis-217
+   41-45 the product of charges.                                        ecis-218
+   46-50 the number of lines or the number of subsets which are headed  ecis-219
+         by some indications including their own number of lines, exceptecis-220
+         for 61 and 62. for 61, it is the number of coupled states and  ecis-221
+         the remaining of the output can be used by the program.        ecis-222
+         for 62, it is the number of form-factors and the remaining of  ecis-223
+         the output can also be used by the program, replacing the      ecis-224
+         identifications by the suitable input.                         ecis-225
+                                                                        ecis-226
+ printing in the last result                                            ecis-227
+      16- lo(66) no calculation at equidistant angles.                  ecis-228
+      17- lo(67) no plot of experimental data.                          ecis-229
+      18- lo(68) no plot of cross-sections at equidistant angles.       ecis-230
+      19- lo(69) no plot of polarisations at equidistant angles.        ecis-231
+                                                                        ecis-232
+ printing at the beginning and in a search                              ecis-233
+      21- lo(71) no detailed output of logical controls.                ecis-234
+      22- lo(72) no output of experimental data when they are read.     ecis-235
+      23- lo(73) no output of external potentials when they are read.   ecis-236
+      24- lo(74) output of time in different steps of computation.      ecis-237
+      25- lo(75) no complete output at the first run of a search.       ecis-238
+      26- lo(76) lo(51) to lo(65) are always used-(inverse: only for    ecis-239
+                 complete output).                                      ecis-240
+      27- lo(77) output of time differences during the search.          ecis-241
+      28- lo(78) no output of differences between experimental and      ecis-242
+                 calculated values.                                     ecis-243
+                                                                        ecis-244
+ compound nucleus                                                       ecis-245
+      31- lo(81) hauser-feshbach corrections to cross-sections.         ecis-246
+                 with iterations, the code computes all the solutions.  ecis-247
+                 if lo(82), lo(84), lo(85) or lo(86) is .true., lo(81)  ecis-248
+                 is set .true..                                         ecis-249
+
+      32- lo(82) old simplified compound nucleus (excludes uncoupled    ecis-250
+                 states, fission and gammas; lo(84), lo(85), lo(86) are ecis-251
+                 set .false.).                                          ecis-252
+      33- lo(83) no engelbretch-weidenmuller transformation in compound ecis-253
+                 nucleus.                                               ecis-254
+      34- lo(84) uncoupled levels for compound nucleus. it is set       ecis-255
+                 .false. if none are read.                              ecis-256
+      35- lo(85) fission transmission coefficients (to be read from     ecis-257
+                 cards) for compound nucleus. it is set .false. if none ecis-258
+                 are read.                                              ecis-259
+      36- lo(86) gamma emission in compound nucleus.                    ecis-260
+      37- lo(87) no width fluctuations.                                 ecis-261
+                                                                        ecis-262
+ miscellaneous                                                          ecis-263
+      41- lo(91) angular distribution at equidistant angles in the      ecis-264
+                 laboratory system.                                     ecis-265
+      42- lo(92) non standard observables at equidistant angles.        ecis-266
+      43- lo(93) no recoil correction for reactions with small          ecis-267
+                 differences (less than .5) of target masses.           ecis-268
+      44- lo(94) non relativistic "reduced mass" for dirac equation.    ecis-269
+      45- lo(95) "reduced energy" for non coulomb interaction in        ecis-270
+                 relativistic schroedinger equation or use of rest mass ecis-271
+                 in dirac equation (exclude lo(94)=.true.).             ecis-272
+      46- lo(96) "reduced mass" for coulomb interaction in relativistic ecis-273
+                 schroedinger equation.                                 ecis-274
+      47- lo(97) same reduced mass for all the states with small        ecis-275
+                 differences (less than .5) of target masses.           ecis-276
+      48- lo(98) q added to the mass of residual nucleus or outgoing    ecis-277
+                 particle. q can be taken into account only if          ecis-278
+                 lo(8)=.true. for relativistic kinematics. not to be    ecis-279
+                 used if this effect is included in the masses when     ecis-280
+                 they are read.                                         ecis-281
+      49- lo(99) schroedinger equivalent to dirac equation.             ecis-282
+                 diffuseness of coulomb potentials must be 0 and they   ecis-283
+                 cannot be deformed. diffuseness are set to 0.          ecis-284
+                 no asymmetric rotational model and no second order     ecis-285
+                 vibrational model: the corresponding logicals are set  ecis-286
+                 .false. as are also lo(11) and lo(19).                 ecis-287
+      50- lo(100) complete dirac equation.                              ecis-288
+  note:  if lo(99)=.true. or lo(100)=.true., lo(8) is set .true.; the   ecis-289
+  ****  with relativistic kinematics (lo(8)=.true.), the "reduced mass" ecis-290
+        and the "reduced energy" are the product of masses or energies  ecis-291
+        divided by the total energy in the centre of mass.              ecis-292
+                                                                        ecis-293
+card 4                                  format (14i5)                   ecis-294
+******                                                                  ecis-295
+       1- 5   ncoll  number of nuclear states. it does not include the  ecis-296
+                     number of uncoupled states for compound nucleus.   ecis-297
+       6-10   njmax  maximum number of channel spin. (default value 20) ecis-298
+                     the maximum value of the total angular momentum j  ecis-299
+                     will be njmax-1 when it is integer or njmax-.5 whenecis-300
+                     it is half-integer.                                ecis-301
+      11-15   iterm  maximum number of ecis iterations. (default value  ecis-302
+                     20). must be 1 for dwba calculations.              ecis-303
+                     if lo(21)=lo(42)=.true., perodicity of dchmidt's   ecis-304
+                     orthogonalisation in usual coupled equations.      ecis-305
+      16-20   npp    number of optical potentials. (default value 1).   ecis-306
+                     only the first one is deformed when the form       ecis-307
+                     factors are not read on cards.                     ecis-308
+      21-25   ncj    number of factorisations of 1/(1-cos(theta)) in    ecis-309
+                     the amplitudes. (default value 1).                 ecis-310
+
+      26-30   ngr(1) number of decades in logarithmic scale in plots of ecis-311
+                     elastic cross-sections in the standard option      ecis-312
+                     (default value 2). for charged particles, the      ecis-313
+                     cross-section divided by rutherford's cross-sectionecis-314
+                     is plotted.                                        ecis-315
+      31-35   ngr(2) as ngr(1),for inelastic channels.(default value 2) ecis-316
+      36-40   npr(1) plot indications for elastic polarisations at      ecis-317
+                     equidistant angles. if there are n different       ecis-318
+                     angular distributions of polarisations, npr(1) is  ecis-319
+                     the sum for i=1 to n of k(i)*(2**(i-1)) where      ecis-320
+                     k(i)=1 for a plot and 0 for no plot of the i-th    ecis-321
+                     distribution.(default value 1)                     ecis-322
+                 standard options: spin 0 - no polarisation.            ecis-323
+                                   spin 1/2 - vector polarisation.      ecis-324
+                                   spin >1/2 - it11, t20, t21, t22.     ecis-325
+      41-45   npr(2) as npr(1),for inelastic channels.(default value 1) ecis-326
+                 standard options: spin 0 - no polarisation.            ecis-327
+                      spin 1/2 - vect. ana. power, vect. pol., spin-flipecis-328
+                      spin >1/2 - it11, vect. pol., t20, t21, t22.      ecis-329
+      46-50   lmz    number of j values for which the radial equations  ecis-330
+                     are solved when coulomb corrections are used. this ecis-331
+                     number can be automatically decreased if the       ecis-332
+                     irregular functions are too large. the asymptotic  ecis-333
+                     region where the phase-shifts are computed         ecis-334
+                     analytically is above this value. the best value ofecis-335
+                     lmz is the maximum value of j needed by the same   ecis-336
+                     computation without charge and without anomalous   ecis-337
+                     magnetic moment. (default value njmax/2, but enter ecis-338
+                     a negative value if you want to use njmax).        ecis-339
+      51-55   jdm    total spin above which stop or reduction to one    ecis-340
+                     iteration can occur. (limits lo(25),lo(28)=.false.)ecis-341
+                     necessary for heavy-ion scattering because the     ecis-342
+                     cross-section for small total angular momenta are  ecis-343
+                     very small.                                        ecis-344
+      56-60   lml    maximum angular momentum (default value maximum).  ecis-345
+                     without long range interaction, a limit is given   ecis-346
+                     for each level such that the regular coulomb       ecis-347
+                     function is larger than 1.d-30 at matching radius. ecis-348
+      61-65   jit    number of rates of interpolation for total spin.   ecis-349
+                     (default value 1).                                 ecis-350
+      66-70   mn     multiplicative factor for njmax read in columns    ecis-351
+                     6-10 allowing to use more than njmax>10**5.        ecis-352
+                     (default value 1)                                  ecis-353
+  note:  if lo(93)=.true. ngr and npr are not taken into account in     ecis-354
+  ****  computations at equidistant angles because such indications willecis-355
+        be read again in subroutine deph, but ngr is always used for    ecis-356
+        plots of experimental cross-sections.                           ecis-357
+                                                                        ecis-358
+card 5                                  format (7f10.5)                 ecis-359
+******                                                                  ecis-360
+       1-10   h      integration step size in fermis. (default value    ecis-361
+                     min(0.5/wave number, 0.5*min(diffusenesses)),      ecis-362
+                     without the diffusenesses if lo(7)=.true.).        ecis-363
+      11-20   rm     matching radius.(if lo(7)=.true. default value 20. ecis-364
+                     if lo(7)=.false., for each non zero potential, the ecis-365
+                     radius where its absolute value is (aconv*ecm/wave ecis-366
+                     number) is computed and rm is the largest of them. ecis-367
+                     for coulomb form factors, radius+10*diffuseness is ecis-368
+                     used)                                              ecis-369
+      21-30   bjm    coefficient of the imaginary potential to be added ecis-370
+                     to the uncoupled equations and removed in the      ecis-371
+
+                     second member to accelerate convergence for        ecis-372
+                     schroedinger equations.                            ecis-373
+      31-40   eiter  convergence criterion for s-matrix in the iterationecis-374
+                     (default value 1.d-5).                             ecis-375
+      41-50   aconv  value below which functions and potentials are     ecis-376
+                     neglected in iterations.(default value 1.d-5).     ecis-377
+                     aconv is also used in the default value of rm.     ecis-378
+      51-60   conj   convergence criterion for j values.                ecis-379
+                     (default value 1.d-5).                             ecis-380
+                                                                        ecis-381
+limitation to coulomb corrections       format (14i5)                   ecis-382
+*********************************                                       ecis-383
+ if lo(45) is .true., otherwise go to "legendre expansion data"         ecis-384
+       1- 5   mcm(1) maximum angular momentum for the computation of    ecis-385
+                     the corrections due to the coulomb potential.      ecis-386
+                     (default value 3, value limited to 5).             ecis-387
+       6-10   mcm(2) same for the spin-orbit coulomb potential.         ecis-388
+                     (default value 2, value limited to 4).             ecis-389
+  note:  enter a negative value to use 0. a blank or 0 is replaced by   ecis-390
+  ****  the default values described above.                             ecis-391
+                                                                        ecis-392
+legendre expansion data                 format (14i5)                   ecis-393
+***********************                                                 ecis-394
+ if lo(65) is .true., otherwise go to "compound nucleus data".          ecis-395
+       1- 5   nl(1)  power of (1-cos(theta)) for the expansion in       ecis-396
+                     legendre polynomials of the interference between   ecis-397
+                     coulomb and nuclear elastic scattering. power of   ecis-398
+                     (1-cos(theta)**2) if lo(18) is .true..             ecis-399
+                     (default value 2).                                 ecis-400
+       6-10   nl(2)  number of legendre polynomials for elastic         ecis-401
+                     scattering of charged particles. (default value    ecis-402
+                     1.5 number obtained without coulomb amplitude).    ecis-403
+      11-15   nl(3)  number of legendre polynomials for elastic         ecis-404
+                     scattering of uncharged particles, inelastic       ecis-405
+                     scattering and compound nucleus. (default value    ecis-406
+                     maximum number).                                   ecis-407
+                                                                        ecis-408
+compound nucleus data                   format (8i5,2f10.5)             ecis-409
+*********************                                                   ecis-410
+ if lo(84) or lo(85) or lo(86) is .true., otherwise go to               ecis-411
+ "interpolation on total spin".                                         ecis-412
+       1- 5   nsp(1) number of uncoupled states and continua. if it is  ecis-413
+                     zero, lo(84)=.false.                               ecis-414
+       6-10   nsp(2) number of uncoupled states with angular            ecis-415
+                     distribution. they must be the first given.        ecis-416
+                     it is replaced by min(nsp(1),nsp(2)).              ecis-417
+      11-15   nfiss  number of fission data. if nfiss=0, lo(85)=.false. ecis-418
+      16-20   nrd    number of gamma transmission factors. if it is 0,  ecis-419
+                     these coefficients are computed.                   ecis-420
+      21-25   ncont  number of continua. they must be the last given,   ecis-421
+                     no angular distribution can be requested for them. ecis-422
+      26-30   ncoj   number of values of the spin of the residual       ecis-423
+                     nucleus for the continua. (default value 30).      ecis-424
+      31-35   kmin   minimum number of j values for compound nucleus    ecis-425
+                     (default value: minimum value for s waves in       ecis-426
+                     entrance channel).                                 ecis-427
+      36-40   kmax   maximum number of j values for compound nucleus    ecis-428
+                     (default value njmax).                             ecis-429
+      41-50   acn1   ratio energy/step for the discretisation of the    ecis-430
+                     continua at large energy . (default value 8.).     ecis-431
+      51-60   acn2   number of steps per mev for the discretisation of  ecis-432
+                     the continua at low energy. (default value 8.).    ecis-433
+
+  note:  the shift from the use of acn1 to acn2 occurs below the energy ecis-434
+  ****  acn1/acn2. below this energy, the interval is divided in equal  ecis-435
+        steps with a minimum of two steps. calculations are done with   ecis-436
+        the energy of the middle of the step.                           ecis-437
+         without kmin the calculation can stop before any significant   ecis-438
+        result. with interpolation on total spin below kmax, a huge     ecis-439
+        storage array, proportional to kmax, is needed for uncoupled    ecis-440
+        states with angular distribution.                               ecis-441
+         compound nucleus calculation is stopped at the j value larger  ecis-442
+        than kmin one for which the largest compound nucleus            ecis-443
+        contribution is less than conj**2. the code cannot deal with    ecis-444
+        very large j values.                                            ecis-445
+                                                                        ecis-446
+interpolation on total spin             format (14i5)                   ecis-447
+***************************                                             ecis-448
+ if lo(43) is .true., otherwise go to  "cards read in subroutine lect". ecis-449
+       1- 5   ls(1)  first limit.                                       ecis-450
+       6-10   ld(1)  number of values skipped.                          ecis-451
+      11-15   ls(2)  second limit.                                      ecis-452
+      16-20   ld(2)  number of values skipped.                          ecis-453
+   ....................  up to ls(jit) and ld(jit)   ...................ecis-454
+       the calculation is stopped if values ls decrease. the values ld  ecis-455
+ are changed to be used cumulatively in the program. if lo(18)=.true.,  ecis-456
+ and the spins in the ground state are both zero, the values ld read areecis-457
+ multiplied by 2.                                                       ecis-458
+                                                                        ecis-459
+                                                                        ecis-460
+cards read in subroutine lecl                                           ecis-461
+*****************************                                           ecis-462
+                                                                        ecis-463
+for each nuclear state:                                                 ecis-464
+***********************                                                 ecis-465
+ beginning with the ground state and including uncoupled states for     ecis-466
+ compound nucleus calculation which must be at the end.                 ecis-467
+ the best order is the one of decreasing coupling strength.             ecis-468
+                                                                        ecis-469
+nuclear states -spins and masses -      format (f5.2,2i2,a1,6f10.5)     ecis-470
+***********************************                                     ecis-471
+       1- 5   sp2:   spin of the target (2*sp2+1 kept in ipi(3,i)).     ecis-472
+       6- 7   n:     further description of the state.                  ecis-473
+                     in the rotational model, must be non-zero for the  ecis-474
+                           member of a vibrational band.                ecis-475
+                     in the vibrational model, can be non-zero for the  ecis-476
+                           ground state to avoid the input of next card.ecis-477
+                     not used if lo(3)=.true. (anharmonic vibrational   ecis-478
+                           model or asymmetric rotational model).       ecis-479
+                     not used if lo(7)=.true. (external potentials).    ecis-480
+                     not used for uncoupled states.                     ecis-481
+       8- 9   k:     optical potential. (default value,1 for ground     ecis-482
+                     state and same as last one for excited state).     ecis-483
+         10   spi:   parity of the nuclear state: "+" or "-" but only   ecis-484
+                     "-" is needed ("+" for a blank or any character).  ecis-485
+                     this data is kept as 0 or 1 in ipi(1,i).           ecis-486
+      11-20   energy of the projectile in the laboratory system in mev  ecis-487
+              for the ground state. excitation energy for the others.   ecis-488
+      21-30   sp1: spin of the particle (2*sp1+1 kept in ipi(2,i)).     ecis-489
+      31-40   wv(1,i):   mass of the projectile in a.m.u.  .            ecis-490
+                   if this value is not zero for an excited state, the  ecis-491
+                   spin of the projectile, its mass and the product of  ecis-492
+                   charges read on this card are taken into account. if ecis-493
+                   this mass is zero, values of sp1, sp3, wv(1,i) and   ecis-494
+                   wv(2,i) are taken from the preceding level.          ecis-495
+
+      41-50   wv(2,i):   mass of the target in a.m.u.  .                ecis-496
+      51-60   sp3: product of the charges of the target and of the      ecis-497
+                   particle (sp3 kept in ipi(4,i)).                     ecis-498
+      61-70   wv(4,i):   repartition of excitation energy between the   ecis-499
+                         particle and the target: 0. for excitation of  ecis-500
+                         the target, 1. for excitation of the particle, ecis-501
+                         ratio for two-body excitation.                 ecis-502
+  note:  only this card is read for uncoupled states and continua       ecis-503
+  ****  used for compound nucleus calculation.                          ecis-504
+         wv(4,i) is not taken into account for the ground state and usedecis-505
+        for the excited states only if lo(98)=.true. and if relativisticecis-506
+        kinematics are used (schroedinger or dirac equation).           ecis-507
+                                                                        ecis-508
+description of vibrations  (if n is not 0 in rotational model or n is 0 ecis-509
+*************************  in vibrational model and lo(3)=lo(7)=.false.)ecis-510
+                                                                        ecis-511
+number of phonons                       format (14i5)                   ecis-512
+*****************                                                       ecis-513
+       1- 5   iph(i)  description of the state.                         ecis-514
+              in the vibrational model: 0 for ground state              ecis-515
+                      1 or 2 for pure 1 or 2-phonons state              ecis-516
+                      3 for a mixture of 1 and 2-phonons states.        ecis-517
+              in the rotational model: 0 for ground state band          ecis-518
+                                       1 for vibrational band           ecis-519
+                                       2 for a mixture of them.         ecis-520
+       6-10   vibrational model: number of the phonon of the one-phonon ecis-521
+              state or of the first phonon of the two-phonons state.    ecis-522
+              rotational model: number of the vibration in the order of ecis-523
+              input. (see "cards read in lect")                         ecis-524
+      11-15   vibrational model: number of the second phonon of the     ecis-525
+              two-phonons state.                                        ecis-526
+      16-20   vibrational model: number of the one-phonon component of  ecis-527
+              a mixed state.                                            ecis-528
+  note:  the total number of phonons will be the largest number read    ecis-529
+  ****  in the columns 6 to 20.                                         ecis-530
+                                                                        ecis-531
+phonons mixing parameter                format (7f10.5)                 ecis-532
+************************                                                ecis-533
+ if iph is 3 (vibrational model) or iph is 2 (rotational model)         ecis-534
+       1-10   bt in degrees.                                            ecis-535
+      the nuclear state is:  cos(bt)*(1 phonon) + sin(bt)*(2 phonons).  ecis-536
+              or:  cos(bt)*(vibr. band) + sin(bt)*(ground band).        ecis-537
+                                                                        ecis-538
+for asymmetric rotational model                                         ecis-539
+*******************************                                         ecis-540
+ if lo(1)=lo(3)=.true.                                                  ecis-541
+    for a state of spin "j" there are n=("j"+1)/2 band mixing           ecis-542
+ parameters between the n+1 bands defined as atan(a(2*i)/a(2*i-2))      ecis-543
+ where a(i) is the amplitude of band i. if n is not 0:                  ecis-544
+                                                                        ecis-545
+mixing parameters                       format (7f10.5)                 ecis-546
+*****************                                                       ecis-547
+       1-10   bt(1)  in degrees.                                        ecis-548
+      11-20   bt(2)  in degrees.                                        ecis-549
+      21-30   bt(3)  in degrees.                                        ecis-550
+      31-40   bt(4)  in degrees.                                        ecis-551
+      41-50   bt(5)  in degrees.                                        ecis-552
+      51-60   .................                                         ecis-553
+      the nuclear state is:   cos(bt(1))*y(ai,0) + sin(bt(1))*cos(bt(2))ecis-554
+      *(y(ai,2)+s*y(ai,-2))*sqrt(0.5) + sin(bt(1))*sin(bt(2))*cos(bt(3))ecis-555
+      *(y(ai,4)+s*y(ai,-4))*sqrt(0.5) + ....... where s=(-)**(ai+spi).  ecis-556
+
+  note:  for unnatural parity states (spi=-), bt(1) will be ignored in  ecis-557
+  **** the calculation and replaced by 90. degrees.                     ecis-558
+        if lo(15)=.true., all the nuclear parameters (quantities given  ecis-559
+       in degrees) have to be read in order to avoid a change in this   ecis-560
+       part of input when shifting lo(15) from .false. to .true..  they ecis-561
+       are not used and cannot be in search.                            ecis-562
+                                                                        ecis-563
+                                                                        ecis-564
+cards read in subroutine lect                                           ecis-565
+*****************************                                           ecis-566
+                                                                        ecis-567
+phonon descriptions                     format (2i5,f10.5,i5)           ecis-568
+*******************                                                     ecis-569
+ for every phonon involved:                                             ecis-570
+       1- 5   nbta(9,*)  = l angular momentum used also for heavy ion.  ecis-571
+                     value used for heavy-ion coulomb deformations.     ecis-572
+       6-10   nbta(10,*) = k magnetic quantum number of the vibration inecis-573
+                     rotational model. in the vibrational model, must beecis-574
+                     zero to use this phonon in l=0 second order terms. ecis-575
+      11-20   beta(1,*)   phonon amplitude for the real potential.      ecis-576
+      21-25   ik   level of which the masses are used for heavy-ion     ecis-577
+                     corrections. (default value ik=1).                 ecis-578
+                                                                        ecis-579
+phonon amplitudes of other potentials   format (7f10.5)                 ecis-580
+*************************************                                   ecis-581
+ if deformations are not the same for all potentials (lo(5)=.true.):    ecis-582
+       1-10   beta(2,*) for volume imaginary potential.                 ecis-583
+      11-20   beta(3,*) for surface real potential.                     ecis-584
+      21-30   beta(4,*) for surface imaginary potential.                ecis-585
+      31-40   beta(5,*) for real spin-orbit.                            ecis-586
+      41-50   beta(6,*) for imaginary spin-orbit.                       ecis-587
+      51-60   beta(7,*) for coulomb potential.                          ecis-588
+      61-70   beta(8,*) for coulomb spin-orbit potential.               ecis-589
+  note:  if lo(5)=.false., beta(i,*)=beta(1,*) for i=2,8.               ecis-590
+  ****                                                                  ecis-591
+                                                                        ecis-592
+deformations of rotational model        format (2i5,f10.5,i5)           ecis-593
+********************************                                        ecis-594
+ only if lo(1)=.true. and lo(7)=.false., otherwise go to "optical model ecis-595
+ parameters".                                                           ecis-596
+       1- 5   iqm    largest order of deformation.                      ecis-597
+       6-10   iqmax  maximum l-value of multipole expansion.            ecis-598
+      11-20   aspin, the k-value of the band, used only in symmetric    ecis-599
+                     rotational model.                                  ecis-600
+      21-25   ik     level of which the masses are used for heavy-ion   ecis-601
+                     corrections. (default value ik=1).                 ecis-602
+  note:  in the asymmetric rotational model iqm is limited to 35        ecis-603
+  ****  and iqmax is limited to 8.                                      ecis-604
+                                                                        ecis-605
+deformations of real volume potential   format (7f10.5)                 ecis-606
+*************************************                                   ecis-607
+ iq=iqm/2 values for symmetric rotational model,                        ecis-608
+ iq=iqm-1 values for asymmetric rotational model:                       ecis-609
+       1-10   beta(1,1)  deformation of the real potential.             ecis-610
+      11-20   beta(1,2)  deformation of the real potential.             ecis-611
+      21-30   beta(1,3)  deformation of the real potential.             ecis-612
+      31-40   beta(1,4)  deformation of the real potential.             ecis-613
+      41-50   beta(1,5)  deformation of the real potential.             ecis-614
+...............................                                         ecis-615
+      eventually, on next card:         format (7f10.5)                 ecis-616
+       1-10   beta(1,8)  deformation of the real potential.             ecis-617
+
+      11-20   beta(1,9)  deformation of the real potential. ....        ecis-618
+      ..... and so on up to beta(1,iq).                                 ecis-619
+                                                                        ecis-620
+deformations for other potentials       format (7f10.5)                 ecis-621
+*********************************                                       ecis-622
+ if deformations are not the same for all potentials (lo(5)=.true.):    ecis-623
+       1-10   beta(2,i) deformation of the volume imaginary potential.  ecis-624
+      11-20   beta(3,i) deformation of the surface real potential.      ecis-625
+      21-30   beta(4,i) deformation of the surface imaginary potential. ecis-626
+      31-40   beta(5,i) deformation for the real spin-orbit.            ecis-627
+      41-50   beta(6,i) deformation for the imaginary spin-orbit.       ecis-628
+      51-60   beta(7,i) deformation for the coulomb potential.          ecis-629
+      61-70   beta(8,i) deformation for the coulomb spin-orbit.         ecis-630
+ there are iq such cards                                                ecis-631
+  note:  if lo(5)=.false., beta(i,j)=beta(1,j) for i=2,8 and j=1,iq.    ecis-632
+  ****                                                                  ecis-633
+                                                                        ecis-634
+explanation of deformations of the rotational model:                    ecis-635
+****************************************************                    ecis-636
+for symmetric rotational model (lo(3)=.false.):                         ecis-637
+       the order of deformation is l=2, 4, 6, ... and so on.            ecis-638
+       the radial dependence of potentials is:                          ecis-639
+          r = r0*(1 + beta(*,1)*y(2,0).+ beta(*,2)*y(4,0) + .....)      ecis-640
+          odd order deformations are not read.                          ecis-641
+                                                                        ecis-642
+for the asymmetric rotational model (lo(3)=.true.):                     ecis-643
+       the order of deformations are (l,k)=(2,0), (2,2), (4,0), (4,2),  ecis-644
+          (4,4), (6,0) .... and so on. there are limited to (8,8).      ecis-645
+       the radial dependence of potentials is:                          ecis-646
+          r = r0*(1 + beta(*,1)*(cos(beta(*,2))*y(2,0)+sin(beta(*,2))*  ecis-647
+          (y(2,2)+y(2,-2))*sqrt(0.5)) + beta(*,3)*(cos(beta(*,4))*y(4,0)ecis-648
+          +sin(beta(*,4)*(cos(beta(*,5))*(y(4,2)+y(4,-2))*sqrt(0.5))    ecis-649
+          +sin(beta(*,5))*(y(4,4)+y(4,-4))*sqrt(0.5)) + ..............  ecis-650
+   the "gamma" type betas as beta(*,i) for i=2,4,5,7... are in degrees. ecis-651
+   ******************************************************************** ecis-652
+for the constrained asymmetric rotational model, when lo(2)=.true., the ecis-653
+       band mixing coefficients are calculated from "gamma"=beta(*,2)   ecis-654
+       in the davydov-filippov model. the sequence of states must be    ecis-655
+       the ground state, the first 2+, the second 2+,the other states   ecis-656
+       described as in the general case (there can be only the ground   ecis-657
+       state and the first 2+). the mixing parameter of the first 2+    ecis-658
+       state is used as "gamma" value instead of beta(1,2), but the     ecis-659
+       differences between beta(i,3) are kept. the mixing parameter     ecis-660
+       of the second 2+ state is ignored. in a search, the index 4001   ecis-661
+       should be used instead of 2002 or 3011 for "gamma".              ecis-662
+                                                                        ecis-663
+deformations of anharmonic vibrational model                            ecis-664
+********************************************                            ecis-665
+  note:  in this model, there is an unique ratio 1/sqrt(4*pi) for any   ecis-666
+  ****  order of deformation. to be consistent with the harmonic        ecis-667
+        vibrational model, the deformations indicated below should be   ecis-668
+        beta, beta**2/sqrt(4*pi) and beta**3/(4*pi) respectively.       ecis-669
+                                                                        ecis-670
+deformations                            format (7f10.5)                 ecis-671
+************                                                            ecis-672
+ only if lo(1)=.false. and .lo(3)=.true., lo(5) or lo(16)=.true.,       ecis-673
+ otherwise go to "optical model parameters".                            ecis-674
+       1-10   beta(1,*) for central potential.                          ecis-675
+      11-20   beta(2,*) for volume imaginary potential.                 ecis-676
+      21-30   beta(3,*) for surface real potential.                     ecis-677
+      31-40   beta(4,*) for surface imaginary potential.                ecis-678
+      41-50   beta(5,*) for real spin-orbit.                            ecis-679
+
+      51-60   beta(6,*) for imaginary spin-orbit.                       ecis-680
+      61-70   beta(7,*) for coulomb potential.                          ecis-681
+                                                                        ecis-682
+  next card:                            format (7f10.5)                 ecis-683
+  **********                                                            ecis-684
+       1-10   beta(8,*) for coulomb spin-orbit potential.               ecis-685
+there are four sets of such cards, one for each order of deformation.   ecis-686
+                                                                        ecis-687
+angular momenta                         format (14i5)                   ecis-688
+***************                                                         ecis-689
+ if lo(16)=.true., otherwise go to "deformations".(if lo(6)=.true.,     ecis-690
+ heavy-ion definition do not change non coulomb deformation lengths).   ecis-691
+       1- 5   for zeroth order (default value 2). (not used)            ecis-692
+       6-10   for first order (default value 2).                        ecis-693
+      11-15   for second order (default value 2).                       ecis-694
+      16-20   for third order (default value 2).                        ecis-695
+      21-25   ik   level of which the masses are used for heavy-ion     ecis-696
+              corrections. (default value ik=1).                        ecis-697
+         enter a negative value if you want 0.                          ecis-698
+                                                                        ecis-699
+optical potential parameters                                            ecis-700
+****************************                                            ecis-701
+if lo(7)=.false., npp loops to "equidistant angles". each loop includes ecis-702
+eight cards giving the depth, the reduced radius, the diffuseness and   ecis-703
+an exponent for a woods-saxon form-factor (at the power 1+this exponent)ecis-704
+followed, if lo(17)=.true., by the folding parameters.                  ecis-705
+ the program searches to which nuclear level the potential belongs. if  ecis-706
+none is found, a warning is printed and the first one is chosen.        ecis-707
+                                                                        ecis-708
+volume or scalar real potential         format (4f10.5)                 ecis-709
+*******************************                                         ecis-710
+       1-10   val(1)   depth in mev.                                    ecis-711
+      11-20   val(2)   reduced radius in fermis.                        ecis-712
+      21-30   val(3)   diffuseness in fermis.                           ecis-713
+      31-40   val(4)   extra exponentiation factor.                     ecis-714
+                                                                        ecis-715
+volume or scalar imaginary potential    format (4f10.5)                 ecis-716
+************************************                                    ecis-717
+       1-10   val(5)   depth in mev.                                    ecis-718
+      11-20   val(6)   reduced radius in fermis.                        ecis-719
+      21-30   val(7)   diffuseness in fermis.                           ecis-720
+      31-40   val(8)   extra exponentiation factor.                     ecis-721
+                                                                        ecis-722
+surface or vector real potential        format (4f10.5)                 ecis-723
+********************************                                        ecis-724
+       1-10   val(9)   depth in mev.                                    ecis-725
+      11-20   val(10)  reduced radius in fermis.                        ecis-726
+      21-30   val(11)  diffuseness in fermis.                           ecis-727
+      31-40   val(12)  extra exponentiation factor.                     ecis-728
+                                                                        ecis-729
+surface or vector imaginary potential   format (4f10.5)                 ecis-730
+*************************************                                   ecis-731
+       1-10   val(13)  depth in mev.                                    ecis-732
+      11-20   val(14)  reduced radius in fermis.                        ecis-733
+      21-30   val(15)  diffuseness in fermis.                           ecis-734
+      31-40   val(16)  extra exponentiation factor.                     ecis-735
+                                                                        ecis-736
+spin-orbit or tensor real potential     format (4f10.5)                 ecis-737
+***********************************                                     ecis-738
+       1-10   val(17)  depth in mev.                                    ecis-739
+      11-20   val(19)  reduced radius in fermis.                        ecis-740
+      21-30   val(19)  diffuseness in fermis.                           ecis-741
+
+      31-40   val(20)  extra exponentiation factor.                     ecis-742
+                                                                        ecis-743
+spin-orbit/tensor imaginary potential   format (4f10.5)                 ecis-744
+*************************************                                   ecis-745
+       1-10   val(21)  depth in mev.                                    ecis-746
+      11-20   val(22)  reduced radius in fermis.                        ecis-747
+      21-30   val(23)  diffuseness in fermis.                           ecis-748
+      31-40   val(24)  extra exponentiation factor.                     ecis-749
+  note:  the spin-orbit operator is always 2*(l.s)                      ecis-750
+  ****  for spin 1/2 particle, the depth is the usual value.            ecis-751
+        for spin 1 particle, the depth is the half of the usual value.  ecis-752
+                                                                        ecis-753
+coulomb potential                       format (4f10.5)                 ecis-754
+*****************                                                       ecis-755
+       1-10   val(26)  reduced coulomb radius in fermis.                ecis-756
+      11-20   val(27)  diffuseness of a woods-saxon charge distribution.ecis-757
+      21-30   val(33)  third parameter of a fermi charge distribution.  ecis-758
+      31-40   val(28)  extra exponentiation factor.                     ecis-759
+                                                                        ecis-760
+spin-orbit coulomb potential            format (4f10.5)                 ecis-761
+****************************                                            ecis-762
+       1-10   val(29)  anomalous magnetic moment (less half charge in   ecis-763
+              dirac formalism) multiplied by the charge of the target.  ecis-764
+      11-20   val(30)  reduced radius in fermis.                        ecis-765
+      21-30   val(31)  diffuseness in fermis.                           ecis-766
+      31-40   val(32)  extra exponentiation factor.                     ecis-767
+  note:  if val(27)=0. or val(31)=0. a homogeneous charge distribution  ecis-768
+  ****  is used. the product of charges is copied into val(25).         ecis-769
+         when the diffuseness of the charge is not zero, the woods-saxonecis-770
+        form factor is multiplied by 1+val(33)*r**2. the same parameter ecis-771
+        val(25) is used for these two last potentials, if their         ecis-772
+        diffuseness is not zero.                                        ecis-773
+         if lo(9)=.true., enter a negative radius to use a symmetric    ecis-774
+        woods-saxon form factor.                                        ecis-775
+         if a diffuseness or the radius of a coulomb potential without  ecis-776
+        diffuseness is negative, its absolute value is taken into       ecis-777
+        account in subroutine rotp and a message printed.               ecis-778
+                                                                        ecis-779
+*** end of do-loop for potentials without folding (lo(17)=.false.) ***  ecis-780
+                                                                        ecis-781
+folding for real potentials             format (3f10.5)                 ecis-782
+***************************                                             ecis-783
+ only if lo(17)=.true., otherwise go to "end of do-loop for potentials".ecis-784
+       1-10   val(34) "v" parameter                                     ecis-785
+      11-20   val(35) "r" parameter                                     ecis-786
+      21-30   val(36) "a" parameter                                     ecis-787
+                                                                        ecis-788
+folding for imaginary potentials        format (3f10.5)                 ecis-789
+********************************                                        ecis-790
+       1-10   val(37) "v" parameter.                                    ecis-791
+      11-20   val(38) "r" parameter.                                    ecis-792
+      21-30   val(39) "a" parameter.                                    ecis-793
+                                                                        ecis-794
+folding for coulomb potentials          format (3f10.5)                 ecis-795
+******************************                                          ecis-796
+       1-10   val(40) "v" parameter.                                    ecis-797
+      11-20   val(41) "r" parameter.                                    ecis-798
+      21-30   val(42) "a" parameter.                                    ecis-799
+                                                                        ecis-800
+explanation of folding parameters:  the folding functions are normalisedecis-801
+**********************************  to 1.  to fold an optical potential,ecis-802
+    enter the true charge, the depth of central potential equal to the  ecis-803
+
+    depth of the nucleon potential multiplied by the number of nucleons ecis-804
+    in the projectile, and the depth of of spin-orbit potential equal toecis-805
+    the depth of the nucleon spin-orbit potential divided by the number ecis-806
+    of nucleons in the projectile.                                      ecis-807
+      "v"=0    no folding.                                              ecis-808
+      "a"=0    gaussian form factor with the range "r".                 ecis-809
+      "r"=0    hulthen form factor (exp(-x/"v")-exp(-x/"a"))/x.         ecis-810
+               reduced to yukawa form factor exp(-x/"v")/x if "a"=0.    ecis-811
+    otherwise  saxon form factor 1/(1+exp((x-"r")/"a").                 ecis-812
+      if a folding parameter is negative, the absolute value is taken   ecis-813
+    into account in subroutine fold and a message printed.              ecis-814
+      all the derivatives of potentials needed are obtained by numericalecis-815
+    derivation after folding.                                           ecis-816
+                                                                        ecis-817
+      ******  end of do-loop for potentials ******                      ecis-818
+                                                                        ecis-819
+equidistant angles                      format (7f10.5)                 ecis-820
+******************                                                      ecis-821
+  only if lo(66)=.false., otherwise go to "spin-orbit parametrisation". ecis-822
+       1-10   theta1   first angle.                                     ecis-823
+      11-20   dtheta   step. (default value 1.)                         ecis-824
+      21-30   theta2   last angle.                                      ecis-825
+      31-40   dthe     averaging angle. values listed are 1/3 of the sumecis-826
+                       of values at theta and theta+/-dthe.             ecis-827
+                                                                        ecis-828
+spin-orbit parametrisation              format (7f10.5)                 ecis-829
+**************************                                              ecis-830
+ only if lo(4)=.true., otherwise go to "hauser-feshbach corrections".   ecis-831
+       1-10   az1.                                                      ecis-832
+      11-20   az2.        (these parameters are in an array             ecis-833
+      21-30   az3.                                                      ecis-834
+      31-40   az4.        az(16) from az(1) to az(6) for the search)    ecis-835
+      41-50   az5.                                                      ecis-836
+      51-60   az6.                                                      ecis-837
+  note:  the unparametrised spin-orbit deformation is:                  ecis-838
+  ****        az1=az4=0.,  az2=az3=az5=az6=1.                           ecis-839
+        the spin-orbit deformation multiplied by x is:                  ecis-840
+              az1=az4=0., az2=1., az3=az5=az6=x .                       ecis-841
+        the "incorrect" spin-orbit deformation is:                      ecis-842
+              az1=az2=az5=az6=0., az3=az4=0.5 .                         ecis-843
+        for the most general parametrisation of deformed spin-orbit see ecis-844
+        comment cards in subroutine quan.                               ecis-845
+                                                                        ecis-846
+hauser-feshbach corrections             format (7f10.5)                 ecis-847
+***************************                                             ecis-848
+ only if lo(81)=.true., otherwise go to "cards read in subroutine deph".ecis-849
+       1-10   bz1.   square root of elastic enhancement.                ecis-850
+                     (default value 1.4142).                            ecis-851
+      11-20   bz2.   if lo(82)=.true., spin cut-off parameter (default  ecis-852
+                     value 3.5). if lo(82)=.false., particle degrees of ecis-853
+                     freedom.                                           ecis-854
+      21-30   bz3.   square root of level density parameter.            ecis-855
+                     (default value 100.). if lo(82)=lo(87)=.false.,    ecis-856
+                     parameter bz3 in moldauer's formula given below.   ecis-857
+                     (default value 1.212).                             ecis-858
+      31-40   bz4.   if lo(82)=lo(87)=.false., parameter bz4 in mol-    ecis-859
+                     dauer's formula given below. (default value 0.78). ecis-860
+      41-50   bz5.   if lo(82)=lo(87)=.false., parameter bz5 in mol-    ecis-861
+                    dauer's formula given below. (default value 0.228). ecis-862
+  note:  the penetrabilities, which are probabilities of compound       ecis-863
+  ****  nucleus formation, are related to partial cross-sections minus  ecis-864
+        the reaction cross-section to the channels taken into account.  ecis-865
+
+         if lo(82)=.true., denoting by ti and tf the penetrabilities    ecis-866
+        defined above for the incoming and the outgoing channels, the   ecis-867
+        hauser-feshbach correction is: ti*tf/(4*(sum on all the t)+     ecis-868
+        +bz3**2*(2*j+1)*exp(-(j*j+j)/(2*bz2**2)) for inelastic channels,ecis-869
+        multiplied by bz1**2 for the elastic one.                       ecis-870
+        for the search, these quantities are in az from az(7) to az(9). ecis-871
+         for lo(82)=.false.: without fluctuations (lo(87)=.true.), bz1  ecis-872
+        is used and can be in search; with fluctuations (lo(87)=.false.)ecis-873
+        the given value of bz2 is used if bz2 is not 0; if bz2=0., the  ecis-874
+        channel degree of freedom parameter, formula (1) in p.a.        ecis-875
+        moldauer, nuclear physics a344 (1980), page 185-195, which is:  ecis-876
+            1.78d0+(tl**1.212d0-0.78d0)*dexp(-0.228d0*sum on tl)        ecis-877
+        is generalised by the expression:                               ecis-878
+            1.d0+bz4+(tl**bz3-bz4)*dexp(-bz5*sum on tl)                 ecis-879
+        if lo(82)=.true. bz1 and bz2 can be in search; if lo(82)=.false.ecis-880
+        and lo(87)=.true. bz3 can be in search; if lo(82)=lo(87)=.false.ecis-881
+        bz2 can be in search, but if bz2=0., bz3, bz4 and bz5 can also  ecis-882
+        be in search.                                                   ecis-883
+                                                                        ecis-884
+fission data                            format (7f10.5)                 ecis-885
+************                                                            ecis-886
+ if lo(82)=.true., go to "cards read in subroutine deph".               ecis-887
+ if lo(85)=.false., go to "giant dipole resonance description".         ecis-888
+       1-10   fiss(1,*)  transmission coefficient                       ecis-889
+      11-20   fiss(2,*)  degree of freedom. if <.5, it is replaced by 0.ecis-890
+  there are nfiss such cards. the first coefficient is for the smallest ecis-891
+total j value of the system and the same parity of the ground state. theecis-892
+second one is for the opposite parity. the following ones are for higherecis-893
+j values, with the same order for parities.                             ecis-894
+                                                                        ecis-895
+giant dipole resonance description      format (7f10.5)                 ecis-896
+**********************************                                      ecis-897
+ only if lo(86)=.true., otherwise go to "level density for continuum".  ecis-898
+ if nrd is not 0, go to "gamma transmission factors".                   ecis-899
+ data to compute the (neutron, gamma) cross-section when the giant      ecis-900
+ dipole resonance model is used (see e. lynn, "the theory of neutron    ecis-901
+ resonance reactions", pages 321/326 and a. gilbert and a.g.w.          ecis-902
+ cameron, can. jour. of physics 43, 1446, 1965, pages 1475/1476).       ecis-903
+       1-10   tgo   slow s-wave neutron gamma widths/spacing for        ecis-904
+                    normalisation. if tgo=0, lo(86) is set .false.      ecis-905
+      11-20   bn    neutron separation energy.(default value 8.).       ecis-906
+      21-30   fnug  radiative degrees of freedom.                       ecis-907
+                    if less than 1., it is replaced by fnug=20.         ecis-908
+      31-40   egd   energy of the giant dipole resonance.               ecis-909
+                    (default value 163*(n*z)**2/(n+z)**(4/3).).         ecis-910
+                    the strong absorption model id used if egd < 0.     ecis-911
+                    (simple behaviour as e**3 instead of resonance      ecis-912
+                    with a factor e**4)                                 ecis-913
+      41-50   ggd   resonance width. (default value 5.).                ecis-914
+    for the search, these quantities are in az from az(12) to az(16).   ecis-915
+                                                                        ecis-916
+gamma transmission factors              format (7f10.5)                 ecis-917
+**************************                                              ecis-918
+ only if lo(86)=.true. and nrd is not 0.                                ecis-919
+       1-10   gam(1) for l=0.                                           ecis-920
+      11-20   gam(2) for l=1.                                           ecis-921
+      .......................                                           ecis-922
+      61-70   gam(7) for l=6.                                           ecis-923
+  up to gam(nrd), eventually on others cards.                           ecis-924
+                                                                        ecis-925
+
+level density of compound nucleus       format (7f10.5)                 ecis-926
+*********************************                                       ecis-927
+ if there are gamma transmission parameters computed with the giant     ecis-928
+ dipole resonance model (lo(86)=.true. and nrd=0 in "compound nucleus   ecis-929
+ data"),  or continua (ncont not 0 in "compound nucleus data"),         ecis-930
+ otherwise go to "cards read in subroutine deph".                       ecis-931
+ for the total residual nucleus needed for the gamma giant resonance,   ecis-932
+ followed by the residual nucleus of each continuum:                    ecis-933
+       1-10   scn(7,i) z:   charge of the compound nucleus              ecis-934
+      11-20   scn(1,i) sa:  level density parameter for s-wave resonanceecis-935
+                            spacing. (default value (.0091*(shell corr. ecis-936
+                            -.23*nd)+.143)*na where na is the total     ecis-937
+                            number of nucleons, nd the minimum distance ecis-938
+                            to a magic number for protons or neutrons   ecis-939
+                            and shell corrections are given by cook: seeecis-940
+                            tables and references in subroutine lden).  ecis-941
+      21-30   scn(2,i) ux:  matching energy for the two density formula ecis-942
+                            shifted by pairing energy. (default value   ecis-943
+                            2.5+150/na).                                ecis-944
+      31-40   scn(3,i) tau: nuclear temperature. (default value         ecis-945
+                            1/tau=sqrt(sa/ux)-1.5/ux).                  ecis-946
+      41-50   scn(4,i) sg:  spin cut off parameter. (default value      ecis-947
+                            formula (11) of gilbert and cameron).       ecis-948
+      51-60   scn(5,i) e0:  energy shift. (default value formula (28) ofecis-949
+                            gilbert and cameron).                       ecis-950
+      61-70   scn(6,i) ex:  matching energy between the two density     ecis-951
+                            formulae. (default value ux+pairing with    ecis-952
+                            pairing given by cook)                      ecis-953
+  note:  the dimensions of the array scn are 7 and ncons. scn(j,i)      ecis-954
+  ****  can be searched for j=1 to 6. if scn(j,i) is 0., it is replaced ecis-955
+        by the default value computed with the scn(j,k) for k<i. if     ecis-956
+        scn(3,i) is negative, it is replaced by the default value       ecis-957
+        computed with default values for sa and ux. after replacement,  ecis-958
+        density parameters used, which must be taken into account for a ecis-959
+        search or a change using lo(37)=.true. are listed at the end.   ecis-960
+                                                                        ecis-961
+                                                                        ecis-962
+cards read in subroutine deph                                           ecis-963
+*****************************                                           ecis-964
+                                                                        ecis-965
+number of observables by channel        format (14i5)                   ecis-966
+********************************                                        ecis-967
+ (non-standard observables) only if lo(94)=.true. and lo(66)=.false.,   ecis-968
+ otherwise go to "restricted coulomb corrections".                      ecis-969
+       1- 5   number of observables for the elastic scattering.         ecis-970
+       6-10   number of observables for the first excited state.        ecis-971
+      11-15   number of observables for the second excited state.       ecis-972
+      16-20   number of observables for the third excited state.        ecis-973
+      21-25   ...........                                               ecis-974
+              up to the last coupled channel (ncoll values).            ecis-975
+                                                                        ecis-976
+for each coupled state                                                  ecis-977
+**********************                                                  ecis-978
+                                                                        ecis-979
+observable identifications              format (14i5)                   ecis-980
+**************************                                              ecis-981
+       1- 5   first observable which must be the cross-section (enter a ecis-982
+              blank or 0) .                                             ecis-983
+       6-10   second observable.                                        ecis-984
+      11-15   third observable.                                         ecis-985
+      16-20   fourth observable.                                        ecis-986
+
+      21-25   fifth observable.                                         ecis-987
+      26-30   ...........                                               ecis-988
+              up to the last observable.                                ecis-989
+                                                                        ecis-990
+   standard description  0   cross-section.                             ecis-991
+   ********************  1   cross-section / rutherford's cross-section.ecis-992
+                         2   vector analysing power.                    ecis-993
+      3     vector polarisation.                                        ecis-994
+            (note a ratio sqrt(2.) with it11 for spin 1/2 for 2 and 3). ecis-995
+      4     t20 .                                                       ecis-996
+      5     t21 .                                                       ecis-997
+      6     t22 .                                                       ecis-998
+      7     kyy or d  defined as -a(1100 1100)-a(1100 1-100)            ecis-999
+      8     kxx or r  defined as  a(1100 1100)-a(1100 1-100)            ecis1000
+      9     kzz or a' defined as  a(1000 1000)                          ecis1001
+     10     kxz or r' defined as -sqrt(2.) a(1100 1000)                 ecis1002
+     11     kzx or a  defined as -sqrt(2.) a(1000 1100)                 ecis1003
+     12     spin-flip :  (a(0000,0000)+a(1100,1100)+a(1100,1-100))/2    ecis1004
+     13     vector analysing power of the target                        ecis1005
+          (note a ratio sqrt(2.) with it11 for spin 1/2 for 2, 3 and 13)ecis1006
+     14     ayy  defined as -a(1111 0000)-a(111-1 0000)                 ecis1007
+     15     axx  defined as  a(1111 0000)-a(111-1 0000)                 ecis1008
+     16     azz  defined as  a(1010 0000)                               ecis1009
+     17     axz  defined as -sqrt(2.) a(1110 0000)                      ecis1010
+     18     azx  defined as -sqrt(2.) a(1011 0000)                      ecis1011
+     19     reserved for a set of experimental data which are reaction  ecis1012
+                 cross-sections. see "cards read in subroutine lecd'    ecis1013
+            note that 12 and 19 were previously 7 and 8.                ecis1014
+                                                                        ecis1015
+    non standard description    enter a negative value, different for   ecis1016
+    ************************    different observables. the description  ecis1017
+                                will be read in subroutine obse.        ecis1018
+          cross-sections must be before polarisations.                  ecis1019
+                                                                        ecis1020
+plot indications                        format (14i5)                   ecis1021
+****************                                                        ecis1022
+       1- 5   number of decades in logarithmic scales for cross-section.ecis1023
+       6-10   indication for second observable.                         ecis1024
+      11-15   indication for third observable.                          ecis1025
+      16-20   ...................                                       ecis1026
+              up to the last observable.                                ecis1027
+      indications for polarisations are "1" for plot and "0" for no plotecis1028
+                                                                        ecis1029
+      ******  end of do-loop for nuclear states ******                  ecis1030
+                                                                        ecis1031
+restricted coulomb corrections          format (14i5)                   ecis1032
+******************************                                          ecis1033
+ if lo(44) and lo(46)=.true., otherwise go to "cards read in            ecis1034
+ subroutine calx".  for each nuclear level:                             ecis1035
+       1- 5   niv(i,j,3) between level i and level j for j=1.           ecis1036
+       6-10   niv(i,j,3) between level i and level j for j=2.           ecis1037
+      11-15   .........................                                 ecis1038
+              enter "1" for coulomb correction and "0" for none.        ecis1039
+    only values for j smaller than or equal to i are taken into account.ecis1040
+         there are ncoll such cards.                                    ecis1041
+                                                                        ecis1042
+                                                                        ecis1043
+cards read in subroutine calx                                           ecis1044
+*****************************                                           ecis1045
+ only if lo(31)=.true., otherwise go to "cards read in subroutine obse".ecis1046
+                                                                        ecis1047
+
+chi2 conditions                         format (4i5,2f10.5)             ecis1048
+***************                                                         ecis1049
+       1- 5   ncolr  number of angular distributions. if some of them   ecis1050
+                     are sums on several levels, they account for their ecis1051
+                     number of levels in ncolr.                         ecis1052
+       6-10   nrec   number of parameters in search.                    ecis1053
+      11-15   nfit   number of functions kept in the search beyond the  ecis1054
+                     minimum number which is nrec+1 .                   ecis1055
+      16-20   nessai maximum number of evaluations. (default value 100) ecis1056
+                     this value is not used when lo(34)=.true..         ecis1057
+      21-30   ech    search scale. (default value 20.).                 ecis1058
+                     in the preliminary runs, variables are changed by  ecis1059
+                     the product of this number with their accuracy. in ecis1060
+                     the others runs, the change of any variable is     ecis1061
+                     limited by twice this value.                       ecis1062
+      31-40   rap    ratio of increase for the search scale after a run ecis1063
+                     for which the chi2 decreased. (default value 1.)   ecis1064
+                     the value of ech is the product by rap of the last ecis1065
+                     maximum change of parameter which gave a lower chi2ecis1066
+                     the value 1 leads safely to the minimum. a value   ecis1067
+                     larger than 1. leads quicker towards the minimum.  ecis1068
+                     a value less than 1. is replaced by 1.             ecis1069
+                                                                        ecis1070
+                                                                        ecis1071
+cards read in subroutine lecd                                           ecis1072
+*****************************                                           ecis1073
+ only if ncolr is not 0, otherwise go to "cards read in subroutine obse"ecis1074
+ the angular distributions can be read in any order.                    ecis1075
+                                                                        ecis1076
+for each angular distribution                                           ecis1077
+*****************************                                           ecis1078
+                                                                        ecis1079
+identification                          format (l1,i1,i3,2i5,5x,3f10.5) ecis1080
+**************                                                          ecis1081
+          1   lx logical. if lx=.true. the experimental errors are      ecis1082
+              percentages. lx is set .false. if the observable          ecis1083
+              identification is not 0, 1 or 19.                         ecis1084
+          2   1 if the angles are in the laboratory system, 0 otherwise.ecis1085
+       3- 5   nt   number of angles.                                    ecis1086
+       6-10   number of the nuclear state.                              ecis1087
+      11-15   observable identification. (see comments on "observable   ecis1088
+              identification" in "cards read in subroutine deph").      ecis1089
+      21-30   weight of this observable in chi2. (default value 1.)     ecis1090
+      31-40   experimental normalisation of data. (default value 1.)    ecis1091
+      41-50   error on experimental normalisation. (if 0., the          ecis1092
+              normalisation is fixed).                                  ecis1093
+                the experimental values and their errors are divided by ecis1094
+              the "renormalisation parameter". if the normalisation is  ecis1095
+              fixed, this parameter is the "experimental normalisation".ecis1096
+              if the normalisation is not fixed, the square of the      ecis1097
+              difference between the "experimental normalisation" and   ecis1098
+              this parameter divided by the "error on experimental      ecis1099
+              normalisation" is added to the chi2 for this observable   ecis1100
+              following the definition of the chi2. the "calculated     ecis1101
+              normalisation" is the value of the "renormalisation       ecis1102
+              parameter" which minimises the chi2. experimental values  ecis1103
+              and errors are divided by it.                             ecis1104
+                if for two successive angular distributions, both       ecis1105
+              cross-sections or polarisations, the "errors on           ecis1106
+              experimental normalisations" are non-0 and the same and   ecis1107
+              the two "experimental normalisation" are identical, the   ecis1108
+
+              renormalisation parameters are the same for these two     ecis1109
+              angular distributions and one value is added to the chi2  ecis1110
+              for each one.                                             ecis1111
+  note:  if nt=0, the angular distribution described here is not        ecis1112
+  ****  experimentally separated from the following one. it cannot      ecis1113
+        happen for the last angular distribution and the observables    ecis1114
+        must be of the same kind (if not, the program stops).           ecis1115
+        angular distribution is attributed to the level read without    ecis1116
+        nt=0 which can be any of them.                                  ecis1117
+            the program stops also if the channel number is too large   ecis1118
+        or if the observable identification is larger than 19.          ecis1119
+                                                                        ecis1120
+data card for each angle                format (6f10.5)                 ecis1121
+************************                                                ecis1122
+       1-10   angle in degrees.                                         ecis1123
+      11-20   experimental value.                                       ecis1124
+      21-30   experimental error.                                       ecis1125
+      31-40   width of detector. (if non 0.,three calculations are done ecis1126
+              at the experimental angle and at plus and minus this      ecis1127
+              width, the calculated value will be the mean value).      ecis1128
+      41-50   angular error. (if non 0. and the width of detector non 0.ecis1129
+              the experimental error is increased to take into account  ecis1130
+              the slope of the calculated curve).                       ecis1131
+  note:  if the observable identification is 19, the set of experimentalecis1132
+  ****  values are total cross-sections of which the channel is read in ecis1133
+        floating value instead of the angle. for channel 0., it is the  ecis1134
+        total reaction cross-section, not taking into account the       ecis1135
+        coulomb scattering. for channel -1., it is the total            ecis1136
+        cross-section as defined for neutrons. weight and experimental  ecis1137
+        normalisation are taken into account. for compound nucleus,     ecis1138
+        uncoupled levels, continua, fission and gamma cross-sections    ecis1139
+        follow the coupled states.                                      ecis1140
+                                                                        ecis1141
+                                                                        ecis1142
+cards read in subroutine calx                                           ecis1143
+*****************************                                           ecis1144
+ only if lo(31)=.true., otherwise go to "cards read in subroutine obse".ecis1145
+                                                                        ecis1146
+search accuracies                       format (7f10.3)                 ecis1147
+*****************                                                       ecis1148
+ only if lo(32)=.true. and neither ncolr and nrec is 0, otherwise go to ecis1149
+ "cards read in subroutine obse".                                       ecis1150
+       1-10   search accuracy for the first variable.                   ecis1151
+      11-20   search accuracy for the second variable.                  ecis1152
+      21-30   search accuracy for the third variable.                   ecis1153
+      31-40   ....................                                      ecis1154
+              up to nrec values.                                        ecis1155
+      the search accuracies cannot be 0..there is no default value.     ecis1156
+  they refer to values used in the program as real radii or             ecis1157
+  deformations changed for heavy ions.                                  ecis1158
+                                                                        ecis1159
+indices of variables                    format (14i5)                   ecis1160
+********************                                                    ecis1161
+       1- 5   index of the first variable.                              ecis1162
+       6-10   index of the second variable.                             ecis1163
+      11-15   index of the third variable.                              ecis1164
+      16-20   ....................                                      ecis1165
+              up to nrec values.                                        ecis1166
+                                                                        ecis1167
+
+    index specifications:                                               ecis1168
+    *********************                                               ecis1169
+       1-1000   optical model and folding parameters val(i).(see, above,ecis1170
+                optical potential parameters). possible values 1 to     ecis1171
+                34*npp. parameters of external form factors in the orderecis1172
+                defined when they are read. only floating values can be ecis1173
+                in search possible values 1 to 1000. above, add 9000.   ecis1174
+                choosing search accuracies, note that reduced radii are ecis1175
+                not used but only radii. coulomb charges are excluded.  ecis1176
+    1001-2000   deformations for a given potential. possible values 1001ecis1177
+                to 1008.(not the angles of asymmetric rotational model) ecis1178
+    2001-3000   deformations for a given multipole. possible values 2001ecis1179
+                to 2000+nbet where nbet is the total number of phonons  ecis1180
+                and deformations as listed in the output.               ecis1181
+    3001-4000   individual deformation. (the unit of the index is the   ecis1182
+                potential, the tenth is the deformation). to simplify   ecis1183
+                notations, possible value are 3001 to 3000+10*nbet with ecis1184
+                nbet defined above. values 3xx9 and 3xx0 are excluded.  ecis1185
+                note that deformation lengths are used in the search if ecis1186
+                lo(6)=.true..                                           ecis1187
+    4001-5000   nuclear model parameters. (in the order of input).      ecis1188
+    5001-6000   reduced nuclear matrix elements. (order of input if theyecis1189
+                are read on cards, or order of computation as listed).  ecis1190
+    6001-7000   spin-orbit parametrisation, hauser-feshbach corrections.ecis1191
+                and compound nucleus parameters. possible values are:   ecis1192
+                6001-6006 for spin-orbit parametrisation,               ecis1193
+                6007-6011 for hauser-feshbach corrections,              ecis1194
+                6012-6016 for giant dipole resonance parameters,        ecis1195
+                (in a test, 6015 was useless for lo(87)=.false., 6014   ecis1196
+                and 6015 if lo(87=.true.)                               ecis1197
+                6017-6016+6*ncons for level density parameters in order ecis1198
+                given by scn(6,ncons), skipping the charge. only values ecis1199
+                printed as used values can be changed.                  ecis1200
+                (in a test, scn(5,i) was useless for gamma, scn(1,i),   ecis1201
+                scn(2,i) and scn(6,i) for a continuum)                  ecis1202
+                6016+6*ncons-6016+6*ncons+nrd gamma transmission coeff. ecis1203
+                6016+6*ncons+nrd-6016+6*ncons+nrd+2*nfiss fission       ecis1204
+                transmission coefficients.                              ecis1205
+    7001-8000   dispersion parameter from pip(5,*) to pip(17,*) without ecis1206
+                possibility to change the description induced by the    ecis1207
+                integer values ipp(*,1,*), ipp(*,2,*), ipi(*,3,*) and   ecis1208
+                energy reference pip(4,*). possible values from 7001 to ecis1209
+                7000+13*npp.                                            ecis1210
+   10001-99999  to continue 1-1000 when there are more than 1000 values ecis1211
+                with external form factors. use the number of the       ecis1212
+                listing increased by 9000.                              ecis1213
+  note:  any negative number -k in the card above means that k variablesecis1214
+  ****  will be kept proportional in the search. this value is replaced ecis1215
+        by -*address where k followed by k indices of parameters is     ecis1216
+        stored                                                          ecis1217
+                                                                        ecis1218
+links between variables                 format (14i5)                   ecis1219
+***********************                                                 ecis1220
+    for every negative value -k in the preceding card:                  ecis1221
+       1- 5   index of the first variable.                              ecis1222
+       6-10   index of the second variable.                             ecis1223
+      11-15   index of the third variable.                              ecis1224
+      16-20   ..................                                        ecis1225
+              up to k indices.                                          ecis1226
+                                                                        ecis1227
+                                                                        ecis1228
+
+cards read in subroutine obse                                           ecis1229
+*****************************                                           ecis1230
+ only if there is any non standard observable (identified by a negative ecis1231
+ number), otherwise go to "cards read in subroutine redm".              ecis1232
+                                                                        ecis1233
+for each non standard observable                                        ecis1234
+********************************                                        ecis1235
+                                                                        ecis1236
+definition and name                     format (2l1,i1,i2,i5,5a4)       ecis1237
+*******************                                                     ecis1238
+          1   lt1  "t" for an observable defined with an axis           ecis1239
+                   perpendicular to the reaction plane. the description ecis1240
+                   is changed by a rotation r(pi/2,pi/2,pi/2) to the    ecis1241
+                   definition with respect to the direction of particle ecis1242
+                   (helicity). use a blank for the usual helicity       ecis1243
+                   description.                                         ecis1244
+          2   lt2  "t" if the observable is not completely defined by   ecis1245
+                   tensors. see note below "quantum numbers".           ecis1246
+          3   blank or 0 for observable in the centre of mass system.   ecis1247
+              1          for observable in the laboratory system.       ecis1248
+              2          for observable defined with respect to the     ecis1249
+                              incident beam.                            ecis1250
+       4- 5   kx   positive number, identification of the observable    ecis1251
+                   read with -kx.                                       ecis1252
+       6-10   k    number of components of the description.             ecis1253
+      11-30   name of the observable which will be used in the output.  ecis1254
+                                                                        ecis1255
+quantum numbers                         format (8i5)                    ecis1256
+***************                                                         ecis1257
+       1- 5   tensor order of the incoming particle.                    ecis1258
+       6-10   related magnetic quantum number.                          ecis1259
+      11-15   tensor order of the initial nucleus.                      ecis1260
+      16-20   related magnetic quantum number.                          ecis1261
+      21-25   tensor order of the outgoing particle.                    ecis1262
+      26-30   related quantum number.                                   ecis1263
+      31-35   tensor order of the final nucleus.                        ecis1264
+      36-40   related quantum number.                                   ecis1265
+    there are k such cards.                                             ecis1266
+  note:  if lt2=.true., some couples (tensor order, magnetic quantum    ecis1267
+  ****  number) can be replaced by non tensor notation (mi, mf). in thisecis1268
+        case, use (mi-s-1) and (mf-s-1) where s is the spin of particle ecis1269
+        or target.                                                      ecis1270
+                                                                        ecis1271
+coefficients of components              format (6f10.5)                 ecis1272
+**************************                                              ecis1273
+       1-10   coefficient of the first component.                       ecis1274
+      11-20   coefficient of the second component.                      ecis1275
+      21-30   ...................                                       ecis1276
+              up to k values.                                           ecis1277
+                                                                        ecis1278
+imaginary part of coefficients          format (6f10.5)                 ecis1279
+******************************                                          ecis1280
+ only if lt1=.true. or lt2=.true., otherwise go to next observable.     ecis1281
+       1-10   imaginary part for the first component.                   ecis1282
+      11-20   imaginary part for the second component.                  ecis1283
+      21-30   ....................                                      ecis1284
+              up to k values.                                           ecis1285
+  note:  the quantum numbers are checked and errors can stop the        ecis1286
+  ****  program (too large magnetic quantum numbers, negative tensor    ecis1287
+        order, odd sum of magnetic quantum numbers for observable       ecis1288
+        defined with the axis perpendicular to the reaction plane).     ecis1289
+         the observables can be read in any order.                      ecis1290
+
+         polarisation of the target is described in the system of the   ecis1291
+        particle.                                                       ecis1292
+                                                                        ecis1293
+                                                                        ecis1294
+cards read in subroutine redm                                           ecis1295
+******************************                                          ecis1296
+ if lo(7)=.true. or lo(15)=.true.. otherwise go to "cards read in       ecis1297
+ subroutine extp".                                                      ecis1298
+                                                                        ecis1299
+      in the subroutine redm, there is the following do loop:           ecis1300
+          do 16 i1=1,ncoll                                              ecis1301
+          do 15 i2=i1,ncoll                                             ecis1302
+          .........                                                     ecis1303
+       15 continue                                                      ecis1304
+       16 continue                                                      ecis1305
+      inside which must be read:                                        ecis1306
+                                                                        ecis1307
+loop control and number card            format (3i5)                    ecis1308
+****************************                                            ecis1309
+       1- 5   j1 which must be equal to i1. (if not the run is stopped).ecis1310
+       6-10   j2 which must be equal to i2. (if not the run is stopped).ecis1311
+      11-15   k  number of reduced nuclear matrix elements.             ecis1312
+                                                                        ecis1313
+reduced nuclear matrix elements         format (4i5,f20.12)             ecis1314
+*******************************                                         ecis1315
+if k is not 0:                                                          ecis1316
+       1- 5   form factor identification.                               ecis1317
+       6-10   multipolarity. (if triangular relation  or parity is      ecis1318
+                  transgressed the run is stopped). enter l for a       ecis1319
+                  magnetic multipole transition bm(l-1).                ecis1320
+      11-15   2*s where s is the transfer of spin. s can be not 0 even  ecis1321
+                  if lo(7)=.false. (if lo(7)=.true. the run is stopped  ecis1322
+                  when triangular relation is not fulfilled).           ecis1323
+              indication for existence of magnetic multipole coulomb    ecis1324
+                  form factor for the target, with s=0: enter "-1".     ecis1325
+                  this form factor includes no central and no           ecis1326
+                  spin-orbit contribution.                              ecis1327
+      16-20   2*j where j is the transfer of total spin if the value    ecis1328
+                  given for 2*s is not "0" or "-1". in this case the    ecis1329
+                  calculation is stopped if there is not a triangular   ecis1330
+                  relation between l, s and j.                          ecis1331
+              indication for existence of an associated spin-orbit form ecis1332
+                  factor when 2*s is "0": enter "1" if there is one,    ecis1333
+                  "0" or a blank if there is none.                      ecis1334
+      21-40   value. the ratio between a magnetic multipole coulomb     ecis1335
+                  excitation bm(l-1) and an electric one be(l) is       ecis1336
+                  sqrt(bm(l-1)/be(l)) (sqrt(.01106*bm(l-1)/be(l)) if    ecis1337
+                  bm(l-1) is expressed in nuclear magnetons squares.    ecis1338
+        there are k such cards.                                         ecis1339
+                                                                        ecis1340
+    form factor identification                                          ecis1341
+    **************************                                          ecis1342
+      for anharmonic vibrational model: the order of derivative.        ecis1343
+             (from 0 to 3).                                             ecis1344
+      for harmonic vibrational model:                                   ecis1345
+             first order:  k1, number of the phonon is order of input.  ecis1346
+             second order: k1+k2*(nbt1+1)  where k1 and k2 are the      ecis1347
+                 number of the phonons in the order of input, with k2   ecis1348
+                 larger than k1 and nbt1 the total number of phonons.   ecis1349
+                                                                        ecis1350
+      for symmetric rotational model: 1+l where l is the multipolarity  ecis1351
+             multiplied by 1000 plus the identification of the          ecis1352
+
+             vibrational band as in harmonic vibrational model.         ecis1353
+             a l=0 or l=1 vibration term generate a monopole or dipole  ecis1354
+             correction term.                                           ecis1355
+      for asymmetric rotational model: defined as 1000* the "order of   ecis1356
+             deformation". (see "deformations of rotational models").   ecis1357
+                                                                        ecis1358
+      for external form factor model: if the form factor identification ecis1359
+             is blank or zero, an identification is defined in sequence ecis1360
+             a negative value indicates that there is a correction term ecis1361
+             to be added in such a way that the integral of the sum withecis1362
+             r**(l+2) vanishes (l being the angular momentum related to ecis1363
+             this form factor). if the form factor identification is nonecis1364
+             zero, its absolute value must be in sequence or refer to a ecis1365
+             form factor already defined with the same sign.            ecis1366
+                                                                        ecis1367
+  note on reduced matrix elements:  the spin angular description for a  ecis1368
+  ********************************  partial wave with total spin jj and ecis1369
+  with quantum numbers l1 and j1 for the particle, i1 for the target is ecis1370
+  ((i**l1*y(l1) , s1)j1 ,i1)jj. the interaction for the transfer of     ecis1371
+  angular momentum l, of spin s and of total spin j, is the scalar      ecis1372
+  product of a tensor operator q(j)nuclear for the target by the tensor ecis1373
+  product of (i**l*y(l) , q(s)par)j for the particle.                   ecis1374
+    (((l2,s2)j2,i2)jj|(q(l),q(s))j.q(j)|((l1,s1)j1,i1)jj) =             ecis1375
+  (-)**(jj+i2+j1+(l1+l2+l)/2)) * c9j(l2,l1,l,s2,s1,s,j2,j1,j) *         ecis1376
+  c6j(j2,j,j1,i1,jj,i2) * c3j(l1,l,l2,0,0,0) * sqrt((2j+1)*(2l+1)*      ecis1377
+  (2s+1)(2l1+1)*(2l2+1)*(2j1+1)*(2j2+1)) /computed in subroutine quan/  ecis1378
+  * (s2||q(s)||s1)/(2s+1) * (i2||q(j)||i1) * (4*pi)**(-1/2) /which is   ecis1379
+  the reduced nuclear matrix element read here, except for the square   ecis1380
+  root which is included in form factors/.                              ecis1381
+                                                                        ecis1382
+    this matrix element is real and symmetric when the "reduced nuclear ecis1383
+  matrix element" is such that  (s2,i2 || q(s) q(j) ||s1,i1) =          ecis1384
+  (-)**(i2+s2-i1-s1+s+j) * (s1,i1 || q(s) q(j) ||s2,i2). in macroscopic ecis1385
+  models, s=0 and the phase becomes (-)**(i2-i1)*(product of parities). ecis1386
+    a factor i**(-l) must be taken into account in the definition of    ecis1387
+  q(j)nuclear and a phase i introduced for negative parity states.      ecis1388
+    when s=0, (s2|| ||s1) = sqrt(2*s1+1) is computed in subroutine quan ecis1389
+    the factor (2s+1) introduced in quan to use the same reduced matrix ecis1390
+  element when target and particle are exchanged.                       ecis1391
+    for a magnetic multipole coulomb transition bm(l-1), the form factorecis1392
+  is the one of an electric multipole transition be(l) divided by       ecis1393
+  mr(m*c/hbar)**2, where m and mr and mp are atomic and reduced masses  ecis1394
+  respectively.                                                         ecis1395
+                                                                        ecis1396
+                                                                        ecis1397
+cards read in subroutine extp                                           ecis1398
+*****************************                                           ecis1399
+ if (lo(7)=.true., otherwise go to "cards read in subroutine ldis".     ecis1400
+                                                                        ecis1401
+identification                          format (12i5)                   ecis1402
+**************                                                          ecis1403
+       1- 5   l1    level i.                                            ecis1404
+       6-10   l2    level ip.                                           ecis1405
+      11-15   ml    sequence number of the form factor in the table of  ecis1406
+                    reduced nuclear matrix elements between level i and ecis1407
+                    level ip. it must be 0 for potentials. use the      ecis1408
+                    value -ml to enter the correction term to the form  ecis1409
+                    factor read with ml.                                ecis1410
+      16-20   ityp =  1 real volume or scalar potential                 ecis1411
+                      2 imaginary volume or scalar potential            ecis1412
+                      3 real surface or vector potential                ecis1413
+                      4 imaginary surface or vector potential           ecis1414
+
+                      5 real spin-orbit or tensor potential             ecis1415
+                      6 imaginary spin-orbit or tensor potential        ecis1416
+                      7 coulomb potential                               ecis1417
+                      8 coulomb spin-orbit potential                    ecis1418
+      21-25   l1x   non positive or l1 of the form factor to be copied  ecis1419
+                    into the new one.                                   ecis1420
+      26-30   l2x   l2 of the form factor to be copied if l1x is not    ecis1421
+                    positive.                                           ecis1422
+      31-35   mlx   same for ml if l1x is not positive.                 ecis1423
+      36-40   itypx same for ityp if l1x is not positive, must be equal ecis1424
+                    to ityp.                                            ecis1425
+                    negative number for standard form factors with non  ecis1426
+                    positive value of l1x in columns 21-30:             ecis1427
+                        -1  woods-saxon potential.                      ecis1428
+                        -2  first derivative of woods-saxon potential.  ecis1429
+                        -3  second derivative of woods-saxon potential. ecis1430
+                        -4  third derivative of woods-saxon potential.  ecis1431
+            (the n th derivative is always divided by fact(n)*sqrt(4*pi)ecis1432
+                 and multiplied by r**n only if lo(6)=.false.)          ecis1433
+                        -5  deformed woods-saxon potential.             ecis1434
+                        -6  derivative of deformed woods-saxon potentialecis1435
+                        -7  laguerre polynomial.                        ecis1436
+                        -8  solution in real woods-saxon potential.     ecis1437
+                        -9  bessel expansion.                           ecis1438
+                        -10 expansion with laguerre polynomials.        ecis1439
+                    (see below "special meaning of l1x, l2x and mlx ..")ecis1440
+      41-45   nst   channel of which the step size is used (default     ecis1441
+                    value: the channel which uses it for a central      ecis1442
+                    potential, 1 for a transition potential). if nst is ecis1443
+                    negative for a standard form factor with itypx=-1 toecis1444
+                    itypx=-6, use of a reduced radius, taking into      ecis1445
+                    account lo(16) (heavy-ion definition) and lo(6)     ecis1446
+                    (use of deformation lengths).                       ecis1447
+      46-50   nfold 0 for no folding or address of folding parameters   ecis1448
+                    in their list read below. nfold can be different forecis1449
+                    a copied form factor and allows the folding with a  ecis1450
+                    different multipolarity. it can be used with a      ecis1451
+                    form factor given by points.                        ecis1452
+      51-55   nint  if not 0, the strength is the integral of this form ecis1453
+                    factor with r**(l+2) where l is the relevant angularecis1454
+                    momentum. when nint, is a positive number, the      ecis1455
+                    integral with r**(l+1) has to be given; with a      ecis1456
+                    negative integer, the usual strength has to be givenecis1457
+                    and is replaced by this integral at its first       ecis1458
+                    calculation. for spin-orbit potentials, it is the   ecis1459
+                    integral of the form factor without derivation. thisecis1460
+                    strength is of the same sign as the depth of the    ecis1461
+                    standard description. for coulomb potentials, this  ecis1462
+                    strength is the last value multiplied by            ecis1463
+                    (2*l+1)*r**(l+1)/1.43998 . if nst is negative for a ecis1464
+                    form factor copied, input of a multiplication factorecis1465
+                    in next card.                                       ecis1466
+                                                                        ecis1467
+meaning of l1x, l2x and mlx for negative values of itypx (columns 36-40)ecis1468
+************************************************************************ecis1469
+      21-25   l1x   -l1x is the magnetic quantum number of the vibrationecis1470
+                    when itypx=-6.                                      ecis1471
+                    -l1x is the number of nodes when itypx=-7 or -8     ecis1472
+                    (used only when mlx=0 or mlx=1).                    ecis1473
+                    -l1x is the order of derivation of bessel functions ecis1474
+                    or laguerre polynomials when itypx=-9 or -10.       ecis1475
+
+      26-30   l2x   number of deformations when itypx=-5 or -6.         ecis1476
+                    a division factor for the steps in computing bound  ecis1477
+                    function (default value 4) when itypx=-8.           ecis1478
+                    number of bessel functions or laguerre polynomials  ecis1479
+                    when itypx=-9 or -10.                               ecis1480
+      31-35   mlx   angular momentum of the vibration when itypx=-6.    ecis1481
+                    number of bound functions when itypx=-7 or -8:      ecis1482
+                    =0 or 1 for one function with the quantum numbers ofecis1483
+                               the transition,                          ecis1484
+                    =2 for two functions with the same itypx,           ecis1485
+                    =3 when itypx=-8 for a laguerre polynomial for the  ecis1486
+                               second function.                         ecis1487
+                    l-value of bessel functions or laguerre polynomials ecis1488
+                    when itypx=-9 or -10 (default value: angular        ecis1489
+                    momentum of the form factor, enter a negative value ecis1490
+                    to use 0).                                          ecis1491
+  errors in this card stop the program.                                 ecis1492
+                                                                        ecis1493
+  note:  if there is no spin for the particle in all the channels, the  ecis1494
+  ****  spin-orbit potentials (ityp = 5 , 6 and 8) are not read, but    ecis1495
+        they are required as soon as there is at least a non spin-0     ecis1496
+        particle at least for one level. for the transitions with a     ecis1497
+        transfer of spin s which is not zero there are no spin-orbit    ecis1498
+        potentials (no tensor term in dirac formalism). there is a      ecis1499
+        coulomb potential for integral spin transfer even for l=0.      ecis1500
+         volume and surface potentials are read separately except for   ecis1501
+        itypx=-7 and -8. in the dirac formalism itypx=-7 and itypx=-8   ecis1502
+        cannot be used. for magnetic coulomb interaction, only the      ecis1503
+        coulomb potential is read. the form factors with itypx=-5 to -9 ecis1504
+        can be copied only if they involve the same multipolarity. thereecis1505
+        is no limitation for itypx=-7 and -8 if they involve two bound  ecis1506
+        functions. the copied form factors can be folded differently.   ecis1507
+                                                                        ecis1508
+ allowed values of itypx for standard potentials                        ecis1509
+ ***********************************************                        ecis1510
+ *** ml = 0 ******                                                      ecis1511
+ itypx =    -1    -2    -3    -4    -5    -6    -7    -8  -9,-10        ecis1512
+ ityp = 1   yes   no    no    no    yes   no    no    no   yes          ecis1513
+ ityp = 2   yes   no    no    no    yes   no    no    no   yes          ecis1514
+ ityp = 3   yes   no    no    no    yes   no    no    no   yes          ecis1515
+ ityp = 4   yes   no    no    no    yes   no    no    no   yes          ecis1516
+ ityp = 5   yes   no    no    no    yes   no    no    no   yes          ecis1517
+ ityp = 6   yes   no    no    no    yes   no    no    no   yes          ecis1518
+ ityp = 7   yes   no    no    no    yes   no    no    no   yes          ecis1519
+ ityp = 8   yes   no    no    no    yes   no    no    no   yes          ecis1520
+ **** ml is not 0 ****                                                  ecis1521
+ itypx =    -1    -2    -3    -4    -5    -6    -7    -8  -9,-10        ecis1522
+ ityp = 1   yes   yes   yes   yes   yes   yes   yes   yes  yes          ecis1523
+ ityp = 2   yes   yes   yes   yes   yes   yes   yes   yes  yes          ecis1524
+ ityp = 3   yes   yes   yes   yes   yes   yes   no    no   yes          ecis1525
+ ityp = 4   yes   yes   yes   yes   yes   yes   no    no   yes          ecis1526
+ ityp = 5   yes   yes   yes   yes   yes   yes   no    no   yes          ecis1527
+ ityp = 6   yes   yes   yes   yes   yes   yes   no    no   yes          ecis1528
+ ityp = 7   no    yes   yes   yes   yes   yes   no    no   yes          ecis1529
+ ityp = 8   no    yes   yes   yes   yes   yes   no    no   yes          ecis1530
+                                                                        ecis1531
+ number of parameters to store:                                         ecis1532
+            10    10    10    10  11+l2x 13+l2x 11    22   13+l2x       ecis1533
+ there is one more for coulomb potentials and itypx=-1 to -6.           ecis1534
+ there are 5 more parameters for itypx=-7 and mlx=2.                    ecis1535
+ there are 16 or 6 more parameters for itypx=-8 and mlx=2 or mlx=3.     ecis1536
+                                                                        ecis1537
+
+strength and scaling factor             format (7f10.5)                 ecis1538
+***************************                                             ecis1539
+ if itypx is negative go to "parameters of standard form factors".      ecis1540
+ then if l1x is positive go back to "identification" card.              ecis1541
+          1   .true. to allow extrapolation beyond the last point. if itecis1542
+              is .false., values beyond the last point will be 0.       ecis1543
+       2-10   multiplicative factor for the strength (default value 1.).ecis1544
+      11-20   multiplicative factor for the step size (default value 1.)ecis1545
+                                                                        ecis1546
+numerical values of the potentials      format (2(f10.5,f20.10),a4)     ecis1547
+**********************************                                      ecis1548
+       1-10   rext  radius.                                             ecis1549
+      11-30   fext  value at rext.                                      ecis1550
+      31-40   rext  radius.                                             ecis1551
+      41-60   fext  value at rext.                                      ecis1552
+      61-64   last  control word which must be "last" for the last pointecis1553
+       if this control word is not "last" go to next such card.         ecis1554
+  note:  the number of radii and values must be at least 4. if it is    ecis1555
+  ***** the computation is stopped.                                     ecis1556
+         the given radii must be in increasing order and their number   ecis1557
+        even. many points are needed for coulomb potential for which theecis1558
+        extrapolation does not work well. if its depth is given by the  ecis1559
+        integral, (nint not 0), these values describe the charge        ecis1560
+        distribution.                                                   ecis1561
+         the sign of the potentials is the one of their depth when      ecis1562
+        woods-saxon form factors are used for schroedinger equations andecis1563
+        for dirac equation.                                             ecis1564
+         the spin-orbit "central" have to be given as 1/r d/dr(v(r))    ecis1565
+        except if its strength is defined by its integral or is folded. ecis1566
+         the spin-orbit transition potentials have to be given as v(r), ecis1567
+        from which 1/r d/dr(v(r)) and v(r)/r**2 are internally computed.ecis1568
+         the two multiplicative factors only can be in search or changedecis1569
+        if lo(34) was .true. in a previous computation.                 ecis1570
+                                                                        ecis1571
+multiplicative factor                   format (7f10.5)                 ecis1572
+*********************                                                   ecis1573
+ if nint is not negative for a copied form factor go back to            ecis1574
+ "identification" card.                                                 ecis1575
+       1-10   multiplicative factor for the strength (must not be 0.).  ecis1576
+                                                                        ecis1577
+parameters of standard form factors                                     ecis1578
+***********************************                                     ecis1579
+ only if l1x is not positive and itypx is negative, otherwise go to     ecis1580
+ next "identification card".                                            ecis1581
+                                                                        ecis1582
+if itypx=-1 to -6:                                                      ecis1583
+******************                                                      ecis1584
+                                                                        ecis1585
+parameters of the potential             format (7f10.5)                 ecis1586
+***************************                                             ecis1587
+       1-10   depth of potential.                                       ecis1588
+              product of depth and deformation for a transition form    ecis1589
+                  factor.                                               ecis1590
+              product of charges for coulomb potential.                 ecis1591
+              product of charges and deformation for coulomb transition ecis1592
+                  form factor.                                          ecis1593
+      11-20   radius of volume potential.                               ecis1594
+      21-30   diffuseness of volume potential.                          ecis1595
+      31-40   exponentiation factor (the form factor is at the power    ecis1596
+                  1+this value).                                        ecis1597
+
+      41-50   third parameter of a fermi charge distribution for a      ecis1598
+              coulomb potential.                                        ecis1599
+                                                                        ecis1600
+deformations for itypx=-5 or -6         format (7f10.5)                 ecis1601
+*******************************                                         ecis1602
+       1-10   deformation for l=1.                                      ecis1603
+      11-20   deformation for l=2.                                      ecis1604
+      21-30   deformation for l=3.                                      ecis1605
+      31-40   deformation for l=4.                                      ecis1606
+      41-50   .......... and so on up to l2x ....                       ecis1607
+  note:  odd and even deformations are used, starting by l=1.           ecis1608
+  ****  the radii must be values already multiplied by a**(1/3).        ecis1609
+        no check is done on product of charges when they are read or to ecis1610
+        prevent a search on them.                                       ecis1611
+                                                                        ecis1612
+if itypx=-7 or -8:                                                      ecis1613
+******************                                                      ecis1614
+                                                                        ecis1615
+quantum numbers                         format (12i5)                   ecis1616
+***************                                                         ecis1617
+if mlx=0 or mlx=1, the number of nodes is l2x and the quantum numbers   ecis1618
+are those of the transition. in this case, go to next card.             ecis1619
+if mlx=2 or mlx=3:                                                      ecis1620
+       1- 5   np: number of nodes of the first bound function.          ecis1621
+       6-10   lp: angular momentum of the first bound function.         ecis1622
+      11-15   sp: value of 2*s for the first bound function.            ecis1623
+      16-20   jp: value of 2*j for the first bound function.            ecis1624
+      21-25   nh: number of nodes of the second bound function.         ecis1625
+      26-30   lh: angular momentum of the second bound function.        ecis1626
+      31-35   sh: value of 2*s for the second bound function.           ecis1627
+      36-40   jh: value of 2*j for the second bound function.           ecis1628
+      41-45   nvc not 0 to take into account particle-hole coupling     ecis1629
+                  (used only with sp=1 and sh=1).                       ecis1630
+                                                                        ecis1631
+for itypx=-7:                           format (7f10.5)                 ecis1632
+*************                                                           ecis1633
+       1-10   oscillator parameter for the first bound function.        ecis1634
+      11-20   total mass (default value: target mass of first level).   ecis1635
+      21-30   mass of bound particle (default value 1.).                ecis1636
+      31-40   oscillator parameter for the second bound function.       ecis1637
+      41-50   total mass (default value: target mass of first level).   ecis1638
+      51-60   mass of bound particle (default value 1.).                ecis1639
+for mlx=0 or 1 or itypx=-8 with mlx=3, only the three first parameters  ecis1640
+are read. for mlx=2, if the second oscillator parameter is 0., the firstecis1641
+one is copied.                                                          ecis1642
+only, oscillator parameters can be in search or changed if lo(34) was   ecis1643
+.true. in a previous computation.                                       ecis1644
+                                                                        ecis1645
+for itypx=-8:                           format (7f10.5)                 ecis1646
+*************                                                           ecis1647
+       1-10   binding energy. if this value is negative, the bound stateecis1648
+              is replaced by a scattering state normalised to           ecis1649
+              sin(kr+delta) at infinity.                                ecis1650
+      11-20   total mass (default value: target mass of first level).   ecis1651
+      21-30   mass of bound particle (default value 1.).                ecis1652
+      31-40   product of charges.                                       ecis1653
+      41-50   real potential for unbound states or starting value for   ecis1654
+              the search on bound state (default values 35 mev).        ecis1655
+
+      51-60   reduced radius of real potential.                         ecis1656
+      61-70   diffuseness of real potential.                            ecis1657
+                                                                        ecis1658
+on next card:                           format (7f10.5)                 ecis1659
+*************                                                           ecis1660
+       1-10   depth of spin-orbit potential.                            ecis1661
+      11-20   reduced radius of spin-orbit potential.                   ecis1662
+      21-30   diffuseness of spin-orbit potential.                      ecis1663
+      31-40   reduced radius of coulomb potential.                      ecis1664
+for mlx=2, go back to "for itypx=-8:".                                  ecis1665
+for mlx=3, go back to "for itypx=-7:" to read one oscillator parameter. ecis1666
+  note:  reduced radii are used for itypx=-8.                           ecis1667
+  ****  using the product of two bound functions, their coupling to the ecis1668
+        angular momentum of the transition is computed by the code only ecis1669
+        if their spins are both 1/2 and the nuclear matrix element      ecis1670
+        should be the strength of the interaction. for spins not 1/2,   ecis1671
+        this coupling should be included in the nuclear matrix element. ecis1672
+                                                                        ecis1673
+if itypx=-9 or -10:                                                     ecis1674
+*******************                                                     ecis1675
+                                                                        ecis1676
+strengths                               format (7f10.5)                 ecis1677
+*********                                                               ecis1678
+       1-10   strength of the integral with r**(l+2). (for coulomb      ecis1679
+              potentials and couplings, give the description of         ecis1680
+              charge density or transition. the strength must be        ecis1681
+              given. for potentials, it is the product of charges).     ecis1682
+      11-20   for itypx=-9, radial extension of bessel function         ecis1683
+              (default value matching radius).                          ecis1684
+              for itypx=-10, parameter b of laguerre polynomial         ecis1685
+              (default value 1). the potential is sum on n of           ecis1686
+              x**l l(l+1/2,n,x**2) exp(-x**2/2) where x=r/b.            ecis1687
+      21-30   strength of first bessel function/laguerre polynomial.    ecis1688
+      31-40   strength of second bessel function/laguerre polynomial.   ecis1689
+      41-50   strength of third bessel function/laguerre polynomial.    ecis1690
+      51-60   strength of fourth bessel function/laguerre polynomial.   ecis1691
+      61-70   strength of fifth bessel function/laguerre polynomial.    ecis1692
+                                                                        ecis1693
+ eventually, on next card:              format (7f10.5)                 ecis1694
+ *************************                                              ecis1695
+       1-10   strength of sixth bessel function/laguerre polynomial.    ecis1696
+      11-20   strength of seventh bessel function/laguerre polynomial.  ecis1697
+      21-30   .......... and so on up to l2x ....                       ecis1698
+  note:  with bessel function or laguerre polynomial or laguerre, give  ecis1699
+  ****  the spin-orbit v(r) and never 1/r d/dr v(r). the laguerre       ecis1700
+        polynomials are x**l exp(-x**2) l^(l+1/2)_n(2x**2) where x=r/b  ecis1701
+        (unnormalised polynomials as defined in bateman or abramowitz,  ecis1702
+        with a parameter b inverse of the harmonic oscillator parameter)ecis1703
+         the program stops if form factors are missing.                 ecis1704
+                                                                        ecis1705
+folding parameters                      format (7e10.5)                 ecis1706
+******************                                                      ecis1707
+ if the maximum positive value of "nfold" read in columns 46-50 of the  ecis1708
+ identification cards is n, read n times:                               ecis1709
+       1-10   val(25) "v" parameter                                     ecis1710
+      11-20   val(26) "r" parameter                                     ecis1711
+      21-30   val(27) "a" parameter                                     ecis1712
+for explanations, see "cards read in subroutine lect".                  ecis1713
+                                                                        ecis1714
+                                                                        ecis1715
+
+cards read in subroutine ldis                                           ecis1716
+*****************************                                           ecis1717
+ only if lo(10)=.true., otherwise go to "cards read in subroutine disp".ecis1718
+                                                                        ecis1719
+for each potential:                                                     ecis1720
+                                                                        ecis1721
+dispersion parameters (integer)         format (14i5)                   ecis1722
+*******************************                                         ecis1723
+       1- 5   ipp(1)   1 energies in laboratory system, anything for    ecis1724
+                       centre of mass energy.                           ecis1725
+       6-10   ipp(2)   n2 with |n2| power in large negative energy      ecis1726
+                       correction term. for negative value, an          ecis1727
+                       approximation described below is used            ecis1728
+                       (see positive values of nv).                     ecis1729
+      11-15   ipp(3)   nv with |nv| power for volume/scalar potential.  ecis1730
+      16-20   ipp(4)   ns with |ns| power for surface/vector potential. ecis1731
+      21-25   ipp(5)   nl with |nl| power for spin-orbit or tensor      ecis1732
+                       potential. n2, nv, ns and nl must be even.       ecis1733
+      26-30   ipp(6)   0: coefficients computed.                        ecis1734
+                       any other value: coefficients given by the user. ecis1735
+              ipp(1) to ipp(6) are equivalent to pip(1) to pip(3).      ecis1736
+                                                                        ecis1737
+dispersion parameters (floating)        format (7f10.5)                 ecis1738
+********************************                                        ecis1739
+ if ipp(6) is 0 in previous card, otherwise go to "end of do-loop       ecis1740
+ for potentials".                                                       ecis1741
+       1-10   pip(4)   energy for which the imaginary depths are read   ecis1742
+                       (default value: energy of the first level using  ecis1743
+                       this potential).                                 ecis1744
+      11-20   pip(5)   ef fermi energy. (default value -6.8 mev).       ecis1745
+      21-30   pip(6)   ep threshold energy (default value pip(5)=ef).   ecis1746
+      31-40   pip(7)   ea large energy starting value above pip(5)=ef)  ecis1747
+      41-50   pip(8)   avso exponential decrease of real spin-orbit.    ecis1748
+      51-60   pip(9)   awso linear decrease of imaginary spin-orbit.    ecis1749
+      61-70   pip(10)  bv constant for volume or scalar potential.      ecis1750
+                                                                        ecis1751
+next card                               format (7f10.5)                 ecis1752
+*********                                                               ecis1753
+       1-10   pip(11)   alp coefficient of large positive energy term   ecis1754
+                        in volume potential.                            ecis1755
+                        second bv' parameter for volume potentials if   ecis1756
+                        nv<0 (default value 2*bv).                      ecis1757
+      11-20   pip(12)   cv exponential decrease (in |e| for positive    ecis1758
+                        values of cv or in sqrt|e| for negative values) ecis1759
+                        for large energy terms of volume potentials or  ecis1760
+                        fv fraction of the first term if nv<0.          ecis1761
+      21-30   pip(13)   bs constant for surface or vector potential.    ecis1762
+      31-40   pip(14)   cs exponential decrease of a surface potential. ecis1763
+                        second bs' parameter for surface potentials if  ecis1764
+                        ns<0 (default value 2*bw).                      ecis1765
+      41-50   pip(15)   cr non-locality range parameter of surface      ecis1766
+                        potential or fraction in the first term if ns<0.ecis1767
+      51-60   pip(16)   bl constant for spin-orbit or tensor potential. ecis1768
+      61-70   pip(17)   ahf exponential decrease of h.f. real volume    ecis1769
+                        potential.                                      ecis1770
+                                                                        ecis1771
+  note:  there are nine coefficients for dispersion, ww(1) to ww(9),    ecis1772
+  **** computed in subroutine disp and store from wv(14) to wv(22). the ecis1773
+       potentials given been vvr(r), vvi(r), vsr(r), vsi(r), vlr(r) and ecis1774
+       vli(r), the potentials used are:                                 ecis1775
+
+        wvr(r)=vrr(r)*(1+ww(3))+ww(2)*vri(r)     wvi(r)=vvi(r)*(1+ww(1))ecis1776
+        wsr(r)=vsr(r)*(1+ww(6))+ww(5)*vsi(r)     wsi(r)=vsi(r)*(1+ww(4))ecis1777
+        wlr(r)=vlr(r)*(1+ww(9))+ww(8)*vli(r)     wli(r)=vli(r)*(1+ww(7))ecis1778
+       note that ww(6) is zero in the models used in the code.          ecis1779
+       note also that the depths read for the real potentials must be   ecis1780
+       the ones needed at the reference energy, without the dispersive  ecis1781
+       contributions involving the addition of the imaginary form       ecis1782
+       factors and the depths of imaginary potential those needed at    ecis1783
+       the reference energy.                                            ecis1784
+                                                                        ecis1785
+explanation of dispersion parameters:                                   ecis1786
+*************************************                                   ecis1787
+for positive values of nv: the volume imaginary potential at the energy ecis1788
+************************** e is assumed to be such that "v(2*ef-e)=v(e)"ecis1789
+    with "v(e)=v*(e-ef)**nv/((e-ef)**nv+bv**nv)" with addition for      ecis1790
+    e>ef+ea of "alp*[sqrt(e)+.5*sqrt(ef+ea)*(ef+ea-3*e)/e" (usually     ecis1791
+    written "alp*[sqrt(e)+.5*(ef+ea)**(3/2)/e-1.5*sqrt(ef+ea)]") and    ecis1792
+    for e<ef-ea of "-v(e)*(ef-e-ea)**n2/((ef-e-ea)**n2+ea**n2)" where   ecis1793
+    v(e) was given above; for negative values of n2, v(e) is replaced   ecis1794
+    by v(ef-ea) but note that this expression is very different and     ecis1795
+    v(e) should be replaced by v(-infinity) to give a good              ecis1796
+    approximation. these expression can be damped by a factor           ecis1797
+    "exp[-|cv|*sqrt(e-ef-ea)]" if "cv"<0 and "exp[-cv*sqrt(ef-ea-e)]"   ecis1798
+    if "cv">0. the value of "v" is such that this gives the strength    ecis1799
+    of v(e) read (including large positive energy term) at the energy   ecis1800
+    pip(4). the real volume potential with the same geometry, obtained  ecis1801
+    by dispersion relation (as described by c. mahaux and r. sartor in  ecis1802
+    nucl. phys a528 (1991) 253), is added to the real potential.        ecis1803
+for positive values of ns: the surface imaginary potential "w(e)" in theecis1804
+************************** schroedinger formalism is assumed to have theecis1805
+    same energy dependence as "v(e)" given above multiplied by          ecis1806
+    "exp[-cs*|e-ef|-cr*(e-ef)]". the non-locality range parameter "cr"  ecis1807
+    is the inverse of "eb" given by equations (3.17) and (3.18) of      ecis1808
+    c. mahaux and r. sartor in nucl. phys a458 (1986) 25. the real      ecis1809
+    surface potential with the same geometry, obtained by dispersion    ecis1810
+    relation is added to the real potential. there is not the default   ecis1811
+    value cr=.0125 to allow to use 0.                                   ecis1812
+for positive values of nl: the spin-orbit imaginary potential is        ecis1813
+************************** "ls(e)=ls*(e-ef)**nl/((e-ef)**nl+bl**nl)"    ecis1814
+    with the constant "ls" such that "ls(e)" be equal to the strength   ecis1815
+    of the imaginary spin-orbit at the energy pip(4). the real          ecis1816
+    spin-orbit potential with the same geometry, obtained by dispersion ecis1817
+    relation is added to the real potential which is damped by a factor ecis1818
+    "exp[-avso*(e-ef)]".                                                ecis1819
+for negative values of nv: the volume imaginary potential is assumed to ecis1820
+************************** be the sum of two terms similar to "v(e)"    ecis1821
+    used for positive values, with the power |nv| and the parameters bv ecis1822
+    and bv' respectively. the strengths are such that the first term is ecis1823
+    fv times the value read at the energy pip(3).                       ecis1824
+for negative values of ns: the surface imaginary potential is the       ecis1825
+************************** difference of two terms similar to those usedecis1826
+    for positive values of nv, with the power |ns|, the parameters bs,  ecis1827
+    bs' respectively and the same strength.                             ecis1828
+for negative values of nl: the spin-orbit imaginary potential is the    ecis1829
+************************** same as for positive values of nl. the real  ecis1830
+    potential is damped by a factor "exp[-avso*(e-ef)]" but no          ecis1831
+    dispersive contribution is added.                                   ecis1832
+for zero values of nl: the spin-orbit real potential is as for negative ecis1833
+********************** values of nl. the imaginary potential is linear  ecis1834
+    in energy with the coefficient "awso".                              ecis1835
+
+      the vector dispersive potential of the dirac formalism is treated ecis1836
+    as the scalar one without large energy terms.                       ecis1837
+      the powers nv, ns, nl and n2 must be even. input of 0 suppresses  ecis1838
+    the use of dispersion relation for the corresponding potential.     ecis1839
+                                                                        ecis1840
+                                                                        ecis1841
+cards read in subroutine disp                                           ecis1842
+*****************************                                           ecis1843
+ only if lo(10)=.true. and if for a level for which the dispersion      ecis1844
+parameters were read with ipp(6) not 0, otherwise go to "cards read in  ecis1845
+subroutine eval". for each level:                                       ecis1846
+                                                                        ecis1847
+dispersion coefficients                 format (6f10.5)                 ecis1848
+***********************                                                 ecis1849
+       1-10   ww(1)     increase of volume/scalar imaginary potential,  ecis1850
+      11-20   ww(2)     correction to volume/scalar real potential,     ecis1851
+      21-30   ww(3)     increase of volume/scalar real potential,       ecis1852
+      31-40   ww(4)     increase of surface/vector imaginary potential, ecis1853
+      41-50   ww(5)     correction to surface/vector real potential,    ecis1854
+      51-60   ww(6)     increase of surface/vector real potential,      ecis1855
+                                                                        ecis1856
+on next card:                           format (3f10.5)                 ecis1857
+*************                                                           ecis1858
+       1-10   ww(7)     increase of sp-o/tensor imaginary potential,    ecis1859
+      11-20   ww(8)     increase of sp-o/tensor real potential.         ecis1860
+      21-30   ww(9)     correction to sp-o/tensor real potential.       ecis1861
+                                                                        ecis1862
+  note:  such sets of coefficients have to be given for all levels usingecis1863
+  ****  a potential for which ipp(6) is not 0. for a compound continuum ecis1864
+        four such sets for different energies have to be given for      ecis1865
+        interpolation after the following card:                         ecis1866
+                                                                        ecis1867
+energies for interpolation              format (4f10.5)                 ecis1868
+**************************                                              ecis1869
+ energies for which the four following sets of coefficients apply.      ecis1870
+       1-10   en(1)     energy of the first set.                        ecis1871
+      11-20   en(2)     energy of the second set.                       ecis1872
+      21-30   en(3)     energy of the third set.                        ecis1873
+      31-40   en(4)     energy of the fourth set.                       ecis1874
+                                                                        ecis1875
+for a computation changing only energy and some parameters, these data  ecis1876
+must be read again. these data cannot be in search.                     ecis1877
+                                                                        ecis1878
+                                                                        ecis1879
+cards read in subroutine eval                                           ecis1880
+*****************************                                           ecis1881
+   if lo(34)=.true., otherwise go to the beginning of another data set. ecis1882
+                                                                        ecis1883
+number of changes                       format (2l1,i3,i5,f10.5)        ecis1884
+*****************                                                       ecis1885
+          1   lo(34)     .true. for other calls to this subroutine      ecis1886
+                         .false. for the last call.                     ecis1887
+          2   lx         .true. to read another title                   ecis1888
+       3- 5   nin        number of parameters to change.                ecis1889
+       6-10   nex        indication for the use of the values to be readecis1890
+                           >0  increments                               ecis1891
+                           =0  new values                               ecis1892
+                           <0  percentage of increase                   ecis1893
+      11-20   ech        new search scale. (default value 20.)          ecis1894
+                                                                        ecis1895
+
+card 1                                  format (18a4)                   ecis1896
+******                                                                  ecis1897
+if lx=.true.  new title which will be printed as heading of results.    ecis1898
+                                                                        ecis1899
+identifications                         format (14i5)                   ecis1900
+***************                                                         ecis1901
+       1- 5   index of first parameter.                                 ecis1902
+       6-10   index of second parameter.                                ecis1903
+      11-15   ........................                                  ecis1904
+          up to nin values, eventually on other cards, starting in 1-5. ecis1905
+  note:  a negative value is replaced by zero.                          ecis1906
+  ****  index zero is the total energy.                                 ecis1907
+         the other indices are the same as the ones used for search,    ecis1908
+        with the limitations already described.                         ecis1909
+                                                                        ecis1910
+new values                              format (7f10.5)                 ecis1911
+**********                                                              ecis1912
+       1-10   first new parameter.                                      ecis1913
+      11-20   second new parameter.                                     ecis1914
+      21-30   ....................                                      ecis1915
+  if lo(34)=.true. go again to "cards read in subroutine eval".         ecis1916
+  if lo(34)=.false. go to the beginning of next data set.               ecis1917
+  note:  there are different uses of this possibility:                  ecis1918
+  *****  1) as a search stops usually before the minimum, it can be     ecis1919
+        refined by using nex positive and introducing an increment "0." ecis1920
+        for any parameter, in search or not in search.                  ecis1921
+         2) when searching the minimum of the chi2 as a function of someecis1922
+        fixed parameter. the next search starts with the values of the  ecis1923
+        parameters in search obtained in the last search.               ecis1924
+         3) when some result must be obtained for different values of   ecis1925
+        the parameters.                                                 ecis1926
+                                                                        ecis1927
+                                                                        ecis1928
+restart input: cards read in subroutine rest                            ecis1929
+********************************************                            ecis1930
+                                                                        ecis1931
+restart conditions                      format (l1,i4,5x,2f10.5)        ecis1932
+******************                                                      ecis1933
+          1   lo(35)  the only control which can be changed, all the    ecis1934
+              others being those of last run.                           ecis1935
+       2- 5   new maximum number of evaluations.                        ecis1936
+      11-20   new value of ech.                                         ecis1937
+      11-20   new value of rap.                                         ecis1938
+              if they are less than 1., ech or rap are not changed.     ecis1939
+                                                                        ecis1940
+                                                                        ecis1941
+************************************************************************ecis1942
+                                                                        ecis1943
+                              *******************                       ecis1944
+                              *  next data set  *                       ecis1945
+                              *******************                       ecis1946
+                                                                        ecis1947
+      "fin" in columns 1-3 to stop the job without diagnostic.          ecis1948
+                                                                        ecis1949
+       for any trouble, write (and even send listings) to               ecis1950
+     jacques raynal/service de physique theorique/c.e.-saclay           ecis1951
+               91191 gif-sur-yvette cedex/france                        ecis1952
+                                                                        ecis1953
+     fax: (33)(1) 69.08-81-20                                           ecis1954
+     e-mail: raynal@dsm-mail.saclay.cea.fr                              ecis1955
+                                                                        ecis1956

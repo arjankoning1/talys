@@ -1,0 +1,46 @@
+c
+c                      MOM.CMB for TALYS-1.97
+c
+c +---------------------------------------------------------------------
+c | Author: Eric Bauge and Arjan Koning
+c | Date  : December 29, 2033
+c | Task  : File with common blocks for JLM mom routines
+c +---------------------------------------------------------------------
+c
+      integer numjlm
+      parameter (numjlm=200)
+      real*8 al0r,altr,al0i,alti
+      common/momalfs/al0r,altr,al0i,alti
+      real*8 xg,wg,pll
+      integer npgl
+      common/momgl/xg(32),wg(32),pll(32,10),npgl
+      real*8 rhop,rhon,vcoul,rden
+      common/momgsdn/rhop(numjlm),rhon(numjlm),vcoul(numjlm),rden
+      real*8 ac,bc,cc,dhc,fhc,tjlmr,tjlmi,efermi
+      integer icorv,icorw
+      common/momjlms/ac(3,3),bc(3,3),cc(3,3),dhc(4,4),
+     &            fhc(4,4),tjlmr,tjlmi,efermi,icorv,icorw
+      integer kmw
+      common/momkmas/kmw
+      real*8 xlv,xlw
+      common/momlams/xlv,xlw
+      integer lamax
+      common/momlam/lamax
+      integer irel,npts
+      real*8 rmax,h
+      common/mommai1/rmax,h,npts,irel
+      real*8 einc,ak,ecm,zzp,emu,zp,z,a,emp,em
+      common/mommai2/einc,ak,ecm,zzp,emu,zp,z,a,emp,em
+      real*8 pi
+      common/momvpi/pi
+      real*8 vcr,vci,vlsr,vlsi,vcentr,vcenti
+      common/mompots/vcr(numjlm),vci(numjlm),vlsr(numjlm),vlsi(numjlm)
+      common/nonpot1/vcentr(numjlm,10),vcenti(numjlm,10)
+      real*8 rhopi,rhoni
+      common/momrho1/rhopi(numjlm,6),rhoni(numjlm,6)
+      real*8 fr,fi,gr,gi
+      common/momskch/fr(numjlm),fi(numjlm),gr(numjlm),gi(numjlm)
+      real*8 vang,valf
+      common/momvang1/vang(numjlm,32),valf(numjlm,32)
+      integer ilamaxi
+      common/momvcinp/ilamaxi

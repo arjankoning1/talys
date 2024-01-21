@@ -1,0 +1,1491 @@
+#!/bin/bash 
+#
+# Script to plot TALYS and evaluated data libraries with 
+# experimental data using Gnuplot, reaction by reaction
+#
+# Arjan Koning, December 29 2023
+# Cosmetic improvement by Natalia Dzysiuk in 2017
+#
+################################################################################
+# Test input
+################################################################################
+#
+echo $0 $@
+echo
+if [ $# -lt 4 ] || [ $# -gt 30 ] ; then
+  echo "Usage: $0 <projectile> <element> <A> <channel> <optional:isomer> <optional:display> <optional:exp flag> <optional:lib flag>"
+  echo 
+  echo "projectile: n g p d t h a"
+  echo "            Use Uppercase, e.g. N, to include uncertainty bands "
+  echo "element   : element symbol, e.g. Nb, NB, nb, or nB"
+  echo "A         : mass number, e.g. 93 or 093"
+  echo "channel   : reaction channels: tot totlow totlin el non nn nn1...nn9 " 
+  echo "            n2n n3n ng nglow nghigh nf nflow np nplog nd nt nh na nalog nnp nna "
+  echo "            nxg nxn nxp nxd nxt nxh nxa or ZZZAAA of residual "
+  echo "            For other projectiles, use e.g. pn p2n, etc."
+  echo "isomer    : g or m "
+  echo "display   : plot     - plot with Gnuplot [default]"
+  echo "            print    - postcript file with Gnuplot "
+  echo "exp flag  : Eonly    - plot/print only if experimental data available [default]"
+  echo "            Ealways  - plot/print always "
+  echo "lib flag  : Lonly    - plot/print only if library data available "
+  echo "            Lalways  - plot/print always [default]"
+  echo "log flag  : log      - logarhitmic scale "
+  echo "            nolog    - linear scale [default]"
+  echo "maximum   : maximum  - include largest experimental data point "
+  echo "          : nomaximum- use reasonable scales [default]"
+  echo "-Ebeg     : begin energy in MeV "
+  echo "-Eend     : end energy in MeV "
+  echo "-xsbeg    : begin cross section in mb "
+  echo "-xsend    : end cross section in mb "
+  echo "-calc     : directory with calculated cross sections "
+  echo "-libs     : directory with libraries "
+  echo "-newpath  : directory with new nuclear data library files"
+  echo "-calclabel: label for model calculation [default: TALYS]"  
+  echo "-liblabel : label for library [default: This]"  
+  echo "-num      : number of random run"
+  echo "-maxexp   : maximum number of experimental data sets"
+  echo "-maxpoints: maximum number of points per experimental data set "
+  echo "png       : png  - Make png file "
+  echo "          : nopng- do not make png file [default]"
+  echo "quality   : quality  - include quality flag in legend "
+  echo "          : noquality- do not include quality flag in legend [default]"
+  echo "unc       : unc  - include uncertainty band [default] "
+  echo "            nounc- exclude uncertainty band "
+  echo "talys     : talys  - include TALYS calculation [default]"
+  echo "            notalys- exclude TALYS calculation "
+  echo "group     : group - use groupwise data for resonance channels [default]"
+  echo "          : nogroup - do not use groupwise data for resonance channels "
+  echo "high      : high - compare with high energy data libraries "
+  echo "          : nohigh - do not compare with high energy data libraries [default]"
+  echo "large     : large - large fonts [default]"
+  echo "          : small - small fonts "
+  echo "clean     : clean - clean up plot parameter file [default]"
+  echo "          : noclean - do not clean up plot parameter file "
+  echo "noexp     : exclude experimental data"
+  echo "lib       : include nuclear data libraries "
+  echo "nolib     : exclude nuclear data libraries "
+  echo "tendl     : tendl - include TENDL data in plot "
+  echo "          : notendl - do not include TENDL data in plot "
+  echo "tendlprev : tendlprev - include previous TENDL data in plot "
+  echo "          : notendlprev - do not include previous TENDL data in plot "
+  echo "endfb     : endfb - include ENDFB data in plot [default]"
+  echo "          : noendfb - do not include ENDFB data in plot "
+  echo "jendl     : jendl - include JENDL data in plot [default]"
+  echo "          : nojendl - do not include JENDL data in plot "
+  echo "jeff      : jeff - include JEFF data in plot [default]"
+  echo "          : nojeff - do not include JEFF data in plot "
+  echo "cendl     : cendl - include CENDL data in plot [default]"
+  echo "          : nocendl - do not include CENDL data in plot "
+  echo "eaf       : eaf - include EAF data in plot [default]"
+  echo "          : noeaf - do not include EAF data in plot "
+  echo "irdff     : irdff - include IRDFF data in plot [default]"
+  echo "          : noirdff - do not include IRDFF data in plot "
+  echo "ibandl    : ibandl - include IBANDL data in plot [default]"
+  echo "          : noibandl - include IBANDL data in plot "
+  echo "iaea      : iaea - include IAEA data in plot [default]"
+  echo "          : noiaea - do not include IAEA data in plot "
+  echo "new       : new - include new data in plot [default]"
+  echo "          : nonew - include new data in plot "
+  echo "gof       : gof - include goodness-of-fit in title"
+  echo "          : nogof - do not include goodness-of-fit in title [default]"
+  echo "subentry  : legend with subentry instead of author [default:not used]"
+  echo 
+  echo " The first 4 arguments are in fixed order: projectile, element, mass, reaction. "
+  echo " After that the order is arbitrary "
+  echo 
+  echo "Examples  : plot n Nb 93 nn"
+  echo "            plot N Nb 93 non"
+  echo "            plot p Nb 93 pn"
+  echo "            plot p Nb 93 040090"
+  echo "            plot n Nb 93 nn m"
+  echo "            plot n Nb 93 nn m print"
+  echo "            plot n Nb 93 nn m Plot Eonly"
+  echo "            plot n Nb 93 nna Eonly Lonly"
+  echo 
+  exit
+fi
+#
+################################################################################
+# Initialization
+################################################################################
+#
+nuc=( n H  He Li Be B  C  N  O  F  Ne Na Mg Al Si P  S  Cl Ar K  Ca \
+    Sc Ti V  Cr Mn Fe Co Ni Cu Zn Ga Ge As Se Br Kr Rb Sr Y  Zr \
+    Nb Mo Tc Ru Rh Pd Ag Cd In Sn Sb Te I  Xe Cs Ba La Ce Pr Nd \
+    Pm Sm Eu Gd Tb Dy Ho Er Tm Yb Lu Hf Ta W  Re Os Ir Pt Au Hg \
+    Tl Pb Bi Po At Rn Fr Ra Ac Th Pa U  Np Pu Am Cm Bk Cf Es Fm \
+    Md No Lr Rf Db Sg Bh Hs Mt Ds Rg Cn Nh Fl Mc Lv Ts Og B9 C0 C1 C2 C3 C4 )
+proj=$1
+elem=$2
+mass=$3
+chan=$4
+MT=999
+png=0
+Ebegin=-1
+Eendin=-1
+xsbegin=-1
+xsendin=-1
+inlog=-1
+num=-1
+maxexp=-1
+maxpoints=100
+maximum=0
+quality=0
+subentry=0
+uncband=0
+talys=0
+clean=1
+large=0
+endfb=1
+jendl=1
+jeff=1
+cendl=1
+eaf=1
+irdff=1
+ibandl=1
+iaea=1
+new=1
+gof=0
+tendl=1
+tendlprev=0
+group=1
+high=-1
+noexp=0
+lib=0
+nolib=0
+print=0
+branch=0
+isomer=0
+isosym=
+expflag=0
+libflag=1
+calchome=xxx
+libshome=xxx
+newpath=xxx
+calclabel='TALYS'
+liblabel='NEW'
+tplot=1
+#
+################################################################################
+# Process input
+################################################################################
+#
+while [ $# -ge 5 ] ; do
+  case $5 in
+    g) branch=1;isomer=0;isosym=g;shift;;
+    m) branch=1;isomer=1;isosym=m;shift;;
+    n) branch=1;isomer=2;isosym=n;shift;;
+    print) print=1;shift;;
+    plot) print=0;shift;;
+    nopng) png=0;shift;;
+    png) png=1;shift;;
+    -Ebeg)  Ebegin=$6;shift 2;;
+    -Eend)  Eendin=$6;shift 2;;
+    -xsbeg)  xsbegin=$6;shift 2;;
+    -xsend)  xsendin=$6;shift 2;;
+    -calc)  calchome=$6;shift 2;;
+    -libs)  libshome=$6;shift 2;;
+    -newpath)  newpath=$6;shift 2;;
+    -calclabel)  calclabel=$6;shift 2;;
+    -liblabel)  liblabel=$6;shift 2;;
+    -num)  num=$6;shift 2;;
+    -maxexp)  maxexp=$6;shift 2;;
+    -maxpoints)  maxpoints=$6;shift 2;;
+    nolog) inlog=0;shift;;
+    log) inlog=1;shift;;
+    Eonly) expflag=1;shift;;
+    Ealways) expflag=0;shift;;
+    Lonly) libflag=1;shift;;
+    Lalways) libflag=0;shift;;
+    nomaximum) maximum=0;shift;;
+    maximum) maximum=1;shift;;
+    noquality) quality=0;shift;;
+    quality) quality=1;shift;;
+    nounc) uncband=0;shift;;
+    unc) uncband=1;shift;;
+    notalys) talys=0;shift;;
+    talys) talys=1;shift;;
+    nogroup) group=0;shift;;
+    group) group=1;shift;;
+    nohigh) high=0;shift;;
+    high) high=1;shift;;
+    small) large=0;shift;;
+    large) large=1;shift;;
+    noclean) clean=0;shift;;
+    clean) clean=1;shift;;
+    noexp) noexp=1;shift;;
+    lib) lib=1;shift;;
+    nolib) nolib=1;shift;;
+    noendfb) endfb=0;shift;;
+    endfb) endfb=1;shift;;
+    nojendl) jendl=0;shift;;
+    jendl) jendl=1;shift;;
+    nojeff) jeff=0;shift;;
+    jeff) jeff=1;shift;;
+    nocendl) cendl=0;shift;;
+    cendl) cendl=1;shift;;
+    noeaf) eaf=0;shift;;
+    eaf) eaf=1;shift;;
+    noirdff) irdff=0;shift;;
+    irdff) irdff=1;shift;;
+    noibandl) ibandl=0;shift;;
+    ibandl) ibandl=1;shift;;
+    noiaea) iaea=0;shift;;
+    iaea) iaea=1;shift;;
+    nonew) new=0;shift;;
+    new) new=1;shift;;
+    nogof) gof=0;shift;;
+    gof) gof=1;shift;;
+    notendl) tendl=0;shift;;
+    tendl) tendl=1;shift;;
+    notendlprev) tendlprev=0;shift;;
+    tendlprev) tendlprev=1;shift;;
+    subentry) subentry=1;shift;;
+    *)  echo "Option [$5] invalid";exit;;
+  esac
+done
+#
+### Check for target isomer and remove and add leading zeroes for mass
+# 
+echo $mass | grep -i 'm' >> /dev/null
+if [ $? -eq 0 ] ; then
+  tariso=m
+  mass=`echo $mass | sed 's/m//'`
+else
+  echo $mass | grep -i 'n' >> /dev/null
+  if [ $? -eq 0 ] ; then
+    tariso=n
+    mass=`echo $mass | sed 's/n//'`
+  else
+    tariso=
+  fi
+fi
+mass0=`echo $mass | sed 's/^0*//;s/^$/0/'`
+A=`printf "%03d"  $mass0`
+mass=$A$tariso
+if [ $mass0  -eq 0 ] ; then
+  masstar=nat
+else
+  masstar=$mass0$tariso
+fi
+#
+### Produce correct string for element: only first character uppercase
+#   Find Z of target nuclide
+#  
+elem=`echo $elem | tr A-Z a-z | awk '{print toupper(substr($0,1,1))substr($0,2)}'`
+for (( i=1; i<=124; i++ )) ; do
+  if [ $elem == ${nuc[$i]} ] ; then
+    iz=$i
+    continue
+  fi
+done
+#
+### Check for plot with uncertainty bands
+#  
+if [ $uncband -eq 1 ] && [ $talys -eq 1 ] ; then
+  fext=.ave
+  fext2=.ave
+else
+  fext=.tot
+  fext2=
+fi
+if [ $num -ge 0 ] ; then
+  num=`printf "%04d"  $num`
+  fext=.$num
+  subdir='random/'
+else
+  subdir=
+fi
+#
+# Other settings
+#
+if [ $high -eq -1 ] ; then
+  if [ $proj == n ] || [ $proj == g ] ; then
+    high=0
+  else
+    high=1
+  fi
+fi
+if [ $png -eq 1 ] ; then
+  print=1
+fi
+if [ $tplot -eq 0 ] ; then
+  xsdir='xs/'
+  resdir='residual/'
+else
+  xsdir=
+  resdir=
+  talys=1
+  nolib=1
+fi
+if [ $lib -eq 1 ] ; then
+  nolib=0
+fi
+if [ $nolib -eq 1 ] ; then
+  tendl=0
+  tendlprev=0
+  cendl=0
+  endfb=0
+  jendl=0
+  jeff=0
+  eaf=0
+  irdff=0
+  ibandl=0
+  iaea=0
+  new=0
+  libflag=0
+fi
+case $proj in
+  g) cendl=0;jeff=0;eaf=0;irdff=0;ibandl=0;;
+  n) ibandl=0;iaea=0;;
+  p) cendl=0;jeff=0;irdff=0;eaf=0;;
+  d) cendl=0;jeff=0;endfb=0;irdff=0;eaf=0;;
+  t) cendl=0;jeff=0;endfb=0;jendl=0;ibandl=0;irdff=0;eaf=0;;
+  h) cendl=0;jeff=0;endfb=0;jendl=0;ibandl=0;irdff=0;eaf=0;;
+  a) cendl=0;jeff=0;endfb=0;ibandl=0;;
+esac
+#
+# Set projectile properties
+#
+case $proj in
+  g) parZ=0;parN=0;parA=0;particle=Photon;;
+  n) parZ=0;parN=1;parA=1;particle=Neutron;;
+  p) parZ=1;parN=0;parA=1;particle=Proton;;
+  d) parZ=1;parN=1;parA=2;particle=Deuteron;;
+  t) parZ=1;parN=2;parA=3;particle=Triton;;
+  h) parZ=2;parN=1;parA=3;particle=Helium-3;;
+  a) parZ=2;parN=2;parA=4;particle=Alpha;;
+esac
+#
+# Set energy and cross section ranges
+#
+if [ $Ebegin -eq -1 ] ; then
+  if [ $proj == n ] || [ $proj == g ] ; then
+    Ebeg=0.
+  else
+    Ebeg=1.
+  fi
+else
+  Ebeg=$Ebegin
+fi
+if [ $Eendin -eq -1 ] ; then
+  if [ $proj == n ] || [ $proj == g ] ; then
+    Eend=30
+  else
+    Eend=200
+    case $chan in
+      ${proj}n     ) Eend=50;;
+      ${proj}2n    ) Eend=50;;
+      ${proj}3n    ) Eend=50;;
+      ${proj}na    ) Eend=50;;
+      ${proj}np    ) Eend=50;;
+      ${proj}2na   ) Eend=50;;
+      ${proj}n2a   ) Eend=50;;
+      ${proj}nd   ) Eend=50;;
+      ${proj}nt   ) Eend=50;;
+      ${proj}2np  ) Eend=50;;
+      ${proj}2a   ) Eend=50;;
+      ${proj}2p   ) Eend=50;;
+      ${proj}pa   ) Eend=50;;
+      ${proj}t2a  ) Eend=50;;
+      ${proj}n[1-9]) Eend=50;;
+      ${proj}n[1-4]?) Eend=50;;
+      ${proj}g     ) Eend=50;;
+      ${proj}glow  ) Eend=50;;
+      ${proj}ghigh ) Eend=50;;
+      ${proj}p     ) Eend=50;;
+      ${proj}plog  ) Eend=50;;
+      ${proj}d     ) Eend=50;;
+      ${proj}t     ) Eend=50;;
+      ${proj}h     ) Eend=50;;
+      ${proj}a     ) Eend=50;;
+      ${proj}alog  ) Eend=50;;
+    esac
+  fi
+else
+  Eend=$Eendin
+fi
+Ebeglog=0.1
+if [ $proj == n ] ; then
+  Ebeglog=1.e-8
+fi
+if [ $proj == g ] ; then
+  Ebeglog=1.e-8
+fi
+Emin=0.
+Emax=30.
+xsmin=0.
+xsmax=1000
+#
+################################################################################
+# Preparation of paths and plotting parameters 
+################################################################################
+#
+### Set paths for experimental and calculated data
+#
+nuclide=${proj}'/'${elem}${mass}'/'
+Thome=$HOME'/'
+libdir=libraries
+nuchome=${Thome}${libdir}/${nuclide}
+exphome=${nuchome}exfor/
+if [ ! -d $nuchome ] ; then
+  exphome=${Thome}libraries/${nuclide}exfor/
+fi
+exphome=${Thome}exfortables/$nuclide
+if [ ! -d $exphome ] ; then
+  echo 'No EXFOR data in ' $exphome
+fi
+weightsfile=${Thome}tasman/misc/score.tab
+extrema=${Thome}bin/extrema
+if [ $calchome == xxx ] ; then
+# calchome=/Users/koning/drip/${nuclide}tables/
+  calchome=$PWD/
+fi
+if [ $libshome == xxx ] ; then
+  libshome=${Thome}${libdir}/
+fi
+#
+# Test for existence of paths
+#
+if [ ! -d $exphome ] && [ $expflag -eq 1 ] ; then
+  echo $exphome "does not exist"
+  exit
+fi
+if [ ! -d $calchome ] && [ $talys -eq 1 ] ; then
+  echo $calchome "does not exist. Install or use notalys flag"
+  exit
+fi
+if [ ! -d $libshome ] ; then
+  echo $libshome "does not exist"
+  exit
+fi
+#
+### Set paths for specific channel
+#
+expset=
+exp=' '
+#
+### Prepare paths and plotting data for various reaction channels
+#
+mass2=
+elem2=
+calc=
+if [ $inlog -ne -1 ] ; then
+  log=$inlog
+else
+  if [ $Eend -gt 200 ] ; then
+    log=x
+  else
+    log=0
+  fi
+fi
+#
+### Set extensions for reaction plot
+#
+ext=
+if [ $chan == ${proj}glow ] ||  [ $chan == ${proj}flow ] ; then
+  ext=low
+fi
+if [ $chan == ${proj}ghigh ] ; then
+  ext=high
+fi
+if [ $chan == ${proj}plog ] || [ $chan == ${proj}alog ] ; then
+  ext=log
+fi
+major=100
+ejec=x
+reacfile=${proj}-${elem}${mass}
+#
+# Settings for partial cross sections
+#
+case $chan in
+  tot          ) MT=001;                              major=1000;                                                    ;;
+  totlin       ) MT=001;                              major=1000;                                                    ;;
+  totlow       ) MT=001;                              major=1000;                                                    ;;
+  el           ) MT=002;                              major=1000;                                                    ;;
+  non          ) MT=003;                              major=200 ;                                                    ;;
+  ${proj}n     ) MT=004; ejec=n ; reacstring=100000 ; major=200 ; elem2=${nuc[$(( iz + parZ ))]}    ; mass2=$(( mass0 + parA - 1 ));;
+  ${proj}2n    ) MT=016; ejec=2n; reacstring=200000 ; major=200 ; elem2=${nuc[$(( iz + parZ ))]}    ; mass2=$(( mass0 + parA - 2 ));;
+  ${proj}3n    ) MT=017; ejec=3n; reacstring=300000 ; major=200 ; elem2=${nuc[$(( iz + parZ ))]}    ; mass2=$(( mass0 + parA - 3 ));;
+  ${proj}f     ) MT=018; ejec=f ; reacstring=fission; major=200 ; ;;
+  ${proj}flow  ) MT=018; ejec=f ; reacstring=fission; major=200 ; ;;
+  ${proj}na    ) MT=022; ejec=na; reacstring=100001 ; major=20  ; elem2=${nuc[$(( iz + parZ - 2 ))]}; mass2=$(( mass0 + parA - 5 ));;
+  ${proj}2na    ) MT=024; ejec=2na; reacstring=200001 ; major=20  ; elem2=${nuc[$(( iz + parZ - 2 ))]}; mass2=$(( mass0 + parA - 6 ));;
+  ${proj}np    ) MT=028; ejec=np; reacstring=110000 ; major=20  ; elem2=${nuc[$(( iz + parZ - 1 ))]}; mass2=$(( mass0 + parA - 2 ));;
+  ${proj}n2a    ) MT=029; ejec=n2a; reacstring=100002 ; major=20  ; elem2=${nuc[$(( iz + parZ - 4 ))]}; mass2=$(( mass0 + parA - 9 ));;
+  ${proj}nd     ) MT=032; ejec=nd; reacstring=101000 ; major=20  ; elem2=${nuc[$(( iz + parZ - 1 ))]}; mass2=$(( mass0 + parA - 3 ));;
+  ${proj}nt     ) MT=033; ejec=nt; reacstring=100100 ; major=20  ; elem2=${nuc[$(( iz + parZ - 1 ))]}; mass2=$(( mass0 + parA - 4 ));;
+  ${proj}4n     ) MT=037; ejec=4n; reacstring=400000 ; major=200  ; elem2=${nuc[$(( iz + parZ ))]}; mass2=$(( mass0 + parA - 4 ));;
+  ${proj}2np    ) MT=041; ejec=2np; reacstring=210000 ; major=20  ; elem2=${nuc[$(( iz + parZ - 1 ))]}; mass2=$(( mass0 + parA - 3 ));;
+  ${proj}n[1-9]) MT=051;                            major=200 ; elem2=${nuc[$(( iz + parZ ))]}    ; mass2=$(( mass0 + parA - 1 ));;
+  ${proj}n[1-4]?) MT=051;                            major=200 ; elem2=${nuc[$(( iz + parZ ))]}    ; mass2=$(( mass0 + parA - 1 ));;
+  ${proj}g     ) MT=102; ejec=g ; reacstring=000000 ; major=10  ; elem2=${nuc[$(( iz + parZ ))]}    ; mass2=$(( mass0 + parA  ))   ;;
+  ${proj}glow  ) MT=102; ejec=g ; reacstring=000000 ; major=10  ; elem2=${nuc[$(( iz + parZ ))]}    ; mass2=$(( mass0 + parA  ))   ;;
+  ${proj}ghigh ) MT=102; ejec=g ; reacstring=000000 ; major=10  ; elem2=${nuc[$(( iz + parZ ))]}    ; mass2=$(( mass0 + parA  ))   ;;
+  ${proj}p     ) MT=103; ejec=p ; reacstring=010000 ; major=20  ; elem2=${nuc[$(( iz + parZ - 1 ))]}; mass2=$(( mass0 + parA - 1 ));;
+  ${proj}plog  ) MT=103; ejec=p ; reacstring=010000 ; major=20  ; elem2=${nuc[$(( iz + parZ - 1 ))]}; mass2=$(( mass0 + parA - 1 ));;
+  ${proj}d     ) MT=104; ejec=d ; reacstring=001000 ; major=10  ; elem2=${nuc[$(( iz + parZ - 1 ))]}; mass2=$(( mass0 + parA - 2 ));;
+  ${proj}t     ) MT=105; ejec=t ; reacstring=000100 ; major=10  ; elem2=${nuc[$(( iz + parZ - 1 ))]}; mass2=$(( mass0 + parA - 3 ));;
+  ${proj}h     ) MT=106; ejec=h ; reacstring=000010 ; major=10  ; elem2=${nuc[$(( iz + parZ - 2 ))]}; mass2=$(( mass0 + parA - 3 ));;
+  ${proj}a     ) MT=107; ejec=a ; reacstring=000001 ; major=20  ; elem2=${nuc[$(( iz + parZ - 2 ))]}; mass2=$(( mass0 + parA - 4 ));;
+  ${proj}alog  ) MT=107; ejec=a ; reacstring=000001 ; major=20  ; elem2=${nuc[$(( iz + parZ - 2 ))]}; mass2=$(( mass0 + parA - 4 ));;
+  ${proj}2a    ) MT=108; ejec=2a; reacstring=000002 ; major=20  ; elem2=${nuc[$(( iz + parZ - 4 ))]}; mass2=$(( mass0 + parA - 8 ));;
+  ${proj}2p    ) MT=111; ejec=2p; reacstring=020000 ; major=20  ; elem2=${nuc[$(( iz + parZ - 2 ))]}; mass2=$(( mass0 + parA - 2 ));;
+  ${proj}pa    ) MT=112; ejec=pa; reacstring=010001 ; major=20  ; elem2=${nuc[$(( iz + parZ - 3 ))]}; mass2=$(( mass0 + parA - 5 ));;
+  ${proj}t2a   ) MT=113; ejec=t2a; reacstring=000102 ; major=20  ; elem2=${nuc[$(( iz + parZ - 5 ))]}; mass2=$(( mass0 + parA - 11 ));;
+  ${proj}xn     ) MT=201; ejec=xn ; reacstring=nprod ; major=200 ; ;;
+  ${proj}xg     ) MT=202; ejec=xg ; reacstring=gprod ; major=200 ; ;;
+  ${proj}xp     ) MT=203; ejec=xp ; reacstring=pprod ; major=200 ; ;;
+  ${proj}xd     ) MT=204; ejec=xd ; reacstring=dprod ; major=20 ; ;;
+  ${proj}xt     ) MT=205; ejec=xt ; reacstring=tprod ; major=20 ; ;;
+  ${proj}xh     ) MT=206; ejec=xh ; reacstring=hprod ; major=20 ; ;;
+  ${proj}xa     ) MT=207; ejec=xa ; reacstring=aprod ; major=200 ; ;;
+esac
+libMT=$MT
+if [ $masstar == nat ] ; then
+  elem2=
+fi
+reac='('${proj},${ejec}')'
+flagdisc=0
+if [ $MT -le 207 ] ; then
+  if [ $MT -eq 51 ] ; then
+    for (( k=1; k<=40; k++ )) ; do
+      if [ $chan == ${proj}n$k ] ; then
+        MT=`printf "%03d" $(( k + 50 )) `
+        libMT=$MT
+        flagdisc=1
+        disclevel=$k
+        ejec=n
+        major=200
+        break
+      fi
+    done
+  fi
+  endf=${proj}-${elem}${mass}-MT${libMT}
+  reacfile=${reacfile}-MT${MT}
+  expset=${exphome}'xs/'${MT}${isosym}/${proj}*-MT???${isosym}-*.[1-2]*
+fi
+#
+# Settings for total cross section
+#
+if [ ${chan:0:3} == tot ] ; then
+  log=0
+  if [ $inlog -eq -1 ] ; then
+    if [ $chan == tot ] ; then
+      log=xy
+    else
+      log=0
+    fi
+  fi
+  reac='('${proj},tot')'
+  calc=$calchome${xsdir}${subdir}'total'$fext
+fi
+#
+# Settings for elastic cross section
+#
+if [ $chan == el ] ; then
+  reac='('${proj},el')'
+  if [ $inlog -eq -1 ] ; then
+    log=xy
+  fi
+  calc=$calchome${xsdir}${subdir}'elastic'$fext
+fi
+#
+# Settings for nonelastic cross section
+#
+if [ $chan == non ] ; then
+  reac='('${proj},non')'
+  calc=$calchome${xsdir}${subdir}'nonelastic'$fext
+fi
+#
+# Settings for discrete inelastic
+#
+if [ $flagdisc -eq 1 ] ; then
+  for (( k=1; k<=40; k++ )) ; do
+    if [ $k -le 9 ] ; then
+      ll=L0
+    else
+      ll=L
+    fi
+    if [ $chan == ${proj}n$k ] ; then
+      calc=$calchome"${xsdir}${subdir}${proj}n."${ll}${k}$fext2
+      reac='('${proj},n_${k}\'')'
+    fi
+  done
+fi
+if [ $proj == n ] &&  [ $chan == ${proj}n ] ; then
+  ejec=n\'
+fi
+if [ $mass0 -eq 0 ] ; then
+  mass2=
+fi
+#
+### Search paths for experimental and evaluated partial channels
+#
+if [ $MT -ge 4 ] &&  [ $MT -ne 5 ] && [ $MT -le 207 ] && [ $flagdisc -eq 0 ] ; then
+  if [ $branch -eq 0 ] ; then
+    calc=$calchome${xsdir}${subdir}'xs'${reacstring}$fext 
+    if [ $MT -eq 18 ] ; then
+      calc=$calchome${xsdir}${subdir}${reacstring}$fext 
+    fi
+    if [ $MT -ge 201 ] && [ $MT -le 207 ] ; then
+      calc=$calchome${xsdir}${subdir}${reacstring}$fext 
+    fi
+#
+# Consideration of Ground and Isomeric state 
+#
+  else
+    nis=-1
+    for (( lev=0; lev<=40; lev++ )) ; do
+      if [ $lev -le 9 ] ; then
+        ll=L0
+      else
+        ll=L
+      fi
+      f=${calchome}${xsdir}${subdir}xs${reacstring}.${ll}$lev
+      if [ -e $f$fext2 ] ; then
+        nis=$(( nis + 1 ))
+        calc=$f$fext2
+        if [ $isomer -eq 0 ] ; then
+          break
+        fi
+        if [ $isomer -eq 1 ] && [ $nis -eq 1 ] ; then
+          break
+        fi
+      fi
+    done
+    endf=$endf$isosym
+    reacfile=$reacfile$isosym
+    mass2=$mass2$isosym
+    expset=${exphome}'xs/'${MT}${isosym}/${proj}*-MT???${isosym}-*.[1-2]*
+  fi
+fi
+#
+# Residual production cross sections
+#
+flagrp=0
+if [ $chan -eq $chan ] 2>/dev/null ; then
+  flagrp=1
+  reac='('${proj},x')'
+  ZA=$chan
+  ZAr=$ZA$isosym
+  rpdir=$exphome$resdir
+  expset=${exphome}residual/${ZAr}/${proj}*-rp*-*
+  if [ $chan -le 002004 ] ; then
+    case $chan in
+      000000) ejec=g;;
+      000001) ejec=n;;
+      001001) ejec=p;;
+      001002) ejec=d;;
+      001003) ejec=t;;
+      002003) ejec=h;;
+      002004) ejec=a;;
+    esac
+    calc=$calchome${xsdir}${subdir}$ejec'prod'$fext
+    reacfile=${reacfile}-$ejec'prod'
+  else
+    Zr=`expr $chan / 1000`
+    elem2=${nuc[$Zr]}
+    mass2=`expr $chan % 1000`
+    endf=${proj}-${elem}${mass}-rp${ZAr}
+    reacfile=${reacfile}'-rp'$ZAr
+    if [ $MT -gt 0 ] ; then
+      case $MT in
+        004) reac='('${proj},n')';;
+        016) reac='('${proj},2n')';;
+        017) reac='('${proj},3n')';;
+        037) reac='('${proj},4n')';;
+        102) reac='('${proj},g')';;
+        103) reac='('${proj},p')';;
+      esac
+    fi
+    f0=$calchome${resdir}${subdir}'rp'$ZA
+    if [ $branch -eq 0 ] ; then
+      calc=$f0$fext
+    else
+      for (( lev=0; lev<=40; lev++ )) ; do
+        if [ $lev -le 9 ] ; then
+          ll=L0
+        else
+          ll=L
+        fi
+        f=$f0'.'${ll}$lev
+        if [ -e $f ] ; then
+          calc=$f$fext2
+          expset=${exphome}residual/${ZAr}${isosym}/${proj}*-rp??????[m-n]-*.[1-2]*
+          if [ $isomer -eq 0 ] ; then
+            expset=${exphome}residual/${ZAr}g/${proj}*-rp??????g-*.[1-2]*
+            break
+          fi
+        fi
+      done
+      mass2=$mass2$isosym
+    fi
+  fi
+fi
+if [ $flagrp -eq 1 ] ; then
+  dir=residual/
+else
+  dir=xs/
+fi
+#######################################################################
+#
+# Enumeration of experimental data sets and test for their existence
+#
+#######################################################################
+k=0
+if [ -n "$expset" ] ; then
+  for f in `ls $expset 2>/dev/null` ; do
+    k=$(( k + 1 ))
+    expfile0[$k]=$f
+  done
+fi
+numexp=$k
+if [ $expflag -eq 1 ] ; then
+  if [ $numexp -eq 0 ] ; then
+    exit
+  fi
+  if [ $flagrp -eq 1 ] ; then
+    for (( k=1; k<=$numexp; k++ )) ; do
+      extr="`$extrema < ${expfile0[$k]} `"
+      cat > xsm << EOI
+$extr
+EOI
+    done
+    Emin=`sort -g -k1 xsm | head -1 | awk '{print $5}'`
+    rm xsm
+    outside=`echo "$Emin > $Eend" | bc`
+    if [ $outside -eq 1 ] ; then
+      numexp=0
+    fi
+  fi
+  if [ $numexp -eq 0 ] ; then
+    exit
+  fi
+fi
+#
+# Set final files
+#
+if [ $chan == ${proj}g ] || [ $chan == ${proj}glow ] || [ $chan == ${proj}ghigh ] || [ $chan == ${proj}flow ] || [ $chan == ${proj}plog ] || [ $chan == ${proj}alog ] ; then
+  if [ $inlog -eq -1 ] ; then
+    log=xy
+  fi
+fi
+if [ $chan == totlin ] ; then
+  reacfile=$reacfile'-lin'
+fi
+if [ $chan == totlow ] || [ $chan == ${proj}glow ] || [ $chan == ${proj}flow ] ; then
+  reacfile=$reacfile'-low'
+fi
+if [ $chan == ${proj}ghigh ] ; then
+  reacfile=$reacfile'-high'
+fi
+pngfile=$reacfile'.png'
+epsfile=$reacfile'.eps'
+pltfile=$reacfile'.plt'
+minor=`expr $major / 5`
+#
+################################################################################
+# Set ENDF files
+################################################################################
+#
+cat > dum << EOI
+999.9 1.e-10
+999.99 1.e-10
+EOI
+for (( k=0; k<=9; k++ )) ; do
+  file[$k]=dum
+  lib[$k]=
+  unc[$k]=0
+done
+if [ $uncband -eq 1 ] ; then
+  k=2
+  k0=3
+else
+  k=0
+  k0=1
+fi
+kbeg=$k
+if [ $print -eq 1 ] ; then
+  width=6
+else
+  width=4
+fi
+libfile=$libshome$proj'/'$elem$mass'/'
+endfgroup=${endf}'-G1102'
+if [ $jeff -eq 1 ] ; then
+  jefffile=$libfile'jeff3.3/tables/'$dir${endfgroup}.jeff3.3
+  if [ ! -e $jefffile ] ; then
+    jefffile=$libfile'jeff3.3/tables/'$dir${endf}.jeff3.3
+  fi
+  if [ -e $jefffile ] ; then
+    k=$(( k + 1 ))
+    file[$k]=$jefffile
+    lib[$k]=JEFF-3.3
+    lt[$k]=2
+    lw[$k]=$width
+    lc[$k]="red" # red
+  fi
+fi
+if [ $jendl -eq 1 ] ; then
+  jendlfile=$libfile'jendl5.0/tables/'$dir${endfgroup}.jendl5.0
+  if [ ! -e $jendlfile ] ; then
+    jendlfile=$libfile'jendl5.0/tables/'$dir${endf}.jendl5.0
+  fi
+  if [ -e $jendlfile ] ; then
+    k=$(( k + 1 ))
+    file[$k]=$jendlfile
+    lib[$k]=JENDL-5.0
+    lt[$k]=3
+    lw[$k]=$width
+    lc[$k]="green" # green 
+  fi
+fi
+if [ $endfb -eq 1 ] ; then
+  endfbfile=$libfile'endfb8.0/tables/'$dir${endfgroup}.endfb8.0
+  if [ ! -e $endfbfile ] ; then
+    endfbfile=$libfile'endfb8.0/tables/'$dir${endf}.endfb8.0
+  fi
+  if [ -e $endfbfile ] ; then
+    k=$(( k + 1 ))
+    file[$k]=$endfbfile
+    lib[$k]=ENDF/B-VIII
+    lt[$k]=4
+    lw[$k]=$width
+    lc[$k]="blue" # blue
+  fi
+fi
+if [ $cendl -eq 1 ] ; then
+  cendlfile=$libfile'cendl3.2/tables/'$dir${endfgroup}.cendl3.2
+  if [ ! -e $cendlfile ] ; then
+    cendlfile=$libfile'cendl3.2/tables/'$dir${endf}.cendl3.2
+  fi
+  if [ -e $cendlfile ] ; then
+    k=$(( k + 1 ))
+    file[$k]=$cendlfile
+    lib[$k]=CENDL-3.2
+    lt[$k]=5
+    lw[$k]=$width
+    lc[$k]="yellow" # yellow
+  fi
+fi
+if [ $eaf -eq 1 ] ; then
+  eaffile=$libfile'eaf.2010/tables/'$dir${endfgroup}.eaf.2010
+  if [ ! -e $eaffile ] ; then
+    eaffile=$libfile'eaf.2010/tables/'$dir${endf}.eaf.2010
+  fi
+  if [ -e $eaffile ] ; then
+    k=$(( k + 1 ))
+    file[$k]=$eaffile
+    lib[$k]=EAF-2010 
+    lt[$k]=6
+    lw[$k]=$width
+    lc[$k]="brown" # brown
+  fi
+fi
+if [ $irdff -eq 1 ] ; then
+  irdffile=$libfile'irdff2.0/tables/'$dir${endfgroup}.irdff2.0
+  if [ ! -e $irdfffile ] ; then
+    irdffile=$libfile'irdff2.0/tables/'$dir${endf}.irdff2.0
+  fi
+  if [ -e $irdffile ] ; then
+    k=$(( k + 1 ))
+    file[$k]=$irdffile
+    lib[$k]=IRDFF-2.0
+    lt[$k]=7
+    lw[$k]=$width
+    lc[$k]="#808080" # gray
+  fi
+fi
+if [ $ibandl -eq 1 ] ; then
+  ibandlfile=$libfile'ibandl/tables/'$dir${endf}.ibandl
+  if [ -e $ibandlfile ] ; then
+    k=$(( k + 1 ))
+    file[$k]=$ibandlfile
+    lib[$k]=IBANDL
+    lt[$k]=2
+    lw[$k]=$width
+    lc[$k]="#FF1493" # deep pink
+  fi
+fi
+if [ $iaea -eq 1 ] ; then
+  iaeafile=$libfile'iaea.2022/tables/'$dir${endf}.iaea.2022
+  if [ ! -e $iaeafile ] || [ $proj == g ] ; then
+    iaeafile=$libfile'iaea.pd/tables/'$dir${endf}.iaea.pd
+  fi
+  if [ -e $iaeafile ] ; then
+    k=$(( k + 1 ))
+    file[$k]=$iaeafile
+    lib[$k]=IAEA
+    lt[$k]=3
+    lw[$k]=$width
+    lc[$k]="cyan" # cyan
+  fi
+fi
+if [ $tendl -eq 1 ] ; then
+  tendlfile=$libfile'tendl.2023/tables/'$dir${endfgroup}.tendl.2023
+  if [ ! -e $tendlfile ] ; then
+    tendlfile=$libfile'tendl.2023/tables/'$dir${endf}.tendl.2023
+  fi
+  if [ -e $tendlfile ] ; then
+    k=$(( k + 1 ))
+    file[$k]=$tendlfile
+    lib[$k]=TENDL-2023
+    if [ $talys -eq 1 ] || [ $newpath != xxx ] ; then
+      lt[$k]=8
+      lw[$k]=$width
+      lc[$k]="orange" # orange
+    else
+      lt[$k]=1
+      lw[$k]=$width
+      lc[$k]="black" # black
+    fi
+    if [ $uncband -eq 1 ] ; then
+      grep 'columns: 4' $tendlfile  >>  /dev/null
+      if [ $? -eq 0 ] ; then
+        unc[$k]=1
+      fi
+    fi
+  fi
+fi
+if [ $tendlprev -eq 1 ] ; then
+  tendlprevfile=$libfile'tendl.2021/tables/'$dir${endfgroup}.tendl.2021
+  if [ ! -e $tendlprevfile ] ; then
+    tendlprevfile=$libfile'tendl.2021/tables/'$dir${endf}.tendl.2021
+  fi
+  if [ -e $tendlprevfile ] ; then
+    k=$(( k + 1 ))
+    file[$k]=$tendlprevfile
+    lib[$k]=TENDL-2021
+    if [ $talys -eq 1 ] || [ $newpath != xxx ] ; then
+      lt[$k]=8
+      lw[$k]=$width
+      lc[$k]="orange" # orange
+    else
+      lt[$k]=1
+      lw[$k]=$width
+      lc[$k]="orange" # orange
+    fi
+    if [ $uncband -eq 1 ] ; then
+      grep 'columns: 4' $tendlprevfile  >>  /dev/null
+      if [ $? -eq 0 ] ; then
+        unc[$k]=1
+      fi
+    fi
+  fi
+fi
+if [ $new -eq 1 ] ; then
+  newfile=${newpath}${endfgroup}.tendl
+  if [ ! -e $newfile ] ; then
+    newfile=${newpath}${endf}.tendl
+  fi
+  if [ -e $newfile ] ; then
+    k=$(( k + 1 ))
+    file[$k]=$newfile
+    lib[$k]=$liblabel
+    if [ $talys -eq 1 ] ; then
+      lt[$k]=9
+      lw[$k]=$width
+      lc[$k]="magenta" # magenta
+    else
+      lt[$k]=1
+      lw[$k]=$width
+      lc[$k]="black" # black
+    fi
+  fi
+fi
+numfile=$k
+#
+# Test if there are any libraries
+#
+if [ $libflag -eq 1 ] && [ $numfile -eq $kbeg ] && [ $tplot -eq 0 ] ; then
+  rm dum
+  exit
+fi
+if [ $gof -eq 1 ] && [ -e gof.opt ] ; then
+  gof1='GOF='
+  gof2=`tail -1 gof.opt | colrm 1 53 ` 
+  gof3=`echo $gof2 | colrm 13 ` 
+  gof4=`printf "%6.3f" $gof3`
+  gofstring=`echo $gof1   $gof4`
+else
+  gofstring=
+fi
+#
+# Make list of libraries
+#
+datafiles=
+for (( k=$k0; k<=$numfile; k++ )) ; do
+  datafiles=`echo $datafiles ${file[$k]}`
+done
+#
+# Determine maximal and minimal cross section for plotting
+#
+if [ $talys -eq 1 ] && [ -n "$calc" ] ; then
+  extr="`$extrema < $calc`"
+  cat > xsm << EOI
+  $extr
+EOI
+fi
+for (( k=$k0; k<=$numfile; k++ )) ; do
+  extr="`$extrema < ${file[$k]} `"
+  cat >> xsm << EOI
+$extr
+EOI
+done
+if [ $maximum -eq 1 ] ; then
+  for f in `ls $expset 2>/dev/null` ; do
+    extr="`$extrema < $f `"
+    cat >> xsm << EOI
+$extr
+EOI
+  done
+fi
+if [ -e xsm ] ; then
+  Emin=`sort -g -k1 xsm | head -1 | awk '{print $1}'`
+  Emax=`sort -g -k2 xsm | tail -1 | awk '{print $2}'`
+  xsmin=`sort -g -k3 xsm | head -1 | awk '{print $3}'`
+  xsmax=`sort -g -k4 xsm | tail -1 | awk '{print $4}'`
+  if [ $chan == np ] || [ $chan == na ] ; then
+    xsmax=`sort -g -k6 xsm | tail -1 | awk '{print $6}'`
+  fi
+  rm xsm
+fi
+if [ $log != 0 ] ; then
+  if [ $xsmin == 0. ] ; then
+    xsmin=$ymin
+  fi
+  if [ $mass0 -le 60 ] && [ $mass -ne 0 ] ;then
+    xstotbeg=100.
+    ymin=0.01
+    ycbeg=1.
+    ycend=1000.
+  else
+    xstotbeg=1000.
+    ymin=0.1
+    ycbeg=0.1
+    ycend=10000.
+  fi
+  if [ $mass0 -le 40 ] && [ $mass -ne 0 ] ;then
+    ymin=0.01
+    ycbeg=0.0001
+    ycend=100.
+  fi
+  if [ $mass0 -le 20 ] && [ $mass -ne 0 ] ;then
+    ymin=0.0001
+    ycbeg=0.0001
+    ycend=100.
+  fi
+  if [ $proj != n ] && [ $chan == ${proj}g ] ; then
+    ymin=0.0001
+  fi
+  format=10^{%L}
+else
+  ymin=0.
+  format=%.0f
+fi
+if [ $proj == n ] ; then
+  discend=8
+else
+  discend=20
+fi
+#
+# Gnuplot Font sizes for reactions
+#
+pointsize='1.2'
+if [ $large -eq 1 ] ; then
+  offset=-2
+  labelfont=30
+  keyfont=25
+  supersize=20 
+  ejecsize=35 
+  titlesize=35 
+  numbersize=30
+  gamma='{/=30{/Symbol g}}'
+  alpha='{/=30{/Symbol a}}'
+  if [ $maxexp -eq -1 ] ; then
+    maxexp=6
+  fi
+else
+  offset=0
+  labelfont=18
+  keyfont=16
+  supersize=14 
+  ejecsize=25 
+  titlesize=25 
+  numbersize=21
+  gamma='{/=22{/Symbol g}}'
+  alpha='{/=22{/Symbol a}}'
+  if [ $maxexp -eq -1 ] ; then
+    maxexp=20
+  fi
+fi
+if [ $noexp -eq 1 ] ; then
+  maxexp=0
+fi
+#
+# Settings per channel
+#
+actual_ejec=x
+case $chan in
+  tot          ) xbeg=$Ebeglog; ybeg=$xstotbeg; xend=$Emax; yend=$xsmax;legend=right;actual_ejec={/=${ejecsize}{tot}};;
+  el           ) xbeg=$Ebeglog; ybeg=$xstotbeg; xend=$Emax; yend=$xsmax;legend=right;actual_ejec={/=${ejecsize}{el}};;
+  totlin       ) xbeg=$Ebeg   ; ybeg=1000.; xend=$Eend; yend=7000. ;legend=right;actual_ejec={/=${ejecsize}{tot}};;
+  totlow       ) xbeg=$Ebeg   ; ybeg=$xsmin; xend=5.   ; yend=10000.;legend=right;actual_ejec={/=${ejecsize}{tot}};;
+  non          ) xbeg=$Ebeg   ; ybeg=$xsmin; xend=$Eend; yend=$xsmax;legend=right;actual_ejec={/=${ejecsize}{non}};;
+  ${proj}n     ) xbeg=$Ebeg   ; ybeg=$xsmin; xend=$Eend; yend=$xsmax;legend=right;actual_ejec={/=${ejecsize}{n}};;
+  ${proj}2n    ) xbeg=$Emin   ; ybeg=$ymin ; xend=$Eend; yend=$xsmax;legend=left ;actual_ejec={/=${numbersize}{2}}{/=${ejecsize}{n}};;
+  ${proj}3n    ) xbeg=$Emin   ; ybeg=$ymin ; xend=$Eend; yend=$xsmax;legend=left ;actual_ejec={/=${numbersize}{3}}{/=${ejecsize}{n}};;
+  ${proj}f     ) xbeg=$Ebeg   ; ybeg=$xsmin; xend=$Emax; yend=$xsmax;legend=left ;actual_ejec={/=${ejecsize}{f}};;
+  ${proj}flow  ) xbeg=$Ebeglog; ybeg=1.    ; xend=1.   ; yend=10000.  ;legend=right;actual_ejec={/=${ejecsize}{f}};;
+  ${proj}na    ) xbeg=$Emin   ; ybeg=$ymin ; xend=$Eend; yend=$xsmax;legend=left ;actual_ejec={/=${ejecsize}{n}}${alpha};;
+  ${proj}np    ) xbeg=$Emin   ; ybeg=$ymin ; xend=$Eend; yend=$xsmax;legend=left ;actual_ejec={/=${ejecsize}{np}};;
+  ${proj}2na   ) xbeg=$Emin   ; ybeg=$ymin ; xend=$Eend; yend=$xsmax;legend=left ;actual_ejec={/=${numbersize}{2}}{/=${ejecsize}{n}}${alpha};;
+  ${proj}n2a   ) xbeg=$Emin   ; ybeg=$ymin ; xend=$Eend; yend=$xsmax;legend=left ;actual_ejec={/=${ejecsize}{n}}{/=${numbersize}{2}}${alpha};;
+  ${proj}nd   ) xbeg=$Emin   ; ybeg=$ymin ; xend=$Eend; yend=$xsmax;legend=left ;actual_ejec={/=${ejecsize}{nd}};;
+  ${proj}nt   ) xbeg=$Emin   ; ybeg=$ymin ; xend=$Eend; yend=$xsmax;legend=left ;actual_ejec={/=${ejecsize}{nt}};;
+  ${proj}4n   ) xbeg=$Emin   ; ybeg=$ymin ; xend=$Eend; yend=$xsmax;legend=left ;actual_ejec={/=${numbersize}{4}}{/=${ejecsize}{n}};;
+  ${proj}2np  ) xbeg=$Emin   ; ybeg=$ymin ; xend=$Eend; yend=$xsmax;legend=left ;actual_ejec={/=${numbersize}{2}}{/=${ejecsize}{np}};;
+  ${proj}2a   ) xbeg=$Emin   ; ybeg=$ymin ; xend=$Eend; yend=$xsmax;legend=left ;actual_ejec={/=${numbersize}{2}}${alpha};;
+  ${proj}2p   ) xbeg=$Emin   ; ybeg=$ymin ; xend=$Eend; yend=$xsmax;legend=left ;actual_ejec={/=${numbersize}{2}}{/=${ejecsize}{p}};;
+  ${proj}pa   ) xbeg=$Emin   ; ybeg=$ymin ; xend=$Eend; yend=$xsmax;legend=left ;actual_ejec={/=${ejecsize}{p}${alpha};;
+  ${proj}t2a  ) xbeg=$Emin   ; ybeg=$ymin ; xend=$Eend; yend=$xsmax;legend=left ;actual_ejec={/=${ejecsize}{t}}{/=${numbersize}{2}}${alpha};;
+  ${proj}n[1-9]) xbeg=$Ebeg   ; ybeg=$ymin ; xend=$discend   ; yend=$xsmax;legend=right; log=0;actual_ejec={/=${ejecsize}{n$disclevel}};;
+  ${proj}n[1-4]?) xbeg=$Ebeg   ; ybeg=$ymin ; xend=$discend   ; yend=$xsmax;legend=right; log=0;actual_ejec={/=${ejecsize}{n$disclevel}};;
+# ${proj}g     ) xbeg=$Ebeglog; ybeg=$ymin ; xend=$Eend; yend=`echo "3 * $xsmax" | bc`;legend=right;actual_ejec=${gamma};;
+  ${proj}g     ) xbeg=$Ebeglog; ybeg=$ymin ; xend=$Eend; yend=`expr $xsmax*3 `;legend=right;actual_ejec=${gamma};;
+  ${proj}glow  ) xbeg=0.001   ; ybeg=$ycbeg ; xend=1.   ; yend=$ycend  ;legend=right;actual_ejec=${gamma};;
+  ${proj}ghigh ) xbeg=0.01   ; ybeg=0.1   ; xend=30.   ; yend=1000.  ;legend=right;actual_ejec=${gamma};;
+  ${proj}p     ) xbeg=$Ebeg   ; ybeg=$xsmin; xend=$Eend; yend=$xsmax;legend=left ;actual_ejec={/=${ejecsize}{p}};;
+  ${proj}plog  ) xbeg=$Ebeglog; ybeg=$ymin ; xend=$Eend; yend=$xsmax;legend=right;actual_ejec={/=${ejecsize}{p}};;
+  ${proj}d     ) xbeg=$Emin   ; ybeg=$ymin ; xend=$Eend; yend=$xsmax;legend=left ;actual_ejec={/=${ejecsize}{d}};;
+  ${proj}t     ) xbeg=$Emin   ; ybeg=$ymin ; xend=$Eend; yend=$xsmax;legend=left ;actual_ejec={/=${ejecsize}{t}};;
+  ${proj}h     ) xbeg=$Emin   ; ybeg=$ymin ; xend=$Eend; yend=$xsmax;legend=left ;actual_ejec={/=${ejecsize}{h}};;
+  ${proj}a     ) xbeg=$Ebeg   ; ybeg=$xsmin; xend=$Eend; yend=$xsmax;legend=left ;actual_ejec=${alpha};;
+  ${proj}alog  ) xbeg=$Ebeglog; ybeg=$ymin ; xend=$Eend; yend=$xsmax;legend=right;actual_ejec=${alpha};;
+  ${proj}xg    ) xbeg=$Ebeg   ; ybeg=$xsmin; xend=$Eend; yend=$xsmax  ;legend=left ;actual_ejec=x${gamma};;
+  ${proj}xn    ) xbeg=$Ebeg   ; ybeg=$xsmin; xend=$Eend; yend=$xsmax  ;legend=left ;actual_ejec=x{/=${ejecsize}{n}};;
+  ${proj}xp    ) xbeg=$Ebeg   ; ybeg=$xsmin; xend=$Eend; yend=$xsmax  ;legend=left ;actual_ejec=x{/=${ejecsize}{p}};;
+  ${proj}xd    ) xbeg=$Ebeg   ; ybeg=$xsmin; xend=$Eend; yend=$xsmax  ;legend=left ;actual_ejec=x{/=${ejecsize}{d}};;
+  ${proj}xt    ) xbeg=$Ebeg   ; ybeg=$xsmin; xend=$Eend; yend=$xsmax  ;legend=left ;actual_ejec=x{/=${ejecsize}{t}};;
+  ${proj}xh    ) xbeg=$Ebeg   ; ybeg=$xsmin; xend=$Eend; yend=$xsmax  ;legend=left ;actual_ejec=x{/=${ejecsize}{h}};;
+  ${proj}xa    ) xbeg=$Ebeg   ; ybeg=$xsmin; xend=$Eend; yend=$xsmax  ;legend=left ;actual_ejec=x${alpha};;
+esac
+if [ $flagrp -eq 1 ] ; then
+  xbeg=$Ebeg
+  iE=$( printf "%.0f" $Emin )
+  if [ $iE  -ge 10 ] ; then
+    xbeg=10
+  fi
+  if [ $iE  -ge 100 ] ; then
+    xbeg=100
+  fi
+  ybeg=$ymin
+  xend=$Eend
+  yend=$xsmax
+  legend=left
+fi
+if [ $Ebegin -ne -1 ] ; then
+  xbeg=$Ebegin
+fi
+if [ $Eendin -ne -1 ] ; then
+  xend=$Eendin
+fi
+if [ $xsbegin -ne -1 ] ; then
+  ybeg=$xsbegin
+fi
+if [ $xsendin -ne -1 ] ; then
+  yend=$xsendin
+fi
+#
+################################################################################
+# Create GNUPLOT parameter file
+################################################################################
+#
+# Set ranges
+#
+# Identify experimental data sets (EXFOR)
+#
+decb[1]=1930
+dece[1]=1950
+color[1]="black" # black
+decb[2]=1950
+dece[2]=1960
+color[2]="#00008B" # dark blue
+decb[3]=1960
+dece[3]=1965
+color[3]="#4B0082" # indigo
+decb[4]=1965
+dece[4]=1970
+color[4]="#9400D3" # dark violet
+decb[5]=1970
+dece[5]=1975
+color[5]="blue"
+decb[6]=1975
+dece[6]=1980
+color[6]="#00BFFF" # deep sky blue
+decb[7]=1980
+dece[7]=1985
+color[7]="#32CD32" # lime green
+decb[8]=1985
+dece[8]=1990
+color[8]="#00FF00" # lime
+decb[9]=1990
+dece[9]=1995
+color[9]="cyan"
+decb[10]=1995
+dece[10]=2000
+color[10]="magenta"
+decb[11]=2000
+dece[11]=2005
+color[11]="#FF1493" # deep pink
+decb[12]=2005
+dece[12]=2010
+color[12]="orange" # orange
+decb[13]=2010
+dece[13]=2015
+color[13]="#FF4500" # orange red
+decb[14]=2015
+dece[14]=2025
+color[14]="red" # red
+Ndec=14
+for (( k=1; k<=$numexp; k++ )) ; do
+  lcp[$k]=white
+  pt[$k]=$k
+done
+#
+# Sort exp data sets by year and filter for too many points
+#
+i=0
+for (( idec=$Ndec; idec>=1; idec-- )) ; do
+  for (( k=1; k<=$numexp; k++ )) ; do
+    yy=`grep '#   year' ${expfile0[$k]} | awk '{print $3}'`
+    if [ $yy -gt ${decb[idec]} ] && [ $yy -le ${dece[idec]} ] ; then
+      i=$(( i + 1 ))
+      expfile[$i]=${expfile0[$k]}
+      subE[$i]=`grep '#   subentry' ${expfile0[$k]} | awk '{print $3}'`
+      author[$i]=`grep -m 1 '#   author' ${expfile0[$k]} | awk '{print $3}'`
+      qual[$i]=`grep '#   quality' ${expfile0[$k]} | colrm 1 21 | awk '{print $3}'`
+      year[$i]=$yy
+      lcp[$i]=${color[idec]}
+      pt[$i]=$i
+      if [ -e $weightsfile ] ; then
+        subEE=${subE[$i]}
+        weight=`grep -m 1 $subEE $weightsfile | awk '{print $2}'`
+        if [ -z $weight ] ; then
+          weight=1
+        fi
+        qual[$i]=' W'$weight
+      fi
+      Npoints=`cat ${expfile0[$k]} | grep -v '^#' | wc -l`
+      if [ $Npoints -le $maxpoints ] ; then
+        every[$i]=''
+      else
+        step=`expr $Npoints / $maxpoints`
+        every[$i]='every '$step
+      fi
+    fi
+  done 
+  if [ $i -ge $maxexp ] ; then
+    numexp=$maxexp
+    continue
+  fi
+  if [ $i -ge $numexp ] ; then
+    continue
+  fi
+  lcp[$(( i + 1 ))]=white
+  pt[$(( i + 1 ))]=$i
+done
+#
+####################################################
+# 
+# Gnuplot parameter file
+#
+####################################################
+cat > $pltfile << EOI
+#
+# Gnuplot style file generated by 'plot' script, Arjan Koning, August 6 2023
+#
+# Axis labels
+#
+set xlabel "Incident $particle Energy [MeV]" font ",${labelfont}"
+set ylabel "Cross section [mb]" font ",${labelfont}" offset $offset
+set bmargin 5
+EOI
+####################################################
+#
+# Defining the right format of title for every channel
+#
+actual_proj=${proj}
+if [ ${proj} == g ] ; then
+  actual_proj=$gamma
+fi
+if [ ${proj} == a ] ; then
+  actual_proj=$alpha
+fi
+#
+# Title
+#
+  cat >> $pltfile << EOI
+set title "^{/=${supersize} ${masstar}}${elem}(${actual_proj},${actual_ejec})^{/=${supersize} ${mass2}}${elem2}     ${gofstring}" font ",${titlesize}"  
+EOI
+cat >> $pltfile << EOI
+#
+# Size of points and tics
+#
+set pointsize $pointsize
+set xtics font "Times-Roman, ${labelfont}" 
+set ytics font "Times-Roman, ${labelfont}"
+#
+# Axis format  
+#
+set format x "%G"
+set format y "%G"
+#
+# Legend location  
+#
+set key font ",${keyfont}"
+set key top right 
+EOI
+if [ $legend == left ] ; then
+  set key left top reverse
+else
+   set key right top spacing 1.5 font "Times-Roman, 45"
+fi
+if [ $print -eq 1 ] ; then
+  cat >> $pltfile << EOI
+# 
+set term postscript enhanced font "Times-Roman,16" color
+set output "${epsfile}"
+#
+EOI
+else
+  cat >> $pltfile << EOI
+#
+# Position, size and terminal
+#
+set size 0.95,0.95
+set object 1 rectangle from screen 0,0 to screen 1,1 fillcolor rgb "white" behind
+set terminal x11 enhanced
+EOI
+fi
+#
+# if the scale is log then ---> "scientific type" 
+#
+if [ $log == xy ] ; then
+  cat >> $pltfile << EOI
+set logscale xy
+set format x "10^{%L}"
+set format y "10^{%L"
+#
+set logscale
+set format x "%G"
+set format y "10^{%L}"
+EOI
+fi
+if [ $log == x ] ; then
+  cat >> $pltfile << EOI
+set logscale x
+set format x "10^{%L}"
+set format y "%G"
+EOI
+fi
+if [ $log == y ] ; then
+  cat >> $pltfile << EOI
+set logscale y
+set format x "%G"
+set format y "10^{%L}"
+EOI
+fi
+######################################################################################
+#
+# Setting of the line style of data taken from evaluated data libraries
+#
+#    TALYS 
+#
+cat >> $pltfile << EOI
+#
+# Line and point styles
+#
+set style line 10 linetype 1 linewidth 3 linecolor rgb "black" 
+EOI
+for (( k=${k0}; k<=${numfile}; k++ )) ; do
+  if [ ${lib[$k]} == IAEA ] ; then
+    cat >> $pltfile << EOI
+set style line $k linetype ${lt[$k]}  linewidth 2 linecolor rgb "${lc[$k]}"
+EOI
+  else
+    cat >> $pltfile << EOI
+set style line $k linetype ${lt[$k]}  linewidth 2 linecolor rgb "${lc[$k]}"
+EOI
+  fi
+done
+#
+# Setting of the point style of data taken from EXFOR
+#
+for (( k=1; k<=${numexp}; k++ )) ; do
+  i=$(( k + 10 ))
+  cat >> $pltfile << EOI
+set style line $i pointtype ${pt[$k]} linecolor rgb "${lcp[$k]} "
+EOI
+done
+cat >> $pltfile << EOI
+#
+# Plot command
+#
+plot [${xbeg}:${xend}][${ybeg}:${yend}] \\
+EOI
+if [ $talys -eq 1 ] && [ -e $calc ] ; then
+  if [ $uncband -eq 1 ] ; then
+    cat >> $pltfile << EOI
+"${calc}" u ( \$1 > 0. ? \$1 : 1.e-10 ):( \$3 > 0. ? \$3 : 1.e-10 ):( \$4 > 0. ? \$4 : 1.e-10 ) notitle w filledcurves linecolor rgb "light-grey", \\
+EOI
+  fi
+  cat >> $pltfile << EOI
+"${calc}" u ( \$1 > 0. ? \$1 : 1.e-10 ):( \$2 > 0. ? \$2 : 1.e-10 ) t "${calclabel}" w lines linestyle 10, \\
+EOI
+fi
+for (( k=${k0}; k<=${numfile}; k++ )) ; do
+  if [ ${unc[$k]} -eq 1 ] ;then
+    cat >> $pltfile << EOI
+"${file[$k]}" u ( \$1 > 0. ? \$1 : 1.e-10 ):( \$3 > 0. ? \$3 : 1.e-10 ):( \$4 > 0. ? \$4 : 1.e-10 ) notitle w filledcurves linecolor rgb "light-grey", \\
+EOI
+  fi
+done
+for (( k=${k0}; k<=${numfile}; k++ )) ; do
+  cat >> $pltfile << EOI
+"${file[$k]}" u ( \$1 > 0. ? \$1 : 1.e-10 ):( \$2 > 0. ? \$2 : 1.e-10 ) t "${lib[$k]}" w lines linestyle $k, \\
+EOI
+done
+for (( k=1; k<=${numexp}; k++ )) ; do
+  i=$(( k + 10 ))
+  legend=${author[$k]}'('${year[$k]}')'
+  if [ $subentry -eq 1 ] ; then
+    legend=$legend' '${subE[$k]}
+  fi
+  if [ $quality -eq 1 ] ; then
+    legend=$legend${qual[$k]}
+  fi
+#  cat >> $pltfile << EOI
+#"${expfile[$k]}" u ( \$1 > 0. ? \$1 : 1.e-10 ):( \$2 > 0. ? \$2 : 1.e-10 ):4:3 w xyerrorbars notitle linestyle $i, \\
+#"${expfile[$k]}" u ( \$1 > 0. ? \$1 : 1.e-10 ):( \$2 > 0. ? \$2 : 1.e-10 ) w points t "$legend " linestyle $i, \\
+#EOI
+  cat >> $pltfile << EOI
+"${expfile[$k]}" u ( \$1 > 0. ? \$1 : 1.e-10 ):( \$3 > 0. ? \$3 : 1.e-10 ):2:4 ${every[$k]} w xyerrorbars notitle linestyle $i, \\
+"${expfile[$k]}" u ( \$1 > 0. ? \$1 : 1.e-10 ):( \$3 > 0. ? \$3 : 1.e-10 ) ${every[$k]} w points t "$legend " linestyle $i, \\
+EOI
+done
+cat >> $pltfile << EOI
+"dum" u 1:2 notitle
+EOI
+gnuplot -p $pltfile
+if [ $clean -eq 1 ] ; then
+  rm $pltfile
+fi
+if [ $png -eq 1 ] ; then
+# /usr/bin/convert  $epsfile $pngfile
+  convert  $epsfile $pngfile
+fi
+rm dum
+#Copyright (C)  2023 A.J. Koning

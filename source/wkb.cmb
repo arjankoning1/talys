@@ -1,0 +1,12 @@
+!
+!                      WKB.CMB for TALYS
+!
+! +---------------------------------------------------------------------
+! | Author: Arjan Koning
+! | Date  : May 25, 2017
+! | Task  : File with common blocks for WKB routines
+! +---------------------------------------------------------------------
+!
+      COMMON /VARGS/ Uexc, Smiu, K
+      real Uexc, Smiu
+      INTEGER K
