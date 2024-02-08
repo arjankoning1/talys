@@ -171,7 +171,7 @@ subroutine gammadecay(Zix, Nix)
   un(2)='MeV'
   col(3)='Spin'
   col(4)='Parity'
-  col(5)='Branching ratio'
+  col(5)='Branching_ratio'
   un(5)='%'
   col(6)='Half-life'
   un(6)='sec'
