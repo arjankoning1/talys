@@ -228,7 +228,7 @@ subroutine discreteout
         call write_header(topline,source,user,date,oformat)
         call write_target
         call write_reaction(reaction,Qres(Zix, Nix, NL),Ethresh(Zix, Nix, NL),MF,MT)
-        call write_level(2,-1,NL,edis(Zcomp, Ncomp, NL),jdis(Zix, Nix, NL),parlev(Zix, Nix, NL),0.)
+        call write_level(2,-1,NL,edis(Zix, Nix, NL),jdis(Zix, Nix, NL),parlev(Zix, Nix, NL),0.)
         call write_datablock(quantity,Ncol,Ninc,col,un)
         do nen = 1, Ninclow
           write(1, '(4es15.6)') eninc(nen), fxsexclcont(nen, type) + fxsngn(nen, type), fxsexclcont(nen, type), fxsngn(nen, type)
