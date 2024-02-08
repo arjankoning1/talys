@@ -234,13 +234,13 @@
     col(2)='Non-elastic'
     col(3)='Elastic'
     col(4)='Total'
-    col(5)='Compound elast.'
-    col(6)='Shape elastic'
+    col(5)='Compound_elast.'
+    col(6)='Shape_elastic'
     col(7)='Reaction'
-    col(8)='Compound nonel.'
+    col(8)='Compound_nonel.'
     col(9)='Direct'
     col(10)='Preequilibrium'
-    col(11)='Direct capture'
+    col(11)='Direct_capture'
     Ncol=11
     open (1, file = 'all.tot', status = 'replace')
     quantity='general cross sections [mb]'
@@ -454,7 +454,7 @@
   col(2)='xs'
   col(3)='Direct'
   col(4)='Preequilibrium'
-  col(5)='Multiple preeq'
+  col(5)='Multiple_preeq'
   col(6)='Compound'
   Ncol=6
   quantity='emission spectrum'
@@ -575,7 +575,7 @@ Loop1:    do k2 = 1, neniso(i)
     col(1)='E'
     col(2)='xs'
     un(2)='mb'
-    col(3)='Isomeric ratio'
+    col(3)='Isomeric_ratio'
     un(3)=''
     reaction='('//parsym(k0)//',x)'
     zbeg = max(Ztarget - numZ - 2, 1)
