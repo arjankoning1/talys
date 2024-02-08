@@ -316,7 +316,7 @@ subroutine densityout(Zix, Nix)
       un(1)='MeV'
       col(2)='Level'
       col(3)='N_cumulative'
-      col(4)='Total LD'
+      col(4)='Total_LD'
       un(4)='MeV^-1'
       col(5)='a'
       un(5)='MeV^-1'
