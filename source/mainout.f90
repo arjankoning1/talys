@@ -69,7 +69,7 @@ subroutine mainout
 !
 ! *************************** Code and version *************************
 !
-  write(*, '(/"    TALYS-2.0 (Version: December 29, 2023)"/)')
+  write(*, '(/"    TALYS-2.01 (Version: February 8, 2024)"/)')
   write(*, '(" Copyright (C) 2023  A.J. Koning, S. Hilaire and S. Goriely"/)')
   write(*, '(" Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees")')
   write(*, '(/" User: ",a)') trim(user)
