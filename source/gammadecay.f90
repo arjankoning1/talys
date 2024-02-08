@@ -171,7 +171,7 @@ subroutine gammadecay(Zix, Nix)
   un(2)='MeV'
   col(3)='Spin'
   col(4)='Parity'
-  col(5)='Branchin ratio'
+  col(5)='Branching ratio'
   un(5)='%'
   col(6)='Half-life'
   un(6)='sec'
@@ -180,7 +180,6 @@ subroutine gammadecay(Zix, Nix)
   Ncol=8
   call write_header(topline,source,user,date,oformat)
   call write_target
-  call write_residual(Z,A,finalnuclide)
   call write_datablock(quantity,Ncol,nlev(Zix, Nix),col,un)
   do i = 0, nlev(Zix, Nix)
     if (tau(Zix, Nix, i) /= 0.) then
