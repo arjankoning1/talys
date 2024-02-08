@@ -228,8 +228,8 @@ subroutine astroout
     endif
     astrofile = 'astrorate.'//sym
     col(1)='T'
-    un(1)='10^9 K'
-    col(2)='reaction rate'
+    un(1)='10^9_K'
+    col(2)='reaction_rate'
     un(2)='cm3/mol/s'
     col(3)='MACS'
     un(3)='mb'
@@ -263,7 +263,7 @@ subroutine astroout
 ! output partial rates(n,g) to given excited states in a specific file
 !
   if (flagastroex) then
-    col(4)='Branching ratio'
+    col(4)='Branching_ratio'
     un(4)=''
     col(5)='G(T)'
     un(5)=''
@@ -374,7 +374,7 @@ subroutine astroout
   endif
   un='cm3/mol/s'
   col(1)='T'
-  col(1)='10^9 K'
+  col(1)='10^9_K'
   col(2)='G(T)'
   un(2)=''
   massstring='   '
