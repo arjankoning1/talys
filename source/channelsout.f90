@@ -150,6 +150,7 @@ subroutine channelsout
   character(len=15) :: col(8)    ! header
   character(len=15) :: un(8)    ! units
   character(len=80) :: quantity   ! quantity
+  character(len=80) :: gamquant   ! quantity
   character(len=132) :: topline    ! topline
   integer           :: MF
   integer           :: MT
@@ -195,6 +196,7 @@ subroutine channelsout
   col(6)='Preequilibrium'
   col(7)='Compound'
   quantity='cross section'
+  gamquant='gamma cross section and multiplicity'
   write(*, '(/" 6. Exclusive cross sections"/)')
   write(*, '(" 6a. Total exclusive cross sections "/)')
   write(*, '("     Emitted particles     cross section reaction", "         level    isomeric    isomeric    lifetime", &
@@ -274,7 +276,7 @@ Loop2:    do in = 0, numin
           col(4)='xs/res.prod.xs'
           un(4) = ''
           MF = 3
-          MF = 0
+          MT = 0
           do i = 1,nummt
             if (MTchannel(i) == ident) then
               MT = i
@@ -391,7 +393,7 @@ Loop2:    do in = 0, numin
             write(gamfile(3:8), '(6i1)') in, ip, id, it, ih, ia
             if ( .not. gamchanexist(in, ip, id, it, ih, ia)) then
               gamchanexist(in, ip, id, it, ih, ia) = .true.
-              topline=trim(targetnuclide)//trim(reaction)//trim(finalnuclide)//' '//trim(quantity)
+              topline=trim(targetnuclide)//trim(reaction)//trim(finalnuclide)//' '//trim(gamquant)
               un = ''
               col(1)='Parent Level'
               col(2)='Daughter Level'
@@ -408,7 +410,7 @@ Loop2:    do in = 0, numin
               call write_target
               call write_reaction(reaction,Qexcl(idc, 0),Ethrexcl(idc, 0),MF,MT)
               call write_residual(Z,A,finalnuclide)
-              call write_datablock(quantity,Ncol,Ninc,col,un)
+              call write_datablock(gamquant,Ncol,Ninc,col,un)
               do nen = 1, Ninclow
                 Ngam = 0
                 do i1 = 1, numlev
