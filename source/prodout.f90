@@ -205,7 +205,7 @@ subroutine prodout
         un(3)=ystr
         col(4)='Yield'
         un(4)=rstr
-        col(5)='Isotopic fract.'
+        col(5)='Isotopic_fract.'
         Ncol=5
         call write_header(topline,source,user,date,oformat)
         call write_target
