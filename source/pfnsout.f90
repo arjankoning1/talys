@@ -60,7 +60,7 @@ subroutine pfnsout
   un(1)='MeV'
   col(2)='spectrum'
   un(2)='mb/MeV'
-  col(3)='Maxwell ratio'
+  col(3)='Maxwell_ratio'
   un(3)=''
   col(4)='spectrum_CM'
   un(4)='mb/MeV'
