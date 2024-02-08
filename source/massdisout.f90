@@ -82,11 +82,11 @@ subroutine massdisout
   write(Estr,'(es13.6)') Einc0
   un = ''
   col(1)='A'
-  col(2)='FP yield'
-  col(3)='FF yield'
-  col(4)='FP xs'
+  col(2)='FP_yield'
+  col(3)='FF_yield'
+  col(4)='FP_xs'
   un(4)='mb'
-  col(5)='FF xs'
+  col(5)='FF_xs'
   un(5)='mb'
   Ncol=5
   isostring(0) = 'ground state'
@@ -146,13 +146,13 @@ subroutine massdisout
           col(1)='E'
           un(1)='MeV'
           if (i == 1) then
-            col(2)='FP yield'
-            col(3)='FF yield'
-            col(4)='FP xs'
-            col(5)='FF xs'
+            col(2)='FP_yield'
+            col(3)='FF_yield'
+            col(4)='FP_xs'
+            col(5)='FF_xs'
             Ncol=5
           else
-            col(2)='FP xs'
+            col(2)='FP_xs'
             un(2)='mb'
             Ncol=2
           endif
@@ -198,15 +198,15 @@ subroutine massdisout
               col(1)='E'
               un(1)='MeV'
               if (i == 1) then
-                col(2)='FP yield'
+                col(2)='FP_yield'
                 un(2)=''
-                col(3)='FP xs'
+                col(3)='FP_xs'
                 un(3)='mb'
                 col(4)='Ratio'
                 un(4)=''
                 Ncol=4
               else
-                col(2)='FP xs'
+                col(2)='FP_xs'
                 un(2)='mb'
                 Ncol=2
               endif
@@ -264,11 +264,11 @@ subroutine massdisout
       topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' for '//finalnuclide
       col(1)='E'
       un(1)='MeV'
-      col(2)='FP yield'
-      col(3)='FF yield'
-      col(4)='FP xs'
+      col(2)='FP_yield'
+      col(3)='FF_yield'
+      col(4)='FP_xs'
       un(4)='mb'
-      col(5)='FF xs'
+      col(5)='FF_xs'
       un(5)='mb'
       Ncol=5
       call write_header(topline,source,user,date,oformat)
@@ -299,13 +299,13 @@ subroutine massdisout
   col(1)='Z'
   col(2)='A'
   col(3)='isomer'
-  col(4)='FP yield'
-  col(5)='FF yield'
-  col(6)='FP xs'
+  col(4)='FP_yield'
+  col(5)='FF_yield'
+  col(6)='FP_xs'
   un(6)='mb'
-  col(7)='FF xs'
+  col(7)='FF_xs'
   un(7)='mb'
-  col(8)='Isomeric ratio'
+  col(8)='Isomeric_ratio'
   Ncol=8
   MT = 459
   call write_header(topline,source,user,date,oformat)
