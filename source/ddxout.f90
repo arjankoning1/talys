@@ -113,7 +113,7 @@ subroutine ddxout
   col(2)='xs'
   col(3)='Direct'
   col(4)='Preequilibrium'
-  col(5)='Multiple preeq'
+  col(5)='Multiple_preeq'
   col(6)='Compound'
   Ncol=6
   quantity='double-differential cross section'
