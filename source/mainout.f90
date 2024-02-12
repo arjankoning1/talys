@@ -6,7 +6,7 @@ subroutine mainout
 ! Author    : Arjan Koning
 !
 ! 2021-12-30: Original code
-! 2023-12-29: Current revision
+! 2024-02-11: Current revision
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -69,7 +69,7 @@ subroutine mainout
 !
 ! *************************** Code and version *************************
 !
-  write(*, '(/"    TALYS-2.01 (Version: February 8, 2024)"/)')
+  write(*, '(/"    TALYS-2.01 (Version: February 11, 2024)"/)')
   write(*, '(" Copyright (C) 2023  A.J. Koning, S. Hilaire and S. Goriely"/)')
   write(*, '(" Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees")')
   write(*, '(/" User: ",a)') trim(user)
