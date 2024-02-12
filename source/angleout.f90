@@ -92,6 +92,7 @@ subroutine angleout
   MT0(6) = 800
   MF = 4
   MT = 2
+!
 ! 1. Legendre coefficients
 !
   Estr=''
@@ -415,8 +416,8 @@ subroutine angleout
             legfile = '  leg.L00'
             write(legfile(1:2), '(2a1)') parsym(k0), parsym(type)
             write(legfile(8:9), '(i2.2)') i
-            if (.not. legexist(k0, type, Ltarget)) then
-              legexist(k0, type, Ltarget) = .true.
+            if (.not. legexist(k0, type, i)) then
+              legexist(k0, type, i) = .true.
               open (unit=1, file=legfile, status='unknown')
             else
               open (unit=1, file=legfile, status='unknown', position='append')
