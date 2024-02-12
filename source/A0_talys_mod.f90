@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2021-12-30: Original code
-! 2023-12-29: Current version
+! 2024-02-11: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -810,6 +810,7 @@ module A0_talys_mod
 !
   character(len=1), dimension(0:numZ,0:numN,0:numlev,0:numlev) :: bassign     ! flag for assignment of branching ratio
   character(len=18), dimension(0:numZ,0:numN,0:numlev)         :: ENSDF       ! string from original ENSDF discrete level file
+  character(len=1), dimension(0:numZ,0:numN,0:numlev2)         :: eassign     ! flag for assignment of energy
   character(len=1), dimension(0:numZ,0:numN,0:numlev2)         :: jassign     ! flag for assignment of spin
   character(len=1), dimension(0:numZ,0:numN,0:numlev2)         :: passign     ! flag for assignment of parity
   integer, dimension(0:numZ,0:numN,0:numlev,0:numlev)          :: branchlevel ! level to which branching takes place
