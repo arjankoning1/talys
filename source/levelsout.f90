@@ -29,6 +29,7 @@ subroutine levelsout(Zix, Nix)
 !   branchratio    ! gamma-ray branching ratio to level
 !   edis           ! energy of level
 !   ENSDF          ! string from original ENSDF discrete level file
+!   eassign        ! flag for assignment of energy
 !   jassign        ! flag for assignment of spin
 !   jdis           ! spin of level
 !   nbranch        ! number of branching levels
@@ -69,12 +70,12 @@ subroutine levelsout(Zix, Nix)
   write(*, '(/" Number  Energy Spin Parity  Branching Ratio (%) Lifetime(sec) Assignment        ENSDF"/)')
   do i = 0, nlev(Zix, Nix)
     if (tau(Zix, Nix, i) /= 0.) then
-      write(*, '(1x, i3, 4x, f7.4, 1x, f4.1, 3x, a1, 24(" "), 2x, es10.3, 7x, 2a1, a18)') levnum(Zix, Nix, i), &
- &      edis(Zix, Nix, i), jdis(Zix, Nix, i), cparity(parlev(Zix, Nix, i)), tau(Zix, Nix, i), jassign(Zix, Nix, i), &
- &      passign(Zix, Nix, i), ENSDF(Zix, Nix, i)
+      write(*, '(1x, i3, 4x, f7.4, 1x, f4.1, 3x, a1, 24(" "), 2x, es10.3, 6x, 3a1, a18)') levnum(Zix, Nix, i), &
+ &      edis(Zix, Nix, i), jdis(Zix, Nix, i), cparity(parlev(Zix, Nix, i)), tau(Zix, Nix, i), eassign(Zix, Nix, i), &
+ &      jassign(Zix, Nix, i), passign(Zix, Nix, i), ENSDF(Zix, Nix, i)
     else
-      write(*, '(1x, i3, 4x, f7.4, 1x, f4.1, 3x, a1, 36(" "), 7x, 2a1, a18)') i, edis(Zix, Nix, i), jdis(Zix, Nix, i), &
- &      cparity(parlev(Zix, Nix, i)), jassign(Zix, Nix, i), passign(Zix, Nix, i), ENSDF(Zix, Nix, i)
+      write(*, '(1x, i3, 4x, f7.4, 1x, f4.1, 3x, a1, 36(" "), 6x, 3a1, a18)') i, edis(Zix, Nix, i), jdis(Zix, Nix, i), &
+ &      cparity(parlev(Zix, Nix, i)), eassign(Zix, Nix, i), jassign(Zix, Nix, i), passign(Zix, Nix, i), ENSDF(Zix, Nix, i)
     endif
     do k = 1, nbranch(Zix, Nix, i)
       write(*, '(31x, "--->", i3, 2x, f8.4, 18x, a1)') branchlevel(Zix, Nix, i, k), branchratio(Zix, Nix, i, k) * 100., &
