@@ -19,6 +19,7 @@ subroutine strucinitial
 !   conv           ! conversion coefficient
 !   edis           ! energy of level
 !   ENSDF          ! string from original ENSDF discrete level file
+!   eassign        ! flag for assignment of energy
 !   jassign        ! flag for assignment of spin
 !   jdis           ! spin of level
 !   Lisomer        ! level number of isomer
@@ -313,6 +314,7 @@ subroutine strucinitial
   branchlevel = 0
   branchratio = 0.
   conv = 0.
+  eassign = ' '
   jassign = ' '
   passign = ' '
   levnum = 0
@@ -395,21 +397,6 @@ subroutine strucinitial
       endif
     enddo
   enddo
-  bassign = ' '
-  branchlevel = 0
-  branchratio = 0.
-  conv = 0.
-  jassign = ' '
-  passign = ' '
-  parlev = 1
-  edis = 0.
-  jdis = 0.
-  tau = 0.
-  ENSDF = ' '
-  Lisomer = 0
-  nbranch = 0
-  Nisomer = 0
-  nlevmax2 = 0
   betagr = 0.
   colltype = ' '
   deform = 0.
