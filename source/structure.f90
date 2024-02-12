@@ -71,6 +71,7 @@ subroutine structure(Zix, Nix)
 ! All the nuclear structure info is read and/or calculated for the nucleus under consideration.
 !
   call levels(Zix, Nix)
+  call structureout(Zix, Nix)
   if (flagendf .and. primary) call gammadecay(Zix, Nix)
   call deformpar(Zix, Nix)
   if (flagfit .and. Zix == 0 .and. Nix == 0) call xsfit(Ztarget, Atarget)
