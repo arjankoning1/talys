@@ -120,6 +120,7 @@ subroutine levels(Zix, Nix)
   jdis(Zix, Nix, 1) = jdis(Zix, Nix, 0) + 2.
   parlev(Zix, Nix, 1) = parlev(Zix, Nix, 0)
   jassign(Zix, Nix, 1) = 'J'
+  eassign(Zix, Nix, 1) = 'E'
   passign(Zix, Nix, 1) = 'P'
   branchratio(Zix, Nix, 1, 1) = 1.
   nbranch(Zix, Nix, 1) = 1
@@ -163,8 +164,8 @@ subroutine levels(Zix, Nix)
 ! 3. Read discrete level information
 !
       do i = 0, nlev2
-        read(2, '(4x, f11.6, f6.1, 3x, i2, i3, 18x, e10.3, 1x, 2a1, a18)') edis(Zix, Nix, i), jdis(Zix, Nix, i), &
- &        parlev(Zix, Nix, i), nb, tau(Zix, Nix, i), jassign(Zix, Nix, i), passign(Zix, Nix, i), ENSDF(Zix, Nix, i)
+        read(2, '(4x, f11.6, f6.1, 3x, i2, i3, 18x, e10.3, 3a1, a18)') edis(Zix, Nix, i), jdis(Zix, Nix, i), parlev(Zix, Nix, i), &
+ &        nb, tau(Zix, Nix, i), eassign(Zix, Nix, i), jassign(Zix, Nix, i), passign(Zix, Nix, i), ENSDF(Zix, Nix, i)
         do j = 1, nb
           read(2, '(29x, i3, f10.6, e10.3, 5x, a1)') klev(j), br(j), con(j), bas(j)
         enddo
@@ -226,8 +227,8 @@ subroutine levels(Zix, Nix)
 !
       nlevmax2(Zix, Nix) = min(nnn, numlev2)
       do i = nlev2 + 1, nlevmax2(Zix, Nix)
-        read(2, '(4x, f11.6, f6.1, 3x, i2, i3, 18x, e10.3, 1x, 2a1)') edis(Zix, Nix, i), jdis(Zix, Nix, i), parlev(Zix, Nix, i), &
- &        nb, tau(Zix, Nix, i), jassign(Zix, Nix, i), passign(Zix, Nix, i)
+        read(2, '(4x, f11.6, f6.1, 3x, i2, i3, 18x, e10.3, 3a1)') edis(Zix, Nix, i), jdis(Zix, Nix, i), parlev(Zix, Nix, i), &
+ &        nb, tau(Zix, Nix, i), eassign(Zix, Nix, i), jassign(Zix, Nix, i), passign(Zix, Nix, i)
         jdis(Zix, Nix, i) = min(jdis(Zix, Nix, i), real(numJ))
         do j = 1, nb
           read(2, * )
@@ -302,6 +303,7 @@ subroutine levels(Zix, Nix)
         parlev(Zix, Nix, N) = parlev(Zix, Nix, i)
         tau(Zix, Nix, N) = tau(Zix, Nix, i)
         if (N /= i) tau(Zix, Nix, i) = 0.
+        eassign(Zix, Nix, N) = ' '
         jassign(Zix, Nix, N) = ' '
         passign(Zix, Nix, N) = ' '
         if (Ltarget0 == Lisomer(Zix, Nix, Lis) .and. Zix == parZ(k0) .and. Nix == parN(k0)) Ltarget = N
