@@ -254,7 +254,7 @@ subroutine residualout
                 endif
                 finalnuclide=trim(nuc(Z))//trim(adjustl(massstring))//isochar(kiso)
                 topline=trim(targetnuclide)//trim(reaction)//trim(finalnuclide)//' '//trim(quantity)
-                col(3)='Isomeric ratio'
+                col(3)='Isomeric_ratio'
                 un(3)=''
                 Ncol=3
                 call write_header(topline,source,user,date,oformat)
