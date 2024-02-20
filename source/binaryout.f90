@@ -46,6 +46,7 @@ subroutine binaryout
 ! *** Declaration of local data
 !
   implicit none
+  character(len=20) :: Qstring    ! Q-value
   character(len=10) :: binfile    ! file for binary output
   character(len=18) :: reaction   ! reaction
   character(len=132) :: topline    ! topline
@@ -101,6 +102,10 @@ subroutine binaryout
       call write_header(topline,source,user,date,oformat)
       call write_target
       call write_reaction(reaction,0.D0,0.D0,0,0)
+      do type = 0, 6
+        Qstring = 'Q('//parsym(k0)//','//parsym(type)//') [MeV]'
+        call write_real(2,Qstring,Q(type))
+      enddo
       call write_datablock(quantity,Ncol,Ninc,col,un)
       do nen = 1, Ninclow
         write(1, '(8es15.6)') eninc(nen), (fxsbinary(nen, type), type = 0, 6)
