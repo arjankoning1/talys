@@ -180,7 +180,11 @@ subroutine discreteout
           reaction='('//parsym(k0)//','//parsym(type)//'_'//trim(adjustl(levelstring))//')'
           topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)
           Ncol=4
-          MT =  MT0(type) + nex
+          if ( type > 0) then
+            MT =  MT0(type) + nex
+          else
+            MT = 0
+          endif
           call write_header(topline,source,user,date,oformat)
           call write_target
           call write_reaction(reaction,Qres(Zix, Nix, nex),Ethresh(Zix, Nix, nex),MF,MT)
@@ -217,12 +221,11 @@ subroutine discreteout
         open (unit = 1, file = contfile, status = 'replace')
         topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)
         Ncol=4
-        if (type == 1) then
-          MT= 91
-        else
+        if (type == 0) MT = 0
+        if (type == 1) MT= 91
+        if (type > 1) then
           MT= MT0(type) + 49
         endif
-        if (type == 0) MT = 0
         col(3)='Continuum'
         col(4)='('//parsym(k0)//',g'//parsym(type)//')'
         call write_header(topline,source,user,date,oformat)
