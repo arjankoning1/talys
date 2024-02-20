@@ -35,7 +35,7 @@ subroutine machine
 !
   codedir = '/Users/koning/talys/'
   i = len_trim(codedir)
-  if (codedir(i:i) /= '/') codedir = codedir//'/'
+  if (codedir(i:i) /= '/') codedir = trim(codedir)//'/'
 !
 ! Another option is to set an environment variable TALYSDIR, e.g. put
 ! export TALYSDIR=/Users/koning/talys/     
