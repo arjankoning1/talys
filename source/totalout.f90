@@ -67,7 +67,7 @@ subroutine totalout
   implicit none
   character(len=18) :: reaction   ! reaction
   character(len=15) :: col(11)    ! header
-  character(len=15) :: un(11)    ! header
+  character(len=15) :: un(11)     ! header
   character(len=18) :: totfile    ! file with total cross sections
   character(len=80) :: quantity   ! quantity
   character(len=132) :: topline   ! topline
