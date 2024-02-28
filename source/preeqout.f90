@@ -103,7 +103,7 @@ subroutine preeqout
   else
     write(*, '(/" Particle-hole state densities", /)')
     write(*, '("     Ex    P(n=3)    gp      gn   ", 26x, "Configuration p(p) h(p) p(n) h(n)")')
-    write(*, '(28x, 9(2x, 4i2)/)') 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, &
+    write(*, '(32x, 9(2x, 4i2)/)') 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, &
  &    2, 1, 0, 0, 0, 0, 2, 1, 2, 2, 0, 0, 0, 0, 2, 2, 1, 1, 1, 1
     do nen = 1, int(Etotal)
       Eex = real(nen)
