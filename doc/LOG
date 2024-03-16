@@ -4,21 +4,20 @@ Development of TALYS since release of TALYS-2.0
 
 ********** Release of TALYS-2.0 **********
 
-- February 8 2023
+- February 8 2024
 
 Solved a small bugs in the metadata for ENDF MF and MT numbers in channelsout.f90
 
-- February 8 2023
+- February 8 2024
 
 Solved a small bugs in the metadata for continuum inelastic, the printed level was wrong
 
-- February 10 2023
+- February 10 2024
 
 On advice of Caleb Mattoon, used underscore in multiple name headers in YANDF 
 for easier parsing
 
-
-- February 11 2023
+- February 11 2024
 
 Made output files for gamma's much more descriptive by adding YANDF metadata
 in gammadecay.f90 
@@ -27,3 +26,21 @@ Solved a bug in angelout.f90 for the Legendre coefficient files.
 Bug found by Caleb Mattoon. Some of the data sets were written twice
 
 Added an 'E" to discrete level output for assignment of energy level.
+
+- March 2 2024
+
+Added the D0 from completely theoretical calculations including confidence interval 
+to the output of level density files. These can be used when no experimental D0 is 
+available to constrain level density fits.
+
+- March 11 2024
+
+Provided the complete decay of a nuclear reaction into more structureed YANDF output.
+Now, if 'population y' one obtaines 'pop**.tot' files in which the compete decay 
+of each nucleus is provided. This allows even more exclusive following of a nuclear reaction 
+in terms of reaction probabilities.
+
+- March 16 2024
+
+Solved an output error, column headers were written out of phase for 'components y',
+found by Zain Ul Abideen.
