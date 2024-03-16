@@ -863,6 +863,8 @@ module A0_talys_mod
   real(sgl), dimension(0:numZ,0:numN)          :: dgamgam  ! uncertainty in gamgam
   real(sgl)                                    :: Eavres   ! average resonance energy
   real(sgl), dimension(0:numZ, 0:numN)         :: D0theo   ! mean s-wave resonance spacing
+  real(sgl), dimension(0:numZ, 0:numN)         :: D0global ! global mean s-wave resonance spacing
+  real(sgl), dimension(0:numZ, 0:numN)         :: dD0global! uncertainty in global mean s-wave resonance spacing
   real(sgl), dimension(0:numZ, 0:numN)         :: D1theo   ! mean p-wave resonance spacing
   real(sgl), dimension(0:numl)                 :: Dl       ! mean resonance spacing per l value
   real(sgl), dimension(0:numl, 0:numJ)         :: Dlj      ! mean resonance spacing per J,l value
