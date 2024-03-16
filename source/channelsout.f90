@@ -305,7 +305,7 @@ Loop2:    do in = 0, numin
             call write_datablock(quantity,Ncol,Ninc,col,un)
             if (flagcompo) then
               do nen = 1, Ninclow
-                write(1, '(4es15.6, 15x, 3es15.6)') eninc(nen), fxschannel(nen, idc), fxsgamchannel(nen, idc), &
+                write(1, '(7es15.6)') eninc(nen), fxschannel(nen, idc), fxsgamchannel(nen, idc), &
  &                fxsratio(nen, idc), Fdir(Zcomp, Ncomp) * fxschannel(nen, idc), &
  &                Fpreeq(Zcomp, Ncomp) * fxschannel(nen, idc), Fcomp(Zcomp, Ncomp) * fxschannel(nen, idc)
                   fxschannel(nen, idc) = 0.
@@ -313,7 +313,7 @@ Loop2:    do in = 0, numin
                   fxsratio(nen, idc) = 0.
               enddo
               do nen = Ninclow + 1, nin - 1
-                write(1, '(4es15.6, 15x, 3es15.6)') eninc(nen), 0., 0., 0., 0., 0., 0.
+                write(1, '(7es15.6)') eninc(nen), 0., 0., 0., 0., 0., 0.
               enddo
             else
               do nen = 1, Ninclow
@@ -330,7 +330,7 @@ Loop2:    do in = 0, numin
             open (unit = 1, file = xsfile, status = 'old', position = 'append')
           endif
           if (flagcompo) then
-            write(1, '(4es15.6, 15x, 3es15.6)') Einc, xschannel(idc), xsgamchannel(idc), xsratio(idc), &
+            write(1, '(7es15.6)') Einc, xschannel(idc), xsgamchannel(idc), xsratio(idc), &
  &            Fdir(Zcomp, Ncomp) * xschannel(idc), Fpreeq(Zcomp, Ncomp) * xschannel(idc), Fcomp(Zcomp, Ncomp) * xschannel(idc)
           else
             write(1, '(4es15.6)') Einc, xschannel(idc), xsgamchannel(idc), xsratio(idc)
