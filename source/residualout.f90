@@ -204,10 +204,10 @@ subroutine residualout
           call write_datablock(quantity,Ncol,Ninc,col,un)
           if (flagcompo) then
             do nen = 1, Ninclow
-              write(1, '(2es15.6, 12x, 3es15.6)') eninc(nen), fxspopnuc(nen, Zcomp, Ncomp), 0., 0., fxspopnuc(nen, Zcomp, Ncomp)
+              write(1, '(5es15.6)') eninc(nen), fxspopnuc(nen, Zcomp, Ncomp), 0., 0., fxspopnuc(nen, Zcomp, Ncomp)
             enddo
             do nen = Ninclow + 1, nin - 1
-              write(1, '(2es15.6, 12x, 3es15.6)') eninc(nen), 0., 0., 0., 0.
+              write(1, '(5es15.6)') eninc(nen), 0., 0., 0., 0.
             enddo
           else
             do nen = 1, Ninclow
@@ -221,7 +221,7 @@ subroutine residualout
           open (unit = 1, file = rpfile, status = 'old', position = 'append')
         endif
         if (flagcompo) then
-          write(1, '(2es15.6, 12x, 3es15.6)') Einc, xspopnuc(Zcomp, Ncomp), xspopdir(Zcomp, Ncomp), &
+          write(1, '(5es15.6)') Einc, xspopnuc(Zcomp, Ncomp), xspopdir(Zcomp, Ncomp), &
  &          xspoppreeq(Zcomp, Ncomp), xspopcomp(Zcomp, Ncomp)
         else
           write(1, '(2es15.6)') Einc, xspopnuc(Zcomp, Ncomp)
