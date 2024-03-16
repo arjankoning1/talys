@@ -79,8 +79,8 @@ subroutine densityout(Zix, Nix)
   implicit none
   character(len=3)  :: massstring !
   character(len=6)  :: finalnuclide !
-  character(len=15) :: col(6)    ! header
-  character(len=15) :: un(6)    ! header
+  character(len=15) :: col(7)    ! header
+  character(len=15) :: un(7)    ! header
   character(len=80) :: quantity   ! quantity
   character(len=200) :: topline   ! topline
   character(len=8)  :: str(-1:1)     ! input line
@@ -91,6 +91,9 @@ subroutine densityout(Zix, Nix)
   character(len=30) :: collstring    ! string
   integer           :: A             ! mass number of target nucleus
   integer           :: i             ! counter
+  integer           :: Nav
+  integer           :: ibeg
+  integer           :: iend
   integer           :: i1(numlev2)
   integer           :: k             ! counter
   integer           :: Nk            ! counter
@@ -121,12 +124,19 @@ subroutine densityout(Zix, Nix)
   real(sgl)         :: Dexp          ! 
   real(sgl)         :: dDexp         ! 
   real(sgl)         :: Dtheo         ! 
+  real(sgl)         :: Dglob
+  real(sgl)         :: dDglob
+  real(sgl)         :: Ea
+  real(sgl)         :: Eb
+  real(sgl)         :: Erange
   real(sgl)         :: FrmsD0        ! 
   real(sgl)         :: ErmsD0        ! 
+  real(sgl)         :: rhoexp        ! discrete level density
   real(sgl)         :: x1(numlev2)
   real(sgl)         :: x2(numlev2)
   real(sgl)         :: x3(numlev2)
   real(sgl)         :: x4(numlev2)
+  real(sgl)         :: x5(numlev2)
   real(sgl)         :: ignatyuk      ! function for energy dependent level density parameter a
   real(sgl)         :: Kcoll         ! total collective enhancement
   real(sgl)         :: Krot          ! rotational enhancement factor
@@ -184,7 +194,7 @@ subroutine densityout(Zix, Nix)
   write(*, '(" a(Sn)           :", f10.5)') alev(Zix, Nix)
   if (flagfission) write(*, '(" a-effective     :", 10x, 3f10.5)') (aldmatch(Zix, Nix, SS, ibar), ibar = 1, nfisbar(Zix, Nix))
 !
-! Theoretical D0
+! D0
 !
   write(*, '(" Experimental D0 :", f18.2, " eV +- ", f15.5)') D0(Zix, Nix), dD0(Zix, Nix)
   write(*, '(" Theoretical D0  :", f18.2, " eV")') D0theo(Zix, Nix)
@@ -318,16 +328,18 @@ subroutine densityout(Zix, Nix)
       col(3)='N_cumulative'
       col(4)='Total_LD'
       un(4)='MeV^-1'
-      col(5)='a'
+      col(5)='Exp_LD'
       un(5)='MeV^-1'
-      col(6)='Sigma'
+      col(6)='a'
+      un(6)='MeV^-1'
+      col(7)='Sigma'
       call write_header(topline,source,user,date,oformat)
       call write_residual(Z,A,finalnuclide)
       write(1,'("# parameters:")')
       call write_integer(2,'ldmodel keyword',ldmod)
       call write_char(2,'level density model',model)
       if (ldmod <= 3) then
-        Ncol=6
+        Ncol=7
         if (flagcol(Zix, Nix) .and. .not. ldexist(Zix, Nix, ibar)) then
           call write_char(2,'Collective enhacement','y')
         else
@@ -355,7 +367,7 @@ subroutine densityout(Zix, Nix)
           call write_real(2,'critical temperature [MeV]',Tcrit(Zix, Nix))
         endif
       else
-        Ncol=4
+        Ncol=5
       endif
       call write_integer(2,'Nlow',Nlow(Zix, Nix, ibar))
       call write_integer(2,'Ntop',Ntop(Zix, Nix, ibar))
@@ -365,6 +377,8 @@ subroutine densityout(Zix, Nix)
       Dtheo=D0theo(Zix, Nix)
       Dexp=D0(Zix, Nix)
       dDexp=dD0(Zix, Nix)
+      Dglob=D0global(Zix, Nix)
+      dDglob=dD0global(Zix, Nix)
       if (dDexp <= .1e-30) then
         chi2D0 = 0.
       else
@@ -378,6 +392,7 @@ subroutine densityout(Zix, Nix)
 !
       FrmsD0 = 0.
       ErmsD0 = 0.
+      CE = 0.
       if (Dexp > 1.e-30) then
         CE = Dtheo / Dexp
         if (Dtheo > 0. .and. Dexp > 0.) then
@@ -402,6 +417,8 @@ subroutine densityout(Zix, Nix)
       endif
       call write_real(2,'experimental D0 [eV]',Dexp)
       call write_real(2,'experimental D0 unc. [eV]',dDexp)
+      call write_real(2,'global D0 [eV]',Dglob)
+      call write_real(2,'global D0 unc. [eV]',dDglob)
       call write_real(2,'theoretical D0 [eV]',Dtheo)
       call write_real(2,'Chi-2 D0',chi2D0)
       call write_real(2,'C/E D0',CE)
@@ -420,6 +437,7 @@ subroutine densityout(Zix, Nix)
     x2 = 0.
     x3 = 0.
     x4 = 0.
+    x5 = 0.
     chi2sum = 0.
     Frmssum = 0.
     Ermssum = 0.
@@ -430,6 +448,15 @@ subroutine densityout(Zix, Nix)
       dEx = edis(Zix, Nix, i) - edis(Zix, Nix, i - 1)
       dens = densitytot(Zix, Nix, Eex, ibar, ldmod)
       Ncum = Ncum + dens * dEx
+      rhoexp = 0.
+      Nav = 10
+      ibeg = max(i - Nav/2,0)
+      iend = min(i + Nav/2,nlevmax2(Zix, Nix))
+      Nav = iend - ibeg + 1
+      Ea = edis(Zix, Nix, ibeg)
+      Eb = edis(Zix, Nix, iend)
+      Erange = Eb - Ea
+      if (Erange > 0.) rhoexp = Nav / Erange
       if (Ncum < 1.e5) then
         Eex = edis(Zix, Nix, i)
         write(*, '(1x, f8.4, i4, f12.3)') Eex, i, Ncum
@@ -441,26 +468,26 @@ subroutine densityout(Zix, Nix)
               Pshift(Zix, Nix, ibar)) ald = aldcrit(Zix, Nix, ibar)
             dens = densitytot(Zix, Nix, Eex, ibar, ldmod)
             sigma = sqrt(spincut(Zix, Nix, ald, Eex, ibar, 0))
-            x3(k) = ald
-            x4(k) = sigma
+            x4(k) = ald
+            x5(k) = sigma
           endif
           Eex1(k) = Eex
           i1(k) = i
           x1(k) = Ncum
           x2(k) = dens
+          x3(k) = rhoexp
         endif
       endif
       if (i > 0 .and. i <= NT) then
-        chi2sum = chi2sum + (Ncum - i) **2 
+        chi2sum = chi2sum + ((Ncum - i) **2 ) / i
         Ri = Ncum / i
         Frmssum = Frmssum + log(Ri)**2 
         Ermssum = Ermssum + log(Ri) 
         avdevsum = avdevsum + abs(Ncum - i) 
       endif
     enddo
-!   denom = real(NT - NL)
-    denom = real(i)
-    chi2 = chi2sum / denom
+    denom = real(NT - NL)
+    chi2 = chi2sum 
     Frms = exp(sqrt(Frmssum / denom))
     Erms = exp(Ermssum / denom)
     avdev = avdevsum / denom
@@ -473,9 +500,9 @@ subroutine densityout(Zix, Nix)
       call write_datablock(quantity,Ncol,Nk,col,un)
       do k = 1, Nk
         if (ldmod <= 3) then
-          write(1, '(es15.6, i6, 9x, 4es15.6)') Eex1(k), i1(k), x1(k), x2(k), x3(k), x4(k)
+          write(1, '(es15.6, i6, 9x, 5es15.6)') Eex1(k), i1(k), x1(k), x2(k), x3(k), x4(k), x5(k)
         else
-          write(1, '(es15.6, i6, 9x,  2es15.6)') Eex1(k), i1(k), x1(k), x2(k)
+          write(1, '(es15.6, i6, 9x, 3es15.6)') Eex1(k), i1(k), x1(k), x2(k), x3(k)
         endif
       enddo
       close (1)
