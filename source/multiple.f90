@@ -166,17 +166,27 @@ subroutine multiple
 ! *** Declaration of local data
 !
   implicit none
-  character(len=13)  :: fisfile               ! fission file
+  character(len=2)  :: parstring !  
+  character(len=3)  :: massstring !  
+  character(len=6)  :: finalnuclide ! 
+  character(len=18) :: reaction   ! reaction
+  character(len=80)  :: fisfile               ! fission file
+  character(len=80)  :: popfile               ! population file
   character(len=13)  :: rpfile                ! file with residual production cross sections
-  character(len=60)  :: form1                 ! format
+  character(len=13)  :: Estr
+  character(len=15) :: col(numJ+6)    ! header
+  character(len=15) :: un(numJ+6)    ! units
+  character(len=80) :: quantity   ! quantity
   character(len=60)  :: form2                 ! format
   character(len=132) :: key                   ! keyword
+  character(len=132) :: topline    ! topline
+  character(len=800) :: string
   integer            :: A                     ! mass number of target nucleus
   integer            :: Ares                  ! mass number of residual nucleus
   integer            :: h                     ! help variable
+  integer            :: istat
   integer            :: iang                  ! running variable for angle
   integer            :: idensfis              ! identifier to activate possible fission level densities
-  integer            :: Ir                    ! spin 
   integer            :: J                     ! spin of level
   integer            :: J2                    ! 2 * J
   integer            :: Jfis                  ! spin of fissioning system
@@ -187,6 +197,7 @@ subroutine multiple
   integer            :: nex                   ! excitation energy bin of compound nucleus
   integer            :: nexout                ! energy index for outgoing energy
   integer            :: Nix                   ! neutron number index for residual nucleus
+  integer            :: Ncol
   integer            :: NL                    ! last discrete level
   integer            :: Nres                  ! neutron number of residual nucleus
   integer            :: odd                   ! odd (1) or even (0) nucleus
@@ -215,9 +226,9 @@ subroutine multiple
   real(sgl)          :: sumxs                 ! sum over emission channels
   real(sgl)          :: xsdif                 ! difference between in-flux and out-flux per bin
   real(sgl)          :: xsmax                 ! maximum cross sections
-  real(sgl)          :: xsp                   ! help variable
   real(sgl)          :: rJ                    ! help variable
   real(sgl)          :: xspopsave(0:numex)    ! help variable for diagnosis
+  real(dbl)          :: xsp                   ! help variable
 !
 ! ******************** Loop over nuclei ********************************
 !
@@ -254,14 +265,14 @@ subroutine multiple
         rpfile = 'rp000000.ex'
         write(rpfile(3:5), '(i3.3)') Z
         write(rpfile(6:8), '(i3.3)') A
-        open (unit = 1, file = rpfile, status = 'replace')
-        write(1, * ) maxex(Zcomp, Ncomp) + 1, 30, 1, " xs= ", xspopnuc(Zcomp, Ncomp)
+        open (unit = 2, file = rpfile, status = 'replace')
+        write(2, * ) maxex(Zcomp, Ncomp) + 1, 30, 1, " xs= ", xspopnuc(Zcomp, Ncomp)
         do nex = 0, maxex(Zcomp, Ncomp)
           do parity = - 1, 1, 2
-            write(1, '(f10.5, 31es12.5)') Ex(Zcomp, Ncomp, nex), (xspop(Zcomp, Ncomp, nex, J, parity), J = 0, 30)
+            write(2, '(f10.5, 31es12.5)') Ex(Zcomp, Ncomp, nex), (xspop(Zcomp, Ncomp, nex, J, parity), J = 0, 30)
           enddo
         enddo
-        close(1)
+        close(unit=2)
         cycle
       endif
       do type = 0, 6
@@ -319,24 +330,66 @@ subroutine multiple
           if (flagfisout) call fissionparout(Zcomp, Ncomp)
           strucwrite(Zcomp, Ncomp) = .true.
         endif
-        write(*, '(/" Population of Z=", i3, " N=", i3, " (", i3, a2, ") before decay:", es12.5)') Z, N, A, nuc(Z), &
- &        xspopnuc(Zcomp, Ncomp)
-        NL = Nlast(Zcomp, Ncomp, 0)
-        if (maxex(Zcomp, Ncomp) > NL) then
-          write(*, '(" Maximum excitation energy:", f8.3, " Discrete levels:", i3, " Continuum bins:", i3, &
- &          " Continuum bin size:", f8.3)') Exmax(Zcomp, Ncomp), NL, maxex(Zcomp, Ncomp) - NL, dExinc
-        else
-          write(*, '(" Maximum excitation energy:", f8.3, " Discrete levels:", i3)') Exmax(Zcomp, Ncomp), NL
-        endif
+        popfile = 'pop000000E0000.000.feed'
+        write(popfile(4:6), '(i3.3)') Z
+        write(popfile(7:9), '(i3.3)') A
+        write(popfile(11:18), '(f8.3)') Einc
+        write(popfile(11:14), '(i4.4)') int(Einc)
+        massstring='   '
+        write(massstring,'(i3)') A
+        finalnuclide=trim(nuc(Z))//adjustl(massstring)
+        reaction='('//parsym(k0)//',x)'
+        quantity='initial population'
+        Estr=''
+        write(Estr,'(es13.6)') Einc
+        open (unit = 1, file = popfile, status = 'replace')
         do parity = - 1, 1, 2
-          write(*, '(/" Population of Z=", i3, " N=", i3, " (", i3, a2, &
- &          "), Parity=", i2, " before decay:", es12.5)') Z, N, A, nuc(Z), parity, xspopnucP(Zcomp, Ncomp, parity)
-          write(*, '(/" bin    Ex     Pop     Pop P=", i2, 9("    J=", f4.1)/)') parity, (J+0.5*odd, J = 0, 8)
+          topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' of '//trim(finalnuclide)//' at '//Estr//' MeV for' &
+ &          //' parity -1'
+          if (parity == 1) topline(len_trim(topline)-1:len_trim(topline)-1) = '+'
+          call write_header(topline,source,user,date,oformat)
+          call write_target
+          call write_reaction(reaction,0.D0,0.D0,0,0)
+          call write_real(2,'E-incident [MeV]',Einc)
+          call write_residual(Z,A,finalnuclide)
+          call write_double(2,'total population [mb]',xspopnuc(Zcomp, Ncomp))
+          call write_integer(2,'parity',parity)
+          call write_double(2,'population for this parity [mb]',xspopnucP(Zcomp, Ncomp,parity))
+          call write_real(2,'maximum excitation energy [MeV]',Exmax(Zcomp, Ncomp))
+          NL = Nlast(Zcomp, Ncomp, 0)
+          call write_integer(2,'number of discrete levels',NL)
+          if (maxex(Zcomp, Ncomp) > NL) then
+            call write_integer(2,'number of continuum bins',maxex(Zcomp, Ncomp) - NL)
+            call write_real(2,'continuum bin size [MeV]',dExinc)
+          endif
+          col(1)='level/bin'
+          col(2)='Ex'
+          col(3)='Population'
+          if (parity == -1) then
+            col(4)='Population P=-1'
+          else
+            col(4)='Population P=+1'
+          endif
+          do J = 0, numJ
+            if (parity == -1) then
+              col(J+5)='JP=    -'
+            else
+              col(J+5)='JP=    +'
+            endif
+            write(col(J+5)(4:7),'(f4.1)') J+0.5*odd
+          enddo
+          un='mb'
+          un(1)=''
+          un(2)='MeV'
+          Ncol=numJ+5
+          call write_datablock(quantity,Ncol,maxex(Zcomp, Ncomp)+1,col,un)
           do nex = 0, maxex(Zcomp, Ncomp)
-            write(*, '(1x, i3, f8.3, 11es10.3)') nex, Ex(Zcomp, Ncomp, nex), xspopex(Zcomp, Ncomp, nex), &
- &            xspopexP(Zcomp, Ncomp, nex, parity), (xspop(Zcomp, Ncomp, nex, J, parity), J = 0, 8)
+            write(1, '(i6, 9x, 44es15.6)') nex, Ex(Zcomp, Ncomp, nex), xspopex(Zcomp, Ncomp, nex), &
+ &            xspopexP(Zcomp, Ncomp, nex, parity), (xspop(Zcomp, Ncomp, nex, J, parity), J = 0, numJ)
           enddo
         enddo
+        write(*, '(/" Population of Z=", i3, " N=", i3, " (", i3, a2, ") before decay:", es12.5)') Z, N, A, nuc(Z), &
+ &        xspopnuc(Zcomp, Ncomp)
       endif
 !
 ! Optional adjustment factors
@@ -370,8 +423,33 @@ subroutine multiple
       popepsA = popeps / max(5 * maxex(Zcomp, Ncomp), 1)
       idensfis = 1
       if (flagpop) then
-        write(*, '(/" Population of each bin of Z=", i3, " N=", i3, " (", i3, a2, ") before its decay"/)') Z, N, A, nuc(Z)
-        write(*, '(" bin    Ex      Pop     P Pop per P", 9("  J=", f4.1, "  ")/)') (J+0.5*odd, J = 0, 8)
+        quantity='population per bin before decay'
+        topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' of '//trim(finalnuclide)//' at '//Estr//' MeV'
+        call write_header(topline,source,user,date,oformat)
+        call write_target
+        call write_reaction(reaction,0.D0,0.D0,0,0)
+        call write_real(2,'E-incident [MeV]',Einc)
+        call write_residual(Z,A,finalnuclide)
+        call write_double(2,'total population [mb]',xspopnuc(Zcomp, Ncomp))
+        call write_real(2,'maximum excitation energy [MeV]',Exmax(Zcomp, Ncomp))
+        NL = Nlast(Zcomp, Ncomp, 0)
+        call write_integer(2,'number of discrete levels',NL)
+        if (maxex(Zcomp, Ncomp) > NL) then
+          call write_integer(2,'number of continuum bins',maxex(Zcomp, Ncomp) - NL)
+          call write_real(2,'continuum bin size [MeV]',dExinc)
+        endif
+        col(2)='Parity'
+        un(2)=''
+        col(3)='Ex'
+        un(3)='MeV'
+        col(4)='Tot. population'
+        col(5)='Population'
+        Ncol=numJ+6
+        do J = 0, numJ
+          col(J+6)='JP=     '
+          write(col(J+6)(4:7),'(f4.1)') J+0.5*odd
+        enddo
+        call write_datablock(quantity,Ncol,2*(maxex(Zcomp, Ncomp)+1),col,un)
       endif
       Smin = S(Zcomp, Ncomp, 1)
       do nex = maxex(Zcomp, Ncomp), 1, - 1
@@ -379,8 +457,8 @@ subroutine multiple
         if (flagpop) then
           xspopsave(nex) = xspopex(Zcomp, Ncomp, nex)
           do parity = - 1, 1, 2
-            write(*, '(1x, i3, f8.3, es10.3, i3, 10es10.3)') nex, Ex(Zcomp, Ncomp, nex), xspopex(Zcomp, Ncomp, nex), &
- &            parity, xspopexP(Zcomp, Ncomp, nex, parity), (xspop(Zcomp, Ncomp, nex, J, parity), J = 0, 8)
+            write(1, '(2(i6, 9x), 46es15.6)') nex, parity, Ex(Zcomp, Ncomp, nex), xspopex(Zcomp, Ncomp, nex), &
+ &            xspopexP(Zcomp, Ncomp, nex, parity), (xspop(Zcomp, Ncomp, nex, J, parity), J = 0, numJ)
           enddo
         endif
 !
@@ -469,24 +547,53 @@ Loop1:  do type = 1, 6
               call compound(Zcomp, Ncomp, nex, J2, parity)
               if (flagpop) then
                 rJ=0.5*J2
-                write(*,'(f4.1,i4,8es10.3)') rJ,parity,xsp,(partdecaytot(type),type=0,6)
+                quantity='particle decay from this bin'
+                call write_residual(Z,A,finalnuclide)
+                call write_real(2,'spin',rJ)
+                call write_integer(2,'parity',parity)
+                call write_double(2,'population [mb]',xsp)
+                col(1)='Particle'
+                un(1)=''
+                col(2)='Decay'
+                un(2)='mb'
+                Ncol=2
+                call write_datablock(quantity,Ncol,7,col,un)
+                do type = 0, 6
+                  write(1,'(a8,7x,es15.6)') parname(type),partdecaytot(type)
+                enddo
                 if (flagdecay) then
+                  col(1)='bin'
+                  un(1)=''
+                  col(2)='Ex'
+                  un(2)='MeV'
+                  do Jres = 0, numJ
+                    col(Jres+3)='JP=     '
+                    write(col(Jres+3)(4:7),'(f4.1)') Jres+0.5*odd
+                  enddo
+                  Ncol=numJ+3
                   do type = 0, 6
                     if (parskip(type)) cycle
-                    Zix = Zindex(Zcomp, Ncomp, type)
-                    Nix = Nindex(Zcomp, Ncomp, type)
-                    Zres = ZZ(Zcomp, Ncomp, type)
-                    Nres = NN(Zcomp, Ncomp, type)
-                    Ares = AA(Zcomp, Ncomp, type)
-                    oddres = mod(Ares, 2)
+                    parstring='  '
                     do Pres = - 1, 1, 2
-                      write(*,'(/" Total Pprime=",i2,":",es10.3," via ",a8," emission"/)') Pres,partdecay(type,Pres),parname(type)
-                      write(*,'(" bin    Ex",10("    J=",f4.1)/)') (Ir+0.5*oddres,Ir=0,9)
+                      call write_residual(Z,A,finalnuclide)
+                      call write_real(2,'spin',rJ)
+                      call write_integer(2,'parity',parity)
+                      call write_double(2,'population [mb]',xsp)
+                      call write_double(2,trim(parname(type))//' decay [mb]',partdecaytot(type))
+                      write(parstring,'(i2)') Pres
+                      call write_double(2,trim(parname(type))//' decay to P='//parstring//' [mb]',partdecay(type,Pres))
+                      quantity=trim(parname(type))//" decay from J,P bin to residual J',P' bin"
+                      Zix = Zindex(Zcomp, Ncomp, type)
+                      Nix = Nindex(Zcomp, Ncomp, type)
+                      Zres = ZZ(Zcomp, Ncomp, type)
+                      Nres = NN(Zcomp, Ncomp, type)
+                      Ares = AA(Zcomp, Ncomp, type)
+                      oddres = mod(Ares, 2)
+                      call write_datablock(quantity,Ncol,nexmax(type)+1,col,un)
                       do nexout = 0, nexmax(type)
-                        write(*, '(1x, i3, f8.3, 10es10.3)') nexout, Ex(Zix, Nix, nexout), &
- &                        (popdecay(type, nexout, Jres, Pres), Jres = 0, 9)
+                        write(1, '(i6, 9x, 42es15.6)') nexout, Ex(Zix, Nix, nexout), &
+ &                        (popdecay(type, nexout, Jres, Pres), Jres = 0, numJ)
                       enddo
-                      write( * , * )
                     enddo
                   enddo
                 endif
@@ -602,15 +709,22 @@ Loop1:  do type = 1, 6
       N = NN(Zcomp, Ncomp, 0)
       A = AA(Zcomp, Ncomp, 0)
       if (flagpop) then
-        write(*, '(/" Emitted flux per excitation energy bin of", " Z=", i3, " N=", i3, " (", i3, a2, "):"/)') Z, N, A, nuc(Z)
-        write(*, '(" bin    Ex    ", 7(2x, a8, 2x), "  Total     In - out"/)') (parname(type), type = 0, 6)
+        call write_residual(Z,A,finalnuclide)
+        quantity='particle decay per excitation energy bin'
+        do type = 0, 6
+          col(type+3)=parname(type)
+        enddo
+        col(10)='Total'
+        col(11)='In - out'
+        Ncol=11
+        call write_datablock(quantity,Ncol,maxex(Zcomp, Ncomp)+1,col,un)
         do nex = 0, maxex(Zcomp, Ncomp)
           sumxs = 0.
           do type = 0, 6
             sumxs = sumxs + xspartial(type, nex)
           enddo
           xsdif = xspopsave(nex) - sumxs
-          write(*, '(1x, i3, f8.3, 9es12.5)') nex, Ex(Zcomp, Ncomp, nex), (xspartial(type, nex), type = 0, 6), sumxs, xsdif
+          write(1, '(i6, 9x, 10es15.6)') nex, Ex(Zcomp, Ncomp, nex), (xspartial(type, nex), type = 0, 6), sumxs, xsdif
         enddo
 !
 ! Fission
@@ -674,10 +788,18 @@ Loop1:  do type = 1, 6
         N = NN(Zcomp, Ncomp, 0)
         A = AA(Zcomp, Ncomp, 0)
         if (flagspec) then
-          write(*, '(/" Emission spectra from Z=", i3, " N=", i3, " (", i3, a2, "):"/)') Z, N, A, nuc(Z)
-          write(*, '("  Energy ", 7(2x, a8, 2x)/)') (parname(type), type = 0, 6)
+          call write_residual(Z,A,finalnuclide)
+          quantity='emission spectra'
+          un='mb'
+          un(1)='MeV'
+          col(1)='E-out'
+          do type = 0, 6
+            col(type+2)=parname(type)
+          enddo
+          Ncol=8
+          call write_datablock(quantity,Ncol,eendhigh-ebegin(0)+1,col,un)
           do nen = ebegin(0), eendhigh
-            write(*, '(1x, f8.3, 7es12.5)') egrid(nen), (xsemis(type, nen) + xsmpeemis(type, nen), type = 0, 6)
+            write(1, '(8es15.6)') egrid(nen), (xsemis(type, nen) + xsmpeemis(type, nen), type = 0, 6)
           enddo
           if (flagcheck) then
             write(*, '(/" ++++++++++ CHECK OF INTEGRATED ", "EMISSION SPECTRA ++++++++++"/)')
@@ -700,17 +822,43 @@ Loop1:  do type = 1, 6
  &          xspopex(Zcomp, Ncomp, nex)
         enddo
       endif
+      if (flagpop) then
+        close (unit = 1)
+        open (unit = 1, file = popfile, status = 'old')
+        if (flagoutall) then
+          do
+            read(1, '(a)', iostat = istat) string
+            if (istat /= 0) exit
+            write(*, '(1x, a)') trim(string)
+          enddo 
+        else
+          write(*,'("file: ",a)') trim(popfile)
+        endif
+        close (unit = 1)  
+      endif
 !
 ! Fission
 !
       if (flagfission .and. flagfisfeed) then
-        fisfile = 'fis000000.nex'
+        fisfile = 'fis000000E0000.000.feed'
         write(fisfile(4:6), '(i3.3)') Z
         write(fisfile(7:9), '(i3.3)') A
+        write(fisfile(11:18), '(f8.3)') Einc
+        write(fisfile(11:14), '(i4.4)') int(Einc)
+        massstring='   '
+        write(massstring,'(i3)') A
+        finalnuclide=trim(nuc(Z))//adjustl(massstring)
+        reaction='('//parsym(k0)//',f)'
+        quantity='fission contribution'
+        Estr=''
+        write(Estr,'(es13.6)') Einc
+        topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' of '//trim(finalnuclide)//' at '//Estr//' MeV'
         open (unit = 1, file = fisfile, status = 'replace')
-        write(1, '("# Reaction: ", g12.4, " MeV ", a8, " on Z=", i3, " N=", i3, " (", i3, a2, ")")') &
- &        einc, parname(k0), Ztarget, Ntarget, Atarget, nuc(Ztarget)
-        write(1, '("# Fission contribution from Z=", i3, " N=", i3, " (", i3, a2, ")")') Z, N, A, nuc(Z)
+        call write_header(topline,source,user,date,oformat)
+        call write_target
+        call write_reaction(reaction,0.D0,0.D0,0,0)
+        call write_real(2,'E-incident [MeV]',Einc)
+        call write_residual(Z,A,finalnuclide)
         if (Zcomp == 0 .and. Ncomp == 0) then
           nen = maxex(Zcomp, Ncomp) + 1
         else
@@ -724,13 +872,20 @@ Loop1:  do type = 1, 6
             enddo
           enddo
         enddo
-        write(1, '("# # energies =", i6)') nen+1
-        write(1, '("# # spins    =", i4)') Jfis+1
-        form1='("#    Ex   Population",xx(5x,i2,"+",9x,i2,"-",4x))'
-        write(form1(25:26), '(i2.2)') Jfis+1
-        form2='(1x,f8.3,es12.5,xx(2es12.5))'
-        write(form2(17:18), '(i2.2)') Jfis+1
-        write(1, fmt = form1) (J, J, J = 0, Jfis)
+        un='mb'
+        un(1)='MeV'
+        col(1)='Ex'
+        col(2)='Population'
+        do J = 0, Jfis
+          col(2+2*J+1)='JP=    -'
+          write(col(2+2*J+1)(4:7),'(f4.1)') J+0.5*odd
+          col(2+2*J+2)='JP=    +'
+          write(col(2+2*J+2)(4:7),'(f4.1)') J+0.5*odd
+        enddo
+        Ncol=2+2*(Jfis+1)
+        call write_datablock(quantity,Ncol,nen+1,col,un)
+        form2='(xxx(es15.6))'
+        write(form2(2:4), '(i3.3)') 2+2*(Jfis+1)
         do nex = 0, nen
           write(1, fmt = form2) Ex(Zcomp, Ncomp, nex), fisfeedex(Zcomp, Ncomp, nex), &
  &          ((fisfeedJP(Zcomp, Ncomp, nex, J, parity), parity = - 1, 1, 2), J = 0, Jfis)
