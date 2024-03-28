@@ -912,12 +912,12 @@ subroutine checkvalue
   call range_integer_error('spincutmodel', spincutmodel, 1, 2)
   call range_integer_error('shellmodel', shellmodel, 1, 2)
   call range_integer_error('kvibmodel', kvibmodel, 1, 2)
-  call range_integer_error('ldmodelcn', ldmodelCN, 1, 6)
+  call range_integer_error('ldmodelcn', ldmodelCN, 1, 8)
   do Zix = 0, numZ
     do Nix = 0, numN
       Z = Zinit - Zix
       A = Ainit - Zix - Nix
-      call range_integer_error('ldmodel', ldmodel(Zix, Nix), 1, 6, index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
+      call range_integer_error('ldmodel', ldmodel(Zix, Nix), 1, 8, index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
       if (ldmodel(Zix, Nix) >= 4) then
         inquire (file = trim(path) // 'density/ground/hilaire/Sn.tab', exist = lexist)
         if ( .not. lexist) then
