@@ -93,7 +93,7 @@ subroutine densitytable(Zix, Nix)
   nloop = 0
   if (flagfission) nloop = nfisbar(Zix, Nix)
   ldmod = ldmodel(Zix, Nix)
-  if (ldmod == 5 .or. ldmod == 6) then
+  if (ldmod >= 5) then
     ploop = - 1
     pardisloc = 1.
   else
@@ -115,6 +115,9 @@ subroutine densitytable(Zix, Nix)
       endif
       if (ldmod == 6) then
         denfile = trim(path)//'density/ground/hilaireD1M/'// trim(denchar)//'.tab'
+      endif
+      if (ldmod == 7) then
+        denfile = trim(path)//'density/ground/bskg3/'// trim(denchar)//'.tab'
       endif
       if (densfile(Zix, Nix)(1:1) /= ' ') denfile = densfile(Zix,Nix)
     endif
@@ -269,7 +272,7 @@ Loop1: do parity = 1, ploop, -2
 ! Special case: make parity-independent level densities from parity-dependent tables (e.g. for testing the impact of
 ! parity-dependence).
 !
-    if (ldmod == 5 .and. ldexist(Zix, Nix, ibar) .and. .not. flagparity) then
+    if (ldmod >= 5 .and. ldexist(Zix, Nix, ibar) .and. .not. flagparity) then
       do nex = 1, nendens(Zix, Nix)
         ldtottableP(Zix, Nix, nex, 1, ibar) = 0.5 * (ldtottableP(Zix, Nix, nex, - 1, ibar) + ldtottableP(Zix, Nix, nex, 1, ibar))
         do J = 0, numJ
