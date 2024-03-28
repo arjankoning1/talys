@@ -118,6 +118,7 @@ subroutine densityout(Zix, Nix)
   real(sgl)         :: Eex           ! excitation energy
   real(sgl)         :: Eex1(numlev2) ! excitation energy
   real(sgl)         :: CE            ! ratio D0theo/Dexp
+  real(sgl)         :: CG            ! ratio D0theo/Dglob
   real(sgl)         :: denom
   real(sgl)         :: x
   real(sgl)         :: pp
@@ -179,6 +180,7 @@ subroutine densityout(Zix, Nix)
   if (ldmod == 4) model = "Goriely tables           "
   if (ldmod == 5) model = "Hilaire-Goriely tables   "
   if (ldmod == 6) model = "Hilaire-Goriely Gogny    "
+  if (ldmod == 7) model = "BSKG3                    "
   write(*, '(" Model: ", a25)') model
   if (ldmod >= 4 .and. .not. ldexist(Zix, Nix, 0)) write(*, '(" Tables not available ")')
   if (flagcol(Zix, Nix) .and. .not. ldexist(Zix, Nix, 0)) then
@@ -415,6 +417,8 @@ subroutine densityout(Zix, Nix)
           ErmsD0 = Ri
         endif
       endif
+      CG = 0.
+      if (Dglob > 1.e-30) CG = Dtheo / Dglob
       call write_real(2,'experimental D0 [eV]',Dexp)
       call write_real(2,'experimental D0 unc. [eV]',dDexp)
       call write_real(2,'global D0 [eV]',Dglob)
@@ -424,8 +428,9 @@ subroutine densityout(Zix, Nix)
       call write_real(2,'C/E D0',CE)
       call write_real(2,'Frms D0',FrmsD0)
       call write_real(2,'Erms D0',ErmsD0)
+      call write_real(2,'C/G D0',CG)
     endif
-    Ncum = real(NL)
+    Ncum = 0
     chi2 = 0.
     Frms = 0.
     Erms = 0.
@@ -442,12 +447,13 @@ subroutine densityout(Zix, Nix)
     Frmssum = 0.
     Ermssum = 0.
     avdevsum = 0.
-    do i = NL + 1, nlevmax2(Zix, Nix) - 1
+    do i = 1, nlevmax2(Zix, Nix) - 1
       if (edis(Zix, Nix, i + 1) == 0.) cycle
       Eex = 0.5 * (edis(Zix, Nix, i) + edis(Zix, Nix, i - 1))
       dEx = edis(Zix, Nix, i) - edis(Zix, Nix, i - 1)
       dens = densitytot(Zix, Nix, Eex, ibar, ldmod)
       Ncum = Ncum + dens * dEx
+      if (i == NL) Ncum = real(NL)
       rhoexp = 0.
       Nav = 10
       ibeg = max(i - Nav/2,0)
@@ -457,29 +463,27 @@ subroutine densityout(Zix, Nix)
       Eb = edis(Zix, Nix, iend)
       Erange = Eb - Ea
       if (Erange > 0.) rhoexp = Nav / Erange
-      if (Ncum < 1.e5) then
-        Eex = edis(Zix, Nix, i)
-        write(*, '(1x, f8.4, i4, f12.3)') Eex, i, Ncum
-        if (filedensity) then
-          k = k + 1
-          if (ldmod <= 3) then
-            ald = ignatyuk(Zix, Nix, Eex, ibar)
-            if (ldmod == 3 .and. Eex < Ucrit(Zix, Nix, ibar) - P - &
-              Pshift(Zix, Nix, ibar)) ald = aldcrit(Zix, Nix, ibar)
-            dens = densitytot(Zix, Nix, Eex, ibar, ldmod)
-            sigma = sqrt(spincut(Zix, Nix, ald, Eex, ibar, 0))
-            x4(k) = ald
-            x5(k) = sigma
-          endif
-          Eex1(k) = Eex
-          i1(k) = i
-          x1(k) = Ncum
-          x2(k) = dens
-          x3(k) = rhoexp
+      Eex = edis(Zix, Nix, i)
+      if (Ncum < 1.e9) write(*, '(1x, f8.4, i4, f12.3)') Eex, i, Ncum
+      if (filedensity) then
+        k = k + 1
+        if (ldmod <= 3) then
+          ald = ignatyuk(Zix, Nix, Eex, ibar)
+          if (ldmod == 3 .and. Eex < Ucrit(Zix, Nix, ibar) - P - &
+            Pshift(Zix, Nix, ibar)) ald = aldcrit(Zix, Nix, ibar)
+          dens = densitytot(Zix, Nix, Eex, ibar, ldmod)
+          sigma = sqrt(spincut(Zix, Nix, ald, Eex, ibar, 0))
+          x4(k) = ald
+          x5(k) = sigma
         endif
+        Eex1(k) = Eex
+        i1(k) = i
+        x1(k) = Ncum
+        x2(k) = dens
+        x3(k) = rhoexp
       endif
-      if (i > 0 .and. i <= NT) then
-        chi2sum = chi2sum + ((Ncum - i) **2 ) / i
+      if (i >= NL .and. i <= NT) then
+        chi2sum = chi2sum + ((Ncum - i) **2 ) / max(NT-NL,1)
         Ri = Ncum / i
         Frmssum = Frmssum + log(Ri)**2 
         Ermssum = Ermssum + log(Ri) 
@@ -488,9 +492,11 @@ subroutine densityout(Zix, Nix)
     enddo
     denom = real(NT - NL)
     chi2 = chi2sum 
-    Frms = exp(sqrt(Frmssum / denom))
-    Erms = exp(Ermssum / denom)
-    avdev = avdevsum / denom
+    if (denom > 0.) then
+      Frms = exp(sqrt(Frmssum / denom))
+      Erms = exp(Ermssum / denom)
+      avdev = avdevsum / denom
+    endif
     Nk = k
     if (filedensity) then
       call write_double(2,'Chi-2 per level',chi2)
