@@ -37,7 +37,7 @@ subroutine endfread
 !   frescue         ! adjustment factor
 !   Nrescue         ! number of energies for adjustment factors
 ! Variables for inverse channel data
-!   threshnorm      ! normalization factor at trheshold
+!   threshnorm      ! normalization factor at threshold
 ! Variables for nuclides
 !   AA              ! mass number of residual nucleus
 !   ZZ              ! charge number of residual nucleus

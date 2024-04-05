@@ -118,7 +118,7 @@
   integer            :: j                             ! counter
   integer            :: jend                          ! end of jloop
   integer            :: k                             ! designator for particle
-  integer            :: k2                            ! kounter
+  integer            :: k2                            ! counter
   integer            :: keyix
   integer            :: n1                            ! number of coordinate grid points
   integer            :: n2                            ! counter

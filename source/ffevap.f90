@@ -140,7 +140,7 @@ subroutine ffevap
   integer   :: ip                                    ! particle number
   integer   :: it                                    ! counter for tritons
   integer   :: iz                                    ! charge number of residual nucleus
-  integer   :: izp                                   ! chanrge number
+  integer   :: izp                                   ! charge number
   integer   :: nen                                   ! energy counter
   integer   :: nen2                                  ! energy counter
   integer   :: nex                                   ! excitation energy bin of compound nucleus

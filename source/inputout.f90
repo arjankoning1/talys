@@ -54,7 +54,7 @@ subroutine inputout
 !   flagrecoil      ! flag for calculation of recoils
 !   flagrecoilav    ! flag for average velocity in recoil calculation
 !   flagrel         ! flag for relativistic kinematics
-!   flagrpevap      ! flag for evaporation of residual products at high inccident energies
+!   flagrpevap      ! flag for evaporation of residual products at high incident energies
 ! Variables for best files
 !   flagbest        ! flag to use best set of adjusted parameters
 !   flagbestend     ! flag to put best set of parameters at end of input file

@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2021-12-30: Original code
-! 2024-02-11: Current version
+! 2024-03-28: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -210,7 +210,7 @@ module A0_talys_mod
   logical                                         :: flagchannels  ! flag for exclusive channel calculation
   logical                                         :: flagEchannel  ! flag for channel energy for emission spectrum
   logical                                         :: flagendf      ! flag for information for ENDF-6 file
-  logical                                         :: flagendfdet   ! flag for detailed ENDF-6 information per cchannel
+  logical                                         :: flagendfdet   ! flag for detailed ENDF-6 information per channel
   logical                                         :: flagendfecis  ! flag for new ECIS calculation for ENDF-6 files
   logical                                         :: flaglabddx    ! flag for calculation of DDX in LAB system
   logical                                         :: flagmassdis   ! flag for calculation of fission fragment mass distribution
@@ -231,7 +231,7 @@ module A0_talys_mod
   logical                                         :: flagrecoil    ! flag for calculation of recoils
   logical                                         :: flagrecoilav  ! flag for average velocity in recoil calculation
   logical                                         :: flagrel       ! flag for relativistic kinematics
-  logical                                         :: flagrpevap    ! flag for eva. of residual products at high inccident energies
+  logical                                         :: flagrpevap    ! flag for eva. of residual products at high incident energies
   character(len=132)                              :: ompenergyfile ! file with energies for OMP calculation (ENDF files only)
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -279,7 +279,7 @@ module A0_talys_mod
   integer   :: maxN       ! maximal number of neutrons away from initial compound nucleus
   integer   :: maxNrp     ! maximal number of neutrons away from the initial compound nucleus
   integer   :: maxZ       ! maximal number of protons away from initial compound nucleus
-  integer   :: maxZrp     ! maximal number of protons away from the initial comppound nucleus
+  integer   :: maxZrp     ! maximal number of protons away from the initial compound nucleus
   integer   :: nangle     ! number of angles
   integer   :: nanglecont ! number of angles for continuum
   integer   :: nbins0     ! number of continuum excitation energy bins
@@ -1269,7 +1269,7 @@ module A0_talys_mod
 !
 ! inversenorm
 !
-  real(sgl), dimension(0:numpar)        :: threshnorm ! normalization factor at trheshold
+  real(sgl), dimension(0:numpar)        :: threshnorm ! normalization factor at threshold
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
 ! Variables for preequilibrium initialization

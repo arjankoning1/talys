@@ -23,7 +23,7 @@ subroutine splint(xa, ya, y2a, i, x, y)
   real(sgl) :: x      ! help variable
   real(sgl) :: xa(i)  ! intersection of the segment with the vertical axis linking  (xl,yl) with (xl,yu)
   real(sgl) :: y      ! coordinates of the point to test
-  real(sgl) :: y2a(i) ! chelp variable
+  real(sgl) :: y2a(i) ! help variable
   real(sgl) :: ya(i)  ! intersection of the segment with the vertical axis linking  (xl,yl) with (xl,yu)
 !
 ! **********************************************************************

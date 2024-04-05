@@ -19,7 +19,7 @@ subroutine input_numerics
 !   maxN          ! maximal number of neutrons away from initial compound nucleus
 !   maxNrp        ! maximal number of neutrons away from the initial compound nucleus
 !   maxZ          ! maximal number of protons away from initial compound nucleus
-!   maxZrp        ! maximal number of protons away from the initial comppound nucleus
+!   maxZrp        ! maximal number of protons away from the initial compound nucleus
 !   nangle        ! number of angles
 !   nanglecont    ! number of angles for continuum
 !   nbins0        ! number of continuum excitation energy bins

@@ -103,7 +103,7 @@ subroutine neck(Z, A, fmass, fmasscor, fmz, fmzcor, ap, edefo, elt, crel)
   real(sgl) :: expo                      ! help variable
   real(sgl) :: ezdis                     ! energy
   real(sgl) :: ezdisnorm                 ! normalized energy
-  real(sgl) :: fimin                     ! fucntion value of fmin
+  real(sgl) :: fimin                     ! function value of fmin
   real(sgl) :: fmass(nummass)            ! fission fragment mass yield
   real(sgl) :: fmasscor(nummass)         ! corrected fission fragment mass yield
   real(sgl) :: fmin                      ! minimum function value

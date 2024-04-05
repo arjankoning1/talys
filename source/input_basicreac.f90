@@ -22,7 +22,7 @@ subroutine input_basicreac
 !   flagchannels     ! flag for exclusive channel calculation
 !   flagEchannel     ! flag for channel energy for emission spectrum
 !   flagendf         ! flag for information for ENDF-6 file
-!   flagendfdet      ! flag for detailed ENDF-6 information per cchannel
+!   flagendfdet      ! flag for detailed ENDF-6 information per channel
 !   flagendfecis     ! flag for new ECIS calculation for ENDF-6 files
 !   flagffruns       ! flag to designate subsequent evap. of fission products
 !   flaglabddx       ! flag for calculation of DDX in LAB system
@@ -44,7 +44,7 @@ subroutine input_basicreac
 !   flagrecoil       ! flag for calculation of recoils
 !   flagrecoilav     ! flag for average velocity in recoil calculation
 !   flagrel          ! flag for relativistic kinematics
-!   flagrpevap       ! flag for evaporation of residual products at high inccident energies
+!   flagrpevap       ! flag for evaporation of residual products at high incident energies
 !   flagrpruns       ! flag to designate that run is for residual product
 !   ompenergyfile    ! file with energies for OMP calculation (ENDF files only)
 ! Variables for reading input lines

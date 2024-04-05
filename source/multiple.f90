@@ -32,7 +32,7 @@ subroutine multiple
 !   flagchannels    ! flag for exclusive channels calculation
 !   flagendf        ! flag for information for ENDF - 6 file
 !   flagrecoil      ! flag for calculation of recoils
-!   flagrpevap      ! flag for evaporation of residual products at high inccident energies
+!   flagrpevap      ! flag for evaporation of residual products at high incident energies
 ! Variables for input energies
 !   flaginitpop     ! flag for initial population distribution
 ! Variables for main input

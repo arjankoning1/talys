@@ -54,7 +54,7 @@ subroutine wkb(Z, A, Zix, Nix, nbar)
   integer          :: Zix             ! charge number index for residual nucleus
   real(sgl)        :: centr           ! center of fitted parabola
   real(sgl)        :: dE              ! help variable
-  real(sgl)        :: heigth          ! barrier height
+  real(sgl)        :: height          ! barrier height
   real(sgl)        :: phase(2*numbar) ! phase
   real(sgl)        :: rmiu            ! parameter for WKB
   real(sgl)        :: tdir            ! WKB variable
@@ -63,7 +63,7 @@ subroutine wkb(Z, A, Zix, Nix, nbar)
   real(sgl)        :: uexc            ! excitation energy
   real(sgl)        :: uexc0           ! excitation energy
   real(sgl)        :: uexc1           ! excitation energy
-  real(sgl)        :: uheigth         ! height of parabola
+  real(sgl)        :: uheight         ! height of parabola
   real(sgl)        :: uwidth          ! height of parabola
   real(sgl)        :: width           ! Full width at half maximum of the breakup nucleon  energy distribution, Kalbach 2003
   real(sgl)        :: Vwell           ! help variable
@@ -98,11 +98,11 @@ subroutine wkb(Z, A, Zix, Nix, nbar)
     Vwidth(j) = 0.
   enddo
   do j = 1, nextr
-    CALL ParabFit(iiextr(j), 3, rmiu, betafis, vfis, centr,  heigth,  width, ucentr, uheigth, uwidth)
+    CALL ParabFit(iiextr(j), 3, rmiu, betafis, vfis, centr,  height,  width, ucentr, uheight, uwidth)
     if(width.LT.0.05d0) CYCLE ! Skipping very narrow peaks
     if (flagfisout) then
       write(22, *) ' Def: ', betafis(iiextr(j)), ' (', centr, ' +/- ', ucentr, ')'
-      write(22, *) ' Heigth :', vfis(iiextr(j)), ' (', heigth, ' +/- ', uheigth, ')'
+      write(22, *) ' Height :', vfis(iiextr(j)), ' (', height, ' +/- ', uheight, ')'
       write(22, *) ' Width :', width, ' +/- ', uwidth
       write(22, *) '*******************************************'
     endif

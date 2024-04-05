@@ -31,7 +31,7 @@ subroutine incidentnorm
 !   xsoptinc      ! optical model reaction cross section for incident channel
 !   xsreacinc     ! reaction cross section for incident channel
 ! Variables for inverse channel data
-!   threshnorm    ! normalization factor at trheshold
+!   threshnorm    ! normalization factor at threshold
 ! Constants
 !   parA          ! mass number of particle
 !   parZ          ! charge number of particle

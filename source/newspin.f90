@@ -34,7 +34,7 @@ function newspin(A,e,n,iglob,f)
 end function newspin
 
 function spin_wigner(j,s)
-  ! Funtion used to define spin distribution R(J) as a function of the spin cut-off.
+  ! Function used to define spin distribution R(J) as a function of the spin cut-off.
   ! It is normalized such as sum_J R(J) = 1 (thus it is 2J+1 times the R(J) defined in preeqinit.f).
   ! Parameters:
   ! -----------

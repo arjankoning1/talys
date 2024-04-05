@@ -45,7 +45,7 @@ subroutine onecontinuumA(itype, type)
 ! *** Declaration of local data
 !
   implicit none
-  integer   :: h                 ! hole numberle
+  integer   :: h                 ! hole number
   integer   :: iang              ! running variable for angle
   integer   :: itype             ! help variable
   integer   :: J                 ! spin of level

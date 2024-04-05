@@ -47,7 +47,7 @@ subroutine pfnsout
   character(len=80) :: quantity   ! quantity
   integer           :: MF
   integer           :: MT
-  integer           :: Ncol      ! number of colums
+  integer           :: Ncol      ! number of columns
   integer           :: nen       ! energy counter
   integer           :: type      ! particle type
 !

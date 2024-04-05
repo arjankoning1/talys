@@ -30,7 +30,7 @@ subroutine talysreaction
 !   flagmassdis     ! flag for calculation of fission fragment mass yields
 !   flagreaction    ! flag for calculation of nuclear reactions
 !   flagrecoil      ! flag for calculation of recoils
-!   flagrpevap      ! flag for evaporation of residual products at high inccident energies
+!   flagrpevap      ! flag for evaporation of residual products at high incident energies
 ! Variables for best files
 !   flagrescue      ! flag for final rescue: normalization to data
 ! Variables for basic parameters

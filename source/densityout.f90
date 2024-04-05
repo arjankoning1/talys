@@ -343,9 +343,9 @@ subroutine densityout(Zix, Nix)
       if (ldmod <= 3) then
         Ncol=7
         if (flagcol(Zix, Nix) .and. .not. ldexist(Zix, Nix, ibar)) then
-          call write_char(2,'Collective enhacement','y')
+          call write_char(2,'Collective enhancement','y')
         else
-          call write_char(2,'Collective enhacement','n')
+          call write_char(2,'Collective enhancement','n')
         endif
         call write_real(2,'a(Sn) [MeV^-1]',alev(Zix,Nix))
         call write_real(2,'asymptotic a [MeV^-1]',alimit(Zix,Nix))
@@ -371,6 +371,7 @@ subroutine densityout(Zix, Nix)
       else
         Ncol=5
       endif
+      call write_integer(2,'number of excited levels',nlev(Zix,Nix))
       call write_integer(2,'Nlow',Nlow(Zix, Nix, ibar))
       call write_integer(2,'Ntop',Ntop(Zix, Nix, ibar))
       call write_real(2,'ctable',ctable(Zix, Nix, ibar))

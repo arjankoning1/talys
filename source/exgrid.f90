@@ -68,7 +68,7 @@ subroutine exgrid(Zcomp, Ncomp)
   integer   :: A            ! mass number of target nucleus
   integer   :: Aix          ! mass number index for residual nucleus
   integer   :: i            ! counter
-  integer   :: ipop         ! help varible
+  integer   :: ipop         ! help variable
   integer   :: Ir           ! residual spin
   integer   :: ldmod        ! level density model
   integer   :: Ncomp        ! neutron number index for compound nucleus
