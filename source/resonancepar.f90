@@ -42,6 +42,7 @@ subroutine resonancepar(Zix, Nix)
 !
   implicit none
   logical           :: lexist      ! logical to determine existence
+  character(len=4)  :: D0ext       ! help variable
   character(len=6)  :: reschar     ! help variable
   character(len=132):: resfile     ! file with residual production cross sections
   integer           :: A           ! mass number of target nucleus
@@ -98,7 +99,17 @@ subroutine resonancepar(Zix, Nix)
 !
 ! 3. Read global D0 values from theory
 !
-  resfile = trim(path)//'resonances/D0global.all'
+  if (ldmodel(Zix, Nix) == 1 .and. .not.flagcol(Zix, Nix)) D0ext='ld1n'
+  if (ldmodel(Zix, Nix) == 1 .and. flagcol(Zix, Nix)) D0ext='ld1y'
+  if (ldmodel(Zix, Nix) == 2 .and. .not.flagcol(Zix, Nix)) D0ext='ld2n'
+  if (ldmodel(Zix, Nix) == 2 .and. flagcol(Zix, Nix)) D0ext='ld2y'
+  if (ldmodel(Zix, Nix) == 3 .and. .not.flagcol(Zix, Nix)) D0ext='ld3n'
+  if (ldmodel(Zix, Nix) == 3 .and. flagcol(Zix, Nix)) D0ext='ld3y'
+  if (ldmodel(Zix, Nix) == 4) D0ext='ld4'
+  if (ldmodel(Zix, Nix) == 5) D0ext='ld5'
+  if (ldmodel(Zix, Nix) == 6) D0ext='ld6'
+  if (ldmodel(Zix, Nix) == 7) D0ext='ld7'
+  resfile = trim(path)//'resonances/D0global.'//D0ext
   inquire (file = resfile, exist = lexist)
   if (lexist) then
     open (unit = 2, file = resfile, status = 'old', iostat = istat)
@@ -108,7 +119,7 @@ subroutine resonancepar(Zix, Nix)
       if (istat == -1) exit
       if (Z == iz .and. A == ia) then
         D0global(Zix, Nix) = D0glob
-        dD0global(Zix, Nix) = 0.8*D0glob
+        dD0global(Zix, Nix) = D0glob
         exit
       endif
     enddo
