@@ -421,6 +421,8 @@ subroutine strucinitial
   D0theo = 0.
   D1theo = 0.
   dD0 = 0.
+  D0global = 0.
+  dD0global = 0.
   dgamgam = 0.
   Dl = 0.
   Dlj = 0.
