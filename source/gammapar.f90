@@ -370,7 +370,7 @@ subroutine gammapar(Zix, Nix)
         do
           read(2, * , iostat = istat) ee, fe1t
           if (istat == -1) exit
-          if (istat /= -1) cycle
+          if (istat /= 0) cycle
           if (gamadjust(Zix, Nix)) then
             key = 'etable'
             call adjust(ee, key, Zix, Nix, 0, 0, factor)
