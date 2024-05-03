@@ -293,7 +293,7 @@ subroutine levels(Zix, Nix)
 !
   Lis = Nisomer(Zix, Nix) + 1
   do i = nlevmax2(Zix, Nix), nlev(Zix, Nix) + 1, - 1
-    if (tau(Zix, Nix, i) >= isomer) then
+    if (tau(Zix, Nix, i) >= isomer .and. isomer > 0.) then
       Lis = Lis - 1
       N = nlev(Zix, Nix) - Nisomer(Zix, Nix) + Lis
       if (Lis >= 0 .and. N >= 0) then
