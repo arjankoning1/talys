@@ -59,6 +59,10 @@ subroutine preeqspindis
   enddo
 !
 ! Marc Dupuis: use a spin cut-off value inferred from JLM/QRPA calculations.
+! Microscopic description of target spin distribution after inelastic scattering to the continuum
+! Marc  Dupuis, Toshihiko  Kawano, Maelle  Kerveno, Stephane  Hilaire
+! EPJ Web of Conf. 284 03003 (2023)
+! DOI: 10.1051/epjconf/202328403003
 !
   if (pespinmodel == 4) then
     do n = 1, maxexc
