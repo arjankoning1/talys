@@ -42,11 +42,13 @@ subroutine pfnsout
   character(len=13) :: Estr
   character(len=18) :: reaction   ! reaction
   character(len=132) :: topline    ! topline
+  character(len=200) :: string                ! line with parameter value
   character(len=15) :: col(4)     ! header
   character(len=15) :: un(4)     ! header
   character(len=80) :: quantity   ! quantity
   integer           :: MF
   integer           :: MT
+  integer           :: istat
   integer           :: Ncol      ! number of columns
   integer           :: nen       ! energy counter
   integer           :: type      ! particle type
@@ -102,6 +104,17 @@ subroutine pfnsout
       write(1, '(4es15.6)') Epfns(nen), pfns(type, nen), maxpfns(type, nen), pfnscm(type, nen)
     enddo
     close (unit = 1)
+    if (flagoutall) then
+      open (unit = 1, file = pfnsfile, status = 'old')
+      do
+        read(1, '(a)', iostat = istat) string
+        if (istat /= 0) exit
+        write(*, '(1x, a)') trim(string)
+      enddo 
+      close (unit = 1)  
+    else
+      write(*,'("file: ",a)') trim(pfnsfile)
+    endif
   enddo
   return
 end subroutine pfnsout
