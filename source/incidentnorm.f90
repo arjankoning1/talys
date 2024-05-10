@@ -41,6 +41,7 @@ subroutine incidentnorm
   implicit none
   integer   :: ispin    ! spin index
   integer   :: l        ! multipolarity
+  integer   :: nen      ! counter
   real(sgl) :: enuc     ! incident energy in MeV per nucleon
   real(sgl) :: norm     ! normalization factor
   real(sgl) :: tripathi ! function for semi-empirical reaction cross section of
@@ -50,18 +51,30 @@ subroutine incidentnorm
 !
 ! tripathi  : function for semi-empirical reaction cross section of Tripathi et al.
 !
+  if (xsoptinc == 0.) return
+  norm = 1.
+!
 ! The normalization is only performed if the option for semi-empirical reaction cross sections is enabled.
 !
-  if ( .not. flagsys(k0)) return
-  if (xsoptinc == 0.) return
-  enuc = Einc / parA(k0)
-  xs = tripathi(parZ(k0), parA(k0), Ztarget, Atarget, enuc)
-  if (xs == 0.) then
-    norm = threshnorm(k0)
-    xs = xsoptinc * threshnorm(k0)
-  else
-    norm = xs / xsoptinc
+  if (flagsys(k0)) then
+    enuc = Einc / parA(k0)
+    xs = tripathi(parZ(k0), parA(k0), Ztarget, Atarget, enuc)
+    if (xs == 0.) then
+      norm = threshnorm(k0)
+      xs = xsoptinc * threshnorm(k0)
+    else
+      norm = xs / xsoptinc
+    endif
   endif
+!
+! Normalization for compound nucleus resonances of light nuclides
+!
+  if (flagpseudores) then
+    call locate(Eresgrid, 0, numresgrid, Einc, nen)
+    norm = resgrid(nen)
+    xs = xsreacinc * norm
+  endif
+  if (norm == 1.) return
   xsreacinc = xs
   if (k0 == 1) xselasinc = xselasinc + xsoptinc - xs
   do l = 0, numl
