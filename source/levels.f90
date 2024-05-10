@@ -99,7 +99,6 @@ subroutine levels(Zix, Nix)
   real(sgl)         :: br(numlev)        ! branching ratio multiplied by initial flux
   real(sgl)         :: con(numlev)       ! conversion factor
   real(sgl)         :: sum               ! help variable
-  real(sgl)         :: isomer0           ! help variable
 !
 ! ******************** Default nuclear levels **************************
 !
@@ -198,13 +197,6 @@ subroutine levels(Zix, Nix)
 ! Spins beyond numJ are set to numJ
 !
         jdis(Zix, Nix, i) = min(jdis(Zix, Nix, i), real(numJ))
-!
-! Overwrite value of isomer for shorter-lived target level.
-!
-        if (Ltarget0 /= 0 .and. Zix == parZ(k0) .and. Nix == parN(k0) .and. i == Ltarget0 .and. tau(Zix, Nix, i) < isomer) then
-          isomer0 = isomer
-          isomer = tau(Zix, Nix, i)
-        endif
       enddo
 !
 ! Lifetimes below the isomeric definition are set to zero.
@@ -296,7 +288,7 @@ subroutine levels(Zix, Nix)
 !
   Lis = Nisomer(Zix, Nix) + 1
   do i = nlevmax2(Zix, Nix), nlev(Zix, Nix) + 1, - 1
-    if (tau(Zix, Nix, i) > isomer0) then
+    if (tau(Zix, Nix, i) > isomer .and. isomer > 1.) then
       Lis = Lis - 1
       N = nlev(Zix, Nix) - Nisomer(Zix, Nix) + Lis
       if (Lis >= 0 .and. N >= 0) then
@@ -348,6 +340,10 @@ subroutine levels(Zix, Nix)
       endif
     enddo
   endif
+!
+! Extract level information for resonances of light nuclides
+!
+  if (flagpseudores .and. Zix == parZ(k0) .and. Nix == parN(k0)) call pseudo_resonance
   return
 end subroutine levels
 ! Copyright A.J. Koning 2021
