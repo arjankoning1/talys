@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2021-12-30: Original code
-! 2024-04-05: Current version
+! 2024-05-08: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -42,6 +42,7 @@ module A0_talys_mod
   integer, parameter :: numenadj=1000                        ! maximum number of energies for adjustable parameters
   integer, parameter :: numlev=40                            ! maximum number of discrete levels
   integer, parameter :: numisom=10                           ! number of isomers
+  integer, parameter :: numresgrid=1000                      ! number of energies on resonance grid
   integer, parameter :: numflux=100                          ! number of integral experiments
   integer, parameter :: numfile=100                          ! maximum number of separate output files
   integer, parameter :: numlev2=200                          ! maximum number of levels
@@ -308,6 +309,7 @@ module A0_talys_mod
 !
   logical                               :: flagbestbr   ! flag to use only best set of branching ratios
   logical                               :: flagelectron ! flag for application of electron conversion coefficient
+  logical                               :: flagpseudores! flag for using light nuclide discrete levels for resonances
   logical                               :: flaglevels   ! flag for output of discrete level information
   character(len=132), dimension(0:numZ) :: deformfile   ! deformation parameter file
   character(len=132), dimension(0:numZ) :: levelfile    ! discrete level file
@@ -316,6 +318,8 @@ module A0_talys_mod
   integer, dimension(0:numpar)          :: nlevbin      ! number of excited levels for binary nucleus
   integer                               :: nlevmax      ! maximum number of included discrete levels for target nucleus
   integer                               :: nlevmaxres   ! maximum number of included discrete levels for residual nucleus
+  real(sgl), dimension(0:numresgrid)    :: Eresgrid     ! energies on resonance grid
+  real(sgl), dimension(0:numresgrid)    :: resgrid      ! resonance grid
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
 ! Variables for level densities
@@ -742,6 +746,7 @@ module A0_talys_mod
   logical, dimension(2, numelem, numneu, -1:1)        :: fpexist      ! flag for existence of fission product
   logical, dimension(0:numpar)                        :: nubarexist   ! flag for existence of nubar file
   logical, dimension(0:numZ, 0:numN)                  :: fisexist     ! flag for existence of fission cross section
+  logical, dimension(0:numZ, 0:numN)                  :: tfisexist    ! flag for existence of fission transmission coefficients
   logical, dimension(0:numZ,0:numN,0:numlev,0:numlev) :: gamexist     ! flag for existence of gamma production cross section
   logical, dimension(0:numpar,0:numpar,0:numlev)      :: legexist     ! logical to determine existence of Legendre coefficients
   logical, dimension(0:numZ, 0:numN)                  :: recexist     ! flag for existence of recoils
