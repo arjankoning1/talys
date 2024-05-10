@@ -90,6 +90,7 @@ subroutine input_levels
   branchlevel = 0
   branchratio = 0.
   Risomer = 1.
+  flagpseudores = .false.
   flagelectron = .true.
   if (flagendf) flagelectron = .true.
   deformfile = ' '
@@ -197,6 +198,12 @@ subroutine input_levels
     if (key == 'electronconv') then
       if (ch == 'n') flagelectron = .false.
       if (ch == 'y') flagelectron = .true.
+      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'pseudoresonances') then
+      if (ch == 'n') flagpseudores = .false.
+      if (ch == 'y') flagpseudores = .true.
       if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
       cycle
     endif
