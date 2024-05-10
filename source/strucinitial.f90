@@ -353,6 +353,7 @@ subroutine strucinitial
   legexist = .false.
   angexist = .false.
   fisexist = .false.
+  tfisexist = .false.
   gamchanexist = .false.
   gamexist = .false.
   idnumfull = .false.
