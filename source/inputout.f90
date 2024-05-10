@@ -190,6 +190,7 @@ subroutine inputout
 ! Variables for discrete levels
 !   disctable       ! table with discrete levels
 !   flagbestbr      ! flag to use only best set of branching ratios
+!   flagpseudores   ! flag for using light nuclide discrete levels for resonances
 !   flagelectron    ! flag for application of electron conversion coefficient
 !   flaglevels      ! flag for output of discrete level information
 !   nlevbin         ! number of excited levels for binary nucleus
@@ -480,6 +481,8 @@ subroutine inputout
   write(*, '(" gammax             ", i2, "     gammax       number of l-values for gamma multipolarity")') gammax
   write(*, '(" strength           ", i2, "     strength     model for E1 gamma-ray strength function")') strength
   write(*, '(" strengthM1         ", i2, "     strengthM1   model for M1 gamma-ray strength function")') strengthM1
+  write(*, '(" pseudoresonances    ", a1, "    flagpseudores flag for using light nuclide discrete levels for resonances")') &
+ &  yesno(flagpseudores)
   write(*, '(" electronconv        ", a1, "     flagelectron flag for application of electron conversion coefficient")') &
  &  yesno(flagelectron)
   write(*, '(" racap               ", a1, "     flagracap    flag for radiative capture model")') yesno(flagracap)
