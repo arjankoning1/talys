@@ -69,6 +69,7 @@ subroutine gammaout(Zcomp, Ncomp)
   implicit none
   character(len=3)  :: massstring !
   character(len=6)  :: finalnuclide !
+  character(len=7)  :: crossfile !
   character(len=15) :: col(2)    ! header
   character(len=15) :: un(2)    ! header
   character(len=80) :: quantity   ! quantity
@@ -267,11 +268,28 @@ subroutine gammaout(Zcomp, Ncomp)
 !
 ! **************** Cross sections for inverse channels *****************
 !
+  quantity='photo absorption cross sections'
+  topline=trim(finalnuclide)//' '//trim(quantity)
+  crossfile='cross.g'
+  col(1)='E'
+  un(1)='MeV'
+  col(2)='cross section'
+  un(2)='mb'
+  Ncol = 2
+  open (unit=1, file=crossfile, status='replace')
+  call write_header(topline,source,user,date,oformat)
+  call write_residual(Z,A,finalnuclide)
+  write(1,'("# parameters:")')
+  call write_char(2,'particle',parname(0))
+  Nen =  eend(0) - ebegin(0) + 1
+  call write_datablock(quantity,Ncol,Nen,col,un)
   write(*, '(/" Photoabsorption cross sections"/)')
   write(*, '("  E [MeV]   xs [mb]"/)')
   do nen = ebegin(0), eend(0)
+    write(1, '(2es15.6)') egrid(nen), xsreac(0, nen)
     write(*, '(2es15.6)') egrid(nen), xsreac(0, nen)
   enddo
+  close (unit=1)
   return
 end subroutine gammaout
 ! Copyright A.J. Koning 2021
