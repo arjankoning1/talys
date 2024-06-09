@@ -151,6 +151,7 @@ subroutine densitypar(Zix, Nix)
 ! ldmodel 5: Combinatorial HFB model (Hilaire and Goriely)
 ! ldmodel 6: Combinatorial HFB model - Gogny force (Hilaire and Goriely)
 ! ldmodel 7: BSKG3 HFB model - Skyrme force (Ryssens and Goriely)
+! ldmodel 8: QRPA model 
 !
   Z = ZZ(Zix, Nix, 0)
   N = NN(Zix, Nix, 0)
@@ -171,6 +172,7 @@ subroutine densitypar(Zix, Nix)
   if (ldmod == 5) denfile = trim(path)//'density/ground/hilaire/'//denchar
   if (ldmod == 6) denfile = trim(path)//'density/ground/hilaireD1M/'//denchar
   if (ldmod == 7) denfile = trim(path)//'density/ground/bskg3/'//denchar
+  if (ldmod == 8) denfile = trim(path)//'density/ground/qrpa/'//denchar
   inquire (file = denfile, exist = lexist)
   if (lexist) then
     if (flagcol(Zix, Nix) .and. ldmod <= 3) then
