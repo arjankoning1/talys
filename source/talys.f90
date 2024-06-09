@@ -5,12 +5,12 @@ program talys
 !
 ! Author    : Arjan Koning, Stephane Hilaire and Stephane Goriely
 !
-! 2021-12-30: Original code
-! 2024-04-05: Current revision
+! 2023-12-30: Original code
+! 2024-06-09: Current revision
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !   |-------------------------------------------------------|
-!   |                 TALYS-2.01                            |
+!   |                 TALYS-2.02                            |
 !   |                 Arjan Koning                          |
 !   |                 Stephane Hilaire                      |
 !   |                 Stephane Goriely                      |
