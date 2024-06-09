@@ -109,6 +109,7 @@ subroutine resonancepar(Zix, Nix)
   if (ldmodel(Zix, Nix) == 5) D0ext='ld5'
   if (ldmodel(Zix, Nix) == 6) D0ext='ld6'
   if (ldmodel(Zix, Nix) == 7) D0ext='ld7'
+  if (ldmodel(Zix, Nix) == 8) D0ext='ld8'
   resfile = trim(path)//'resonances/D0global.'//D0ext
   inquire (file = resfile, exist = lexist)
   if (lexist) then
