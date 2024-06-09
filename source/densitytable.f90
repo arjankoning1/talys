@@ -107,18 +107,11 @@ subroutine densitytable(Zix, Nix)
 ! Ground state
 !
     if (ibar == 0) then
-      if (ldmod == 4) then
-        denfile = trim(path)//'density/ground/goriely/'//trim(denchar)//'.tab'
-      endif
-      if (ldmod == 5) then
-        denfile = trim(path)//'density/ground/hilaire/'//trim(denchar)//'.tab'
-      endif
-      if (ldmod == 6) then
-        denfile = trim(path)//'density/ground/hilaireD1M/'// trim(denchar)//'.tab'
-      endif
-      if (ldmod == 7) then
-        denfile = trim(path)//'density/ground/bskg3/'// trim(denchar)//'.tab'
-      endif
+      if (ldmod == 4) denfile = trim(path)//'density/ground/goriely/'//trim(denchar)//'.tab'
+      if (ldmod == 5) denfile = trim(path)//'density/ground/hilaire/'//trim(denchar)//'.tab'
+      if (ldmod == 6) denfile = trim(path)//'density/ground/hilaireD1M/'// trim(denchar)//'.tab'
+      if (ldmod == 7) denfile = trim(path)//'density/ground/bskg3/'// trim(denchar)//'.tab'
+      if (ldmod == 8) denfile = trim(path)//'density/ground/qrpa/'// trim(denchar)//'.tab'
       if (densfile(Zix, Nix)(1:1) /= ' ') denfile = densfile(Zix,Nix)
     endif
 !
