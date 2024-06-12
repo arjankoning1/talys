@@ -1,4 +1,4 @@
-function gammaxs(Zcomp, Ncomp, Egamma)
+subroutine gammaxs(Zcomp, Ncomp, Egamma, xsgamma, xsgdr, xsqd)
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
 ! Purpose   : Gamma ray cross sections
@@ -30,7 +30,7 @@ function gammaxs(Zcomp, Ncomp, Egamma)
   integer   :: Zcomp         ! proton number index for compound nucleus
   real(sgl) :: Egamma        ! gamma energy
   real(sgl) :: fstrength     ! gamma ray strength function
-  real(sgl) :: gammaxs       ! function for gamma ray cross sections
+  real(sgl) :: xsgamma       ! photo-absorption cross section
   real(sgl) :: quasideuteron ! Quasi-deuteron function of Chadwick and Oblozinsky
   real(sgl) :: xsgdr         ! photo-absorption cross section from GDR part
   real(sgl) :: xsqd          ! photo-absorption cross section from QD part
@@ -56,7 +56,7 @@ function gammaxs(Zcomp, Ncomp, Egamma)
 !
 ! Total absorption cross section
 !
-  gammaxs = xsgdr + xsqd
+  xsgamma = xsgdr + xsqd
   return
-end function gammaxs
+end subroutine gammaxs
 ! Copyright A.J. Koning 2021
