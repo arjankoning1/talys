@@ -32,7 +32,6 @@ subroutine incidentgamma
   integer   :: l             ! multipolarity
   real(sgl) :: factor        ! multiplication factor
   real(sgl) :: fstrength     ! gamma ray strength function
-  real(sgl) :: gammaxs       ! function for gamma ray cross sections
   real(sgl) :: quasideuteron ! Quasi-deuteron function of Chadwick and Oblozinsky
   real(sgl) :: Tgamma        ! gamma transmission coefficient
   real(sgl) :: xsgdr         ! photo-absorption cross section from GDR part
@@ -46,9 +45,7 @@ subroutine incidentgamma
 ! Note that we use the first index of Tjlinc for the radiation type, instead of the particle spin index.
 !
   lmaxinc = gammax
-  xsreacinc = gammaxs(0, 0, Einc)
-  xsqd = quasideuteron(Einc)
-  xsgdr = xsreacinc - xsqd
+  call gammaxs(0, 0, Einc, xsreacinc, xsgdr, xsqd)
   if (xsgdr > 0.) then
     factor = xsreacinc / xsgdr
   else
