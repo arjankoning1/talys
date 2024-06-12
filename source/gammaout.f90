@@ -70,8 +70,8 @@ subroutine gammaout(Zcomp, Ncomp)
   character(len=3)  :: massstring !
   character(len=6)  :: finalnuclide !
   character(len=7)  :: crossfile !
-  character(len=15) :: col(2)    ! header
-  character(len=15) :: un(2)    ! header
+  character(len=15) :: col(4)    ! header
+  character(len=15) :: un(4)    ! header
   character(len=80) :: quantity   ! quantity
   character(len=132) :: topline   ! topline
   character(len=1 ) :: radtype      ! radiation type
@@ -97,6 +97,9 @@ subroutine gammaout(Zcomp, Ncomp)
   real(sgl)         :: e            ! energy
   real(sgl)         :: Epsf(numen)  ! number of energy points
   real(sgl)         :: fstrength    ! gamma-ray strength function
+  real(sgl)         :: xsgamma      ! photo-absorption cross section
+  real(sgl)         :: xsgdr        ! photo-absorption cross section from GDR part
+  real(sgl)         :: xsqd         ! photo-absorption cross section from QD part
 !
 ! ***** Gamma-ray strength functions and transmission coefficients *****
 !
@@ -215,6 +218,9 @@ subroutine gammaout(Zcomp, Ncomp)
 !
 ! Output on separate files
 !
+    massstring='   '
+    write(massstring,'(i3)') A
+    finalnuclide=trim(nuc(Z))//adjustl(massstring)
     if (filepsf .and. l == 1) then
       quantity='photon strength function'
       if (gamgam(Zcomp,Ncomp) > 0.) then
@@ -222,9 +228,6 @@ subroutine gammaout(Zcomp, Ncomp)
       else
         CEgamgam = 0.
       endif
-      massstring='   '
-      write(massstring,'(i3)') A
-      finalnuclide=trim(nuc(Z))//adjustl(massstring)
       do irad = 0, 1
         psffile = 'psf000000.E1'
         write(psffile(4:9), '(2i3.3)') Z, A
@@ -271,11 +274,13 @@ subroutine gammaout(Zcomp, Ncomp)
   quantity='photo absorption cross sections'
   topline=trim(finalnuclide)//' '//trim(quantity)
   crossfile='cross.g'
+  un='mb'
   col(1)='E'
   un(1)='MeV'
   col(2)='cross section'
-  un(2)='mb'
-  Ncol = 2
+  col(3)='GDR'
+  col(4)='Quasi-deuteron'
+  Ncol = 4
   open (unit=1, file=crossfile, status='replace')
   call write_header(topline,source,user,date,oformat)
   call write_residual(Z,A,finalnuclide)
@@ -284,10 +289,11 @@ subroutine gammaout(Zcomp, Ncomp)
   Nen =  eend(0) - ebegin(0) + 1
   call write_datablock(quantity,Ncol,Nen,col,un)
   write(*, '(/" Photoabsorption cross sections"/)')
-  write(*, '("  E [MeV]   xs [mb]"/)')
+  write(*, '("      E [MeV]        xs [mb]        GDR [mb]       QD [mb]"/)')
   do nen = ebegin(0), eend(0)
-    write(1, '(2es15.6)') egrid(nen), xsreac(0, nen)
-    write(*, '(2es15.6)') egrid(nen), xsreac(0, nen)
+    call gammaxs(Zcomp, Ncomp, egrid(nen), xsgamma, xsgdr, xsqd)
+    write(1, '(4es15.6)') egrid(nen), xsgamma, xsgdr, xsqd
+    write(*, '(4es15.6)') egrid(nen), xsgamma, xsgdr, xsqd
   enddo
   close (unit=1)
   return
