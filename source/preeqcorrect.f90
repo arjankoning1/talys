@@ -119,39 +119,42 @@ subroutine preeqcorrect
         call locate(egrid, nendisc(type), eend(type), esd2, nen2)
         xs1 = 0.5 * (xspreeq(type, nen1) + xspreeq(type, nen2)) * (esd2 - esd1)
       endif
-      xspreeqdisc(type, i) = xs1
-      xspreeqdisctot(type) = xspreeqdisctot(type) + xs1
-      xspreeqdiscsum = xspreeqdiscsum + xs1
-      dorigin(type, i) = 'Preeq '
-    enddo
 !
 ! 2. Set pre-equilibrium cross section in discrete energy region to zero.
 !
 ! The first continuum outgoing energy bin is only partially depleted by the last discrete level.
 ! This is corrected using Rboundary.
 !
-    nen = nendisc(type)
-    Elast = eoutdis(type, NL)
-    Rboundary = (Etop(nen) - Elast) / deltaE(nen)
-    if (abs(Rboundary) > 1.) Rboundary = 0.
-    xspreeq(type, nen) = xspreeq(type, nen) * (1. - Rboundary)
-    xspreeqps(type, nen) = xspreeqps(type, nen) * (1. - Rboundary)
-    xspreeqki(type, nen) = xspreeqki(type, nen) * (1. - Rboundary)
-    xspreeqbu(type, nen) = xspreeqbu(type, nen) * (1. - Rboundary)
-    do p = 1, maxpar
-      xsstep(type, p, nen) = xsstep(type, p, nen) * (1. - Rboundary)
-    enddo
-    if (flag2comp) then
-      do ppi = ppi0, maxpar
-        do pnu = pnu0, maxpar
-          xsstep2(type, ppi, pnu, nen) = xsstep2(type, ppi, pnu, nen) * (1. - Rboundary)
+      if (i == NL) then
+        nen = nendisc(type)
+        Elast = eoutdis(type, NL)
+        Rboundary = (Etop(nen) - Elast) / deltaE(nen)
+        if (abs(Rboundary) > 1.) Rboundary = 0.
+        xs1 = xspreeq(type, nen) * Rboundary
+        xspreeq(type, nen) = xspreeq(type, nen) * (1. - Rboundary)
+        xspreeqps(type, nen) = xspreeqps(type, nen) * (1. - Rboundary)
+        xspreeqki(type, nen) = xspreeqki(type, nen) * (1. - Rboundary)
+        xspreeqbu(type, nen) = xspreeqbu(type, nen) * (1. - Rboundary)
+        do p = 1, maxpar
+          xsstep(type, p, nen) = xsstep(type, p, nen) * (1. - Rboundary)
         enddo
-      enddo
-    endif
-    do parity = - 1, 1, 2
-      do J = 0, maxJph
-        xspreeqJP(type, nen, J, parity) = xspreeqJP(type, nen, J, parity) * (1. - Rboundary)
-      enddo
+        if (flag2comp) then
+          do ppi = ppi0, maxpar
+            do pnu = pnu0, maxpar
+              xsstep2(type, ppi, pnu, nen) = xsstep2(type, ppi, pnu, nen) * (1. - Rboundary)
+            enddo
+          enddo
+        endif
+        do parity = - 1, 1, 2
+          do J = 0, maxJph
+            xspreeqJP(type, nen, J, parity) = xspreeqJP(type, nen, J, parity) * (1. - Rboundary)
+          enddo
+        enddo
+      endif
+      xspreeqdisc(type, i) = xs1
+      xspreeqdisctot(type) = xspreeqdisctot(type) + xs1
+      xspreeqdiscsum = xspreeqdiscsum + xs1
+      dorigin(type, i) = 'Preeq '
     enddo
 !
 ! The pre-equilibrium spectrum for energies corresponding to discrete transitions is set to zero.
