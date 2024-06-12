@@ -41,7 +41,10 @@ subroutine tgamma(Zcomp, Ncomp)
   integer           :: Zcomp        ! proton number index for compound nucleus
   real(sgl)         :: Egamma       ! gamma energy
   real(sgl)         :: fstrength    ! gamma ray strength function
-  real(sgl)         :: gammaxs      ! function for gamma ray cross sections
+  real(sgl)         :: xsgamma      ! photo-absorption cross section
+  real(sgl)         :: xsgdr        ! photo-absorption cross section from GDR part
+  real(sgl)         :: xsqd         ! photo-absorption cross section from QD part
+  real(sgl)         :: factor       ! help variable
 !
 ! ************** Normalization of transmission coefficients ***********
 !
@@ -49,18 +52,25 @@ subroutine tgamma(Zcomp, Ncomp)
 !
   do nen = ebegin(0), eend(0)
     Egamma = egrid(nen)
+    call gammaxs(0, 0, Einc, xsreacinc, xsgdr, xsqd)
+    if (xsgdr > 0.) then
+      factor = xsreacinc / xsgdr
+    else
+      factor = 1.
+    endif
     lmax(0, nen) = gammax
     do l = 1, gammax
       do irad = 0, 1
-        Tjl(0, nen, irad, l) = twopi * (Egamma **(2 * l + 1)) * fstrength(Zcomp, Ncomp, Einc, Egamma, irad, l)
+        Tjl(0, nen, irad, l) = twopi * (Egamma **(2 * l + 1)) * fstrength(Zcomp, Ncomp, Einc, Egamma, irad, l) * factor
+      enddo
     enddo
-  enddo
 !
 ! Photo-absorption cross section
 !
 ! gammaxs: function for gamma ray cross sections
 !
-    xsreac(0, nen) = gammaxs(Zcomp, Ncomp, Egamma)
+    call gammaxs(Zcomp, Ncomp, Egamma, xsgamma, xsgdr, xsqd)
+    xsreac(0, nen) = xsgamma
   enddo
   return
 end subroutine tgamma
