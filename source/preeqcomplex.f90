@@ -70,15 +70,15 @@ subroutine preeqcomplex
   pecompsum = 0.
   do type = 1, 6
     do nen = ebegin(type), eend(type)
-    xspecomp = xspreeqps(type, nen) + xspreeqki(type, nen) + xspreeqbu(type, nen)
-    pecompsum = pecompsum + xspecomp * deltaE(nen)
+      xspecomp = xspreeqps(type, nen) + xspreeqki(type, nen) + xspreeqbu(type, nen)
+      pecompsum = pecompsum + xspecomp * deltaE(nen)
     enddo
   enddo
   if (pecompsum > xsflux) then
     factor = xsflux / pecompsum
     do type = 1, 6
       do nen = ebegin(type), eend(type)
-        xspreeqps(type, nen) = xspreeqps(type, nen) * factor
+        xspreeqps(type, nen) = xspreeqps(type, nen) * factor 
         xspreeqki(type, nen) = xspreeqki(type, nen) * factor
         xspreeqbu(type, nen) = xspreeqbu(type, nen) * factor
       enddo
