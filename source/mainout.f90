@@ -142,6 +142,7 @@ subroutine mainout
     if (parskip(type)) cycle
     write(*, '(" Q(", a1, ",", a1, "):", f9.5)') parsym(k0), parsym(type), Q(type)
   enddo
+  if (k0 > 1) write(*, '(/," Coulomb barrier:",f9.5)') coulbar(k0)
   if (flagcheck) call arraysize
 !
 ! * Write nuclear structure parameters for target and compound nucleus *
