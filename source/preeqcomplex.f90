@@ -43,6 +43,10 @@ subroutine preeqcomplex
   integer   :: parity    ! parity
   integer   :: type      ! particle type
   real(sgl) :: factor    ! multiplication factor
+  real(sgl) :: damper    ! fermi damping function
+  real(sgl) :: expo      ! exponent
+  real(sgl) :: c1        ! help variable
+  real(sgl) :: c2        ! help variable
   real(sgl) :: pecompsum ! help variable
   real(sgl) :: xspecomp  ! pre-equilibrium complex particle cross section
 !
@@ -65,11 +69,20 @@ subroutine preeqcomplex
 !
 ! *************************** Corrections ******************************
 !
+! Prevent complex particle pre-equilibrium to cause fluctuations at low energies 
 ! Prevent complex particle pre-equilibrium to exceed the reaction cross section.
 !
+  damper = 1. 
+  c1 = 0.5 * coulbar(k0)
+  c2 = 0.1 * coulbar(k0)
+  expo = (Einc - c1) / c2
+  if (expo <= 80.) damper = 1. - 1. / (1. + exp(expo))
   pecompsum = 0.
   do type = 1, 6
     do nen = ebegin(type), eend(type)
+      xspreeqps(type, nen) = xspreeqps(type, nen) * damper 
+      xspreeqki(type, nen) = xspreeqki(type, nen) * damper
+      xspreeqbu(type, nen) = xspreeqbu(type, nen) * damper
       xspecomp = xspreeqps(type, nen) + xspreeqki(type, nen) + xspreeqbu(type, nen)
       pecompsum = pecompsum + xspecomp * deltaE(nen)
     enddo
