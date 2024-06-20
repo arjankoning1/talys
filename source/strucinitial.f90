@@ -424,6 +424,8 @@ subroutine strucinitial
   dD0 = 0.
   D0global = 0.
   dD0global = 0.
+  Ncum = 0.
+  rhoexp = 0.
   dgamgam = 0.
   Dl = 0.
   Dlj = 0.
