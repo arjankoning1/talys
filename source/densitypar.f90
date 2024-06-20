@@ -212,11 +212,7 @@ subroutine densitypar(Zix, Nix)
 !
   do ibar = 0, nfisbar(Zix, Nix)
     if (ibar == 0) then
-      if (Ntop(Zix, Nix, ibar) == -1) then
-        Nlast(Zix, Nix, ibar) = nlev(Zix, Nix)
-      else
-        Nlast(Zix, Nix, ibar) = min(Ntop(Zix, Nix, ibar), nlev(Zix, Nix))
-      endif
+      Nlast(Zix, Nix, ibar) = nlev(Zix, Nix)
     else
       Nlast(Zix, Nix, ibar) = max(nfistrrot(Zix, Nix, ibar), 1)
     endif
