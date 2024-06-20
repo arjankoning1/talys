@@ -107,6 +107,7 @@ subroutine densprepare(Zcomp, Ncomp, idfis)
   integer           :: nexout    ! energy index for outgoing energy
   integer           :: Nix       ! neutron number index for residual nucleus
   integer           :: NL        ! last discrete level
+  integer           :: NT        ! Ntop
   integer           :: odd       ! odd (1) or even (0) nucleus
   integer           :: parity    ! parity
   integer           :: Pprime    ! parity
@@ -144,6 +145,7 @@ subroutine densprepare(Zcomp, Ncomp, idfis)
   real(sgl)         :: tb        ! transmission coefficient
   real(sgl)         :: tc        ! transmission coefficient
   real(sgl)         :: tint      ! help variable
+  real(sgl)         :: weight    ! weight of discrete level
   real(dbl)         :: density   ! level density
 !
 ! ************ Determine energetically allowed transitions *************
@@ -151,6 +153,7 @@ subroutine densprepare(Zcomp, Ncomp, idfis)
 ! Efs       : fast particle energy for gamma ray strength function
 !
 ! The mother excitation energy bin is characterized by the middle Exinc, the top Ex0plus and the bottom Ex0min.
+! Discrete levels above Ntop get a weight according to the level density, accounting for missing levels.
 !
   Ex0plus = Exinc + 0.5 * dExinc
   Ex0min = Exinc - 0.5 * dExinc
@@ -161,6 +164,12 @@ subroutine densprepare(Zcomp, Ncomp, idfis)
     Nix = Nindex(Zcomp, Ncomp, type)
     A = AA(Zcomp, Ncomp, type)
     NL = Nlast(Zix, Nix, 0)
+    NT = Ntop(Zix, Nix, 0)
+    if (NL > NT) then
+      discfactor(Zix, Nix) = (Ncum(Zix, Nix, NL) - NT) / (NL - NT)
+    else
+      discfactor(Zix, Nix) = 1.
+    endif
     SS = S(Zcomp, Ncomp, type)
     odd = mod(A, 2)
     Rodd = 0.5 * odd
@@ -255,7 +264,12 @@ subroutine densprepare(Zcomp, Ncomp, idfis)
       if (nexout <= NL) then
         Pprime = parlev(Zix, Nix, nexout)
         Ir = int(jdis(Zix, Nix, nexout))
-        rho0(type, nexout, Ir, Pprime) = Rboundary
+        if (nexout > NT) then
+          weight = Rboundary * discfactor(Zix, Nix)
+        else
+          weight = Rboundary
+        endif
+        rho0(type, nexout, Ir, Pprime) = weight
       else
 !
 ! For decay to the continuum we use a spin and parity dependent level density.
