@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2023-12-30: Original code
-! 2024-06-12: Current version
+! 2024-06-20: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -1153,6 +1153,20 @@ module A0_talys_mod
   real(dbl), dimension(0:numZ,0:numN,0:numdens,0:numbar)             :: ldtottable  ! total level density from table
   real(dbl), dimension(0:numZ,0:numN,0:numdens,-1:1,0:numbar)        :: ldtottableP ! total level density per parity from table
 !
+! densitycum
+!
+  real(sgl), dimension(0:numZ,0:numN)            :: CED0       ! C/E of D0
+  real(sgl), dimension(0:numZ,0:numN)            :: CGD0       ! C/G of D0
+  real(sgl), dimension(0:numZ,0:numN)            :: chi2D0     ! chi2 of D0
+  real(sgl), dimension(0:numZ,0:numN)            :: FrmsD0     ! Frms of D0
+  real(sgl), dimension(0:numZ,0:numN)            :: ErmsD0     ! Erms of D0
+  real(dbl), dimension(0:numZ,0:numN)            :: chi2lev    ! chi2 of discrete levels
+  real(dbl), dimension(0:numZ,0:numN)            :: Frmslev    ! Frms of discrete levels
+  real(dbl), dimension(0:numZ,0:numN)            :: Ermslev    ! Erms of discrete levels
+  real(dbl), dimension(0:numZ,0:numN)            :: avdevlev   ! average deviation from  discrete levels
+  real(dbl), dimension(0:numZ,0:numN,0:numlev2)  :: Ncum       ! number of cumulative levels (integral of level density)
+  real(dbl), dimension(0:numZ,0:numN,0:numlev2)  :: rhoexp     ! level density of experimental discrete levels
+!
 !-----------------------------------------------------------------------------------------------------------------------------------
 ! Variables for particle-hole density tables
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -1741,6 +1755,7 @@ module A0_talys_mod
   real(sgl), dimension(numbinfis,numbar)             :: eintfis  ! excitation energy for fission
   real(dbl), dimension(0:numpar,0:numex,0:numJ,-1:1) :: rho0     ! integrated level density
   real(dbl), dimension(numbinfis,0:numJ,-1:1,numbar) :: rhofis   ! integrated level density corresponding to tfisA
+  real(sgl), dimension(0:numZ,0:numN)                :: discfactor! correction for discrete level weight for NL > NT
   real(sgl), dimension(0:numex,0:numgam,0:1)         :: Tgam     ! gamma transmission coefficients
   real(sgl), dimension(0:numpar,0:numex,-1:1,0:numl) :: Tjlnex   ! transmission coefficients for particle, energy, spin and l
   real(sgl), dimension(0:numpar,0:numex,0:numl)      :: Tlnex    ! transmission coefficients for particle, emergy and l
