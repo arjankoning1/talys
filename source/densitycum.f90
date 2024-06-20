@@ -27,7 +27,6 @@ subroutine densitycum(Zix, Nix)
 !   Exmatch         ! matching point for Ex
 !   filedensity     ! flag for level densities on separate files
 !   flagcol         ! flag for collective enhancement of level density
-!   flagparity      ! flag for non - equal parity distribution
 !   gammald         ! gamma - constant for asymptotic level density parameter
 !   ldmodel         ! level density model
 !   Ncum            ! number of cumulative levels (integral of level density)
