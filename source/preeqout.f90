@@ -59,6 +59,14 @@ subroutine preeqout
 !
   implicit none
   logical   :: surfwell  ! flag for surface effects in finite well
+  character(len=10) :: preeqfile  ! file for binary output
+  character(len=18) :: reaction   ! reaction
+  character(len=132):: topline    ! topline
+  character(len=15) :: col(12)     ! header
+  character(len=15) :: un(12)     ! units
+  character(len=80) :: quantity   ! quantity
+  character(len=800) :: string
+  integer           :: Ncol       ! number of columns
   integer   :: h         ! help variable
   integer   :: J         ! spin of level
   integer   :: k         ! designator for particle
@@ -68,6 +76,7 @@ subroutine preeqout
   integer   :: p         ! particle number
   integer   :: type      ! particle type
   integer   :: Zix       ! charge number index for residual nucleus
+  integer            :: istat
   real(sgl) :: damp      ! shell damping factor
   real(sgl) :: Eex       ! excitation energy
   real(sgl) :: gs        ! single-particle level density parameter
@@ -135,24 +144,70 @@ subroutine preeqout
 !
 ! 2. Output of pre-equilibrium cross sections
 !
+  preeqfile = 'preeq.out'
+  quantity = 'preequilibrium emission spectra'
+  open (unit = 1, file = preeqfile, status = 'replace')
+  un='mb'
+  col=''
+  col(2)='Total'
+  col(3)='p=1'
+  col(4)='p=2'
+  col(5)='p=3'
+  col(6)='p=4'
+  col(7)='p=5'
+  col(8)='p=6'
+  col(9)='Exciton model'
+  col(10)='Pickup/strip'
+  col(11)='Knockout'
+  col(12)='Breakup'
+  Ncol=12
   write(*, '(/" ++++++++++ TOTAL PRE-EQUILIBRIUM CROSS SECTIONS ++++++++++")')
   if (preeqnorm /= 0.) write(*, '(/" Pre-equilibrium normalization factor: ", f8.5/)') preeqnorm
   do type = 0, 6
     if (parskip(type)) cycle
     if (ebegin(type) >= eend(type)) cycle
+    col(1)='E-out'
+    un(1)='MeV'
+    reaction='('//parsym(k0)//',x'//parsym(type)//')'
+    topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)
+    call write_header(topline,source,user,date,oformat)
+    call write_target
+    call write_reaction(reaction,0.D0,0.D0,0,0)
+    call write_real(2,'E-incident [MeV]',Einc)
+    call write_real(2,'Pre-equilibrium cross section [mb]', xspreeqtot(type))
     write(*, '(/" Pre-equilibrium cross sections for ", a8/)') parname(type)
     write(*, '("     E     Total", 6("       p=", i1), "     Total  Pickup/Strip Knockout Breakup", /)') (p, p = 1, maxpar)
+    call write_datablock(quantity,Ncol,eend(type)-ebegin(type)+1,col,un)
     do nen = ebegin(type), eend(type)
       nonpski = xspreeq(type, nen) - xspreeqps(type, nen) - xspreeqki(type, nen) - xspreeqbu(type, nen)
       write(*, '(1x, f8.3, 11es10.3)') egrid(nen), xspreeq(type, nen), (xsstep(type, p, nen), p = 1, maxpar), nonpski, &
  &      xspreeqps(type, nen), xspreeqki(type, nen), xspreeqbu(type, nen)
+      write(1, '(12es15.6)') egrid(nen), xspreeq(type, nen), (xsstep(type, p, nen), p = 1, maxpar), nonpski, &
+ &      xspreeqps(type, nen), xspreeqki(type, nen), xspreeqbu(type, nen)
     enddo
     nonpski = xspreeqtot(type) - xspreeqtotps(type) - xspreeqtotki(type) - xspreeqtotbu(type)
+    col(1)=''
+    un(1)=''
+    call write_datablock('preequilibrium cross sections',Ncol,1,col,un)
     write(*, '(/9x, 11es10.3)') xspreeqtot(type), (xssteptot(type, p), p = 1, maxpar), nonpski, xspreeqtotps(type), &
+ &    xspreeqtotki(type), xspreeqtotbu(type)
+    write(1, '(15x, 12es15.6)') xspreeqtot(type), (xssteptot(type, p), p = 1, maxpar), nonpski, xspreeqtotps(type), &
  &    xspreeqtotki(type), xspreeqtotbu(type)
     write(*, '(/" Integrated:", f12.5/)') xspreeqtot(type)
   enddo
   write(*, '(" Total pre-equilibrium cross section:", f12.5)') xspreeqsum
+  close (unit = 1)  
+  open (unit = 1, file = preeqfile, status = 'old')
+  if (flagoutall) then
+    do        
+      read(1, '(a)', iostat = istat) string
+      if (istat /= 0) exit
+      write(*, '(1x, a)') trim(string)
+    enddo     
+  else        
+    write(*,'("file: ",a)') trim(preeqfile) 
+  endif       
+  close (unit = 1)  
   return
 end subroutine preeqout
 ! Copyright A.J. Koning 2021
