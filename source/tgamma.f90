@@ -52,9 +52,9 @@ subroutine tgamma(Zcomp, Ncomp)
 !
   do nen = ebegin(0), eend(0)
     Egamma = egrid(nen)
-    call gammaxs(0, 0, Einc, xsreacinc, xsgdr, xsqd)
+    call gammaxs(0, 0, Einc, xsgamma, xsgdr, xsqd)
     if (xsgdr > 0.) then
-      factor = xsreacinc / xsgdr
+      factor = xsgamma / xsgdr
     else
       factor = 1.
     endif
