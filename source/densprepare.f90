@@ -167,6 +167,8 @@ subroutine densprepare(Zcomp, Ncomp, idfis)
     NT = Ntop(Zix, Nix, 0)
     if (NL > NT) then
       discfactor(Zix, Nix) = (Ncum(Zix, Nix, NL) - NT) / (NL - NT)
+      discfactor(Zix, Nix) = min(discfactor(Zix, Nix), 2.)
+      discfactor(Zix, Nix) = max(discfactor(Zix, Nix), 0.5)
     else
       discfactor(Zix, Nix) = 1.
     endif
