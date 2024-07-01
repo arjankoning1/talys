@@ -180,7 +180,6 @@ subroutine multiple
   character(len=60)  :: form2                 ! format
   character(len=132) :: key                   ! keyword
   character(len=132) :: topline    ! topline
-  character(len=800) :: string
   integer            :: A                     ! mass number of target nucleus
   integer            :: Ares                  ! mass number of residual nucleus
   integer            :: h                     ! help variable
@@ -828,17 +827,7 @@ Loop1:  do type = 1, 6
       endif
       if (flagpop) then
         close (unit = 1)
-        open (unit = 1, file = popfile, status = 'old')
-        if (flagoutall) then
-          do
-            read(1, '(a)', iostat = istat) string
-            if (istat /= 0) exit
-            write(*, '(1x, a)') trim(string)
-          enddo 
-        else
-          write(*,'("file: ",a)') trim(popfile)
-        endif
-        close (unit = 1)  
+        call write_outfile(popfile,flagoutall)
       endif
 !
 ! Fission
