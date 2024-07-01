@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2023-12-30: Original code
-! 2024-06-24: Current version
+! 2024-06-30: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -440,8 +440,8 @@ module A0_talys_mod
   logical                                                   :: flagompall    ! flag for new optical model calculation for all nuclei
   logical                                                   :: flagomponly   ! flag to execute ONLY an optical model calculation
   logical                                                   :: flagriplomp   ! flag for RIPL OMP
-  logical, dimension(numpar)                                :: ompadjustF    ! logical for local OMP adjustment
-  logical, dimension(numpar)                                :: ompadjustp    ! flag for local optical model parameter adjustment
+  logical, dimension(0:numpar)                              :: ompadjustF    ! logical for local OMP adjustment
+  logical, dimension(0:numpar)                              :: ompadjustp    ! flag for local optical model parameter adjustment
   logical                                                   :: flagoutomp    ! flag for output of optical model parameters
   logical                                                   :: flagoutkd     ! flag for output of KD03 OMP parameters
   logical                                                   :: flagsoukhoinp ! flag for Soukhovitskii OMP for actinides
@@ -455,51 +455,51 @@ module A0_talys_mod
   integer                                                   :: deuteronomp   ! deuteron optical model
   integer                                                   :: jlmmode       ! option for JLM imaginary potential normalization
   integer, dimension(numpar)                                :: riplomp       ! RIPL OMP
-  integer, dimension(numpar, numompadj)                     :: ompadjustN    ! number of energy ranges for local OMP adjustment
+  integer, dimension(0:numpar, numompadj)                   :: ompadjustN    ! number of energy ranges for local OMP adjustment
   integer                                                   :: radialmodel   ! model for radial matter densities (JLM OMP only)
   real(sgl)                                                 :: adepthcor     ! adjustable parameter for depth of DF alpha potential
   real(sgl)                                                 :: aradialcor    ! adjustable parameter for shape of DF alpha potential
-  real(sgl), dimension(numpar)                              :: avadjust      ! adjustable factor for OMP (default 1.)
-  real(sgl), dimension(numpar)                              :: avdadjust     ! adjustable factor for OMP (default 1.)
-  real(sgl), dimension(numpar)                              :: avsoadjust    ! adjustable factor for OMP (default 1.)
-  real(sgl), dimension(numpar)                              :: awadjust      ! adjustable factor for OMP (default 1.)
-  real(sgl), dimension(numpar)                              :: awdadjust     ! adjustable factor for OMP (default 1.)
-  real(sgl), dimension(numpar)                              :: awsoadjust    ! adjustable factor for OMP (default 1.)
-  real(sgl), dimension(numpar)                              :: d1adjust      ! adjustable factor for OMP (default 1.)
-  real(sgl), dimension(numpar)                              :: d2adjust      ! adjustable factor for OMP (default 1.)
-  real(sgl), dimension(numpar)                              :: d3adjust      ! adjustable factor for OMP (default 1.)
-  real(sgl), dimension(numpar)                              :: Ejoin         ! joining energy for high energy OMP
+  real(sgl), dimension(0:numpar)                            :: avadjust      ! adjustable factor for OMP (default 1.)
+  real(sgl), dimension(0:numpar)                            :: avdadjust     ! adjustable factor for OMP (default 1.)
+  real(sgl), dimension(0:numpar)                            :: avsoadjust    ! adjustable factor for OMP (default 1.)
+  real(sgl), dimension(0:numpar)                            :: awadjust      ! adjustable factor for OMP (default 1.)
+  real(sgl), dimension(0:numpar)                            :: awdadjust     ! adjustable factor for OMP (default 1.)
+  real(sgl), dimension(0:numpar)                            :: awsoadjust    ! adjustable factor for OMP (default 1.)
+  real(sgl), dimension(0:numpar)                            :: d1adjust      ! adjustable factor for OMP (default 1.)
+  real(sgl), dimension(0:numpar)                            :: d2adjust      ! adjustable factor for OMP (default 1.)
+  real(sgl), dimension(0:numpar)                            :: d3adjust      ! adjustable factor for OMP (default 1.)
+  real(sgl), dimension(0:numpar)                            :: Ejoin         ! joining energy for high energy OMP
   real(sgl)                                                 :: lvadjust      ! adjustable parameter for JLM OMP
   real(sgl)                                                 :: lv1adjust     ! adjustable parameter for JLM OMP
   real(sgl)                                                 :: lvsoadjust    ! adjustable parameter for JLM OMP
   real(sgl)                                                 :: lwadjust      ! adjustable parameter for JLM OMP
   real(sgl)                                                 :: lw1adjust     ! adjustable parameter for JLM OMP
   real(sgl)                                                 :: lwsoadjust    ! adjustable parameter for JLM OMP
-  real(sgl), dimension(numpar,numompadj,numrange)           :: ompadjustD    ! depth of local OMP adjustment
-  real(sgl), dimension(numpar,numompadj,numrange)           :: ompadjustE1   ! start energy of local OMP adjustment
-  real(sgl), dimension(numpar,numompadj,numrange)           :: ompadjustE2   ! end energy of local OMP adjustment
-  real(sgl), dimension(numpar,numompadj,numrange)           :: ompadjusts    ! variance of local OMP adjustment
+  real(sgl), dimension(0:numpar,numompadj,numrange)         :: ompadjustD    ! depth of local OMP adjustment
+  real(sgl), dimension(0:numpar,numompadj,numrange)         :: ompadjustE1   ! start energy of local OMP adjustment
+  real(sgl), dimension(0:numpar,numompadj,numrange)         :: ompadjustE2   ! end energy of local OMP adjustment
+  real(sgl), dimension(0:numpar,numompadj,numrange)         :: ompadjusts    ! variance of local OMP adjustment
   real(sgl)                                                 :: RprimeU       ! potential scattering radius
-  real(sgl), dimension(numpar)                              :: rcadjust      ! adjustable factor for OMP (default 1.)
-  real(sgl), dimension(numpar)                              :: rvadjust      ! adjustable factor for OMP (default 1.)
-  real(sgl), dimension(numpar)                              :: rvdadjust     ! adjustable factor for OMP (default 1.)
-  real(sgl), dimension(numpar)                              :: rvsoadjust    ! adjustable factor for OMP (default 1.)
-  real(sgl), dimension(numpar)                              :: rwadjust      ! adjustable factor for OMP (default 1.)
-  real(sgl), dimension(numpar)                              :: rwdadjust     ! adjustable factor for OMP (default 1.)
-  real(sgl), dimension(numpar)                              :: rwsoadjust    ! adjustable factor for OMP (default 1.)
-  real(sgl), dimension(numpar)                              :: v1adjust      ! adjustable factor for OMP (default 1.)
-  real(sgl), dimension(numpar)                              :: v2adjust      ! adjustable factor for OMP (default 1.)
-  real(sgl), dimension(numpar)                              :: v3adjust      ! adjustable factor for OMP (default 1.)
-  real(sgl), dimension(numpar)                              :: v4adjust      ! adjustable factor for OMP (default 1.)
-  real(sgl), dimension(numpar)                              :: Vinfadjust    ! adj. factor for high E limit of real central pot.
-  real(sgl), dimension(numpar)                              :: vso1adjust    ! adjustable factor for OMP (default 1.)
-  real(sgl), dimension(numpar)                              :: vso2adjust    ! adjustable factor for OMP (default 1.)
-  real(sgl), dimension(numpar)                              :: w1adjust      ! adjustable factor for OMP (default 1.)
-  real(sgl), dimension(numpar)                              :: w2adjust      ! adjustable factor for OMP (default 1.)
-  real(sgl), dimension(numpar)                              :: w3adjust      ! adjustable factor for OMP (default 1.)
-  real(sgl), dimension(numpar)                              :: w4adjust      ! adjustable factor for OMP (default 1.)
-  real(sgl), dimension(numpar)                              :: wso1adjust    ! adjustable factor for OMP (default 1.)
-  real(sgl), dimension(numpar)                              :: wso2adjust    ! adjustable factor for OMP (default 1.)
+  real(sgl), dimension(0:numpar)                            :: rcadjust      ! adjustable factor for OMP (default 1.)
+  real(sgl), dimension(0:numpar)                            :: rvadjust      ! adjustable factor for OMP (default 1.)
+  real(sgl), dimension(0:numpar)                            :: rvdadjust     ! adjustable factor for OMP (default 1.)
+  real(sgl), dimension(0:numpar)                            :: rvsoadjust    ! adjustable factor for OMP (default 1.)
+  real(sgl), dimension(0:numpar)                            :: rwadjust      ! adjustable factor for OMP (default 1.)
+  real(sgl), dimension(0:numpar)                            :: rwdadjust     ! adjustable factor for OMP (default 1.)
+  real(sgl), dimension(0:numpar)                            :: rwsoadjust    ! adjustable factor for OMP (default 1.)
+  real(sgl), dimension(0:numpar)                            :: v1adjust      ! adjustable factor for OMP (default 1.)
+  real(sgl), dimension(0:numpar)                            :: v2adjust      ! adjustable factor for OMP (default 1.)
+  real(sgl), dimension(0:numpar)                            :: v3adjust      ! adjustable factor for OMP (default 1.)
+  real(sgl), dimension(0:numpar)                            :: v4adjust      ! adjustable factor for OMP (default 1.)
+  real(sgl), dimension(0:numpar)                            :: Vinfadjust    ! adj. factor for high E limit of real central pot.
+  real(sgl), dimension(0:numpar)                            :: vso1adjust    ! adjustable factor for OMP (default 1.)
+  real(sgl), dimension(0:numpar)                            :: vso2adjust    ! adjustable factor for OMP (default 1.)
+  real(sgl), dimension(0:numpar)                            :: w1adjust      ! adjustable factor for OMP (default 1.)
+  real(sgl), dimension(0:numpar)                            :: w2adjust      ! adjustable factor for OMP (default 1.)
+  real(sgl), dimension(0:numpar)                            :: w3adjust      ! adjustable factor for OMP (default 1.)
+  real(sgl), dimension(0:numpar)                            :: w4adjust      ! adjustable factor for OMP (default 1.)
+  real(sgl), dimension(0:numpar)                            :: wso1adjust    ! adjustable factor for OMP (default 1.)
+  real(sgl), dimension(0:numpar)                            :: wso2adjust    ! adjustable factor for OMP (default 1.)
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
 ! Variables for compound reactions
@@ -832,6 +832,7 @@ module A0_talys_mod
   real(sgl), dimension(0:numZ,0:numN,0:numlev2)                :: edis        ! energy of level
   real(sgl), dimension(0:numZ,0:numN,0:numlev2)                :: jdis        ! spin of level
   real(sgl), dimension(0:numZ,0:numN,0:numlev2)                :: tau         ! lifetime of state in seconds
+  real(sgl), dimension(0:numZ,0:numN,0:numlev2)                :: tauripl     ! lifetime of state in seconds from RIPL
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
 ! Variables for deformation parameters
@@ -947,6 +948,7 @@ module A0_talys_mod
 !
 ! omppar
 !
+  logical                                                    :: flagompejec! flag for OMP for ejectile equal to projectile
   logical, dimension(0:numZ,0:numN,numpar)                   :: disp      ! flag for dispersive optical model
   logical, dimension(0:numZ,0:numN,numpar)                   :: ompglobal ! flag for use of global optical model
   integer, dimension(0:numZ,0:numN,numpar)                   :: omplines  ! number of lines in optical model file
