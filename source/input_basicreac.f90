@@ -7,6 +7,7 @@ subroutine input_basicreac
 !
 ! 2021-12-30: Original code
 ! 2023-03-07: Added nffit keyword and flag
+! 2024-06-25: Moved fit keywords to input_fit
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -28,16 +29,6 @@ subroutine input_basicreac
 !   flaglabddx       ! flag for calculation of DDX in LAB system
 !   flagmassdis      ! flag for calculation of fission fragment mass yields
 !   flagmicro        ! flag for completely microscopic TALYS calculation
-!   flagngfit        ! flag for using fitted (n,g) nuclear model parameters
-!   flagnffit        ! flag for using fitted (n,f) nuclear model parameters
-!   flagnnfit        ! flag for using fitted (n,n'), (n,2n) and (n,p) nuclear model parameters
-!   flagnafit        ! flag for using fitted (n,a) nuclear model parameters
-!   flagpnfit        ! flag for using fitted (p,n) nuclear model parameters
-!   flagdnfit        ! flag for using fitted (g,n) nuclear model parameters
-!   flaggnfit        ! flag for using fitted (d,n) nuclear model parameters
-!   flaganfit        ! flag for using fitted (a,n) nuclear model parameters
-!   flaggamgamfit    ! flag for using fitted Gamma_gamma nuclear model parameters
-!   flagmacsfit      ! flag for using fitted MACS nuclear model parameters
 !   flagpartable     ! flag for output of model parameters on separate file
 !   flagpopMeV       ! flag to use initial population per MeV instead of histogram
 !   flagreaction     ! flag for calculation of nuclear reactions
@@ -89,16 +80,6 @@ subroutine input_basicreac
   flagmicro = .false.
   flagpartable = .false.
   flagreaction = .true.
-  flagngfit = (k0 == 1 .and. flagfit .and. .not.flagastro)
-  flagnnfit = (k0 == 1 .and. flagfit)
-  flagnffit = (k0 == 1 .and. flagfit)
-  flagnafit = (k0 == 1 .and. flagfit)
-  flagpnfit = (k0 == 2 .and. flagfit)
-  flaggnfit = (k0 == 0 .and. flagfit)
-  flagdnfit = (k0 == 3 .and. flagfit)
-  flaganfit = (k0 == 6 .and. flagfit)
-  flagmacsfit = (k0 == 1 .and. flagfit .and. flagastro)
-  flaggamgamfit = .false.
   flagrecoil = .false.
   flagrecoilav = .false.
   flagrel = .true.
@@ -211,98 +192,6 @@ loop1:  do i = 1, nlines
     if (key == 'reaction') then
       if (ch == 'n') flagreaction = .false.
       if (ch == 'y') flagreaction = .true.
-      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
-      cycle
-    endif
-    if (key == 'ngfit') then
-      if (ch == 'n') flagngfit = .false.
-      if (ch == 'y') then
-        flagngfit = .true.
-        flagfit = .true.
-      endif
-      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
-      cycle
-    endif
-    if (key == 'nffit') then
-      if (ch == 'n') flagnffit = .false.
-      if (ch == 'y') then
-        flagnffit = .true.
-        flagfit = .true.
-      endif
-      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
-      cycle
-    endif
-    if (key == 'nnfit') then
-      if (ch == 'n') flagnnfit = .false.
-      if (ch == 'y') then
-        flagnnfit = .true.
-        flagfit = .true.
-      endif
-      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
-      cycle
-    endif
-    if (key == 'nafit') then
-      if (ch == 'n') flagnafit = .false.
-      if (ch == 'y') then
-        flagnafit = .true.
-        flagfit = .true.
-      endif
-      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
-      cycle
-    endif
-    if (key == 'pnfit') then
-      if (ch == 'n') flagpnfit = .false.
-      if (ch == 'y') then
-        flagpnfit = .true.
-        flagfit = .true.
-      endif
-      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
-      cycle
-    endif
-    if (key == 'dnfit') then
-      if (ch == 'n') flagdnfit = .false.
-      if (ch == 'y') then
-        flagdnfit = .true.
-        flagfit = .true.
-      endif
-      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
-      cycle
-    endif
-    if (key == 'gnfit') then
-      if (ch == 'n') flaggnfit = .false.
-      if (ch == 'y') then
-        flaggnfit = .true.
-        flagfit = .true.
-      endif
-      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
-      cycle
-    endif
-    if (key == 'anfit') then
-      if (ch == 'n') flaganfit = .false.
-      if (ch == 'y') then
-        flaganfit = .true.
-        flagfit = .true.
-      endif
-      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
-      cycle
-    endif
-    if (key == 'gamgamfit') then
-      if (ch == 'n') flaggamgamfit = .false.
-      if (ch == 'y') then
-        flaggamgamfit = .true.
-        flagfit = .true.
-        flagngfit = .false.
-      endif
-      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
-      cycle
-    endif
-    if (key == 'macsfit') then
-      if (ch == 'n') flagmacsfit = .false.
-      if (ch == 'y') then
-        flagmacsfit = .true.
-        flagfit = .true.
-        flagngfit = .false.
-      endif
       if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
       cycle
     endif
