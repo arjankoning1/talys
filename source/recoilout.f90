@@ -92,18 +92,12 @@ subroutine recoilout
       massstring='   '
       write(massstring,'(i3)') A
       finalnuclide=trim(nuc(Z))//adjustl(massstring)
-      write(*, '(/" Recoil Spectrum for ", i3, a2/)') A, nuc(Z)
-      write(*, '("   Energy   Cross section"/)')
-      do nen = 0, maxenrec
-        write(*, '(1x, f8.3, es12.5)') Erec(Zcomp, Ncomp, nen), specrecoil(Zcomp, Ncomp, nen)
-      enddo
-      write(*, '(/" Integrated recoil spectrum       : ", es12.5)') recoilint(Zcomp, Ncomp)
       if (Zcomp == parZ(k0) .and. Ncomp == parN(k0)) then
         sumcm = xspopnuc(Zcomp, Ncomp) + xselasinc
       else
         sumcm = xspopnuc(Zcomp, Ncomp)
       endif
-      write(*, '(" Residual production cross section: ", es12.5)') sumcm
+      write(*, '(/" Recoil Spectrum for ", a/)') trim(finalnuclide)
 !
 ! Write results to separate file
 !
@@ -129,12 +123,15 @@ subroutine recoilout
         call write_target
         call write_reaction(reaction,0.D0,0.D0,MF,MT)
         call write_real(2,'E-incident [MeV]',Einc)
+        call write_real(2,'Integrated recoil spectrum [mb]',recoilint(Zcomp, Ncomp))
+        call write_double(2,'Residual production cross section[mb]',sumcm)
         call write_residual(Z,A,finalnuclide)
         call write_datablock(quantity,Ncol,maxenrec+1,col,un)
         do nen = 0, maxenrec
           write(1, '(2es15.6)') Erec(Zcomp, Ncomp, nen), specrecoil(Zcomp, Ncomp, nen)
         enddo
         close (unit = 1)
+        call write_outfile(recfile,(flagoutall .and. .not.flagblock))
       endif
     enddo
   enddo
