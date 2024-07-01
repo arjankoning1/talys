@@ -6,6 +6,7 @@ subroutine talysinput
 ! Author    : Arjan Koning
 !
 ! 2021-12-30: Original code
+! 2024-06-25: Added input_fit
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! ******************** Set defaults and read input *********************
@@ -38,6 +39,7 @@ subroutine talysinput
   call input_preeqmodel
   call input_preeqpar
   call input_medical
+  call input_fit
   call input_output
   call input_outfiles
   call checkkeyword
