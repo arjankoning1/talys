@@ -123,6 +123,7 @@ subroutine opticalnp(Zix, Nix, k, eopt)
   integer           :: A                ! mass number of target nucleus
   integer           :: i                ! counter
   integer           :: k                ! designator for particle
+  integer           :: ktype            ! designator for particle
   integer           :: md               ! powers for W and Wd
   integer           :: mw               ! powers for W and Wd
   integer           :: nen              ! energy counter
@@ -171,7 +172,12 @@ subroutine opticalnp(Zix, Nix, k, eopt)
 !
 ! 1. In case of an optical model file, we interpolate between the tabulated values.
 !
-  call ompadjust(eopt, k)
+  if (flagompejec .and. k == k0) then
+    ktype = 0
+  else
+    ktype = k
+  endif
+  call ompadjust(eopt, ktype)
   optmodfile = '                                                     '
   if (Zix <= numZph .and. Nix <= numNph) optmodfile = optmod(Zix, Nix, k)
   if (optmodfile(1:1) /= ' ' .or. omplines(Zix, Nix, k) > 0) then
