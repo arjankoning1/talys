@@ -374,3 +374,39 @@
   return
   end
 !Copyright (C)  2023 A.J. Koning
+  subroutine write_outfile(tfile,flagout)
+!
+! +---------------------------------------------------------------------
+! | Author: Arjan Koning
+! | Date  : August 8, 2023
+! | Task  : Write specific output file to main output file
+! +---------------------------------------------------------------------
+!
+! ****************** Declarations **************************************
+!
+  implicit none
+  logical            :: flagout
+  logical            :: lexist
+  character(len=*)   :: tfile
+  character(len=800) :: string
+  integer            :: istat
+!
+! ************* Write output file **************************************
+!
+  inquire (file = tfile, exist = lexist)
+  if (lexist) then
+    if (flagout) then
+      open (unit = 1, file = tfile, status = 'old')
+      do              
+        read(1, '(a)', iostat = istat) string
+        if (istat /= 0) exit
+        write(*, '(1x, a)') trim(string)
+      enddo           
+      close (unit = 1)  
+    else            
+      write(*,'("file: ",a)') trim(tfile) 
+    endif           
+  endif           
+  return
+  end
+!Copyright (C)  2023 A.J. Koning
