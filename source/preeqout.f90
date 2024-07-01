@@ -65,7 +65,6 @@ subroutine preeqout
   character(len=15) :: col(12)     ! header
   character(len=15) :: un(12)     ! units
   character(len=80) :: quantity   ! quantity
-  character(len=800) :: string
   integer           :: Ncol       ! number of columns
   integer   :: h         ! help variable
   integer   :: J         ! spin of level
@@ -197,17 +196,7 @@ subroutine preeqout
   enddo
   write(*, '(" Total pre-equilibrium cross section:", f12.5)') xspreeqsum
   close (unit = 1)  
-  open (unit = 1, file = preeqfile, status = 'old')
-  if (flagoutall) then
-    do        
-      read(1, '(a)', iostat = istat) string
-      if (istat /= 0) exit
-      write(*, '(1x, a)') trim(string)
-    enddo     
-  else        
-    write(*,'("file: ",a)') trim(preeqfile) 
-  endif       
-  close (unit = 1)  
+  call write_outfile(preeqfile,flagoutall)
   return
 end subroutine preeqout
 ! Copyright A.J. Koning 2021
