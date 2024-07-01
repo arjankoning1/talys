@@ -121,6 +121,7 @@ subroutine inverseecis(Zcomp, Ncomp)
 !   nucmass         ! mass of nucleus
 !   specmass        ! specific mass for residual nucleus
 ! Variables for optical model
+!   flaompejec      ! flag for OMP for ejectile equal to projectile
 !   av              ! real volume diffuseness
 !   avd             ! real surface diffuseness
 !   avso            ! real spin - orbit diffuseness
@@ -198,6 +199,7 @@ subroutine inverseecis(Zcomp, Ncomp)
     endif
   endif
   flagecisinp = .false.
+  flagompejec = .true.
   if (flageciscalc) open (unit = 9, file = 'ecisinv.inp', status = 'unknown')
   do type = 1, 6
     if (parskip(type)) cycle
@@ -428,6 +430,7 @@ subroutine inverseecis(Zcomp, Ncomp)
     if (flagoutomp .and. .not. jlmloc) close(unit =1)
   enddo
   flaginvecis = .false.
+  flagompejec = .false.
   if ( .not. flageciscalc) return
   if ( .not. flagecisinp) then
     close (unit = 9)
