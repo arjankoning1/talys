@@ -108,28 +108,6 @@ subroutine spectraout
     if (parskip(type)) cycle
     if (xsparticle(type) == 0.) cycle
     write(*, '(/" Spectra for outgoing ", a8/)') parname(type)
-    if (k0 <= 2 .and. type <= 2) then
-      write(*, '("  Energy   Total       Direct    Pre-equil.  Mult. preeq  Compound"/)')
-      do nen = ebegin(type), eendout(type)
-        write(*, '(f8.3, 5es12.5)') espec(type, nen), xssumout(type, nen), xsdiscout(type, nen), &
- &        xspreeqout(type, nen), xsmpreeqout(type, nen), xscompout(type, nen)
-      enddo
-    else
-      write(*, '("  Energy   Total       Direct    Pre-equil.  Mult. preeq  Compound    Stripping   Knock-out   Break-up"/)')
-      do nen = ebegin(type), eendout(type)
-        write(*, '(f8.3, 8es12.5)') espec(type, nen), xssumout(type, nen), xsdiscout(type, nen), &
- &        xspreeqout(type, nen), xsmpreeqout(type, nen), xscompout(type, nen), xspreeqpsout(type, nen), &
- &        xspreeqkiout(type, nen), xspreeqbuout(type, nen)
-      enddo
-    endif
-    if (flagrecoil .and. flaglabddx) then
-      write(*, '(/" LAB spectra for outgoing ", a8/)') parname(type)
-      write(*, '("  Energy   Cross section"/)')
-      do nen = 1, iejlab(type)
-        write(*, '(f8.3, es12.5)') Eejlab(type, nen), xsejlab(type, nen)
-      enddo
-      write(*, '(/" Energy-integrated cross section:", es12.5/)') xsejlabint(type)
-    endif
 !
 ! Write results to separate file
 !
@@ -174,7 +152,9 @@ subroutine spectraout
         enddo
       endif
       close (unit = 1)
+      call write_outfile(specfile,(flagoutall .and. .not.flagblock))
       if (flagrecoil .and. flaglabddx) then
+        write(*, '(/" LAB spectra for outgoing ", a8/)') parname(type)
         if (flagblock) then
           specfile = ' spec.lab'//natstring(iso)
           write(specfile(1:1), '(a1)') parsym(type)
@@ -198,18 +178,19 @@ subroutine spectraout
         call write_target
         call write_reaction(reaction,0.D0,0.D0,MF,MT)
         call write_real(2,'E-incident [MeV]',Einc)
+        call write_real(2,'Energy-integrated cross section [mb]',xsejlabint(type))
         call write_datablock(quantity,Ncol,iejlab(type),col,un)
         do nen = 1, iejlab(type)
           write(1, '(2es15.6)') Eejlab(type, nen), xsejlab(type, nen)
         enddo
         close (unit = 1)
+        call write_outfile(specfile,(flagoutall .and. .not.flagblock))
       endif
     endif
   enddo
   write(*, '(/" Average emission energies"/)')
   do type = 0, 6
     if (parskip(type)) cycle
-    write(*, '(1x, a8, 4x, f8.3)') parname(type), Eaverage(type)
     if (filespectrum(type)) then
       Efile = 'Eaverage.'//parsym(type)
       if (nin == Ninclow + 1) then
@@ -233,6 +214,7 @@ subroutine spectraout
       endif
       write(1, '(2es15.6)') Einc, Eaverage(type)
       close (unit = 1)
+      call write_outfile(Efile,flagoutall)
     endif
   enddo
   return
