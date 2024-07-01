@@ -120,6 +120,7 @@ subroutine fissionout
         endif
         write(1, '(2es15.6)') Einc, xsfeed(Zcomp, Ncomp, -1)
         close (unit = 1)
+        call write_outfile(rpfile,flagoutall)
       enddo
     enddo
   endif
