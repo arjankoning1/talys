@@ -148,6 +148,7 @@ subroutine angleout
  &        tlegnor(k0, Ltarget, LL), cleg0(k0, Ltarget, LL)
       enddo
       close (unit = 1)
+      call write_outfile(legfile,flagoutall)
     endif
   endif
 !
@@ -201,6 +202,7 @@ subroutine angleout
         write(1, '(4es15.6)') angle(iang), discad(k0, Ltarget, iang), directad(k0, Ltarget, iang), compad(k0, Ltarget, iang)
       enddo
       close (unit = 1)
+      call write_outfile(discfile,flagoutall)
     endif
   else
     write(*, '(" Angle        Total            Direct       Compound       c.s/Rutherford  Nuc+interference"/)')
