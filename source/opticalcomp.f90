@@ -88,6 +88,7 @@ subroutine opticalcomp(Zix, Nix, k, eopt)
   integer           :: in               ! counter for neutrons
   integer           :: iz               ! charge number of residual nucleus
   integer           :: k                ! designator for particle
+  integer           :: ktype            ! designator for particle
   integer           :: nen              ! energy counter
   integer           :: Nix              ! neutron number index for residual nucleus
   integer           :: nr               ! number of radial grid point
@@ -158,11 +159,16 @@ subroutine opticalcomp(Zix, Nix, k, eopt)
 !
 ! 1. In case of an optical model file, we interpolate between the tabulated values
 !
+  if (flagompejec .and. k == k0) then   
+    ktype = 0       
+  else
+    ktype = k       
+  endif
   optmodfile = '                                                     '
   if (Zix <= numZph .and. Nix <= numNph) optmodfile = optmod(Zix, Nix, k)
   if (optmodfile(1:1) /= ' ') then
     if (eopt >= eomp(Zix, Nix, k, 1) .and. eopt <= eomp(Zix, Nix, k, omplines(Zix, Nix, k))) then
-      call ompadjust(eopt, k)
+      call ompadjust(eopt, ktype)
       do nen = 1, omplines(Zix, Nix, k) - 1
         elow = eomp(Zix, Nix, k, nen)
         eup = eomp(Zix, Nix, k, nen + 1)
@@ -253,7 +259,7 @@ subroutine opticalcomp(Zix, Nix, k, eopt)
 !
 ! 4. Final potential depths: construct V, W, Wd, Vso and Wso.
 !
-  call ompadjust(eopt, k)
+  call ompadjust(eopt, ktype)
   iz = parZ(k)
   in = parN(k)
   ia = parA(k)
