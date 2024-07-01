@@ -92,18 +92,15 @@ subroutine tfissionout(Zcomp, Ncomp, nex)
   Ncol = 9
   call write_datablock(quantity,Ncol,maxJ(Zcomp, Ncomp, nex) + 1,col,un)
   write(*, '(/" Fission transmission coefficients for Z=", i3, &
- &  " N=", i3, " (", i3, a2, ") and an excitation energy of ", f8.3, " MeV"/)') Z, N, A, nuc(Z), Exinc
-  write(*, '("   J      T(J,-)      T(J,+)    Gamma(J,-)  Gamma(J,+)   tau(J,-)    tau(J,+)  density(J,-) density(J,+)"/)')
+ &  " N=", i3, " (",a,") and an excitation energy of ", f8.3, " MeV"/)') Z, N, trim(finalnuclide), Exinc
   odd = mod(A, 2)
   do J = 0, maxJ(Zcomp, Ncomp, nex)
     J2 = 2 * J + odd
     write(1, '(2x, f4.1, 9x, 8es15.6)') 0.5*J2, tfis(J, -1), tfis(J, 1), gamfis(J, -1), gamfis(J, 1), taufis(J, -1), &
  &  taufis(J, 1), denfis(J, -1), denfis(J, 1)
-    write(*, '(1x, f4.1, 2x, 8es12.5)') 0.5*J2, tfis(J, -1), tfis(J, 1), gamfis(J, -1), gamfis(J, 1), taufis(J, -1), &
- &  taufis(J, 1), denfis(J, -1), denfis(J, 1)
   enddo
-  write( * , * )
   close (1)
+  call write_outfile(fisfile,flagoutall)
   return
 end subroutine tfissionout
 ! Copyright A.J. Koning 2021

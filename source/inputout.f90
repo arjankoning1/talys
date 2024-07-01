@@ -41,7 +41,7 @@ subroutine inputout
 !   flaglabddx      ! flag for calculation of DDX in LAB system
 !   flagmassdis     ! flag for calculation of fission fragment mass yields
 !   flagmicro       ! flag for completely microscopic Talys calculation
-!   flagngfit       ! flag for using fitted nuclear model parameters
+!   flagfit         ! flag for using fitted nuclear model parameters
 !   flagngfit       ! flag for using fitted (n,g) nuclear model parameters
 !   flagnffit       ! flag for using fitted (n,f) nuclear model parameters
 !   flagnnfit       ! flag for using fitted (n,n'), (n,2n) and (n,p) nuclear model parameters
