@@ -669,7 +669,7 @@ subroutine checkvalue
 !
 ! Check adjustable OMP parameters
 !
-  do type = 1, 6
+  do type = 0, 6
     call range_real_error('rvadjust', rvadjust(type), 0.1, 10., index1 = type, name1 = 'type')
     call range_real_error('avadjust', avadjust(type), 0.1, 10., index1 = type, name1 = 'type')
     call range_real_error('v1adjust', v1adjust(type), 0.1, 10., index1 = type, name1 = 'type')
