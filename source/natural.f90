@@ -926,14 +926,6 @@ Loop1:    do k2 = 1, neniso(i)
           fyexist = .true.
           open (2, status = 'old', file = fyfile, iostat = istat)
           if (istat /= 0) call read_error(fyfile, istat)
-!         do 
-!           read(2,'(a)',iostat = istat) line
-!           if (istat == -1) exit
-!           key='entries'
-!           keyix=index(line,trim(key))
-!           if (keyix > 0) then
-!             read(line(keyix+len_trim(key)+2:80),*, iostat = istat) Ninc
-!               read(2,'()')
           read(2, '(////)', iostat = istat)
           if (istat /= 0) call read_error(fyfile, istat, eor = 'continue', eof = 'continue')
           do ia = 1, isotope(i)
@@ -1104,13 +1096,6 @@ Loop3:        do i = 1, isonum
               resexist = .true.
               open (2, status = 'old', file = Yfile, iostat = istat)
               if (istat /= 0) call read_error(Yfile, istat, eor = 'continue', eof = 'continue')
-!             do 
-!               read(2,'(a)',iostat = istat) line
-!               if (istat == -1) exit
-!               key='entries'
-!               keyix=index(line,trim(key))
-!               if (keyix > 0) then
-!                 read(line(keyix+len_trim(key)+2:80),*, iostat = istat) Ninc
               do k = 1, 9
                 read(2, '(a)',iostat = istat)
                 if (istat /= 0) call read_error(Yfile, istat, eor = 'continue', eof = 'continue')
