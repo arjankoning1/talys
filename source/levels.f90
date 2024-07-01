@@ -203,6 +203,7 @@ subroutine levels(Zix, Nix)
 ! The isomeric number is determined.
 !
       do i = 0, nlev2
+        tauripl(Zix, Nix, i) = tau(Zix, Nix, i)
         if (tau(Zix, Nix, i) < isomer) tau(Zix, Nix, i) = 0.
         levnum(Zix, Nix, i) = i
       enddo
@@ -314,13 +315,13 @@ subroutine levels(Zix, Nix)
       if (tau(Zix,Nix,i) >= isomer) then
         brexist = .false.
         brexist(i) = .true.
-        do j = 1+1, nlev2
+        do j = i+1, nlev2
           do k = 1, nbranch(Zix,Nix,j)
             lbr = branchlevel(Zix,Nix,j,k)
             if (brexist(lbr)) brexist(j) = .true.
           enddo
         enddo   
-        do j = 1+1, nlev2
+        do j = i+1, nlev2
           do k = 1, nbranch(Zix,Nix,j)
             lbr = branchlevel(Zix,Nix,j,k)
             if (brexist(lbr)) branchratio(Zix,Nix,j,k) = Risomer(Zix,Nix) * branchratio(Zix,Nix,j,k)
