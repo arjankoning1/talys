@@ -45,8 +45,9 @@ subroutine levelsout(Zix, Nix)
   character(len=6)  :: resstring !
   character(len=6)  :: finalnuclide !
   character(len=132) :: topline    ! topline
-  character(len=15) :: col(10)     ! header
-  character(len=15) :: un(10)     ! header
+  character(len=15) :: col(11)     ! header
+  character(len=15) :: taustring
+  character(len=15) :: un(11)     ! header
   character(len=80) :: quantity   ! quantity
   character(len=20)  :: structurefile                 ! file with nuclear structure data
   integer            :: A                             ! mass number of target nucleus
@@ -96,29 +97,26 @@ subroutine levelsout(Zix, Nix)
   col(6)='Branch._level'
   col(7)='Branch._ratio'
   un(7)='%'
-  col(8)='Half-life'
-  un(8)='sec'
-  col(9)='Assignment'
-  col(10)='ENSDF'
-  Ncol=10
+  col(8)='Intern._conv'
+  col(9)='Half-life'
+  un(9)='sec'
+  col(10)='Assignment'
+  col(11)='ENSDF'
+  Ncol=11
   Nentries=0
   do i = 0, nlev(Zix, Nix)
     Nentries = Nentries + 1 + nbranch(Zix, Nix, i)
   enddo
   call write_datablock(quantity,Ncol,Nentries,col,un)
   do i = 0, nlev(Zix, Nix)
-    if (tau(Zix, Nix, i) /= 0.) then
-      write(1, '(i6, 9x, es15.6, 7x, f4.1, 13x, a1, 9x, i6, 36x, es15.6, 6x, 3a1, 1x, a18)') levnum(Zix, Nix, i),  &
- &      edis(Zix, Nix, i), jdis(Zix, Nix, i), cparity(parlev(Zix, Nix, i)), nbranch(Zix, Nix, i), tau(Zix, Nix, i), &
- &      eassign(Zix, Nix, i), jassign(Zix, Nix, i), passign(Zix, Nix, i), ENSDF(Zix, Nix, i)
-    else
-      write(1, '(i6, 9x, es15.6, 7x, f4.1, 13x, a1, 9x, i6, 36x, 15x, 6x, 3a1, 1x, a18)') i, edis(Zix, Nix, i), jdis(Zix, Nix, i), &
- &      cparity(parlev(Zix, Nix, i)), nbranch(Zix, Nix, i), eassign(Zix, Nix, i), jassign(Zix, Nix, i), passign(Zix, Nix, i), &
- &      ENSDF(Zix, Nix, i)
-    endif
+    taustring=''
+    if (tauripl(Zix, Nix, i) /= 0.) write(taustring(1:15),'(es15.6)') tauripl(Zix, Nix, i)
+    write(1, '(i6, 9x, es15.6, 7x, f4.1, 13x, a1, 9x, i6, 51x, a15, 6x, 3a1, 1x, a18)') levnum(Zix, Nix, i),  &
+ &    edis(Zix, Nix, i), jdis(Zix, Nix, i), cparity(parlev(Zix, Nix, i)), nbranch(Zix, Nix, i), taustring, &
+ &    eassign(Zix, Nix, i), jassign(Zix, Nix, i), passign(Zix, Nix, i), ENSDF(Zix, Nix, i)
     do k = 1, nbranch(Zix, Nix, i)
-      write(1, '(75x, "--->", i6, 9x, f8.4, 26x, a1)') branchlevel(Zix, Nix, i, k), branchratio(Zix, Nix, i, k) * 100., &
- &      bassign(Zix, Nix, i, k)
+      write(1, '(75x, "--->", i6, 9x, f8.4, 4x, es15.6, 26x, a1)') branchlevel(Zix, Nix, i, k),  & 
+ &      branchratio(Zix, Nix, i, k) * 100., conv(Zix, Nix, i, k), bassign(Zix, Nix, i, k)
     enddo
   enddo
   close (unit = 1)
