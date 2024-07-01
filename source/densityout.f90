@@ -25,7 +25,6 @@ subroutine densityout(Zix, Nix)
 !   deltaW          ! shell correction in nuclear mass
 !   E0              ! particle constant of temperature formula
 !   Exmatch         ! matching point for Ex
-!   filedensity     ! flag for level densities on separate files
 !   flagcol         ! flag for collective enhancement of level density
 !   flagparity      ! flag for non - equal parity distribution
 !   gammald         ! gamma - constant for asymptotic level density parameter
@@ -53,7 +52,6 @@ subroutine densityout(Zix, Nix)
 !   D0theo          ! mean s - wave resonance spacing
 !   D1theo          ! mean p - wave resonance spacing
 !   dD0             ! uncertainty in D0
-!   Eavres          ! number of resonances
 ! Variables for levels
 !   edis            ! energy of level
 !   nlevmax2        ! maximum number of levels
@@ -88,9 +86,9 @@ subroutine densityout(Zix, Nix)
   character(len=13) :: ldfileout     ! level density file
   character(len=12) :: ldstring      ! string for level density file
   character(len=25) :: model         ! string for level density model
-  character(len=30) :: collstring    ! string
   integer           :: A             ! mass number of target nucleus
   integer           :: i             ! counter
+  integer           :: istat
   integer           :: i1(numlev2)
   integer           :: k             ! counter
   integer           :: Nk            ! counter
@@ -119,6 +117,9 @@ subroutine densityout(Zix, Nix)
   real(sgl)         :: x3(numlev2)
   real(sgl)         :: x4(numlev2)
   real(sgl)         :: x5(numlev2)
+  real(sgl)         :: x6(numlev2)
+  real(sgl)         :: x7(numlev2)
+  real(sgl)         :: x8(numlev2)
   real(sgl)         :: ignatyuk      ! function for energy dependent level density parameter a
   real(sgl)         :: Kcoll         ! total collective enhancement
   real(sgl)         :: Krot          ! rotational enhancement factor
@@ -144,10 +145,13 @@ subroutine densityout(Zix, Nix)
   Z = ZZ(Zix, Nix, 0)
   N = NN(Zix, Nix, 0)
   A = AA(Zix, Nix, 0)
+  odd = mod(A, 2)
   SS = S(Zix, Nix, 1)
   P = pair(Zix, Nix)
+  massstring='   '
+  write(massstring,'(i3)') A
+  finalnuclide=trim(nuc(Z))//adjustl(massstring)
   ldmod = ldmodel(Zix, Nix)
-  write(*, '(/" Level density parameters for Z=", i3, " N=", i3, " (", i3, a2, ") "/)')  Z, N, A, nuc(Z)
   if (ldmod == 1) model = "Constant temperature     "
   if (ldmod == 2) model = "Back-shifted Fermi Gas   "
   if (ldmod == 3) model = "Generalized superfluid   "
@@ -156,378 +160,286 @@ subroutine densityout(Zix, Nix)
   if (ldmod == 6) model = "Hilaire-Goriely Gogny    "
   if (ldmod == 7) model = "BSKG3                    "
   if (ldmod == 8) model = "QRPA                     "
-  write(*, '(" Model: ", a25)') model
-  if (ldmod >= 4 .and. .not. ldexist(Zix, Nix, 0)) write(*, '(" Tables not available ")')
-  if (flagcol(Zix, Nix) .and. .not. ldexist(Zix, Nix, 0)) then
-    write(*, '(" Collective enhancement: yes"/)')
-  else
-    write(*, '(" Collective enhancement: no"/)')
-  endif
-  if (flagfission) then
-    write(*, '(21x, " g.s.     Fission barriers ")')
-    write(*, '(29x, 3(5x, i1, 4x))') (ibar, ibar = 1, nfisbar(Zix, Nix))
-    write(*, '()')
-  endif
-  write(*, '(" a(Sn)           :", f10.5)') alev(Zix, Nix)
-  if (flagfission) write(*, '(" a-effective     :", 10x, 3f10.5)') (aldmatch(Zix, Nix, SS, ibar), ibar = 1, nfisbar(Zix, Nix))
-!
-! D0
-!
-  write(*, '(" Experimental D0 :", f18.2, " eV +- ", f15.5)') D0(Zix, Nix), dD0(Zix, Nix)
-  write(*, '(" Theoretical D0  :", f18.2, " eV")') D0theo(Zix, Nix)
-  write(*, '(" Theoretical D1  :", f18.2, " eV")') D1theo(Zix, Nix)
-  write(*, '(" Av. res. energy :", f18.2, " eV")') Eavres * 1.e6
-!
-! Other parameters
-!
-! ignatyuk    : function for energy dependent level density parameter a
-!
-  write(*, '(" Asymptotic a    :", f10.5)') alimit(Zix, Nix)
-  write(*, '(" Damping gamma   :", f10.5)') gammald(Zix, Nix)
-  write(*, '(" Pairing energy  :", f10.5)') P
-  write(*, '(" Shell correction:", 4f10.5)') (deltaW(Zix, Nix, ibar), ibar = 0, nfisbar(Zix, Nix))
-  write(*, '(" Last disc. level:", 4(7x, i3))') (Nlast(Zix, Nix, ibar), ibar = 0, nfisbar(Zix, Nix))
-  write(*, '(" Nlow            :", 4(7x, i3))') (Nlow(Zix, Nix, ibar), ibar = 0, nfisbar(Zix, Nix))
-  write(*, '(" Ntop            :", 4(7x, i3))') (Ntop(Zix, Nix, ibar), ibar = 0, nfisbar(Zix, Nix))
-  if (ldmod == 1) then
-    write(*, '(" Matching Ex     :", 4f10.5)') (Exmatch(Zix, Nix, ibar), ibar = 0, nfisbar(Zix, Nix))
-    write(*, '(" Temperature     :", 4f10.5)') (T(Zix, Nix, ibar), ibar = 0, nfisbar(Zix, Nix))
-    write(*, '(" E0              :", 4f10.5)') (E0(Zix, Nix, ibar), ibar = 0, nfisbar(Zix, Nix))
-  endif
-  write(*, '(" Adj. pair shift :", 4f10.5)') (Pshift(Zix, Nix, ibar), ibar = 0, nfisbar(Zix, Nix))
-  if (ldmod == 3) then
-    write(*, '(" Critical energy :", 4f10.5)') (Ucrit(Zix, Nix, ibar), ibar = 0, nfisbar(Zix, Nix))
-    write(*, '(" Condensation en.:", 4f10.5)') (Econd(Zix, Nix, ibar), ibar = 0, nfisbar(Zix, Nix))
-    write(*, '(" Critical temp.  :", f10.5)') Tcrit(Zix, Nix)
-  endif
-  write(*, '(" Discrete sigma  :", 4f10.5)') (sqrt(scutoffdisc(Zix, Nix, ibar)), ibar = 0, nfisbar(Zix, Nix))
-  write(*, '(" Sigma (Sn)      :", 4f10.5)') (sqrt(spincut(Zix, Nix, ignatyuk(Zix, Nix, SS, ibar), SS, ibar, 0)), &
- &  ibar = 0, nfisbar(Zix, Nix))
-  write(*, '(" Rhotot(Sn=", f5.2, "):", 1p, 4e10.3)') SS, (densitytot(Zix, Nix, SS, ibar, ldmod), ibar = 0, nfisbar(Zix, Nix))
-  if (flagcol(Zix, Nix) .and. .not. ldexist(Zix, Nix, 1)) then
-    write(*, '(" beta2           :", f10.5)') beta2(Zix, Nix, 0)
-    write(*, '(" Krotconstant    :", 4f10.5)') (Krotconstant(Zix, Nix, ibar), ibar = 0, nfisbar(Zix, Nix))
-    write(*, '(" Ufermi          :", 4f10.5)') (Ufermi(Zix, Nix, ibar), ibar = 0, nfisbar(Zix, Nix))
-    write(*, '(" cfermi          :", 4f10.5)') (cfermi(Zix, Nix, ibar), ibar = 0, nfisbar(Zix, Nix))
-  endif
+  write(*, '(/" Level densities for Z=", i3, " N=", i3, " (",a,") "/)')  Z, N, trim(finalnuclide)
+  write(*, '(" Total level density:"/)') 
 !
 ! ********************** Total level density ***************************
-!
-  odd = mod(A, 2)
-  do ibar = 0, nfisbar(Zix, Nix)
-    if (ibar == 0) then
-      write(*, '(/" Level density per parity for ground state")')
-    else
-      write(*, '(/" Level density per parity for fission barrier", i3)') ibar
-    endif
-    write(*, '(" (Total level density also per parity)"/)')
-    if (flagcol(Zix, Nix) .and. .not. ldexist(Zix, Nix, ibar)) then
-      write(*, '("    Ex     a    sigma   total ", 9("  JP= ", f4.1), "    Krot      Kvib      Kcoll")') &
- &      (real(J + 0.5 * odd), J = 0, 8)
-    else
-      write(*, '("    Ex     a    sigma   total ", 9("  JP= ", f4.1)/)') (real(J+0.5*odd), J = 0, 8)
-    endif
-!
-! Tabulated level densities
-!
-    if (ldmod >= 4 .and. ldexist(Zix, Nix, ibar)) then
-      if (ldmod == 4) then
-        ploop = 1
-      else
-        ploop = - 1
-      endif
-      do parity = 1, ploop, - 2
-        if (flagparity .and. parity == 1) write(*, '(/" Positive parity"/)')
-        if (parity == -1) write(*, '(/" Negative parity"/)')
-        do nex = 1, nendens(Zix, Nix)
-          Eex = edens(nex)
-          write(*, '(1x, f6.2, 14x, 11es10.3)') Eex, densitytotP(Zix, Nix, Eex, parity, ibar, ldmod), &
- &          (density(Zix, Nix, Eex, real(J + 0.5 * odd), parity, ibar, ldmod), J = 0, 8)
-        enddo
-      enddo
-      write(*, '(/" Normalization:")')
-      write(*, '("        ctable=", f10.5)') ctable(Zix, Nix, ibar)
-      write(*, '("        ptable=", f10.5)') ptable(Zix, Nix, ibar)
-      write(*, '("      s2adjust=", f10.5)') s2adjust(Zix, Nix, ibar)
-    else
-!
-! Analytical level densities
-!
-! colenhance: subroutine for collective enhancement
-!
-      do nex = 1, nendens(Zix, Nix)
-        Eex = edens(nex)
-        ald = ignatyuk(Zix, Nix, Eex, ibar)
-        if (ldmod == 3 .and. Eex < Ucrit(Zix, Nix, ibar) - P - Pshift(Zix, Nix, ibar)) ald = aldcrit(Zix, Nix, ibar)
-        if (flagcol(Zix, Nix) .and. .not. ldexist(Zix, Nix, ibar)) then
-          call colenhance(Zix, Nix, Eex, ald, ibar, Krot, Kvib, Kcoll)
-          write(collstring, '(3es10.3)') Krot, Kvib, Kcoll
-        else
-          collstring = ' '
-        endif
-        write(*, '(1x, f6.2, 2f7.3, 10es10.3, a30)') Eex, ald, sqrt(spincut(Zix, Nix, ald, Eex, ibar, 0)), &
- &        densitytotP(Zix, Nix, Eex, 1, ibar, ldmod), &
- &        (density(Zix, Nix, Eex, real(J + 0.5 * odd), 1, ibar, ldmod), J = 0, 8), collstring
-      enddo
-    endif
-  enddo
 !
 ! Cumulative number of discrete levels vs. integrated level density
 !
 ! Output given in general output file and on separate files.
 !
-  massstring='   '
-  write(massstring,'(i3)') A
-  finalnuclide=trim(nuc(Z))//adjustl(massstring)
   do ibar = 0, nfisbar(Zix, Nix)
     NL = Nlow(Zix, Nix, ibar)
     NT = Ntop(Zix, Nix, ibar)
-    write(*, '(/" Discrete levels versus total level density"/)')
-    write(*, '("   Energy Level   N_cumulative"/)')
-    if (filedensity) then
-      ldfile = 'tld000000.gs '
-      if (ibar > 0) write(ldfile(11:13), '("b",i2.2)') ibar
-      write(ldfile(4:9), '(2i3.3)') Z, A
-      open (unit = 1, file = ldfile, status = 'replace')
-      if (ibar > 0) then
-        ldstring = ' Barrier    '
-        write(ldstring(10:10), '(i1)') ibar
-      else
-        ldstring = '            '
-      endif
-      quantity='total level density'
-      topline=trim(finalnuclide)//' '//trim(quantity)
-      col = ''
-      un = ''
-      col(1)='E'
-      un(1)='MeV'
-      col(2)='Level'
-      col(3)='N_cumulative'
-      col(4)='Total_LD'
-      un(4)='MeV^-1'
-      col(5)='Exp_LD'
-      un(5)='MeV^-1'
-      col(6)='a'
-      un(6)='MeV^-1'
-      col(7)='Sigma'
-      call write_header(topline,source,user,date,oformat)
-      call write_residual(Z,A,finalnuclide)
-      write(1,'("# parameters:")')
-      call write_integer(2,'fission barrier',ibar)
-      call write_integer(2,'ldmodel keyword',ldmod)
-      call write_char(2,'level density model',model)
-      if (ldmod <= 3) then
-        Ncol=7
-        if (flagcol(Zix, Nix) .and. .not. ldexist(Zix, Nix, ibar)) then
-          call write_char(2,'collective enhancement','y')
-        else
-          call write_char(2,'collective enhancement','n')
-        endif
-        call write_real(2,'a(Sn) [MeV^-1]',alev(Zix,Nix))
-        call write_real(2,'asymptotic a [MeV^-1]',alimit(Zix,Nix))
-        call write_real(2,'shell correction [MeV]',deltaW(Zix,Nix,ibar))
-        call write_real(2,'damping gamma',gammald(Zix,Nix))
-        call write_real(2,'pairing energy [MeV]',P)
-        call write_real(2,'adjusted pairing shift [MeV]',Pshift(Zix, Nix, ibar))
-        call write_real(2,'separation energy [MeV]',SS)
-        call write_real(2,'discrete spin cutoff parameter',scutoffdisc(Zix, Nix, ibar))
-        call write_real(2,'spin cutoff parameter(Sn)',spincut(Zix, Nix, ignatyuk(Zix, Nix, SS, ibar), SS, ibar, 0))
-        if (ldmod == 1) then
-          call write_real(2,'matching energy [MeV]',Exmatch(Zix, Nix, ibar))
-          call write_real(2,'temperature [MeV]',T(Zix, Nix, ibar))
-          call write_real(2,'E0 [MeV]',E0(Zix, Nix, ibar))
-        endif
-        if (ldmod == 3) then
-          call write_real(2,'Delta0',delta0(Zix, Nix))
-          call write_real(2,'critical a [MeV^-1]',aldcrit(Zix, Nix,ibar))
-          call write_real(2,'critical energy [MeV]',Ucrit(Zix, Nix,ibar))
-          call write_real(2,'condensation energy [MeV]',Econd(Zix, Nix,ibar))
-          call write_real(2,'critical temperature [MeV]',Tcrit(Zix, Nix))
-        endif
-      else
-        Ncol=5
-      endif
-      call write_integer(2,'number of excited levels',nlevmax2(Zix,Nix))
-      call write_integer(2,'Nlow',Nlow(Zix, Nix, ibar))
-      call write_integer(2,'Ntop',Ntop(Zix, Nix, ibar))
-      call write_real(2,'ctable',ctable(Zix, Nix, ibar))
-      call write_real(2,'ptable',ptable(Zix, Nix, ibar))
-      write(1,'("# observables:")')
-      call write_real(2,'experimental D0 [eV]',D0(Zix, Nix))
-      call write_real(2,'experimental D0 unc. [eV]',dD0(Zix, Nix))
-      call write_real(2,'global D0 [eV]',D0global(Zix, Nix))
-      call write_real(2,'global D0 unc. [eV]',dD0global(Zix, Nix))
-      call write_real(2,'theoretical D0 [eV]',D0theo(Zix, Nix))
-      call write_real(2,'Chi-2 D0',chi2D0(Zix, Nix))
-      call write_real(2,'C/E D0',CED0(Zix, Nix))
-      call write_real(2,'Frms D0',FrmsD0(Zix, Nix))
-      call write_real(2,'Erms D0',ErmsD0(Zix, Nix))
-      call write_real(2,'C/G D0',CGD0(Zix, Nix))
-      k = 0
-      Eex1 = 0.
-      i1 = 0
-      x1 = 0.
-      x2 = 0.
-      x3 = 0.
-      x4 = 0.
-      x5 = 0.
-      do i = 1, nlevmax2(Zix, Nix)
-        if (edis(Zix, Nix, i) == 0.) cycle
-        Eex = 0.5 * (edis(Zix, Nix, i) + edis(Zix, Nix, i - 1))
-        dEx = edis(Zix, Nix, i) - edis(Zix, Nix, i - 1)
-        dens = densitytot(Zix, Nix, Eex, ibar, ldmod)
-        Eex = edis(Zix, Nix, i)
-        if (Ncum(Zix, Nix, i) < 1.e9) write(*, '(1x, f8.4, i4, f12.3)') Eex, i, Ncum(Zix, Nix, i)
-        if (filedensity) then
-          k = k + 1
-          if (ldmod <= 3) then
-            ald = ignatyuk(Zix, Nix, Eex, ibar)
-            if (ldmod == 3 .and. Eex < Ucrit(Zix, Nix, ibar) - P - &
-              Pshift(Zix, Nix, ibar)) ald = aldcrit(Zix, Nix, ibar)
-            dens = densitytot(Zix, Nix, Eex, ibar, ldmod)
-            sigma = sqrt(spincut(Zix, Nix, ald, Eex, ibar, 0))
-            x4(k) = ald
-            x5(k) = sigma
-          endif
-          Eex1(k) = Eex
-          i1(k) = i
-          x1(k) = Ncum(Zix, Nix, i)
-          x2(k) = dens
-          x3(k) = rhoexp(Zix, Nix, i)
-        endif
-      enddo
-      denom = real(NT - NL)
-      Nk = k
-      call write_double(2,'Chi-2 per level',chi2lev(Zix, Nix))
-      call write_double(2,'Frms per level',Frmslev(Zix, Nix))
-      call write_double(2,'Erms per level',Ermslev(Zix, Nix))
-      call write_double(2,'average deviation per level',avdevlev(Zix, Nix))
-      call write_datablock(quantity,Ncol,Nk,col,un)
-      do k = 1, Nk
-        if (ldmod <= 3) then
-          write(1, '(es15.6, i6, 9x, 5es15.6)') Eex1(k), i1(k), x1(k), x2(k), x3(k), x4(k), x5(k)
-        else
-          write(1, '(es15.6, i6, 9x, 3es15.6)') Eex1(k), i1(k), x1(k), x2(k), x3(k)
-        endif
-      enddo
-      close(1)
+    ldfile = 'tld000000.gs '
+    if (ibar > 0) write(ldfile(11:13), '("b",i2.2)') ibar
+    write(ldfile(4:9), '(2i3.3)') Z, A
+    open (unit = 1, file = ldfile, status = 'replace')
+    if (ibar > 0) then
+      ldstring = ' Barrier    '
+      write(ldstring(10:10), '(i1)') ibar
+    else
+      ldstring = '            '
     endif
+    quantity='total level density'
+    topline=trim(finalnuclide)//' '//trim(quantity)
+    col = ''
+    un = ''
+    col(1)='E'
+    un(1)='MeV'
+    col(2)='Level'
+    col(3)='N_cumulative'
+    col(4)='Total_LD'
+    un(4)='MeV^-1'
+    col(5)='Exp_LD'
+    un(5)='MeV^-1'
+    col(6)='a'
+    un(6)='MeV^-1'
+    col(7)='Sigma'
+    call write_header(topline,source,user,date,oformat)
+    call write_residual(Z,A,finalnuclide)
+    write(1,'("# parameters:")')
+    call write_integer(2,'fission barrier',ibar)
+    call write_integer(2,'ldmodel keyword',ldmod)
+    call write_char(2,'level density model',model)
+    if (ldmod <= 3) then
+      if (flagcol(Zix, Nix) .and. .not. ldexist(Zix, Nix, ibar)) then
+        call write_char(2,'collective enhancement','y')
+      else
+        call write_char(2,'collective enhancement','n')
+      endif
+      call write_real(2,'a(Sn) [MeV^-1]',alev(Zix,Nix))
+      call write_real(2,'asymptotic a [MeV^-1]',alimit(Zix,Nix))
+      call write_real(2,'shell correction [MeV]',deltaW(Zix,Nix,ibar))
+      call write_real(2,'damping gamma',gammald(Zix,Nix))
+      call write_real(2,'pairing energy [MeV]',P)
+      call write_real(2,'adjusted pairing shift [MeV]',Pshift(Zix, Nix, ibar))
+      call write_real(2,'separation energy [MeV]',SS)
+      call write_real(2,'discrete spin cutoff parameter',scutoffdisc(Zix, Nix, ibar))
+      call write_real(2,'spin cutoff parameter(Sn)',spincut(Zix, Nix, ignatyuk(Zix, Nix, SS, ibar), SS, ibar, 0))
+      if (ldmod == 1) then
+        call write_real(2,'matching energy [MeV]',Exmatch(Zix, Nix, ibar))
+        call write_real(2,'temperature [MeV]',T(Zix, Nix, ibar))
+        call write_real(2,'E0 [MeV]',E0(Zix, Nix, ibar))
+      endif
+      if (flagcol(Zix, Nix) .and. .not. ldexist(Zix, Nix, 1)) then
+        call write_real(2,'beta2',beta2(Zix, Nix, 0))
+        call write_real(2,'Krotconstant',Krotconstant(Zix, Nix, ibar))
+        call write_real(2,'Ufermi',Ufermi(Zix, Nix, ibar))
+        call write_real(2,'cfermi',cfermi(Zix, Nix, ibar))
+      endif
+      if (ibar > 0) call write_real(2,'a-effective [MeV^-1]',aldmatch(Zix, Nix, SS, ibar)) 
+      if (ldmod == 3) then
+        call write_real(2,'Delta0',delta0(Zix, Nix))
+        call write_real(2,'critical a [MeV^-1]',aldcrit(Zix, Nix,ibar))
+        call write_real(2,'critical energy [MeV]',Ucrit(Zix, Nix,ibar))
+        call write_real(2,'condensation energy [MeV]',Econd(Zix, Nix,ibar))
+        call write_real(2,'critical temperature [MeV]',Tcrit(Zix, Nix))
+      endif
+      Ncol=7
+      if (flagcol(Zix, Nix) .and. .not. ldexist(Zix, Nix, ibar)) then
+        Ncol=10
+        col(8)='Krot'
+        col(9)='Kvib'
+        col(10)='Kcoll'
+      endif
+    else
+      Ncol=5
+    endif
+    call write_double(2,'Rhotot(Sn) [MeV^-1]',densitytot(Zix, Nix, SS, ibar, ldmod))
+    call write_integer(2,'number of excited levels',nlevmax2(Zix,Nix))
+    call write_integer(2,'Nlow',Nlow(Zix, Nix, ibar))
+    call write_integer(2,'Ntop',Ntop(Zix, Nix, ibar))
+    call write_real(2,'ctable',ctable(Zix, Nix, ibar))
+    call write_real(2,'ptable',ptable(Zix, Nix, ibar))
+    write(1,'("# observables:")')
+    call write_real(2,'experimental D0 [eV]',D0(Zix, Nix))
+    call write_real(2,'experimental D0 unc. [eV]',dD0(Zix, Nix))
+    call write_real(2,'global D0 [eV]',D0global(Zix, Nix))
+    call write_real(2,'global D0 unc. [eV]',dD0global(Zix, Nix))
+    call write_real(2,'theoretical D0 [eV]',D0theo(Zix, Nix))
+    call write_real(2,'Chi-2 D0',chi2D0(Zix, Nix))
+    call write_real(2,'C/E D0',CED0(Zix, Nix))
+    call write_real(2,'Frms D0',FrmsD0(Zix, Nix))
+    call write_real(2,'Erms D0',ErmsD0(Zix, Nix))
+    call write_real(2,'C/G D0',CGD0(Zix, Nix))
+    k = 0
+    Eex1 = 0.
+    i1 = 0
+    x1 = 0.
+    x2 = 0.
+    x3 = 0.
+    x4 = 0.
+    x5 = 0.
+    x6 = 0.
+    x7 = 0.
+    x8 = 0.
+    do i = 1, nlevmax2(Zix, Nix)
+      if (edis(Zix, Nix, i) == 0.) cycle
+      Eex = 0.5 * (edis(Zix, Nix, i) + edis(Zix, Nix, i - 1))
+      dEx = edis(Zix, Nix, i) - edis(Zix, Nix, i - 1)
+      dens = densitytot(Zix, Nix, Eex, ibar, ldmod)
+      Eex = edis(Zix, Nix, i)
+      k = k + 1
+      if (ldmod <= 3) then
+        ald = ignatyuk(Zix, Nix, Eex, ibar)
+        if (ldmod == 3 .and. Eex < Ucrit(Zix, Nix, ibar) - P - Pshift(Zix, Nix, ibar)) ald = aldcrit(Zix, Nix, ibar)
+        dens = densitytot(Zix, Nix, Eex, ibar, ldmod)
+        sigma = sqrt(spincut(Zix, Nix, ald, Eex, ibar, 0))
+        x4(k) = ald
+        x5(k) = sigma
+        if (flagcol(Zix, Nix) .and. .not. ldexist(Zix, Nix, ibar)) then
+          call colenhance(Zix, Nix, Eex, ald, ibar, Krot, Kvib, Kcoll)
+          x6(k) = Krot
+          x7(k) = Kvib
+          x8(k) = Kcoll
+        endif
+      endif
+      Eex1(k) = Eex
+      i1(k) = i
+      x1(k) = Ncum(Zix, Nix, i)
+      x2(k) = dens
+      x3(k) = rhoexp(Zix, Nix, i)
+    enddo
+    denom = real(NT - NL)
+    Nk = k
+    call write_double(2,'Chi-2 per level',chi2lev(Zix, Nix))
+    call write_double(2,'Frms per level',Frmslev(Zix, Nix))
+    call write_double(2,'Erms per level',Ermslev(Zix, Nix))
+    call write_double(2,'average deviation per level',avdevlev(Zix, Nix))
+    call write_datablock(quantity,Ncol,Nk,col,un)
+    do k = 1, Nk
+      if (ldmod <= 3) then
+        if (flagcol(Zix, Nix) .and. .not. ldexist(Zix, Nix, ibar)) then
+          write(1, '(es15.6, i6, 9x, 8es15.6)') Eex1(k), i1(k), x1(k), x2(k), x3(k), x4(k), x5(k), x6(k), x7(k), x8(k)
+        else
+          write(1, '(es15.6, i6, 9x, 5es15.6)') Eex1(k), i1(k), x1(k), x2(k), x3(k), x4(k), x5(k)
+        endif
+      else
+        write(1, '(es15.6, i6, 9x, 3es15.6)') Eex1(k), i1(k), x1(k), x2(k), x3(k)
+      endif
+    enddo
+    close(1)
+    call write_outfile(ldfile,flagoutall)
   enddo
 !
-! Level densities per parity on separate files, as in tabulated format
+! Level densities per parity on separate files
 !
-  if (filedensity) then
-    do ibar = 0, nfisbar(Zix, Nix)
-      ldfile = 'ld000000.gs '
-      if (ibar > 0) write(ldfile(10:12), '("b",i2.2)') ibar
-      write(ldfile(3:8), '(2i3.3)') Z, A
-      open (unit = 1, file = ldfile, status = 'replace')
-      quantity='level density'
-      col=''
-      col(1)='E'
-      col(2)='T'
-      col(3)='N_cumulative'
-      col(4)='rho_observed'
-      col(5)='rho_total'
-      do J = 0, numJ
-        col(J+6)='J=     '
-        write(col(J+6)(4:7),'(f4.1)') J+0.5*odd 
-      enddo      
-      un='MeV^-1'
-      un(1)='MeV'
-      un(2)='MeV'
-      un(3)=''
-      Ncol=numJ+6
-      topline=trim(finalnuclide)//' '//trim(quantity)
-      call write_header(topline,source,user,date,oformat)
-      call write_residual(Z,A,finalnuclide)
+  write(*, '(/" Level density per spin and parity:"/)') 
+  do ibar = 0, nfisbar(Zix, Nix)
+    ldfile = 'ld000000.gs '
+    if (ibar > 0) write(ldfile(10:12), '("b",i2.2)') ibar
+    write(ldfile(3:8), '(2i3.3)') Z, A
+    open (unit = 1, file = ldfile, status = 'replace')
+    quantity='level density'
+    col=''
+    col(1)='E'
+    col(2)='T'
+    col(3)='N_cumulative'
+    col(4)='rho_observed'
+    col(5)='rho_total'
+    do J = 0, numJ
+      col(J+6)='J=     '
+      write(col(J+6)(4:7),'(f4.1)') J+0.5*odd 
+    enddo      
+    un='MeV^-1'
+    un(1)='MeV'
+    un(2)='MeV'
+    un(3)=''
+    Ncol=numJ+6
+    topline=trim(finalnuclide)//' '//trim(quantity)
+    call write_header(topline,source,user,date,oformat)
+    call write_residual(Z,A,finalnuclide)
+    write(1,'("# parameters:")')
+    call write_integer(2,'fission barrier',ibar)
+    call write_integer(2,'ldmodel keyword',ldmod)
+    call write_char(2,'level density model',model)
+    str(-1) = 'Negative'
+    str(1) = 'Positive'
+    do parity = 1, -1, -2
       write(1,'("# parameters:")')
-      call write_integer(2,'fission barrier',ibar)
-      call write_integer(2,'ldmodel keyword',ldmod)
-      call write_char(2,'level density model',model)
-      str(-1) = 'Negative'
-      str(1) = 'Positive'
-      do parity = 1, -1, -2
-        write(1,'("# parameters:")')
-        call write_integer(2,'Parity',parity)
-        call write_datablock(quantity,Ncol,nendens(Zix,Nix),col,un)
-        ldfileout = 'nld000000.tab'
-        write(ldfileout(4:9), '(2i3.3)') Z, A
-        open (unit = 2, status = 'unknown', file = ldfileout)
-        write(2, '(20x, 96("*"))')
-        write(2, '(20x, "*  Z=", i3, " A=", i3, ": ", a8, "-Parity Spin-dependent Level Density [MeV-1] for ", a2, i3, &
- &        " and ldmodel=", i2, "  *")') Z, A, str(parity), nuc(Z), A, ldmod
-        write(2, '(20x, 96("*"))')
-        if (mod(A, 2) == 0) then
-          write(2, '(" U[MeV]  T[MeV]  NCUMUL   RHOOBS   RHOTOT  ", 31("   J=", i2.2, 2x, :))') (J, J = 0, 29)
-        else
-          write(2, '(" U[MeV]  T[MeV]  NCUMUL   RHOOBS   RHOTOT  ", 31("  J=", i2.2, "/2", 1x, :))') (J, J = 1, 59, 2)
-        endif
-        Nc = 0.
-        dEx = edens(1)
-        do nex = 1, nendens(Zix, Nix)
-          Eex = edens(nex)
-          Tnuc = sqrt(Eex / alev(Zix, Nix))
-          if (nex > 1) dEx = Eex - edens(nex - 1)
-          dens = densitytotP(Zix, Nix, Eex, parity, ibar, ldmod)
-          Nc = Nc + dens * dEx
-          ldtot = 0.
-          do J = 0, numJ
-            ldtot = ldtot + (2. * J + 1) * density(Zix, Nix, Eex, real(J + 0.5 * odd), parity, ibar, ldmod)
-          enddo
-          ldtotP = densitytotP(Zix, Nix, Eex, parity, ibar, ldmod)
-          write(2, '(1x, f6.2, f7.3, 1x, 1p, 33e9.2)') Eex, Tnuc, Nc, ldtotP, ldtot, &
- &          (density(Zix, Nix, Eex, real(J + 0.5 * odd), 1, ibar, ldmod), J = 0, 29)
-            write(1, '(47es15.6)') Eex, Tnuc, Nc, ldtotP, ldtot, &
- &          (density(Zix, Nix, Eex, real(J + 0.5 * odd), 1, ibar, ldmod), J = 0, numJ)
+      call write_integer(2,'Parity',parity)
+      call write_datablock(quantity,Ncol,nendens(Zix,Nix),col,un)
+      ldfileout = 'nld000000.tab'
+      write(ldfileout(4:9), '(2i3.3)') Z, A
+      open (unit = 2, status = 'unknown', file = ldfileout)
+      write(2, '(20x, 96("*"))')
+      write(2, '(20x, "*  Z=", i3, " A=", i3, ": ", a8, "-Parity Spin-dependent Level Density [MeV-1] for ", a2, i3, &
+ &      " and ldmodel=", i2, "  *")') Z, A, str(parity), nuc(Z), A, ldmod
+      write(2, '(20x, 96("*"))')
+      if (mod(A, 2) == 0) then
+        write(2, '(" U[MeV]  T[MeV]  NCUMUL   RHOOBS   RHOTOT  ", 31("   J=", i2.2, 2x, :))') (J, J = 0, 29)
+      else
+        write(2, '(" U[MeV]  T[MeV]  NCUMUL   RHOOBS   RHOTOT  ", 31("  J=", i2.2, "/2", 1x, :))') (J, J = 1, 59, 2)
+      endif
+      Nc = 0.
+      dEx = edens(1)
+      do nex = 1, nendens(Zix, Nix)
+        Eex = edens(nex)
+        Tnuc = sqrt(Eex / alev(Zix, Nix))
+        if (nex > 1) dEx = Eex - edens(nex - 1)
+        dens = densitytotP(Zix, Nix, Eex, parity, ibar, ldmod)
+        Nc = Nc + dens * dEx
+        ldtot = 0.
+        do J = 0, numJ
+          ldtot = ldtot + (2. * J + 1) * density(Zix, Nix, Eex, real(J + 0.5 * odd), parity, ibar, ldmod)
         enddo
-        write(2, * )
+        ldtotP = densitytotP(Zix, Nix, Eex, parity, ibar, ldmod)
+        write(2, '(1x, f6.2, f7.3, 1x, 1p, 33e9.2)') Eex, Tnuc, Nc, ldtotP, ldtot, &
+ &        (density(Zix, Nix, Eex, real(J + 0.5 * odd), 1, ibar, ldmod), J = 0, 29)
+        write(1, '(47es15.6)') Eex, Tnuc, Nc, ldtotP, ldtot, &
+ &        (density(Zix, Nix, Eex, real(J + 0.5 * odd), 1, ibar, ldmod), J = 0, numJ)
       enddo
-      close(1)
+      write(2, * )
     enddo
-    close(2)
+    close(1)
+    call write_outfile(ldfile,flagoutall)
+  enddo
+  close(2)
 !
 ! Spin distribution
 !
-    do ibar = 0, nfisbar(Zix, Nix)
-      ldfile = 'sd000000.gs '
-      if (ibar > 0) write(ldfile(10:12), '("b",i2.2)') ibar
-      write(ldfile(3:8), '(2i3.3)') Z, A
-      open (unit = 1, file = ldfile, status = 'replace')
-      quantity='level density spin distribution'
-      Ncol = 3
-      un=''
-      col(1) = 'Spin'
-      col(2) = 'R (parity -)'
-      col(3) = 'R (parity +)'
-      Rdist = 0.
-      topline=trim(finalnuclide)//' '//trim(quantity)
-      call write_header(topline,source,user,date,oformat)
-      call write_residual(Z,A,finalnuclide)
-      write(1,'("# parameters:")')
-      call write_integer(2,'fission barrier',ibar)
-      call write_integer(2,'ldmodel keyword',ldmod)
-      call write_char(2,'level density model',model)
-      do parity = -1, 1, 2
-        do nex = 1, nendens(Zix, Nix)
-          Eex = edens(nex)
-          ldtotP = densitytotP(Zix, Nix, Eex, parity, ibar, ldmod)
-          do J = 0, numJ
-            Rdist(nex, parity, J) = density(Zix, Nix, Eex, real(J + 0.5 * odd), parity, ibar, ldmod) / ldtotP
-          enddo
-        enddo
-      enddo
+  write(*, '(/" Level density spin distribution:"/)') 
+  do ibar = 0, nfisbar(Zix, Nix)
+    ldfile = 'sd000000.gs '
+    if (ibar > 0) write(ldfile(10:12), '("b",i2.2)') ibar
+    write(ldfile(3:8), '(2i3.3)') Z, A
+    open (unit = 1, file = ldfile, status = 'replace')
+    quantity='level density spin distribution'
+    Ncol = 3
+    un=''
+    col(1) = 'Spin'
+    col(2) = 'R (parity -)'
+    col(3) = 'R (parity +)'
+    Rdist = 0.
+    topline=trim(finalnuclide)//' '//trim(quantity)
+    call write_header(topline,source,user,date,oformat)
+    call write_residual(Z,A,finalnuclide)
+    write(1,'("# parameters:")')
+    call write_integer(2,'fission barrier',ibar)
+    call write_integer(2,'ldmodel keyword',ldmod)
+    call write_char(2,'level density model',model)
+    do parity = -1, 1, 2
       do nex = 1, nendens(Zix, Nix)
-        write(1,'("# parameters:")')
-        call write_real(2,'Excitation energy [MeV]',edens(nex))
-        call write_datablock(quantity,Ncol,numJ+1,col,un)
+        Eex = edens(nex)
+        ldtotP = densitytotP(Zix, Nix, Eex, parity, ibar, ldmod)
         do J = 0, numJ
-          write(1, '(6x,f4.1,5x,2es15.6)') real(J + 0.5 * odd),(Rdist(nex, parity, J), parity = -1, 1, 2)
+          Rdist(nex, parity, J) = density(Zix, Nix, Eex, real(J + 0.5 * odd), parity, ibar, ldmod) / ldtotP
         enddo
       enddo
-      close(1)
     enddo
-  endif
+    do nex = 1, nendens(Zix, Nix)
+      write(1,'("# parameters:")')
+      call write_real(2,'Excitation energy [MeV]',edens(nex))
+      call write_datablock(quantity,Ncol,numJ+1,col,un)
+      do J = 0, numJ
+        write(1, '(6x,f4.1,5x,2es15.6)') real(J + 0.5 * odd),(Rdist(nex, parity, J), parity = -1, 1, 2)
+      enddo
+    enddo
+    close(1)
+    call write_outfile(ldfile,flagoutall)
+  enddo
   return
 end subroutine densityout
 ! Copyright A.J. Koning 2021
