@@ -615,7 +615,7 @@ loop1:  do i = 1, nlines
 !
 ! Apply consistent OMP adjustment factors for Koning-Delaroche and other potentials.
 !
-  do type=1,6
+  do type=0,6
     if ((type == 3 .and. deuteronomp >= 2) .or. (type == 6 .and. alphaomp >= 2)) then
       if (rwadjust(type) == -1.) rwadjust(type) = 1.
       if (awadjust(type) == -1.) awadjust(type) = 1.
