@@ -5,7 +5,7 @@ subroutine getvalues(class, word, Zix, Nix, type, ibar, irad, lval, igr, val, iv
 !
 ! Author    : Arjan Koning
 !
-! 2021-12-30: Original code
+! 2024-06-30: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -124,6 +124,7 @@ subroutine getvalues(class, word, Zix, Nix, type, ibar, irad, lval, igr, val, iv
   flagassign = .false.
   key = word(1)
   ch = word(2)(1:1)
+  if (ch == 'e') ch = 'g'
   val = 1.
   ival = -1
   cval = '                                                           '
