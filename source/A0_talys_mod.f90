@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2023-12-30: Original code
-! 2024-07-01: Current version
+! 2024-07-09: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -436,6 +436,7 @@ module A0_talys_mod
   logical                                                   :: flagdisp      ! flag for dispersive optical model
   logical                                                   :: flagincadj    ! flag for OMP adjustment on incident channel
   logical                                                   :: flagjlm       ! flag for using semi-microscopic JLM OMP
+  logical                                                   :: flagpruitt    ! flag for using Pruitt parameters for KD03
   logical                                                   :: flaglocalomp  ! flag for local (y) or global (n) optical model
   logical                                                   :: flagompall    ! flag for new optical model calculation for all nuclei
   logical                                                   :: flagomponly   ! flag to execute ONLY an optical model calculation
