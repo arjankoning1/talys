@@ -100,6 +100,7 @@ subroutine input_ompmodel
   else
     flagjlm = .false.
   endif
+  flagpruitt = .false.
   flaglocalomp = .true.
   flagompall = .false.
   flagomponly = .false.
@@ -211,6 +212,12 @@ loop1:  do i = 1, nlines
     if (key == 'jlmomp') then
       if (ch == 'n') flagjlm = .false.
       if (ch == 'y') flagjlm = .true.
+      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'pruitt') then
+      if (ch == 'n') flagpruitt = .false.
+      if (ch == 'y') flagpruitt = .true.
       if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
       cycle
     endif
