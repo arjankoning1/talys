@@ -152,6 +152,7 @@ subroutine opticalnp(Zix, Nix, k, eopt)
   real(sgl)         :: v2loc            ! help variable
   real(sgl)         :: v3loc            ! help variable
   real(sgl)         :: v4loc            ! help variable
+  real(sgl)         :: v4               ! help variable
   real(sgl)         :: Vc               ! Coulomb term
   real(sgl)         :: Vcoul            ! Coulomb term
   real(sgl)         :: Vinf             ! high energy limit for real central potential
@@ -222,7 +223,11 @@ subroutine opticalnp(Zix, Nix, k, eopt)
 !
   Z = ZZ(Zix, Nix, 0)
   A = AA(Zix, Nix, 0)
-
+  if (flagpruitt) then
+    v4 = -4.3e-9
+  else
+    v4 = 7.e-9
+  endif
   if (flagsoukhoinp .or. (flagsoukho .and. Z >= 90 .and. ompglobal(Zix, Nix, k))) then
     call soukhovitskii(k, Z, A, eopt)
   else
@@ -231,7 +236,7 @@ subroutine opticalnp(Zix, Nix, k, eopt)
     v1loc = Fv1 * v1(Zix, Nix, k)
     v2loc = Fv2 * v2(Zix, Nix, k)
     v3loc = Fv3 * v3(Zix, Nix, k)
-    v4loc = Fv4 * 7.e-9
+    v4loc = Fv4 * v4
 !
 ! Coulomb term for protons
 !
