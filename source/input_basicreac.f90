@@ -25,7 +25,6 @@ subroutine input_basicreac
 !   flagendf         ! flag for information for ENDF-6 file
 !   flagendfdet      ! flag for detailed ENDF-6 information per channel
 !   flagendfecis     ! flag for new ECIS calculation for ENDF-6 files
-!   flagffruns       ! flag to designate subsequent evap. of fission products
 !   flaglabddx       ! flag for calculation of DDX in LAB system
 !   flagmassdis      ! flag for calculation of fission fragment mass yields
 !   flagmicro        ! flag for completely microscopic TALYS calculation
