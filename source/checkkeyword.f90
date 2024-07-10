@@ -6,7 +6,7 @@ subroutine checkkeyword
 ! Author    : Arjan Koning
 !
 ! 2021-12-30: Original code
-! 2023-06-28: Latest version
+! 2023-07-09: Latest version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -20,7 +20,7 @@ subroutine checkkeyword
 ! *** Declaration of local data
 !
   implicit none
-  integer, parameter :: numkey=403        ! number of keywords
+  integer, parameter :: numkey=404        ! number of keywords
   integer            :: i                 ! counter
   integer            :: j                 ! counter
   character(len=132) :: key               ! keyword
@@ -67,9 +67,9 @@ subroutine checkkeyword
  &  'outfission', 'outfy', 'outgamdis', 'outgamma', 'outinverse', 'outkd', 'outlegendre', 'outlevels', 'outmain', 'outomp', &
  &  'outpopulation', 'outpreequilibrium', 'outspectra', 'outtransenergy', 'pair', &
  &  'pairconstant', 'pairmodel', 'parity', 'partable', 'pfnsmodel', 'pglobal', 'phmodel', 'pnfit', 'popeps', 'popmev', &
- &  'preeqcomplex', 'preeqmode', 'preeqspin', 'preeqsurface', 'preequilibrium', 'production', 'projectile', 'pseudoresonances', &
- &  'psfglobal', 'pshift', 'pshiftadjust', 'pshiftconstant', 'ptable', 'ptableadjust', 'racap', 'radialfile', 'radialmodel', &
- &  'radiounit', 'rcadjust', 'rclass2mom', 'reaction', 'recoil', 'recoilaverage', 'relativistic', &
+ &  'preeqcomplex', 'preeqmode', 'preeqspin', 'preeqsurface', 'preequilibrium', 'production', 'projectile', 'pruitt', & 
+ &  'pseudoresonances', 'psfglobal', 'pshift', 'pshiftadjust', 'pshiftconstant', 'ptable', 'ptableadjust', 'racap', & 
+ &  'radialfile', 'radialmodel', 'radiounit', 'rcadjust', 'rclass2mom', 'reaction', 'recoil', 'recoilaverage', 'relativistic', &
  &  'rescuefile', 'reslib', 'resonance', 'rfiseps', 'rgamma', 'rho', 'riplomp', 'riplrisk', 'risomer', 'rnunu', 'rnupi', &
  &  'rotational', 'rpevap', 'rpinu', 'rpipi', 'rprime', 'rspincut', 'rspincutff', 'rspincutpreeq', 'rtransmom', 'rvadjust', &
  &  'rvadjustf', 'rvdadjust', &
