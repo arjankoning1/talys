@@ -399,6 +399,7 @@ subroutine inputout
   write(*, '(" localomp            ", a1, "     flaglocalomp flag for local (y) or global (n) optical model")') yesno(flaglocalomp)
   write(*, '(" dispersion          ", a1, "     flagdisp     flag for dispersive optical model")') yesno(flagdisp)
   write(*, '(" jlmomp              ", a1, "     flagjlm      flag for using semi-microscopic JLM OMP")') yesno(flagjlm)
+  write(*, '(" pruitt              ", a1, "     flagpruitt   flag for Pruitt parameters for KD03")') yesno(flagpruitt)
   write(*, '(" riplomp             ", a1, "     flagriplomp  flag for RIPL OMP")') yesno(flagriplomp)
   write(*, '(" riplrisk            ", a1, "     flagriplrisk flag for going outside RIPL mass validity range")') yesno(flagriplrisk)
   write(*, '(" optmodall           ", a1, "     flagompall   flag for new optical model calculation for all residual nuclei")') &
