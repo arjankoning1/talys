@@ -77,6 +77,7 @@ subroutine omppar(Zix, Nix)
 !   v1              ! parameter for real volume OMP
 !   v2              ! parameter for real volume OMP
 !   v3              ! parameter for real volume OMP
+!   v4              ! parameter for real volume OMP
 !   Vjoin           ! V at joining energy
 !   vomp            ! optical model parameters from file
 !   vso1            ! parameter for real spin - orbit OMP
@@ -205,6 +206,9 @@ Loop1: do
 !
 ! ************************* Global optical model ***********************
 !
+! Option to use global OMP parameters from Uncertainty-quantified phenomenological optical potentials for 
+! single-nucleon scattering, C. D. Pruitt, J. E. Escher, and R. Rahman, Phys. Rev. C 107, 014602 
+!
 ! 1. Neutrons
 !
 ! Test if local OMP has been assigned.
@@ -213,24 +217,45 @@ Loop1: do
     if (flagdisp) disp(Zix, Nix, 1) = .false.
     ompglobal(Zix, Nix, 1) = .true.
     ef(Zix, Nix, 1) = - 11.2814 + 0.02646 * A
-    rv0(Zix, Nix, 1) = 1.3039 - 0.4054 * A **( - onethird)
-    av0(Zix, Nix, 1) = 0.6778 - 1.487e-4 * A
-    v1(Zix, Nix, 1) = 59.30 - 21.0 * real(N - Z) / A - 0.024 * A
-    v2(Zix, Nix, 1) = 7.228e-3 - 1.48e-6 * A
-    v3(Zix, Nix, 1) = 1.994e-5 - 2.0e-8 * A
-    w1(Zix, Nix, 1) = 12.195 + 0.0167 * A
-    w2(Zix, Nix, 1) = 73.55 + 0.0795 * A
-    rvd0(Zix, Nix, 1) = 1.3424 - 0.01585 * A **onethird
-    avd0(Zix, Nix, 1) = 0.5446 - 1.656e-4 * A
-    d1(Zix, Nix, 1) = 16.0 - 16.0 * real(N - Z) / A
-    d2(Zix, Nix, 1) = 0.0180 + 3.802e-3 / (1. + exp((A - 156.) / 8.0))
-    d3(Zix, Nix, 1) = 11.5
-    vso1(Zix, Nix, 1) = 5.922 + 0.0030 * A
-    vso2(Zix, Nix, 1) = 0.0040
-    rvso0(Zix, Nix, 1) = 1.1854 - 0.647 * A **( - onethird)
-    avso0(Zix, Nix, 1) = 0.59
-    wso1(Zix, Nix, 1) = - 3.1
-    wso2(Zix, Nix, 1) = 160.
+    if (flagpruitt) then
+      rv0(Zix, Nix, 1) = 1.27 - 0.361 * A **( - onethird)
+      av0(Zix, Nix, 1) = 0.689 + 4.2e-5 * A
+      v1(Zix, Nix, 1) = 58.6 - 13.4 * real(N - Z) / A - 0.0261 * A
+      v2(Zix, Nix, 1) = 6.35e-3 - 1.82e-6 * A
+      v3(Zix, Nix, 1) = 1.08e-5 - 1.45e-8 * A
+      w1(Zix, Nix, 1) = 20.9 + 0.0061 * A
+      w2(Zix, Nix, 1) = 102.9 + 0.0243 * A
+      rvd0(Zix, Nix, 1) = 1.35 - 0.0175 * A **onethird
+      avd0(Zix, Nix, 1) = 0.543 + 2.14e-4 * A
+      d1(Zix, Nix, 1) = 16.7 - 11.1 * real(N - Z) / A
+      d2(Zix, Nix, 1) = 0.0234 + 3.73e-3 / (1. + exp((A - 251.) / 8.57))
+      d3(Zix, Nix, 1) = 13.8
+      vso1(Zix, Nix, 1) = 5.99 + 0.00195 * A
+      vso2(Zix, Nix, 1) = 0.00475
+      rvso0(Zix, Nix, 1) = 1.21 - 0.735 * A **( -onethird)
+      avso0(Zix, Nix, 1) = 0.60
+      wso1(Zix, Nix, 1) = -3.79
+      wso2(Zix, Nix, 1) = 219.
+    else
+      rv0(Zix, Nix, 1) = 1.3039 - 0.4054 * A **( - onethird)
+      av0(Zix, Nix, 1) = 0.6778 - 1.487e-4 * A
+      v1(Zix, Nix, 1) = 59.30 - 21.0 * real(N - Z) / A - 0.024 * A
+      v2(Zix, Nix, 1) = 7.228e-3 - 1.48e-6 * A
+      v3(Zix, Nix, 1) = 1.994e-5 - 2.0e-8 * A
+      w1(Zix, Nix, 1) = 12.195 + 0.0167 * A
+      w2(Zix, Nix, 1) = 73.55 + 0.0795 * A
+      rvd0(Zix, Nix, 1) = 1.3424 - 0.01585 * A **onethird
+      avd0(Zix, Nix, 1) = 0.5446 - 1.656e-4 * A
+      d1(Zix, Nix, 1) = 16.0 - 16.0 * real(N - Z) / A
+      d2(Zix, Nix, 1) = 0.0180 + 3.802e-3 / (1. + exp((A - 156.) / 8.0))
+      d3(Zix, Nix, 1) = 11.5
+      vso1(Zix, Nix, 1) = 5.922 + 0.0030 * A
+      vso2(Zix, Nix, 1) = 0.0040
+      rvso0(Zix, Nix, 1) = 1.1854 - 0.647 * A **( - onethird)
+      avso0(Zix, Nix, 1) = 0.59
+      wso1(Zix, Nix, 1) = - 3.1
+      wso2(Zix, Nix, 1) = 160.
+    endif
     rc0(Zix, Nix, 1) = 0.
 !
 ! Reduce d1 parameter (of Wd) in case of coupled-channels, unless already specified in OMP parameterization.
@@ -244,25 +269,47 @@ Loop1: do
     if (flagdisp) disp(Zix, Nix, 2) = .false.
     ompglobal(Zix, Nix, 2) = .true.
     ef(Zix, Nix, 2) = - 8.4075 + 0.01378 * A
-    rv0(Zix, Nix, 2) = 1.3039 - 0.4054 * A **( - onethird)
-    av0(Zix, Nix, 2) = 0.6778 - 1.487e-4 * A
-    v1(Zix, Nix, 2) = 59.30 + 21.0 * real(N - Z) / A - 0.024 * A
-    v2(Zix, Nix, 2) = 7.067e-3 + 4.23e-6 * A
-    v3(Zix, Nix, 2) = 1.729e-5 + 1.136e-8 * A
-    w1(Zix, Nix, 2) = 14.667 + 0.009629 * A
-    w2(Zix, Nix, 2) = 73.55 + 0.0795 * A
-    rvd0(Zix, Nix, 2) = 1.3424 - 0.01585 * A **onethird
-    avd0(Zix, Nix, 2) = 0.5187 + 5.205e-4 * A
-    d1(Zix, Nix, 2) = 16.0 + 16.0 * real(N - Z) / A
-    d2(Zix, Nix, 2) = 0.0180 + 3.802e-3 / (1. + exp((A - 156.) / 8.0))
-    d3(Zix, Nix, 2) = 11.5
-    vso1(Zix, Nix, 2) = 5.922 + 0.0030 * A
-    vso2(Zix, Nix, 2) = 0.0040
-    rvso0(Zix, Nix, 2) = 1.1854 - 0.647 * A **( - onethird)
-    avso0(Zix, Nix, 2) = 0.59
-    wso1(Zix, Nix, 2) = - 3.1
-    wso2(Zix, Nix, 2) = 160.
-    rc0(Zix, Nix, 2) = 1.198 + 0.697 * A **( - twothird) + 12.994 * A **( - 5. / 3.)
+    if (flagpruitt) then
+      rv0(Zix, Nix, 2) = 1.27 - 0.361 * A **( - onethird)
+      av0(Zix, Nix, 2) = 0.689 + 4.2e-5 * A
+      v1(Zix, Nix, 2) = 58.6 + 13.4 * real(N - Z) / A - 0.0261 * A
+      v2(Zix, Nix, 2) = 6.76e-3 - 2.91e-6 * A
+      v3(Zix, Nix, 2) = 1.40e-5 - 1.43e-8 * A
+      w1(Zix, Nix, 2) = 18.6 + 0.00325 * A
+      w2(Zix, Nix, 2) = 102.9 + 0.0243 * A
+      rvd0(Zix, Nix, 2) = 1.35 - 0.0175 * A **onethird
+      avd0(Zix, Nix, 2) = 0.508 - 1.41e-3 * A
+      d1(Zix, Nix, 2) = 16.7 + 11.1 * real(N - Z) / A
+      d2(Zix, Nix, 2) = 0.0234 + 3.73e-3 / (1. + exp((A - 251.) / 8.57))
+      d3(Zix, Nix, 2) = 13.8
+      vso1(Zix, Nix, 2) = 5.99 + 0.00195 * A
+      vso2(Zix, Nix, 2) = 0.00475
+      rvso0(Zix, Nix, 2) = 1.21 - 0.735 * A **( -onethird)
+      avso0(Zix, Nix, 2) = 0.60
+      wso1(Zix, Nix, 2) = -3.79
+      wso2(Zix, Nix, 2) = 219.
+      rc0(Zix, Nix, 2) = 1.19 + 0.672 * A **( - twothird) + 13.0 * A **( - 5. / 3.)
+    else
+      rv0(Zix, Nix, 2) = 1.3039 - 0.4054 * A **( - onethird)
+      av0(Zix, Nix, 2) = 0.6778 - 1.487e-4 * A
+      v1(Zix, Nix, 2) = 59.30 + 21.0 * real(N - Z) / A - 0.024 * A
+      v2(Zix, Nix, 2) = 7.067e-3 + 4.23e-6 * A
+      v3(Zix, Nix, 2) = 1.729e-5 + 1.136e-8 * A
+      w1(Zix, Nix, 2) = 14.667 + 0.009629 * A
+      w2(Zix, Nix, 2) = 73.55 + 0.0795 * A
+      rvd0(Zix, Nix, 2) = 1.3424 - 0.01585 * A **onethird
+      avd0(Zix, Nix, 2) = 0.5187 + 5.205e-4 * A
+      d1(Zix, Nix, 2) = 16.0 + 16.0 * real(N - Z) / A
+      d2(Zix, Nix, 2) = 0.0180 + 3.802e-3 / (1. + exp((A - 156.) / 8.0))
+      d3(Zix, Nix, 2) = 11.5
+      vso1(Zix, Nix, 2) = 5.922 + 0.0030 * A
+      vso2(Zix, Nix, 2) = 0.0040
+      rvso0(Zix, Nix, 2) = 1.1854 - 0.647 * A **( - onethird)
+      avso0(Zix, Nix, 2) = 0.59
+      wso1(Zix, Nix, 2) = -3.1
+      wso2(Zix, Nix, 2) = 160.
+      rc0(Zix, Nix, 2) = 1.198 + 0.697 * A **( - twothird) + 12.994 * A **( - 5. / 3.)
+    endif
 !
 ! Reduce d1 parameter (of Wd) in case of coupled-channels, unless already specified in OMP parameterization.
 !
