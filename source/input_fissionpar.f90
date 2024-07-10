@@ -49,8 +49,6 @@ subroutine input_fissionpar
 ! Constants
 !   fislim          ! mass above which nuclide fissions
 ! Variables for basic reaction
-!   flagffruns  ! flag to designate subsequent evaporation of fission products
-! Variables for basic reaction
 !   flagastro    ! flag for calculation of astrophysics reaction rate
 !   flagbasic    ! flag for output of basic information and results
 !   flagendf     ! flag for information for ENDF - 6 file
