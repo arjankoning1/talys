@@ -404,7 +404,7 @@
       enddo           
       close (unit = 1)  
     else            
-      write(*,'("file: ",a)') trim(tfile) 
+      write(*,'(/,"file: ",a)') trim(tfile) 
     endif           
   endif           
   return
