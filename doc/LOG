@@ -35,7 +35,7 @@ available to constrain level density fits.
 
 - March 11 2024
 
-Provided the complete decay of a nuclear reaction into more structureed YANDF output.
+Provided the complete decay of a nuclear reaction into more structured YANDF output.
 Now, if 'population y' one obtaines 'pop**.tot' files in which the compete decay 
 of each nucleus is provided. This allows even more exclusive following of a nuclear reaction 
 in terms of reaction probabilities.
@@ -44,3 +44,59 @@ in terms of reaction probabilities.
 
 Solved an output error, column headers were written out of phase for 'components y',
 found by Zain Ul Abideen.
+
+- April 16 2024
+
+Added spin distribution to level density output
+
+- May 2 2024
+
+Solve file opening error in gammapar.f, for user-specified PSF files,  
+found by Vetle Ingeberg
+
+- May 10 2024
+
+Solved a problem found by Bryn Knight, an error in renumbering of the target level in
+case of half life equal to zero. Corrected levels.f90 for this.
+Removed the overwriting of the definition of an isomer. If you specify a target level
+with half life zero, the isomer definition for the other levels stays intact.
+
+- June 9 2024
+
+Updated masses of neutrons up to alpha particles according to AME2020 in constants.f90
+
+- June 12 2024
+
+Corrected the photon transmission coefficients in tgamma.f90 for outgoing photons 
+for presence of a quasi-deuteron component. This was done for incident photons but 
+not for outgoing photons as discovered by Jinrong Liu.
+
+- June 14 2024
+
+Hope to have solved a problem for low energy (p,gamma) and (alpha,gamma) cross sections
+by buiding in a Fermi function for complex-particle preequilibrium reaction at low energies.
+
+- June 20 2024
+
+Made some adjustments to the reading of external level densities as advised by
+Azin Ui Abideen, and added to the manual that 'flagparity y' needs to be set explicitly
+when external level density tables are read.
+
+- June 30 2024
+
+Added the possibility to have an OMP for the inelastic channel which is different 
+from that of the incident channel. For example, for incident neutrons, 'v1adjust n 1.10' 
+would change V1 for both the incident and outgoing neutron channel, while these are not 
+necessarily described by the same OMP (as the neutron emission is from an excited state)
+Now, it is possible to give e.g. 'v1adjust e 1.10' where 'e' stands for the ejectile 
+that is equal to the projectile.
+
+- July 10 2024
+
+Added the Pruitt et al OMP parameters for the KD03 global potential as an option. For this
+the 'pruitt' keyword has been added. The default is 'pruitt n'.
+
+- July 12 2024
+
+Changed default for older PSF's. For B-A and K-=U, now strengthM1 2 is used, i.e. the RIPL-2
+prescription. Hence, only modern PSF's for E1 are accompanied by modern ones for M1.
