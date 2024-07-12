@@ -67,11 +67,9 @@ subroutine input_gammamodel
   endif
   flagpsfglobal = .false.
   flaggnorm = .false.
-  if (strength == 8 .or. strength == 10) then
-    strengthM1 = 8
-  else
-    strengthM1 = 3
-  endif
+  strengthM1 = 3
+  if (strength == 8) strengthM1 = 8
+  if (strength == 10) strengthM1 = 10
   if (strength <= 2) strengthM1 = 2
   ldmodelracap = 3
 !
