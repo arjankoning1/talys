@@ -127,7 +127,7 @@ subroutine gammaout(Zcomp, Ncomp)
       endif
     endif
   endif
-  write(*, '(/" ########## GAMMA STRENGTH FUNCTIONS, TRANSMISSION", " COEFFICIENTS AND CROSS SECTIONS ##########")')
+  write(*, '(/" ########## GAMMA STRENGTH FUNCTIONS, TRANSMISSION COEFFICIENTS AND CROSS SECTIONS ##########")')
   write(*, '(/" Gamma-ray information for Z=", i3, " N=", i3, " (", i3, a2, ") "/)') Z, N, A, nuc(Z)
   write(*, '(" S-wave strength function parameters:"/)')
   write(*, '(" Exp. total radiative width=", f10.5, " eV +/-", f8.5, " Theor. total radiative width for l=0:", f15.5, " eV")') &
@@ -265,6 +265,7 @@ subroutine gammaout(Zcomp, Ncomp)
           write(1,'(2es15.6)') e, fstrength(Zcomp, Ncomp, 0., e, irad, 1)
         enddo
         close (unit=1)
+        call write_outfile(psffile,flagoutall)      
       enddo
     endif
   enddo
@@ -289,13 +290,12 @@ subroutine gammaout(Zcomp, Ncomp)
   Nen =  eend(0) - ebegin(0) + 1
   call write_datablock(quantity,Ncol,Nen,col,un)
   write(*, '(/" Photoabsorption cross sections"/)')
-  write(*, '("      E [MeV]        xs [mb]        GDR [mb]       QD [mb]"/)')
   do nen = ebegin(0), eend(0)
     call gammaxs(Zcomp, Ncomp, egrid(nen), xsgamma, xsgdr, xsqd)
     write(1, '(4es15.6)') egrid(nen), xsgamma, xsgdr, xsqd
-    write(*, '(4es15.6)') egrid(nen), xsgamma, xsgdr, xsqd
   enddo
   close (unit=1)
+  call write_outfile(crossfile,flagoutall)      
   return
 end subroutine gammaout
 ! Copyright A.J. Koning 2021
