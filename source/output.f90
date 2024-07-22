@@ -62,7 +62,7 @@ subroutine output
   if (flagchannels) call channelsout
   if (flagspec) call spectraout
   if (flagrecoil) call recoilout
-  if (flagang) call angleout
+  if (flagang .or. fileelastic) call angleout
   if (flagddx) call ddxout
   if (flaggamdis) call gamdisout
   if (flagracap) call racapout
