@@ -66,6 +66,7 @@ subroutine input_omppar
 !   w4adjust         ! adjustable factor for OMP (default 1.)
 !   wso1adjust       ! adjustable factor for OMP (default 1.)
 !   wso2adjust       ! adjustable factor for OMP (default 1.)
+!   pruittset        ! random set for Pruitt et al OMP
 ! Constants
 !   parsym            ! symbol of particle
 ! Variables for reading input lines
@@ -166,6 +167,7 @@ subroutine input_omppar
   lwsoadjust = 1.
   aradialcor = 1.
   adepthcor = 1.
+  pruittset = 0
   if (flagjlm) then
     flagspher = .true.
   else
@@ -609,6 +611,11 @@ loop1:  do i = 1, nlines
         adepthcor = val
         ompadjustp(6) = .true.
       endif
+      cycle
+    endif
+    if (key == 'pruittset') then
+      read(value, * , iostat = istat) pruittset
+      if (istat /= 0) call read_error(line, istat)
       cycle
     endif
   enddo Loop1
