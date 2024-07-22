@@ -64,7 +64,7 @@ subroutine inverseout(Zcomp, Ncomp)
 !
 ! **************** Transmission coefficients per energy ****************
 !
-  write(*, '(/" ########## TRANSMISSION COEFFICIENTS AND INVERSE REACTION CROSS SECTIONS ##########")')
+  write(*, '(/" ########## TRANSMISSION COEFFICIENTS AND INVERSE REACTION CROSS SECTIONS ##########",/)')
 !
 ! For each energy, the whole set of transmission coefficients is given as a function of the l-value and spin value.
 !
@@ -113,35 +113,28 @@ subroutine inverseout(Zcomp, Ncomp)
         write(1,'("# parameters:")')
         call write_real(2,'energy [MeV]',e)
         call write_datablock(quantity,Ncol,lmax(type, nen),col,un)
-        write(*, '(/" Transmission coefficients for incident ", a8, " at ", f10.5, " MeV"/)') parname(type), e
 !
 ! 1. Spin 1/2 particles: Neutrons, protons, tritons and Helium-3
 !
         if (type /= 3 .and. type /= 6 .and. lmax(type, nen) >= 0) then
-          write(*, '("   L   T(L-1/2,L)   T(L+1/2,L)    Tav(L)"/)')
           do l = 0, lmax(type, nen)
             write(1, '(i6, 9x, 3es15.6)') l, Tjl(type, nen, -1, l), Tjl(type, nen, 1, l), Tl(type, nen, l)
-            write(*, '(1x, i3, 3es13.5)') l, Tjl(type, nen, -1, l), Tjl(type, nen, 1, l), Tl(type, nen, l)
           enddo
         endif
 !
 ! 2. Spin 1 particles: Deuterons
 !
         if (type == 3 .and. lmax(type, nen) >= 0) then
-          write(*, '("   L    T(L-1,L)     T(L,L)       ", "T(L+1,L)     Tav(L)"/)')
           do l = 0, lmax(type, nen)
             write(1, '(i6, 9x, 4es15.6)') l, Tjl(type, nen, -1, l), Tjl(type, nen, 0, l), Tjl(type, nen, 1, l), Tl(type, nen, l)
-            write(*, '(1x, i3, 4es13.5)') l, Tjl(type, nen, -1, l), Tjl(type, nen, 0, l), Tjl(type, nen, 1, l), Tl(type, nen, l)
           enddo
         endif
 !
 ! 3. Spin 0 particles: Alpha-particles
 !
         if (type == 6 .and. lmax(type, nen) >= 0) then
-          write(*, '("   L     T(L)"/)')
           do l = 0, lmax(type, nen)
             write(1, '(i9, 6x, es15.6)') l, Tjl(type, nen, 0, l)
-            write(*, '(1x, i3, es13.5)') l, Tjl(type, nen, 0, l)
           enddo
         endif
       enddo
@@ -155,7 +148,6 @@ subroutine inverseout(Zcomp, Ncomp)
       Nen =  lmax(type, eend(type)) + 1
       call write_integer(2,'number of angular L-values',Nen)
       do l = 0, lmax(type, eend(type))
-        write(*, '(/" Transmission coefficients for incident ", a8, " and l= ", i2/)') parname(type), l
         write(1,'("# parameters:")')
         call write_integer(2,'L-value',l)
         Nen =  eend(type) - ebegin(type) + 1
@@ -164,38 +156,33 @@ subroutine inverseout(Zcomp, Ncomp)
 ! 1. Spin 1/2 particles: Neutrons, protons, tritons and Helium-3
 !
         if (type /= 3 .and. type /= 6) then
-          write(*, '("    Energy    T(L-1/2,L)   T(L+1/2,L)     ", "Tav(L)"/)')
           do nen = ebegin(type), eend(type)
             e = real(egrid(nen) / specmass(Zix, Nix, type))
             write(1, '(4es15.6)') e, Tjl(type, nen, - 1, l), Tjl(type, nen, 1, l), Tl(type, nen, l)
-            write(*, '(1x, f10.5, 3es13.5)') e, Tjl(type, nen, - 1, l), Tjl(type, nen, 1, l), Tl(type, nen, l)
           enddo
         endif
 !
 ! 2. Spin 1 particles: Deuterons
 !
         if (type == 3) then
-          write(*, '("    Energy     T(L-1,L)     T(L,L)       ", "T(L+1,L)     Tav(L)"/)')
           do nen = ebegin(type), eend(type)
             e = real(egrid(nen) / specmass(Zix, Nix, type))
             write(1, '(5es15.6)') e, Tjl(type, nen, - 1, l), Tjl(type, nen, 0, l), Tjl(type, nen, 1, l), Tl(type, nen, l)
-            write(*, '(1x, f10.5, 4es13.5)') e, Tjl(type, nen, - 1, l), Tjl(type, nen, 0, l), Tjl(type, nen, 1, l), Tl(type, nen, l)
           enddo
         endif
 !
 ! 3. Spin 0 particles: Alpha-particles
 !
         if (type == 6) then
-          write(*, '("    Energy      T(L)"/)')
           do nen = ebegin(type), eend(type)
             e = real(egrid(nen) / specmass(Zix, Nix, type))
             write(1, '(2es15.6)') e, Tjl(type, nen, 0, l)
-            write(*, '(1x, f10.5, es13.5)') e, Tjl(type, nen, 0, l)
           enddo
         endif
       enddo
     endif
     close(1)
+    call write_outfile(tjlfile,flagoutall)
 !
 ! **************** Cross sections for inverse channels *****************
 !
@@ -224,23 +211,18 @@ subroutine inverseout(Zcomp, Ncomp)
     Nen =  eend(type) - ebegin(type) + 1
     call write_datablock(quantity,Ncol,Nen,col,un)
     if (type == 1) then
-      write(*, '(/" Total cross sections for ", a8/)') parname(1)
-      write(*, '("      E        total      reaction    elastic", "   OMP reaction"/)')
       do nen = ebegin(type), eend(type)
         e = real(egrid(nen) / specmass(Zix, Nix, type))
         write(1, '(5es15.6)') e, xstot(1, nen), xselas(1, nen), xsreac(1, nen), xsopt(1, nen)
-        write(*, '(1x, f10.5, 4es12.4)') e, xstot(1, nen), xsreac(1, nen), xselas(1, nen), xsopt(1, nen)
       enddo
     else
-      write(*, '(/" Total cross sections for ", a8/)') parname(type)
-      write(*, '("      E       reaction  OMP reaction"/)')
       do nen = ebegin(type), eend(type)
         e = real(egrid(nen) / specmass(Zix, Nix, type))
         write(1, '(3es15.6)') e, xsreac(type, nen), xsopt(type, nen)
-        write(*, '(1x, f10.5, 2es12.4)') e, xsreac(type, nen), xsopt(type, nen)
       enddo
     endif
     close(1)
+    call write_outfile(crossfile,flagoutall)
   enddo
   return
 end subroutine inverseout
