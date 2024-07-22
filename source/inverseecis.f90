@@ -189,7 +189,7 @@ subroutine inverseecis(Zcomp, Ncomp)
 ! Loop over all particle types and energies on standard energy grid.
 !
   if (flagoutomp) then
-    write(*, '(/" ######### OPTICAL MODEL PARAMETERS ##########")')
+    write(*, '(/" ######### OPTICAL MODEL PARAMETERS ##########",/)')
     if (jlmexist(Zcomp, Ncomp, 1) .or. jlmexist(Zcomp, Ncomp, 6)) then
       write(*, '(/" Radial densities"/)')
       write(*, '(" Radius   Protons     Neutrons"/)')
@@ -262,9 +262,6 @@ subroutine inverseecis(Zcomp, Ncomp)
       call write_char(2,'particle',parname(type))
       Nen =  eendmax(type) - ebegin(type) + 1
       call write_datablock(quantity,Ncol,Nen,col,un)
-      write(*, '(/11x, a8, " on ", i3, a2/)') parname(type), A, nuc(Z)
-      write(*, '("  Energy", 5x, "V", 5x, "rv", 4x, "av", 4x, "W", 5x, "rw", 4x, "aw", 4x, "Vd", 3x, "rvd", 3x, "avd", 4x, &
- &      "Wd", 3x, "rwd", 3x, "awd", 3x, "Vso", 3x, "rvso", 2x, "avso", 2x, "Wso", 3x, "rwso", 2x, "awso", 2x, "rc", /)')
     endif
 !
 ! Standard ECIS inputs for phenomenological optical potentials
@@ -399,8 +396,6 @@ subroutine inverseecis(Zcomp, Ncomp)
       if (flagoutomp .and. .not. jlmloc) then
         write(1, '(20es15.6)') &
  &        e, v, rv, av, w, rw, aw, vd, rvd, avd, wd, rwd, awd, vso, rvso, avso, wso, rwso, awso, rc
-        write(*, '(1x, f8.3, 1x, 6(f6.2, f6.3, f6.3), f6.3)') &
- &        e, v, rv, av, w, rw, aw, vd, rvd, avd, wd, rwd, awd, vso, rvso, avso, wso, rwso, awso, rc
       endif
       if ( .not. flageciscalc) cycle
 !
@@ -427,7 +422,10 @@ subroutine inverseecis(Zcomp, Ncomp)
       flagecisinp = .true.
       call ecisinput(Zix, Nix, type, e, rotational, vibrational, jlmloc)
     enddo
-    if (flagoutomp .and. .not. jlmloc) close(unit =1)
+    if (flagoutomp .and. .not. jlmloc) then
+      close(unit =1)
+      call write_outfile(ompfile,flagoutall)
+    endif
   enddo
   flaginvecis = .false.
   flagompejec = .false.
