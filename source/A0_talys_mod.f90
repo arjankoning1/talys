@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2023-12-30: Original code
-! 2024-07-12: Current version
+! 2024-07-20: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -457,6 +457,7 @@ module A0_talys_mod
   integer                                                   :: jlmmode       ! option for JLM imaginary potential normalization
   integer, dimension(numpar)                                :: riplomp       ! RIPL OMP
   integer, dimension(0:numpar, numompadj)                   :: ompadjustN    ! number of energy ranges for local OMP adjustment
+  integer                                                   :: pruittset     ! random set for Pruitt et al OMP
   integer                                                   :: radialmodel   ! model for radial matter densities (JLM OMP only)
   real(sgl)                                                 :: adepthcor     ! adjustable parameter for depth of DF alpha potential
   real(sgl)                                                 :: aradialcor    ! adjustable parameter for shape of DF alpha potential
@@ -972,6 +973,7 @@ module A0_talys_mod
   real(sgl), dimension(0:numZ,0:numN,numpar)                 :: v1        ! parameter for real volume OMP
   real(sgl), dimension(0:numZ,0:numN,numpar)                 :: v2        ! parameter for real volume OMP
   real(sgl), dimension(0:numZ,0:numN,numpar)                 :: v3        ! parameter for real volume OMP
+  real(sgl), dimension(0:numZ,0:numN,numpar)                 :: v4        ! parameter for real volume OMP
   real(sgl), dimension(0:numZ,0:numN,numpar)                 :: vso1      ! parameter for real spin-orbit OMP
   real(sgl), dimension(0:numZ,0:numN,numpar)                 :: vso2      ! parameter for real spin-orbit OMP
   real(sgl), dimension(0:numZ,0:numN,numpar)                 :: w1        ! parameter for imaginary volume OMP
@@ -984,6 +986,47 @@ module A0_talys_mod
   real(sgl), dimension(2)                                    :: Vjoin     ! V at joining energy
   real(sgl), dimension(0:numZph,0:numNph,numpar,0:numomp,19) :: vomp      ! optical model parameters from file
   real(sgl), dimension(2)                                    :: Wjoin     ! W at joining energy
+!
+! KD03 global parameters
+!
+  real(sgl)   :: rv_0      !
+  real(sgl)   :: rv_A      !
+  real(sgl)   :: av_0      !
+  real(sgl)   :: av_A      !
+  real(sgl)   :: v1_0      !
+  real(sgl)   :: v1_asymm  !
+  real(sgl)   :: v1_A      !
+  real(sgl)   :: v2_0      !
+  real(sgl)   :: v2_A      !
+  real(sgl)   :: v3_0      !
+  real(sgl)   :: v3_A      !
+  real(sgl)   :: v4_0      !
+  real(sgl)   :: w1_0      !
+  real(sgl)   :: w1_A      !
+  real(sgl)   :: w2_0      !
+  real(sgl)   :: w2_A      !
+  real(sgl)   :: rd_0      !
+  real(sgl)   :: rd_A      !
+  real(sgl)   :: ad_0      !
+  real(sgl)   :: ad_A      !
+  real(sgl)   :: d1_0      !
+  real(sgl)   :: d1_asymm  !
+  real(sgl)   :: d2_0      !
+  real(sgl)   :: d2_A      !
+  real(sgl)   :: d2_A2     !
+  real(sgl)   :: d2_A3     !
+  real(sgl)   :: d3_0      !
+  real(sgl)   :: rso_0     !
+  real(sgl)   :: rso_A     !
+  real(sgl)   :: aso_0     !
+  real(sgl)   :: vso1_0    !
+  real(sgl)   :: vso1_A    !
+  real(sgl)   :: vso2_0    !
+  real(sgl)   :: wso1_0    !
+  real(sgl)   :: wso2_0    !
+  real(sgl)   :: rc_0      !
+  real(sgl)   :: rc_A      !
+  real(sgl)   :: rc_A2     !
 !
 ! spr
 !
