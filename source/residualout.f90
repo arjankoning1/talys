@@ -245,13 +245,10 @@ subroutine residualout
                 open (unit = 1, file = isofile, status = 'replace')
                 if (nex == 0) then
                   kiso = 0
-!                 write(1, '("# ", a1, " + ", a, ": Production of ", a, " - Ground state")') &
-!&                  parsym(k0), trim(targetnuclide), trim(finalnuclide)
                 else
                   kiso = kiso + 1
-!                 write(1, '("# ", a1, " + ", a, ": Production of ", a, " - Level", i3, f12.5, " MeV")') &
-!&                  parsym(k0), trim(targetnuclide), trim(finalnuclide), levnum(Zcomp, Ncomp, nex), edis(Zcomp, Ncomp, nex)
                 endif
+                kiso = min(kiso, numisom)
                 finalnuclide=trim(nuc(Z))//trim(adjustl(massstring))//isochar(kiso)
                 topline=trim(targetnuclide)//trim(reaction)//trim(finalnuclide)//' '//trim(quantity)
                 col(3)='Isomeric_ratio'
