@@ -27,7 +27,7 @@ subroutine pseudo_resonance
   integer           :: i                 ! counter
   integer           :: k                 ! counter
   integer           :: nres
-  integer           :: Pres(0:numlev2)     ! 
+! integer           :: Pres(0:numlev2)     ! 
   real(sgl)         :: fgr(0:numresgrid)    ! 
   real(sgl)         :: Eres(0:numlev2)     ! 
 ! real(sgl)         :: Jres(0:numlev2)     ! 
