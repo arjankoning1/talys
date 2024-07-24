@@ -38,94 +38,142 @@ subroutine excitonout
 ! *** Declaration of local data
 !
   implicit none
-  integer   :: h          ! help variable
-  integer   :: n          ! exciton number
-  integer   :: p          ! particle number
-  integer   :: type       ! particle type
-  real(sgl) :: lambdaplus ! transition rate for n --> n+2
+  character(len=15) :: excfile
+  character(len=18) :: reaction   ! reaction
+  character(len=15) :: col(12)    ! header
+  character(len=15) :: un(12)    ! units
+  character(len=80) :: quantity   ! quantity
+  character(len=132) :: topline    ! topline
+  integer           :: h          ! help variable
+  integer           :: n          ! exciton number
+  integer           :: p          ! particle number
+  integer           :: type       ! particle type
+  integer            :: Ncol
+  integer            :: Nk
+  real(sgl)         :: lambdaplus ! transition rate for n --> n+2
 !
 ! ************************ Exciton model *******************************
 !
-  write(*, '(/" ++++++++++ EXCITON MODEL ++++++++++")')
+  write(*, '(/" ++++++++++ EXCITON MODEL ++++++++++",/)')
 !
 ! 1. Output of matrix element
 !
 ! matrix    : subroutine for matrix element for exciton model
 !
-  write(*, '(/" 1. Matrix element for E= ", f8.3/)') Ecomp
-  write(*, '(" Constant for matrix element: ", f7.3/)') M2constant
-  write(*, '("  p h       M2"/)')
+  quantity='one-component exciton model'
+  reaction= '('//parsym(k0)//',x)'
+  topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)
+  excfile = 'exciton.out'
+  open (unit = 1, file = excfile, status = 'replace')
+  call write_header(topline,source,user,date,oformat)
+  call write_target
+  write(1,'("# parameters:")')
+  call write_real(2,'E-incident [MeV]',Einc)
+  call write_real(2,'E-compound [MeV]',Ecomp)
+  call write_real(2,'Constant for matrix element',M2constant)
+  un = ''
+  col(1) = 'p'
+  col(2) = 'h'
+  col(3) = 'M2'     
+  Ncol = 3
+  Nk = maxpar - p0 + 1
+  call write_datablock(quantity,Ncol,Nk,col,un)
   do p = p0, maxpar
     h = p - p0
     n = p + h
     call matrix(Ainit, n)
-    write(*, '(1x, 2i2, 2x, es12.5)') p, h, M2
+    write(1, '(2(3x, i6, 6x), es15.6)') p, h, M2
   enddo
 !
 ! 2. Output of Q-factors
 !
-  write(*, '(/" 2. Q-factors"/)')
-  write(*, '("  p h  ", 6(a8, 1x), /)') (parname(type), type = 1, 6)
+  quantity='Q-factors'
+  do type = 1,6
+    col(2 + type) = parname(type)
+  enddo
+  Ncol = 8
+  call write_datablock(quantity,Ncol,Nk,col,un)
   do p = p0, maxpar
     h = p - p0
-    write(*, '(1x, 2i2, 7f9.5)') p, h, (Qfactor(type, p), type = 1, 6)
+    write(1, '(2(3x, i6, 6x), 6es15.6)') p, h, (Qfactor(type, p), type = 1, 6)
   enddo
 !
 ! 3. Output of emission rates or escape widths
 !
-  write(*, '(/" 3. Emission rates or escape widths"/)')
-  write(*, '(" A. Emission rates ( /sec)"/)')
-  write(*, '("  p h", 3x, 7(a8, 4x), "Total"/)') (parname(type), type = 0, 6)
-  do p = p0, maxpar
-    h = p - p0
-    write(*, '(1x, 2i2, 8es12.5)') p, h, (wemispart(type, p, h), type = 0, 6), wemistot(p, h)
+  quantity='emission rates'
+  do type = 0,6
+    col(3 + type) = parname(type)
+    un(3+type) = 'sec^-1'
   enddo
-  write(*, '(/" B. Escape widths (MeV)"/)')
-  write(*, '("  p h", 2x, 7(a8, 4x), "Total"/)') (parname(type), type = 0, 6)
+  col(10) = 'Total'
+  un(10) = 'sec^-1'
+  Ncol = 10
+  call write_datablock(quantity,Ncol,Nk,col,un)
   do p = p0, maxpar
     h = p - p0
-    write(*, '(1x, 2i2, 8es12.5)') p, h, (wemispart(type, p, h) * hbar, type = 0, 6), wemistot(p, h) * hbar
+    write(1, '(2(3x, i6, 6x), 8es15.6)') p, h, (wemispart(type, p, h), type = 0, 6), wemistot(p, h)
+  enddo
+  quantity='escape widths'
+  do type = 0,6
+    un(3+type) = 'MeV'
+  enddo
+  col(10) = 'Total'
+  un(10) = 'MeV'
+  call write_datablock(quantity,Ncol,Nk,col,un)
+  do p = p0, maxpar
+    h = p - p0
+    write(1, '(2(3x, i6, 6x), 8es15.6)') p, h, (wemispart(type, p, h) * hbar, type = 0, 6), wemistot(p, h) * hbar
   enddo
 !
 ! 4. Output of transition rates or damping widths and total widths
 !
-  write(*, '(/" 4. Internal transition rates or damping widths, total widths"/)')
-  write(*, '(" A. Internal transition rates ( /sec)"/)')
-  write(*, '("  p h    lambdaplus"/)')
+  quantity='internal transition rates'
+  col(3) = 'lambdaplus'
+  un(3) = 'sec^-1'
+  Ncol = 3
+  call write_datablock(quantity,Ncol,Nk,col,un)
   do p = p0, maxpar
     h = p - p0
-    write(*, '(1x, 2i2, es15.6)') p, h, lambdaplus(0, 0, p, h)
+    write(1, '(2(3x, i6, 6x), es15.6)') p, h, lambdaplus(0, 0, p, h)
   enddo
-  write(*, '(/" B. Damping widths (MeV)"/)')
-  write(*, '("  p h     gammaplus"/)')
+  quantity='damping widths'
+  col(3) = 'gammaplus'
+  un(3) = 'MeV'
+  call write_datablock(quantity,Ncol,Nk,col,un)
   do p = p0, maxpar
     h = p - p0
-    write(*, '(1x, 2i2, es15.6)') p, h, lambdaplus(0, 0, p, h)*hbar
+    write(1, '(2(3x, i6, 6x), es15.6)') p, h, lambdaplus(0, 0, p, h)*hbar
   enddo
-  write(*, '(/" C. Total widths (MeV)"/)')
-  write(*, '("  p h     gammatot"/)')
+  quantity='total widths'
+  call write_datablock(quantity,Ncol,Nk,col,un)
   do p = p0, maxpar
     h = p - p0
-    write(*, '(1x, 2i2, es15.6)') p, h, (lambdaplus(0, 0, p, h) + wemistot(p, h)) * hbar
+    write(1, '(2(3x, i6, 6x), es15.6)') p, h, (lambdaplus(0, 0, p, h) + wemistot(p, h)) * hbar
   enddo
 !
 ! 5. Output of depletion factors
 !
-  write(*, '(/" 5. Depletion factors"/)')
-  write(*, '("  p h  depletion"/)')
+  quantity='depletion factors'
+  col(3) = 'depletion'
+  un(3) = ''
+  call write_datablock(quantity,Ncol,Nk,col,un)
   do p = p0, maxpar
     h = p - p0
-    write(*, '(1x, 2i2, f10.5)') p, h, depletion(p, h)
+    write(1, '(2(3x, i6, 6x), es15.6)') p, h, depletion(p, h)
   enddo
 !
 ! 6. Output of lifetimes of exciton states
 !
-  write(*, '(/" 6. Lifetimes")')
-  write(*, '(/"  p h   mean lifetime"/)')
+  quantity='lifetimes'
+  col(3) = 'mean lifetime'
+  un(3) = 'sec'   
+  call write_datablock(quantity,Ncol,Nk,col,un)
   do p = p0, maxpar
     h = p - p0
-    write(*, '(1x, 2i2, es15.6)') p, h, tauexc(p, h)
+    write(1, '(2(3x, i6, 6x), es15.6)') p, h, tauexc(p, h)
   enddo
+  close(1)
+  call write_outfile(excfile,flagoutall)
   return
 end subroutine excitonout
 ! Copyright A.J. Koning 2021
