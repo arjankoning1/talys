@@ -809,7 +809,7 @@ module A0_talys_mod
   real(dbl), dimension(0:numZ,0:numN,0:numpar) :: specmass ! specific mass for residual nucleus
   real(dbl), dimension(0:numZ+4,0:numN+4)      :: thmass   ! theoretical mass
   real(dbl), dimension(0:numZ+4,0:numN+4)      :: thmexc   ! theoretical mass excess
-  real(sgl), dimension(0:numZ,0:numN,0:numpar) :: S ! separation energy
+  real(dbl), dimension(0:numZ,0:numN,0:numpar) :: S ! separation energy
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
 ! Variables for levels
