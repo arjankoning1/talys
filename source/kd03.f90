@@ -20,17 +20,13 @@ subroutine kd03(k, flagpr)
 ! *** Declaration of local data
 !
   implicit none
-  logical           :: lexist        ! logical to determine existence
   logical           :: flagpr        !
-  logical           :: flagfound     !
   character(len=1)  :: pot           ! help variable
   character(len=3)  :: setstring     ! help variable
   character(len=8)  :: par           ! help variable
   character(len=132):: ompfile       ! optical model parameter file
-  character(len=132):: string        ! string
   integer           :: istat         ! logical for file access
   integer           :: k             ! designator for particle
-  integer           :: KDix          ! 
   integer           :: set           ! 
   real(sgl)         :: x             !
 !
