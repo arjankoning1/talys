@@ -44,7 +44,6 @@ subroutine gammadecay(Zix, Nix)
 !
   implicit none
   character(len=6)  :: resstring !
-  character(len=6)  :: finalnuclide !
   character(len=132) :: topline    ! topline
   character(len=15) :: col(10)     ! header
   character(len=15) :: un(10)     ! header
