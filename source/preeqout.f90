@@ -75,7 +75,6 @@ subroutine preeqout
   integer   :: p         ! particle number
   integer   :: type      ! particle type
   integer   :: Zix       ! charge number index for residual nucleus
-  integer            :: istat
   real(sgl) :: damp      ! shell damping factor
   real(sgl) :: Eex       ! excitation energy
   real(sgl) :: gs        ! single-particle level density parameter

@@ -174,8 +174,8 @@ subroutine multiple
   character(len=80)  :: popfile               ! population file
   character(len=13)  :: rpfile                ! file with residual production cross sections
   character(len=13)  :: Estr
-  character(len=15) :: col(numJ+6)    ! header
-  character(len=15) :: un(numJ+6)    ! units
+  character(len=15) :: col(2*numJ+6)    ! header
+  character(len=15) :: un(2*numJ+6)    ! units
   character(len=80) :: quantity   ! quantity
   character(len=60)  :: form2                 ! format
   character(len=132) :: key                   ! keyword
@@ -183,7 +183,6 @@ subroutine multiple
   integer            :: A                     ! mass number of target nucleus
   integer            :: Ares                  ! mass number of residual nucleus
   integer            :: h                     ! help variable
-  integer            :: istat
   integer            :: iang                  ! running variable for angle
   integer            :: idensfis              ! identifier to activate possible fission level densities
   integer            :: J                     ! spin of level
@@ -252,6 +251,8 @@ subroutine multiple
 ! structure : subroutine for nuclear structure parameters
 ! exgrid    : subroutine to set excitation energy grid
 !
+      col = ''
+      un = ''
       if (skipCN(Zcomp, Ncomp) == 1) cycle
       if (xspopnuc(Zcomp, Ncomp) < popeps) then
         xspopnuc(Zcomp, Ncomp) = 0.
