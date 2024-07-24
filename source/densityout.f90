@@ -88,7 +88,6 @@ subroutine densityout(Zix, Nix)
   character(len=25) :: model         ! string for level density model
   integer           :: A             ! mass number of target nucleus
   integer           :: i             ! counter
-  integer           :: istat
   integer           :: i1(numlev2)
   integer           :: k             ! counter
   integer           :: Nk            ! counter
@@ -103,7 +102,6 @@ subroutine densityout(Zix, Nix)
   integer           :: NT            ! help variable
   integer           :: odd           ! odd (1) or even (0) nucleus
   integer           :: parity        ! parity
-  integer           :: ploop         ! help variable
   integer           :: Z             ! charge number of target nucleus
   integer           :: Zix           ! charge number index for residual nucleus
   real(sgl)         :: ald           ! level density parameter
