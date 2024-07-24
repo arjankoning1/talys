@@ -193,7 +193,6 @@
   integer            :: ih                    ! hole number
   integer            :: in                    ! counter for neutrons
   integer            :: ip                    ! particle number
-  integer            :: istat                 ! logical for file access
   integer            :: it                    ! counter for tritons
   integer            :: Ncomp                 ! neutron number index for compound nucleus
   integer            :: nex                   ! excitation energy bin of compound nucleus
