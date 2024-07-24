@@ -32,7 +32,6 @@ subroutine incidentgamma
   integer   :: l             ! multipolarity
   real(sgl) :: factor        ! multiplication factor
   real(sgl) :: fstrength     ! gamma ray strength function
-  real(sgl) :: quasideuteron ! Quasi-deuteron function of Chadwick and Oblozinsky
   real(sgl) :: Tgamma        ! gamma transmission coefficient
   real(sgl) :: xsgdr         ! photo-absorption cross section from GDR part
   real(sgl) :: xsqd          ! photo-absorption cross section from QD part
