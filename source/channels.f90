@@ -301,8 +301,11 @@ subroutine channels
               if (Qexcl(idnum, 0) == 0.) Qexcl(idnum, 0) = Qexcl(idorg, 0) - S(Zcomp, Ncomp, type)
               do nex = 0, Nlast(Zix, Nix, 0)
                 Qexcl(idnum, nex) = Qexcl(idnum, 0) - edis(Zix, Nix, nex)
-                Ethrexcl(idnum, nex) = - (Qexcl(idnum, nex) / specmass(parZ(k0), parN(k0), k0))
-                Ethrexcl(idnum, nex) = max(Ethrexcl(idnum, nex), 0.d0)
+                if (Qexcl(idnum, nex) >= 0.) then
+                  Ethrexcl(idnum, nex) = 0.d0
+                else
+                  Ethrexcl(idnum, nex) = - (Qexcl(idnum, nex) / specmass(parZ(k0), parN(k0), k0))
+                endif
               enddo
               cycle
             endif
