@@ -70,6 +70,7 @@ subroutine excitonout
   write(1,'("# parameters:")')
   call write_real(2,'E-incident [MeV]',Einc)
   call write_real(2,'E-compound [MeV]',Ecomp)
+  call write_real(2,'Surface effective well depth [MeV]',Esurf)
   call write_real(2,'Constant for matrix element',M2constant)
   un = ''
   col(1) = 'p'
