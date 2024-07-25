@@ -20,12 +20,12 @@ The following are the prerequisites for compiling TALYS:
 ### Downloads:
 
 To download TALYS, you can use one of the following options:
-#### 1. Download the entire tar file:
+#### 1. Download the entire tar file for the latest stable release:
 ```
 https://nds.iaea.org/talys/talys.tar
 tar zxf talys.tar
 ```
-#### 2. Using git:
+#### 2. Using git for the latest development version:
 ```
 git clone https://github.com/arjankoning1/talys.git
 ```
