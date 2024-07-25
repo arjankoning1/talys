@@ -80,9 +80,9 @@ subroutine levelsout(Zix, Nix)
   call write_residual(Z,A,finalnuclide)
   write(1,'("# parameters:")')
   call write_double(2,'nuclear mass [amu]',nucmass(Zix,Nix))
-  call write_real(2,'neutron separation energy [MeV]',S(Zix,Nix,1))
-  call write_real(2,'proton separation energy [MeV]',S(Zix,Nix,2))
-  call write_real(2,'alpha separation energy [MeV]',S(Zix,Nix,6))
+  call write_double(2,'neutron separation energy [MeV]',S(Zix,Nix,1))
+  call write_double(2,'proton separation energy [MeV]',S(Zix,Nix,2))
+  call write_double(2,'alpha separation energy [MeV]',S(Zix,Nix,6))
   call write_integer(2,'number of excited levels',nlev(Zix,Nix))
 !
 ! Discrete levels

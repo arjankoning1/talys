@@ -104,7 +104,7 @@ subroutine dtheory(Zix, Nix, E)
         do l2 = l2beg, l2end, 2
           l = l2 / 2
           if (mod(l, 2) /= pardif) cycle
-          rho(l, J) = density(Zix, Nix, max(0., S(Zix, Nix, 1) + E), 0.5 * J2, parity, 0, ldmodel(Zix, Nix))
+          rho(l, J) = density(Zix, Nix, max(0., real(S(Zix, Nix, 1)) + E), 0.5 * J2, parity, 0, ldmodel(Zix, Nix))
           Dlj(l, J) = real(1.e6 / rho(l, J))
         enddo
       enddo

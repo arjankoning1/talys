@@ -137,7 +137,7 @@ subroutine urrout
   call write_reaction(reaction,0.d0,0.d0,0,0)
   call write_real(2,'E-incident [MeV]',Einc)
   write(1,'("# parameters:")')
-  call write_real(2,'neutron separation energy [MeV]',real(S(0, 0, 1)))
+  call write_double(2,'neutron separation energy [MeV]',S(0, 0, 1))
   write(1,'("# observables:")')
   call write_real(2,'thermal capture cross section [mb]',xscaptherm(-1))
   call write_real(2,'potential scattering radius [fm]',Rprime)

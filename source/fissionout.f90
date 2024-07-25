@@ -128,7 +128,7 @@ subroutine fissionout
 ! Phenomenological PFNS (Iwamoto model)
 !
   if (pfnsmodel == 1) then
-    call iwamoto(Zinit, Ainit, S(0,0,1), Einc, Tmadjust, Fsadjust, Epfns, NEpfns, x1, x2, x3, Eavpfns(1))
+    call iwamoto(Zinit, Ainit, real(S(0,0,1)), Einc, Tmadjust, Fsadjust, Epfns, NEpfns, x1, x2, x3, Eavpfns(1))
     do nen = 1, NEpfns
       pfns(1,nen) = x1(nen)
       maxpfns(1,nen) = x2(nen)

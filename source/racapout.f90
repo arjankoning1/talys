@@ -184,7 +184,7 @@ subroutine racapout
     call write_target
     call write_reaction(reaction,Qres(0, 0, 0),0.D0,0,0)
     call write_residual(Zcpracap,Acpracap,finalnuclide)
-    call write_real(2,'E-max [MeV]',S(0, 0, k0))
+    call write_double(2,'E-max [MeV]',S(0, 0, k0))
     call write_integer(2,'number of levels',nlevracap(0, 0))
     call write_datablock(quantity,Ncol,Ninc-Ninclow,col,un)
 !   write(1, '("# ", a1, " + ", a, ": Direct Capture to ", i3, a2)') &

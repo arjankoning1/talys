@@ -46,13 +46,13 @@ subroutine separation
         Zr = Zix + parZ(type)
         Nr = Nix + parN(type)
         if (expmexc(Zix, Nix) /= 0. .and. expmexc(Zr, Nr) /= 0.) then
-          S(Zix, Nix, type) = real(expmexc(Zr, Nr) - expmexc(Zix, Nix) + excmass(type) * amu)
+          S(Zix, Nix, type) = expmexc(Zr, Nr) - expmexc(Zix, Nix) + excmass(type) * amu
           cycle
         endif
         if (thmexc(Zix, Nix) /= 0. .and. thmexc(Zr, Nr) /= 0.) then
-          S(Zix, Nix, type) = real(thmexc(Zr, Nr) - thmexc(Zix, Nix) + excmass(type) * amu)
+          S(Zix, Nix, type) = thmexc(Zr, Nr) - thmexc(Zix, Nix) + excmass(type) * amu
         else
-          S(Zix, Nix, type) = real(dumexc(Zr, Nr) - dumexc(Zix, Nix) + excmass(type) * amu)
+          S(Zix, Nix, type) = dumexc(Zr, Nr) - dumexc(Zix, Nix) + excmass(type) * amu
         endif
       enddo
     enddo
