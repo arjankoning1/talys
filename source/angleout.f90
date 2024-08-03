@@ -238,6 +238,7 @@ subroutine angleout
  &      directad(k0, Ltarget, iang), compad(k0, Ltarget, iang), ruth(iang), elasni(iang)
     enddo
     close (unit = 1)
+    call write_outfile(discfile,flagoutall)
   endif
 !
 ! ************** Inelastic scattering angular distributions ************
@@ -252,11 +253,6 @@ subroutine angleout
     do i = 0, nlev(Zix, Nix)
       if (i == Ltarget) cycle
       if (xsdisc(k0, i) == 0.) cycle
-      write(*, '(/"    Level ", i2/)') i
-      write(*, '("   L       Total           Direct         Compound       Normalized"/)')
-      do LL = 0, J2end
-        write(*, '(1x, i3, 4es16.5)') LL, tleg(k0, i, LL), dleg(k0, i, LL), cleg(k0, i, LL), tlegnor(k0, i, LL)
-      enddo
 !
 ! Write results to separate file
 !
@@ -303,6 +299,7 @@ subroutine angleout
           write(1, '(i6, 9x, 5es15.6)') LL, tleg(k0, i, LL), dleg(k0, i, LL), cleg(k0, i, LL), tlegnor(k0, i, LL), cleg0(k0, i, LL)
         enddo
         close (unit = 1)
+        call write_outfile(legfile,flagoutall)
       endif
     enddo
   endif
@@ -313,11 +310,6 @@ subroutine angleout
   do i = 0, nlev(Zix, Nix)
     if (i == Ltarget) cycle
     if (xsdisc(k0, i) == 0.) cycle
-    write(*, '(/"    Level ", i2/)') i
-    write(*, '(" Angle       Total         Direct       Compound"/)')
-    do iang = 0, nangle
-      write(*, '(1x, f5.1, 3es15.6)') angle(iang), discad(k0, i, iang), directad(k0, i, iang), compad(k0, i, iang)
-    enddo
 !
 ! Write results to separate file
 !
@@ -365,6 +357,7 @@ subroutine angleout
         write(1, '(4es15.6)') angle(iang), discad(k0, i, iang), directad(k0, i, iang), compad(k0, i, iang)
       enddo
       close (unit = 1)
+      call write_outfile(discfile,flagoutall)
     endif
   enddo
 !
@@ -384,11 +377,6 @@ subroutine angleout
       write(*, '(/" 8c1. Legendre coefficients for (", a1, ",", a1, ")")') parsym(k0), parsym(type)
       do i = 0, nlev(Zix, Nix)
         if (xsdisc(type, i) == 0.) cycle
-        write(*, '(/"    Level ", i2/)') i
-        write(*, '("   L       Total           Direct         Compound       Normalized"/)')
-        do LL = 0, J2end
-          write(*, '(1x, i3, 4es16.5)') LL, tleg(type, i, LL), dleg(type, i, LL), cleg(type, i, LL), tlegnor(type, i, LL)
-        enddo
 !
 ! Write results to separate file
 !
@@ -436,6 +424,7 @@ subroutine angleout
  &            cleg0(type, i, LL)
           enddo
         close (unit = 1)
+        call write_outfile(legfile,flagoutall)
       endif
       enddo
     endif
@@ -445,11 +434,6 @@ subroutine angleout
     write(*, '(/" 8c2. (", a1, ",", a1, ") angular distributions")') parsym(k0), parsym(type)
     do i = 0, nlev(Zix, Nix)
       if (xsdisc(type, i) == 0.) cycle
-      write(*, '(/"    Level ", i2/)') i
-      write(*, '(" Angle      Total          Direct        Compound"/)')
-      do iang = 0, nangle
-        write(*, '(1x, f5.1, 3es15.6)') angle(iang), discad(type, i, iang), directad(type, i, iang), compad(type, i, iang)
-      enddo
 !
 ! Write results to separate file
 !
@@ -497,6 +481,7 @@ subroutine angleout
           write(1, '(4es15.6)') angle(iang), discad(type, i, iang), directad(type, i, iang), compad(type, i, iang)
         enddo
         close (unit = 1)
+        call write_outfile(discfile,flagoutall)
       endif
     enddo
   enddo
