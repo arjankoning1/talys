@@ -258,6 +258,7 @@ subroutine astroout
       enddo
     endif
     close (unit = 1)
+    call write_outfile(astrofile,flagoutall)
   enddo
 !
 ! output partial rates(n,g) to given excited states in a specific file
@@ -310,6 +311,7 @@ subroutine astroout
  &            macsastroex(Zix, Nix, i, nex), rateastroex(Zix, Nix, i, nex) / rateastro(Zix, Nix, i), partf(i)
           enddo
           close (unit = 1)
+          call write_outfile(astrofile,flagoutall)
         endif
       enddo
     enddo
@@ -402,6 +404,7 @@ subroutine astroout
  &    rateastrofis(i), (rateastrorp(i, ires), ires = 1, iresprod)
   enddo
   close (unit = 1)
+  call write_outfile(astrofile,flagoutall)
   return
 end subroutine astroout
 ! Copyright A.J. Koning 2021
