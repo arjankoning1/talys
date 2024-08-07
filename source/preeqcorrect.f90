@@ -130,7 +130,7 @@ subroutine preeqcorrect
         Elast = eoutdis(type, NL)
         Rboundary = (Etop(nen) - Elast) / deltaE(nen)
         if (abs(Rboundary) > 1.) Rboundary = 0.
-        xs1 = xspreeq(type, nen) * Rboundary
+        if (type /= k0) xs1 = xspreeq(type, nen) * Rboundary
         xspreeq(type, nen) = xspreeq(type, nen) * (1. - Rboundary)
         xspreeqps(type, nen) = xspreeqps(type, nen) * (1. - Rboundary)
         xspreeqki(type, nen) = xspreeqki(type, nen) * (1. - Rboundary)
