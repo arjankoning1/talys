@@ -139,12 +139,16 @@ subroutine gammaout(Zcomp, Ncomp)
   if (strength == 8) modelE1 = "Gogny D1M HFB+QRPA Tables"
   if (strength == 9) modelE1 = "IAEA-CRP SMLO 2019 Tables"
   if (strength == 10) modelE1 = "BSk27+QRPA 2018 Tables   "
+  if (strength == 11) modelE1 = "D1M-Intra-E1             "
+  if (strength == 12) modelE1 = "Shellmodel-E1            "
   if (strengthM1 == 1) modelM1 = "RIPL-1                   "
   if (strengthM1 == 2) modelM1 = "RIPL-2                   "
   if (strengthM1 == 3) modelM1 = "IAEA GSF CRP (2018)      "
   if (strengthM1 == 4) modelM1 = "RIPL-2+Scissors Kawano   "
   if (strengthM1 == 8) modelM1 = "Gogny D1M HFB+QRPA Tables"
   if (strengthM1 == 10) modelM1 = "BSk27+QRPA 2018 Tables   "
+  if (strength == 11) modelM1 = "D1M-Intra-M1             "
+  if (strength == 12) modelM1 = "Shellmodel-M1            "
   write(*, '(" Gamma-ray strength function model for E1: ", a25)') modelE1
   write(*, '(" Gamma-ray strength function model for M1: ", a25,/)') modelM1
   do l = 1, gammax
