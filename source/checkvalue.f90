@@ -781,7 +781,7 @@ subroutine checkvalue
 ! 5. Check of values for gamma emission
 !
   call range_integer_error('gammax', gammax, 1, 6)
-  call range_integer_error('strength', strength, 1, 10)
+  call range_integer_error('strength', strength, 1, 12)
   if (strength == 3 .or. strength == 4) then
     inquire (file = trim(path)//'gamma/hfb/Sn.psf', exist = lexist)
     if ( .not. lexist) then
@@ -789,8 +789,9 @@ subroutine checkvalue
       stop
     endif
   endif
-  if ((strengthM1 < 1 .or. strengthM1 > 4) .and. strengthM1 /= 8 .and. strengthM1 /= 10) then
-    write(*,'(" TALYS-error: strengthM1 = 1, 2, 3, 4, 8 or 10")')
+  if ((strengthM1 < 1 .or. strengthM1 > 4) .and. strengthM1 /= 8 .and. strengthM1 /= 10 .and. strengthM1 /= 11 .and. &
+ &  strengthM1 /= 12) then
+    write(*,'(" TALYS-error: strengthM1 = 1, 2, 3, 4, 8, 10, 11 or 12")')
     stop
   endif
   do Zix = 0, numZ
