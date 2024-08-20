@@ -198,6 +198,8 @@ subroutine gammapar(Zix, Nix)
       endif
     endif
     if (strength == 10) gamfile = trim(path)//'gamma/bsk27_E1/'// gamchar
+    if (strength == 11) gamfile = trim(path)//'gamma/d1m-intra-e1/'// gamchar
+    if (strength == 12) gamfile = trim(path)//'gamma/shellmodel-e1/'// gamchar
     inquire (file = gamfile, exist = lexist)
     if (lexist) then
       open (unit = 2, file = gamfile, status = 'old', iostat = istat)
@@ -217,7 +219,7 @@ subroutine gammapar(Zix, Nix)
           enddo
           cycle
         endif
-        if (strength == 6 .or. strength == 7 .or. strength == 9 .or. strength == 10) nTqrpa = 11
+        if (strength == 6 .or. strength == 7 .or. strength == 9 .or. strength == 10 .or. strength == 11) nTqrpa = 11
         do nen = 1, numgamqrpa
           read(2, '(f9.3, 20es12.3)', iostat = istat) ee, (fe1(it), it = 1, nTqrpa)
           if (istat /= 0) exit
@@ -237,10 +239,25 @@ subroutine gammapar(Zix, Nix)
             fqrpa(Zix, Nix, nen, it, 1, 1) = onethird * pi2h2c2 * fe1(it) * ft
           enddo
         enddo
+!
+! Avoid having an increasing function for extrapolation purposes
+!
+        do it = 1, nTqrpa
+          if (fqrpa(Zix, Nix, numgamqrpa, it, 0, 1) > fqrpa(Zix, Nix, numgamqrpa - 1, it, 0, 1)) &
+ &          fqrpa(Zix, Nix, numgamqrpa, it, 0, 1) = fqrpa(Zix, Nix, numgamqrpa - 1, it, 0, 1)
+        enddo
         if (nTqrpa > 1) then
-          dtemp = 0.2
+          if (strength == 11) then
+            dtemp = 2.
+          else
+            dtemp = 0.2
+          endif
           temp = - dtemp
           do it = 1, nTqrpa
+            if (strength == 11) then
+              if (it == 7) dtemp = 3.
+              if (it >= 8) dtemp = 5.
+            endif
             temp = temp + dtemp
             Tqrpa(it) = temp
           enddo
@@ -298,10 +315,23 @@ subroutine gammapar(Zix, Nix)
 !
 ! Tabulated M1 strength
 !
-  if (strengthM1 == 8 .or. strengthM1 == 10) then
+  if (strengthM1 == 8 .or. strengthM1 == 10 .or. strengthM1 == 11 .or. strengthM1 == 12) then
     gamchar = trim(nuc(Z))//'.psf'
     if (strengthM1 == 8) gamfile = trim(path)//'gamma/gognyM1/'//gamchar
     if (strengthM1 == 10) gamfile = trim(path)//'gamma/bsk27_M1/'//gamchar
+    if (strengthM1 == 11 .and. Zix == 0 .and. Nix == 0) then
+      gamfile = trim(path)//'gamma/d1m-intra-m1/'//gamchar
+      nTqrpa=11
+      dtemp = 2.
+      temp = - dtemp
+      do it = 1, nTqrpa
+        if (it == 7) dtemp = 3.
+        if (it >= 8) dtemp = 5.
+        temp = temp + dtemp
+        Tqrpa(it) = temp
+      enddo
+    endif
+    if (strengthM1 == 12) gamfile = trim(path)//'gamma/shellmodel-m1/'//gamchar
     inquire (file = gamfile, exist = lexist)
     if (lexist) then
       open (unit = 2, file = gamfile, status = 'old')
