@@ -479,7 +479,11 @@ c
       esigjp=0.
       spinf=dble(jspin+dble(mod(kaf,2))/2.)
       ipaf=int((dble(jparity)-1.5)*2.)
-      weight=rhobin(jlev,jspin,jparity)*spfacst(jlev)
+      if (jlev.gt.1) then
+        weight=rhobin(jlev,jspin,jparity)*(0.1d0+0.33d0*dexp(-0.8*ef))
+      else
+        weight=rhobin(jlev,jspin,jparity)*spfacst(jlev)
+      endif
       if (weight.le.1.d-20) goto 221
 c
 c     remove the fake contributions that does not match to the known experimental levels
