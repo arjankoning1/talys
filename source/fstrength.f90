@@ -123,12 +123,16 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
 !
 ! 1. Kopecky-Uhl
 ! 2. Brink-Axel
-! 3. Goriely HFBCS
-! 4. Goriely HFB
+! 3. Goriely HFbcs tables
+! 4. Goriely HFB tables
 ! 5. Goriely Hybrid model
-! 6. Goriely T-dependent HFB
-! 7. T-dependent RMF
-! 8. Gogny D1M HFB+QRPA
+! 6. Goriely T-dep. HFB Tables
+! 7. Goriely T-dep. RMF Tables
+! 8. Gogny D1M HFB+QRPA Tables
+! 9. IAEA-CRP SMLO 2019 Tables
+! 10. BSk27+QRPA 2018 Tables
+! 11. D1M-Intra-E1
+! 12. Shellmodel-E1
 !
   fstrength = 0.
   do i = 1, ngr(Zcomp, Ncomp, irad, l)
@@ -190,7 +194,7 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
       endif
     endif
 !
-! 3+4+6+7+8+9+10. Tabulated QRPA strength functions
+! 3+4+6+7+8+9+10+11+12. Tabulated QRPA strength functions
 !
 ! locate    : subroutine to find value in ordered table
 ! numgamqrpa: number of energies for QRPA strength function
@@ -201,12 +205,21 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
 !
     if ((strength == 3 .or. strength == 4 .or. strength >= 6 .or. Exlfile(Zcomp, Ncomp, 1, 1)(1:1) /= ' ') .and. &
       ((qrpaexist(Zcomp, Ncomp, 1, 1) .and. l == 1 .and. irad == 1) .or. &
-      (qrpaexist(Zcomp, Ncomp, 0, 1) .and. l == 1 .and. irad == 0))) then
+      (qrpaexist(Zcomp, Ncomp, 0, 1) .and. strengthM1 >= 8 .and. l == 1 .and. irad == 0))) then
       nT0 = nTqrpa
       if (irad /= 1 .or. l /= 1) nT0 = 1
+      if ((irad == 1 .and. strength == 11) .or. (irad == 0 .and. strengthM1 == 11)) then
+        if (Zcomp == 0 .and. Ncomp == 0 .and. flagupbend) then
+          nTqrpa=11
+        else
+          nTqrpa=1
+        endif
+        nT0=nTqrpa
+      endif
       if (Egamma /= Einc .and. nT0 > 1) then
         e = min(Efs, 20.) + S(Zcomp, Ncomp, 1) - delta(Zcomp, Ncomp, 0) - Egamma
         if (e > 0..and.alev(Zcomp, Ncomp) > 0.) Tnuc = sqrt(e / alev(Zcomp, Ncomp))
+        if ((irad == 1 .and. strength == 11) .or. (irad == 0 .and. strengthM1 == 11)) Tnuc = min(Efs, 20.)+ S(Zcomp, Ncomp, 1)
         nT = nT0
         do it = 1, nT0
           if (Tqrpa(it) > Tnuc) then
