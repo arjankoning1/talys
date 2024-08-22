@@ -460,8 +460,8 @@ subroutine inputout
     write(*, '(" widthfluc           ", a1, "     flagwidth    flag for width fluctuation calculation")') yesno(flagwidth)
   endif
   write(*, '(" widthmode          ", i2, "     wmode        designator for width fluctuation model")') wmode
-  write(*, '(" WFCfactor          ", i2, "     WFCfactor    enhancement factor for WFC: 1: Original, 2: Ernebjerg and Herman")') &
- &  WFCfactor
+  write(*, '(" WFCfactor          ", i2, "     WFCfactor    enhancement factor for WFC: 1: Original, 2: Ernebjerg and Herman", &
+ &  " 3: Kawano")') &  WFCfactor
   write(*, '(" compound            ", a1, "     flagcomp     flag for compound nucleus model")') yesno(flagcomp)
   write(*, '(" fullhf              ", a1, "     flagfullhf   ", &
  &  "flag for full spin dependence of transmission coefficients")') yesno(flagfullhf)
