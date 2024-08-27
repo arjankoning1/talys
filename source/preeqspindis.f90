@@ -69,9 +69,9 @@ subroutine preeqspindis
       RnJsum(n) = 0.
       f = 0.d0 
       eta = sqrt(Rspincutpreeq) * newspin(Atarget,real(Einc,8),n,1,f)
-      do j = 0,maxJph
-        RnJ(n, J) =  spin_wigner(real(J,8),eta)
-        RnJsum(n) = RnJsum(n) + RnJ(n, J)
+      do J = 0,maxJph
+        RnJ(n, J) =  spin_wigner(real(J,8),eta) / (2. * J + 1)
+        RnJsum(n) = RnJsum(n) + (2. * J + 1) * RnJ(n, J)
       enddo
     enddo
   endif
