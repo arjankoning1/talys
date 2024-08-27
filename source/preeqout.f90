@@ -185,7 +185,7 @@ subroutine preeqout
     Ncol=11
     call write_datablock(quantity,Ncol,maxexc,col,un)
     do n = 1, maxexc
-      write(1, '(3x, i6, 6x, 10es15.6)') n, (RnJ(n, J), J = 0, 8), RnJsum(n)
+      write(1, '(3x, i6, 6x, 10es15.6)') n, ((2* J + 1)*RnJ(n, J), J = 0, 8), RnJsum(n)
     enddo
     close(1)
     call write_outfile(phdfile,flagoutall)
