@@ -48,6 +48,10 @@ function twkbint(efis, ibar, Zix, Nix)
     Eb = Ewkb(nen + 1)
     Ta = Twkb(Zix, Nix, nen, ibar)
     Tb = Twkb(Zix, Nix, nen + 1, ibar)
+    if (Ea == Eb) then
+      twkbint = Ta
+      return
+    endif
     if (Ta > 0 .and. Tb > 0) then
       Ta = log(Ta)
       Tb = log(Tb)
