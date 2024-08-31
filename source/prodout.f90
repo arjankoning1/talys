@@ -167,7 +167,7 @@ subroutine prodout
           write(maxprod, '(i8, " y ", i3, " d ", i3, " h ", i3, " m ", i3, " s ")') (Tp(Zix, Nix, is, k), k = 1, 5)
         endif
         write(*, '(1x, a2, i4, 1x, a1, 5es15.6, f8.5, 2a35)') &
- &        nuc(Z), A, isochar(is), prate(Zix, Nix, is), lambda(Zix, Nix, is), &
+ &        nuc(Z), A, isochar(min(is,numisom)), prate(Zix, Nix, is), lambda(Zix, Nix, is), &
  &        activity(Zix, Nix, is, it), Niso(Zix, Nix, is, it), &
           yield(Zix, Nix, is, it), Nisorel(Zix, Nix, is, it), halflife, maxprod
       enddo
