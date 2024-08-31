@@ -280,7 +280,7 @@ subroutine levels(Zix, Nix)
     else
       Liso = Lisoinp
     endif
-    if (Liso > 0) targetnuclide = trim(targetnuclide0) // isochar(Liso)
+    if (Liso > 0) targetnuclide = trim(targetnuclide0) // isochar(min(Liso,numisom))
   endif
 !
 ! Special treatment for isomers in the continuum. There are about 10 known isomers whose level number is larger than 30.
