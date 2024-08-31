@@ -41,7 +41,6 @@ subroutine massdis
 !   k0              ! index of incident particle
 !   Ztarget         ! charge number of target nucleus
 ! Constants
-!   isochar         ! symbol of isomer
 !   nuc             ! symbol of nucleus
 !   parA            ! mass number of particle
 !   parZ            ! charge number of particle
