@@ -247,7 +247,7 @@ Loop1:        do in = 0, numin
 !
   isostring = '   '
   if (filechannels) then
-    if (Liso >= 1) isostring = '('//isochar(Liso)//')'
+    if (Liso >= 1) isostring = '('//isochar(min(Liso,numisom))//')'
     do npart = 0, maxchannel
     do ia = 0, numia
     do ih = 0, numih
@@ -355,7 +355,7 @@ Loop2:    do in = 0, numin
                     else
                       kiso = kiso + 1
                     endif
-                    finalnuclide=trim(nuc(Z))//trim(adjustl(massstring))//isochar(kiso)
+                    finalnuclide=trim(nuc(Z))//trim(adjustl(massstring))//isochar(min(kiso,numisom))
                     topline=trim(targetnuclide)//trim(reaction)//trim(finalnuclide)//' '//trim(quantity)
                     col(3)='Isomeric_ratio'
                     un(3)=''
