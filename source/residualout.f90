@@ -249,7 +249,7 @@ subroutine residualout
                   kiso = kiso + 1
                 endif
                 kiso = min(kiso, numisom)
-                finalnuclide=trim(nuc(Z))//trim(adjustl(massstring))//isochar(kiso)
+                finalnuclide=trim(nuc(Z))//trim(adjustl(massstring))//isochar(min(kiso,numisom))
                 topline=trim(targetnuclide)//trim(reaction)//trim(finalnuclide)//' '//trim(quantity)
                 col(3)='Isomeric_ratio'
                 un(3)=''
