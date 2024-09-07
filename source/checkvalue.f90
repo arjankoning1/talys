@@ -1132,7 +1132,7 @@ subroutine checkvalue
   if (flagres) then
     if (trim(reslib) == 'tendl.2023') return
     if (trim(reslib) == 'jeff3.3') return
-    if (trim(reslib) == 'endfb8.0') return
+    if (trim(reslib) == 'endfb8.1') return
     if (trim(reslib) == 'cendl3.2') return
     if (trim(reslib) == 'jendl5.0') return
     write(*, '(" TALYS-error: Wrong library name: ", a)') trim(reslib)
