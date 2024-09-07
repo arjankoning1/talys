@@ -416,9 +416,24 @@ subroutine binary
     if (flagspec .and. flagcheck) then
       write(*, '(/" ++++++++++ CHECK OF INTEGRATED ", "BINARY EMISSION SPECTRA ++++++++++"/)')
       write(*, '(13x, "Continuum cross section  Integrated", " spectrum  Compound normalization Average emission energy"/)')
+      un = 'mb'
+      col(1) = 'particle'
+      un(1) = ''
+      col(1) = 'particle'
+      col(2) = 'Continuum'
+      col(3) = 'Int. spectrum'
+      col(4) = 'Comp. norm.'
+      col(5) = 'Av. emission E.'
+      un(5) = 'MeV'
+      Ncol = 5
+      Nk = 7
+      quantity = 'check of binary emission spectra'
+      call write_datablock(quantity,Ncol,Nk,col,un)
       do type = 0, 6
         if (parskip(type)) cycle
         write(*, '(1x, a8, 3(10x, es12.5), 10x, f8.3)') parname(type), &
+ &        xscompcont(type) + xspreeqtot(type) + xsgrtot(type), binemissum(type), binnorm(type), Eaveragebin(type)
+        write(1, '(3x, a8, 4x, 4es15.6)') parname(type), &
  &        xscompcont(type) + xspreeqtot(type) + xsgrtot(type), binemissum(type), binnorm(type), Eaveragebin(type)
       enddo
     endif
