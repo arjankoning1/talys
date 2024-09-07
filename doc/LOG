@@ -40,7 +40,7 @@ level density fits.
 
 Provided the complete decay of a nuclear reaction into more structured 
 YANDF output. Now, if 'population y' one obtains 'pop**.tot' files in 
-which the compete decay of each nucleus is provided. This allows even 
+which the complete decay of each nucleus is provided. This allows even 
 more exclusive following of a nuclear reaction in terms of reaction 
 probabilities.
 
@@ -116,3 +116,28 @@ of the 416 posterior OMP parameter distributions.
 - July 21 2024
 
 More YANDF output for pre-equilibrium and photon strength functions.
+
+August 19 2024
+
+Changed weight in direct capture calculation in racapcalc.f
+
+August 20 2024
+
+Added two more PSF models, strength 11 - D1M-Intra-E1 and 
+strength 12 - Shellmodel-M1 
+
+!!!August 22 2024
+!!!
+!!!Corrected a line for WFC in comptarget.f90: type == 1 into 
+!!!type == k0 tnumo = tNinc. We think this should be done for all inelastic
+!!!channels and not for the neutron outgoing channel.
+
+August 29 2024
+
+Solved an interpolation error in twkbint which led tot NaN for some 
+fission transmission coefficients
+
+August 31 2024
+
+Protected some character values for isomers going out of bounds when the number
+of isomers is beyond 10 (i.e. very short half lives). Problem found by Hamza Abboudi.
