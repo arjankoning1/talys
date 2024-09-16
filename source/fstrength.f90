@@ -170,7 +170,7 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
     Tnuc = 0.
     if (strength == 1 .and. l == 1 .and. irad == 1) then
       if (Egamma /= Einc) then
-        e = min(Efs, 20.) + S(Zcomp, Ncomp, 1) - delta(Zcomp, Ncomp, 0) - Egamma
+        e = min(Efs, 20.) + S(Zcomp, Ncomp, k0) - delta(Zcomp, Ncomp, 0) - Egamma
         if (e > 0..and.alev(Zcomp, Ncomp) > 0.) Tnuc = sqrt(e / alev(Zcomp, Ncomp))
       endif
       ggredep0 = ggr1 * twopi **2 * Tnuc **2 / egr2
@@ -217,9 +217,9 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
         nT0=nTqrpa
       endif
       if (Egamma /= Einc .and. nT0 > 1) then
-        e = min(Efs, 20.) + S(Zcomp, Ncomp, 1) - delta(Zcomp, Ncomp, 0) - Egamma
+        e = min(Efs, 20.) + S(Zcomp, Ncomp, k0) - delta(Zcomp, Ncomp, 0) - Egamma
         if (e > 0..and.alev(Zcomp, Ncomp) > 0.) Tnuc = sqrt(e / alev(Zcomp, Ncomp))
-        if ((irad == 1 .and. strength == 11) .or. (irad == 0 .and. strengthM1 == 11)) Tnuc = min(Efs, 20.)+ S(Zcomp, Ncomp, 1)
+        if ((irad == 1 .and. strength == 11) .or. (irad == 0 .and. strengthM1 == 11)) Tnuc = Efs + S(Zcomp, Ncomp, k0)
         nT = nT0
         do it = 1, nT0
           if (Tqrpa(it) > Tnuc) then
@@ -243,7 +243,7 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
       do nen = 0, numgamqrpa
         Eq(nen) = eqrpa(Zcomp, Ncomp, nen, irad, 1)
       enddo
-      if (Egamma < Eq(1)) then
+      if (Egamma > Tnuc + 0.1) then
         fstrength = 0.
       else
         do it = 1, itemp
@@ -293,7 +293,7 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
 !
     if (strength == 5 .and. Exlfile(Zcomp, Ncomp, 1, 1)(1:1) == ' ' .and. l == 1 .and. irad == 1) then
       if (Egamma /= Einc) then
-        e = min(Efs, 20.) + S(Zcomp, Ncomp, 1) - delta(Zcomp, Ncomp, 0) - Egamma
+        e = min(Efs, 20.) + S(Zcomp, Ncomp, k0) - delta(Zcomp, Ncomp, 0) - Egamma
         if (e > 0..and.alev(Zcomp, Ncomp) > 0.) Tnuc = sqrt(e / alev(Zcomp, Ncomp))
       endif
       if (Egamma > 0.) then
@@ -350,7 +350,7 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
     upbendf = upbend(Zcomp, Ncomp, irad, l, 3)
     if ((strengthM1 == 8 .or. strengthM1 == 10) .and. irad == 0 .and. l == 1 .and. Zcomp + Ncomp >= 105) upbendf=0.
     if (irad == 1 .and. l == 1) then
-      e = min(Efs, 20.) + S(Zcomp, Ncomp, 1) - Egamma
+      e = min(Efs, 20.) + S(Zcomp, Ncomp, k0) 
       if (e > 1) fstrength = fstrength + upbendc * e / (1. + exp(Egamma - upbende))
     endif
 !
