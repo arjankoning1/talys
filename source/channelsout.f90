@@ -193,9 +193,6 @@ subroutine channelsout
   col(3)='gamma_xs'
   col(4)='xs/res.prod.xs'
   un(4) = ''
-  col(5)='Direct'
-  col(6)='Preequilibrium'
-  col(7)='Compound'
   quantity='cross section'
   gamquant='gamma cross section and multiplicity'
   write(*, '(/" 6. Exclusive cross sections"/)')
@@ -295,6 +292,9 @@ Loop2:    do in = 0, numin
             topline=trim(targetnuclide)//trim(reaction)//trim(finalnuclide)//' '//trim(quantity)
             if (flagcompo) then
               Ncol=7
+              col(5)='Direct'
+              col(6)='Preequilibrium'
+              col(7)='Compound'
             else
               Ncol=4
             endif
