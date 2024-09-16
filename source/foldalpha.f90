@@ -275,7 +275,7 @@ subroutine foldalpha(Zix, Nix, E)
 !   of the (a,g) and (a,n) data of deformed nuclei : 27/4/2018 (Brussels)
 !   increase of rva by 3% for deformed nuclei but only below typically 18 MeV
 
-    rva(i) = factor1 * aradialcor * rva(i) * (1. + beta2(Zix, Nix, 0) / 15. / (1. + exp((E - 18.) / 2.)))
+    rva(i) = factor1 * aradialcor * rva(i) * (1. + abs(beta2(Zix, Nix, 0)) / 15. / (1. + exp((E - 18.) / 2.)))
     va(i) = factor2 * adepthcor * va(i)
   enddo
 !
