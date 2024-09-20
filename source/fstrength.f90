@@ -243,7 +243,7 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
       do nen = 0, numgamqrpa
         Eq(nen) = eqrpa(Zcomp, Ncomp, nen, irad, 1)
       enddo
-      if (Egamma > Tnuc + 0.1) then
+      if ((Egamma > Tnuc + 0.1 .and. strength.eq.11) .or. (Egamma < Eq(1) .and. strength.ne.11)) then
         fstrength = 0.
       else
         do it = 1, itemp
