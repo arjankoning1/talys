@@ -80,14 +80,10 @@ subroutine directout
   integer   :: i                                 ! counter
   integer   :: iang                              ! running variable for angle
   integer   :: ilev                              ! counter for discrete levels
-  integer   :: n1                                ! number of coordinate grid points
-  integer   :: n2                                ! counter
   integer   :: nen                               ! energy counter
   integer   :: Ncol
   integer   :: Nk
   integer   :: Nix                               ! neutron number index for residual nucleus
-  integer   :: nrest                             ! help variable
-  integer   :: nset                              ! help variable
   integer   :: ilevel(numlev2)                   
   integer   :: plev(numlev2)                     ! parity of level
   integer   :: Zix                               ! charge number index for residual nucleus
