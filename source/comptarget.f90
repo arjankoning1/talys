@@ -298,14 +298,14 @@ subroutine comptarget
     quantity='Compound nucleus formation'
     un = ''
     col(1)='J/P'
-    col(2)='cross section'
+    col(2)='population'
     un(2) = 'mb'
     Ncol = 2
     call write_datablock(quantity,Ncol,J2end-J2beg+2,col,un)
     do parity = - 1, 1, 2
       do J2 = J2beg, J2end, 2
         J = J2/2
-        write(1, '(5x,f4.1, a1, 5x, es15.6)') 0.5 * J2, cparity(parity), CNterm(parity, J)
+        write(1, '(5x,f4.1, 1x, a1, 4x, es15.6)') 0.5 * J2, cparity(parity), CNterm(parity, J)
       enddo
     enddo
     quantity='Primary compound nucleus decay'
@@ -323,7 +323,6 @@ subroutine comptarget
       write(*, '(1x, a8, 1x, f8.5)') parname(type), fiso(type)
     enddo
     write(*,'(/" Primary CN decay of Z=",i3," N=",i3," (",i3,a2,") Ex=",f8.3/)') Zinit,Ninit,Ainit,nuc(Zinit),Etotal
-    write(*,'(" JCN PCN Population",7(1x,a8,1x)/)') (parname(type),type=0,6)
   endif
   do type = -1, 6
     if (adjustTJ(Zcomp, Ncomp, type)) then
@@ -755,8 +754,7 @@ subroutine comptarget
       enddo
       if (flagpop) then
         rJ = 0.5 * J2
-        write(*,'(f4.1,i4,8es10.3)') rJ,parity,CNterm(parity,J),(partdecaytot(type),type=0,6)
-        write(1,'(5x,f4.1,a1,5x,8es15.6)') rJ,cparity(parity),CNterm(parity,J),(partdecaytot(type),type=0,6)
+        write(1,'(5x,f4.1,1x,a1,4x,8es15.6)') rJ,cparity(parity),CNterm(parity,J),(partdecaytot(type),type=0,6)
         if (flagdecay) then
           do type = 0, 6
             if (parskip(type)) cycle
@@ -778,17 +776,19 @@ subroutine comptarget
       endif
     enddo
   enddo
-  quantity='Isospin factors to reduce emission'
-  un = ''
-  col(1)='particle'
-  col(2)='isospin factor'
-  Ncol = 2
-  call write_datablock(quantity,Ncol,7,col,un)
-  do type = 0, 6
-    write(1, '(3x, a8, 4x, es15.6)') parname(type), fiso(type)
-  enddo
-  close(1)
-  call write_outfile(popfile,flagoutall)
+  if (flagpop) then
+    quantity='Isospin factors to reduce emission'
+    un = ''
+    col(1)='particle'
+    col(2)='isospin factor'
+    Ncol = 2
+    call write_datablock(quantity,Ncol,7,col,un)
+    do type = 0, 6
+      write(1, '(3x, a8, 4x, es15.6)') parname(type), fiso(type)
+    enddo
+    close(1)
+    call write_outfile(popfile,flagoutall)
+  endif
 !
 ! ************************** Astrophysics ******************************
 !
