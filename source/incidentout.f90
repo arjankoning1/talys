@@ -43,12 +43,22 @@ subroutine incidentout
 ! *** Declaration of local data
 !
   implicit none
+  character(len=18) :: reaction   ! reaction
+  character(len=132) :: topline    ! topline
+  character(len=13) :: Estr
+  character(len=15) :: col(5)     ! header
+  character(len=15) :: un(5)     ! units
+  character(len=80) :: quantity   ! quantity
   integer :: iang              ! running variable for angle
   integer :: l                 ! multipolarity
+  integer           :: Ncol        !
+  integer           :: Nk
   integer :: type              ! particle type
 !
 ! *********** Total cross sections for incident channel ****************
 !
+  Estr=''
+  write(Estr,'(es13.6)') Einc
   write(*, '(/" Optical model results"/)')
   if (k0 == 1) then
     write(*, '(" Total cross section   :", es11.4, " mb")') xstotinc
@@ -76,53 +86,97 @@ subroutine incidentout
 !
 ! *********** Transmission coefficients for incident channel ***********
 !
-  if (lmaxinc ==  - 1) return
-  write(*, '(/" Transmission coefficients for incident ", a8, " at ", f8.3, " MeV"/)') parname(k0), Einc
+  if (lmaxinc ==  -1) return
+  quantity='transmission coefficients'
+  reaction='('//parsym(k0)//',tot)'
+  topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' at '//Estr//' MeV'
+  open (unit=1, file='transm.inc', status='replace')
+  call write_header(topline,source,user,date,oformat)
+  call write_target
+  call write_reaction(reaction,0.D0,0.D0,0,0)
+  call write_real(2,'E-incident [MeV]',Einc)
+  un=''
+  col(1)='L'
+  if (k0 /= 3 .and. k0 /= 6) then
+    col(2)='T(L-1/2,L)'
+    col(3)='T(L+1/2,L)'
+    col(4)='T(L))'
+    Ncol=4
+  endif 
+  if (k0 == 3) then
+    col(2)='T(L-1,L)'
+    col(3)='T(L,L)'
+    col(4)='T(L+1,L)'
+    col(5)='T(L))'
+    Ncol=5
+  endif
+  if (k0 == 6) then
+    col(2)='T(L))'
+    Ncol=2
+  endif 
+  if (k0 == 0) then
+    Nk=gammax
+  else
+    Nk=lmaxinc + 1
+  endif
+  call write_datablock(quantity,Ncol,Nk,col,un)
 !
 ! 1. Spin 1/2 particles: Neutrons, protons, tritons and Helium-3
 !
   if (k0 == 1 .or. k0 == 2 .or. k0 == 4 .or. k0 == 5) then
-    write(*, '("  L    T(L-1/2,L)   T(L+1/2,L)    Tav(L)"/)')
     do l = 0, lmaxinc
-      write(*, '(1x, i3, 3es13.5)') l, Tjlinc(-1, l), Tjlinc(1, l), Tlinc(l)
+      write(1, '(i9, 6x, 3es15.6)') l, Tjlinc(-1, l), Tjlinc(1, l), Tlinc(l)
     enddo
   endif
 !
 ! 2. Spin 1 particles: Deuterons
 !
   if (k0 == 3) then
-    write(*, '("  L     T(L-1,L)      T(L,L)      T(L+1,L)     Tav(L)"/)')
     do l = 0, lmaxinc
-      write(*, '(1x, i3, 4es13.5)') l, Tjlinc(-1, l), Tjlinc(0, l), Tjlinc(1, l), Tlinc(l)
+      write(1, '(i9, 6x, 4es15.6)') l, Tjlinc(-1, l), Tjlinc(0, l), Tjlinc(1, l), Tlinc(l)
     enddo
   endif
 !
 ! 3. Spin 0 particles: Alpha-particles
 !
   if (k0 == 6) then
-    write(*, '("  L     T(L)"/)')
     do l = 0, lmaxinc
-      write(*, '(1x, i3, es13.5)') l, Tjlinc(0, l)
+      write(1, '(i9, 6x, es15.6)') l, Tjlinc(0, l)
     enddo
   endif
 !
 ! 4. Photons
 !
   if (k0 == 0) then
-    write(*, '("  L     T(L)"/)')
     do l = 1, gammax
-      write(*, '(1x, i3, es13.5)') l, Tjlinc(0, l)
+      write(1, '(i9, 6x, es15.6)') l, Tjlinc(0, l)
     enddo
   endif
+  close (unit = 1)
+  call write_outfile('transm.inc',flagoutall)
 !
 ! *********** Shape elastic scattering angular distribution ************
 !
   if (flagang .and. k0 > 0) then
-    write(*, '(/" Shape elastic scattering angular distribution"/)')
-    write(*, '(" Angle    Cross section"/)')
+    quantity='shape elastic scattering angular distribution'
+    reaction='('//parsym(k0)//',el)'
+    topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' at '//Estr//' MeV'
+    open (unit=1, file='shape.el', status='unknown')
+    call write_header(topline,source,user,date,oformat)
+    call write_target
+    call write_reaction(reaction,0.D0,0.D0,0,0)
+    call write_real(2,'E-incident [MeV]',Einc)
+    col(1)='Angle'
+    un(1)='deg'
+    col(2)='xs'
+    un(2)='mb/sr'
+    Ncol = 2
+    call write_datablock(quantity,Ncol,nangle+1,col,un)
     do iang = 0, nangle
-      write(*, '(1x, f5.1, es16.5)') angle(iang), directad(k0, Ltarget, iang)
+      write(1, '(2es16.5)') angle(iang), directad(k0, Ltarget, iang)
     enddo
+    close (unit = 1)
+    call write_outfile('shape.el',flagoutall)
   endif
   return
 end subroutine incidentout
