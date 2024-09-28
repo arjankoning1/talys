@@ -171,13 +171,6 @@ subroutine compnorm
   endif
   if (norm > 0.) CNfactor = CNfactor * cfratio / norm
   if (flagcheck) then
-    write(*, '(/" ++++++++++ Compound nucleus formation cross", " section ++++++++++"/)')
-    write(*,'(" Compound nucleus excitation energy:", f15.5/)') Etotal
-    write(*, '(2(" J/Pi cross section "))')
-    do J2 = J2beg, J2end, 2
-      J = J2/2
-      write(*, '(2(f4.1, a1, es12.5, 3x))') (0.5 * J2, cparity(parity), CNterm(parity, J), parity = - 1, 1, 2)
-    enddo
     write(*, '(/" ++++++++++ Normalization of reaction cross", " section ++++++++++"/)')
     write(*, '(" Reaction cross section          :", f15.5, " (A)")') xsreacinc
     write(*, '(" Sum over T(j,l)                 :", f15.5, " (B)")') xsreacsum
