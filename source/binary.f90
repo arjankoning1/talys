@@ -431,8 +431,6 @@ subroutine binary
       call write_datablock(quantity,Ncol,Nk,col,un)
       do type = 0, 6
         if (parskip(type)) cycle
-        write(*, '(1x, a8, 3(10x, es12.5), 10x, f8.3)') parname(type), &
- &        xscompcont(type) + xspreeqtot(type) + xsgrtot(type), binemissum(type), binnorm(type), Eaveragebin(type)
         write(1, '(3x, a8, 4x, 4es15.6)') parname(type), &
  &        xscompcont(type) + xspreeqtot(type) + xsgrtot(type), binemissum(type), binnorm(type), Eaveragebin(type)
       enddo
