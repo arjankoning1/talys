@@ -141,3 +141,12 @@ August 31 2024
 
 Protected some character values for isomers going out of bounds when the number
 of isomers is beyond 10 (i.e. very short half lives). Problem found by Hamza Abboudi.
+
+September 15 2024
+
+Generalized some equations in fstrength.f90 from incidnet neutrons to any incident 
+particle, on the advice of Stephane Goriely.
+
+September 16 2024
+
+Change in foldalpha, put abs() around beta2
