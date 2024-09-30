@@ -318,11 +318,6 @@ subroutine comptarget
     enddo     
     Ncol = 9
     call write_datablock(quantity,Ncol,J2end-J2beg+2,col,un)
-    write(*, '(/" Isospin factors to reduce emission "/)')
-    do type = 0, 6
-      write(*, '(1x, a8, 1x, f8.5)') parname(type), fiso(type)
-    enddo
-    write(*,'(/" Primary CN decay of Z=",i3," N=",i3," (",i3,a2,") Ex=",f8.3/)') Zinit,Ninit,Ainit,nuc(Zinit),Etotal
   endif
   do type = -1, 6
     if (adjustTJ(Zcomp, Ncomp, type)) then
