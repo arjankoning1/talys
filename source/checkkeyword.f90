@@ -6,7 +6,7 @@ subroutine checkkeyword
 ! Author    : Arjan Koning
 !
 ! 2021-12-30: Original code
-! 2023-07-20: Latest version
+! 2023-10-25: Latest version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -20,7 +20,7 @@ subroutine checkkeyword
 ! *** Declaration of local data
 !
   implicit none
-  integer, parameter :: numkey=405        ! number of keywords
+  integer, parameter :: numkey=406        ! number of keywords
   integer            :: i                 ! counter
   integer            :: j                 ! counter
   character(len=132) :: key               ! keyword
@@ -61,7 +61,7 @@ subroutine checkkeyword
  &  'macsfit', 'mass', 'massdir', &
  &  'massdis', 'massexcess', 'massmodel', 'massnucleus', 'maxband', 'maxchannel', 'maxenrec', 'maxlevelsbin', 'maxlevelsres', &
  &  'maxlevelstar', 'maxn', 'maxnrp', 'maxrot', 'maxz', 'maxzrp', 'micro', 'mpreeqmode', 'msdbins', 'multipreeq', 'nafit', &
- &  'nffit', 'ngfit', 'nlevels', 'nlow', 'nnfit', 'nonthermlev', 'ntop', 'nulldev', 'ompenergyfile', 'omponly', &
+ &  'ndfit', 'nffit', 'ngfit', 'nlevels', 'nlow', 'nnfit', 'nonthermlev', 'ntop', 'nulldev', 'ompenergyfile', 'omponly', &
  &  'onestep', 'optmod', 'optmodall', 'optmodfilen', 'optmodfilep', 'outall', 'outangle', 'outbasic', 'outbinspectra', 'outcheck', &
  &  'outdecay', 'outdensity', 'outdirect', 'outdiscrete', 'outdwba', 'outecis', 'outexcitation', &
  &  'outfission', 'outfy', 'outgamdis', 'outgamma', 'outinverse', 'outkd', 'outlegendre', 'outlevels', 'outmain', 'outomp', &
