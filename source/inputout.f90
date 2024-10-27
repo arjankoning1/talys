@@ -5,7 +5,7 @@ subroutine inputout
 !
 ! Author    : Arjan Koning
 !
-! 2023-05-29: Original code
+! 2024-10-25: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -46,6 +46,7 @@ subroutine inputout
 !   flagnffit       ! flag for using fitted (n,f) nuclear model parameters
 !   flagnnfit       ! flag for using fitted (n,n'), (n,2n) and (n,p) nuclear model parameters
 !   flagnafit       ! flag for using fitted (n,a) nuclear model parameters
+!   flagndfit       ! flag for using fitted (n,d) nuclear model parameters
 !   flagpnfit       ! flag for using fitted (p,n) nuclear model parameters
 !   flaggnfit       ! flag for using fitted (g,n) nuclear model parameters
 !   flagdnfit       ! flag for using fitted (d,n) nuclear model parameters
@@ -335,6 +336,8 @@ subroutine inputout
  &  " parameters")') yesno(flagnnfit)
   write(*, '(" nafit               ", a1, "     flagnafit    flag for using fitted (n,a) nuclear model parameters")') &
  &  yesno(flagnafit)
+  write(*, '(" ndfit               ", a1, "     flagndfit    flag for using fitted (n,d) nuclear model parameters")') &
+ &  yesno(flagndfit)
   write(*, '(" pnfit               ", a1, "     flagpnfit    flag for using fitted (p,n) nuclear model parameters")') &
  &  yesno(flagpnfit)
   write(*, '(" dnfit               ", a1, "     flagdnfit    flag for using fitted (d,n) nuclear model parameters")') &
