@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2023-12-30: Original code
-! 2024-09-28: Current version
+! 2024-10-25: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -223,6 +223,7 @@ module A0_talys_mod
   logical                                         :: flagnffit     ! flag for using fitted (n,f) nuclear model parameters
   logical                                         :: flagnnfit     ! flag for using fitted (n,n'), etc. nuclear model parameters
   logical                                         :: flagnafit     ! flag for using fitted (n,a) nuclear model parameters
+  logical                                         :: flagndfit     ! flag for using fitted (n,d) nuclear model parameters
   logical                                         :: flagpnfit     ! flag for using fitted (p,n) nuclear model parameters
   logical                                         :: flaggnfit     ! flag for using fitted (g,n) nuclear model parameters
   logical                                         :: flagdnfit     ! flag for using fitted (d,n) nuclear model parameters
