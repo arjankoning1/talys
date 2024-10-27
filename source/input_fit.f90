@@ -21,6 +21,7 @@ subroutine input_fit
 !   flagnffit        ! flag for using fitted (n,f) nuclear model parameters
 !   flagnnfit        ! flag for using fitted (n,n'), (n,2n) and (n,p) nuclear model parameters
 !   flagnafit        ! flag for using fitted (n,a) nuclear model parameters
+!   flagndfit        ! flag for using fitted (n,d) nuclear model parameters
 !   flagpnfit        ! flag for using fitted (p,n) nuclear model parameters
 !   flagdnfit        ! flag for using fitted (g,n) nuclear model parameters
 !   flaggnfit        ! flag for using fitted (d,n) nuclear model parameters
@@ -53,6 +54,7 @@ subroutine input_fit
   flagnnfit = (k0 == 1 .and. flagfit)
   flagnffit = (k0 == 1 .and. flagfit)
   flagnafit = (k0 == 1 .and. flagfit)
+  flagndfit = (k0 == 1 .and. flagfit)
   flagpnfit = (k0 == 2 .and. flagfit)
   flaggnfit = (k0 == 0 .and. flagfit)
   flagdnfit = (k0 == 3 .and. flagfit)
@@ -116,6 +118,15 @@ subroutine input_fit
       if (ch == 'n') flagnafit = .false.
       if (ch == 'y') then
         flagnafit = .true.
+        flagfit = .true.
+      endif
+      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'ndfit') then
+      if (ch == 'n') flagndfit = .false.
+      if (ch == 'y') then
+        flagndfit = .true.
         flagfit = .true.
       endif
       if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
