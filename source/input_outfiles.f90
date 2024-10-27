@@ -88,7 +88,11 @@ subroutine input_outfiles
   filegamdis = .false.
   filerecoil = .false.
   fileresidual = .false.
-  filespectrum = .false.
+  if (flagspec) then
+    filespectrum = .true.
+  else
+    filespectrum = .false.
+  endif
   filetotal = .false.
   ddxacount = 0
   ddxecount = 0
@@ -171,6 +175,7 @@ loop1:  do i = 1, nlines
 ! getvalues : subroutine to assign values to keywords
 !
     if (key == 'filespectrum') then
+      filespectrum = .false.
 Loop2: do i2 = 2, 40
         ch = word(i2)(1:1)
         do type = 0, 6
