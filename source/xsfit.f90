@@ -5,7 +5,7 @@ subroutine xsfit(Z, A)
 !
 ! Revision    Date      Author      Quality  Description
 ! ======================================================
-!    1     25-10-2023   A.J. Koning    A     Original code
+!    1     25-10-2024   A.J. Koning    A     Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -45,7 +45,7 @@ subroutine xsfit(Z, A)
 !
   implicit none
 
-  integer, parameter :: numfit=10            !
+  integer, parameter :: numfit=11            !
   logical            :: first                ! tracks whether a TALYS run is the first one
   logical            :: flagassign           ! flag to assign value or not
   logical            :: lexist               ! logical to determine existence
@@ -102,6 +102,7 @@ subroutine xsfit(Z, A)
   if (flaggnfit) fitpar(8) = 1
   if (flaggamgamfit) fitpar(9) = 1
   if (flagmacsfit) fitpar(10) = 1
+  if (flagndfit) fitpar(11) = 1
   ffile(1) = 'nn.par'
   ffile(2) = 'ng.par'
   ffile(3) = 'na.par'
@@ -112,6 +113,7 @@ subroutine xsfit(Z, A)
   ffile(8) = 'gn.par'
   ffile(9) = 'gamgam.par'
   ffile(10) = 'macs.par'
+  ffile(11) = 'nd.par'
 !
 ! ************************* Read parameters ****************************
 !
