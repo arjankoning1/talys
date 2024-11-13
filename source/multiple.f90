@@ -409,11 +409,22 @@ subroutine multiple
         Fnorm(type) = factor / fisom(type)
       enddo
       if (flagpop) then
-        write(*, '(/" Isospin factors to reduce emission for multiple emission for Z=", i3, " N=", i3, " (", i3, a2, ")", /)') &
- &        Z, N, A, nuc(Z)
+        quantity='Isospin factors to reduce emission'
+        un = ''
+        col(1)='particle'
+        col(2)='isospin factor'
+        Ncol = 2
+        call write_datablock(quantity,Ncol,7,col,un)
         do type = 0, 6
-          write(*,'(1x, a8, 1x, f8.5)') parname(type), fisom(type)
+          write(1, '(3x, a8, 4x, es15.6)') parname(type), fisom(type)
         enddo
+!       close(1)
+!       call write_outfile(popfile,flagoutall)
+!       write(*, '(/" Isospin factors to reduce emission for multiple emission for Z=", i3, " N=", i3, " (", i3, a2, ")", /)') &
+!&        Z, N, A, nuc(Z)
+!       do type = 0, 6
+!         write(*,'(1x, a8, 1x, f8.5)') parname(type), fisom(type)
+!       enddo
       endif
       do type = 0, 6
         fisom(type) = fisominit(type)
@@ -775,16 +786,31 @@ Loop1:  do type = 1, 6
 !
 ! Total decay from mother nucleus
 !
-        write(*, '(/" Emission cross sections to residual ", "nuclei from Z=", i3, " N=", i3, " (", i3, a2, "):"/)') Z, N, A, nuc(Z)
-        if (flagfission) write(*, '(" fission  channel", 23x, ":", es12.5)') xsfeed(Zcomp, Ncomp, - 1)
+        quantity='particle decay from this nuclide'
+        call write_residual(Z,A,finalnuclide)
+        call write_real(2,'spin',rJ)
+        call write_integer(2,'parity',parity)
+        call write_double(2,'population [mb]',xsp)
+        col(1)='Particle'
+        un(1)=''
+        col(2)='Decay'
+        un(2)='mb'
+        Ncol=2
+        call write_datablock(quantity,Ncol,7,col,un)
         do type = 0, 6
           if (parskip(type)) cycle
-          Z = ZZ(Zcomp, Ncomp, type)
-          N = NN(Zcomp, Ncomp, type)
-          A = AA(Zcomp, Ncomp, type)
-          write(*, '(1x, a8, " channel to Z=", i3, " N=", i3, " (", i3, a2, "):", es12.5)') &
- &          parname(type), Z, N, A, nuc(Z), xsfeed(Zcomp, Ncomp, type)
+          write(1,'(a8,7x,es15.6)') parname(type),xsfeed(Zcomp, Ncomp, type)
         enddo
+!       write(*, '(/" Emission cross sections to residual ", "nuclei from Z=", i3, " N=", i3, " (", i3, a2, "):"/)') Z, N, A, nuc(Z)
+        if (flagfission) write(*, '(" fission  channel", 23x, ":", es12.5)') xsfeed(Zcomp, Ncomp, - 1)
+!       do type = 0, 6
+!         if (parskip(type)) cycle
+!         Z = ZZ(Zcomp, Ncomp, type)
+!         N = NN(Zcomp, Ncomp, type)
+!         A = AA(Zcomp, Ncomp, type)
+!         write(*, '(1x, a8, " channel to Z=", i3, " N=", i3, " (", i3, a2, "):", es12.5)') &
+!&          parname(type), Z, N, A, nuc(Z), xsfeed(Zcomp, Ncomp, type)
+!       enddo
 !
 ! Total emission spectra from mother nucleus.
 !
@@ -828,6 +854,7 @@ Loop1:  do type = 1, 6
       endif
       if (flagpop) then
         close (unit = 1)
+        write(* ,'()')
         call write_outfile(popfile,flagoutall)
       endif
 !
