@@ -115,7 +115,6 @@ subroutine binaryout
     endif
     write(1, '(8es15.6)') Einc, (xsbinary(type), type = 0, 6)
     close (unit = 1)
-    call write_outfile(binfile,flagoutall)
   endif
   return
 end subroutine binaryout
