@@ -396,6 +396,7 @@
   inquire (file = tfile, exist = lexist)
   if (lexist) then
     if (flagout) then
+      write(*, '()') 
       open (unit = 1, file = tfile, status = 'old')
       do              
         read(1, '(a)', iostat = istat) string
