@@ -388,6 +388,7 @@
   logical            :: flagout
   logical            :: lexist
   character(len=*)   :: tfile
+  character(len=800) :: substring
   character(len=800) :: string
   integer            :: istat
 !
@@ -401,7 +402,17 @@
       do              
         read(1, '(a)', iostat = istat) string
         if (istat /= 0) exit
-        write(*, '(1x, a)') trim(string)
+        if (index(string,'# header') > 0) then
+          do
+            read(1,'(a)') substring 
+            if (substring(1:4) /= '#   ' .and. substring(1:8) /= '# target') then
+              write(*, '(1x, a)') trim(substring)
+              exit
+            endif
+          enddo
+        else
+          write(*, '(1x, a)') trim(string)
+        endif
       enddo           
       close (unit = 1)  
     else            
