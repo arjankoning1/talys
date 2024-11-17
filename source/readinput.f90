@@ -28,6 +28,8 @@ subroutine readinput
 ! *** Declaration of local data
 !
   implicit none
+  character(len=132) :: profile
+  logical           :: lexist
   integer           :: i     ! counter
   integer           :: istat ! logical for file access
 !
@@ -42,11 +44,29 @@ subroutine readinput
   i = 1
   do
     read(*, '(a132)', iostat = istat) inline(i)
-    if (istat ==  - 1) exit
+    if (istat ==  -1) exit
     if (istat /= 0) call read_error(inline(i), istat)
     i = i + 1
     call range_integer_error('inline', i, 1, numlines)
   enddo
+!
+! ***** Add profile to input file ******
+!
+! You may edit structure/profile to insert keywords which are always included in your input files
+!
+  profile = trim(path)//'profile'
+  inquire (file = profile, exist = lexist)
+  if (lexist) then
+    open (unit = 1, file = profile, status = 'unknown')
+    do
+      read(1, '(a132)', iostat = istat) inline(i)
+      if (istat ==  -1) exit
+      if (istat /= 0) call read_error(inline(i), istat)
+      i = i + 1
+      call range_integer_error('inline', i, 1, numlines)
+    enddo
+    close (unit = 1)
+  endif
   nlines = i - 1
 !
 ! ************** Convert uppercase to lowercase characters *************
