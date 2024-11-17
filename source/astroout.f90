@@ -71,9 +71,11 @@ subroutine astroout
   logical            :: lexist                           ! logical to determine existence
   character(len=1)   :: sym                              ! symbol
   character(len=3)   :: massstring
+  character(len=6)   :: ZAstring
+  character(len=6)   :: finalnuclide !
   character(len=7)   :: machar                           ! part of filename for MACS
   character(len=132) :: mafile                           ! file with MACS
-  character(len=15)  :: astrofile                        ! file with astro results
+  character(len=132) :: astrofile                        ! file with astro results
   character(len=1)   :: yesno                            ! y or n function
   character(len=18) :: reaction   ! reaction
   character(len=15) :: col(200)    ! header
@@ -116,7 +118,18 @@ subroutine astroout
 ! partf      : integrated partition function
 !
   col=''
-  write(*, '(/" 8. Thermonuclear reaction rates")')
+  col(1)='T'
+  un(1)='10^9_K'
+  col(2)='reaction_rate'
+  un(2)='cm3/mol/s'
+  col(3)='MACS'
+  un(3)='mb'
+  col(4)='G(T)'
+  un(4)=''
+  Ncol=4
+  reaction='('//parsym(k0)//',x)'
+  quantity='reaction rate'
+  write(*, '(/" 8. Thermonuclear reaction rates",/)')
   maxAastro = maxZastro + maxNastro
   do Acomp = 0, maxAastro
     do Zcomp = 0, maxZastro
@@ -126,31 +139,66 @@ subroutine astroout
         if (rateastro(Zcomp, Ncomp, j) > 0.) then
           Z = ZZ(Zcomp, Ncomp, 0)
           A = AA(Zcomp, Ncomp, 0)
+          massstring = '   '
+          write(massstring(1:3), '(i3)') A
+          ZAstring = '000000'
+          write(ZAstring(1:3), '(i3.3)') Z
+          write(ZAstring(4:6), '(i3.3)') A
+          finalnuclide=trim(nuc(Z))//adjustl(massstring)
+          topline=trim(targetnuclide)//trim(reaction)//trim(finalnuclide)//' '//trim(quantity)
+          astrofile = 'astrorate'//ZAstring//'.tot'
+          open (unit = 1, file = astrofile, status = 'replace')
+          call write_header(topline,source,user,date,oformat)
+          call write_target
+          call write_reaction(reaction,0.D0,0.D0,0,0)
           if (nTmax == 1) then
-            write(*, '(/" Reaction rate for Z=", i3, " A=", i3, " (", i3, a2, ") at <E>=", f8.5, &
- &            " MeV (Excited States Contribution : ", a1, ")"/)') Z, A, A, nuc(Z), astroE, yesno(flagastrogs)
-          else
-            write(*, '(/" Reaction rate for Z=", i3, " A=", i3, " (", i3, a2, ")"/)') Z, A, A, nuc(Z)
+            call write_real(2,'E-average [MeV]',astroE)
+            call write_char(2,'Excites states contribution',yesno(flagastrogs))
           endif
-          write(*, '("    T        G(T)        Rate       MACS "/)')
+          call write_residual(Z,A,finalnuclide)
+          call write_datablock(quantity,Ncol,nTmax,col,un)
+!         if (nTmax == 1) then
+!           write(*, '(/" Reaction rate for Z=", i3, " A=", i3, " (", i3, a2, ") at <E>=", f8.5, &
+!&            " MeV (Excited States Contribution : ", a1, ")"/)') Z, A, A, nuc(Z), astroE, yesno(flagastrogs)
+!         else
+!           write(*, '(/" Reaction rate for Z=", i3, " A=", i3, " (", i3, a2, ")"/)') Z, A, A, nuc(Z)
+!         endif
           do i = 1, nTmax
-            write(*, '(1x, f8.4, 3es12.5)') T9(i), partf(i), rateastro(Zcomp, Ncomp, i), macsastro(Zcomp, Ncomp, i)
+            write(1, '(4es15.6)') T9(i), rateastro(Zcomp, Ncomp, i), macsastro(Zcomp, Ncomp, i), partf(i)
           enddo
+!         write(*, '("    T        G(T)        Rate       MACS "/)')
+!         do i = 1, nTmax
+!           write(*, '(1x, f8.4, 3es12.5)') T9(i), partf(i), rateastro(Zcomp, Ncomp, i), macsastro(Zcomp, Ncomp, i)
+!         enddo
+          close (unit = 1)
+          call write_outfile(astrofile,flagoutall)
           if (flagastroex) then
             do nex = 0, Nlast(Zcomp, Ncomp, 0)
               if (nex > 0 .and. tau(Zcomp, Ncomp, nex) == 0.) cycle
-              write(*, '(/" Reaction rate for Z=", i3, " A=", i3, " (", i3, a2, ") to the excited states L", i2.2, &
- &              " at E=", f12.5, " MeV", /)') Z, A, A, nuc(Z), nex, edis(Zcomp, Ncomp, nex)
-              write(*, '("    T       Rate         MACS      ", "Branching"/)')
+              write(astrofile(17:19),'("L",i2.2)') nex
+              open (unit = 1, file = astrofile, status = 'replace')
+              call write_header(topline,source,user,date,oformat)
+              call write_target
+              call write_reaction(reaction,0.D0,0.D0,0,0)
+              call write_residual(Z,A,finalnuclide)
+              call write_level(2,-1,nex,edis(Zcomp, Ncomp, nex),jdis(Zcomp, Ncomp, nex),parlev(Zcomp, Ncomp, nex), &
+ &              tau(Zcomp, Ncomp, nex))
+              call write_datablock(quantity,Ncol,nTmax,col,un)
+!             write(*, '(/" Reaction rate for Z=", i3, " A=", i3, " (", i3, a2, ") to the excited states L", i2.2, &
+!&              " at E=", f12.5, " MeV", /)') Z, A, A, nuc(Z), nex, edis(Zcomp, Ncomp, nex)
+!             write(*, '("    T       Rate         MACS      ", "Branching"/)')
               do i = 1, nTmax
                 branch = 0.
                 if (rateastro(Zcomp, Ncomp, i) > 0.) branch = rateastroex(Zcomp, Ncomp, i, nex) / rateastro(Zcomp, Ncomp, i)
-                write(*, '(1x, f8.4, 3es12.5)') T9(i), rateastroex(Zcomp, Ncomp, i, nex), macsastroex(Zcomp, Ncomp, i, nex), branch
+!               write(*, '(1x, f8.4, 3es12.5)') T9(i), rateastroex(Zcomp, Ncomp, i, nex), macsastroex(Zcomp, Ncomp, i, nex), branch
+                write(1, '(4es15.6)') T9(i), rateastroex(Zcomp, Ncomp, i, nex), macsastroex(Zcomp, Ncomp, i, nex), branch
               enddo
+              close (unit = 1)
+              call write_outfile(astrofile,flagoutall)
             enddo
           endif
           if (flagracap .and. Zcomp == 0 .and. Acomp == 0) then
-            write(*, '(/"    T      Rate(Eq)    Rate(DC)  ", "  MACS(Eq)    MACS(DC)  "/)')
+            write(*, '(/"    T      Rate(Eq)    Rate(DC)    MACS(Eq)    MACS(DC)  "/)')
             do i = 1, nTmax
               write(*, '(1x, f8.4, 4es12.5)') T9(i), rateastro(Zcomp, Ncomp, i) - rateastroracap(i), &
  &              rateastroracap(i), macsastro(Zcomp, Ncomp, i) - macsastroracap(i), macsastroracap(i)
@@ -244,8 +292,8 @@ subroutine astroout
     call write_target
     call write_reaction(reaction,Qth,Eth,0,0)
     if (nTmax == 1) then
-      write(1,' ("#   <E> [MeV]:",es13.6)') astroE
-      write(1,' ("#   astrogs: ",a1)') yesno(flagastrogs)
+      call write_real(2,'E-average [MeV]',astroE)
+      call write_char(2,'Excites states contribution',yesno(flagastrogs))
     endif
     call write_datablock(quantity,Ncol,nTmax,col,un)
     if (type <= 3) then
@@ -302,13 +350,14 @@ subroutine astroout
           call write_reaction(reaction,Qth,Eth,0,0)
           call write_level(2,-1,nex,edis(Zix, Nix, nex),jdis(Zix, Nix, nex),parlev(Zix, Nix, nex),tau(Zix, Nix, nex))
           if (nTmax == 1) then
-            write(1,' ("#   <E> [MeV]:",es13.6)') astroE
-            write(1,' ("#   astrogs: ",a1)') yesno(flagastrogs)
+            call write_real(2,'E-average [MeV]',astroE)
+            call write_char(2,'Excites states contribution',yesno(flagastrogs))
           endif
           call write_datablock(quantity,Ncol,nTmax,col,un)
           do i = 1, nTmax
-            write(1, '(5es15.6)') T9(i), rateastroex(Zix, Nix, i, nex), &
- &            macsastroex(Zix, Nix, i, nex), rateastroex(Zix, Nix, i, nex) / rateastro(Zix, Nix, i), partf(i)
+            branch = 0.
+            if (rateastro(Zix, Nix, i) > 0.) branch = rateastroex(Zix, Nix, i, nex) / rateastro(Zix, Nix, i)
+            write(1, '(5es15.6)') T9(i), rateastroex(Zix, Nix, i, nex), macsastroex(Zix, Nix, i, nex), branch, partf(i)
           enddo
           close (unit = 1)
           call write_outfile(astrofile,flagoutall)
@@ -353,7 +402,7 @@ subroutine astroout
   call write_integer(2,'reactions',iresprod+5)
   write(1,' ("#   astrogs: ",a1)') yesno(flagastrogs)
   if (nTmax == 1) then
-    write(1,' ("#   <E> [MeV]:",es13.6)') astroE
+    call write_real(2,'E-average [MeV]',astroE)
   else
     if ( .not. flagastrogs) then
       if (nonthermlev ==  - 1) then
