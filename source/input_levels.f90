@@ -96,7 +96,7 @@ subroutine input_levels
   deformfile = ' '
   levelfile = ' '
   disctable = 1
-  flagbestbr = .true.
+  flagbestbr = .false.
   flaglevels = flagbasic
   nbranch = 0
   nlev = 0
