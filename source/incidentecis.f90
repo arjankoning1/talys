@@ -152,10 +152,17 @@ subroutine incidentecis
   logical            :: vibrational    ! flag for vibrational input
   character(len=132) :: inelfile       ! file for inelastic scattering cross sections
   character(len=132) :: outfile        ! output file
+  character(len=21) :: optfile    ! file with optical potential
+  character(len=13) :: Estr
+  character(len=132) :: topline    ! topline
+  character(len=15) :: col(5)     ! header
+  character(len=15) :: un(5)     ! header
+  character(len=80) :: quantity   ! quantity
   integer            :: A              ! mass number of target nucleus
   integer            :: i              ! counter
   integer            :: i1             ! value
   integer            :: ii             ! counter
+  integer            :: Ncol
   integer            :: Nix            ! neutron number index for residual nucleus
   integer            :: Z              ! charge number of target nucleus
   integer            :: Zix            ! charge number index for residual nucleus
@@ -328,18 +335,37 @@ subroutine incidentecis
     if (jlmexist(0, 0, k0)) then
       if (k0 <= 2) then
         call mom(Zix, Nix, dble(prodZ), dble(Ein))
-        write(*, '(/" +++++++++ JLM OPTICAL MODEL POTENTIAL FOR INCIDENT CHANNEL ++++++++++")')
+        write(*, '(/" +++++++++ JLM OPTICAL MODEL POTENTIAL FOR INCIDENT CHANNEL ++++++++++",/)')
       else
         call foldalpha(Zix, Nix, Ein)
-        write(*, '(/" +++++++++ DOUBLE FOLDING OPTICAL MODEL POTENTIAL FOR INCIDENT CHANNEL ++++++++++")')
+        write(*, '(/" +++++++++ DOUBLE FOLDING OPTICAL MODEL POTENTIAL FOR INCIDENT CHANNEL ++++++++++",/)')
       endif
-      write(*, '(/11x, a8, " on ", i3, a2/)') parname(k0), A, nuc(Z)
-      write(*, '("  Radius ", 4x, "V", 6x, "W", 7x, "Vso", 5x, "Wso"/)')
+      Estr=''
+      write(Estr,'(es13.6)') Einc
+      un = 'MeV'
+      col(1) = 'radius'
+      un(1) = 'fm'
+      col(2) = 'V'
+      col(3) = 'W'
+      col(4) = 'Vso'
+      col(5) = 'Wso'
+      Ncol = 5
+      optfile='optE0000.000.'//parsym(k0)
+      write(optfile(5:12), '(f8.3)') Einc
+      write(optfile(5:8), '(i4.4)') int(Einc)
+      quantity='optical potential'
+      open (unit=1, file=optfile, status='unknown')
+      topline=trim(targetnuclide)//' '//parname(k0)//' optical potential at '//Estr//' MeV'
+      call write_header(topline,source,user,date,oformat)
+      call write_target
+      call write_datablock(quantity,Ncol,numjlm,col,un)
       do i = 1, numjlm
-      write(*, '(f7.3, 2x, 4(f8.3))') radjlm(Zix, Nix, i), normjlm(Zix, Nix, 1) * potjlm(Zix, Nix, i, 1), &
- &      normjlm(Zix, Nix, 2) * potjlm(Zix, Nix, i, 2), normjlm(Zix, Nix, 5) * potjlm(Zix, Nix, i, 5), &
- &      normjlm(Zix, Nix, 6) * potjlm(Zix, Nix, i, 6)
+        write(1, '(5es15.6)') radjlm(Zix, Nix, i), normjlm(Zix, Nix, 1) * potjlm(Zix, Nix, i, 1), &
+ &        normjlm(Zix, Nix, 2) * potjlm(Zix, Nix, i, 2), normjlm(Zix, Nix, 5) * potjlm(Zix, Nix, i, 5), &
+ &        normjlm(Zix, Nix, 6) * potjlm(Zix, Nix, i, 6)
       enddo
+      close(unit = 1)
+      call write_outfile(optfile,flagoutall)
     else
       write(*, '(/" +++++++++ OPTICAL MODEL PARAMETERS FOR INCIDENT CHANNEL ++++++++++")')
       write(*, '(/11x, a8, " on ", i3, a2/)') parname(k0), A, nuc(Z)
