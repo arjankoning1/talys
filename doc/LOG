@@ -163,3 +163,29 @@ October 26 2024
 
 Added ndfit keyword
 
+November 15 2024
+
+Changed default of 'bestbranch' to 'n' after a finding of Pascal Romain that 
+some important branching ratios were not correct. 
+The tables in structure/levels/branch overrule the RIPL discrete level branching 
+ratios to obtain a better description of isomeric cross sections.
+This means that by default there will be more emphasis on (adjusted) spin
+distribution of the level densities to obtain correct branching ratios.
+
+November 17 2024
+
+Added a file structure/profile to the system. Here the user can put keywords
+which are ALWAYS enabled in the calculations. If you prefer e.g. the old way
+of having a very large TALYS output file with all the specific info printed
+in that output file, you may put 'outall y' in that profile file so this will
+always be the case in your output. 
+The TALYS keywords in structure/profile will automatically be added to the
+user input file.
+
+November 30 2024
+
+Removed a divergence for knock-out reactions in knockout.f. 
+When Emax is close to the Coulomb barrier, the denominator of the knock-out 
+formula of Kalbach diverges. This was taken care of by putting a maximum of 1 
+(dE=1) in the denominator but this is now replaced by 100 (dE=10).
+
