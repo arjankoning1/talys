@@ -122,14 +122,15 @@ subroutine input_outfiles
     fileresidual = .true.
     if (flagchannels) filechannels = .true.
     if (flaggamdis) filegamdis = .true.
-    if (flagdisc) filediscrete = .true.
   endif
+  if (flagdisc) filediscrete = .true.
   if (flagastro) fileresidual = .true.
   filefission = .false.
   if (flagfission) then
     if (flagendf) filefission = .true.
     if (flagexc) filefission = .true.
   endif
+  if (flagang) fileangle = .true.
 !
 ! Explicit double-differential cross sections for deuteron ENDF files
 !
