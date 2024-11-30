@@ -333,7 +333,7 @@ subroutine comptarget
 ! *** Output of flux conservation check of transmission coefficients ***
 !
   if (flagcheck .and. flagwidth) then
-    write(*, '(/" ++++++++++ CHECK OF FLUX CONSERVATION", " OF TRANSMISSION COEFFICIENTS ++++++++++")')
+    write(*, '(/" ++++++++++ CHECK OF FLUX CONSERVATION", " OF TRANSMISSION COEFFICIENTS ++++++++++",/)')
     if (wmode == 0) write(*, '(" Hauser-Feshbach model"/)')
     if (wmode == 1) write(*, '(" Moldauer model")')
     if (wmode == 2) write(*, '(" HRTW model"/)')
