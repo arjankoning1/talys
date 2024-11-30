@@ -146,8 +146,7 @@ subroutine knockout
       else
         sigav = xsreac(type2, eend(type2))
       endif
-      denomki(type2) = (2. * parspin(type2) + 1.) * sigav * &
-        (emax + 2. * coulbar(type2)) * max((emax - coulbar(type2)) **2, 1.)
+      denomki(type2) = (2. * parspin(type2) + 1.) * sigav * (emax + 2. * coulbar(type2)) * max(dE **2, 100.)
     enddo
 !
 ! Knockout and inelastic terms
