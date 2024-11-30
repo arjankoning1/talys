@@ -194,8 +194,12 @@ subroutine preeqout
 ! 2. Output of pre-equilibrium cross sections
 !
   preeqfile = 'preeq.out'
-  quantity = 'preequilibrium emission spectra'
-  open (unit = 1, file = preeqfile, status = 'replace')
+  if (preeqfirst) then
+    open (unit = 1, file = preeqfile, status = 'replace')
+    preeqfirst = .false.
+  else
+    open (unit = 1, file = preeqfile, status = 'old', position = 'append')
+  endif
   un='mb'
   col=''
   col(2)='Total'
@@ -212,6 +216,23 @@ subroutine preeqout
   Ncol=12
   write(*, '(/" ++++++++++ TOTAL PRE-EQUILIBRIUM CROSS SECTIONS ++++++++++",/)')
   if (preeqnorm /= 0.) write(*, '(/" Pre-equilibrium normalization factor: ", f8.5/)') preeqnorm
+  col(1)='particle'
+  un(1)=''
+  reaction='('//parsym(k0)//',x)'
+  quantity = 'preequilibrium cross sections'
+  topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)
+  call write_header(topline,source,user,date,oformat)
+  call write_target
+  call write_reaction(reaction,0.D0,0.D0,0,0)
+  call write_real(2,'E-incident [MeV]',Einc)
+  call write_real(2,'Pre-equilibrium cross section [mb]', xspreeqsum)
+  call write_datablock(quantity,Ncol,7,col,un)
+  do type = 0, 6
+    nonpski = xspreeqtot(type) - xspreeqtotps(type) - xspreeqtotki(type) - xspreeqtotbu(type)
+    write(1, '(4x, a8, 4x, 11es15.6)') parname(type),xspreeqtot(type), (xssteptot(type, p), p = 1, maxpar), nonpski, &
+   &    xspreeqtotps(type), xspreeqtotki(type), xspreeqtotbu(type)
+  enddo
+  quantity = 'preequilibrium emission spectra'
   do type = 0, 6
     if (parskip(type)) cycle
     if (ebegin(type) >= eend(type)) cycle
@@ -230,14 +251,6 @@ subroutine preeqout
       write(1, '(12es15.6)') egrid(nen), xspreeq(type, nen), (xsstep(type, p, nen), p = 1, maxpar), nonpski, &
  &      xspreeqps(type, nen), xspreeqki(type, nen), xspreeqbu(type, nen)
     enddo
-  enddo
-  col(1)='particle'
-  un(1)=''
-  call write_datablock('preequilibrium cross sections',Ncol,7,col,un)
-  do type = 0, 6
-    nonpski = xspreeqtot(type) - xspreeqtotps(type) - xspreeqtotki(type) - xspreeqtotbu(type)
-    write(1, '(4x, a8, 4x, 11es15.6)') parname(type),xspreeqtot(type), (xssteptot(type, p), p = 1, maxpar), nonpski, &
-   &    xspreeqtotps(type), xspreeqtotki(type), xspreeqtotbu(type)
   enddo
   close (unit = 1)  
   call write_outfile(preeqfile,flagoutall)
