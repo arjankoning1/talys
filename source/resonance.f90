@@ -106,6 +106,7 @@
 !
 !
 !
+  write(*,'()')
   headstring=''
   if (Liso == 0) then
     afile = '000.res. '
