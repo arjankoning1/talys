@@ -60,7 +60,7 @@ subroutine input_basicpar
   isomer = 1.
   Lisoinp = -1
   outtype = ' '
-  source = 'TALYS-2.04'
+  source = 'TALYS-2.1'
   oformat = 'YANDF-0.2'
 !
 ! **************** Read input variables *******************
