@@ -191,11 +191,23 @@ subroutine inverseecis(Zcomp, Ncomp)
   if (flagoutomp) then
     write(*, '(/" ######### OPTICAL MODEL PARAMETERS ##########",/)')
     if (jlmexist(Zcomp, Ncomp, 1) .or. jlmexist(Zcomp, Ncomp, 6)) then
-      write(*, '(/" Radial densities"/)')
-      write(*, '(" Radius   Protons     Neutrons"/)')
+      un=''
+      col(1)='radius'
+      un(1)='fm'
+      col(2)='protons'
+      col(3)='neutrons'
+      Ncol=3
+      quantity='radial density'
+      topline=trim(targetnuclide)//' '//trim(quantity)//' for OMP'
+      open (unit=1, file='radial.out', status='unknown')
+      call write_header(topline,source,user,date,oformat)
+      call write_target
+      call write_datablock(quantity,Ncol,numjlm,col,un)
       do i = 1, numjlm
-        write(*, '(f7.3, 2es12.5)') 0.1*real(i), rhojlmp(Zcomp, Ncomp, i, 1), rhojlmn(Zcomp, Ncomp, i, 1)
+        write(1, '(3es15.6)') 0.1*real(i), rhojlmp(Zcomp, Ncomp, i, 1), rhojlmn(Zcomp, Ncomp, i, 1)
       enddo
+      close(unit =1)
+      call write_outfile('radial.out',flagoutall)
     endif
   endif
   flagecisinp = .false.
@@ -223,6 +235,7 @@ subroutine inverseecis(Zcomp, Ncomp)
     if (flagoutomp .and. .not. jlmloc) then
       un='fm'
       col(1)='E'
+      un(1)='MeV'
       col(2)='V'
       un(2)='MeV'
       col(3)='rv'
