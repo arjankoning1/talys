@@ -314,6 +314,7 @@ subroutine binary
   xscompall = max(xsreacinc - xsdirdiscsum - xspreeqsum - xsgrsum - xsracape, 0.)
   xscompnonel = xscompall - xscompel
   xscompnonel = max(xscompnonel, 0.)
+  if (k0 == 0) xstotinc = xselastot + xsnonel
 !
 ! ***************** Create binary feeding channels *********************
 !
