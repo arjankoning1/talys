@@ -187,7 +187,6 @@ subroutine directout
   col(3)='Width'
   un(2)='MeV'
   col(3)='Deform. par.'
-  write(*, '("      Cross section   Exc. energy Emis. energy", "   Width    Deform. par."/)')
   Ncol = 6
   Nk = 4
   call write_datablock(quantity,Ncol,Nk,col,un)
