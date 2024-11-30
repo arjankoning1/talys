@@ -151,7 +151,7 @@ subroutine urrout
   odd = mod(Atarget + 1, 2)
   do l = 0, lurr
     do J = JminU(l), JmaxU(l)
-      write(1, '(i6,9x,es15.6,i6,9x,10es15.6)') l, J+0.5*odd, Purrlj(l, J), Dl(l), Dlj(l, J), strengthl(l), &
+      write(1, '(3x,i6,12x,f5.1,9x,i6,4x,10es15.6)') l, J+0.5*odd, Purrlj(l, J), Dl(l), Dlj(l, J), strengthl(l), &
  &      strengthlj(l, J), urrwidth(1, l, J), urrwidth(3, l, J), &
  &      urrwidth(0, l, J), urrwidth( - 1, l, J), urrwidth(2, l, J), urrwidth(6, l, J)
     enddo
