@@ -87,8 +87,8 @@ subroutine totalout
   endif
   write(*, '(" Center-of-mass energy: ", f8.3/)') eninccm
   write(*, '(" 1. Total (binary) cross sections"/)')
-  if (k0 == 1) write(*, '(" Total           =", es12.5)') xstotinc
-  if (k0 == 1) write(*, '("   Shape elastic   =", es12.5)') xselasinc
+  if (k0 <= 1) write(*, '(" Total           =", es12.5)') xstotinc
+  if (k0 <= 1) write(*, '("   Shape elastic   =", es12.5)') xselasinc
   write(*, '("   Reaction        =", es12.5)') xsreacinc
   write(*, '("     Compound elastic=", es12.5)') xscompel
   write(*, '("     Non-elastic     =", es12.5)') xsnonel
@@ -97,7 +97,7 @@ subroutine totalout
   if (flagracap) write(*, '("       Direct Capture  =", es12.5)') xsracape
   if (flaggiant) write(*, '("       Giant resonance =", es12.5)') xsgrsum
   write(*, '("       Compound non-el =", es12.5)') xscompnonel
-  if (k0 == 1) write(*, '("     Total elastic   =", es12.5)') xselastot
+  if (k0 <= 1) write(*, '("     Total elastic   =", es12.5)') xselastot
 !
 ! Write results to separate file
 !
@@ -105,7 +105,7 @@ subroutine totalout
     quantity='cross section'
     un = 'mb'
     col(1)='E'
-    col(1)='MeV'
+    un(1)='MeV'
     col(2)='xs'
     col(2)='Non-elastic'
     col(3)='Elastic'
