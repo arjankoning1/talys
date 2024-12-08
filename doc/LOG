@@ -82,7 +82,8 @@ discovered by Jinrong Liu.
 
 Hope to have solved a problem for low energy (p,gamma) and (alpha,gamma)
 cross sections by buiding in a Fermi function for complex-particle 
-preequilibrium reaction at low energies.
+preequilibrium reaction at low energies. 
+Found by Sotirios Charisopoulos.
 
 - June 20 2024
 
@@ -99,12 +100,15 @@ the incident and outgoing neutron channel, while these are not
 necessarily described by the same OMP (as the neutron emission is from 
 an excited state). Now, it is possible to give e.g. 'v1adjust e 1.10' 
 where 'e' stands for the ejectile that is equal to the projectile.
+This changes the transmission coefficients for the exit channel but
+not for the incident channel.
 
 - July 12 2024
 
 Changed default for older PSF's. For B-A and K-U, now strengthM1 2 is 
 used, i.e. the RIPL-2 prescription. Hence, only modern PSF's for E1 
-are accompanied by modern ones for M1.
+are accompanied by modern ones for M1. The recommended strength keywords
+remain '8' and '9'.
 
 - July 20 2024
 
@@ -117,75 +121,76 @@ of the 416 posterior OMP parameter distributions.
 
 More YANDF output for pre-equilibrium and photon strength functions.
 
-August 19 2024
+- August 19 2024
 
 Changed weight in direct capture calculation in racapcalc.f
 
-August 20 2024
+- August 20 2024
 
 Added two more PSF models, strength 11 - D1M-Intra-E1 and 
 strength 12 - Shellmodel-M1 
 
-!!!August 22 2024
-!!!
-!!!Corrected a line for WFC in comptarget.f90: type == 1 into 
-!!!type == k0 tnumo = tNinc. We think this should be done for all inelastic
-!!!channels and not for the neutron outgoing channel.
-
-August 29 2024
+- August 29 2024
 
 Solved an interpolation error in twkbint which led tot NaN for some 
 fission transmission coefficients
 
-August 31 2024
+- August 31 2024
 
-Protected some character values for isomers going out of bounds when the number
-of isomers is beyond 10 (i.e. very short half lives). Problem found by Hamza Abboudi.
+Protected some character values for isomers going out of bounds when 
+the number of isomers is beyond 10 (i.e. very short half lives). 
+Problem found by Hamza Abboudi.
 
-September 15 2024
+- September 15 2024
 
-Generalized some equations in fstrength.f90 from incidnet neutrons to any incident 
-particle, on the advice of Stephane Goriely.
+Generalized some equations in fstrength.f90 from incident neutrons to 
+any incident particle, on the advice of Stephane Goriely.
 
-September 16 2024
+- September 16 2024
 
-Change in foldalpha, put abs() around beta2
+Change in foldalpha, put abs() around beta2.
 
-October 24 2024
+- October 24 2024
 
 Changed default for printing emission spectra.
 
-October 25 2024
+- October 25 2024
 
-Corrected bug for isomers in the continuum after TENDL-2023 complaint
+Corrected bug for isomers in the continuum after TENDL-2023 problems 
+found by Jean-Christophe Sublet.
 
-October 26 2024
+- October 26 2024
 
-Added ndfit keyword
+Added ndfit keyword.
 
-November 15 2024
+- November 15 2024
 
-Changed default of 'bestbranch' to 'n' after a finding of Pascal Romain that 
-some important branching ratios were not correct. 
-The tables in structure/levels/branch overrule the RIPL discrete level branching 
-ratios to obtain a better description of isomeric cross sections.
-This means that by default there will be more emphasis on (adjusted) spin
-distribution of the level densities to obtain correct branching ratios.
+Changed default of 'bestbranch' to 'n' after a finding of Pascal Romain 
+that some important branching ratios were not correct. 
+The tables in structure/levels/branch overrule the RIPL discrete level 
+branching ratios to obtain a better description of isomeric cross 
+sections. This means that by default there will be more emphasis on 
+(adjusted) spin distribution of the level densities to obtain correct 
+branching ratios.
 
-November 17 2024
+- November 17 2024
 
-Added a file structure/profile to the system. Here the user can put keywords
-which are ALWAYS enabled in the calculations. If you prefer e.g. the old way
-of having a very large TALYS output file with all the specific info printed
-in that output file, you may put 'outall y' in that profile file so this will
-always be the case in your output. 
-The TALYS keywords in structure/profile will automatically be added to the
-user input file.
+Added a file structure/profile to the system. Here the user can put 
+keywords which are ALWAYS enabled in the calculations. If you prefer 
+the old way of having a very large TALYS output file with all the 
+specific info printed in that output file, you may put 'outall y' in 
+that profile file so this will always be the case in your output. 
+The TALYS keywords in structure/profile will automatically be added to 
+the user input file.
 
-November 30 2024
+- November 30 2024
 
 Removed a divergence for knock-out reactions in knockout.f. 
-When Emax is close to the Coulomb barrier, the denominator of the knock-out 
-formula of Kalbach diverges. This was taken care of by putting a maximum of 1 
-(dE=1) in the denominator but this is now replaced by 100 (dE=10).
+When Emax is close to the Coulomb barrier, the denominator of the 
+knock-out formula of Kalbach diverges. This was taken care of by 
+putting a maximum of 1 (dE=1) in the denominator but this is now 
+replaced by 100 (dE=10).
 
+- December 7 2024
+
+Made strength 8, QRPA model, for PSF the default.
