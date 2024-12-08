@@ -109,6 +109,7 @@ subroutine input_gammapar
   gammax = 2
   spectfacexp = 0.
   spectfacth = 0.
+  upbendadjust = 1.
   do Zix = 0, numZ
     do Nix = 0, numN
       if (k0 <= 1) then
@@ -404,6 +405,24 @@ subroutine input_gammapar
       class = 5
       call getvalues(class, word, Zix, Nix, type, ibar, irad, lval, igr, val, ival, cval, flagassign)
       if (flagassign) upbend(Zix, Nix, irad, lval, 3) = val
+      cycle
+    endif
+    if (key == 'upbendcadjust') then
+      class = 5
+      call getvalues(class, word, Zix, Nix, type, ibar, irad, lval, igr, val, ival, cval, flagassign)
+      if (flagassign) upbendadjust(Zix, Nix, irad, lval, 1) = val
+      cycle
+    endif
+    if (key == 'upbendeadjust') then
+      class = 5
+      call getvalues(class, word, Zix, Nix, type, ibar, irad, lval, igr, val, ival, cval, flagassign)
+      if (flagassign) upbendadjust(Zix, Nix, irad, lval, 2) = val
+      cycle
+    endif
+    if (key == 'upbendfadjust') then
+      class = 5
+      call getvalues(class, word, Zix, Nix, type, ibar, irad, lval, igr, val, ival, cval, flagassign)
+      if (flagassign) upbendadjust(Zix, Nix, irad, lval, 3) = val
       cycle
     endif
     if (key == 'sfexp') then
