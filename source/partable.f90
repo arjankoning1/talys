@@ -187,6 +187,11 @@ subroutine partable(Zix, Nix)
     endif
     if (strengthM1 >= 3) then
       write(51, '("upbendc        ", 2i4, es12.5, " M", i1)') Z, A, upbend(Zix, Nix, 0, l, 1), l
+      write(51, '("upbende        ", 2i4, es12.5, " M", i1)') Z, A, upbend(Zix, Nix, 0, l, 2), l
+      write(51, '("upbendf        ", 2i4, es12.5, " M", i1)') Z, A, upbend(Zix, Nix, 0, l, 3), l
+      write(51, '("upbendcadjust  ", 2i4, es12.5, " M", i1)') Z, A, upbendadjust(Zix, Nix, 0, l, 1), l
+      write(51, '("upbendeadjust  ", 2i4, es12.5, " M", i1)') Z, A, upbendadjust(Zix, Nix, 0, l, 2), l
+      write(51, '("upbendfadjust  ", 2i4, es12.5, " M", i1)') Z, A, upbendadjust(Zix, Nix, 0, l, 3), l
     endif
     if (ngr(Zix, Nix, 1, l) == 2) then
       write(51, '("sgr            ", 2i4, f8.3, " E", i1, " 2")') Z, A, sgr(Zix, Nix, 1, l, 2), l
