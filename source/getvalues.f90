@@ -5,7 +5,7 @@ subroutine getvalues(class, word, Zix, Nix, type, ibar, irad, lval, igr, val, iv
 !
 ! Author    : Arjan Koning
 !
-! 2024-06-30: Original code
+! 2024-12-08: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -45,7 +45,7 @@ subroutine getvalues(class, word, Zix, Nix, type, ibar, irad, lval, igr, val, iv
 ! *** Declaration of local data
 !
   implicit none
-  integer, parameter :: numEkey=81         ! number of keywords
+  integer, parameter :: numEkey=87         ! number of keywords
   logical            :: flagassign         ! flag to assign value or not
   logical            :: flagoutside        ! flag for value outside range
   logical            :: lexist             ! logical to determine existence
@@ -83,16 +83,17 @@ subroutine getvalues(class, word, Zix, Nix, type, ibar, irad, lval, igr, val, iv
 ! Several keywords may be altered over local energy ranges
 !
   data (keyword(i), i = 1, numEkey) / 'adepthcor', 'aradialcor', &
-    'avadjust', 'avdadjust', 'avsoadjust', 'awadjust', 'awdadjust', 'awsoadjust', 'bdamp', 'bdampadjust', &
-    'betafiscor', 'betafiscoradjust', 'cbreak', 'cfermi', 'cknock', &
-    'cstrip', 'ctable', 'ctableadjust', 'd1adjust', 'd2adjust', 'd3adjust', 'egr', 'egradjust', 'epr', 'epradjust', 'etable', &
-    'fisbar', 'fisbaradjust', 'fishw', 'fishwadjust', 'fsadjust', 'ftable', 'ftableadjust', &
-    'ggr', 'ggradjust', 'gpr', 'gpradjust', 'krotconstant', 'lv1adjust', 'lvadjust', 'lvsoadjust', &
-    'lw1adjust', 'lwadjust', 'lwsoadjust', 'm2constant', 'ptable', 'ptableadjust', 'rcadjust', 'rspincut', 'rspincutff', &
-    'rspincutpreeq', 'rvadjust', 'rvdadjust', 'rvsoadjust', 'rwadjust', 'rwdadjust', 'rwsoadjust', 's2adjust', 'sgr', 'sgradjust', &
-    'spr', 'spradjust', 'tjadjust', 'tmadjust', 'ufermi', 'v1adjust', 'v2adjust', 'v3adjust', 'v4adjust', 'vfiscor', &
-    'vfiscoradjust', 'vso1adjust', 'vso2adjust', 'w1adjust', 'w2adjust', 'w3adjust', 'w4adjust', 'wso1adjust', 'wso2adjust', &
-    'wtable', 'wtableadjust'/
+ &  'avadjust', 'avdadjust', 'avsoadjust', 'awadjust', 'awdadjust', 'awsoadjust', 'bdamp', 'bdampadjust', &
+ &  'betafiscor', 'betafiscoradjust', 'cbreak', 'cfermi', 'cknock', &
+ &  'cstrip', 'ctable', 'ctableadjust', 'd1adjust', 'd2adjust', 'd3adjust', 'egr', 'egradjust', 'epr', 'epradjust', 'etable', &
+ &  'fisbar', 'fisbaradjust', 'fishw', 'fishwadjust', 'fsadjust', 'ftable', 'ftableadjust', &
+ &  'ggr', 'ggradjust', 'gpr', 'gpradjust', 'krotconstant', 'lv1adjust', 'lvadjust', 'lvsoadjust', &
+ &  'lw1adjust', 'lwadjust', 'lwsoadjust', 'm2constant', 'ptable', 'ptableadjust', 'rcadjust', 'rspincut', 'rspincutff', &
+ &  'rspincutpreeq', 'rvadjust', 'rvdadjust', 'rvsoadjust', 'rwadjust', 'rwdadjust', 'rwsoadjust', 's2adjust', 'sgr', 'sgradjust', &
+ &  'spr', 'spradjust', 'tjadjust', 'tmadjust', 'ufermi', 'upbendc', 'upbendcadjust', 'upbende', 'upbendeadjust', 'upbendf', &
+ &  'upbendfadjust','v1adjust', 'v2adjust', 'v3adjust', 'v4adjust', 'vfiscor', &
+ &  'vfiscoradjust', 'vso1adjust', 'vso2adjust', 'w1adjust', 'w2adjust', 'w3adjust', 'w4adjust', 'wso1adjust', 'wso2adjust', &
+ &  'wtable', 'wtableadjust'/
 !
 ! ************************ Read values for keywords ********************
 !
