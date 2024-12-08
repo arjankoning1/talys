@@ -345,9 +345,9 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
 ! Inclusion of an additional low-E limit of E1 nature
 !
   if (flagupbend) then
-    upbendc = upbend(Zcomp, Ncomp, irad, l, 1)
-    upbende = upbend(Zcomp, Ncomp, irad, l, 2)
-    upbendf = upbend(Zcomp, Ncomp, irad, l, 3)
+    upbendc = upbendadjust(Zcomp, Ncomp, irad, l, 1) * upbend(Zcomp, Ncomp, irad, l, 1)
+    upbende = upbendadjust(Zcomp, Ncomp, irad, l, 2) * upbend(Zcomp, Ncomp, irad, l, 2)
+    upbendf = upbendadjust(Zcomp, Ncomp, irad, l, 3) * upbend(Zcomp, Ncomp, irad, l, 3)
     if ((strengthM1 == 8 .or. strengthM1 == 10) .and. irad == 0 .and. l == 1 .and. Zcomp + Ncomp >= 105) upbendf=0.
     if (irad == 1 .and. l == 1) then
       e = min(Efs, 20.) + S(Zcomp, Ncomp, k0) 
