@@ -6,7 +6,7 @@ subroutine gammaout(Zcomp, Ncomp)
 ! Author    : Arjan Koning
 !
 ! 2021-12-30: Original code
-! 2022-03-20: Added output for Gamma_gamma
+! 2024-12-08: revised version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -204,12 +204,12 @@ subroutine gammaout(Zcomp, Ncomp)
         endif
         if (flagupbend .and. l == 1) then
           if (irad == 0) then
-            call write_real(2,'M1 upbend C',upbend(Zcomp, Ncomp, 0, 1, 1))
-            call write_real(2,'M1 upbend eta',upbend(Zcomp, Ncomp, 0, 1, 2))
-            call write_real(2,'M1 upbend F',upbend(Zcomp, Ncomp, 0, 1, 3))
+            call write_real(2,'M1 upbend C',upbendadjust(Zcomp, Ncomp, 0, 1, 1) * upbend(Zcomp, Ncomp, 0, 1, 1))
+            call write_real(2,'M1 upbend eta',upbendadjust(Zcomp, Ncomp, 0, 1, 2) * upbend(Zcomp, Ncomp, 0, 1, 2))
+            call write_real(2,'M1 upbend F',upbendadjust(Zcomp, Ncomp, 0, 1, 3) * upbend(Zcomp, Ncomp, 0, 1, 3))
           else
-            call write_real(2,'E1 upbend C',upbend(Zcomp, Ncomp, 1, 1, 1))
-            call write_real(2,'E1 upbend eta',upbend(Zcomp, Ncomp, 1, 1, 2))
+            call write_real(2,'E1 upbend C',upbendadjust(Zcomp, Ncomp, 1, 1, 1) * upbend(Zcomp, Ncomp, 1, 1, 1))
+            call write_real(2,'E1 upbend eta',upbendadjust(Zcomp, Ncomp, 1, 1, 2) * upbend(Zcomp, Ncomp, 1, 1, 2))
           endif
         endif
         if (l == 1) then
