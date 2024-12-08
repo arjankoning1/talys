@@ -21,7 +21,6 @@ subroutine input_best
 !   nummt       ! number of MT numbers
 ! Variables for best files
 !   flagbest         ! flag to use best set of adjusted parameters
-!   flagfit          ! flag to use automatically fitted parameters
 !   flagbestend      ! flag to put best set of parameters at end of input file
 !   flagrescue       ! flag for final rescue: normalization to data
 !   rescuefile       ! file with incident energy dependent adjustment factors
@@ -56,7 +55,6 @@ subroutine input_best
 !
   flagbest = .false.
   flagbestend = .false.
-  flagfit = .false.
   flagrescue = .false.
   rescuefile = ' '
   grescue = 1.
@@ -94,12 +92,6 @@ subroutine input_best
     if (key == 'bestend') then
       if (ch == 'n') flagbestend = .false.
       if (ch == 'y') flagbestend = .true.
-      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
-      cycle
-    endif
-    if (key == 'fit') then
-      if (ch == 'n') flagfit = .false.
-      if (ch == 'y') flagfit = .true.
       if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
       cycle
     endif
