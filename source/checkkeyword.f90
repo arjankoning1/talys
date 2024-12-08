@@ -6,7 +6,7 @@ subroutine checkkeyword
 ! Author    : Arjan Koning
 !
 ! 2021-12-30: Original code
-! 2023-10-25: Latest version
+! 2023-12-08: Latest version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -20,7 +20,7 @@ subroutine checkkeyword
 ! *** Declaration of local data
 !
   implicit none
-  integer, parameter :: numkey=406        ! number of keywords
+  integer, parameter :: numkey=409        ! number of keywords
   integer            :: i                 ! counter
   integer            :: j                 ! counter
   character(len=132) :: key               ! keyword
@@ -77,8 +77,8 @@ subroutine checkkeyword
  &  's2adjust', 'sacs', 'segment', 'sfexp', 'sfth', 'sgr', 'sgradjust', 'shellmodel', 'skipcn', 'soswitch', 'soukho', 'source', &
  &  'spherical', 'spincutmodel', 'spr', 'spradjust', 'statepot', 'strength', 'strengthm1', 'strucpath', 'sysreaction', &
  &  't', 'tadjust', 'tcool', 'tirrad', 'tjadjust', 'tmadjust', 'transeps', 'transpower', 'tres', 'twocomponent', 'ufermi', &
- &  'upbend', 'upbendc', 'upbende', 'upbendf', 'urr', 'urrnjoy', 'user', 'v1adjust', 'v2adjust', 'v3adjust', &
- &  'v4adjust', 'vfiscor', 'vfiscoradjust', 'vinfadjust', 'vso1adjust', 'vso2adjust', &
+ &  'upbend', 'upbendc', 'upbendcadjust', 'upbende','upbendeadjust', 'upbendf', 'upbendfadjust', 'urr', 'urrnjoy', 'user', & 
+ &  'v1adjust', 'v2adjust', 'v3adjust', 'v4adjust', 'vfiscor', 'vfiscoradjust', 'vinfadjust', 'vso1adjust', 'vso2adjust', &
  &  'w1adjust', 'w2adjust', 'w3adjust', 'w4adjust', 'wfcfactor', 'wso1adjust', 'wso2adjust', 'widthfluc', 'widthmode', &
  &  'wtable', 'wtableadjust', 'xsalphatherm', 'xscaptherm', 'xseps', 'xsptherm', 'yieldfile', 'yieldunit'/
 !
