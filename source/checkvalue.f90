@@ -5,7 +5,7 @@ subroutine checkvalue
 !
 ! Author    : Arjan Koning
 !
-! 2021-12-30: Original code
+! 2024-12-08: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -843,6 +843,12 @@ subroutine checkvalue
           call range_real_error('upbende', upbend(Zix, Nix, irad, lval, 2), 0., 10., index1 = Z, name1 = 'Z', &
  &          index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L', index5 = 2, name5 = 'igr')
           call range_real_error('upbendf', upbend(Zix, Nix, irad, lval, 3), -10., 10., index1 = Z, name1 = 'Z', &
+ &          index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L', index5 = 2, name5 = 'igr')
+          call range_real_error('upbendcadjust', upbendadjust(Zix, Nix, irad, lval, 1), 0.05, 20., index1 = Z, name1 = 'Z', &
+ &          index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L', index5 = 1, name5 = 'igr')
+          call range_real_error('upbendeadjust', upbendadjust(Zix, Nix, irad, lval, 2), 0.05, 20., index1 = Z, name1 = 'Z', &
+ &          index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L', index5 = 2, name5 = 'igr')
+          call range_real_error('upbendfadjust', upbendadjust(Zix, Nix, irad, lval, 3), 0.05, 20., index1 = Z, name1 = 'Z', &
  &          index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L', index5 = 2, name5 = 'igr')
         enddo
       enddo
