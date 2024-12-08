@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2023-12-30: Original code
-! 2024-11-30: Current version
+! 2024-12-08: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -426,6 +426,7 @@ module A0_talys_mod
   real(sgl), dimension(0:numZ,0:numN,0:1,numgam,2)        :: tpr            ! strength of PR
   real(sgl), dimension(0:numZ,0:numN,0:1,numgam,2)        :: tpradjust      ! adjustable factor for strength of PR
   real(sgl), dimension(0:numZ,0:numN,0:1,numgam,3)        :: upbend         ! properties of the low-energy upbend of given multipola
+  real(sgl), dimension(0:numZ,0:numN,0:1,numgam,3)        :: upbendadjust   ! properties of the low-energy upbend of given multipola
   real(sgl), dimension(0:numZ,0:numN,0:1,numgam)          :: wtable         ! constant to adjust tabulated strength functions
   real(sgl), dimension(0:numZ,0:numN,0:1,numgam)          :: wtableadjust   ! adjustable correction to adjust tabulated strength fun
 !
