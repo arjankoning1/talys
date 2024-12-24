@@ -1,4 +1,4 @@
-subroutine kd03(k, flagpr)
+subroutine kd03(k, pr)
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
 ! Purpose   : Read global optical model parameters
@@ -20,20 +20,21 @@ subroutine kd03(k, flagpr)
 ! *** Declaration of local data
 !
   implicit none
-  logical           :: flagpr        !
   character(len=1)  :: pot           ! help variable
   character(len=3)  :: setstring     ! help variable
-  character(len=8)  :: par           ! help variable
+  character(len=30) :: par           ! help variable
   character(len=132):: ompfile       ! optical model parameter file
   integer           :: istat         ! logical for file access
   integer           :: k             ! designator for particle
+  integer           :: pr        !
   integer           :: set           ! 
   real(sgl)         :: x             !
 !
 ! ************** Read KD03 optical model parameters from database ***********
 !
-  if (flagpr) then
-    par='pruitt'
+  if (pr > 0) then
+    if (pr == 1) par='pruitt_federal'
+    if (pr == 2) par='pruitt_democratic'
     set=pruittset
   else
     par='kd03'
