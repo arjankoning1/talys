@@ -1,6 +1,6 @@
 # This file is part of TALYS
 # 
-#    Author: Arjan Koning Copyright: (C) 2023
+#    Author: Arjan Koning Copyright: (C) 2024
 #
 # TALYS is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -35,7 +35,7 @@ src = $(fsub) $(fsub1)
 all: change talys install clean
 
 change : 
-	../path_change
+	../path_change.bash
 
 talys : $(obj)
 	$(FC) $(FFLAGS) -o  talys  $(obj)
