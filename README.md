@@ -20,12 +20,12 @@ The following are the prerequisites for compiling TALYS:
 ### Downloads:
 
 To download TALYS, you can use one of the following options:
-#### 1. Download the entire tar file for the latest stable release:
+#### 1. Download the entire tar file (frozen version):
 ```
 https://nds.iaea.org/talys/talys.tar
 tar zxf talys.tar
 ```
-#### 2. Using git for the latest development version:
+#### 2. Using git (latest beta version):
 ```
 git clone https://github.com/arjankoning1/talys.git
 ```
@@ -49,14 +49,14 @@ To install TALYS, you can use one of the following options:
 cd talys/source
 make
 ```
-#### 2. Using the code_build script:
+#### 2. Using the install_talys.bash script:
 ```
 cd talys
-code_build talys
+install_talys.bash talys
 ```
 
 The above will produce a *talys* executable in the *talys/bin* directory. 
-The compiler and its flags can be set in either *source/Makefile* or in *code_build*.
+The compiler and its flags can be set in either *source/Makefile* or in *code_build.bash*.
 
 ### Memory restrictions:
 
@@ -68,7 +68,7 @@ The *talys/* directory contains the following directories and files:
 
 + `README.md` this README file
 + `LICENSE` the License file
-+ `code_build` and `path_change` installation scripts
++ `install_talys.bash` and `code_build.bash` installation scripts
 + `source/` the Fortran source code of TALYS and the Makefile
 + `bin/` the *talys* executable after successful installation
 + `structure/` the nuclear structure and reaction database in various subdirectories
