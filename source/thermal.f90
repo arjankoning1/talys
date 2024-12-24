@@ -291,7 +291,7 @@ subroutine thermal
           if (idchannel(idc) == 000001) then
             if (xsalphatherm(-1) > 0.) branchres = xsalphatherm(Nis) / xsalphatherm(-1)
           endif
-          if (eninc(nen) <= E1v) fexclbranch(nen, idc, nex) = branchres
+          if (eninc(nen) <= E1v .and. branchres > 0.) fexclbranch(nen, idc, nex) = branchres
           fxschaniso(nen, idc, nex) = 0.
           if (eninc(nen) <= Ethrexcl(idc, nex)) cycle
           if (eninc(nen) > E1v) then
