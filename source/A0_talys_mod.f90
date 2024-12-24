@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2023-12-30: Original code
-! 2024-12-08: Current version
+! 2024-12-29: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -438,7 +438,6 @@ module A0_talys_mod
   logical                                                   :: flagdisp      ! flag for dispersive optical model
   logical                                                   :: flagincadj    ! flag for OMP adjustment on incident channel
   logical                                                   :: flagjlm       ! flag for using semi-microscopic JLM OMP
-  logical                                                   :: flagpruitt    ! flag for using Pruitt parameters for KD03
   logical                                                   :: flaglocalomp  ! flag for local (y) or global (n) optical model
   logical                                                   :: flagompall    ! flag for new optical model calculation for all nuclei
   logical                                                   :: flagomponly   ! flag to execute ONLY an optical model calculation
@@ -461,6 +460,7 @@ module A0_talys_mod
   integer, dimension(0:numpar, numompadj)                   :: ompadjustN    ! number of energy ranges for local OMP adjustment
   integer                                                   :: pruittset     ! random set for Pruitt et al OMP
   integer                                                   :: radialmodel   ! model for radial matter densities (JLM OMP only)
+  integer                                                   :: pruitt        ! identifier for using Pruitt parameters for KD03
   real(sgl)                                                 :: adepthcor     ! adjustable parameter for depth of DF alpha potential
   real(sgl)                                                 :: aradialcor    ! adjustable parameter for shape of DF alpha potential
   real(sgl), dimension(0:numpar)                            :: avadjust      ! adjustable factor for OMP (default 1.)
