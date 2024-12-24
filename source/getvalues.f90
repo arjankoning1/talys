@@ -151,15 +151,17 @@ subroutine getvalues(class, word, Zix, Nix, type, ibar, irad, lval, igr, val, iv
       Nix = ia - iz
       iz = Zinit - Zix
       in = Ninit - Nix
+      ia = iz + in
     else
       in = ia - iz
       Zix = Zinit - iz
       Nix = Ninit - in
+      ia = iz + in
     endif
     call range_index_error(key, 'Z', iz, max(Zinit - numZ,0), Zinit, error = 'continue', flagoutside = flagoutside)
     if (.not. flagoutside) &
  &    call range_index_error(key, 'N', in, max(Ninit - numN,0), Ninit, error = 'continue', flagoutside = flagoutside)
-    if (flagoutside) write(*,'("Z= ",i3," A= ",i3," out of range")')  iz, ia
+    if (flagoutside) write(*,'(a,": Z= ",i3," A= ",i3," out of range")') trim(key), iz, ia
     i = 4
 !
 ! Z,A dependent keywords with possible fission barriers
