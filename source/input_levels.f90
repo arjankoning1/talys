@@ -101,14 +101,15 @@ subroutine input_levels
   nbranch = 0
   nlev = 0
   nlevmax = max(30, Ltarget)
-  nlevmaxres = 10
-  do type = 0, 6
-    if (type <= 2 .or. type == 6) then
-      nlevbin(type) = 10
-    else
-      nlevbin(type) = 5
-    endif
-  enddo
+  nlevbin = 30
+  nlevmaxres = 30
+! do type = 0, 6
+!   if (type <= 2 .or. type == 6) then
+!     nlevbin(type) = 10
+!   else
+!     nlevbin(type) = 5
+!   endif
+! enddo
   nlevbin(k0) = nlevmax
 !
 ! **************** Read input variables *******************
