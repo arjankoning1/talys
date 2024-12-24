@@ -100,7 +100,7 @@ subroutine input_ompmodel
   else
     flagjlm = .false.
   endif
-  flagpruitt = .false.
+  pruitt = 0
   flaglocalomp = .true.
   flagompall = .false.
   flagomponly = .false.
@@ -215,12 +215,6 @@ loop1:  do i = 1, nlines
       if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
       cycle
     endif
-    if (key == 'pruitt') then
-      if (ch == 'n') flagpruitt = .false.
-      if (ch == 'y') flagpruitt = .true.
-      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
-      cycle
-    endif
     if (key == 'soukho') then
       if (ch == 'n') flagsoukho = .false.
       if (ch == 'y') flagsoukho = .true.
@@ -238,6 +232,11 @@ loop1:  do i = 1, nlines
       if (ch == 'n') flagincadj = .false.
       if (ch == 'y') flagincadj = .true.
       if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'pruitt') then
+      read(value, * , iostat = istat) pruitt
+      if (istat /= 0) call read_error(line, istat)
       cycle
     endif
     if (key == 'rvadjustf' .or. key == 'avadjustf' .or. key == 'rwadjustf' .or. key == 'awadjustf' .or. &
