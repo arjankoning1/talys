@@ -735,6 +735,7 @@ subroutine checkvalue
     call range_real_error('Ejoin', Ejoin(type), 0., Emaxtalys, index1 = type, name1 = 'type')
     call range_real_error('Vinfadjust', Vinfadjust(type), 0.01, 10., index1 = type, name1 = 'type')
   enddo
+  call range_integer_error('pruitt', pruitt, 0, 2)
   call range_integer_error('pruittset', pruittset, 0, 416)
 !
 ! Check direct reaction parameters
