@@ -6,7 +6,7 @@ subroutine mainout
 ! Author    : Arjan Koning
 !
 ! 2023-12-30: Original code
-! 2024-12-08: Current revision
+! 2024-12-29: Current revision
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -69,7 +69,7 @@ subroutine mainout
 !
 ! *************************** Code and version *************************
 !
-  write(*, '(/"    TALYS-2.1 (Version: December 8, 2024)"/)')
+  write(*, '(/"    TALYS-2.1 (Version: December 29, 2024)"/)')
   write(*, '(" Copyright (C) 2024  A.J. Koning, S. Hilaire and S. Goriely"/)')
   write(*, '(" Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees")')
   write(*, '(/" User: ",a)') trim(user)
@@ -96,7 +96,7 @@ subroutine mainout
  &    cparity(parlev(Zix, Nix, Ltarget)), tau(Zix, Nix, Ltarget)
   endif
   write(*, '(/" Included channels:")')
-  do type = - 1, 6
+  do type = -1, 6
     if (parskip(type)) cycle
     write(*, '(21x, a8)') parname(type)
   enddo
@@ -130,7 +130,7 @@ subroutine mainout
       enddo
     else
       write(*, '(" Parity   Ex ", 11("      J=", i2)/)') (J, J = 0, 10)
-      do parity = - 1, 1, 2
+      do parity = -1, 1, 2
         do i = 1, npopE
           write(*, '(i6,12es10.3)') parity, EdistE(i), (PdistJP(i, J, parity), J = 0, 10)
         enddo
