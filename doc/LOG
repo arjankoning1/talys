@@ -27,7 +27,7 @@ metadata in gammadecay.f90.
 Solved a bug in angleout.f90 for the Legendre coefficient files.
 Bug found by Caleb Mattoon. Some of the data sets were written twice.
 
-Added an 'E" to discrete level output for assignment of energy level.
+Added an 'E' to discrete level output for assignment of energy level.
 
 - March 2 2024
 
@@ -176,12 +176,12 @@ branching ratios.
 - November 17 2024
 
 Added a file structure/profile to the system. Here the user can put 
-keywords which are ALWAYS enabled in the calculations. If you prefer 
-the old way of having a very large TALYS output file with all the 
-specific info printed in that output file, you may put 'outall y' in 
-that profile file so this will always be the case in your output. 
-The TALYS keywords in structure/profile will automatically be added to 
-the user input file.
+keywords which are ALWAYS enabled in the calculations. For example,
+if you prefer the old way of having a very large TALYS output file 
+with all the specific info printed in that output file, you may put 
+'outall y' in that profile file so this will always be the case in 
+your output. The TALYS keywords in structure/profile will automatically 
+be added to the user input file.
 
 - November 30 2024
 
@@ -197,11 +197,11 @@ Made strength 8, QRPA model, for PSF the default.
 
 - December 20 2024
 
-Added two options for the pruit OMP, Democratic and Federal and 
+Added two options for the Pruitt OMP, Democratic and Federal and 
 changed the 'pruitt' keyword for that
 
 - December 22 2024
 
-Made the number of discrete levels of 30 the default for all 
+Made the number of discrete levels, 30, the default for all 
 residual nuclides.
 
