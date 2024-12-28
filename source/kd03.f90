@@ -21,25 +21,22 @@ subroutine kd03(k, pr)
 !
   implicit none
   character(len=1)  :: pot           ! help variable
+  character(len=1)  :: pr            ! help variable
   character(len=3)  :: setstring     ! help variable
   character(len=30) :: par           ! help variable
   character(len=132):: ompfile       ! optical model parameter file
   integer           :: istat         ! logical for file access
   integer           :: k             ! designator for particle
-  integer           :: pr        !
   integer           :: set           ! 
   real(sgl)         :: x             !
 !
 ! ************** Read KD03 optical model parameters from database ***********
 !
-  if (pr > 0) then
-    if (pr == 1) par='pruitt_federal'
-    if (pr == 2) par='pruitt_democratic'
-    set=pruittset
-  else
-    par='kd03'
-    set=0
-  endif
+  par='kd03'
+  set=0
+  if (pr == 'f' .or. pr == 'y') par='pruitt_federal'
+  if (pr == 'd') par='pruitt_democratic'
+  if (pr /= 'n') set=pruittset
   write(setstring,'(i3)') set
   pot = ''
   ompfile = trim(path)//'optical/global/'//trim(par)//'/'//trim(adjustl(setstring))//'/parameters.json'
