@@ -449,6 +449,7 @@ module A0_talys_mod
   logical                                                   :: flagsoukhoinp ! flag for Soukhovitskii OMP for actinides
   logical                                                   :: flagsoukho    ! flag for Soukhovitskii OMP for actinides
   logical                                                   :: flagriplrisk  ! flag for going outside RIPL mass validity range
+  character(len=1)                                          :: pruitt        ! identifier for using Pruitt parameters for KD03
   character(len=132), dimension(0:numZph, 0:numNph, numpar) :: optmod        ! file with optical model parameters
   character(len=132), dimension(0:numZ)                     :: optmodfileN   ! optical model parameter file for neutrons
   character(len=132), dimension(0:numZ)                     :: optmodfileP   ! optical model parameter file for protons
@@ -460,7 +461,6 @@ module A0_talys_mod
   integer, dimension(0:numpar, numompadj)                   :: ompadjustN    ! number of energy ranges for local OMP adjustment
   integer                                                   :: pruittset     ! random set for Pruitt et al OMP
   integer                                                   :: radialmodel   ! model for radial matter densities (JLM OMP only)
-  integer                                                   :: pruitt        ! identifier for using Pruitt parameters for KD03
   real(sgl)                                                 :: adepthcor     ! adjustable parameter for depth of DF alpha potential
   real(sgl)                                                 :: aradialcor    ! adjustable parameter for shape of DF alpha potential
   real(sgl), dimension(0:numpar)                            :: avadjust      ! adjustable factor for OMP (default 1.)
