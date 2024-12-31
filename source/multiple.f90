@@ -360,7 +360,7 @@ subroutine multiple
           NL = Nlast(Zcomp, Ncomp, 0)
           NT = Ntop(Zcomp, Ncomp, 0)
           call write_integer(2,'number of discrete levels (NL)',NL)
-          call write_integer(2,'Ntop',NT)
+          call write_integer(2,'highest discrete level for level density matching (Ntop)',NT)
           call write_real(2,'normalization factor for levels between Ntop and NL',discfactor(Zcomp, Ncomp))
           if (maxex(Zcomp, Ncomp) > NL) then
             call write_integer(2,'number of continuum bins',maxex(Zcomp, Ncomp) - NL)
