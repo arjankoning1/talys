@@ -118,7 +118,7 @@ subroutine ddxout
   Ncol=6
   quantity='double-differential cross section'
   if (ddxmode == 1 .or. ddxmode == 3) then
-    write(*, '(/" 9. Double-differential cross sections per", " outgoing energy")')
+    write(*, '(/" 9. Double-differential cross sections per outgoing energy")')
     do type = 1, 6
       if (parskip(type)) cycle
       if (xsparticle(type) == 0.) cycle
@@ -126,7 +126,7 @@ subroutine ddxout
         Eo(nen) = espec(type, nen)
         if (xssumout(type, nen) == 0.) cycle
         write(*, '(/" DDX for outgoing ", a8, " at ", f8.3, " MeV"/)') parname(type), Eo(nen)
-        write(*, '(" Angle   Total      Direct  ", "   Pre-equil.  Mult. preeq   Compound"/)')
+        write(*, '(" Angle   Total      Direct     Pre-equil.  Mult. preeq   Compound"/)')
         do iang = 0, nanglecont
           write(*, '(1x, f5.1, 5es12.5)') anglecont(iang), xssumoutad(type, nen, iang), xsdiscoutad(type, nen, iang), &
  &          xspreeqoutad(type, nen, iang), xsmpreeqoutad(type, nen, iang), xscompoutad(type, nen, iang)
@@ -193,7 +193,7 @@ subroutine ddxout
       if (flagrecoil .and. flaglabddx) then
         do nen = 1, iejlab(type)
           Eo(nen) = Eejlab(type, nen)
-          write(*, '(/" DDX for outgoing ", a8, " at ", f8.3, " MeV", " in LAB frame")') parname(type), Eo(nen)
+          write(*, '(/" DDX for outgoing ", a8, " at ", f8.3, " MeV in LAB frame")') parname(type), Eo(nen)
           write(*, '(" Angle   Cross section"/)')
           do iang = 0, nanglecont
             write(*, '(1x, f5.1, es12.5)') anglecont(iang), ddxejlab(type, nen, iang)
@@ -250,14 +250,16 @@ subroutine ddxout
 ! 2. Emission spectra per outgoing angle
 !
   if (ddxmode == 2 .or. ddxmode == 3) then
+    col(1)='E-out'
+    un(1)='MeV'
     anginc = 180. / nanglecont
-    write(*, '(/" 9. Double-differential cross sections per", " outgoing angle")')
+    write(*, '(/" 9. Double-differential cross sections per outgoing angle")')
     do type = 1, 6
       if (parskip(type)) cycle
       if (xsparticle(type) == 0.) cycle
       do iang = 0, nanglecont
         write(*, '(/" DDX for outgoing ", a8, " at ", f7.3, " degrees")') parname(type), anglecont(iang)
-        write(*, '(/"    E-out    Total      Direct  ", "   Pre-equil. Mult. preeq   Compound"/)')
+        write(*, '(/"    E-out    Total      Direct     Pre-equil. Mult. preeq   Compound"/)')
         do nen = ebegin(type), eendout(type)
           Eout = espec(type, nen)
           write(*, '(1x, f8.3, 5es12.5)') Eout, xssumoutad(type, nen, iang), xsdiscoutad(type, nen, iang), &
