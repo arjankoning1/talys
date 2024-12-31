@@ -173,7 +173,8 @@ subroutine urrout
 !
 ! Output of (l,J) dependent widths, spacings and strength functions in separate files
 !
-  do type = - 1, 6
+  do type = -1, 6
+    if (type == -1 .and. .not.flagfission) cycle
     if (type == 5 .and. Q(2) <= 0.) cycle
     if (type == 6 .and. Q(6) <= 0.) cycle
     do l = 0, lurr
