@@ -107,7 +107,7 @@ subroutine rpevap
     do iz = 1, Ztarget0
       in = ia - iz
       if (in < 1 .or. in > numneu) cycle
-      if (xspopnuc0(iz, ia) < 5.) cycle
+      if (xspopnuc0(iz, ia) < popeps) cycle
       Arp = ia
       Zrp = iz
       call evaptalys
@@ -237,7 +237,10 @@ subroutine rpevap
   flagmain = .true.
   if ( .not. flagompall) call basicxs(0, 0)
   if (parinclude(0)) call gamma(0, 0)
-  if (enincmax >= epreeq .or. flagracap) call preeqinit
+  if (enincmax >= epreeq .or. flagracap) then
+    call preeqinit
+    call excitoninit
+  endif
   if (flagracap) call racapinit
   if (flagcomp) call compoundinit
 !
@@ -245,6 +248,8 @@ subroutine rpevap
 !
 !   call massdisout
 !   call nubarout
+!   call nudisout
+!   if (flagspec) call pfnsout
   return
 end subroutine rpevap
 ! Copyright A.J. Koning 2021
