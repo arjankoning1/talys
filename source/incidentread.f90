@@ -157,17 +157,29 @@ subroutine incidentread
   endif
   read(infilecs, '()')
   if (k0 == 1) then
-    read(infilecs, * ) xs
+    read(infilecs, *, iostat=istat ) xs
+    if (istat /= 0) then
+      write(*, '(" TALYS-warning: Unreadable cross section in file ", i3, " set to zero")') infilecs
+      xs = 0.
+    endif
     xstotinc = real(xs)
   endif
-  read(infilecs, * ) xs
+  read(infilecs, *, iostat=istat ) xs
+  if (istat /= 0) then
+    write(*, '(" TALYS-warning: Unreadable cross section in file ", i3, " set to zero")') infilecs
+    xs = 0.
+  endif
   xsreacinc = real(xs)
   xsoptinc = real(xs)
   if (k0 == 1) then
-    read(infilecs, * ) xs
+    read(infilecs, *, iostat=istat ) xs
+    if (istat /= 0) then
+      write(*, '(" TALYS-warning: Unreadable cross section in file ", i3, " set to zero")') infilecs
+      xs = 0.
+    endif
     xselasinc = real(xs)
   endif
-  eps = - 1.e-3
+  eps = -1.e-3
   if (xselasinc < eps .or. xsreacinc < eps .or. xstotinc < eps) then
     write(*, '(" TALYS-warning: Negative OMP cross section")')
     write(*, '(" Elastic : ", es12.5)') xselasinc
