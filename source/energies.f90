@@ -217,7 +217,7 @@ subroutine energies
   else
     flagaddel = .true.
   endif
-  if (flagffruns.or.flaginitpop) then
+  if (flagffruns.or.flagrpruns.or.flaginitpop) then
     flagaddel = .false.
     flagadd = .false.
   endif
