@@ -317,7 +317,7 @@ subroutine gammapar(Zix, Nix)
 !
   if (strengthM1 == 8 .or. strengthM1 == 10 .or. strengthM1 == 11 .or. strengthM1 == 12) then
     gamchar = trim(nuc(Z))//'.psf'
-    if (strengthM1 == 8) gamfile = trim(path)//'gamma/gognyM1/'//gamchar
+    gamfile = trim(path)//'gamma/gognyM1/'//gamchar
     if (strengthM1 == 10) gamfile = trim(path)//'gamma/bsk27_M1/'//gamchar
     if (strengthM1 == 11 .and. Zix == 0 .and. Nix == 0) then
       gamfile = trim(path)//'gamma/d1m-intra-m1/'//gamchar
