@@ -126,9 +126,17 @@ subroutine input_fissionpar
   Tmadjust = 1.
   Fsadjust = 1.
   if (Atarget <= fislim) then
-    Cbarrier = 0.85
+    if (ldmodel(0,0) <= 3) then
+      Cbarrier = 0.85
+    else
+      Cbarrier = 2.00
+    endif
   else
-    Cbarrier = 1.20
+    if (ldmodel(0,0) <= 3) then
+      Cbarrier = 1.20
+    else
+      Cbarrier = 2.00
+    endif
   endif
   do Zix = 0, numZ
     do Nix = 0, numN

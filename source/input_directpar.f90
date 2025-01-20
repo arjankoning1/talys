@@ -50,7 +50,7 @@ subroutine input_directpar
 ! ************** Defaults *************
 !
   maxband = 0
-  maxrot = 2
+  maxrot = 4
   core = -1
   eadd = 0.
   eaddel = 0.
