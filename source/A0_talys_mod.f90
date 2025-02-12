@@ -830,6 +830,7 @@ module A0_talys_mod
   integer, dimension(0:numZ,0:numN,0:numlev)                   :: nbranch     ! number of branching levels
   integer, dimension(-1:numZ,-1:numN)                          :: Nisomer     ! number of isomers for this nuclide
   integer, dimension(0:numZ,0:numN)                            :: nlevmax2    ! maximum number of levels
+  integer, dimension(0:numZ,0:numN)                            :: branchdone  ! flag for applying branching ratio normalization
   integer, dimension(0:numZ,0:numN,0:numlev2)                  :: levnum      ! number of level
   integer, dimension(0:numZ,0:numN,0:numlev2)                  :: parlev      ! parity of level
   real(sgl), dimension(0:numZ,0:numN,0:numlev,0:numlev)        :: branchratio ! gamma-ray branching ratio to level
