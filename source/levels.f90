@@ -310,7 +310,7 @@ subroutine levels(Zix, Nix)
 !
 ! Adjust branching ratios for isomeric cross sections
 !
-  if (Lis > 0 .and. Risomer(Zix, Nix) /= 1.) then
+  if (Lis > 0 .and. Risomer(Zix, Nix) /= 1. .and. branchdone(Zix,Nix) == 0) then
     do i = 1, nlev2
       if (tau(Zix,Nix,i) >= isomer) then
         brexist = .false.
@@ -340,6 +340,7 @@ subroutine levels(Zix, Nix)
         enddo
       endif
     enddo
+    branchdone(Zix, Nix) = 1
   endif
 !
 ! Extract level information for resonances of light nuclides
