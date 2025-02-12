@@ -276,7 +276,7 @@ subroutine binary
           term=xsracappopex(nex)
           xspop(Zix, Nix, nex, J, parity) = xspop(Zix, Nix, nex, J, parity) + term
           xspopex(Zix, Nix, nex) = xspopex(Zix, Nix, nex) + term
-          xspopex0(type, nex) = xspopex(Zix, Nix, nex) + term
+          xspopex0(type, nex) = xspopex0(Zix, Nix, nex) + term
           if (flagpop) then
             xspopnucP(Zix, Nix, parity) = xspopnucP(Zix, Nix, parity) + term
             xspopexP(Zix, Nix, nex, parity) = xspopexP(Zix, Nix, nex, parity) + term
