@@ -329,6 +329,7 @@ subroutine strucinitial
   nbranch = 0
   Nisomer = 0
   nlevmax2 = 0
+  branchdone = 0
   flagwidth = .false.
   flagpreeq = .false.
   flagcompang = .false.
