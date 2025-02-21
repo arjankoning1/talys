@@ -206,11 +206,8 @@
 ! Write model parameters to separate file
 !
   if (flagpartable) then
-    write(51, '("##")')
-    write(51, '("## General parameters")')
-    write(51, '("##")')
-    write(51, '("## Level density")')
-    write(51, '("##")')
+    write(51, '("## General parameters:")')
+    write(51, '("##   level density")')
     write(51, '("ldmodel        ", i1)') ldmodel(0, 0)
     write(51, '("colenhance     ", a1)') yesno(flagcolall)
     if (ldmodel(0, 0) <= 3) then
@@ -226,15 +223,13 @@
     write(51, '("cglobal        ", es12.5)') cglobal
     write(51, '("pglobal        ", es12.5)') pglobal
     if (phmodel == 1) write(51, '("Kph            ", f10.5)') Kph
-    write(51, '("##")')
-    write(51, '("## Gamma-ray")')
-    write(51, '("##")')
+    write(51, '("## General parameters:")')
+    write(51, '("##   photon strength function")')
     write(51, '("strength       ", i2)') strength
     write(51, '("strengthM1     ", i2)') strengthM1
     write(51, '("xscaptherm     ", es12.5)') xscaptherm(-1)
-    write(51, '("##")')
-    write(51, '("## Pre-equilibrium")')
-    write(51, '("##")')
+    write(51, '("## General parameters:")')
+    write(51, '("##   pre-equilibrium")')
     write(51, '("M2constant     ", f10.5)') M2constant
     write(51, '("M2limit        ", f10.5)') M2limit
     write(51, '("M2shift        ", f10.5)') M2shift
@@ -250,18 +245,16 @@
       write(51, '("Cknock        ", a1, f10.5)') parsym(type), Cknock(type)
       write(51, '("Cbreak        ", a1, f10.5)') parsym(type), Cbreak(type)
     enddo
-    write(51, '("##")')
-    write(51, '("## Fission")')
-    write(51, '("##")')
+    write(51, '("## General parameters:")')
+    write(51, '("##   fission")')
     write(51, '("fismodel       ", i1)') fismodel
     write(51, '("Cnubar1        ", f10.5)') Cnubar1
     write(51, '("Cnubar2        ", f10.5)') Cnubar2
     write(51, '("Tmadjust       ", f10.5)') Tmadjust
     write(51, '("Fsadjust       ", f10.5)') Fsadjust
     write(51, '("Cbarrier       ", f10.5)') Cbarrier
-    write(51, '("##")')
-    write(51, '("## Optical model")')
-    write(51, '("##")')
+    write(51, '("## General parameters:")')
+    write(51, '("##   optical model")')
     if (flagjlm) then
       write(51, '("lvadjust       ", f10.5)') lvadjust
       write(51, '("lwadjust       ", f10.5)') lwadjust
@@ -316,8 +309,8 @@
       endif
     enddo
     if (k0 == 1 .and. (parinclude(0) .or. flagcomp) .and. Rprime /= 0.) then
-      write(51, '("##")')
-      write(51, '("## Resonance parameters")')
+      write(51, '("## General parameters:")')
+      write(51, '("##   resonance parameters")')
       write(51, '("## Z   A     S0        R      xs(therm)    D0", "         a         P        Sn")')
       write(51, '("##", 2i4, 7es10.3)') Ztarget, Atarget, Sstrength(0) * 1.e4, Rprime, xscaptherm(-1), D0theo(0, 0), &
  &      alev(0, 0), pair(0, 0), S(0, 0, 1)
