@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2023-12-30: Original code
-! 2025-02-12: Current version
+! 2025-02-21: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -2247,4 +2247,4 @@ module A0_talys_mod
   real(sgl), dimension(numen6) :: xsreac6   ! reaction cross section for ENDF-6 file
   real(sgl), dimension(numen6) :: xstot6    ! total cross section (neutrons only) for ENDF-6 file
 end module A0_talys_mod
-! Copyright A.J. Koning 2024
+! Copyright A.J. Koning 2025
