@@ -97,6 +97,8 @@ subroutine partable(Zix, Nix)
 ! *** Declaration of local data
 !
   implicit none
+  character(len=3)  :: massstring
+  character(len=6)  :: finalnuclide
   integer :: A                 ! mass number of target nucleus
   integer :: ibar              ! fission barrier
   integer :: l                 ! multipolarity
@@ -108,14 +110,17 @@ subroutine partable(Zix, Nix)
 !
   Z = ZZ(Zix, Nix, 0)
   A = AA(Zix, Nix, 0)
-  write(51, '("##")')
-  write(51, '("## Parameters for ", i3, a2)')  A, nuc(Z)
-!
+  massstring = '   '
+  write(massstring,'(i3)') A
+  finalnuclide=trim(nuc(Z))//adjustl(massstring)
+  write(51, '("## residual:")')
+  write(51, '("##   Z: ", i0)') Z
+  write(51, '("##   A: ", i0)') A
+  write(51, '("##   nuclide: ", a)') finalnuclide
 ! ********************** Level density parameters **********************
 !
-  write(51, '("##")')
-  write(51, '("## Level density")')
-  write(51, '("##")')
+  write(51, '("## parameters: ")')
+  write(51, '("##   level density")')
   write(51, '("a              ", 2i4, f10.5)') Z, A, alev(Zix, Nix)
   write(51, '("aadjust        ", 2i4, f10.5)') Z, A, aadjust(Zix, Nix)
   write(51, '("gammald        ", 2i4, f10.5)') Z, A, gammald(Zix, Nix)
@@ -156,9 +161,8 @@ subroutine partable(Zix, Nix)
 !
 ! ************************ Gamma-ray parameters ************************
 !
-  write(51, '("##")')
-  write(51, '("## Gamma-ray")')
-  write(51, '("##")')
+  write(51, '("## parameters: ")')
+  write(51, '("##   photon strength function")')
   write(51, '("gamgam         ", 2i4, f10.5)') Z, A, gamgam(Zix, Nix)
   write(51, '("gamgamadjust   ", 2i4, f10.5)') Z, A, gamgamadjust(Zix, Nix)
   do l = 1, gammax
@@ -213,7 +217,8 @@ subroutine partable(Zix, Nix)
 !
   if (flagfission) then
     write(51, '("##")')
-    write(51, '("## Fission parameters")')
+    write(51, '("## parameters: ")')
+    write(51, '("##   fission")')
     write(51, '("##")')
     do ibar = 1, nfisbar(Zix, Nix)
       if (fismodelx(Zix, Nix) == 5) then
@@ -236,7 +241,6 @@ subroutine partable(Zix, Nix)
       write(51, '("Rclass2mom     ", 2i4, f10.5, i3)') Z, A, Rclass2mom(Zix, Nix, ibar), ibar
     enddo
   endif
-  write(51, '("##--------------------------------------------")')
   return
 end subroutine partable
 ! Copyright A.J. Koning 2021
