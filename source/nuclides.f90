@@ -191,12 +191,30 @@ subroutine nuclides
   call masses
   call separation
   primary = .true.
-  if (flagpartable) open (unit = 51, file = 'parameters.dat', status = 'unknown')
   if (flagbestbr) call branching
   massstring = '   '
   write(massstring,'(i3)') Atarget
   targetnuclide = trim(Starget) // adjustl(massstring)
   targetnuclide0 = targetnuclide
+!
+! Open file to write all nuclear model parameters
+!
+  if (flagpartable) then
+    open (unit = 51, file = 'parameters.dat', status = 'unknown')
+    write(51, '("## header:")')
+    write(51, '("##   title: ", a, "(", a1, ",x) nuclear model parameters")') trim(targetnuclide),parsym(k0)
+    write(51, '("##   source: ", a)') trim(source)
+    write(51, '("##   user: ", a)') trim(user)
+    write(51, '("##   date: ", a)') trim(date)
+    write(51, '("##   format: ", a)') trim(oformat)
+    write(51, '("## target:")')
+    write(51, '("##   Z: ", i0)') Ztarget
+    write(51, '("##   A: ", i0)') Atarget
+    write(51, '("##   nuclide: ", a)') targetnuclide
+  endif
+!
+! Retrieve nuclear structure information
+!
   Einc = enincmin
   do type = 0, 6
     if (parskip(type) .and. type /= 0) cycle
