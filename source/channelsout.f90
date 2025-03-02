@@ -141,7 +141,7 @@ subroutine channelsout
   character(len=3)  :: massstring ! 
   character(len=6)  :: finalnuclide !
   character(len=8)  :: spstring  ! string
-  character(len=13)  :: Estr
+  character(len=12)  :: Estr
   character(len=12) :: isofile   ! file with isomeric cross section
   character(len=12) :: gamfile   ! giant resonance parameter file
   character(len=16) :: xsfile    ! file with channel cross sections
@@ -185,7 +185,7 @@ subroutine channelsout
 ! ****************** Output of channel cross sections ******************
 !
   Estr=''
-  write(Estr,'(es13.6)') Einc
+  write(Estr,'(es12.6)') Einc
   un = 'mb'
   col(1)='E'
   un(1)='MeV'
@@ -302,7 +302,8 @@ Loop2:    do in = 0, numin
             call write_target
             call write_reaction(reaction,Qexcl(idc, 0),Ethrexcl(idc, 0),MF,MT)
             call write_residual(Z,A,finalnuclide)
-            call write_datablock(quantity,Ncol,Ninc,col,un)
+            call write_quantity(quantity)
+            call write_datablock(Ncol,Ninc,col,un)
             if (flagcompo) then
               do nen = 1, Ninclow
                 write(1, '(7es15.6)') eninc(nen), fxschannel(nen, idc), fxsgamchannel(nen, idc), &
@@ -367,7 +368,8 @@ Loop2:    do in = 0, numin
                     call write_residual(Z,A,finalnuclide)
                     call write_level(2,kiso,levnum(Zcomp, Ncomp, nex),edis(Zcomp, Ncomp, nex), &
  &                    jdis(Zcomp, Ncomp, nex),parlev(Zcomp, Ncomp, nex),tau(Zcomp, Ncomp, nex))
-                    call write_datablock(quantity,Ncol,Ninc,col,un)
+                    call write_quantity(quantity)
+                    call write_datablock(Ncol,Ninc,col,un)
                     do nen = 1, Ninclow
                       write(1, '(3es15.6)') eninc(nen), fxschaniso(nen, idc, nex), fexclbranch(nen, idc, nex)
                         fxschaniso(nen, idc, nex) = 0.
@@ -421,7 +423,8 @@ Loop2:    do in = 0, numin
                 call write_reaction(reaction,Qexcl(idc, 0),Ethrexcl(idc, 0),MF,MT)
                 call write_real(2,'E-incident [MeV]',eninc(nen))
                 call write_residual(Z,A,finalnuclide)
-                call write_datablock(gamquant,Ncol,Ngam,col,un)
+                call write_quantity(gamquant)
+                call write_datablock(Ncol,Ngam,col,un)
                 do i1 = 1, numlev
                   do i2 = 0, i1
                     if (fxsgamdischan(nen, idc, i1, i2) > 0.) then
@@ -439,7 +442,8 @@ Loop2:    do in = 0, numin
                 call write_reaction(reaction,Qexcl(idc, 0),Ethrexcl(idc, 0),MF,MT)
                 call write_real(2,'E-incident [MeV]',eninc(nen))
                 call write_residual(Z,A,finalnuclide)
-                call write_datablock(gamquant,Ncol,Ngam,col,un)
+                call write_quantity(gamquant)
+                call write_datablock(Ncol,Ngam,col,un)
               enddo
             else
               open (unit = 1, file = gamfile, status = 'old', position = 'append')
@@ -455,7 +459,8 @@ Loop2:    do in = 0, numin
             call write_reaction(reaction,Qexcl(idc, 0),Ethrexcl(idc, 0),MF,MT)
             call write_real(2,'E-incident [MeV]',Einc)
             call write_residual(Z,A,finalnuclide)
-            call write_datablock(gamquant,Ncol,Ngam,col,un)
+            call write_quantity(gamquant)
+            call write_datablock(Ncol,Ngam,col,un)
             do i1 = 1, numlev
               do i2 = 0, i1
                 if (xsgamdischan(idc, i1, i2) > 0.) then
@@ -554,7 +559,8 @@ Loop3:          do in = 0, numin
                         call write_header(topline,source,user,date,oformat)
                         call write_target
                         call write_reaction(reaction,Qexcl(idc, 0),Ethrexcl(idc, 0),MF,MT)
-                        call write_datablock(quantity,Ncol,Ninc,col,un)
+                        call write_quantity(quantity)
+                        call write_datablock(Ncol,Ninc,col,un)
                         do nen = 1, nin - 1
                           write(1, '(2es15.6)') eninc(nen), 0.
                         enddo
@@ -652,7 +658,8 @@ Loop3:          do in = 0, numin
                     call write_target
                     call write_reaction(reaction,Qexcl(idc, 0),Ethrexcl(idc, 0),MF,MT)
                     call write_real(2,'E-incident [MeV]',Einc)
-                    call write_datablock(quantity,Ncol,eendhigh-ebegin(0)+1,col,un)
+                    call write_quantity(quantity)
+                    call write_datablock(Ncol,eendhigh-ebegin(0)+1,col,un)
                     if (npart == 0) then
                       do nen = ebegin(0), eendhigh
                         write(1, '(8es15.6)') egrid(nen), xschannelsp(idc, 0, nen), (xsngnspec(type, nen), type = 1, 6)
@@ -754,7 +761,8 @@ Loop3:          do in = 0, numin
                       call write_target
                       call write_reaction(reaction,Qexcl(idc, 0),Ethrexcl(idc, 0),0,0)
                       call write_real(2,'E-incident [MeV]',Einc)
-                      call write_datablock(quantity,Ncol,eendhigh-ebegin(0)+1,col,un)
+                      call write_quantity(quantity)
+                      call write_datablock(Ncol,eendhigh-ebegin(0)+1,col,un)
                       do nen = ebegin(0), eendhigh
                         write(1, '(8es15.6)') egrid(nen), (xsfischannelsp(idc, type, nen), type = 0, 6)
                       enddo
@@ -862,7 +870,8 @@ Loop3:          do in = 0, numin
                     call write_reaction(reaction,Qexcl(idc, 0),Ethrexcl(idc, 0),MF,MT)
                     call write_real(2,'E-incident [MeV]',Einc)
                     call write_residual(Z,A,finalnuclide)
-                    call write_datablock(quantity,Ncol,maxenrec+1,col,un)
+                    call write_quantity(quantity)
+                    call write_datablock(Ncol,maxenrec+1,col,un)
                     do nen = 0, maxenrec
                       write(1, '(2es15.6)') Erec(Zcomp, Ncomp, nen), specrecoil(Zcomp, Ncomp, nen) * xsratio(idc)
                     enddo

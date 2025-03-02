@@ -189,7 +189,8 @@ subroutine discreteout
           call write_target
           call write_reaction(reaction,Qres(Zix, Nix, nex),Ethresh(Zix, Nix, nex),MF,MT)
           call write_level(2,-1,nex,edis(Zix, Nix, nex),jdis(Zix, Nix, nex),parlev(Zix, Nix, nex),0.)
-          call write_datablock(quantity,Ncol,Ninc,col,un)
+          call write_quantity(quantity)
+          call write_datablock(Ncol,Ninc,col,un)
           do nen = 1, Ninclow
             write(1, '(4es15.6)') eninc(nen), fxsdisc(nen, type, nex), fxsdirdisc(nen, type, nex), fxscompdisc(nen, type, nex)
           enddo
@@ -232,7 +233,8 @@ subroutine discreteout
         call write_target
         call write_reaction(reaction,Qres(Zix, Nix, NL),Ethresh(Zix, Nix, NL),MF,MT)
         call write_level(2,-1,NL,edis(Zix, Nix, NL),jdis(Zix, Nix, NL),parlev(Zix, Nix, NL),0.)
-        call write_datablock(quantity,Ncol,Ninc,col,un)
+        call write_quantity(quantity)
+        call write_datablock(Ncol,Ninc,col,un)
         do nen = 1, Ninclow
           write(1, '(4es15.6)') eninc(nen), fxsexclcont(nen, type) + fxsngn(nen, type), fxsexclcont(nen, type), fxsngn(nen, type)
         enddo
@@ -264,7 +266,8 @@ subroutine discreteout
         call write_header(topline,source,user,date,oformat)
         call write_target
         call write_reaction(reaction,Qres(Zix, Nix, 0),Ethresh(Zix, Nix, 0),0,0)
-        call write_datablock(quantity,Ncol,Ninc,col,un)
+        call write_quantity(quantity)
+        call write_datablock(Ncol,Ninc,col,un)
         do nen = 1, Ninclow
           write(1, '(5es15.6)') eninc(nen), fxsexclusive(nen, type), fxsdisctot(nen, type), fxsexclcont(nen, type), &
  &          fxsngn(nen, type)

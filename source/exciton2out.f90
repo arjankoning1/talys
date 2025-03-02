@@ -44,7 +44,7 @@ subroutine exciton2out
 ! *** Declaration of local data
 !
   implicit none
-  character(len=15) :: excfile
+  character(len=20) :: excfile
   character(len=18) :: reaction   ! reaction
   character(len=15) :: col(12)    ! header
   character(len=15) :: un(12)    ! units
@@ -76,14 +76,17 @@ subroutine exciton2out
   quantity='two-component exciton model'
   reaction= '('//parsym(k0)//',x)'
   topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)
-  excfile = 'exciton.out'
+  excfile='exciton0000.000.tot'//natstring(iso)
+  write(excfile(8:15), '(f8.3)') Einc
+  write(excfile(8:11), '(i4.4)') int(Einc)
   open (unit = 1, file = excfile, status = 'replace')
   call write_header(topline,source,user,date,oformat)
   call write_target
-  quantity='matrix elements'
+  quantity='matrix element'
   write(1,'("# parameters:")')
   call write_real(2,'E-incident [MeV]',Einc)
   call write_real(2,'E-compound [MeV]',Ecomp)
+  call write_real(2,'Surface effective well depth [MeV]',Esurf)
   call write_real(2,'Constant for matrix element',M2constant)
   call write_real(2,'p-p ratio for matrix element',Rpipi)
   call write_real(2,'n-n ratio for matrix element',Rnunu)
@@ -108,7 +111,8 @@ subroutine exciton2out
       enddo
     enddo
   enddo
-  call write_datablock(quantity,Ncol,Nk,col,un)
+  call write_quantity(quantity)
+  call write_datablock(Ncol,Nk,col,un)
   do p = p0, maxpar
     do ppi = ppi0, maxpar
       hpi = ppi - ppi0
@@ -126,7 +130,7 @@ subroutine exciton2out
 !
 ! 2. Output of emission rates or escape widths
 !
-  quantity='emission rates'
+  quantity='emission rate'
   do type = 0,6
     col(5 + type) = parname(type)
     un(5+type) = 'sec^-1'
@@ -134,7 +138,8 @@ subroutine exciton2out
   col(12) = 'Total'
   un(12) = 'sec^-1'
   Ncol = 12
-  call write_datablock(quantity,Ncol,Nk,col,un)
+  call write_quantity(quantity)
+  call write_datablock(Ncol,Nk,col,un)
   do p = p0, maxpar
     do ppi = ppi0, maxpar
       hpi = ppi - ppi0
@@ -147,13 +152,14 @@ subroutine exciton2out
       enddo
     enddo
   enddo
-  quantity='escape widths'
+  quantity='escape width'
   do type = 0,6
     un(5+type) = 'MeV'
   enddo
   col(12) = 'Total'
   un(12) = 'MeV'
-  call write_datablock(quantity,Ncol,Nk,col,un)
+  call write_quantity(quantity)
+  call write_datablock(Ncol,Nk,col,un)
   do p = p0, maxpar
     do ppi = ppi0, maxpar
       hpi = ppi - ppi0
@@ -169,7 +175,7 @@ subroutine exciton2out
 !
 ! 3. Output of transition rates or damping widths and total widths
 !
-  quantity='internal transition rates'
+  quantity='internal transition rate'
   col(5) = 'lambdapiplus'
   col(6) = 'lambdanuplus'
   col(7) = 'lambdapinu'
@@ -178,7 +184,8 @@ subroutine exciton2out
     un(4+type) = 'sec^-1'
   enddo
   Ncol = 8
-  call write_datablock(quantity,Ncol,Nk,col,un)
+  call write_quantity(quantity)
+  call write_datablock(Ncol,Nk,col,un)
   do p = p0, maxpar
     do ppi = ppi0, maxpar
       hpi = ppi - ppi0
@@ -191,7 +198,7 @@ subroutine exciton2out
       enddo
     enddo
   enddo
-  quantity='damping widths'
+  quantity='damping width'
   col(5) = 'gammapiplus'
   col(6) = 'gammanuplus'
   col(7) = 'gammapinu'
@@ -199,7 +206,8 @@ subroutine exciton2out
   do type = 1,4
     un(4+type) = 'MeV'
   enddo
-  call write_datablock(quantity,Ncol,Nk,col,un)
+  call write_quantity(quantity)
+  call write_datablock(Ncol,Nk,col,un)
   do p = p0, maxpar
     do ppi = ppi0, maxpar
       hpi = ppi - ppi0
@@ -213,10 +221,11 @@ subroutine exciton2out
       enddo
     enddo
   enddo
-  quantity='total widths'
+  quantity='total width'
   col(5) = 'gammatot'
   Ncol = 5
-  call write_datablock(quantity,Ncol,Nk,col,un)
+  call write_quantity(quantity)
+  call write_datablock(Ncol,Nk,col,un)
   do p = p0, maxpar
     do ppi = ppi0, maxpar
       hpi = ppi - ppi0
@@ -233,10 +242,11 @@ subroutine exciton2out
 !
 ! 4. Output of lifetimes of exciton states
 !
-  quantity='lifetimes'
+  quantity='lifetime'
   col(5) = 'Strength'
   un(5) = 'sec'
-  call write_datablock(quantity,Ncol,Nk,col,un)
+  call write_quantity(quantity)
+  call write_datablock(Ncol,Nk,col,un)
   do p = p0, maxpar
     do ppi = ppi0, maxpar
       hpi = ppi - ppi0

@@ -71,7 +71,7 @@ subroutine ddxout
 !
   implicit none
   character(len=28) :: ddxfile         ! file for DDX
-  character(len=13) :: Estr
+  character(len=12) :: Estr
   character(len=18) :: reaction   ! reaction
   character(len=132) :: topline    ! topline
   character(len=15) :: col(6)     ! header
@@ -106,7 +106,7 @@ subroutine ddxout
   MF = 6
   MT = 5
   Estr=''
-  write(Estr,'(es13.6)') Einc
+  write(Estr,'(es12.6)') Einc
   un='mb/MeV/sr'
   col(1)='Angle'
   un(1)='deg'
@@ -166,7 +166,8 @@ subroutine ddxout
         call write_reaction(reaction,0.D0,0.D0,MF,MT)
         call write_real(2,'E-incident [MeV]',Einc)
         call write_real(2,'E-emission [MeV]',enf)
-        call write_datablock(quantity,Ncol,nanglecont+1,col,un)
+        call write_quantity(quantity)
+        call write_datablock(Ncol,nanglecont+1,col,un)
         do iang = 0, nanglecont
           xsa = xssumoutad(type, nen, iang)
           xsb = xssumoutad(type, nen + 1, iang)
@@ -234,7 +235,8 @@ subroutine ddxout
           call write_reaction(reaction,0.D0,0.D0,MF,MT)
           call write_real(2,'E-incident [MeV]',Einc)
           call write_real(2,'E-emission [MeV]',enf)
-          call write_datablock(quantity,Ncol,nanglecont+1,col,un)
+          call write_quantity(quantity)
+          call write_datablock(Ncol,nanglecont+1,col,un)
           do iang = 0, nanglecont
             xsa = ddxejlab(type, nen, iang)
             xsb = ddxejlab(type, nen + 1, iang)
@@ -301,7 +303,8 @@ subroutine ddxout
         call write_reaction(reaction,0.D0,0.D0,MF,MT)
         call write_real(2,'E-incident [MeV]',Einc)
         call write_real(2,'Angle [deg]',angf)
-        call write_datablock(quantity,Ncol,eendout(type)-ebegin(type)+1,col,un)
+        call write_quantity(quantity)
+        call write_datablock(Ncol,eendout(type)-ebegin(type)+1,col,un)
         do nen = ebegin(type), eendout(type)
           Eout = espec(type, nen)
           xsa = xssumoutad(type, nen, iang)
@@ -370,7 +373,8 @@ subroutine ddxout
           call write_reaction(reaction,0.D0,0.D0,MF,MT)
           call write_real(2,'E-incident [MeV]',Einc)
           call write_real(2,'Angle [deg]',angf)
-          call write_datablock(quantity,Ncol,eendout(type)-ebegin(type)+1,col,un)
+          call write_quantity(quantity)
+          call write_datablock(Ncol,eendout(type)-ebegin(type)+1,col,un)
           do nen = 1, iejlab(type)
             xsa = ddxejlab(type, nen, iang)
             xsb = ddxejlab(type, nen, iang + 1)

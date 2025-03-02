@@ -155,7 +155,7 @@ subroutine comptarget
   character(len=18) :: reaction   ! reaction
   character(len=132) :: topline    ! topline
   character(len=80)  :: popfile               ! population file
-  character(len=13)  :: Estr
+  character(len=12)  :: Estr
   logical   :: elastic     ! designator for elastic channel
   integer   :: Ares        ! mass number of residual nucleus
   integer   :: ielas       ! designator for elastic channel
@@ -283,9 +283,9 @@ subroutine comptarget
     write(massstring,'(i3)') A
     finalnuclide=trim(nuc(Z))//adjustl(massstring)
     reaction='('//parsym(k0)//',x)'
-    quantity='initial population'
+    quantity='population'
     Estr=''
-    write(Estr,'(es13.6)') Einc
+    write(Estr,'(es12.6)') Einc
     topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' of '//trim(finalnuclide)//' at '//Estr//' MeV'
     popfile='initial.pop'
     open (unit = 1, file = popfile, status = 'replace')
@@ -301,7 +301,8 @@ subroutine comptarget
     col(2)='population'
     un(2) = 'mb'
     Ncol = 2
-    call write_datablock(quantity,Ncol,J2end-J2beg+2,col,un)
+    call write_quantity(quantity)
+    call write_datablock(Ncol,J2end-J2beg+2,col,un)
     do parity = - 1, 1, 2
       do J2 = J2beg, J2end, 2
         J = J2/2
@@ -317,7 +318,8 @@ subroutine comptarget
       col(type+3)=parname(type)
     enddo     
     Ncol = 9
-    call write_datablock(quantity,Ncol,J2end-J2beg+2,col,un)
+    call write_quantity(quantity)
+    call write_datablock(Ncol,J2end-J2beg+2,col,un)
   endif
   do type = -1, 6
     if (adjustTJ(Zcomp, Ncomp, type)) then
@@ -777,7 +779,8 @@ subroutine comptarget
     col(1)='particle'
     col(2)='isospin factor'
     Ncol = 2
-    call write_datablock(quantity,Ncol,7,col,un)
+    call write_quantity(quantity)
+    call write_datablock(Ncol,7,col,un)
     do type = 0, 6
       write(1, '(3x, a8, 4x, es15.6)') parname(type), fiso(type)
     enddo

@@ -73,7 +73,7 @@ subroutine directout
   character(len=18) :: reaction   ! reaction
   character(len=132) :: topline    ! topline
   character(len=21) :: dirfile 
-  character(len=13) :: Estr
+  character(len=12) :: Estr
   character(len=15) :: col(numlev2)     ! header
   character(len=15) :: un(numlev2)     ! header
   character(len=80) :: quantity   ! quantity
@@ -121,7 +121,7 @@ subroutine directout
   col = ''
   un = ''
   Estr=''
-  write(Estr,'(es13.6)') Einc
+  write(Estr,'(es12.6)') Einc
   dirfile = 'directE0000.000.out'
   write(dirfile(8:15), '(f8.3)') Einc
   write(dirfile(8:11), '(i4.4)') int(Einc)
@@ -148,7 +148,8 @@ subroutine directout
   col(6) = 'def. type'
   col(7) = 'def. par.'
   Ncol = 7
-  call write_datablock(quantity,Ncol,Nk,col,un)
+  call write_quantity(quantity)
+  call write_datablock(Ncol,Nk,col,un)
   do i = 1, Nk
      write(1, '(3x, i6, 6x, 2es15.6, f10.1, 1x, a1, 4x, es15.6, 6x, a1, 8x, es15.6)') ilevel(i), elev(i), eoutlev(i), &
  &    jlev(i), cparity(plev(i)), xslev(i), deftype(Zix, Nix), dlev(i)
@@ -166,7 +167,8 @@ subroutine directout
     enddo
     Ncol = ilev + 1
     Nk = nangle + 1
-    call write_datablock(quantity,Ncol,Nk,col,un)
+    call write_quantity(quantity)
+    call write_datablock(Ncol,Nk,col,un)
     do iang = 0, nangle
       write(1, '(5x, f5.1, 5x, 200es15.6)') angle(iang), (dad(i, iang), i = 1, ilev)
     enddo
@@ -189,7 +191,8 @@ subroutine directout
   col(3)='Deform. par.'
   Ncol = 6
   Nk = 4
-  call write_datablock(quantity,Ncol,Nk,col,un)
+  call write_quantity(quantity)
+  call write_datablock(Ncol,Nk,col,un)
   write(1, '("     GMR       ", 5es15.6)') xsgrcoll(k0, 0, 1), Egrcoll(0, 1), eoutgr(k0, 0, 1), Ggrcoll(0, 1), betagr(0, 1)
   write(1, '("     GQR       ", 5es15.6)') xsgrcoll(k0, 2, 1), Egrcoll(2, 1), eoutgr(k0, 2, 1), Ggrcoll(2, 1), betagr(2, 1)
   write(1, '("     LEOR      ", 5es15.6)') xsgrcoll(k0, 3, 1), Egrcoll(3, 1), eoutgr(k0, 3, 1), Ggrcoll(3, 1), betagr(3, 1)
@@ -206,7 +209,8 @@ subroutine directout
     col(5)='HEOR'
     Ncol = 5
     Nk = nanglecont + 1
-    call write_datablock(quantity,Ncol,Nk,col,un)
+    call write_quantity(quantity)
+    call write_datablock(Ncol,Nk,col,un)
     do iang = 0, nanglecont
       write(1, '(5es15.6)') anglecont(iang), grcollad(k0, 0, 1, iang), grcollad(k0, 2, 1, iang), &
  &      grcollad(k0, 3, 1, iang), grcollad(k0, 3, 2, iang)
@@ -225,7 +229,8 @@ subroutine directout
     col(7)='Collective'
     Ncol = 7
     Nk = eend(k0) - ebegin(k0) + 1
-    call write_datablock(quantity,Ncol,Nk,col,un)
+    call write_quantity(quantity)
+    call write_datablock(Ncol,Nk,col,un)
     do nen = ebegin(k0), eend(k0)
       write(1, '(7es15.6)') egrid(nen), xsgr(k0, nen), xsgrstate(k0, 0, 1, nen), xsgrstate(k0, 2, 1, nen), &
  &      xsgrstate(k0, 3, 1, nen), xsgrstate(k0, 3, 2, nen), xscollcont(k0, nen)

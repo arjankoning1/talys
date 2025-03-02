@@ -84,7 +84,6 @@ subroutine densityout(Zix, Nix)
   character(len=8)  :: str(-1:1)     ! input line
   character(len=13) :: ldfile        ! level density file
   character(len=13) :: ldfileout     ! level density file
-  character(len=12) :: ldstring      ! string for level density file
   character(len=25) :: model         ! string for level density model
   integer           :: A             ! mass number of target nucleus
   integer           :: i             ! counter
@@ -170,18 +169,11 @@ subroutine densityout(Zix, Nix)
   do ibar = 0, nfisbar(Zix, Nix)
     NL = Nlow(Zix, Nix, ibar)
     NT = Ntop(Zix, Nix, ibar)
-    ldfile = 'tld000000.gs '
-    if (ibar > 0) write(ldfile(11:13), '("b",i2.2)') ibar
-    write(ldfile(4:9), '(2i3.3)') Z, A
+    ldfile = 'ld000000.gs '
+    if (ibar > 0) write(ldfile(10:12), '("b",i2.2)') ibar
+    write(ldfile(3:8), '(2i3.3)') Z, A
     open (unit = 1, file = ldfile, status = 'replace')
-    if (ibar > 0) then
-      ldstring = ' Barrier    '
-      write(ldstring(10:10), '(i1)') ibar
-    else
-      ldstring = '            '
-    endif
-    quantity='total level density'
-    topline=trim(finalnuclide)//' '//trim(quantity)
+    topline=trim(finalnuclide)//' level density'
     col = ''
     un = ''
     col(1)='E'
@@ -251,7 +243,7 @@ subroutine densityout(Zix, Nix)
     call write_integer(2,'Ntop',Ntop(Zix, Nix, ibar))
     call write_real(2,'ctable',ctable(Zix, Nix, ibar))
     call write_real(2,'ptable',ptable(Zix, Nix, ibar))
-    write(1,'("# observables:")')
+    write(1,'("# parameters:")')
     call write_real(2,'experimental D0 [eV]',D0(Zix, Nix))
     call write_real(2,'experimental D0 unc. [eV]',dD0(Zix, Nix))
     call write_real(2,'global D0 [eV]',D0global(Zix, Nix))
@@ -306,7 +298,9 @@ subroutine densityout(Zix, Nix)
     call write_double(2,'Frms per level',Frmslev(Zix, Nix))
     call write_double(2,'Erms per level',Ermslev(Zix, Nix))
     call write_double(2,'average deviation per level',avdevlev(Zix, Nix))
-    call write_datablock(quantity,Ncol,Nk,col,un)
+    quantity='total level density'
+    call write_quantity(quantity)
+    call write_datablock(Ncol,Nk,col,un)
     do k = 1, Nk
       if (ldmod <= 3) then
         if (flagcol(Zix, Nix) .and. .not. ldexist(Zix, Nix, ibar)) then
@@ -318,18 +312,9 @@ subroutine densityout(Zix, Nix)
         write(1, '(es15.6, i6, 9x, 3es15.6)') Eex1(k), i1(k), x1(k), x2(k), x3(k)
       endif
     enddo
-    close(1)
-    call write_outfile(ldfile,flagoutall)
-  enddo
 !
 ! Level densities per parity on separate files
 !
-  write(*, '(/" Level density per spin and parity:"/)') 
-  do ibar = 0, nfisbar(Zix, Nix)
-    ldfile = 'ld000000.gs '
-    if (ibar > 0) write(ldfile(10:12), '("b",i2.2)') ibar
-    write(ldfile(3:8), '(2i3.3)') Z, A
-    open (unit = 1, file = ldfile, status = 'replace')
     quantity='level density'
     col=''
     col(1)='E'
@@ -346,19 +331,12 @@ subroutine densityout(Zix, Nix)
     un(2)='MeV'
     un(3)=''
     Ncol=numJ+6
-    topline=trim(finalnuclide)//' '//trim(quantity)
-    call write_header(topline,source,user,date,oformat)
-    call write_residual(Z,A,finalnuclide)
-    write(1,'("# parameters:")')
-    call write_integer(2,'fission barrier',ibar)
-    call write_integer(2,'ldmodel keyword',ldmod)
-    call write_char(2,'level density model',model)
     str(-1) = 'Negative'
     str(1) = 'Positive'
     do parity = 1, -1, -2
-      write(1,'("# parameters:")')
+      call write_quantity(quantity)
       call write_integer(2,'Parity',parity)
-      call write_datablock(quantity,Ncol,nendens(Zix,Nix),col,un)
+      call write_datablock(Ncol,nendens(Zix,Nix),col,un)
       ldfileout = 'nld000000.tab'
       write(ldfileout(4:9), '(2i3.3)') Z, A
       open (unit = 2, status = 'unknown', file = ldfileout)
@@ -385,39 +363,24 @@ subroutine densityout(Zix, Nix)
         enddo
         ldtotP = densitytotP(Zix, Nix, Eex, parity, ibar, ldmod)
         write(2, '(1x, f6.2, f7.3, 1x, 1p, 33e9.2)') Eex, Tnuc, Nc, ldtotP, ldtot, &
- &        (density(Zix, Nix, Eex, real(J + 0.5 * odd), 1, ibar, ldmod), J = 0, 29)
+ &        (density(Zix, Nix, Eex, real(J + 0.5 * odd), parity, ibar, ldmod), J = 0, 29)
         write(1, '(47es15.6)') Eex, Tnuc, Nc, ldtotP, ldtot, &
- &        (density(Zix, Nix, Eex, real(J + 0.5 * odd), 1, ibar, ldmod), J = 0, numJ)
+ &        (density(Zix, Nix, Eex, real(J + 0.5 * odd), parity, ibar, ldmod), J = 0, numJ)
       enddo
       write(2, * )
     enddo
-    close(1)
-    call write_outfile(ldfile,flagoutall)
-  enddo
-  close(2)
+    close(2)
 !
 ! Spin distribution
 !
-  write(*, '(/" Level density spin distribution:"/)') 
-  do ibar = 0, nfisbar(Zix, Nix)
-    ldfile = 'sd000000.gs '
-    if (ibar > 0) write(ldfile(10:12), '("b",i2.2)') ibar
-    write(ldfile(3:8), '(2i3.3)') Z, A
-    open (unit = 1, file = ldfile, status = 'replace')
-    quantity='level density spin distribution'
+    write(*, '(/" Level density spin distribution:"/)') 
+    quantity='spin distribution'
     Ncol = 3
     un=''
     col(1) = 'Spin'
     col(2) = 'R (parity -)'
     col(3) = 'R (parity +)'
     Rdist = 0.
-    topline=trim(finalnuclide)//' '//trim(quantity)
-    call write_header(topline,source,user,date,oformat)
-    call write_residual(Z,A,finalnuclide)
-    write(1,'("# parameters:")')
-    call write_integer(2,'fission barrier',ibar)
-    call write_integer(2,'ldmodel keyword',ldmod)
-    call write_char(2,'level density model',model)
     do parity = -1, 1, 2
       do nex = 1, nendens(Zix, Nix)
         Eex = edens(nex)
@@ -428,9 +391,9 @@ subroutine densityout(Zix, Nix)
       enddo
     enddo
     do nex = 1, nendens(Zix, Nix)
-      write(1,'("# parameters:")')
+      call write_quantity(quantity)
       call write_real(2,'Excitation energy [MeV]',edens(nex))
-      call write_datablock(quantity,Ncol,numJ+1,col,un)
+      call write_datablock(Ncol,numJ+1,col,un)
       do J = 0, numJ
         write(1, '(6x,f4.1,5x,2es15.6)') real(J + 0.5 * odd),(Rdist(nex, parity, J), parity = -1, 1, 2)
       enddo
