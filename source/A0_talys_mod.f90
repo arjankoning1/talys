@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2023-12-30: Original code
-! 2025-02-21: Current version
+! 2025-02-26: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -616,7 +616,6 @@ module A0_talys_mod
   logical                             :: flagpeout    ! flag for output of pre-equilibrium results
   logical                             :: flagsurface  ! flag for surface effects in exciton model
   logical                             :: preeqadjust  ! logical for energy-dependent pre-eq adjustment
-  logical                             :: preeqfirst   ! logical for first preequilibrium output
   integer                             :: breakupmodel ! model for break-up reaction: 1. Kalbach 2. Avrigeanu
   integer                             :: mpreeqmode   ! designator for multiple pre-equilibrium model
   integer                             :: msdbins      ! number of energy points for DWBA calculation for MSD
