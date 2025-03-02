@@ -91,7 +91,7 @@ subroutine binaryout
     if (nin == Ninclow + 1) then
       open (unit = 1, file = binfile, status = 'replace')
       reaction='('//parsym(k0)//',bin)'
-      topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' - binary'
+      topline=trim(targetnuclide)//trim(reaction)//' binary '//trim(quantity)
       col(1)='E'
       un(1)='MeV'
       do type=0,6
@@ -106,7 +106,8 @@ subroutine binaryout
         Qstring = 'Q('//parsym(k0)//','//parsym(type)//') [MeV]'
         call write_real(2,Qstring,Q(type))
       enddo
-      call write_datablock(quantity,Ncol,Ninc,col,un)
+      call write_quantity(quantity)
+      call write_datablock(Ncol,Ninc,col,un)
       do nen = 1, Ninclow
         write(1, '(8es15.6)') eninc(nen), (fxsbinary(nen, type), type = 0, 6)
       enddo

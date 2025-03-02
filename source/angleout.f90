@@ -62,7 +62,7 @@ subroutine angleout
   character(len=2)  :: levelstring
   character(len=21) :: discfile    ! file with elastic scattering angular distribution
   character(len=21) :: legfile     ! file with Legendre coefficients
-  character(len=13) :: Estr
+  character(len=12) :: Estr
   character(len=18) :: reaction   ! reaction
   character(len=132) :: topline    ! topline
   character(len=15) :: col(6)     ! header
@@ -95,7 +95,7 @@ subroutine angleout
 ! 1. Legendre coefficients
 !
   Estr=''
-  write(Estr,'(es13.6)') Einc
+  write(Estr,'(es12.6)') Einc
   write(*, '(/" 8. Discrete state angular distributions")')
   if (flaglegendre) then
     write(*, '(/" 8a1. Legendre coefficients for elastic scattering"/)')
@@ -135,7 +135,8 @@ subroutine angleout
     call write_target
     call write_reaction(reaction,0.D0,0.D0,MF,MT)
     call write_real(2,'E-incident [MeV]',Einc)
-    call write_datablock(quantity,Ncol,J2end+1,col,un)
+    call write_quantity(quantity)
+    call write_datablock(Ncol,J2end+1,col,un)
     do LL = 0, J2end
       write(1, '(i6, 9x, 5es15.6)') LL, tleg(k0, Ltarget, LL), dleg(k0, Ltarget, LL), cleg(k0, Ltarget, LL), &
  &      tlegnor(k0, Ltarget, LL), cleg0(k0, Ltarget, LL)
@@ -184,7 +185,8 @@ subroutine angleout
     call write_target
     call write_reaction(reaction,0.D0,0.D0,MF,MT)
     call write_real(2,'E-incident [MeV]',Einc)
-    call write_datablock(quantity,Ncol,nangle+1,col,un)
+    call write_quantity(quantity)
+    call write_datablock(Ncol,nangle+1,col,un)
     do iang = 0, nangle
       write(1, '(4es15.6)') angle(iang), discad(k0, Ltarget, iang), directad(k0, Ltarget, iang), compad(k0, Ltarget, iang)
     enddo
@@ -232,7 +234,8 @@ subroutine angleout
     call write_target
     call write_reaction(reaction,0.D0,0.D0,MF,MT)
     call write_real(2,'E-incident [MeV]',Einc)
-    call write_datablock(quantity,Ncol,nangle+1,col,un)
+    call write_quantity(quantity)
+    call write_datablock(Ncol,nangle+1,col,un)
     do iang = 0, nangle
       write(1, '(6es15.6)') angle(iang), max(discad(k0, Ltarget, iang), directad(k0, Ltarget, iang)), &
  &      directad(k0, Ltarget, iang), compad(k0, Ltarget, iang), ruth(iang), elasni(iang)
@@ -294,7 +297,8 @@ subroutine angleout
         call write_reaction(reaction,0.D0,0.D0,MF,MT)
         call write_real(2,'E-incident [MeV]',Einc)
         call write_level(0,-1,i,edis(Zix, Nix, i),jdis(Zix, Nix, i),parlev(Zix, Nix, i),0.)
-        call write_datablock(quantity,Ncol,J2end+1,col,un)
+        call write_quantity(quantity)
+        call write_datablock(Ncol,J2end+1,col,un)
         do LL = 0, J2end
           write(1, '(i6, 9x, 5es15.6)') LL, tleg(k0, i, LL), dleg(k0, i, LL), cleg(k0, i, LL), tlegnor(k0, i, LL), cleg0(k0, i, LL)
         enddo
@@ -352,7 +356,8 @@ subroutine angleout
       call write_reaction(reaction,0.D0,0.D0,MF,MT)
       call write_real(2,'E-incident [MeV]',Einc)
       call write_level(2,-1,i,edis(Zix, Nix, i),jdis(Zix, Nix, i),parlev(Zix, Nix, i),0.)
-      call write_datablock(quantity,Ncol,nangle+1,col,un)
+      call write_quantity(quantity)
+      call write_datablock(Ncol,nangle+1,col,un)
       do iang = 0, nangle
         write(1, '(4es15.6)') angle(iang), discad(k0, i, iang), directad(k0, i, iang), compad(k0, i, iang)
       enddo
@@ -418,7 +423,8 @@ subroutine angleout
           call write_reaction(reaction,0.D0,0.D0,MF,MT)
           call write_real(2,'E-incident [MeV]',Einc)
           call write_level(2,-1,i,edis(Zix, Nix, i),jdis(Zix, Nix, i),parlev(Zix, Nix, i),0.)
-          call write_datablock(quantity,Ncol,J2end+1,col,un)
+          call write_quantity(quantity)
+          call write_datablock(Ncol,J2end+1,col,un)
           do LL = 0, J2end
             write(1, '(i6, 9x, 5es15.6)') LL, tleg(type, i, LL), dleg(type, i, LL), cleg(type, i, LL), tlegnor(type, i, LL), &
  &            cleg0(type, i, LL)
@@ -476,7 +482,8 @@ subroutine angleout
         call write_reaction(reaction,0.D0,0.D0,MF,MT)
         call write_real(2,'E-incident [MeV]',Einc)
         call write_level(2,-1,i,edis(Zix, Nix, i),jdis(Zix, Nix, i),parlev(Zix, Nix, i),0.)
-        call write_datablock(quantity,Ncol,nangle+1,col,un)
+        call write_quantity(quantity)
+        call write_datablock(Ncol,nangle+1,col,un)
         do iang = 0, nangle
           write(1, '(4es15.6)') angle(iang), discad(type, i, iang), directad(type, i, iang), compad(type, i, iang)
         enddo

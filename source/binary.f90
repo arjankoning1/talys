@@ -142,7 +142,7 @@ subroutine binary
   character(len=18) :: reaction   ! reaction
   character(len=132) :: topline    ! topline
   character(len=21) :: binfile
-  character(len=13) :: Estr
+  character(len=12) :: Estr
   character(len=15) :: col(200) 
   character(len=15) :: un(200)   
   character(len=80) :: quantity   ! quantity
@@ -374,18 +374,19 @@ subroutine binary
 ! ************ Output of population after binary emission **************
 !
   if (flagpop) then
-    quantity = 'binary cross sections'
+    quantity = 'emission spectrum'
     reaction='('//parsym(k0)//',bin)'
     Estr=''
-    write(Estr,'(es13.6)') Einc
+    write(Estr,'(es12.6)') Einc
     binfile = 'binE0000.000.out'
     write(binfile(5:12), '(f8.3)') Einc
     write(binfile(5:8), '(i4.4)') int(Einc)
-    topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' at '//Estr//' MeV'
+    topline=trim(targetnuclide)//trim(reaction)//' binary '//trim(quantity)//' at '//Estr//' MeV'
     open (unit = 1, file = binfile, status = 'replace')
     call write_header(topline,source,user,date,oformat)
     call write_target
     call write_reaction(reaction,0.D0,0.D0,0,0)
+    write(1,'("# parameters:")')
     call write_real(2,'E-incident [MeV]',Einc)
     write(*, '(/" ########## BINARY CHANNELS ###########")')
     write(*, '(/" ++++++++++ BINARY CROSS SECTIONS ++++++++++"/)')
@@ -399,9 +400,8 @@ subroutine binary
  &      xsbinary(type)
     enddo
     if (flagspec) then
-      quantity = 'binary emission spectra'
       write(*, '(/" Binary emission spectra"/)')
-      un = 'mb'
+      un = 'mb/MeV'
       col(1) = 'E-out'
       un(1) = 'MeV'
       do type = 0, 6
@@ -409,7 +409,8 @@ subroutine binary
       enddo
       Ncol = 8
       Nk = eendhigh - ebegin(0) + 1
-      call write_datablock(quantity,Ncol,Nk,col,un)
+      call write_quantity(quantity)
+      call write_datablock(Ncol,Nk,col,un)
       do nen = ebegin(0), eendhigh
         write(1, '(8es15.6)') egrid(nen), (xsbinemis(type, nen), type = 0, 6)
       enddo
@@ -429,7 +430,8 @@ subroutine binary
       Ncol = 5
       Nk = 7
       quantity = 'check of binary emission spectra'
-      call write_datablock(quantity,Ncol,Nk,col,un)
+      call write_quantity(quantity)
+      call write_datablock(Ncol,Nk,col,un)
       do type = 0, 6
         if (parskip(type)) cycle
         write(1, '(3x, a8, 4x, 4es15.6)') parname(type), &
@@ -438,7 +440,7 @@ subroutine binary
     endif
     write(*, '(/" ++++++++++ POPULATION AFTER BINARY EMISSION ++++++++++",/)')
     reaction='('//parsym(k0)//',x)' 
-    quantity='post-binary population'
+    quantity='population'
     do type = 0, 6
       if (parskip(type)) cycle
       Zix = Zindex(0, 0, type)
@@ -449,6 +451,7 @@ subroutine binary
       A = AA(0, 0, type)
       if (xspopnuc(Zix, Nix) == 0.) cycle
       odd = mod(A, 2)
+      call write_quantity(quantity)
       call write_char(2,'ejectile',parname(type))
       call write_double(2,'post-binary population [mb]',xspopnuc(Zix, Nix))
       call write_real(2,'maximum excitation energy [MeV]',Exmax(Zix, Nix))
@@ -470,7 +473,8 @@ subroutine binary
       enddo
       Ncol = 2*(numJ + 1) + 3
       Nk = maxex(Zix, Nix) + 1
-      call write_datablock(quantity,Ncol,Nk,col,un)
+      call write_quantity(quantity)
+      call write_datablock(Ncol,Nk,col,un)
       do nex = 0, maxex(Zix, Nix)
         write(1, '(3x, i6, 6x, 200es15.6)') nex, Ex(Zix, Nix, nex), &
  &        xspopex(Zix, Nix, nex), ((xspop(Zix, Nix, nex, J, parity), parity = - 1, 1, 2), J = 0, numJ)
