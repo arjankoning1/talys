@@ -112,7 +112,8 @@ subroutine inverseout(Zcomp, Ncomp)
         e = real(egrid(nen) / specmass(Zix, Nix, type))
         write(1,'("# parameters:")')
         call write_real(2,'energy [MeV]',e)
-        call write_datablock(quantity,Ncol,lmax(type, nen),col,un)
+        call write_quantity(quantity)
+        call write_datablock(Ncol,lmax(type, nen),col,un)
 !
 ! 1. Spin 1/2 particles: Neutrons, protons, tritons and Helium-3
 !
@@ -151,7 +152,8 @@ subroutine inverseout(Zcomp, Ncomp)
         write(1,'("# parameters:")')
         call write_integer(2,'L-value',l)
         Nen =  eend(type) - ebegin(type) + 1
-        call write_datablock(quantity,Ncol,Nen,col,un)
+        call write_quantity(quantity)
+        call write_datablock(Ncol,Nen,col,un)
 !
 ! 1. Spin 1/2 particles: Neutrons, protons, tritons and Helium-3
 !
@@ -209,7 +211,8 @@ subroutine inverseout(Zcomp, Ncomp)
     write(1,'("# parameters:")')
     call write_char(2,'particle',parname(type))
     Nen =  eend(type) - ebegin(type) + 1
-    call write_datablock(quantity,Ncol,Nen,col,un)
+    call write_quantity(quantity)
+    call write_datablock(Ncol,Nen,col,un)
     if (type == 1) then
       do nen = ebegin(type), eend(type)
         e = real(egrid(nen) / specmass(Zix, Nix, type))
