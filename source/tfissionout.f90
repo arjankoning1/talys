@@ -35,7 +35,6 @@ subroutine tfissionout(Zcomp, Ncomp, nex)
   character(len=6)  :: finalnuclide ! 
   character(len=80)  :: fisfile               ! fission file
   character(len=132) :: topline    ! topline
-  character(len=15) :: Estr
   character(len=15) :: col(9)     ! header
   character(len=15) :: un(9)     ! header
   character(len=80) :: quantity   ! quantity
@@ -61,18 +60,16 @@ subroutine tfissionout(Zcomp, Ncomp, nex)
   massstring='   '
   write(massstring,'(i3)') A            
   finalnuclide=trim(nuc(Z))//adjustl(massstring)
-  Estr=''
-  write(Estr,'(es13.6)') Exinc
-  quantity='fission transmission coefficients'
-  topline=trim(finalnuclide)//' '//trim(quantity)//' at '//Estr//' MeV'
+  quantity='transmission coefficients'
   if (tfisexist(Zcomp, Ncomp)) then
     open (unit = 1, file = fisfile, status = 'old', position = 'append')
   else
     open (unit = 1, file = fisfile, status = 'replace')
     tfisexist(Zcomp, Ncomp) = .true.
+    topline=trim(finalnuclide)//' fission '//trim(quantity)
+    call write_header(topline,source,user,date,oformat)
+    call write_residual(Z,A,finalnuclide) 
   endif
-  call write_header(topline,source,user,date,oformat)
-  call write_residual(Z,A,finalnuclide) 
   un = ''
   un(4)= 'eV'
   un(5)= 'eV'
@@ -90,7 +87,9 @@ subroutine tfissionout(Zcomp, Ncomp, nex)
   col(8)= 'density(J,-)'
   col(9)= 'density(J,+)'
   Ncol = 9
-  call write_datablock(quantity,Ncol,maxJ(Zcomp, Ncomp, nex) + 1,col,un)
+  call write_quantity(quantity)
+  call write_real(2,'Excitation energy [MeV]',Exinc)
+  call write_datablock(Ncol,maxJ(Zcomp, Ncomp, nex) + 1,col,un)
   write(*, '(/" Fission transmission coefficients for Z=", i3, &
  &  " N=", i3, " (",a,") and an excitation energy of ", f8.3, " MeV"/)') Z, N, trim(finalnuclide), Exinc
   odd = mod(A, 2)
