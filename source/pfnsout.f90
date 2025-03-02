@@ -39,7 +39,7 @@ subroutine pfnsout
 !
   implicit none
   character(len=132):: pfnsfile  ! file for nubar
-  character(len=13) :: Estr
+  character(len=12) :: Estr
   character(len=18) :: reaction   ! reaction
   character(len=132) :: topline    ! topline
   character(len=15) :: col(4)     ! header
@@ -55,7 +55,7 @@ subroutine pfnsout
 !
   MF = 5
   Estr=''
-  write(Estr,'(es13.6)') Einc
+  write(Estr,'(es12.6)') Einc
   col(1)='E-out'
   un(1)='MeV'
   col(2)='spectrum'
@@ -93,7 +93,8 @@ subroutine pfnsout
     call write_char(2,'ejectile',parname(type))
     call write_real(2,'E-incident [MeV]',Einc)
     call write_real(2,'E-average [MeV]',Eavpfns(type))
-    call write_datablock(quantity,Ncol,NEpfns,col,un)
+    call write_quantity(quantity)
+    call write_datablock(Ncol,NEpfns,col,un)
     write(*, '(/" E-average         = ", f8.3, " MeV")') Eavpfns(type)
     write(*, '(" Weighted E-average= ", f8.3, " MeV")') Epfnsaverage(type)
     write(*, '(/"       E-out         spectrum    Maxwell ratio   spectrum_CM"/)')

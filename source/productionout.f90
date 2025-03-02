@@ -89,7 +89,8 @@ subroutine productionout
         call write_header(topline,source,user,date,oformat)
         call write_target
         call write_reaction(reaction,0.d0,0.d0,MF,MT)
-        call write_datablock(quantity,Ncol,Ninc,col,un)
+        call write_quantity(quantity)
+        call write_datablock(Ncol,Ninc,col,un)
         do nen = 1, Ninclow
           write(1, '(3es15.6)') eninc(nen), 0., 0.
         enddo
@@ -119,7 +120,8 @@ subroutine productionout
         call write_header(topline,source,user,date,oformat)
         call write_target
         call write_reaction(reaction,0.d0,0.d0,MF,MT)
-        call write_datablock(quantity,Ncol,Ninc,col,un)
+        call write_quantity(quantity)
+        call write_datablock(Ncol,Ninc,col,un)
         do nen = 1, Ninclow
           write(1, '(2es15.6)') eninc(nen), 0.
         enddo

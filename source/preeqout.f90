@@ -131,7 +131,8 @@ subroutine preeqout
       col(10)='4p4h'
       col(11)='5p4h'
       Ncol=11
-      call write_datablock(quantity,Ncol,int(Etotal),col,un)
+      call write_quantity(quantity)
+      call write_datablock(Ncol,int(Etotal),col,un)
       do nen = 1, int(Etotal)
         Eex = real(nen)
         gs = g(0, 0)
@@ -152,7 +153,8 @@ subroutine preeqout
       col(12)='0p0h2p2h'
       col(13)='1p1h1p1h'
       Ncol=13
-      call write_datablock(quantity,Ncol,int(Etotal),col,un)
+      call write_quantity(quantity)
+      call write_datablock(Ncol,int(Etotal),col,un)
       do nen = 1, int(Etotal)
         Eex = real(nen)
         gsp = gp(0, 0)
@@ -174,7 +176,7 @@ subroutine preeqout
           phdens2(Zix, Nix, 1, 1, 1, 1, gsp, gsn, Eex, Efermi, surfwell)
       enddo
     endif
-    quantity = 'particle-hole spin distribution'
+    quantity = 'spin distribution'
     un = ''
     col(1)='n'
     do J = 0, 8
@@ -183,7 +185,8 @@ subroutine preeqout
     enddo
     col(11)='Sum'
     Ncol=11
-    call write_datablock(quantity,Ncol,maxexc,col,un)
+    call write_quantity(quantity)
+    call write_datablock(Ncol,maxexc,col,un)
     do n = 1, maxexc
       write(1, '(3x, i6, 6x, 10es15.6)') n, ((2* J + 1)*RnJ(n, J), J = 0, 8), RnJsum(n)
     enddo
@@ -193,13 +196,10 @@ subroutine preeqout
 !
 ! 2. Output of pre-equilibrium cross sections
 !
-  preeqfile = 'preeq.out'
-  if (preeqfirst) then
-    open (unit = 1, file = preeqfile, status = 'replace')
-    preeqfirst = .false.
-  else
-    open (unit = 1, file = preeqfile, status = 'old', position = 'append')
-  endif
+  preeqfile='preeq0000.000.tot'//natstring(iso)
+  write(preeqfile(6:13), '(f8.3)') Einc
+  write(preeqfile(6:9), '(i4.4)') int(Einc)
+  open (unit = 1, file = preeqfile, status = 'unknown')
   un='mb'
   col=''
   col(2)='Total'
@@ -219,33 +219,30 @@ subroutine preeqout
   col(1)='particle'
   un(1)=''
   reaction='('//parsym(k0)//',x)'
-  quantity = 'preequilibrium cross sections'
-  topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)
+  quantity = 'cross section'
+  topline=trim(targetnuclide)//trim(reaction)//' pre-equilibrium cross section and spectrum'
   call write_header(topline,source,user,date,oformat)
   call write_target
   call write_reaction(reaction,0.D0,0.D0,0,0)
   call write_real(2,'E-incident [MeV]',Einc)
   call write_real(2,'Pre-equilibrium cross section [mb]', xspreeqsum)
-  call write_datablock(quantity,Ncol,7,col,un)
+  call write_quantity(quantity)
+  call write_datablock(Ncol,7,col,un)
   do type = 0, 6
     nonpski = xspreeqtot(type) - xspreeqtotps(type) - xspreeqtotki(type) - xspreeqtotbu(type)
     write(1, '(4x, a8, 4x, 11es15.6)') parname(type),xspreeqtot(type), (xssteptot(type, p), p = 1, maxpar), nonpski, &
    &    xspreeqtotps(type), xspreeqtotki(type), xspreeqtotbu(type)
   enddo
-  quantity = 'preequilibrium emission spectra'
+  quantity = 'emission spectrum'
   do type = 0, 6
     if (parskip(type)) cycle
     if (ebegin(type) >= eend(type)) cycle
     col(1)='E-out'
     un(1)='MeV'
-    reaction='('//parsym(k0)//',x'//parsym(type)//')'
-    topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)
-    call write_header(topline,source,user,date,oformat)
-    call write_target
-    call write_reaction(reaction,0.D0,0.D0,0,0)
-    call write_real(2,'E-incident [MeV]',Einc)
-    call write_real(2,'Pre-equilibrium cross section [mb]', xspreeqtot(type))
-    call write_datablock(quantity,Ncol,eend(type)-ebegin(type)+1,col,un)
+    write(1,'("# parameters:")')
+    call write_real(2,'pre-equilibrium cross section [mb]', xspreeqtot(type))
+    call write_quantity(quantity)
+    call write_datablock(Ncol,eend(type)-ebegin(type)+1,col,un)
     do nen = ebegin(type), eend(type)
       nonpski = xspreeq(type, nen) - xspreeqps(type, nen) - xspreeqki(type, nen) - xspreeqbu(type, nen)
       write(1, '(12es15.6)') egrid(nen), xspreeq(type, nen), (xsstep(type, p, nen), p = 1, maxpar), nonpski, &

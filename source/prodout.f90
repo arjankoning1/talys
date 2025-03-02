@@ -177,7 +177,7 @@ subroutine prodout
 ! Output to files per residual product
 !
   reaction='('//parsym(k0)//',x)'
-  quantity='Isotope production'
+  quantity='isotope production'
   write(*,'(/,"Medical isotope production output files per nuclide:",/)')
   do Zix = 0, maxZ
     Z = Zinit - Zix
@@ -211,6 +211,7 @@ subroutine prodout
         call write_target
         call write_reaction(reaction,0.d0,0.d0,0,0)
         call write_residual(Z,A,finalnuclide)
+        if (is > 0) write(1,'("#   isomer: ",i1)')
         write(1,'("# parameters:")')
         call write_real(2,'Beam current [mA]',Ibeam)
         call write_real(2,'E-Beam [MeV]',Ebeam)
@@ -242,7 +243,8 @@ subroutine prodout
  & (Tp(Zix, Nix, is, k), k = 1, 5)
         endif
         call write_char(2,'Maximum production at',string)
-        call write_datablock(quantity,Ncol,numtime,col,un)
+        call write_quantity(quantity)
+        call write_datablock(Ncol,numtime,col,un)
         do it = 1, numtime
           write(1, '(5es15.6)') Tgrid(it), activity(Zix, Nix, is, it), Niso(Zix, Nix, is, it), &
  &          yield(Zix, Nix, is, it), Nisorel(Zix, Nix, is, it)

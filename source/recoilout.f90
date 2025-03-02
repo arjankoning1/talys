@@ -52,7 +52,7 @@ subroutine recoilout
   implicit none
   character(len=3)  :: massstring !
   character(len=6)  :: finalnuclide !
-  character(len=13) :: Estr
+  character(len=12) :: Estr
   character(len=18) :: reaction   ! reaction
   character(len=132) :: topline    ! topline
   character(len=15) :: col(2)     ! header
@@ -75,7 +75,7 @@ subroutine recoilout
   MF = 6
   MT = 5
   Estr=''
-  write(Estr,'(es13.6)') Einc
+  write(Estr,'(es12.6)') Einc
   col(1)='E-out'
   un(1)='MeV'
   col(2)='xs'
@@ -122,11 +122,13 @@ subroutine recoilout
         call write_header(topline,source,user,date,oformat)
         call write_target
         call write_reaction(reaction,0.D0,0.D0,MF,MT)
+        write(1,'("# parameters:")')
         call write_real(2,'E-incident [MeV]',Einc)
         call write_real(2,'Integrated recoil spectrum [mb]',recoilint(Zcomp, Ncomp))
-        call write_double(2,'Residual production cross section[mb]',sumcm)
+        call write_double(2,'Residual production cross section [mb]',sumcm)
         call write_residual(Z,A,finalnuclide)
-        call write_datablock(quantity,Ncol,maxenrec+1,col,un)
+        call write_quantity(quantity)
+        call write_datablock(Ncol,maxenrec+1,col,un)
         do nen = 0, maxenrec
           write(1, '(2es15.6)') Erec(Zcomp, Ncomp, nen), specrecoil(Zcomp, Ncomp, nen)
         enddo

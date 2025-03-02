@@ -184,9 +184,11 @@ subroutine racapout
     call write_target
     call write_reaction(reaction,Qres(0, 0, 0),0.D0,0,0)
     call write_residual(Zcpracap,Acpracap,finalnuclide)
+    write(1,'("# parameters:")')
     call write_double(2,'E-max [MeV]',S(0, 0, k0))
     call write_integer(2,'number of levels',nlevracap(0, 0))
-    call write_datablock(quantity,Ncol,Ninc-Ninclow,col,un)
+    call write_quantity(quantity)
+    call write_datablock(Ncol,Ninc-Ninclow,col,un)
 !   write(1, '("# ", a1, " + ", a, ": Direct Capture to ", i3, a2)') &
 !&    parsym(k0), trim(targetnuclide), Acpracap, nuc(Zcpracap)
 !   write(1, '("# Q-value    =", es12.5, " mass=", f11.6, " Emax=", f11.6)') Qres(0, 0, 0), nucmass(0, 0), S(0, 0, k0)

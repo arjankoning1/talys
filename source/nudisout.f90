@@ -41,7 +41,7 @@ subroutine nudisout
   implicit none
   character(len=18) :: reaction   ! reaction
   character(len=132) :: topline    ! topline
-  character(len=15) :: Estr
+  character(len=12) :: Estr
   character(len=15) :: col(4)     ! header
   character(len=15) :: un(4)     ! header
   character(len=80) :: quantity   ! quantity
@@ -74,7 +74,7 @@ subroutine nudisout
     write(Eline(16:23), '(f8.3)') Einc0
   endif
   Estr=''
-  write(Estr,'(es13.6)') Einc0
+  write(Estr,'(es12.6)') Einc0
   write(*, '(/" +++ NUMBER OF PROMPT FISSION NEUTRONS AND GAMMAS +++")')
   un = ''
   do type = 0, 6
@@ -101,7 +101,8 @@ subroutine nudisout
     call write_char(2,'ejectile',parname(type))
     call write_real(2,'nubar-prompt',nubar(type))
     call write_real(2,'average P(nu)',Pdisnuav(type))
-    call write_datablock(quantity,Ncol,numnu+1,col,un)
+    call write_quantity(quantity)
+    call write_datablock(Ncol,numnu+1,col,un)
     do i = 0, numnu
       if (Pdisnu(type, i) > 0. .or. i <= 4) then
         write(1, '(i6, 9x, es15.6)') i, Pdisnu(type, i)
@@ -129,7 +130,8 @@ subroutine nudisout
     call write_real(2,'E-incident [MeV]',Einc0)
     call write_char(2,'ejectile',parname(type))
     call write_real(2,'nubar-prompt',nubar(type))
-    call write_datablock(quantity,Ncol,Atarget,col,un)
+    call write_quantity(quantity)
+    call write_datablock(Ncol,Atarget,col,un)
     do ia = 1, Atarget
       write(1, '(i6, 9x, es15.6)') ia, nuA(type, ia)
     enddo
@@ -145,7 +147,7 @@ subroutine nudisout
     quantity='multiplicity'
     reaction='('//parsym(k0)//',f)'
     topline=trim(targetnuclide)//trim(reaction)//' prompt '//trim(adjustl(parname(type)))//' '//trim(quantity)// &
- &    ' as function of nuclide - nu(Z,A)'//' at '//Estr//' MeV'
+ &    ' as function of nuclide at '//Estr//' MeV'
     col(1)='Z'
     col(2)='A'
     col(3)='nu'
@@ -164,7 +166,8 @@ subroutine nudisout
         endif
       enddo
     enddo
-    call write_datablock(quantity,Ncol,k,col,un)
+    call write_quantity(quantity)
+    call write_datablock(Ncol,k,col,un)
     do iz = 1, Ztarget
       do ia = iz + 1, Atarget
         in = ia - iz
@@ -187,8 +190,8 @@ subroutine nudisout
   open (unit=1, file=nufile, status='replace')
   quantity='emission energy'
   reaction='('//parsym(k0)//',f)'
-  topline=trim(targetnuclide)//trim(reaction)//' average '//trim(quantity)//'  as function of nuclide - E-av(Z,A)'// &
- &  ' at '//Estr//' MeV'
+  topline=trim(targetnuclide)//trim(reaction)//' average '//trim(quantity)//' as function of nuclide at '// &
+ &  Estr//' MeV'
   col(1)='Z'
   col(2)='A'
   col(3)='gamma'
@@ -209,7 +212,8 @@ subroutine nudisout
       endif
     enddo
   enddo
-  call write_datablock(quantity,Ncol,k,col,un)
+  call write_quantity(quantity)
+  call write_datablock(Ncol,k,col,un)
   do iz = 1, Ztarget
     do ia = iz+1, Atarget
       in = ia - iz
@@ -227,7 +231,7 @@ subroutine nudisout
   open (unit=1, file=nufile, status='replace')
   quantity='emission energy'
   reaction='('//parsym(k0)//',f)'
-  topline=trim(targetnuclide)//trim(reaction)//' average '//trim(quantity)//' as function of mass - E-av(A)'//' at '//Estr//' MeV'
+  topline=trim(targetnuclide)//trim(reaction)//' average '//trim(quantity)//' as function of mass at '//Estr//' MeV'
   col(1)='A'
   col(2)='gamma'
   col(3)='neutron'
@@ -236,7 +240,8 @@ subroutine nudisout
   call write_target
   call write_reaction(reaction,0.d0,0.d0,0,0)
   call write_real(2,'E-incident [MeV]',Einc0)
-  call write_datablock(quantity,Ncol,Atarget,col,un)
+  call write_quantity(quantity)
+  call write_datablock(Ncol,Atarget,col,un)
   do ia = 1, Atarget
     write(1, '(i6,9x,2es15.6)') ia, (EaverageA(type,ia), type=0,1)
   enddo
