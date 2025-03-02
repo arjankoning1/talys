@@ -200,8 +200,10 @@ subroutine residualout
           call write_target
           call write_reaction(reaction,Qres(Zcomp, Ncomp, nex),Ethresh(Zcomp, Ncomp, nex),6,5)
           call write_residual(Z,A,finalnuclide)
-          call write_double(2,'mass [amu]',nucmass(Zcomp, Ncomp))
-          call write_datablock(quantity,Ncol,Ninc,col,un)
+          write(1,'("#   parameters:")')
+          call write_double(4,'mass [amu]',nucmass(Zcomp, Ncomp))
+          call write_quantity(quantity)
+          call write_datablock(Ncol,Ninc,col,un)
           if (flagcompo) then
             do nen = 1, Ninclow
               write(1, '(5es15.6)') eninc(nen), fxspopnuc(nen, Zcomp, Ncomp), 0., 0., fxspopnuc(nen, Zcomp, Ncomp)
@@ -258,10 +260,12 @@ subroutine residualout
                 call write_target
                 call write_reaction(reaction,Qres(Zcomp, Ncomp, nex),Ethresh(Zcomp, Ncomp, nex),6,5)
                 call write_residual(Z,A,finalnuclide)
-                call write_double(2,'mass [amu]',nucmass(Zcomp, Ncomp))
-                call write_level(2,kiso,levnum(Zcomp, Ncomp, nex),edis(Zcomp, Ncomp, nex), &
+                write(1,'("#   parameters:")')
+                call write_double(4,'mass [amu]',nucmass(Zcomp, Ncomp))
+                call write_level(4,kiso,levnum(Zcomp, Ncomp, nex),edis(Zcomp, Ncomp, nex), &
  &                jdis(Zcomp, Ncomp, nex),parlev(Zcomp, Ncomp, nex),tau(Zcomp, Ncomp, nex))
-                call write_datablock(quantity,Ncol,Ninc,col,un)
+                call write_quantity(quantity)
+                call write_datablock(Ncol,Ninc,col,un)
                 do nen = 1, Ninclow
                   write(1, '(3es15.6)') eninc(nen), fxspopex(nen, Zcomp, Ncomp, nex), fxsbranch(nen, Zcomp, Ncomp, nex)
                 enddo

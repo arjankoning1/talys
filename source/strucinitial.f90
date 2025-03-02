@@ -336,7 +336,6 @@ subroutine strucinitial
   flaggiant = .false.
   flagmulpre = .false.
   flaginvecis = .true.
-  preeqfirst = .true.
   Ethresh = 0.
   Qres = 0.
   flagurrendf = .false.

@@ -68,7 +68,7 @@ subroutine spectraout
   implicit none
   character(len=10) :: Efile       ! file with average energies
   character(len=21) :: specfile    ! file with composite particle spectra
-  character(len=13) :: Estr
+  character(len=12) :: Estr
   character(len=18) :: reaction   ! reaction
   character(len=132) :: topline    ! topline
   character(len=15) :: col(11)     ! header
@@ -85,7 +85,7 @@ subroutine spectraout
   MF = 6
   MT = 5
   Estr=''
-  write(Estr,'(es13.6)') Einc
+  write(Estr,'(es12.6)') Einc
   un = 'mb/MeV'
   col(1)='E-out'
   un(1)='MeV'
@@ -133,18 +133,21 @@ subroutine spectraout
       call write_header(topline,source,user,date,oformat)
       call write_target
       call write_reaction(reaction,0.D0,0.D0,MF,MT)
+      write(1,'("# parameters:")')
       call write_real(2,'E-incident [MeV]',Einc)
       call write_real(2,'E-average [MeV]',Eaverage(type))
       if (k0 <= 2 .and. type <= 2) then
         Ncol=7
-        call write_datablock(quantity,Ncol,eendout(type)-ebegin(type)+1,col,un)
+        call write_quantity(quantity)
+        call write_datablock(Ncol,eendout(type)-ebegin(type)+1,col,un)
         do nen = ebegin(type), eendout(type)
           write(1, '(7es15.6)') espec(type, nen), xssumout(type, nen), xsdiscout(type, nen), &
  &          xspreeqout(type, nen), xsmpreeqout(type, nen), xscompout(type, nen), preeqratio(type, nen)
         enddo
       else
         Ncol=11
-        call write_datablock(quantity,Ncol,eendout(type)-ebegin(type)+1,col,un)
+        call write_quantity(quantity)
+        call write_datablock(Ncol,eendout(type)-ebegin(type)+1,col,un)
         do nen = ebegin(type), eendout(type)
           write(1, '(11es15.6)') espec(type, nen), xssumout(type, nen), xsdiscout(type, nen), &
  &          xspreeqout(type, nen), xsmpreeqout(type, nen), xscompout(type, nen), preeqratio(type, nen), &
@@ -177,9 +180,11 @@ subroutine spectraout
         call write_header(topline,source,user,date,oformat)
         call write_target
         call write_reaction(reaction,0.D0,0.D0,MF,MT)
+        write(1,'("# parameters:")')
         call write_real(2,'E-incident [MeV]',Einc)
         call write_real(2,'Energy-integrated cross section [mb]',xsejlabint(type))
-        call write_datablock(quantity,Ncol,iejlab(type),col,un)
+        call write_quantity(quantity)
+        call write_datablock(Ncol,iejlab(type),col,un)
         do nen = 1, iejlab(type)
           write(1, '(2es15.6)') Eejlab(type, nen), xsejlab(type, nen)
         enddo
@@ -195,9 +200,9 @@ subroutine spectraout
       Efile = 'Eaverage.'//parsym(type)
       if (nin == Ninclow + 1) then
         open (unit = 1, file = Efile, status = 'replace')
-        quantity='average emission energy'
+        quantity='emission energy'
         reaction='('//parsym(k0)//',x'//parsym(type)//')'
-        topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)
+        topline=trim(targetnuclide)//trim(reaction)//' average '//trim(quantity)
         Ncol=2
         col(1)='E'
         col(2)='E-average'
@@ -205,7 +210,8 @@ subroutine spectraout
         call write_header(topline,source,user,date,oformat)
         call write_target
         call write_reaction(reaction,0.D0,0.D0,0,0)
-        call write_datablock(quantity,Ncol,Ninclow,col,un)
+        call write_quantity(quantity)
+        call write_datablock(Ncol,Ninclow,col,un)
         do nen = 1, Ninclow
           write(1, '(2es15.6)') eninc(nen), 0.
         enddo

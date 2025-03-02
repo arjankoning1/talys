@@ -62,6 +62,7 @@ subroutine spr
     topline=trim(targetnuclide)//' '//trim(quantity)
     call write_header(topline,source,user,date,oformat)
     call write_target
+    write(1,'("# parameters:")')
     call write_real(2,'S0',Sstrength(0)*1.e4)
     call write_real(2,'S1',Sstrength(1)*1.e4)
     call write_real(2,'Rprime [fm]',Rprime)
