@@ -107,7 +107,8 @@ subroutine levelsout(Zix, Nix)
   do i = 0, nlev(Zix, Nix)
     Nentries = Nentries + 1 + nbranch(Zix, Nix, i)
   enddo
-  call write_datablock(quantity,Ncol,Nentries,col,un)
+  call write_quantity(quantity)
+  call write_datablock(Ncol,Nentries,col,un)
   do i = 0, nlev(Zix, Nix)
     taustring=''
     if (tauripl(Zix, Nix, i) /= 0.) write(taustring(1:15),'(es15.6)') tauripl(Zix, Nix, i)

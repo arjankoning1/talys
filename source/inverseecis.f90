@@ -202,7 +202,8 @@ subroutine inverseecis(Zcomp, Ncomp)
       open (unit=1, file='radial.out', status='unknown')
       call write_header(topline,source,user,date,oformat)
       call write_target
-      call write_datablock(quantity,Ncol,numjlm,col,un)
+      call write_quantity(quantity)
+      call write_datablock(Ncol,numjlm,col,un)
       do i = 1, numjlm
         write(1, '(3es15.6)') 0.1*real(i), rhojlmp(Zcomp, Ncomp, i, 1), rhojlmn(Zcomp, Ncomp, i, 1)
       enddo
@@ -274,7 +275,8 @@ subroutine inverseecis(Zcomp, Ncomp)
       write(1,'("# parameters:")') 
       call write_char(2,'particle',parname(type))
       Nen =  eendmax(type) - ebegin(type) + 1
-      call write_datablock(quantity,Ncol,Nen,col,un)
+      call write_quantity(quantity)
+      call write_datablock(Ncol,Nen,col,un)
     endif
 !
 ! Standard ECIS inputs for phenomenological optical potentials

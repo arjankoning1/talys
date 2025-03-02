@@ -89,7 +89,8 @@ subroutine nubarout
       call write_target
       call write_reaction(reaction,0.d0,0.d0,MF,MT)
       call write_char(2,'ejectile',parname(type))
-      call write_datablock(quantity,Ncol,Ninc,col,un)
+      call write_quantity(quantity)
+      call write_datablock(Ncol,Ninc,col,un)
       do nen = 1, Ninclow
         write(1, '(2es15.6)') eninc(nen), fnubar(nen, type)
       enddo

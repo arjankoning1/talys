@@ -62,7 +62,7 @@ subroutine input_basicpar
   Lisoinp = -1
   outtype = ' '
   source = 'TALYS-2.1'
-  oformat = 'YANDF-0.2'
+  oformat = 'YANDF-0.3'
   flagfit = .false.
 !
 ! **************** Read input variables *******************
