@@ -153,7 +153,7 @@ subroutine incidentecis
   character(len=132) :: inelfile       ! file for inelastic scattering cross sections
   character(len=132) :: outfile        ! output file
   character(len=21) :: optfile    ! file with optical potential
-  character(len=13) :: Estr
+  character(len=12) :: Estr
   character(len=132) :: topline    ! topline
   character(len=15) :: col(5)     ! header
   character(len=15) :: un(5)     ! header
@@ -341,7 +341,7 @@ subroutine incidentecis
         write(*, '(/" +++++++++ DOUBLE FOLDING OPTICAL MODEL POTENTIAL FOR INCIDENT CHANNEL ++++++++++",/)')
       endif
       Estr=''
-      write(Estr,'(es13.6)') Einc
+      write(Estr,'(es12.6)') Einc
       un = 'MeV'
       col(1) = 'radius'
       un(1) = 'fm'
@@ -358,7 +358,8 @@ subroutine incidentecis
       topline=trim(targetnuclide)//' '//parname(k0)//' optical potential at '//Estr//' MeV'
       call write_header(topline,source,user,date,oformat)
       call write_target
-      call write_datablock(quantity,Ncol,numjlm,col,un)
+      call write_quantity(quantity)
+      call write_datablock(Ncol,numjlm,col,un)
       do i = 1, numjlm
         write(1, '(5es15.6)') radjlm(Zix, Nix, i), normjlm(Zix, Nix, 1) * potjlm(Zix, Nix, i, 1), &
  &        normjlm(Zix, Nix, 2) * potjlm(Zix, Nix, i, 2), normjlm(Zix, Nix, 5) * potjlm(Zix, Nix, i, 5), &

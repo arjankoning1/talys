@@ -45,7 +45,7 @@ subroutine incidentout
   implicit none
   character(len=18) :: reaction   ! reaction
   character(len=132) :: topline    ! topline
-  character(len=13) :: Estr
+  character(len=12) :: Estr
   character(len=15) :: col(5)     ! header
   character(len=15) :: un(5)     ! units
   character(len=80) :: quantity   ! quantity
@@ -58,7 +58,7 @@ subroutine incidentout
 ! *********** Total cross sections for incident channel ****************
 !
   Estr=''
-  write(Estr,'(es13.6)') Einc
+  write(Estr,'(es12.6)') Einc
   write(*, '(/" Optical model results"/)')
   if (k0 == 1) then
     write(*, '(" Total cross section   :", es11.4, " mb")') xstotinc
@@ -119,7 +119,8 @@ subroutine incidentout
   else
     Nk=lmaxinc + 1
   endif
-  call write_datablock(quantity,Ncol,Nk,col,un)
+  call write_quantity(quantity)
+  call write_datablock(Ncol,Nk,col,un)
 !
 ! 1. Spin 1/2 particles: Neutrons, protons, tritons and Helium-3
 !
@@ -171,7 +172,8 @@ subroutine incidentout
     col(2)='xs'
     un(2)='mb/sr'
     Ncol = 2
-    call write_datablock(quantity,Ncol,nangle+1,col,un)
+    call write_quantity(quantity)
+    call write_datablock(Ncol,nangle+1,col,un)
     do iang = 0, nangle
       write(1, '(2es16.5)') angle(iang), directad(k0, Ltarget, iang)
     enddo

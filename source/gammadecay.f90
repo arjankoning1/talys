@@ -180,7 +180,8 @@ subroutine gammadecay(Zix, Nix)
   col(10)='Daughter_energy'
   un(10)='MeV'
   Ncol=10
-  call write_datablock(quantity,Ncol,Nentries,col,un)
+  call write_quantity(quantity)
+  call write_datablock(Ncol,Nentries,col,un)
   do i = 1, nlev(Zix, Nix)
     write(1, '(2(i6, 9x, es15.6))') i, edis(Zix, Nix, i), Ngam(i), yieldg(i)
     do j = 1, Ngam(i)

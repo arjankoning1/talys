@@ -83,7 +83,7 @@ subroutine gamdisout
   col(2)='xs'
   un(2)='mb'
   Ncol=2
-  quantity='gamma-ray production cross section'
+  quantity='cross section'
   reaction='('//parsym(k0)//',x)'
   write(*, '(/" 10. Gamma-ray intensities")')
   do Zcomp = 0, maxZ
@@ -133,7 +133,7 @@ subroutine gamdisout
               write(levelstring2,'(i2)') i2
               reaction='('//parsym(k0)//',xg_'//trim(adjustl(levelstring1))//'-'//trim(adjustl(levelstring2))//')'
               open (unit = 1, file = gamfile, status = 'unknown')
-              topline=trim(targetnuclide)//trim(reaction)//trim(finalnuclide)//' '//trim(quantity)
+              topline=trim(targetnuclide)//trim(reaction)//trim(finalnuclide)//' gamma-ray production '//trim(quantity)
               call write_header(topline,source,user,date,oformat)
               call write_target
               call write_reaction(reaction,Qres(Zcomp, Ncomp, i1),Ethresh(Zcomp, Ncomp, i1),0,0)
@@ -143,7 +143,8 @@ subroutine gamdisout
  &              jdis(Zcomp, Ncomp, i2),parlev(Zcomp, Ncomp, i2),0.)
               call write_real(2,'gamma energy [MeV]',Egam)
               call write_residual(Z,A,finalnuclide)
-              call write_datablock(quantity,Ncol,Ninc,col,un)
+              call write_quantity(quantity)
+              call write_datablock(Ncol,Ninc,col,un)
               do nen = 1, Ninclow
                 write(1, '(2es15.6)') eninc(nen), 0.
               enddo

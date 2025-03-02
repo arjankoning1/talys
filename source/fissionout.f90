@@ -108,7 +108,8 @@ subroutine fissionout
           call write_target
           call write_reaction(reaction,0.D0,0.D0,0,0)
           call write_residual(Z,A,finalnuclide)
-          call write_datablock(quantity,Ncol,Ninc,col,un)
+          call write_quantity(quantity)
+          call write_datablock(Ncol,Ninc,col,un)
           do nen = 1, Ninclow
             write(1, '(2es15.6)') eninc(nen), 0.
           enddo
