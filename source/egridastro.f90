@@ -81,6 +81,7 @@ subroutine egridastro
 !
 ! ******** Set temperature grid for astrophysical calculations *********
 !
+  ET9 = 0.
   T9 = 0.
   T9(1) = 0.0001
   T9min = T9(1)
@@ -115,11 +116,13 @@ subroutine egridastro
 !
 ! ************************ incident energy grid ************************
 !
-  100 kt = 0.086173
+100 do nen = 1, nTmax
+    ET9(nen) = kT * T9(nen)
+  enddo
   emin = 1.d-12
   if (k0 /= 1) emin = 1.d-3
   emax = 50.
-  if (nTmax == 1 .and. k0 == 1) emax = min(emax, dble(50. * kt * astroT9))
+  if (nTmax == 1 .and. k0 == 1) emax = min(emax, dble(50. * kT * astroT9))
   neg = 100
   neg1 = 10
   neg2 = 10
@@ -134,15 +137,15 @@ subroutine egridastro
   qmin = min(Qn, Qp, Qa)
   qmax = max(Qn, Qp, Qa)
   if (k0 == 0) then
-    eg1 = max(0.d0, qmin - 4. * kt * T9max)
-    eg2 = qmax + 4. * kt * T9max
+    eg1 = max(0.d0, qmin - 4. * kT * T9max)
+    eg2 = qmax + 4. * kT * T9max
     eg2 = max(eg2, 20.d0)
     b1 = Qn
     b2 = Qp
     b3 = Qa
   elseif (k0 == 1) then
-    eg1 = max(dble(kt * T9min / 4.), 0.001d0)
-    eg2 = kt * T9max * 4.
+    eg1 = max(dble(kT * T9min / 4.), 0.001d0)
+    eg2 = kT * T9max * 4.
     b1 = - 999.
     b2 = Qp - Q0
     b3 = Qa - Q0
