@@ -126,7 +126,9 @@ subroutine astroout
   un(3)='mb'
   col(4)='G(T)'
   un(4)=''
-  Ncol=4
+  col(5)='E-average'
+  un(5)='MeV'
+  Ncol=5
   reaction='('//parsym(k0)//',x)'
   quantity='reaction rate'
   write(*, '(/" 8. Thermonuclear reaction rates",/)')
@@ -165,7 +167,7 @@ subroutine astroout
 !           write(*, '(/" Reaction rate for Z=", i3, " A=", i3, " (", i3, a2, ")"/)') Z, A, A, nuc(Z)
 !         endif
           do i = 1, nTmax
-            write(1, '(4es15.6)') T9(i), rateastro(Zcomp, Ncomp, i), macsastro(Zcomp, Ncomp, i), partf(i)
+            write(1, '(5es15.6)') T9(i), rateastro(Zcomp, Ncomp, i), macsastro(Zcomp, Ncomp, i), partf(i), ET9(i)
           enddo
 !         write(*, '("    T        G(T)        Rate       MACS "/)')
 !         do i = 1, nTmax
@@ -193,7 +195,7 @@ subroutine astroout
                 branch = 0.
                 if (rateastro(Zcomp, Ncomp, i) > 0.) branch = rateastroex(Zcomp, Ncomp, i, nex) / rateastro(Zcomp, Ncomp, i)
 !               write(*, '(1x, f8.4, 3es12.5)') T9(i), rateastroex(Zcomp, Ncomp, i, nex), macsastroex(Zcomp, Ncomp, i, nex), branch
-                write(1, '(4es15.6)') T9(i), rateastroex(Zcomp, Ncomp, i, nex), macsastroex(Zcomp, Ncomp, i, nex), branch
+                write(1, '(5es15.6)') T9(i), rateastroex(Zcomp, Ncomp, i, nex), macsastroex(Zcomp, Ncomp, i, nex), branch, ET9(i)
               enddo
               close (unit = 1)
               call write_outfile(astrofile,flagoutall)
@@ -285,7 +287,9 @@ subroutine astroout
     un(3)='mb'
     col(4)='G(T)'
     un(4)=''
-    Ncol=4
+    col(5)='E-average'
+    un(5)='MeV'
+    Ncol=5
     reaction='('//parsym(k0)//','//sym//')'
     quantity='reaction rate'
     topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)
@@ -301,11 +305,11 @@ subroutine astroout
     call write_datablock(Ncol,nTmax,col,un)
     if (type <= 3) then
       do i = 1, nTmax
-        write(1, '(4es15.6)') T9(i), rateastro(Zix, Nix, i), macsastro(Zix, Nix, i), partf(i)
+        write(1, '(5es15.6)') T9(i), rateastro(Zix, Nix, i), macsastro(Zix, Nix, i), partf(i), ET9(i)
       enddo
     else
       do i = 1, nTmax
-        write(1, '(4es15.6)') T9(i), rateastrofis(i), macsastrofis(i), partf(i)
+        write(1, '(5es15.6)') T9(i), rateastrofis(i), macsastrofis(i), partf(i), ET9(i)
       enddo
     endif
     close (unit = 1)
@@ -319,7 +323,9 @@ subroutine astroout
     un(4)=''
     col(5)='G(T)'
     un(5)=''
-    Ncol=5
+    col(6)='E-average'
+    un(6)='MeV'
+    Ncol=6
     reaction='('//parsym(k0)//','//sym//')'
     quantity='reaction rate'
     do type=1,3
@@ -361,7 +367,7 @@ subroutine astroout
           do i = 1, nTmax
             branch = 0.
             if (rateastro(Zix, Nix, i) > 0.) branch = rateastroex(Zix, Nix, i, nex) / rateastro(Zix, Nix, i)
-            write(1, '(5es15.6)') T9(i), rateastroex(Zix, Nix, i, nex), macsastroex(Zix, Nix, i, nex), branch, partf(i)
+            write(1, '(6es15.6)') T9(i), rateastroex(Zix, Nix, i, nex), macsastroex(Zix, Nix, i, nex), branch, partf(i), ET9(i)
           enddo
           close (unit = 1)
           call write_outfile(astrofile,flagoutall)
