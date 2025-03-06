@@ -183,7 +183,7 @@ subroutine gammaout(Zcomp, Ncomp)
         col(1)='E'
         un(1)='MeV'
         col(2)='f('//radtype//')'
-        un(2)=''
+        un(2)='MeV^-3'
         col(3)='T('//radtype//')'
         un(3)=''
         Ncol=3
