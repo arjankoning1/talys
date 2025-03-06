@@ -792,6 +792,7 @@ module A0_talys_mod
   real(sgl), dimension(0:numpar)               :: Q           ! Q-value
   real(sgl), dimension(numpar)                 :: Smyers      ! Myers-Swiatecki separation energy
   real(sgl), dimension(numT)                   :: T9          ! Temperature grid in 10**9 K
+  real(sgl), dimension(numT)                   :: ET9         ! Energy for temperature grid in MeV
   real(sgl)                                    :: targetE     ! excitation energy of target
   real(dbl)                                    :: tarmass     ! mass of target nucleus
   real(sgl)                                    :: targetspin  ! spin of target
