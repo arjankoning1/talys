@@ -261,15 +261,16 @@ subroutine massdisout
 !
     un = ''
     if (xsApre(ia) < fpeps .and. xsApost(ia) < fpeps .and. .not. fpaexist(ia)) cycle
-    fpfile = 'fp000000.tot'//natstring(iso)
-    write(fpfile(6:8), '(i3.3)') ia
+    iz = 0
+    fpfile = 'fp000.tot'//natstring(iso)
+    write(fpfile(3:5), '(i3.3)') ia
     if ( .not. fpaexist(ia)) then
       fpaexist(ia) = .true.
       finalnuclide=trim(nuc(iz))//trim(adjustl(massstring))
       open (unit = 1, file = fpfile, status = 'replace')
       reaction='('//parsym(k0)//',f)'
       quantity='fission yield'
-      topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' for '//finalnuclide
+      topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' for  A='//fpfile(3:5)
       col(1)='E'
       un(1)='MeV'
       col(2)='FP_yield'
