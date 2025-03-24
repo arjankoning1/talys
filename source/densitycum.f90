@@ -138,7 +138,7 @@ subroutine densitycum(Zix, Nix)
     dDexp=dD0(Zix, Nix)
     Dglob=D0global(Zix, Nix)
     dDglob=dD0global(Zix, Nix)
-    if (dDexp <= .1e-30) then
+    if (dDexp <= 1.e-30) then
       chi2D0(Zix, Nix) = 0.
     else
       chi2D0(Zix, Nix) = (abs(Dtheo - Dexp) / dDexp) **2
