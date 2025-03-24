@@ -162,9 +162,9 @@
 !
 ! ************* Write output block *************************************
 !
-  call write_integer(indent,'Z',Z)
+  if (Z > 0) call write_integer(indent,'Z',Z)
   call write_integer(indent,'A',A)
-  call write_char(indent,'nuclide',trim(nuc))
+  if (Z > 0) call write_char(indent,'nuclide',trim(nuc))
   return
   end
 !Copyright (C)  2023 A.J. Koning
