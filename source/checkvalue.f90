@@ -1137,7 +1137,7 @@ subroutine checkvalue
 !
   if (flagres) then
     if (trim(reslib) == 'tendl.2023') return
-    if (trim(reslib) == 'jeff3.3') return
+    if (trim(reslib) == 'jeff4.0') return
     if (trim(reslib) == 'endfb8.1') return
     if (trim(reslib) == 'cendl3.2') return
     if (trim(reslib) == 'jendl5.0') return
