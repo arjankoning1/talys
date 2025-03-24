@@ -434,7 +434,7 @@ subroutine astroout
   endif
   un='cm3/mol/s'
   col(1)='T'
-  col(1)='10^9_K'
+  un(1)='10^9_K'
   col(2)='G(T)'
   un(2)=''
   massstring='   '
