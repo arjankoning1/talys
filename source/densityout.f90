@@ -205,7 +205,6 @@ subroutine densityout(Zix, Nix)
       call write_real(2,'damping gamma',gammald(Zix,Nix))
       call write_real(2,'pairing energy [MeV]',P)
       call write_real(2,'adjusted pairing shift [MeV]',Pshift(Zix, Nix, ibar))
-      call write_real(2,'separation energy [MeV]',SS)
       call write_real(2,'discrete spin cutoff parameter',scutoffdisc(Zix, Nix, ibar))
       call write_real(2,'spin cutoff parameter(Sn)',spincut(Zix, Nix, ignatyuk(Zix, Nix, SS, ibar), SS, ibar, 0))
       if (ldmod == 1) then
@@ -237,6 +236,7 @@ subroutine densityout(Zix, Nix)
     else
       Ncol=5
     endif
+    call write_real(2,'separation energy [MeV]',SS)
     call write_double(2,'Rhotot(Sn) [MeV^-1]',densitytot(Zix, Nix, SS, ibar, ldmod))
     call write_integer(2,'number of excited levels',nlevmax2(Zix,Nix))
     call write_integer(2,'Nlow',Nlow(Zix, Nix, ibar))
@@ -322,8 +322,8 @@ subroutine densityout(Zix, Nix)
     col(4)='rho_observed'
     col(5)='rho_total'
     do J = 0, numJ
-      col(J+6)='J=     '
-      write(col(J+6)(4:7),'(f4.1)') J+0.5*odd 
+      col(J+6)='rho(J)=     '
+      write(col(J+6)(9:12),'(f4.1)') J+0.5*odd 
     enddo      
     un='MeV^-1'
     un(1)='MeV'
