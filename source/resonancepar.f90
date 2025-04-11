@@ -46,6 +46,7 @@ subroutine resonancepar(Zix, Nix)
   character(len=6)  :: reschar     ! help variable
   character(len=132):: resfile     ! file with residual production cross sections
   integer           :: A           ! mass number of target nucleus
+  integer           :: L           ! orbital angular momentum
   integer           :: iz          ! charge number from table
   integer           :: ia          ! mass number from table
   integer           :: istat       ! logical for file access
@@ -53,8 +54,8 @@ subroutine resonancepar(Zix, Nix)
   integer           :: Nrrf        ! number of resonances
   integer           :: Z           ! charge number of target nucleus
   integer           :: Zix         ! charge number index for residual nucleus
-  real(sgl)         :: D0f         ! help variable
-  real(sgl)         :: dD0f        ! help variable
+  real(sgl)         :: Df          ! help variable
+  real(sgl)         :: dDf         ! help variable
   real(sgl)         :: dgamgamf    ! uncertainty in gamgam
   real(sgl)         :: gamgamf     ! experimental total radiative width in eV
   real(sgl)         :: D0glob
@@ -79,18 +80,22 @@ subroutine resonancepar(Zix, Nix)
 ! 2. Search for the isotope under consideration and read information
 !
     do
-      read(2, '(4x, i4, 2e9.2, 10x, 2f9.5, i4)', iostat = istat) ia, D0f, dD0f, gamgamf, dgamgamf, Nrrf
+      read(2, '(4x, 2i4, 2e9.2, 10x, 2f9.5, i4)', iostat = istat) ia, L, Df, dDf, gamgamf, dgamgamf, Nrrf
       if (istat == -1) exit
       if (A == ia) then
-        if (dD0f /= 0..and.D0(Zix, Nix) == 0.) dD0(Zix, Nix) = dD0f * 1000.
-        if (D0f /= 0..and.D0(Zix, Nix) == 0.) D0(Zix, Nix) = D0f * 1000.
-        if (dgamgamf /= 0..and.gamgam(Zix, Nix) == 0.) dgamgam(Zix, Nix) = dgamgamf
-        if (gamgamf /= 0..and.gamgam(Zix, Nix) == 0.) gamgam(Zix, Nix) = gamgamf
-        if (Nrrf /= 0) Nrr(Zix, Nix) = Nrrf
-        if (Zix == 0 .and. Nix == 0) then
-          if (Nrrf > 0 .and. D0(Zix, Nix) > 0.) Eavres = 0.5 * ((Nrrf - 1) * D0(Zix, Nix)) * 1.e-6
+        if (L == 0) then
+          if (dDf /= 0..and.D0(Zix, Nix) == 0.) dD0(Zix, Nix) = dDf * 1000.
+          if (Df /= 0..and.D0(Zix, Nix) == 0.) D0(Zix, Nix) = Df * 1000.
+          if (dgamgamf /= 0..and.gamgam(Zix, Nix) == 0.) dgamgam(Zix, Nix) = dgamgamf
+          if (gamgamf /= 0..and.gamgam(Zix, Nix) == 0.) gamgam(Zix, Nix) = gamgamf
+          if (Nrrf /= 0) Nrr(Zix, Nix) = Nrrf
+          if (Zix == 0 .and. Nix == 0) then
+            if (Nrrf > 0 .and. D0(Zix, Nix) > 0.) Eavres = 0.5 * ((Nrrf - 1) * D0(Zix, Nix)) * 1.e-6
+          endif
+        else
+          if (dDf /= 0..and.D1r(Zix, Nix) == 0.) dD1r(Zix, Nix) = dDf * 1000.
+          if (Df /= 0..and.D1r(Zix, Nix) == 0.) D1r(Zix, Nix) = Df * 1000.
         endif
-        exit
       endif
     enddo
     close (unit = 2)
