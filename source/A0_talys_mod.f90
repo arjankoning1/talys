@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2023-12-30: Original code
-! 2025-03-10: Current version
+! 2025-03-29: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -357,6 +357,7 @@ module A0_talys_mod
   real(sgl), dimension(0:numZ,0:numN,0:numbar)   :: ctable            ! constant to adjust tabulated level densities
   real(sgl), dimension(0:numZ,0:numN,0:numbar)   :: ctableadjust      ! adjustable correction to adjust tabulated level densities
   real(sgl), dimension(0:numZ,0:numN)            :: D0                ! s-wave resonance spacing in eV
+  real(sgl), dimension(0:numZ,0:numN)            :: D1r               ! p-wave resonance spacing in eV
   real(sgl), dimension(0:numZ,0:numN,0:numbar)   :: deltaW            ! shell correction in nuclear mass
   real(sgl), dimension(0:numZ,0:numN,0:numbar)   :: E0                ! particle constant of temperature formula
   real(sgl), dimension(0:numZ,0:numN,0:numbar)   :: E0adjust          ! adjustable factor for E0
@@ -872,6 +873,7 @@ module A0_talys_mod
 !
   integer, dimension(0:numZ,0:numN)            :: Nrr      ! number of resonances
   real(sgl), dimension(0:numZ,0:numN)          :: dD0      ! uncertainty in D0
+  real(sgl), dimension(0:numZ,0:numN)          :: dD1r     ! uncertainty in D1
   real(sgl), dimension(0:numZ,0:numN)          :: dgamgam  ! uncertainty in gamgam
   real(sgl)                                    :: Eavres   ! average resonance energy
   real(sgl), dimension(0:numZ, 0:numN)         :: D0theo   ! mean s-wave resonance spacing
