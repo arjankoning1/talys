@@ -253,6 +253,9 @@ subroutine densityout(Zix, Nix)
     call write_real(2,'Frms D0',FrmsD0(Zix, Nix))
     call write_real(2,'Erms D0',ErmsD0(Zix, Nix))
     call write_real(2,'C/G D0',CGD0(Zix, Nix))
+    call write_real(2,'experimental D1 [eV]',D1r(Zix, Nix))
+    call write_real(2,'experimental D1 unc. [eV]',dD1r(Zix, Nix))
+    call write_real(2,'theoretical D1 [eV]',D1theo(Zix, Nix))
     k = 0
     Eex1 = 0.
     i1 = 0
