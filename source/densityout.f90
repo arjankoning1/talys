@@ -149,12 +149,12 @@ subroutine densityout(Zix, Nix)
   write(massstring,'(i3)') A
   finalnuclide=trim(nuc(Z))//adjustl(massstring)
   ldmod = ldmodel(Zix, Nix)
-  if (ldmod == 1) model = "Constant temperature     "
-  if (ldmod == 2) model = "Back-shifted Fermi Gas   "
-  if (ldmod == 3) model = "Generalized superfluid   "
-  if (ldmod == 4) model = "Goriely Skyrme           "
-  if (ldmod == 5) model = "Hilaire-Goriely Skyrme   "
-  if (ldmod == 6) model = "Hilaire-Goriely Gogny    "
+  if (ldmod == 1) model = "Constant-Temperature     "
+  if (ldmod == 2) model = "Back-shifted-Fermi-Gas   "
+  if (ldmod == 3) model = "Generalized-Superfluid   "
+  if (ldmod == 4) model = "Goriely-Skyrme           "
+  if (ldmod == 5) model = "Hilaire-Goriely-Skyrme   "
+  if (ldmod == 6) model = "Hilaire-Goriely-Gogny    "
   if (ldmod == 7) model = "BSKG3                    "
   if (ldmod == 8) model = "QRPA                     "
   write(*, '(/" Level densities for Z=", i3, " N=", i3, " (",a,") "/)')  Z, N, trim(finalnuclide)
