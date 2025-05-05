@@ -90,6 +90,7 @@ subroutine incidentout
   quantity='transmission coefficients'
   reaction='('//parsym(k0)//',tot)'
   topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' at '//Estr//' MeV'
+  write(*, '(/" Transmission coefficients for incident channel"/)')
   open (unit=1, file='transm.inc', status='replace')
   call write_header(topline,source,user,date,oformat)
   call write_target
