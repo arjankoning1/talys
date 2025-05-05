@@ -158,7 +158,7 @@ subroutine densityout(Zix, Nix)
   if (ldmod == 7) model = "BSKG3                    "
   if (ldmod == 8) model = "QRPA                     "
   write(*, '(/" Level densities for Z=", i3, " N=", i3, " (",a,") "/)')  Z, N, trim(finalnuclide)
-  write(*, '(" Total level density:"/)') 
+  write(*, '(" Total level density"/)') 
 !
 ! ********************** Total level density ***************************
 !
@@ -317,6 +317,7 @@ subroutine densityout(Zix, Nix)
 !
 ! Level densities per parity on separate files
 !
+    write(*, '(" Level density per spin and parity"/)') 
     quantity='level density'
     col=''
     col(1)='E'
@@ -375,7 +376,7 @@ subroutine densityout(Zix, Nix)
 !
 ! Spin distribution
 !
-    write(*, '(/" Level density spin distribution:"/)') 
+    write(*, '(/" Level density spin distribution"/)') 
     quantity='spin distribution'
     Ncol = 3
     un=''
