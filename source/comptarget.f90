@@ -288,6 +288,7 @@ subroutine comptarget
     write(Estr,'(es12.6)') Einc
     topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' of '//trim(finalnuclide)//' at '//Estr//' MeV'
     popfile='initial.pop'
+    write(*, '(/" ++++++++++ INITIAL COMPOUND NUCLEUS FORMATION +++++++++++++++++++++++++++++++",/)')
     open (unit = 1, file = popfile, status = 'replace')
     call write_header(topline,source,user,date,oformat)
     call write_target
@@ -335,7 +336,7 @@ subroutine comptarget
 ! *** Output of flux conservation check of transmission coefficients ***
 !
   if (flagcheck .and. flagwidth) then
-    write(*, '(/" ++++++++++ CHECK OF FLUX CONSERVATION", " OF TRANSMISSION COEFFICIENTS ++++++++++",/)')
+    write(*, '(/" ++++++++++ CHECK OF FLUX CONSERVATION OF TRANSMISSION COEFFICIENTS ++++++++++",/)')
     if (wmode == 0) write(*, '(" Hauser-Feshbach model"/)')
     if (wmode == 1) write(*, '(" Moldauer model")')
     if (wmode == 2) write(*, '(" HRTW model"/)')
