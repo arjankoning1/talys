@@ -90,7 +90,8 @@ subroutine nudisout
     open (unit = 1, file = nufile, status = 'replace')
     quantity='multiplicity'
     reaction='('//parsym(k0)//',f)'
-    topline=trim(targetnuclide)//trim(reaction)//' prompt '//trim(adjustl(parname(type)))//' '//trim(quantity)//' at '//Estr//' MeV'
+    topline=trim(targetnuclide)//trim(reaction)//' prompt '//trim(adjustl(parname(type)))//' '//trim(quantity)// &
+ &    ' - P(nu) at '//Estr//' MeV'
     col(1)='number'
     col(2)='nu'
     Ncol=2
