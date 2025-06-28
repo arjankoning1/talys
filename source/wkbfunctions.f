@@ -6,10 +6,14 @@ C     To be defined as external function
 C
       IMPLICIT NONE
       real Fmoment
-      real Eps, Vdef
-      include "wkb.cmb"
-      Fmoment = 2.d0*SMIU* sqrt( abs (UEXC - Vdef(Eps)) )
-      return
+      real Eps, Vdef,rmiudef
+      real Uexc, Smiu
+      INTEGER K
+      COMMON /VARGS/ Uexc, Smiu, K
+c     Fmoment = 2.d0*SMIU* sqrt( abs (UEXC - Vdef(Eps)) )
+      Fmoment = 2.d0*sqrt(rmiudef(eps)/2.)*sqrt(abs(UEXC-Vdef(Eps)))
+      return 
+
       end
       function FmomentParab(Eps)
 C
@@ -20,8 +24,10 @@ C
       IMPLICIT NONE
       real FmomentParab
       real Eps, VdefParab
-      include "wkb.cmb"
-      FmomentParab=2.d0*Smiu*sqrt(abs(Uexc-VdefParab(Eps,Smiu,K)))
+      real Uexc, Smiu
+      INTEGER K
+      COMMON /VARGS/ Uexc, Smiu, K
+      FmomentParab = 2.d0*Smiu* sqrt( abs (Uexc - VdefParab(Eps)) )
       return
       end
       FUNCTION GaussLegendre41(F,Ea,Eb,ABSERR)
@@ -144,6 +150,7 @@ C     Local variables
 
       npts = 0
       do i = Imax - Npfit, Imax + Npfit
+        if (I < 1) cycle
         npts = npts + 1
         x(npts) = EPS(i) - EPS(imax)
         y(npts) = VDEFORM(i)
