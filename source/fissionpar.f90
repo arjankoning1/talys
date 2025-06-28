@@ -86,6 +86,7 @@ subroutine fissionpar(Zix, Nix)
   integer           :: il          ! angular momentum
   integer           :: istat       ! logical for file access
   integer           :: j           ! counter
+  integer           :: ib          ! index
   integer           :: modn        ! help variable
   integer           :: modz        ! help variable
   integer           :: N           ! neutron number of residual nucleus
@@ -102,6 +103,9 @@ subroutine fissionpar(Zix, Nix)
   real(sgl)         :: hw2         ! inner and outer barrier curvatures
   real(sgl)         :: lbar0       ! l-value for which bfis becomes zero
   real(sgl)         :: vv          ! fission path parameter
+  real(sgl)         :: b22         ! help variable
+  real(sgl)         :: b30         ! help variable
+  real(sgl)         :: rmiu        ! moment of inertia parameter
 !
 ! ****************** Read fission barrier parameters *******************
 !
@@ -212,14 +216,21 @@ subroutine fissionpar(Zix, Nix)
 !
 ! wkb       : subroutine for WKB approximation for fission
 !
-  if (fislocal == 5) then
+  nextr = 0
+  iiextr(0)=1
+  if (fislocal >= 5) then
     nfisbar(Zix, Nix) = 0
     fischar = trim(nuc(Z))//'.fis'
-    fisfile = trim(path)//'fission/hfbpath/'//fischar
+    if (fislocal == 5) fisfile = trim(path)//'fission/hfbpath/'//fischar
+    if (fislocal == 6) fisfile = trim(path)//'fission/hfbpath_bskg3/'//fischar
     inquire (file = fisfile, exist = lexist)
     if (lexist) then
       open (unit = 2, file = fisfile, status = 'old')
-300   read(2, '(/11x, i4, 12x, i4//)', end = 330) ia, nbeta
+300   if (fislocal.eq.5) then
+        read(2, '(/11x, i4, 12x, i4//)', end = 330) ia, nbeta
+      else
+        read(2, '(/11x, i5, 12x, i4//)', end = 330) ia, nbeta
+      endif
       if (A /= ia) then
         do i = 1, nbeta
           read(2, '()')
@@ -227,14 +238,42 @@ subroutine fissionpar(Zix, Nix)
         goto 300
       else
         do i = 1, nbeta
-          read(2, '(f10.3, 20x, f10.3)') bb, vv
-          betafis(i) = betafiscoradjust(Zix, Nix) * betafiscor(Zix, Nix) * bb
+          if (fislocal.eq.5) then
+            read(2, '(f10.3, 20x, f10.3)') bb, vv
+!
+! 6/12/2024: new mean rmiu value adapted to U236, so that action integral S~S(exp)=52.21
+!               rmiu=0.0047*A**(5./3.)  --> S~39.5
+!
+            rmiu=rmiufiscor(Zix,Nix)*0.0063*A**(5./3.)
+            betafis(i) = betafiscoradjust(Zix, Nix) * betafiscor(Zix, Nix) * bb
+          else
+            read(2,*) bb,b22,b30,vv,rmiu,ib
+!
+! for BSkG3 the deformation corresponds to the index i (rmiu coherently associated)
+!
+            betafis(i) = betafiscoradjust(Zix, Nix) * betafiscor(Zix, Nix) * float(i)
+!
+! ib=-1 corresponds to the ground state
+! ib= 1 corresponds to identified maxima
+! ib= 2 corresponds to identified minima
+! ib= 9 corresponds to non-considered extrema (if more than 3 maxima exist)
+!
+            if (ib.eq.1.or.ib.eq.2) then
+              nextr=nextr+1
+              iiextr(nextr)=i
+            endif
+          endif
           vfis(i) = vfiscoradjust(Zix, Nix) * vfiscor(Zix, Nix) * vv
+          rmiufis(i) = rmiufiscoradjust(Zix, Nix) * rmiufiscor(Zix, Nix) * rmiu
         enddo
         if (nbins0 == 0) then
           nbinswkb = 30
         else
           nbinswkb = nbins0
+        endif
+        if (fismodel == 6) then
+          iiextr(nextr+1) = nbeta
+          if (nextr > 5) write(*, '(" TALYS-warning: number of barriers ",i3," > 3 for Z = ",i3," A = ",i3)') nextr, Z, A
         endif
         call wkb(Z, A, Zix, Nix, nbar)
         nfisbar(Zix, Nix) = nbar
