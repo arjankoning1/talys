@@ -6,7 +6,7 @@ subroutine mainout
 ! Author    : Arjan Koning
 !
 ! 2023-12-30: Original code
-! 2025-05-20: Current revision
+! 2025-06-28: Current revision
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -69,7 +69,7 @@ subroutine mainout
 !
 ! *************************** Code and version *************************
 !
-  write(*, '(/"    TALYS-2.1 (Version: May 20, 2025)"/)')
+  write(*, '(/"    TALYS-2.11 (Version: June 28, 2025)"/)')
   write(*, '(" Copyright (C) 2025  A.J. Koning, S. Hilaire and S. Goriely"/)')
   write(*, '(" Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees")')
   write(*, '(/" User: ",a)') trim(user)
@@ -152,7 +152,7 @@ subroutine mainout
 ! fissionparout: subroutine for output for fission parameters
 !
   if (flaglevels) call levelsout(Zix, Nix)
-  if (flagdensity) call densityout(Zix, Nix)
+  if (flagdensity .or. filedensity) call densityout(Zix, Nix)
   if (flagfisout) call fissionparout(Zix, Nix)
   strucwrite(Zix, Nix) = .true.
   if (parskip(0)) return
