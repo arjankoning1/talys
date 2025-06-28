@@ -234,49 +234,51 @@ subroutine inverseecis(Zcomp, Ncomp)
 ! Output of optical model parameters, if requested.
 !
     if (flagoutomp .and. .not. jlmloc) then
-      un='fm'
-      col(1)='E'
-      un(1)='MeV'
-      col(2)='V'
-      un(2)='MeV'
-      col(3)='rv'
-      col(4)='av'
-      col(5)='W'
-      un(5)='MeV'
-      col(6)='rw'
-      col(7)='aw'
-      col(8)='Vd'
-      un(8)='MeV'
-      col(9)='rvd'
-      col(10)='avd'
-      col(11)='Wd'
-      un(11)='MeV'
-      col(12)='rwd'
-      col(13)='awd'
-      col(14)='Vso'
-      un(14)='MeV'
-      col(15)='rvso'
-      col(16)='avso'
-      col(17)='Wso'
-      un(17)='MeV'
-      col(18)='rwso'
-      col(19)='awso'
-      col(20)='rc'
-      Ncol=20
-      quantity='optical model parameters'
-      massstring='   '
-      write(massstring,'(i3)') A
-      finalnuclide=trim(nuc(Z))//adjustl(massstring)
-      topline=trim(finalnuclide)//' '//parname(type)//' '//trim(quantity)
-      ompfile='omppar.'//parsym(type)
-      open (unit=1, file=ompfile, status='replace')
-      call write_header(topline,source,user,date,oformat)
-      call write_residual(Z,A,finalnuclide)
-      write(1,'("# parameters:")') 
-      call write_char(2,'particle',parname(type))
       Nen =  eendmax(type) - ebegin(type) + 1
-      call write_quantity(quantity)
-      call write_datablock(Ncol,Nen,col,un)
+      if (Nen > 0) then
+        un='fm'
+        col(1)='E'
+        un(1)='MeV'
+        col(2)='V'
+        un(2)='MeV'
+        col(3)='rv'
+        col(4)='av'
+        col(5)='W'
+        un(5)='MeV'
+        col(6)='rw'
+        col(7)='aw'
+        col(8)='Vd'
+        un(8)='MeV'
+        col(9)='rvd'
+        col(10)='avd'
+        col(11)='Wd'
+        un(11)='MeV'
+        col(12)='rwd'
+        col(13)='awd'
+        col(14)='Vso'
+        un(14)='MeV'
+        col(15)='rvso'
+        col(16)='avso'
+        col(17)='Wso'
+        un(17)='MeV'
+        col(18)='rwso'
+        col(19)='awso'
+        col(20)='rc'
+        Ncol=20
+        quantity='optical model parameters'
+        massstring='   '
+        write(massstring,'(i3)') A
+        finalnuclide=trim(nuc(Z))//adjustl(massstring)
+        topline=trim(finalnuclide)//' '//parname(type)//' '//trim(quantity)
+        ompfile='omppar.'//parsym(type)
+        open (unit=1, file=ompfile, status='replace')
+        call write_header(topline,source,user,date,oformat)
+        call write_residual(Z,A,finalnuclide)
+        write(1,'("# parameters:")') 
+        call write_char(2,'particle',parname(type))
+        call write_quantity(quantity)
+        call write_datablock(Ncol,Nen,col,un)
+      endif
     endif
 !
 ! Standard ECIS inputs for phenomenological optical potentials
