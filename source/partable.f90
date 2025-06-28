@@ -27,6 +27,7 @@ subroutine partable(Zix, Nix)
 !   bdampadjust      ! correction for fission partial damping parameter
 !   betafiscor       ! adjustable factor for fission path width
 !   betafiscoradjust ! adjustable factor for fission path width
+!   rmiufiscor       ! adjustable factor for inertia mass along fission path 
 !   fbaradjust       ! adjustable factor for fission parameters
 !   fbarrier         ! height of fission barrier
 !   fismodelx        ! fission model
@@ -225,8 +226,10 @@ subroutine partable(Zix, Nix)
         if (ibar == 1) then
           write(51, '("betafiscor     ", 2i4, f10.5)') Z, A, betafiscor(Zix, Nix)
           write(51, '("vfiscor        ", 2i4, f10.5)') Z, A, vfiscor(Zix, Nix)
+          write(51, '("rmiufiscor     ", 2i4, f10.5)') Z, A, rmiufiscor(Zix, Nix)
           write(51, '("betafiscoradjust ", 2i4, f10.5)') Z, A, betafiscoradjust(Zix, Nix)
           write(51, '("vfiscoradjust  ", 2i4, f10.5)') Z, A, vfiscoradjust(Zix, Nix)
+          write(51, '("rmiufiscoradjust ", 2i4, f10.5)') Z, A, rmiufiscoradjust(Zix, Nix)
         endif
         write(51, '("bdamp          ", 2i4, f10.5, i3)') Z, A, bdamp(Zix, Nix, ibar), ibar
         write(51, '("bdampadjust    ", 2i4, f10.5, i3)') Z, A, bdampadjust(Zix, Nix, ibar), ibar
