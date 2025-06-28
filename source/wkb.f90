@@ -27,6 +27,7 @@ subroutine wkb(Z, A, Zix, Nix, nbar)
 !   iiextr        ! WKB counter
 !   nbinswkb      ! integration step for WKB calculation
 !   nextr         ! WKB counter
+!   nextr0        ! WKB counter
 !   Twkb          ! transmission coefficient of WKB potential
 !   Twkbdir       ! transmission coefficient of WKB potential
 !   Twkbphase     ! transmission coefficient of WKB potential
@@ -48,6 +49,7 @@ subroutine wkb(Z, A, Zix, Nix, nbar)
   integer          :: n1              ! number of coordinate grid points
   integer          :: nbar            ! number of fission barriers
   integer          :: nbarr           ! number of fission barriers
+  integer          :: nextr0          ! WKB counter
   integer          :: Nix             ! neutron number index for residual nucleus
   integer          :: nsmooth         ! smoothing parameter
   integer          :: Z               ! charge number of target nucleus
@@ -56,7 +58,7 @@ subroutine wkb(Z, A, Zix, Nix, nbar)
   real(sgl)        :: dE              ! help variable
   real(sgl)        :: height          ! barrier height
   real(sgl)        :: phase(2*numbar) ! phase
-  real(sgl)        :: rmiu            ! parameter for WKB
+  real(sgl)        :: rrmiu           ! parameter for WKB
   real(sgl)        :: tdir            ! WKB variable
   real(sgl)        :: tff(2*numbar)   ! fission transmission coefficient
   real(sgl)        :: ucentr          ! energy of center
@@ -72,33 +74,38 @@ subroutine wkb(Z, A, Zix, Nix, nbar)
   real(sgl)        :: Vtop2           ! help variable
   real(sgl)        :: b1              ! help variable
   real(sgl)        :: b2              ! help variable
+  real(sgl)        :: rmiu            ! help variable
   character(len=9) :: filewkb         ! WKB file
 !
 ! ******* Finding maxima and minima of the deformation energy curve ****
 !
 ! Find_Extrem: function to find extrema
 !
-  nsmooth = 5
-  rmiu = 0.054 * A **(5. / 3.)
-! initializes iiextr() and nextr
-  nextr = Find_Extrem(nsmooth)
-  nextr = min(nextr, 2 * numbar - 1)
-  nbarr = nextr / 2 + 1
-  nbar = nbarr
-!   nwell = nextr/2
-!   Fitting parabola
   filewkb = '         '
   write(filewkb, '("wkb", 2i3.3)') Z, A
   if (flagfisout) then
     open (unit = 22, file = filewkb, status = 'replace')
     write(22, '("Z=", i3, " A=", i3)') Z, A
   endif
+  rmiu = rmiufiscor(Zix,Nix) * 0.054 * A**(5./3.)
+! initializes iiextr() and nextr
+  nextr0=nextr
+  nsmooth = 5
+  if (fismodel.ne.6) nextr = Find_Extrem(nsmooth)
+  if (flagfisout) write(22,'("nbr of maxima along fission path=",i2)') nextr
+  nextr = min(nextr, 2 * numbar - 1)
+  nbarr = nextr / 2 + 1
+  nbar = nbarr
+!   nwell = nextr/2
+!   Fitting parabola
   do j = 1, 2 * numbar
     Vheight(j) = 0.
     Vwidth(j) = 0.
   enddo
   do j = 1, nextr
-    CALL ParabFit(iiextr(j), 3, rmiu, betafis, vfis, centr,  height,  width, ucentr, uheight, uwidth)
+    rrmiu = rmiu
+    if (fismodelx(Zix,Nix) >= 5) rrmiu = rmiufis(iiextr(j))
+    CALL ParabFit(iiextr(j), 3, rrmiu, betafis, vfis, centr,  height,  width, ucentr, uheight, uwidth)
     if(width.LT.0.05d0) CYCLE ! Skipping very narrow peaks
     if (flagfisout) then
       write(22, *) ' Def: ', betafis(iiextr(j)), ' (', centr, ' +/- ', ucentr, ')'
@@ -271,6 +278,7 @@ subroutine wkbfis(iz, in, uexcit, tff, phase, tdir)
   real(sgl) :: deps                       ! help variable
   real(sgl) :: vdef                       ! deformed potential
   real(sgl) :: phasecal                   ! help variable
+  real(sgl) :: rmiudef                    ! help variable
   integer   :: j                          ! counter
   integer   :: ieps                       ! counter
   real(sgl) :: Fmoment                    ! function for integrand for Gauss-Legendre integration
@@ -292,12 +300,12 @@ subroutine wkbfis(iz, in, uexcit, tff, phase, tdir)
 !   Momentum integrals are calculated
   if (flagfisout) then
     write(22, * )
-    write(22, *) ' Excitation Energy : ', uexcit
+    write(22, *) ' Excitation Energy : ',uexcit,' nextr=',nextr
   endif
   do k = 1, nextr ! barriers and wells
-      if(mod(k, 2) == 1) then
+    if (mod(k, 2) == 1) then
 !   BARRIERS
-        if(uexcit >= Vheight(k)) then
+      if (uexcit >= Vheight(k)) then
 !
 !   For excitation energies above barriers the transmission
 !   coefficient is calculated by Hill-Wheeler formula
@@ -310,9 +318,8 @@ subroutine wkbfis(iz, in, uexcit, tff, phase, tdir)
         phase(k)   = min(dmom, 50.)
         tff(k) = 1.d0 / (1.d0 + DEXP(2.d0 * dmom))
         if (flagfisout) write(22, '(1x, A6, I2, A10, d10.3, A3, d10.3, A15)') &
- &      ' BARR ', k, '  Mom.Int=', dmom, ' T=', tff(k), ' (Hill-Wheeler)'
-
-        else
+ &        ' BARR ', k, '  Mom.Int=', dmom, ' T=', tff(k), ' (Hill-Wheeler)'
+      else
 !
 !   For excitation energies below barriers the transmission
 !   coefficient is calculated by WKB method
@@ -335,30 +342,30 @@ subroutine wkbfis(iz, in, uexcit, tff, phase, tdir)
         tff(k) = 1.d0 / (1.d0 + DEXP(2.d0 * phase(k)))
 !
         if (flagfisout) then
-     write(22, '(1x, A6, I2, A10, f7.4, A4, f7.4, 1x, A9, d10.3, A3, d10.3)') &
- &      ' BARR ', k, ' at beta2 ', epsa, ' to ', epsb, ' Mom.Int=', phase(k), ' T=', tff(k)
-     deps = (epsb - epsa) / 50.
-     eps = epsa - deps
-     phasecal = 0.
-     do ieps = 1, 50
-       eps = eps + deps
-       if (mod(ieps, 5) == 0) write(22, '(10x, "eps=", f6.3, " Vdef-E=", f8.3)') eps, &
- &       vdef(eps) - Uexc
-       if (vdef(eps) >= Uexc .and. vdef(eps + deps) >= Uexc) phasecal = phasecal + 2. * smiu * ((vdef(eps) - Uexc) **0.5 + &
-         (vdef(eps + deps) - Uexc) **0.5) / 2. * deps
-     enddo
-     if (phasecal < 30.) write(22, '(10x, " Kcal=", f10.4, " Tcal=", es12.4)') &
- &     phasecal, 1. / (1. + exp(2. * phasecal))
-     endif
+          write(22, '(1x, A6, I2, A10, f8.4, A4, f7.4, 1x, A9, d10.3, A3, d10.3)') &
+ &           ' BARR ', k, ' at beta2 ', epsa, ' to ', epsb, ' Mom.Int=', phase(k), ' T=', tff(k)
+          deps = (epsb - epsa) / 100.
+          eps = epsa - deps
+          phasecal = 0.
+          do ieps = 1, 100
+            eps = eps + deps
+            if (mod(ieps, 5) == 0) write(22, '(10x, "eps=", f6.3, " Vdef-E=", f8.3, " mu=", f8.4)') eps, &
+ &            vdef(eps) - Uexc, rmiudef(eps)
+            if (vdef(eps) >= Uexc .and. vdef(eps + deps) >= Uexc) &
+ &            phasecal = phasecal + 2. * (sqrt(rmiudef(eps) / 2.) * (abs(vdef(eps) - Uexc)) ** 0.5 + &
+ &            sqrt(rmiudef(eps + deps) / 2.) * (abs(vdef(eps + deps) - Uexc)) ** 0.5)/ 2. * deps
+          enddo
+          if (phasecal < 100.) write(22, '(10x, " Kcal=", f10.4, " Tcal=", es12.4)') phasecal, 1. / (1. + exp(2. * phasecal))
         endif
-      else
+      endif
+    else
 !   WELLS
-        if(uexcit.LE.Vheight(k)) then
+      if (uexcit.LE.Vheight(k)) then
 !
 !   Excitation energies below the well
 !
         phase(k) = 0.d0
-        else
+      else
 !
 !   For excitation energies above the well the transmission
 !   coefficient is calculated by WKB method
@@ -369,13 +376,13 @@ subroutine wkbfis(iz, in, uexcit, tff, phase, tdir)
 !   Calculating phase integral for real shape
 !
         dmom = GaussLegendre41(Fmoment, epsa, epsb, abserr)
-     if (flagfisout .and. dmom > 0.d0 .and. abserr.gT.dmom * 0.03) write(22, *) ' WARNING: For extremum ', k, &
+        if (flagfisout .and. dmom > 0.d0 .and. abserr.gT.dmom * 0.03) write(22, *) ' WARNING: For extremum ', k, &
  &        ' phase integral is not accurate (', abserr/dmom*100.d0, ' %)'
         phase(k) = min(dmom, 50.)
         if (flagfisout) write(22, '(1x, A6, I2, A10, f7.4, A4, f7.4, 1x, A9, d10.3, A3, d10.3)') &
  &      ' WELL ', k, ' at beta2 ', epsa, ' to ', epsb, ' Mom.Int=', phase(k)
-        endif
       endif
+    endif
   enddo
 !
 !   Fission transmission for double/triple humped barrier
@@ -393,10 +400,9 @@ subroutine wkbfis(iz, in, uexcit, tff, phase, tdir)
   enddo
     tdir = tdirv(1)
     dummy = 1.d0 / (1.d0 / tff(1) + 1.d0 / tff(3))
-    if(nextr > 3) dummy = 1.d0 / (1.d0 / tff(1) + 1.d0 / tff(3) + 1.d0 / tff(5))
-
-  if (flagfisout) write(22, '(1x, f5.2, 2x, 21(d10.3, 1x))') &
- &   uexc, tdir, dummy, (tff(j), j = 1, nextr), (phase(j), j = 1, nextr)
+    if(nextr > 4) dummy = 1.d0 / (1.d0 / tff(1) + 1.d0 / tff(3) + 1.d0 / tff(5))
+    if (flagfisout) write(22, '(1x,"nextr=",i2," U=",f5.2,2x,1p,21(d10.3,1x))') nextr, &
+ &    uexc,tdir,dummy,(tff(j),j=1,nextr,2),(phase(j),j=1,nextr,2)
   RETURN
 end subroutine wkbfis
 ! Copyright A.J. Koning 2021
@@ -430,9 +436,10 @@ function VdefParab(EPS)
 !   Called by gaussian integration
 !
   real(sgl) :: EPS                  ! deformation
+  real(sgl) :: rmiudef              ! help variable
   real(sgl) :: VdefParab            ! function for parabolic shape
   include "wkb.cmb"
-  VdefParab = Vheight(K) + (-1)**K*(SMIU*Vwidth(K)*(EPS-Vpos(K)))**2
+  VdefParab = Vheight(K) + (-1)**K*(sqrt(rmiudef(eps)/2.)*Vwidth(K)*(EPS-Vpos(K)))**2
 end function VdefParab
 ! Copyright A.J. Koning 2021
 function Vdef(EPS)
@@ -495,6 +502,35 @@ function Vdef(EPS)
       Vdef = vi + (EPS-ei)/(eip-ei)*(vip-vi)
 end function Vdef
 ! Copyright A.J. Koning 2021
+real function rmiudef(EPS)
+!
+!     This function calculates the collective mass at a given deformation eps
+!
+  use A0_talys_mod
+  real EPS
+  INTEGER idef
+  real ri, rip, ei, eip
+!
+  idef=1
+  do while (EPS.GT.betafis(idef) .and. idef.LE.nbeta)
+    idef = idef + 1
+  enddo
+  if (idef.ne.1) idef = idef - 1
+
+  ri  = rmiufis(idef)
+  rip = rmiufis(idef+1)
+  ei  = betafis(idef)
+  eip = betafis(idef+1)
+  if(ei.eq.eip) then
+!   Special case treated here to avoid division by zero
+!   We assume that in this case vi = vip
+    rmiudef = ri
+    return
+  endif
+  rmiudef = ri + (EPS-ei)/(eip-ei)*(rip-ri)
+  return
+  end
+! Copyright S. Goriely 2025 
 function FindIntersect(uexc, ja, jb, iswell)
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -615,13 +651,13 @@ function Find_Extrem (Nsmooth)
   iiextr(0) = 1
 !C----------------------------------------------------------------------
 !   determination of the minima   and maxima
-  do j = nsmooth + 1 , nbeta - nsmooth
-
+! do j=nsmooth+1 , nbeta-nsmooth
+  do j=2 , nbeta-nsmooth
 ! Modification SCAMPS to prevent problem (ex Fm324):
     if (vfis(j) == vfis(j-1)) cycle
     logmax = .true.
     do k = j - nsmooth, j + nsmooth
-      if (k == j) cycle
+      if (k == j .or. k < 1) cycle
       if (vfis(k) > vfis(j)) logmax = .false.
     enddo
     if (logmax) then
