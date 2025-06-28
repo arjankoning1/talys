@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2023-12-30: Original code
-! 2025-05-20: Current version
+! 2025-06-28: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -48,7 +48,7 @@ module A0_talys_mod
   integer, parameter :: numlev2=200                          ! maximum number of levels
   integer, parameter :: numrotcc=4                           ! number of rotational deformation parameters
   integer, parameter :: numgamqrpa=300                       ! number of energies for QRPA strength function
-  integer, parameter :: numTqrpa=11                          ! number of temperatures for QRPA strength functions
+  integer, parameter :: numTqrpa=31                          ! number of temperatures for QRPA strength functions
   integer, parameter :: numomp=500                           ! maximum number of lines in optical model file
   integer, parameter :: numompadj=13                         ! number of adjustable ranges for OMP
   integer, parameter :: numjlm=200                           ! maximum number of radial points
@@ -430,6 +430,7 @@ module A0_talys_mod
   real(sgl), dimension(0:numZ,0:numN,0:1,numgam,3)        :: upbendadjust   ! properties of the low-energy upbend of given multipola
   real(sgl), dimension(0:numZ,0:numN,0:1,numgam)          :: wtable         ! constant to adjust tabulated strength functions
   real(sgl), dimension(0:numZ,0:numN,0:1,numgam)          :: wtableadjust   ! adjustable correction to adjust tabulated strength fun
+  real(sgl)                                               :: levinger       ! Levinger parameter for quasi-deuteron
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
 ! Variables to set OMP parameters
@@ -587,6 +588,8 @@ module A0_talys_mod
   integer                                      :: gefran          ! number of random events for GEF calculation
   real(sgl), dimension(0:numZ,0:numN)          :: betafiscor      ! adjustable factor for fission path width
   real(sgl), dimension(0:numZ,0:numN)          :: betafiscoradjust! adjustable factor for fission path width
+  real(sgl), dimension(0:numZ,0:numN)          :: rmiufiscor      ! adjustable factor for inertia mass along fission path
+  real(sgl), dimension(0:numZ,0:numN)          :: rmiufiscoradjust! adjustable factor for inertia mass along fission path
   real(sgl), dimension(0:numZ,0:numN,numbar)   :: fbaradjust      ! adjustable factor for fission parameters
   real(sgl), dimension(0:numZ,0:numN,numbar)   :: fbarrier        ! height of fission barrier
   real(sgl), dimension(0:numZ,0:numN,numbar)   :: fwidth          ! width of fission barrier
@@ -1160,6 +1163,7 @@ module A0_talys_mod
   real(sgl), dimension(0:numZ, 0:numN, 0:numbins, numbar) :: Twkbtrans ! transmission coefficient of WKB potential
   real(sgl), dimension(0:numZ, 0:numN, 0:numbins)         :: Uwkb      ! energy of WKB potential
   real(sgl), dimension(numbeta)                           :: vfis      ! adjustable factor for fission path height
+  real(sgl), dimension(numbeta)                           :: rmiufis   ! adjustable factor for inertia mass along fission path
   real(sgl), dimension(2*numbar)                          :: Vheight   ! height of WKB potential
   real(sgl), dimension(2*numbar)                          :: Vpos      ! position of WKB potential
   real(sgl), dimension(2*numbar)                          :: Vwidth    ! width of WKB potential
@@ -1201,6 +1205,8 @@ module A0_talys_mod
   integer, dimension(0:numZ, 0:numN)                                 :: nendens     ! number of energies for level density grid
   real(sgl), dimension(0:numdens)                                    :: edens       ! energy grid for tabulated level density
   real(sgl), dimension(0:numZ, 0:numN)                               :: Edensmax    ! maximum energy on level density table
+  real(dbl), dimension(0:numZ,0:numN,0:numdens,-1:1,0:numbar)        :: ldtableT    ! level density temperature from table
+  real(dbl), dimension(0:numZ,0:numN,0:numdens,-1:1,0:numbar)        :: ldtableN    ! level density cumulative levels from table
   real(dbl), dimension(0:numZ,0:numN,0:numdens,0:numJ,-1:1,0:numbar) :: ldtable     ! level density from table
   real(dbl), dimension(0:numZ,0:numN,0:numdens,0:numbar)             :: ldtottable  ! total level density from table
   real(dbl), dimension(0:numZ,0:numN,0:numdens,-1:1,0:numbar)        :: ldtottableP ! total level density per parity from table
