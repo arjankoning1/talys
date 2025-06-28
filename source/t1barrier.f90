@@ -129,7 +129,7 @@ subroutine t1barrier(Zcomp, Ncomp, J2, parity, ibar, trfis, rhof, Eex, iloop)
     pitrans = pfistrrot(Zcomp, Ncomp, ibar, itr)
     Eeff = Eex - etrans
     if ((J2 == j2trans) .and. (parity == pitrans)) then
-      if (fismodelx(Zcomp, Ncomp) == 5) then
+      if (fismodelx(Zcomp, Ncomp) >= 5) then
         trfisone = twkbint(Eeff, ibar, Zcomp, Ncomp)
       else
         trfisone = thill(Eeff, bfis, wfis)
@@ -167,7 +167,7 @@ subroutine t1barrier(Zcomp, Ncomp, J2, parity, ibar, trfis, rhof, Eex, iloop)
         rho = rho2 * (dE1 + dE2)
       endif
       Eeff = Eex - emid
-      if (fismodelx(Zcomp, Ncomp) == 5) then
+      if (fismodelx(Zcomp, Ncomp) >= 5) then
         trfisone = twkbint(Eeff, ibar, Zcomp, Ncomp)
       else
         trfisone = thill(Eeff, bfis, wfis)
