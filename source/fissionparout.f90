@@ -22,6 +22,7 @@ subroutine fissionparout(Zix, Nix)
 !   fwidth           ! width of fission barrier
 !   vfiscor          ! adjustable factor for fission path height
 !   vfiscoradjust    ! adjustable factor for fission path height
+!   rmiufiscor       ! adjustable factor for inertia mass along fission path 
 !   widthc2          ! width of class2 states
 ! Variables for level density
 !   Rclass2mom    ! norm. constant for moment of inertia for class 2 states
@@ -59,9 +60,17 @@ subroutine fissionparout(Zix, Nix)
 ! *** Declaration of local data
 !
   implicit none
+  character(len=3)  :: massstring !
+  character(len=6)  :: finalnuclide !
+  character(len=15) :: col(4)    ! header
+  character(len=15) :: un(4)    ! header
+  character(len=80) :: quantity   ! quantity
+  character(len=80) :: fisfile
+  character(len=200) :: topline   ! topline
   integer :: A   ! mass number of target nucleus
   integer :: i   ! counter
   integer :: j   ! counter
+  integer :: Ncol
   integer :: N   ! neutron number of residual nucleus
   integer :: Nix ! neutron number index for residual nucleus
   integer :: Z   ! charge number of target nucleus
@@ -75,69 +84,102 @@ subroutine fissionparout(Zix, Nix)
   N = NN(Zix, Nix, 0)
   A = AA(Zix, Nix, 0)
   write(*, '(/" Fission information for Z=", i3, " N=", i3, " (", i3, a2, ") "/)')  Z, N, A, nuc(Z)
-  write(*, '(" Number of fission barriers           :", i3)') nfisbar(Zix, Nix)
-  if (flagclass2) write(*, '(" Number of sets of class2 states      :", i3)') nclass2(Zix, Nix)
-  if (fismodelx(Zix, Nix) == 5) then
-    write(*, '(" Correction factor betafiscor:", f8.3)') betafiscor(Zix, Nix)
-    write(*, '(" Correction factor vfiscor   :", f8.3)') vfiscor(Zix, Nix)
-    write(*, '(" Adjustable factor betafiscoradjust:", f8.3)') betafiscoradjust(Zix, Nix)
-    write(*, '(" Adjustable factor vfiscoradjust   :", f8.3)') vfiscoradjust(Zix, Nix)
+  massstring='   '
+  write(massstring,'(i3)') A
+  finalnuclide=trim(nuc(Z))//adjustl(massstring)
+  fisfile = 'fis000000.txt'
+  write(fisfile(4:9), '(2i3.3)') Z, A
+  open (unit = 1, file = fisfile, status = 'replace')
+  topline=trim(finalnuclide)//' fission parameters'
+  call write_header(topline,source,user,date,oformat)
+  call write_residual(Z,A,finalnuclide)
+  write(1,'("# parameters:")')
+  call write_integer(2,'Number of fission barriers',nfisbar(Zix, Nix))
+  if (flagclass2) call write_integer(2,'Number of sets of class2 states',nclass2(Zix, Nix))
+  if (fismodelx(Zix, Nix) >= 5) then
+    call write_real(2,'Correction factor betafiscor',betafiscor(Zix, Nix))
+    call write_real(2,'Correction factor vfiscor',vfiscor(Zix, Nix))
+    call write_real(2,'Correction factor rmiufiscor',rmiufiscor(Zix, Nix))
+    call write_real(2,'Adjustable factor betafiscoradjust',betafiscoradjust(Zix, Nix))
+    call write_real(2,'Adjustable factor vfiscoradjust',vfiscoradjust(Zix, Nix))
+    call write_real(2,'Adjustable factor rmiufiscoradjust',rmiufiscoradjust(Zix, Nix))
   endif
+  col = ''
+  un = ''
+  col(1) = 'Number'
+  col(2) = 'Energy'
+  un(2) = 'MeV'
+  col(3) = 'Spin'
+  col(4) = 'Parity'
+  Ncol = 4
   do i = 1, nfisbar(Zix, Nix)
-    write(*, '(/" Parameters for fission barrier", i3/)') i
-      write(*, '(" Type of axiality                     :", i3)') axtype(Zix, Nix, i)
-    write(*, '(" Height of fission barrier ", i1, "          :", f8.3)') i, fbarrier(Zix, Nix, i)
-    write(*, '(" Width of fission barrier ", i1, "           :", f8.3)') i, fwidth(Zix, Nix, i)
-    write(*, '(" Rtransmom                            :", f8.3)') Rtransmom(Zix, Nix, i)
-    write(*, '(" Moment of inertia                    :", f8.3)') minertia(Zix, Nix, i)
-    write(*, '(" Number of head band transition states:", i3)') nfistrhb(Zix, Nix, i)
-    write(*, '(" Start of continuum energy            :", f8.3)') fecont(Zix, Nix, i)
+    quantity='Head band transition states'
+    call write_quantity(quantity)
+    call write_integer(2,'Fission barrier',i)
+    call write_integer(4,'Type of axiality',axtype(Zix, Nix, i))
+    call write_real(4,'Height of fission barrier',fbarrier(Zix, Nix, i))
+    call write_real(4,'Width of fission barrier',fwidth(Zix, Nix, i))
+    call write_real(4,'Rtransmom',Rtransmom(Zix, Nix, i))
+    call write_real(4,'Moment of inertia',minertia(Zix, Nix, i))
+    call write_integer(4,'Number of head band transition states',nfistrhb(Zix, Nix, i))
+    call write_real(4,'Start of continuum energy',fecont(Zix, Nix, i))
 !
 ! 2. Head band transition states
 !
-    write(*, '(/" Head band transition states"/)')
-    write(*, '("  no.    E    spin    parity"/)')
-    do j = 1, nfistrhb(Zix, Nix, i)
-      write(*, '(1x, i4, f8.3, f6.1, 3x, a1)') j, efistrhb(Zix, Nix, i, j), jfistrhb(Zix, Nix, i, j), &
- &      cparity(pfistrhb(Zix, Nix, i, j))
-    enddo
+    if (nfistrhb(Zix, Nix, i) > 0) then
+      call write_datablock(Ncol,nfistrhb(Zix, Nix, i),col,un)
+      do j = 1, nfistrhb(Zix, Nix, i)
+        write(1, '(6x, i6, 3x, es15.6, 6x,f6.1, 3x, 6x, a1)') j, efistrhb(Zix, Nix, i, j), jfistrhb(Zix, Nix, i, j), &
+ &        cparity(pfistrhb(Zix, Nix, i, j))
+      enddo
+    endif
 !
 ! 3. Rotational bands transition states
 !
-    write(*, '(/" Rotational bands"/)')
-    write(*, '("  no.    E    spin    parity"/)')
-    do j = 1, nfistrrot(Zix, Nix, i)
-      write(*, '(1x, i4, f8.3, f6.1, 3x, a1)') j, efistrrot(Zix, Nix, i, j), jfistrrot(Zix, Nix, i, j), &
- &      cparity(pfistrrot(Zix, Nix, i, j))
-    enddo
+    if (nfistrrot(Zix, Nix, i) > 0) then
+      quantity='Rotational bands'
+      call write_quantity(quantity)
+      call write_datablock(Ncol,nfistrrot(Zix, Nix, i),col,un)
+      do j = 1, nfistrrot(Zix, Nix, i)
+        write(1, '(6x, i6, 3x, es15.6, 6x,f6.1, 3x, 6x, a1)') j, efistrrot(Zix, Nix, i, j), jfistrrot(Zix, Nix, i, j), &
+ &        cparity(pfistrrot(Zix, Nix, i, j))
+      enddo
+    endif
   enddo
 !
 ! 4. Class2 states
 !
   if (flagclass2) then
     do i = 1, nclass2(Zix, Nix)
-      write(*, '(/" Parameters for set", i3, " of class2 states"/)') i
-      write(*, '(" Rclass2mom                         :", f8.3)') Rclass2mom(Zix, Nix, i)
-      write(*, '(" Moment of inertia                  :", f8.3)') minertc2(Zix, Nix, i)
-      write(*, '(" Number of class2 states            :", i3)') nfisc2hb(Zix, Nix, i)
-      write(*, '(" Width of class2 states (MeV)       :", f8.3)') widthc2(Zix, Nix, i)
-      write(*, '(/" Class 2 states"/)')
-      write(*, '("  no.    E    spin    parity"/)')
-      do j = 1, nfisc2hb(Zix, Nix, i)
-        write(*, '(1x, i4, f8.3, f6.1, 3x, a1)') j, efisc2hb(Zix, Nix, i, j), &
- &        jfisc2hb(Zix, Nix, i, j), cparity(pfisc2hb(Zix, Nix, i, j))
-      enddo
+      call write_integer(2,'Set  of class2 states',i)
+      call write_real(2,'Rclass2mom',Rclass2mom(Zix, Nix, i))
+      call write_real(2,'Moment of inertia',minertc2(Zix, Nix, i))
+      call write_integer(2,'Number of class2 states',nfisc2hb(Zix, Nix, i))
+      call write_real(2,'Width of class2 states (MeV)',widthc2(Zix, Nix, i))
+      if (nfisc2hb(Zix, Nix, i) > 0) then
+        quantity='Class 2 states'
+        call write_quantity(quantity)
+        do j = 1, nfisc2hb(Zix, Nix, i)
+          write(1, '(6x, i6, 3x, es15.6, 6x,f6.1, 3x, 6x, a1)') j, efisc2hb(Zix, Nix, i, j), &
+ &          jfisc2hb(Zix, Nix, i, j), cparity(pfisc2hb(Zix, Nix, i, j))
+        enddo
+      endif
 !
 ! 5. Rotational bands
 !
-      write(*, '(/" Rotational bands"/)')
-      write(*, '("  no.    E    spin    parity"/)')
-      do j = 1, nfisc2rot(Zix, Nix, i)
-        write(*, '(1x, i4, f8.3, f6.1, 3x, a1)') j, efisc2rot(Zix, Nix, i, j), &
- &        jfisc2rot(Zix, Nix, i, j), cparity(pfisc2rot(Zix, Nix, i, j))
-      enddo
+      if (nfisc2rot(Zix, Nix, i) > 0) then
+        quantity='Rotational bands'
+        call write_quantity(quantity)
+        call write_datablock(Ncol,nfisc2rot(Zix, Nix, i),col,un)
+        do j = 1, nfisc2rot(Zix, Nix, i)
+          write(1, '(6x, i6, 3x, es15.6, 6x,f6.1, 3x, 6x, a1)') j, efisc2rot(Zix, Nix, i, j), &
+ &          jfisc2rot(Zix, Nix, i, j), cparity(pfisc2rot(Zix, Nix, i, j))
+        enddo
+      endif
     enddo
   endif
+  close(1)
+  call write_outfile(fisfile,flagoutall)
   return
 end subroutine fissionparout
 ! Copyright A.J. Koning 2021
