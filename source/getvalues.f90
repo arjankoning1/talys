@@ -45,7 +45,7 @@ subroutine getvalues(class, word, Zix, Nix, type, ibar, irad, lval, igr, val, iv
 ! *** Declaration of local data
 !
   implicit none
-  integer, parameter :: numEkey=87         ! number of keywords
+  integer, parameter :: numEkey=90         ! number of keywords
   logical            :: flagassign         ! flag to assign value or not
   logical            :: flagoutside        ! flag for value outside range
   logical            :: lexist             ! logical to determine existence
@@ -87,8 +87,9 @@ subroutine getvalues(class, word, Zix, Nix, type, ibar, irad, lval, igr, val, iv
  &  'betafiscor', 'betafiscoradjust', 'cbreak', 'cfermi', 'cknock', &
  &  'cstrip', 'ctable', 'ctableadjust', 'd1adjust', 'd2adjust', 'd3adjust', 'egr', 'egradjust', 'epr', 'epradjust', 'etable', &
  &  'fisbar', 'fisbaradjust', 'fishw', 'fishwadjust', 'fsadjust', 'ftable', 'ftableadjust', &
- &  'ggr', 'ggradjust', 'gpr', 'gpradjust', 'krotconstant', 'lv1adjust', 'lvadjust', 'lvsoadjust', &
- &  'lw1adjust', 'lwadjust', 'lwsoadjust', 'm2constant', 'ptable', 'ptableadjust', 'rcadjust', 'rspincut', 'rspincutff', &
+ &  'ggr', 'ggradjust', 'gpr', 'gpradjust', 'krotconstant', 'levinger', 'lv1adjust', 'lvadjust', 'lvsoadjust', 'lw1adjust', &
+ &  'lwadjust', 'lwsoadjust', 'm2constant', 'ptable', 'ptableadjust', 'rcadjust', 'rmiufiscor', 'rmiufiscoradjust', &
+ &  'rspincut', 'rspincutff', &
  &  'rspincutpreeq', 'rvadjust', 'rvdadjust', 'rvsoadjust', 'rwadjust', 'rwdadjust', 'rwsoadjust', 's2adjust', 'sgr', 'sgradjust', &
  &  'spr', 'spradjust', 'tjadjust', 'tmadjust', 'ufermi', 'upbendc', 'upbendcadjust', 'upbende', 'upbendeadjust', 'upbendf', &
  &  'upbendfadjust','v1adjust', 'v2adjust', 'v3adjust', 'v4adjust', 'vfiscor', &
