@@ -25,12 +25,10 @@ function quasideuteron(Egamma)
   real(sgl) :: Egamma        ! gamma energy
   real(sgl) :: fpauli        ! Pauli-blocking function of Chadwick
   real(sgl) :: freedeut      ! free deuteron cross section
-  real(sgl) :: levinger      ! Levinger parameter
   real(sgl) :: quasideuteron ! Quasi-deuteron function of Chadwick and Oblozinsky
 !
 ! ****** Calculate quasi-deuteron photo-absorption cross section *******
 !
-  levinger = 6.5
   if (Egamma > 2.224) then
     freedeut = 61.2 / (Egamma **3) * (Egamma - 2.224) **1.5
   else
