@@ -82,8 +82,8 @@ subroutine densityout(Zix, Nix)
   character(len=80) :: quantity   ! quantity
   character(len=200) :: topline   ! topline
   character(len=8)  :: str(-1:1)     ! input line
-  character(len=13) :: ldfile        ! level density file
-  character(len=13) :: ldfileout     ! level density file
+  character(len=30) :: ldfile        ! level density file
+  character(len=30) :: ldfileout     ! level density file
   character(len=25) :: model         ! string for level density model
   integer           :: A             ! mass number of target nucleus
   integer           :: i             ! counter
@@ -117,6 +117,7 @@ subroutine densityout(Zix, Nix)
   real(sgl)         :: x6(numlev2)
   real(sgl)         :: x7(numlev2)
   real(sgl)         :: x8(numlev2)
+  real(sgl)         :: rJ
   real(sgl)         :: ignatyuk      ! function for energy dependent level density parameter a
   real(sgl)         :: Kcoll         ! total collective enhancement
   real(sgl)         :: Krot          ! rotational enhancement factor
@@ -126,7 +127,9 @@ subroutine densityout(Zix, Nix)
   real(sgl)         :: spincut       ! spin cutoff factor
   real(sgl)         :: SS            ! separation energy
   real(sgl)         :: Tnuc          ! nuclear temperature
-  real(dbl)         :: dens          ! total level density
+  real(dbl)         :: dens(0:numJ)  ! level density
+  real(dbl)         :: denstot       ! total level density
+  real(dbl)         :: denstotP      ! total level density per parity
   real(dbl)         :: density       ! level density
   real(dbl)         :: densitytot    ! total level density
   real(dbl)         :: densitytotP   ! total level density per parity
@@ -155,8 +158,8 @@ subroutine densityout(Zix, Nix)
   if (ldmod == 4) model = "Goriely-Skyrme           "
   if (ldmod == 5) model = "Hilaire-Goriely-Skyrme   "
   if (ldmod == 6) model = "Hilaire-Goriely-Gogny    "
-  if (ldmod == 7) model = "BSKG3                    "
-  if (ldmod == 8) model = "QRPA                     "
+  if (ldmod == 7) model = "BSKG3-Combinatorial      "
+  if (ldmod == 8) model = "D1M-QRPA-BE              "
   write(*, '(/" Level densities for Z=", i3, " N=", i3, " (",a,") "/)')  Z, N, trim(finalnuclide)
   write(*, '(" Total level density"/)') 
 !
@@ -169,7 +172,7 @@ subroutine densityout(Zix, Nix)
   do ibar = 0, nfisbar(Zix, Nix)
     NL = Nlow(Zix, Nix, ibar)
     NT = Ntop(Zix, Nix, ibar)
-    ldfile = 'ld000000.gs '
+    ldfile = 'ld000000.gs'
     if (ibar > 0) write(ldfile(10:12), '("b",i2.2)') ibar
     write(ldfile(3:8), '(2i3.3)') Z, A
     open (unit = 1, file = ldfile, status = 'replace')
@@ -243,77 +246,79 @@ subroutine densityout(Zix, Nix)
     call write_integer(2,'Ntop',Ntop(Zix, Nix, ibar))
     call write_real(2,'ctable',ctable(Zix, Nix, ibar))
     call write_real(2,'ptable',ptable(Zix, Nix, ibar))
-    call write_real(2,'experimental D0 [eV]',D0(Zix, Nix))
-    call write_real(2,'experimental D0 unc. [eV]',dD0(Zix, Nix))
-    call write_real(2,'global D0 [eV]',D0global(Zix, Nix))
-    call write_real(2,'global D0 unc. [eV]',dD0global(Zix, Nix))
-    call write_real(2,'theoretical D0 [eV]',D0theo(Zix, Nix))
-    call write_real(2,'Chi-2 D0',chi2D0(Zix, Nix))
-    call write_real(2,'C/E D0',CED0(Zix, Nix))
-    call write_real(2,'Frms D0',FrmsD0(Zix, Nix))
-    call write_real(2,'Erms D0',ErmsD0(Zix, Nix))
-    call write_real(2,'C/G D0',CGD0(Zix, Nix))
-    call write_real(2,'experimental D1 [eV]',D1r(Zix, Nix))
-    call write_real(2,'experimental D1 unc. [eV]',dD1r(Zix, Nix))
-    call write_real(2,'theoretical D1 [eV]',D1theo(Zix, Nix))
-    k = 0
-    Eex1 = 0.
-    i1 = 0
-    x1 = 0.
-    x2 = 0.
-    x3 = 0.
-    x4 = 0.
-    x5 = 0.
-    x6 = 0.
-    x7 = 0.
-    x8 = 0.
-    do i = 1, nlevmax2(Zix, Nix)
-      if (edis(Zix, Nix, i) == 0.) cycle
-      Eex = 0.5 * (edis(Zix, Nix, i) + edis(Zix, Nix, i - 1))
-      dEx = edis(Zix, Nix, i) - edis(Zix, Nix, i - 1)
-      dens = densitytot(Zix, Nix, Eex, ibar, ldmod)
-      Eex = edis(Zix, Nix, i)
-      k = k + 1
-      if (ldmod <= 3) then
-        ald = ignatyuk(Zix, Nix, Eex, ibar)
-        if (ldmod == 3 .and. Eex < Ucrit(Zix, Nix, ibar) - P - Pshift(Zix, Nix, ibar)) ald = aldcrit(Zix, Nix, ibar)
-        dens = densitytot(Zix, Nix, Eex, ibar, ldmod)
-        sigma = sqrt(spincut(Zix, Nix, ald, Eex, ibar, 0))
-        x4(k) = ald
-        x5(k) = sigma
-        if (flagcol(Zix, Nix) .and. .not. ldexist(Zix, Nix, ibar)) then
-          call colenhance(Zix, Nix, Eex, ald, ibar, Krot, Kvib, Kcoll)
-          x6(k) = Krot
-          x7(k) = Kvib
-          x8(k) = Kcoll
+    if (ibar == 0) then
+      call write_real(2,'experimental D0 [eV]',D0(Zix, Nix))
+      call write_real(2,'experimental D0 unc. [eV]',dD0(Zix, Nix))
+      call write_real(2,'global D0 [eV]',D0global(Zix, Nix))
+      call write_real(2,'global D0 unc. [eV]',dD0global(Zix, Nix))
+      call write_real(2,'theoretical D0 [eV]',D0theo(Zix, Nix))
+      call write_real(2,'Chi-2 D0',chi2D0(Zix, Nix))
+      call write_real(2,'C/E D0',CED0(Zix, Nix))
+      call write_real(2,'Frms D0',FrmsD0(Zix, Nix))
+      call write_real(2,'Erms D0',ErmsD0(Zix, Nix))
+      call write_real(2,'C/G D0',CGD0(Zix, Nix))
+      call write_real(2,'experimental D1 [eV]',D1r(Zix, Nix))
+      call write_real(2,'experimental D1 unc. [eV]',dD1r(Zix, Nix))
+      call write_real(2,'theoretical D1 [eV]',D1theo(Zix, Nix))
+      k = 0
+      Eex1 = 0.
+      i1 = 0
+      x1 = 0.
+      x2 = 0.
+      x3 = 0.
+      x4 = 0.
+      x5 = 0.
+      x6 = 0.
+      x7 = 0.
+      x8 = 0.
+      do i = 1, nlevmax2(Zix, Nix)
+        if (edis(Zix, Nix, i) == 0.) cycle
+        Eex = 0.5 * (edis(Zix, Nix, i) + edis(Zix, Nix, i - 1))
+        dEx = edis(Zix, Nix, i) - edis(Zix, Nix, i - 1)
+        denstot = densitytot(Zix, Nix, Eex, ibar, ldmod)
+        Eex = edis(Zix, Nix, i)
+        k = k + 1
+        if (ldmod <= 3) then
+          ald = ignatyuk(Zix, Nix, Eex, ibar)
+          if (ldmod == 3 .and. Eex < Ucrit(Zix, Nix, ibar) - P - Pshift(Zix, Nix, ibar)) ald = aldcrit(Zix, Nix, ibar)
+          denstot = densitytot(Zix, Nix, Eex, ibar, ldmod)
+          sigma = sqrt(spincut(Zix, Nix, ald, Eex, ibar, 0))
+          x4(k) = ald
+          x5(k) = sigma
+          if (flagcol(Zix, Nix) .and. .not. ldexist(Zix, Nix, ibar)) then
+            call colenhance(Zix, Nix, Eex, ald, ibar, Krot, Kvib, Kcoll)
+            x6(k) = Krot
+            x7(k) = Kvib
+            x8(k) = Kcoll
+          endif
         endif
-      endif
-      Eex1(k) = Eex
-      i1(k) = i
-      x1(k) = Ncum(Zix, Nix, i)
-      x2(k) = dens
-      x3(k) = rhoexp(Zix, Nix, i)
-    enddo
-    denom = real(NT - NL)
-    Nk = k
-    call write_double(2,'Chi-2 per level',chi2lev(Zix, Nix))
-    call write_double(2,'Frms per level',Frmslev(Zix, Nix))
-    call write_double(2,'Erms per level',Ermslev(Zix, Nix))
-    call write_double(2,'average deviation per level',avdevlev(Zix, Nix))
-    quantity='total level density'
-    call write_quantity(quantity)
-    call write_datablock(Ncol,Nk,col,un)
-    do k = 1, Nk
-      if (ldmod <= 3) then
-        if (flagcol(Zix, Nix) .and. .not. ldexist(Zix, Nix, ibar)) then
-          write(1, '(es15.6, i6, 9x, 8es15.6)') Eex1(k), i1(k), x1(k), x2(k), x3(k), x4(k), x5(k), x6(k), x7(k), x8(k)
+        Eex1(k) = Eex
+        i1(k) = i
+        x1(k) = Ncum(Zix, Nix, i)
+        x2(k) = denstot
+        x3(k) = rhoexp(Zix, Nix, i)
+      enddo
+      denom = real(NT - NL)
+      Nk = k
+      call write_double(2,'Chi-2 per level',chi2lev(Zix, Nix))
+      call write_double(2,'Frms per level',Frmslev(Zix, Nix))
+      call write_double(2,'Erms per level',Ermslev(Zix, Nix))
+      call write_double(2,'average deviation per level',avdevlev(Zix, Nix))
+      quantity='total level density'
+      call write_quantity(quantity)
+      call write_datablock(Ncol,Nk,col,un)
+      do k = 1, Nk
+        if (ldmod <= 3) then
+          if (flagcol(Zix, Nix) .and. .not. ldexist(Zix, Nix, ibar)) then
+            write(1, '(es15.6, i6, 9x, 8es15.6)') Eex1(k), i1(k), x1(k), x2(k), x3(k), x4(k), x5(k), x6(k), x7(k), x8(k)
+          else
+            write(1, '(es15.6, i6, 9x, 5es15.6)') Eex1(k), i1(k), x1(k), x2(k), x3(k), x4(k), x5(k)
+          endif
         else
-          write(1, '(es15.6, i6, 9x, 5es15.6)') Eex1(k), i1(k), x1(k), x2(k), x3(k), x4(k), x5(k)
+          write(1, '(es15.6, i6, 9x, 3es15.6)') Eex1(k), i1(k), x1(k), x2(k), x3(k)
         endif
-      else
-        write(1, '(es15.6, i6, 9x, 3es15.6)') Eex1(k), i1(k), x1(k), x2(k), x3(k)
-      endif
-    enddo
+      enddo
+    endif
 !
 ! Level densities per parity on separate files
 !
@@ -340,9 +345,12 @@ subroutine densityout(Zix, Nix)
       call write_quantity(quantity)
       call write_integer(2,'Parity',parity)
       call write_datablock(Ncol,nendens(Zix,Nix),col,un)
-      ldfileout = 'nld000000.tab'
-      write(ldfileout(4:9), '(2i3.3)') Z, A
-      open (unit = 2, status = 'unknown', file = ldfileout)
+      if (parity == 1) then
+        ldfileout = 'nld000000.tab'
+        write(ldfileout(4:9), '(2i3.3)') Z, A
+        if (ibar > 0) write(ldfileout(14:17), '("_b",i2.2)') ibar
+        open (unit = 2, status = 'replace', file = ldfileout)
+      endif
       write(2, '(20x, 96("*"))')
       write(2, '(20x, "*  Z=", i3, " A=", i3, ": ", a8, "-Parity Spin-dependent Level Density [MeV-1] for ", a2, i3, &
  &      " and ldmodel=", i2, "  *")') Z, A, str(parity), nuc(Z), A, ldmod
@@ -356,19 +364,27 @@ subroutine densityout(Zix, Nix)
       dEx = edens(1)
       do nex = 1, nendens(Zix, Nix)
         Eex = edens(nex)
-        Tnuc = sqrt(Eex / alev(Zix, Nix))
-        if (nex > 1) dEx = Eex - edens(nex - 1)
-        dens = densitytotP(Zix, Nix, Eex, parity, ibar, ldmod)
-        Nc = Nc + dens * dEx
+        denstotP = densitytotP(Zix, Nix, Eex, parity, ibar, ldmod)
+        if (ldmod > 3) then
+          Tnuc = ldtableT(Zix, Nix, nex, parity, ibar)
+          Nc = ldtableN(Zix, Nix, nex, parity, ibar)
+        else
+          Tnuc = sqrt(Eex / alev(Zix, Nix))
+          if (nex > 1) then
+            dEx = Eex - edens(nex - 1)
+          else
+            dEx = Eex
+          endif
+          Nc = Nc + denstotP * dEx
+        endif
         ldtot = 0.
         do J = 0, numJ
-          ldtot = ldtot + (2. * J + 1) * density(Zix, Nix, Eex, real(J + 0.5 * odd), parity, ibar, ldmod)
+          rJ = real(J + 0.5 * odd)
+          dens(J) = density(Zix, Nix, Eex, rJ, parity, ibar, ldmod)
+          ldtot = ldtot + (2. * rJ + 1) * dens(J)
         enddo
-        ldtotP = densitytotP(Zix, Nix, Eex, parity, ibar, ldmod)
-        write(2, '(1x, f6.2, f7.3, 1x, 1p, 33e9.2)') Eex, Tnuc, Nc, ldtotP, ldtot, &
- &        (density(Zix, Nix, Eex, real(J + 0.5 * odd), parity, ibar, ldmod), J = 0, 29)
-        write(1, '(47es15.6)') Eex, Tnuc, Nc, ldtotP, ldtot, &
- &        (density(Zix, Nix, Eex, real(J + 0.5 * odd), parity, ibar, ldmod), J = 0, numJ)
+        write(2, '(1x, f6.2, f7.3, 1x, 33es9.2)') Eex, Tnuc, Nc, denstotP, ldtot, (dens(J), J = 0, 29)
+        write(1, '(47es15.6)') Eex, Tnuc, Nc, denstotP, ldtot, (dens(J), J = 0, numJ)
       enddo
       write(2, * )
     enddo
