@@ -62,7 +62,7 @@ subroutine preeqout
   character(len=3)  :: massstring !
   character(len=6)  :: finalnuclide !
   character(len=20) :: phdfile    ! file for output
-  character(len=20) :: preeqfile  ! file for output
+  character(len=30) :: preeqfile  ! file for output
   character(len=18) :: reaction   ! reaction
   character(len=132):: topline    ! topline
   character(len=15) :: col(14)     ! header
