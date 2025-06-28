@@ -11,7 +11,7 @@ c
       implicit double precision(a-h,o-z)
       real ein
       integer kz1,ka1,kz2,ka2
-	  integer knp
+      integer knp
       real spinexptar,spinthtar
       real spinexpproj
       real spinexpcn,spinthcn
