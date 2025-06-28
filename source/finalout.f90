@@ -228,6 +228,7 @@
     write(51, '("strength       ", i2)') strength
     write(51, '("strengthM1     ", i2)') strengthM1
     write(51, '("xscaptherm     ", es12.5)') xscaptherm(-1)
+    write(51, '("levinger       ", es12.5)') levinger
     write(51, '("## General parameters:")')
     write(51, '("##   pre-equilibrium")')
     write(51, '("M2constant     ", f10.5)') M2constant
