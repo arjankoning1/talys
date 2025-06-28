@@ -470,6 +470,8 @@ subroutine strucinitial
   ldexist = .false.
   ldparexist = .false.
   ldtable = 0.
+  ldtableT = 0.
+  ldtableN = 0.
   ldtottable = 0.
   ldtottableP = 0.
   Nlast = 0
