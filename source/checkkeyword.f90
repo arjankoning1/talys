@@ -6,7 +6,7 @@ subroutine checkkeyword
 ! Author    : Arjan Koning
 !
 ! 2021-12-30: Original code
-! 2023-12-08: Latest version
+! 2025-06-16: Latest version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -20,7 +20,7 @@ subroutine checkkeyword
 ! *** Declaration of local data
 !
   implicit none
-  integer, parameter :: numkey=409        ! number of keywords
+  integer, parameter :: numkey=412        ! number of keywords
   integer            :: i                 ! counter
   integer            :: j                 ! counter
   character(len=132) :: key               ! keyword
@@ -55,10 +55,9 @@ subroutine checkkeyword
  &  'fymodel', 'g', 'gadjust', 'gamgam', 'gamgamadjust', 'gamgamfit', 'gammald', 'gammashell1', &
  &  'gammashell2', 'gammax', 'gefran', 'ggr', 'ggradjust', 'giantresonance', 'gn', 'gnadjust', 'gnfit', 'gnorm', 'gp', 'gpadjust', &
  &  'gpr', 'gpradjust', 'group', 'gshell', 'hbstate', 'hbtransfile', 'ibeam', 'incadjust', &
- &  'inccalc', 'integral', 'isomer', 'jlmmode', 'jlmomp', 'kph', 'krotconstant', 'kvibmodel', 'labddx', &
- &  'ldmodel', 'ldmodelcn', 'ldmodelracap', 'levelfile', 'liso', 'localomp', 'ltarget', 'lurr', 'lv1adjust', 'lvadjust', &
- &  'lvsoadjust', 'lw1adjust', 'lwadjust', 'lwsoadjust', 'm1file', 'm2constant', 'm2limit', 'm2shift', &
- &  'macsfit', 'mass', 'massdir', &
+ &  'inccalc', 'integral', 'isomer', 'jlmmode', 'jlmomp', 'kph', 'krotconstant', 'kvibmodel', 'labddx', 'ldmodel', 'ldmodelcn',  &
+ &  'ldmodelracap', 'levelfile', 'levinger', 'liso', 'localomp', 'ltarget', 'lurr', 'lv1adjust', 'lvadjust', 'lvsoadjust', &
+ &  'lw1adjust', 'lwadjust', 'lwsoadjust', 'm1file', 'm2constant', 'm2limit', 'm2shift', 'macsfit', 'mass', 'massdir', &
  &  'massdis', 'massexcess', 'massmodel', 'massnucleus', 'maxband', 'maxchannel', 'maxenrec', 'maxlevelsbin', 'maxlevelsres', &
  &  'maxlevelstar', 'maxn', 'maxnrp', 'maxrot', 'maxz', 'maxzrp', 'micro', 'mpreeqmode', 'msdbins', 'multipreeq', 'nafit', &
  &  'ndfit', 'nffit', 'ngfit', 'nlevels', 'nlow', 'nnfit', 'nonthermlev', 'ntop', 'nulldev', 'ompenergyfile', 'omponly', &
@@ -70,9 +69,9 @@ subroutine checkkeyword
  &  'preeqcomplex', 'preeqmode', 'preeqspin', 'preeqsurface', 'preequilibrium', 'production', 'projectile', 'pruitt', 'pruittset', &
  &  'pseudoresonances', 'psfglobal', 'pshift', 'pshiftadjust', 'pshiftconstant', 'ptable', 'ptableadjust', 'racap', & 
  &  'radialfile', 'radialmodel', 'radiounit', 'rcadjust', 'rclass2mom', 'reaction', 'recoil', 'recoilaverage', 'relativistic', &
- &  'rescuefile', 'reslib', 'resonance', 'rfiseps', 'rgamma', 'rho', 'riplomp', 'riplrisk', 'risomer', 'rnunu', 'rnupi', &
- &  'rotational', 'rpevap', 'rpinu', 'rpipi', 'rprime', 'rspincut', 'rspincutff', 'rspincutpreeq', 'rtransmom', 'rvadjust', &
- &  'rvadjustf', 'rvdadjust', &
+ &  'rescuefile', 'reslib', 'resonance', 'rfiseps', 'rgamma', 'rho', 'riplomp', 'riplrisk', 'risomer', 'rmiufiscor', &
+ &  'rmiufiscoradjust', 'rnunu', 'rnupi', 'rotational', 'rpevap', 'rpinu', 'rpipi', 'rprime', 'rspincut', 'rspincutff', &
+ &  'rspincutpreeq', 'rtransmom', 'rvadjust', 'rvadjustf', 'rvdadjust', &
  &  'rvdadjustf', 'rvsoadjust', 'rvsoadjustf', 'rwadjust', 'rwadjustf', 'rwdadjust', 'rwdadjustf', 'rwsoadjust', 'rwsoadjustf', &
  &  's2adjust', 'sacs', 'segment', 'sfexp', 'sfth', 'sgr', 'sgradjust', 'shellmodel', 'skipcn', 'soswitch', 'soukho', 'source', &
  &  'spherical', 'spincutmodel', 'spr', 'spradjust', 'statepot', 'strength', 'strengthm1', 'strucpath', 'sysreaction', &
