@@ -5,7 +5,7 @@ subroutine checkvalue
 !
 ! Author    : Arjan Koning
 !
-! 2024-12-08: Original code
+! 2026-06-16: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -870,6 +870,7 @@ subroutine checkvalue
     stop
   endif
   call range_integer_error('ldmodelracap', ldmodelracap, 1, 3)
+  call range_real_error('levinger', levinger, 0.01, 100.)
   do Zix = 0, numZ
     do Nix = 0, numN
       call range_real_error('sfth', spectfacth(Zix, Nix), 0., 10., index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
@@ -1035,10 +1036,10 @@ subroutine checkvalue
     write(*, '(" TALYS-error: Fission yield calculation not possible for natural targets")')
     stop
   endif
-  call range_integer_error('fismodel', fismodel, 1, 5)
+  call range_integer_error('fismodel', fismodel, 1, 6)
   call range_integer_error('fismodelalt', fismodelalt, 3, 4)
-  if (fismodel /= 5 .and. flagfispartdamp) then
-    write(*,'(" TALYS-error: Fission partial damping only allowed for fismodel 5")')
+  if (fismodel < 5 .and. flagfispartdamp) then
+    write(*,'(" TALYS-error: Fission partial damping only allowed for fismodel 5 or 6")')
     stop
   endif
   call range_integer_error('fymodel', fymodel, 1, 5)
@@ -1081,11 +1082,15 @@ subroutine checkvalue
       enddo
       call range_real_error('betafiscor', betafiscor(Zix, Nix), 0.05, 20., default = 0., index1 = Z, name1 = 'Z', &
  &      index2 = A, name2 = 'A')
+      call range_real_error('rmiufiscor', rmiufiscor(Zix, Nix), 0.01, 50., default = 0., index1 = Z, name1 = 'Z', &
+ &      index2 = A, name2 = 'A')
       call range_real_error('vfiscor', vfiscor(Zix, Nix), 0.05, 20., default = 0., index1 = Z, name1 = 'Z', &
  &      index2 = A, name2 = 'A')
       call range_real_error('betafiscoradjust', betafiscoradjust(Zix, Nix), 0.1, 10., default = 0., index1 = Z, name1 = 'Z', &
  &      index2 = A, name2 = 'A')
       call range_real_error('vfiscoradjust', vfiscoradjust(Zix, Nix), 0.1, 10., default = 0., index1 = Z, name1 = 'Z', &
+ &      index2 = A, name2 = 'A')
+      call range_real_error('rmiufiscoradjust', rmiufiscoradjust(Zix, Nix), 0.01, 50., default = 0., index1 = Z, name1 = 'Z', &
  &      index2 = A, name2 = 'A')
     enddo
   enddo
