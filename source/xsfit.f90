@@ -267,6 +267,12 @@ Loop1: do
           if (flagassign) vfiscor(Zix, Nix) = val
           cycle
         endif
+        if (key == 'rmiufiscor') then
+          class = 1
+          call getvalues(class, word, Zix, Nix, type, ibar, irad, lval, igr, val, ival, cval, flagassign)
+          if (flagassign) rmiufiscor(Zix, Nix) = val
+          cycle
+        endif
         if (key == 'ctable') then
           class = 3
           call getvalues(class, word, Zix, Nix, type, ibar, irad, lval, igr, val, ival, cval, flagassign)
