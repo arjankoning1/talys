@@ -98,9 +98,9 @@ subroutine gammapar(Zix, Nix)
   real(sgl)         :: et               ! help variable
   real(sgl)         :: factor           ! multiplication factor
   real(sgl)         :: fe1(numTqrpa)    ! tabulated QRPA strength function
-  real(sgl)         :: fe1t             ! tabulated strength function
+  real(sgl)         :: fe1t             ! tabulated E1 strength function
   real(sgl)         :: fmax             ! maximum of GDR
-  real(sgl)         :: fm1              ! tabulated M1 strength function
+  real(sgl)         :: fm1(numTqrpa)    ! tabulated M1 strength function
   real(sgl)         :: fstrength        ! gamma ray strength function
   real(sgl)         :: ft               ! help variable
   real(sgl)         :: wt               ! help variable
@@ -219,9 +219,10 @@ subroutine gammapar(Zix, Nix)
           enddo
           cycle
         endif
-        if (strength == 6 .or. strength == 7 .or. strength == 9 .or. strength == 10 .or. strength == 11) nTqrpa = 11
+        if ((strength == 6 .or. strength == 7 .or. strength == 9 .or. strength == 10) .and. flagupbend) nTqrpa = 11
+        if (strength == 11 .and. flagupbend) nTqrpa = 31
         do nen = 1, numgamqrpa
-          read(2, '(f9.3, 20es12.3)', iostat = istat) ee, (fe1(it), it = 1, nTqrpa)
+          read(2, '(f9.3, 40es12.3)', iostat = istat) ee, (fe1(it), it = 1, nTqrpa)
           if (istat /= 0) exit
           if (gamadjust(Zix, Nix)) then
             key = 'etable'
@@ -243,21 +244,17 @@ subroutine gammapar(Zix, Nix)
 ! Avoid having an increasing function for extrapolation purposes
 !
         do it = 1, nTqrpa
-          if (fqrpa(Zix, Nix, numgamqrpa, it, 0, 1) > fqrpa(Zix, Nix, numgamqrpa - 1, it, 0, 1)) &
- &          fqrpa(Zix, Nix, numgamqrpa, it, 0, 1) = fqrpa(Zix, Nix, numgamqrpa - 1, it, 0, 1)
+          if (fqrpa(Zix, Nix, numgamqrpa, it, 1, 1) > fqrpa(Zix, Nix, numgamqrpa - 1, it, 1, 1)) &
+ &          fqrpa(Zix, Nix, numgamqrpa, it, 1, 1) = fqrpa(Zix, Nix, numgamqrpa - 1, it, 1, 1) * 0.9
         enddo
         if (nTqrpa > 1) then
           if (strength == 11) then
-            dtemp = 2.
+            dtemp = 1.
           else
             dtemp = 0.2
           endif
           temp = - dtemp
           do it = 1, nTqrpa
-            if (strength == 11) then
-              if (it == 7) dtemp = 3.
-              if (it >= 8) dtemp = 5.
-            endif
             temp = temp + dtemp
             Tqrpa(it) = temp
           enddo
@@ -321,12 +318,11 @@ subroutine gammapar(Zix, Nix)
     if (strengthM1 == 10) gamfile = trim(path)//'gamma/bsk27_M1/'//gamchar
     if (strengthM1 == 11 .and. Zix == 0 .and. Nix == 0) then
       gamfile = trim(path)//'gamma/d1m-intra-m1/'//gamchar
-      nTqrpa=11
-      dtemp = 2.
+      nTqrpa=1
+      if (flagupbend) nTqrpa=31
+      dtemp = 1.
       temp = - dtemp
       do it = 1, nTqrpa
-        if (it == 7) dtemp = 3.
-        if (it >= 8) dtemp = 5.
         temp = temp + dtemp
         Tqrpa(it) = temp
       enddo
@@ -341,7 +337,7 @@ subroutine gammapar(Zix, Nix)
         read(2, * )
         if (ia == A) then
           do nen = 1, numgamqrpa
-            read(2, '(f9.3, 20es12.3)') ee, fm1
+            read(2, '(f9.3, 40es12.3)') ee, (fm1(it),it=1,nTqrpa)
             if (gamadjust(Zix, Nix)) then
               key = 'etable'
               call adjust(ee, key, Zix, Nix, 0, 0, factor)
@@ -354,13 +350,17 @@ subroutine gammapar(Zix, Nix)
               ft = ftable(Zix, Nix, 0, 1) * ftableadjust(Zix, Nix, 0, 1)
             endif
             eqrpa(Zix, Nix, nen, 0, 1) = ee + et
-            fqrpa(Zix, Nix, nen, 1, 0, 1) = onethird * pi2h2c2 * fm1 * ft
+            do it = 1, nTqrpa
+              fqrpa(Zix, Nix, nen, 1, 0, 1) = onethird * pi2h2c2 * fm1(it) * ft
+            enddo
           enddo
 !
 ! Avoid having an increasing function for extrapolation purposes
 !
-          if (fqrpa(Zix, Nix, numgamqrpa, 1, 0, 1) > fqrpa(Zix, Nix, numgamqrpa - 1, 1, 0, 1)) &
- &          fqrpa(Zix, Nix, numgamqrpa, 1, 0, 1) = fqrpa(Zix, Nix, numgamqrpa - 1, 1, 0, 1)
+          do it = 1, nTqrpa
+            if (fqrpa(Zix, Nix, numgamqrpa, it, 0, 1) > fqrpa(Zix, Nix, numgamqrpa -1, it, 0, 1)) &
+ &            fqrpa(Zix, Nix, numgamqrpa, it, 0, 1) = fqrpa(Zix, Nix, numgamqrpa -1, it, 0, 1) * 0.9
+          enddo
           qrpaexist(Zix, Nix, 0, 1) = .true.
           exit
         else
