@@ -86,7 +86,6 @@ subroutine talysreaction
 !
   if (flagreaction) then
     if (.not. flagompall) call basicxs(0, 0)
-    if (parinclude(0)) call gamma(0, 0)
     if (enincmax >= epreeq .or. flagracap) call preeqinit
     if (flagracap) call racapinit
     if (flagcomp) call compoundinit
@@ -104,6 +103,7 @@ subroutine talysreaction
       Einc = eninc(nin)
       call energies
       call reacinitial
+      if (parinclude(0)) call gamma(0, 0)
       if (Einc < eninclow) cycle
 !
 ! Optical model
