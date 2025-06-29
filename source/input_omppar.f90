@@ -173,6 +173,7 @@ subroutine input_omppar
   else
     flagspher = .false.
   endif
+  if (k0 > 2) flagspher = .true.
   riplomp = 0
   flagriplomp= .false.
   if (.not.flagsoukhoinp .and. Atarget > fislim) then
