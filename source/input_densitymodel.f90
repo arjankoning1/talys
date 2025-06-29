@@ -103,7 +103,6 @@ subroutine input_densitymodel
   flagasys = .false.
   flagctmglob = .false.
   flagdensity = flagbasic
-  filedensity = .false.
   cglobal = 1.e-20
   pglobal = 1.e-20
   Rspincutff = 4.
@@ -218,12 +217,6 @@ subroutine input_densitymodel
       class = 9
       call getvalues(class, word, Zix, Nix, type, ibar, irad, lval, igr, val, ival, cval, flagassign)
       if (flagassign) Rspincutff = val
-      cycle
-    endif
-    if (key == 'filedensity') then
-      if (ch == 'n') filedensity = .false.
-      if (ch == 'y') filedensity = .true.
-      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
       cycle
     endif
     if (key == 'outdensity') then

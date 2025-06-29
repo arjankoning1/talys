@@ -210,6 +210,7 @@ subroutine input_densitypar
   Tadjust = 1.
   ctable = cglobal
   ptable = pglobal
+  filedensity = flagdensity
 !
 ! **************** Read input variables *******************
 !
@@ -479,6 +480,12 @@ subroutine input_densitypar
     if (key == 'parity') then
       if (ch == 'n') flagparity = .false.
       if (ch == 'y') flagparity = .true.
+      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'filedensity') then
+      if (ch == 'n') filedensity = .false.
+      if (ch == 'y') filedensity = .true.
       if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
       cycle
     endif
