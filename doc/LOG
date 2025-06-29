@@ -55,7 +55,7 @@ Added spin distribution to level density output.
 
 - May 2 2024
 
-Solved file opening error in gammapar.f90 for user-specified PSF files,  
+Solved file opening error in gammapar.f90 for user-specified PSF files,
 found by Vetle Ingeberg.
 
 - May 10 2024
@@ -212,9 +212,9 @@ density models.
 
 - March 7 2025
 
-Made an extra column in the output files for astrophysical reaction rates 
-on the advice of Zain Ul Abideen. The average energy corresponding with 
-the temperature is printed
+Made an extra column in the output files for astrophysical reaction 
+rates on the advice of Zain Ul Abideen. The average energy 
+corresponding with the temperature is printed.
 
 - May 24 2025
 
@@ -223,17 +223,28 @@ Finally adopted CODATA 2018 values for fundamental constants and masses.
 - June 4 2025
 
 Added fismodel 6, which uses BSKG3 fission paths and fission barrier 
-level densities. Introduced keywords rmiufiscor and rmiufiscor adjust to 
-adjust moment of inertia in fission description. Stephane Goriely changed 
-various subroutines for this e.g. fissionpar.f90, wkb.f90 etc.
+level densities. Introduced keywords rmiufiscor and rmiufiscoradjust 
+to adjust moment of inertia in fission description. Stephane Goriely 
+changed various subroutines for this e.g. fissionpar.f90, wkb.f90 etc.
 
 - June 7 2025
 
-Optimized strength 11 with the changes given by Stephane Goriely, taking into
-account temperature interpolation. Subroutines fstrength.f90 and gammapar.f90
-were changed for this.
+Optimized strength 11 with the changes given by Stephane Goriely, 
+taking into account temperature interpolation. Subroutines 
+fstrength.f90 and gammapar.f90 were changed for this.
+
+- June 8 2025
+
+Made a spherical OMP the default for deuterons up to alpha particles.
 
 - June 16 2025
 
-On the advice of Jose benlliure, make the Levinger parameter for quasi-deuteron 
-breakup a keyword, named 'levinger'
+On the advice of Jose benlliure, make the Levinger parameter for 
+quasi-deuteron breakup adjustable with the keyword 'levinger'.
+
+- June 29 2025
+
+Solved a problem found by Alexander Gurbich. For cases with a very high 
+separation energy, e.g. for light nuclides, the answers for a single 
+energy calculation were different from that of a multi energy 
+calculation. The energy in grid.f90 has been adapted to avoid this.
