@@ -44,7 +44,7 @@ subroutine exciton2out
 ! *** Declaration of local data
 !
   implicit none
-  character(len=20) :: excfile
+  character(len=30) :: excfile
   character(len=18) :: reaction   ! reaction
   character(len=15) :: col(12)    ! header
   character(len=15) :: un(12)    ! units
