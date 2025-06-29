@@ -55,7 +55,7 @@ Added spin distribution to level density output.
 
 - May 2 2024
 
-Solved file opening error in gammapar.f for user-specified PSF files,  
+Solved file opening error in gammapar.f90 for user-specified PSF files,  
 found by Vetle Ingeberg.
 
 - May 10 2024
@@ -185,7 +185,7 @@ be added to the user input file.
 
 - November 30 2024
 
-Removed a divergence for knock-out reactions in knockout.f. 
+Removed a divergence for knock-out reactions in knockout.f90. 
 When Emax is close to the Coulomb barrier, the denominator of the 
 knock-out formula of Kalbach diverges. This was taken care of by 
 putting a maximum of 1 (dE=1) in the denominator but this is now 
@@ -207,10 +207,33 @@ residual nuclides.
 
 - February 8 2025
 
-Changed default for Cbarrier in fissionpar.f for different level density models.
+Changed default for Cbarrier in fissionpar.f90 for different level 
+density models.
 
 - March 7 2025
 
 Made an extra column in the output files for astrophysical reaction rates 
 on the advice of Zain Ul Abideen. The average energy corresponding with 
 the temperature is printed
+
+- May 24 2025
+
+Finally adopted CODATA 2018 values for fundamental constants and masses.
+
+- June 4 2025
+
+Added fismodel 6, which uses BSKG3 fission paths and fission barrier 
+level densities. Introduced keywords rmiufiscor and rmiufiscor adjust to 
+adjust moment of inertia in fission description. Stephane Goriely changed 
+various subroutines for this e.g. fissionpar.f90, wkb.f90 etc.
+
+- June 7 2025
+
+Optimized strength 11 with the changes given by Stephane Goriely, taking into
+account temperature interpolation. Subroutines fstrength.f90 and gammapar.f90
+were changed for this.
+
+- June 16 2025
+
+On the advice of Jose benlliure, make the Levinger parameter for quasi-deuteron 
+breakup a keyword, named 'levinger'
