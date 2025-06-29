@@ -62,6 +62,9 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
 !
   implicit none
   character(len=132):: key                 ! keyword
+  logical           :: flagE1              ! flag for E1
+  logical           :: flagM1              ! flag for M1
+  logical           :: model11             ! flag for strength=11 E1 or M1
   integer           :: i                   ! level
   integer           :: irad                ! variable to indicate M(=0) or E(=1) radiation
   integer           :: it                  ! counter for tritons
@@ -92,6 +95,16 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
   real(sgl)         :: factor2             ! help variable
   real(sgl)         :: fb                  ! help variable
   real(sgl)         :: fe                  ! help variable
+  real(sgl)         :: f0                  ! help variable
+  real(sgl)         :: g0                  ! help variable
+  real(sgl)         :: g1                  ! help variable
+  real(sgl)         :: g2                  ! help variable
+  real(sgl)         :: gb                  ! help variable
+  real(sgl)         :: ge                  ! help variable
+  real(sgl)         :: gint                ! help variable
+  real(sgl)         :: egeff               ! help variable
+  real(sgl)         :: Ti                  ! help variable
+  real(sgl)         :: et                  ! help variable
   real(sgl)         :: fstrength           ! gamma ray strength function
   real(sgl)         :: gamb                ! tabulated QRPA strength function
   real(sgl)         :: game                ! tabulated QRPA strength function
@@ -134,6 +147,9 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
 ! 11. D1M-Intra-E1
 ! 12. Shellmodel-E1
 !
+  flagM1 = (irad == 0 .and. l == 1)
+  flagE1 = (irad == 1 .and. l == 1)
+  model11 = (strength == 11 .and. flagE1) .or. (strengthM1 == 11 .and. flagM1)
   fstrength = 0.
   do i = 1, ngr(Zcomp, Ncomp, irad, l)
    if (gamadjust(Zcomp, Ncomp)) then
@@ -168,7 +184,7 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
 ! qrpaexist: flag for existence of tabulated QRPA strength functions
 !
     Tnuc = 0.
-    if (strength == 1 .and. l == 1 .and. irad == 1) then
+    if (strength == 1 .and. flagE1) then
       if (Egamma /= Einc) then
         e = min(Efs, 20.) + S(Zcomp, Ncomp, k0) - delta(Zcomp, Ncomp, 0) - Egamma
         if (e > 0..and.alev(Zcomp, Ncomp) > 0.) Tnuc = sqrt(e / alev(Zcomp, Ncomp))
@@ -204,22 +220,26 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
 ! game      : tabulated QRPA strength function
 !
     if ((strength == 3 .or. strength == 4 .or. strength >= 6 .or. Exlfile(Zcomp, Ncomp, 1, 1)(1:1) /= ' ') .and. &
-      ((qrpaexist(Zcomp, Ncomp, 1, 1) .and. l == 1 .and. irad == 1) .or. &
-      (qrpaexist(Zcomp, Ncomp, 0, 1) .and. strengthM1 >= 8 .and. l == 1 .and. irad == 0))) then
+ &    ((qrpaexist(Zcomp, Ncomp, 1, 1) .and. flagE1) .or. (qrpaexist(Zcomp, Ncomp, 0, 1) .and. strengthM1 >= 8 .and. flagM1))) then
       nT0 = nTqrpa
       if (irad /= 1 .or. l /= 1) nT0 = 1
-      if ((irad == 1 .and. strength == 11) .or. (irad == 0 .and. strengthM1 == 11)) then
+      if (model11) then
         if (Zcomp == 0 .and. Ncomp == 0 .and. flagupbend) then
-          nTqrpa=11
+          nTqrpa=31
         else
           nTqrpa=1
         endif
+        if (abs(Efs) < 0.0001) nTqrpa=1
         nT0=nTqrpa
+        if (nT0 == 1) Tnuc = 30.
       endif
-      if (Egamma /= Einc .and. nT0 > 1) then
+      if (nT0 > 1) then
         e = min(Efs, 20.) + S(Zcomp, Ncomp, k0) - delta(Zcomp, Ncomp, 0) - Egamma
         if (e > 0..and.alev(Zcomp, Ncomp) > 0.) Tnuc = sqrt(e / alev(Zcomp, Ncomp))
-        if ((irad == 1 .and. strength == 11) .or. (irad == 0 .and. strengthM1 == 11)) Tnuc = Efs + S(Zcomp, Ncomp, k0)
+!
+! For strength=11: Tnuc corresponds to the initial excitation energy
+!
+        if (model11) Tnuc = Efs + S(Zcomp, Ncomp, k0)
         nT = nT0
         do it = 1, nT0
           if (Tqrpa(it) > Tnuc) then
@@ -227,7 +247,7 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
             exit
           endif
         enddo
-        Tb = Tqrpa(nT)
+        Tb = Tqrpa(max(nT,1))
         if (nT < nT0) then
           Te = Tqrpa(nT + 1)
         else
@@ -243,31 +263,134 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
       do nen = 0, numgamqrpa
         Eq(nen) = eqrpa(Zcomp, Ncomp, nen, irad, 1)
       enddo
-      if ((Egamma > Tnuc + 0.1 .and. strength.eq.11) .or. (Egamma < Eq(1) .and. strength.ne.11)) then
-        fstrength = 0.
+      if (Egamma.le.Eq(numgamqrpa)) then
+        call locate(Eq,0,numgamqrpa,Egamma,nen)
       else
+        nen=numgamqrpa-1
+      endif
+      eb=Eq(nen)
+      ee=Eq(nen+1)
+!
+! Special case for the interpolation of strength=11 PSF
+!
+      if (model11 .and. nT0 > 1 .and. nT < nTqrpa .and. Egamma <= Eq(numgamqrpa)) then
+        if (Egamma < Eq(0) .or. Egamma > Tnuc + 0.01) then
+          fstrength=0.
+          return
+        endif
+        jt = nT
+!
+! Estimate the photoabs PSF at initial excitation energy Tnuc
+!
+        call locate(Eq,0,numgamqrpa,Tnuc,nen)
+        if (nen == numgamqrpa) nen = numgamqrpa - 1
+        gamb = fqrpa(Zcomp,Ncomp,nen,1,irad,1)
+        game = fqrpa(Zcomp,Ncomp,nen+1,1,irad,1)
+        if (gamb > 0. .and. game > 0.) then
+          f1 = log10(gamb) + (Tnuc-Eq(nen)) / (Eq(nen+1) - Eq(nen)) * (log10(game) - log10(gamb))
+          f1 = 10.**f1
+        else
+          f1 = gamb + (Egamma-eb) / (ee-eb)*(game-gamb)
+        endif
+        if (Egamma == Tnuc) then
+          fstrength=f1
+          return
+        endif
+!
+! loop on the bordering initial energies Tb < Tnuc < Te
+!
+        do it = 1, 2
+          if (it == 1) then
+            Ti = Tb
+            jt = nT
+            if (jt >= nT0) jt = nT0 - 1
+          else
+            Ti = Te
+            jt = nT + 1
+            if (jt >= nT0) jt = nT0
+          endif
+          egeff = Egamma*Ti/Tnuc
+!
+! estimate the photoabs PSF at bordering excitation energy Ti= Tb and Te 
+!
+          call locate(Eq,0,numgamqrpa,Ti,nen)
+          if (nen == numgamqrpa) nen = numgamqrpa-1
+          gamb = fqrpa(Zcomp,Ncomp,nen,1,irad,1)
+          game = fqrpa(Zcomp,Ncomp,nen+1,1,irad,1)
+          if (gamb > 0. .and. game > 0.) then
+            f2 = log10(gamb)+(Ti-Eq(nen)) / (Eq(nen+1)-Eq(nen)) * (log10(game)-log10(gamb))
+            f2 = 10.**f2
+          else
+            f2 = gamb + (Egamma-eb)/(ee-eb)*(game-gamb)
+          endif
+!
+! estimate de-excitation PSF at effective Egamma=Egeff and U=Ti
+!
+          call locate(Eq,0,numgamqrpa,egeff,nen)
+          if (nen == numgamqrpa) nen=numgamqrpa-1
+          gamb=fqrpa(Zcomp,Ncomp,nen,jt,irad,1)
+          game=fqrpa(Zcomp,Ncomp,nen+1,jt,irad,1)
+          if (gamb > 0. .and. game > 0.) then
+            f0 = log10(gamb)+(egeff-Eq(nen))/(Eq(nen+1)-Eq(nen))*(log10(game)-log10(gamb))
+            f0 = 10.**f0
+          else
+            f0 = gamb + (Egamma-eb)/(ee-eb)*(game-gamb)
+          endif
+          g0 = f0*(1.+(f1/f2-1.)*(1.+exp(-1.))/(1.+exp(-(Egeff-Ti))))
+          if (it == 1) then   
+            gb=g0
+          else 
+            ge=g0
+          endif
+        enddo
+        if (gb > 0. .and. ge > 0.) then
+          gint = log10(gb)+(Tnuc-Tb)/(Te-Tb)*(log10(ge)-log10(gb)) 
+          gint = 10.**gint     
+        else
+          gint = gb+(Tnuc-Tb)/(Te-Tb)*(ge-gb)
+        endif
+        fstrength = gint
+      else
+!
+!  interpolation of the T-dependent or photoabs PSF (jt=1)
+!
         do it = 1, itemp
           jt = nT
-          if (it == 2) jt = nT + 1
+          et = Tb
+          if (it == 2) then
+            jt = nT+1
+            et = Te
+          endif
           if (jt > nT0) jt = nT0
           if (Egamma <= Eq(numgamqrpa)) then
-            call locate(Eq, 0, numgamqrpa, Egamma, nen)
+            call locate(Eq,0,numgamqrpa,Egamma,nen)
             eb = Eq(nen)
-            ee = Eq(nen + 1)
-            gamb = fqrpa(Zcomp, Ncomp, nen, jt, irad, 1)
-            game = fqrpa(Zcomp, Ncomp, nen + 1, jt, irad, 1)
-            if (gamb > 0..and.game > 0.) then
-              f1 = log10(gamb) + (Egamma - eb) / (ee - eb) * (log10(game) - log10(gamb))
-              f2 = 10. **f1
+            ee = Eq(nen+1)
+!
+! for Eg > U --> fstrength=0 --> for interpolation use is made of the photoabs PSF (jt=1)
+!
+            if (eb <= et) then
+              gamb = fqrpa(Zcomp,Ncomp,nen,jt,irad,1)
             else
-              f2 = gamb + (Egamma - eb) / (ee - eb) * (game - gamb)
+              gamb = fqrpa(Zcomp,Ncomp,nen,1,irad,1)
+            endif
+            if (ee <= et) then
+              game = fqrpa(Zcomp,Ncomp,nen+1,jt,irad,1)
+            else
+              game = fqrpa(Zcomp,Ncomp,nen+1,1,irad,1)
+            endif
+            if (gamb > 0. .and. game > 0.) then
+              f1 = log10(gamb)+(Egamma-eb)/(ee-eb)*(log10(game)-log10(gamb))
+              f2 = 10.**f1
+            else
+              f2 = gamb+(Egamma-eb)/(ee-eb)*(game-gamb)
             endif
           else
             eb = Eq(numgamqrpa - 1)
             ee = Eq(numgamqrpa)
             gamb = fqrpa(Zcomp, Ncomp, numgamqrpa - 1, jt, irad, 1)
             game = fqrpa(Zcomp, Ncomp, numgamqrpa, jt, irad, 1)
-            if (gamb > 0..and.game > 0.) then
+            if (gamb > 0. .and. game > 0.) then
               f1 = log10(gamb) + (Egamma - eb) / (ee - eb) * (log10(game) - log10(gamb))
               f2 = 10. **f1
             else
@@ -278,7 +401,7 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
           if (it == 2) fe = f2
         enddo
         if (nT0 > 1 .and. Tb /= Te) then
-          if (fb > 0..and.fe > 0.) then
+          if (fb > 0. .and. fe > 0.) then
             f1 = log10(fb) + (Tnuc - Tb) / (Te - Tb) * (log10(fe) - log10(fb))
             f2 = 10. **f1
           else
@@ -291,7 +414,7 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
 !
 ! 5. Goriely Hybrid model
 !
-    if (strength == 5 .and. Exlfile(Zcomp, Ncomp, 1, 1)(1:1) == ' ' .and. l == 1 .and. irad == 1) then
+    if (strength == 5 .and. Exlfile(Zcomp, Ncomp, 1, 1)(1:1) == ' ' .and. flagE1) then
       if (Egamma /= Einc) then
         e = min(Efs, 20.) + S(Zcomp, Ncomp, k0) - delta(Zcomp, Ncomp, 0) - Egamma
         if (e > 0..and.alev(Zcomp, Ncomp) > 0.) Tnuc = sqrt(e / alev(Zcomp, Ncomp))
@@ -348,8 +471,8 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
     upbendc = upbendadjust(Zcomp, Ncomp, irad, l, 1) * upbend(Zcomp, Ncomp, irad, l, 1)
     upbende = upbendadjust(Zcomp, Ncomp, irad, l, 2) * upbend(Zcomp, Ncomp, irad, l, 2)
     upbendf = upbendadjust(Zcomp, Ncomp, irad, l, 3) * upbend(Zcomp, Ncomp, irad, l, 3)
-    if ((strengthM1 == 8 .or. strengthM1 == 10) .and. irad == 0 .and. l == 1 .and. Zcomp + Ncomp >= 105) upbendf=0.
-    if (irad == 1 .and. l == 1) then
+    if ((strengthM1 == 8 .or. strengthM1 == 10) .and. flagM1 .and. Zcomp + Ncomp >= 105) upbendf=0.
+    if (flagE1) then
       e = min(Efs, 20.) + S(Zcomp, Ncomp, k0) 
       if (e > 1) fstrength = fstrength + upbendc * e / (1. + exp(Egamma - upbende))
     endif
