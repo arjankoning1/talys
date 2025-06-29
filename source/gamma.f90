@@ -27,7 +27,7 @@ subroutine gamma(Zcomp, Ncomp)
 ! gammaout : subroutine for output of gamma-ray strength functions, transmission coefficients and cross sections
 !
   call tgamma(Zcomp, Ncomp)
-  if (flaggamma) call gammaout(Zcomp, Ncomp)
+  if (flaggamma .and. nin == 1) call gammaout(Zcomp, Ncomp)
   return
 end subroutine gamma
 ! Copyright A.J. Koning 2022
