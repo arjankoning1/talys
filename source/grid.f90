@@ -94,6 +94,7 @@ subroutine grid
   real(sgl) :: dang        ! delta angle
   real(sgl) :: degrid      ! energy increment
   real(sgl) :: Eeps        ! help variable
+  real(sgl) :: Elimit
   real(sgl) :: Eout        ! outgoing energy
   real(sgl) :: val         ! real value
 !
@@ -119,10 +120,11 @@ subroutine grid
   Eout = 0.
   degrid = 0.001
   nen = 0
+  Elimit = enincmax + S(0,0,k0) + targetE + 1.
   do
     Eout = Eout + degrid
     Eeps = Eout + 1.e-4
-    if (Eeps > enincmax + 12.) exit
+    if (Eeps > Elimit) exit
     if (nen == numen) exit
     nen = nen + 1
     egrid(nen) = Eout
