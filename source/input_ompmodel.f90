@@ -239,11 +239,6 @@ loop1:  do i = 1, nlines
       if (ch /= 'y' .and. ch /= 'n' .and. ch /= 'd' .and. ch /= 'f') call read_error(line, istat)
       cycle
     endif
-    if (key == 'pruitt') then
-      read(value, * , iostat = istat) pruitt
-      if (istat /= 0) call read_error(line, istat)
-      cycle
-    endif
     if (key == 'rvadjustf' .or. key == 'avadjustf' .or. key == 'rwadjustf' .or. key == 'awadjustf' .or. &
       key == 'rvdadjustf' .or. key == 'avdadjustf' .or. key == 'rwdadjustf' .or. key == 'awdadjustf' .or. &
       key == 'rvsoadjustf' .or. key == 'avsoadjustf' .or. key == 'rwsoadjustf' .or. key == 'awsoadjustf') then
