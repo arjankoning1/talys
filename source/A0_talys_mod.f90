@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2023-12-30: Original code
-! 2025-06-28: Current version
+! 2025-07-10: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -185,6 +185,7 @@ module A0_talys_mod
 !
   character(len=10)  :: date     ! date
   character(len=132) :: bestpath ! alternative directory for best values
+  character(len=132) :: bestfile ! file with best parameters
   character(len=132) :: nulldev  ! null device
   character(len=132) :: path     ! directory containing files to be read
 !
