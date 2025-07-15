@@ -18,7 +18,7 @@ subroutine convert(i)
 ! *** Declaration of local data
 !
   implicit none
-  integer, parameter :: numkey=20       ! number of keywords
+  integer, parameter :: numkey=21       ! number of keywords
   character(len=132) :: keyword(numkey) ! keyword
   character(len=132) :: str             ! input line
   integer            :: i               ! counter
@@ -31,7 +31,7 @@ subroutine convert(i)
 ! For easy handling of all the input parameters, the whole input, both keywords and values, is converted to lowercase characters,
 ! with the exception of filenames or other character strings.
 !
-  data (keyword(m), m = 1, numkey) / 'abundance', 'bestpath', 'class2file', 'deformfile', 'e1file', 'hbtransfile', &
+  data (keyword(m), m = 1, numkey) / 'abundance', 'bestfile', 'bestpath', 'class2file', 'deformfile', 'e1file', 'hbtransfile', &
     'm1file', 'energy', 'integral', 'levelfile', 'nulldev', 'ompenergyfile', 'optmod', 'optmodfilen', 'optmodfilep', &
     'radialfile', 'rescuefile', 'strucpath', 'tjadjust', 'yieldfile' /
   str = inline(i)
