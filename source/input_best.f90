@@ -5,7 +5,7 @@ subroutine input_best
 !
 ! Author    : Arjan Koning
 !
-! 2021-12-30: Original code
+! 2025-07-10: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -44,6 +44,7 @@ subroutine input_best
   character(len=132) :: key                  ! keyword
   character(len=132) :: word(40)             ! words on input line
   character(len=132) :: line                 ! input line
+  character(len=132) :: value   
   integer            :: i                    ! counter
   integer            :: istat                ! logical for file access
   integer            :: is                   ! counter for isomer
@@ -56,6 +57,7 @@ subroutine input_best
   flagbest = .false.
   flagbestend = .false.
   flagrescue = .false.
+  bestfile = ' '
   rescuefile = ' '
   grescue = 1.
 !
@@ -72,6 +74,7 @@ subroutine input_best
     call getkeywords(line, word)
     key = word(1)
     ch = word(2)(1:1)
+    value = word(2)
 !
 ! Test for keywords
 !
@@ -93,6 +96,10 @@ subroutine input_best
       if (ch == 'n') flagbestend = .false.
       if (ch == 'y') flagbestend = .true.
       if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'bestfile') then
+      bestfile = value
       cycle
     endif
     if (key == 'rescuefile') then
