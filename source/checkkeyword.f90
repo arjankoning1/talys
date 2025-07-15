@@ -6,7 +6,7 @@ subroutine checkkeyword
 ! Author    : Arjan Koning
 !
 ! 2021-12-30: Original code
-! 2025-06-16: Latest version
+! 2025-07-10: Latest version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -20,7 +20,7 @@ subroutine checkkeyword
 ! *** Declaration of local data
 !
   implicit none
-  integer, parameter :: numkey=412        ! number of keywords
+  integer, parameter :: numkey=413        ! number of keywords
   integer            :: i                 ! counter
   integer            :: j                 ! counter
   character(len=132) :: key               ! keyword
@@ -38,8 +38,8 @@ subroutine checkkeyword
  &  'adepthcor', 'alimit', 'alphald', 'alphaomp', 'anfit', 'angles', 'anglescont', 'anglesrec', 'aradialcor', 'area', 'astro', &
  &  'astroe', 'astroex', 'astrogs', 'astrot', 'asys', 'autorot', 'avadjust', 'avadjustf', 'avdadjust', 'avdadjustf', &
  &  'avsoadjust', 'avsoadjustf', 'awadjust', 'awadjustf', 'awdadjust', 'awdadjustf', 'awsoadjust', 'awsoadjustf', 'axtype', &
- &  'bdamp', 'bdampadjust', 'best', 'bestbranch', 'bestend', 'bestpath', 'beta2', 'betafiscor', 'betafiscoradjust', 'betald', &
- &  'bins', 'block', &
+ &  'bdamp', 'bdampadjust', 'best', 'bestbranch', 'bestend', 'bestfile', 'bestpath', 'beta2', 'betafiscor', 'betafiscoradjust', &
+ &  'betald', 'bins', 'block', &
  &  'branch', 'breakupmodel', 'cbarrier', 'cbreak', 'cfermi', 'cglobal', 'channelenergy', 'channels', 'cknock', 'class2', &
  &  'class2file', 'class2width', 'cnubar1', 'cnubar2', 'colenhance', 'colldamp', 'components', 'compound', 'core', &
  &  'coulomb', 'cpang', 'cstrip', 'ctable', 'ctableadjust', 'ctmglobal', 'd0', 'd1adjust', 'd2adjust', 'd3adjust', 'ddxmode', &
