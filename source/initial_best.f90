@@ -5,7 +5,7 @@ subroutine initial_best
 !
 ! Author    : Arjan Koning
 !
-! 2021-12-30: Original code
+! 2025-07-10: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -40,7 +40,6 @@ subroutine initial_best
   character(len=10)  :: afile     ! TALYS file with mass number
   character(len=15)  :: bestchar  ! help variable
   character(len=132) :: key       ! keyword
-  character(len=132) :: bestfile  ! adjusted "best" parameter file
   logical            :: lexist    ! logical to determine existence
   integer            :: i         ! counter
   integer            :: istat     ! logical for file access
@@ -66,39 +65,41 @@ subroutine initial_best
 !
 ! convert : subroutine to convert input line from upper case to lowercase
 !
-  afile = '000.talys'
-  write(afile(1:3), '(i3.3)') Atarget
-  bestchar = ptype0//'-'//trim(nuc(Ztarget))//afile
-  if (bestpath(1:1) == ' ') bestpath = 'best/                                   '
-  do i = 1, 40
-    if (bestpath(i:i) == ' ') then
-      if (bestpath(i-1:i-1) /= '/') then
-        bestpath(i:i) = '/'
-        lenbest = i
-      else
-        lenbest = i - 1
+  if (bestfile == ' ') then
+    afile = '000.talys'
+    write(afile(1:3), '(i3.3)') Atarget
+    bestchar = ptype0//'-'//trim(nuc(Ztarget))//afile
+    if (bestpath(1:1) == ' ') bestpath = 'best/                                   '
+    do i = 1, 40
+      if (bestpath(i:i) == ' ') then
+        if (bestpath(i-1:i-1) /= '/') then
+          bestpath(i:i) = '/'
+          lenbest = i
+        else
+          lenbest = i - 1
+        endif
+        exit
       endif
-      exit
-    endif
-  enddo
-  if (Starget(2:2) == ' ') then
-    if (Ltarget == 0) then
-      write(bestpath(lenbest+1:lenbest+5), '(a1, i3.3, "/")') Starget(1:1), Atarget
-      write(bestpath(lenbest+6:lenbest+20), '(a15)') bestchar
+    enddo
+    if (Starget(2:2) == ' ') then
+      if (Ltarget == 0) then
+        write(bestpath(lenbest+1:lenbest+5), '(a1, i3.3, "/")') Starget(1:1), Atarget
+        write(bestpath(lenbest+6:lenbest+20), '(a15)') bestchar
+      else
+        write(bestpath(lenbest+1:lenbest+6), '(a1, i3.3, "m/")') Starget(1:1), Atarget
+        write(bestpath(lenbest+7:lenbest+21), '(a15)') bestchar
+      endif
     else
-      write(bestpath(lenbest+1:lenbest+6), '(a1, i3.3, "m/")') Starget(1:1), Atarget
-      write(bestpath(lenbest+7:lenbest+21), '(a15)') bestchar
+      if (Ltarget == 0) then
+        write(bestpath(lenbest+1:lenbest+6), '(a2, i3.3, "/")') Starget(1:2), Atarget
+        write(bestpath(lenbest+7:lenbest+21), '(a15)') bestchar
+      else
+        write(bestpath(lenbest+1:lenbest+7), '(a2, i3.3, "m/")') Starget(1:2), Atarget
+        write(bestpath(lenbest+8:lenbest+22), '(a15)') bestchar
+      endif
     endif
-  else
-    if (Ltarget == 0) then
-      write(bestpath(lenbest+1:lenbest+6), '(a2, i3.3, "/")') Starget(1:2), Atarget
-      write(bestpath(lenbest+7:lenbest+21), '(a15)') bestchar
-    else
-      write(bestpath(lenbest+1:lenbest+7), '(a2, i3.3, "m/")') Starget(1:2), Atarget
-      write(bestpath(lenbest+8:lenbest+22), '(a15)') bestchar
-    endif
+    bestfile = trim(path) // trim(bestpath)
   endif
-  bestfile = trim(path) // trim(bestpath)
   inquire (file = bestfile, exist = lexist)
   if ( .not. lexist) then
     write(*, '(" TALYS-warning: best file does not exist: ", a)') trim(bestfile)
