@@ -60,6 +60,9 @@ subroutine exciton2out
   integer            :: type         ! particle type
   integer            :: Ncol
   integer            :: Nk
+  integer            :: indent
+  integer            :: id2
+  integer            :: id4
   real(sgl)          :: lambdanupi   ! neutron-proton transition rate for n --> n
   real(sgl)          :: lambdanuplus ! neutron transition rate for n --> n+2
   real(sgl)          :: lambdapinu   ! proton-neutron transition rate for n --> n
@@ -67,6 +70,9 @@ subroutine exciton2out
 !
 ! ************************ Exciton model *******************************
 !
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
   write(*, '(/" ++++++++++ TWO-COMPONENT EXCITON MODEL ++++++++++",/)')
 !
 ! 1. Output of matrix element
@@ -80,18 +86,18 @@ subroutine exciton2out
   write(excfile(8:15), '(f8.3)') Einc
   write(excfile(8:11), '(i4.4)') int(Einc)
   open (unit = 1, file = excfile, status = 'replace')
-  call write_header(topline,source,user,date,oformat)
-  call write_target
+  call write_header(indent,topline,source,user,date,oformat)
+  call write_target(indent)
   quantity='matrix element'
-  write(1,'("# parameters:")')
-  call write_real(2,'E-incident [MeV]',Einc)
-  call write_real(2,'E-compound [MeV]',Ecomp)
-  call write_real(2,'Surface effective well depth [MeV]',Esurf)
-  call write_real(2,'Constant for matrix element',M2constant)
-  call write_real(2,'p-p ratio for matrix element',Rpipi)
-  call write_real(2,'n-n ratio for matrix element',Rnunu)
-  call write_real(2,'p-n ratio for matrix element',Rpinu)
-  call write_real(2,'n-p ratio for matrix element',Rnupi)
+  call write_char(indent,'parameters','')
+  call write_real(id2,'E-incident [MeV]',Einc)
+  call write_real(id2,'E-compound [MeV]',Ecomp)
+  call write_real(id2,'Surface effective well depth [MeV]',Esurf)
+  call write_real(id2,'Constant for matrix element',M2constant)
+  call write_real(id2,'p-p ratio for matrix element',Rpipi)
+  call write_real(id2,'n-n ratio for matrix element',Rnunu)
+  call write_real(id2,'p-n ratio for matrix element',Rpinu)
+  call write_real(id2,'n-p ratio for matrix element',Rnupi)
   un = ''
   col(1) = 'p(p)'
   col(2) = 'h(p)'
@@ -111,8 +117,8 @@ subroutine exciton2out
       enddo
     enddo
   enddo
-  call write_quantity(quantity)
-  call write_datablock(Ncol,Nk,col,un)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,Nk,col,un)
   do p = p0, maxpar
     do ppi = ppi0, maxpar
       hpi = ppi - ppi0
@@ -138,8 +144,8 @@ subroutine exciton2out
   col(12) = 'Total'
   un(12) = 'sec^-1'
   Ncol = 12
-  call write_quantity(quantity)
-  call write_datablock(Ncol,Nk,col,un)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,Nk,col,un)
   do p = p0, maxpar
     do ppi = ppi0, maxpar
       hpi = ppi - ppi0
@@ -158,8 +164,8 @@ subroutine exciton2out
   enddo
   col(12) = 'Total'
   un(12) = 'MeV'
-  call write_quantity(quantity)
-  call write_datablock(Ncol,Nk,col,un)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,Nk,col,un)
   do p = p0, maxpar
     do ppi = ppi0, maxpar
       hpi = ppi - ppi0
@@ -184,8 +190,8 @@ subroutine exciton2out
     un(4+type) = 'sec^-1'
   enddo
   Ncol = 8
-  call write_quantity(quantity)
-  call write_datablock(Ncol,Nk,col,un)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,Nk,col,un)
   do p = p0, maxpar
     do ppi = ppi0, maxpar
       hpi = ppi - ppi0
@@ -206,8 +212,8 @@ subroutine exciton2out
   do type = 1,4
     un(4+type) = 'MeV'
   enddo
-  call write_quantity(quantity)
-  call write_datablock(Ncol,Nk,col,un)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,Nk,col,un)
   do p = p0, maxpar
     do ppi = ppi0, maxpar
       hpi = ppi - ppi0
@@ -224,8 +230,8 @@ subroutine exciton2out
   quantity='total width'
   col(5) = 'gammatot'
   Ncol = 5
-  call write_quantity(quantity)
-  call write_datablock(Ncol,Nk,col,un)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,Nk,col,un)
   do p = p0, maxpar
     do ppi = ppi0, maxpar
       hpi = ppi - ppi0
@@ -245,8 +251,8 @@ subroutine exciton2out
   quantity='lifetime'
   col(5) = 'Strength'
   un(5) = 'sec'
-  call write_quantity(quantity)
-  call write_datablock(Ncol,Nk,col,un)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,Nk,col,un)
   do p = p0, maxpar
     do ppi = ppi0, maxpar
       hpi = ppi - ppi0
