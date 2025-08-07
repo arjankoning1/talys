@@ -80,6 +80,9 @@ subroutine preeqout
   integer   :: p         ! particle number
   integer   :: type      ! particle type
   integer   :: Zix       ! charge number index for residual nucleus
+  integer   :: indent
+  integer   :: id2
+  integer   :: id4
   real(sgl) :: damp      ! shell damping factor
   real(sgl) :: Eex       ! excitation energy
   real(sgl) :: gs        ! single-particle level density parameter
@@ -98,6 +101,9 @@ subroutine preeqout
 ! ignatyuk  : function for energy dependent level density parameter a
 ! phdens2   : function for two-component particle-hole state density
 !
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
   Zix = 0
   Nix = 0
   surfwell = .false.
@@ -112,8 +118,8 @@ subroutine preeqout
     quantity = 'particle-hole state density'
     topline=trim(finalnuclide)//' '//trim(quantity)
     open (unit = 1, file = phdfile, status = 'replace')
-    call write_header(topline,source,user,date,oformat)
-    call write_residual(Z,A,finalnuclide)
+    call write_header(indent,topline,source,user,date,oformat)
+    call write_residual(indent,Z,A,finalnuclide)
     un='MeV^-1'
     col=''
     un(1)='MeV'
@@ -131,8 +137,8 @@ subroutine preeqout
       col(10)='4p4h'
       col(11)='5p4h'
       Ncol=11
-      call write_quantity(quantity)
-      call write_datablock(Ncol,int(Etotal),col,un)
+      call write_quantity(id2,quantity)
+      call write_datablock(id2,Ncol,int(Etotal),col,un)
       do nen = 1, int(Etotal)
         Eex = real(nen)
         gs = g(0, 0)
@@ -153,8 +159,8 @@ subroutine preeqout
       col(12)='0p0h2p2h'
       col(13)='1p1h1p1h'
       Ncol=13
-      call write_quantity(quantity)
-      call write_datablock(Ncol,int(Etotal),col,un)
+      call write_quantity(id2,quantity)
+      call write_datablock(id2,Ncol,int(Etotal),col,un)
       do nen = 1, int(Etotal)
         Eex = real(nen)
         gsp = gp(0, 0)
@@ -185,8 +191,8 @@ subroutine preeqout
     enddo
     col(11)='Sum'
     Ncol=11
-    call write_quantity(quantity)
-    call write_datablock(Ncol,maxexc,col,un)
+    call write_quantity(id2,quantity)
+    call write_datablock(id2,Ncol,maxexc,col,un)
     do n = 1, maxexc
       write(1, '(3x, i6, 6x, 10es15.6)') n, ((2* J + 1)*RnJ(n, J), J = 0, 8), RnJsum(n)
     enddo
@@ -221,13 +227,13 @@ subroutine preeqout
   reaction='('//parsym(k0)//',x)'
   quantity = 'cross section'
   topline=trim(targetnuclide)//trim(reaction)//' pre-equilibrium cross section and spectrum'
-  call write_header(topline,source,user,date,oformat)
-  call write_target
-  call write_reaction(reaction,0.D0,0.D0,0,0)
-  call write_real(2,'E-incident [MeV]',Einc)
-  call write_real(2,'Pre-equilibrium cross section [mb]', xspreeqsum)
-  call write_quantity(quantity)
-  call write_datablock(Ncol,7,col,un)
+  call write_header(indent,topline,source,user,date,oformat)
+  call write_target(indent)
+  call write_reaction(indent,reaction,0.D0,0.D0,0,0)
+  call write_real(id2,'E-incident [MeV]',Einc)
+  call write_real(id2,'Pre-equilibrium cross section [mb]', xspreeqsum)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,7,col,un)
   do type = 0, 6
     nonpski = xspreeqtot(type) - xspreeqtotps(type) - xspreeqtotki(type) - xspreeqtotbu(type)
     write(1, '(4x, a8, 4x, 11es15.6)') parname(type),xspreeqtot(type), (xssteptot(type, p), p = 1, maxpar), nonpski, &
@@ -239,10 +245,11 @@ subroutine preeqout
     if (ebegin(type) >= eend(type)) cycle
     col(1)='E-out'
     un(1)='MeV'
-    write(1,'("# parameters:")')
-    call write_real(2,'pre-equilibrium cross section [mb]', xspreeqtot(type))
-    call write_quantity(quantity)
-    call write_datablock(Ncol,eend(type)-ebegin(type)+1,col,un)
+    call write_char(id2,'parameters','')
+    call write_char(id4,'particle',parname(type))
+    call write_real(id4,'pre-equilibrium cross section [mb]', xspreeqtot(type))
+    call write_quantity(id2,quantity)
+    call write_datablock(id2,Ncol,eend(type)-ebegin(type)+1,col,un)
     do nen = ebegin(type), eend(type)
       nonpski = xspreeq(type, nen) - xspreeqps(type, nen) - xspreeqki(type, nen) - xspreeqbu(type, nen)
       write(1, '(12es15.6)') egrid(nen), xspreeq(type, nen), (xsstep(type, p, nen), p = 1, maxpar), nonpski, &
