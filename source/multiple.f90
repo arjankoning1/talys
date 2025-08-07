@@ -209,6 +209,9 @@ subroutine multiple
   integer            :: Zcomp                 ! proton number index for compound nucleus
   integer            :: Zix                   ! charge number index for residual nucleus
   integer            :: Zres                  ! charge number of residual nucleus
+  integer            :: indent
+  integer            :: id2
+  integer            :: id4
   real(sgl)          :: ang                   ! angle
   real(sgl)          :: dEx                   ! excitation energy bin for population arrays
   real(sgl)          :: Eaveragesum           ! help variable
@@ -236,6 +239,9 @@ subroutine multiple
 !
 ! excitation : subroutine for excitation energy population
 !
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
   primary = .false.
   if (flagomponly) return
   if (flaginitpop) call excitation
@@ -347,24 +353,23 @@ subroutine multiple
         do parity = - 1, 1, 2
           if (parity == -1) then
             topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' of '//trim(finalnuclide)//' at '//Estr//' MeV'
-            call write_header(topline,source,user,date,oformat)
-            call write_target
-            call write_reaction(reaction,0.D0,0.D0,0,0)
-            call write_residual(Z,A,finalnuclide)
-            write(1,'("# parameters:")')
-            call write_real(2,'E-incident [MeV]',Einc)
-            call write_double(2,'total population [mb]',xspopnuc(Zcomp, Ncomp))
-            call write_real(2,'maximum excitation energy [MeV]',Exmax(Zcomp, Ncomp))
+            call write_header(indent,topline,source,user,date,oformat)
+            call write_target(indent)
+            call write_reaction(indent,reaction,0.D0,0.D0,0,0)
+            call write_residual(id2,Z,A,finalnuclide)
+            call write_char(id2,'parameters','')
+            call write_real(id4,'E-incident [MeV]',Einc)
+            call write_double(id4,'total population [mb]',xspopnuc(Zcomp, Ncomp))
+            call write_real(id4,'maximum excitation energy [MeV]',Exmax(Zcomp, Ncomp))
             NL = Nlast(Zcomp, Ncomp, 0)
             NT = Ntop(Zcomp, Ncomp, 0)
-            call write_integer(2,'number of discrete levels (NL)',NL)
-            call write_integer(2,'highest discrete level for level density matching (Ntop)',NT)
-            call write_real(2,'normalization factor for levels between Ntop and NL',discfactor(Zcomp, Ncomp))
+            call write_integer(id4,'number of discrete levels (NL)',NL)
+            call write_integer(id4,'highest discrete level for level density matching (Ntop)',NT)
+            call write_real(id4,'normalization factor for levels between Ntop and NL',discfactor(Zcomp, Ncomp))
             if (maxex(Zcomp, Ncomp) > NL) then
-              call write_integer(2,'number of continuum bins',maxex(Zcomp, Ncomp) - NL)
-              call write_real(2,'continuum bin size [MeV]',dExinc)
+              call write_integer(id4,'number of continuum bins',maxex(Zcomp, Ncomp) - NL)
+              call write_real(id4,'continuum bin size [MeV]',dExinc)
             endif
-            call write_quantity(quantity)
           endif
           col(1)='level/bin'
           col(2)='Ex'
@@ -386,9 +391,10 @@ subroutine multiple
           un(1)=''
           un(2)='MeV'
           Ncol=numJ+5
-          call write_integer(2,'parity',parity)
-          call write_double(2,'population [mb]',xspopnucP(Zcomp, Ncomp,parity))
-          call write_datablock(Ncol,maxex(Zcomp, Ncomp)+1,col,un)
+          call write_quantity(id2,quantity)
+          call write_integer(id4,'parity',parity)
+          call write_double(id4,'population [mb]',xspopnucP(Zcomp, Ncomp,parity))
+          call write_datablock(id2,Ncol,maxex(Zcomp, Ncomp)+1,col,un)
           do nex = 0, maxex(Zcomp, Ncomp)
             write(1, '(i6, 9x, 44es15.6)') nex, Ex(Zcomp, Ncomp, nex), xspopex(Zcomp, Ncomp, nex), &
  &            xspopexP(Zcomp, Ncomp, nex, parity), (xspop(Zcomp, Ncomp, nex, J, parity), J = 0, numJ)
@@ -416,8 +422,8 @@ subroutine multiple
         col(1)='particle'
         col(2)='isospin factor'
         Ncol = 2
-        call write_quantity(quantity)
-        call write_datablock(Ncol,7,col,un)
+        call write_quantity(id2,quantity)
+        call write_datablock(id2,Ncol,7,col,un)
         do type = 0, 6
           write(1, '(3x, a8, 4x, es15.6)') parname(type), fisom(type)
         enddo
@@ -453,8 +459,8 @@ subroutine multiple
           col(J+6)='JP=     '
           write(col(J+6)(4:7),'(f4.1)') J+0.5*odd
         enddo
-        call write_quantity(quantity)
-        call write_datablock(Ncol,2*(maxex(Zcomp, Ncomp)+1),col,un)
+        call write_quantity(id2,quantity)
+        call write_datablock(id2,Ncol,2*(maxex(Zcomp, Ncomp)+1),col,un)
       endif
       Smin = S(Zcomp, Ncomp, 1)
       do nex = maxex(Zcomp, Ncomp), 1, - 1
@@ -553,20 +559,20 @@ Loop1:  do type = 1, 6
               if (flagpop) then
                 rJ=0.5*J2
                 quantity='particle decay from this bin'
-                write(1,'("#   parameters:")')
-                call write_integer(4,'bin',nex)
-                call write_real(4,'excitation energy [MeV]',Exinc)
-                call write_real(4,'bin width [MeV]',dExinc)
-                call write_real(4,'spin',rJ)
-                call write_integer(4,'parity',parity)
-                call write_double(4,'population [mb]',xsp)
+                call write_char(id2,'parameters','')
+                call write_integer(id4,'bin',nex)
+                call write_real(id4,'excitation energy [MeV]',Exinc)
+                call write_real(id4,'bin width [MeV]',dExinc)
+                call write_real(id4,'spin',rJ)
+                call write_integer(id4,'parity',parity)
+                call write_double(id4,'population [mb]',xsp)
                 col(1)='Particle'
                 un(1)=''
                 col(2)='Decay'
                 un(2)='mb'
                 Ncol=2
-                call write_quantity(quantity)
-                call write_datablock(Ncol,7,col,un)
+                call write_quantity(id2,quantity)
+                call write_datablock(id2,Ncol,7,col,un)
                 do type = 0, 6
                   write(1,'(a8,7x,es15.6)') parname(type),partdecaytot(type)
                 enddo
@@ -584,13 +590,13 @@ Loop1:  do type = 1, 6
                     if (parskip(type)) cycle
                     parstring='  '
                     do Pres = - 1, 1, 2
-                      write(1,'("#   parameters:")')
-                      call write_real(4,'spin',rJ)
-                      call write_integer(4,'parity',parity)
-                      call write_double(4,'population [mb]',xsp)
-                      call write_double(4,trim(parname(type))//' decay [mb]',partdecaytot(type))
+                      call write_char(id2,'parameters','')
+                      call write_real(id4,'spin',rJ)
+                      call write_integer(id4,'parity',parity)
+                      call write_double(id4,'population [mb]',xsp)
+                      call write_double(id4,trim(parname(type))//' decay [mb]',partdecaytot(type))
                       write(parstring,'(i2)') Pres
-                      call write_double(4,trim(parname(type))//' decay to P='//parstring//' [mb]',partdecay(type,Pres))
+                      call write_double(id4,trim(parname(type))//' decay to P='//parstring//' [mb]',partdecay(type,Pres))
                       quantity=trim(parname(type))//" decay from J,P bin to residual J',P' bin"
                       Zix = Zindex(Zcomp, Ncomp, type)
                       Nix = Nindex(Zcomp, Ncomp, type)
@@ -598,8 +604,8 @@ Loop1:  do type = 1, 6
                       Nres = NN(Zcomp, Ncomp, type)
                       Ares = AA(Zcomp, Ncomp, type)
                       oddres = mod(Ares, 2)
-                      call write_quantity(quantity)
-                      call write_datablock(Ncol,nexmax(type)+1,col,un)
+                      call write_quantity(id2,quantity)
+                      call write_datablock(id2,Ncol,nexmax(type)+1,col,un)
                       do nexout = 0, nexmax(type)
                         write(1, '(i6, 9x, 42es15.6)') nexout, Ex(Zix, Nix, nexout), &
  &                        (popdecay(type, nexout, Jres, Pres), Jres = 0, numJ)
@@ -726,8 +732,8 @@ Loop1:  do type = 1, 6
         col(10)='Total'
         col(11)='In - out'
         Ncol=11
-        call write_quantity(quantity)
-        call write_datablock(Ncol,maxex(Zcomp, Ncomp)+1,col,un)
+        call write_quantity(id2,quantity)
+        call write_datablock(id2,Ncol,maxex(Zcomp, Ncomp)+1,col,un)
         do nex = 0, maxex(Zcomp, Ncomp)
           sumxs = 0.
           do type = 0, 6
@@ -782,18 +788,16 @@ Loop1:  do type = 1, 6
 ! Total decay from mother nucleus
 !
         quantity='particle decay from this nuclide'
-        call write_residual(Z,A,finalnuclide)
-        write(1,'("#   properties:")')
-        call write_real(4,'spin',rJ)
-        call write_integer(4,'parity',parity)
-        call write_double(4,'population [mb]',xsp)
+        call write_residual(id2,Z,A,finalnuclide)
+        call write_char(id2,'properties','')
+        call write_double(id4,'population [mb]',xsp)
         col(1)='Particle'
         un(1)=''
         col(2)='Decay'
         un(2)='mb'
         Ncol=2
-        call write_quantity(quantity)
-        call write_datablock(Ncol,7,col,un)
+        call write_quantity(id2,quantity)
+        call write_datablock(id2,Ncol,7,col,un)
         do type = 0, 6
           if (parskip(type)) cycle
           write(1,'(a8,7x,es15.6)') parname(type),xsfeed(Zcomp, Ncomp, type)
@@ -823,8 +827,8 @@ Loop1:  do type = 1, 6
             col(type+2)=parname(type)
           enddo
           Ncol=8
-          call write_quantity(quantity)
-          call write_datablock(Ncol,eendhigh-ebegin(0)+1,col,un)
+          call write_quantity(id2,quantity)
+          call write_datablock(id2,Ncol,eendhigh-ebegin(0)+1,col,un)
           do nen = ebegin(0), eendhigh
             write(1, '(8es15.6)') egrid(nen), (xsemis(type, nen) + xsmpeemis(type, nen), type = 0, 6)
           enddo
@@ -872,12 +876,12 @@ Loop1:  do type = 1, 6
         write(Estr,'(es12.6)') Einc
         topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' of '//trim(finalnuclide)//' at '//Estr//' MeV'
         open (unit = 1, file = fisfile, status = 'replace')
-        call write_header(topline,source,user,date,oformat)
-        call write_target
-        call write_reaction(reaction,0.D0,0.D0,0,0)
-        write(1,'("# parameters:")')
-        call write_real(2,'E-incident [MeV]',Einc)
-        call write_residual(Z,A,finalnuclide)
+        call write_header(indent,topline,source,user,date,oformat)
+        call write_target(indent)
+        call write_reaction(indent,reaction,0.D0,0.D0,0,0)
+        call write_char(id2,'parameters','')
+        call write_real(id4,'E-incident [MeV]',Einc)
+        call write_residual(id2,Z,A,finalnuclide)
         if (Zcomp == 0 .and. Ncomp == 0) then
           nen = maxex(Zcomp, Ncomp) + 1
         else
@@ -902,8 +906,8 @@ Loop1:  do type = 1, 6
           write(col(2+2*J+2)(4:7),'(f4.1)') J+0.5*odd
         enddo
         Ncol=2+2*(Jfis+1)
-        call write_quantity(quantity)
-        call write_datablock(Ncol,nen+1,col,un)
+        call write_quantity(id2,quantity)
+        call write_datablock(id2,Ncol,nen+1,col,un)
         form2='(xxx(es15.6))'
         write(form2(2:4), '(i3.3)') 2+2*(Jfis+1)
         do nex = 0, nen
