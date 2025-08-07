@@ -47,12 +47,18 @@ subroutine pfnsout
   character(len=80) :: quantity   ! quantity
   integer           :: MF
   integer           :: MT
+  integer           :: indent
+  integer           :: id2
+  integer           :: id4
   integer           :: Ncol      ! number of columns
   integer           :: nen       ! energy counter
   integer           :: type      ! particle type
 !
 ! Write PFNS, PFGS, etc.
 !
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
   MF = 5
   Estr=''
   write(Estr,'(es12.6)') Einc
@@ -82,19 +88,19 @@ subroutine pfnsout
     reaction='('//parsym(k0)//',f)'
     topline=trim(targetnuclide)//trim(reaction)//' prompt fission '//trim(adjustl(parname(type)))//' '//trim(quantity)// &
  &    ' at '//Estr//' MeV'
-    call write_header(topline,source,user,date,oformat)
-    call write_target
+    call write_header(indent,topline,source,user,date,oformat)
+    call write_target(indent)
     if (type ==1) then
       MT = 18
     else
       MT = 0
     endif
-    call write_reaction(reaction,0.D0,0.D0,MF,MT)
-    call write_char(2,'ejectile',parname(type))
-    call write_real(2,'E-incident [MeV]',Einc)
-    call write_real(2,'E-average [MeV]',Eavpfns(type))
-    call write_quantity(quantity)
-    call write_datablock(Ncol,NEpfns,col,un)
+    call write_reaction(indent,reaction,0.D0,0.D0,MF,MT)
+    call write_char(id2,'ejectile',parname(type))
+    call write_real(id2,'E-incident [MeV]',Einc)
+    call write_real(id2,'E-average [MeV]',Eavpfns(type))
+    call write_quantity(id2,quantity)
+    call write_datablock(id2,Ncol,NEpfns,col,un)
     write(*, '(/" E-average         = ", f8.3, " MeV")') Eavpfns(type)
     write(*, '(" Weighted E-average= ", f8.3, " MeV")') Epfnsaverage(type)
     write(*, '(/"       E-out         spectrum    Maxwell ratio   spectrum_CM"/)')
