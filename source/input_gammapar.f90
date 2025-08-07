@@ -22,7 +22,6 @@ subroutine input_gammapar
 !   epradjust         ! adjustable factor for energy of PR
 !   etable            ! constant to adjust tabulated strength functions
 !   etableadjust      ! adjustable correction to adjust tabulated strength functions
-!   filepsf           ! flag for photon strength functions on separate files
 !   fiso              ! correction factor for isospin forbidden transitions
 !   fisom             ! correction factor for isospin forbidden transitions for multiple emission
 !   ftable            ! constant to adjust tabulated strength functions
