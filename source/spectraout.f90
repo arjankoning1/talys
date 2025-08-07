@@ -76,12 +76,18 @@ subroutine spectraout
   character(len=80) :: quantity   ! quantity
   integer           :: MF
   integer           :: MT
+  integer           :: indent
+  integer           :: id2
+  integer           :: id4
   integer           :: nen         ! energy counter
   integer           :: type        ! particle type
   integer           :: Ncol        ! number of columns
 !
 ! ***************************** Spectra ********************************
 !
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
   MF = 6
   MT = 5
   Estr=''
@@ -130,24 +136,24 @@ subroutine spectraout
       endif
       reaction='('//parsym(k0)//',x'//parsym(type)//')'
       topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' at '//Estr//' MeV'
-      call write_header(topline,source,user,date,oformat)
-      call write_target
-      call write_reaction(reaction,0.D0,0.D0,MF,MT)
-      write(1,'("# parameters:")')
-      call write_real(2,'E-incident [MeV]',Einc)
-      call write_real(2,'E-average [MeV]',Eaverage(type))
+      call write_header(indent,topline,source,user,date,oformat)
+      call write_target(indent)
+      call write_reaction(indent,reaction,0.D0,0.D0,MF,MT)
+      call write_char(id2,'parameters','')
+      call write_real(id4,'E-incident [MeV]',Einc)
+      call write_real(id4,'E-average [MeV]',Eaverage(type))
       if (k0 <= 2 .and. type <= 2) then
         Ncol=7
-        call write_quantity(quantity)
-        call write_datablock(Ncol,eendout(type)-ebegin(type)+1,col,un)
+        call write_quantity(id2,quantity)
+        call write_datablock(id2,Ncol,eendout(type)-ebegin(type)+1,col,un)
         do nen = ebegin(type), eendout(type)
           write(1, '(7es15.6)') espec(type, nen), xssumout(type, nen), xsdiscout(type, nen), &
  &          xspreeqout(type, nen), xsmpreeqout(type, nen), xscompout(type, nen), preeqratio(type, nen)
         enddo
       else
         Ncol=11
-        call write_quantity(quantity)
-        call write_datablock(Ncol,eendout(type)-ebegin(type)+1,col,un)
+        call write_quantity(id2,quantity)
+        call write_datablock(id2,Ncol,eendout(type)-ebegin(type)+1,col,un)
         do nen = ebegin(type), eendout(type)
           write(1, '(11es15.6)') espec(type, nen), xssumout(type, nen), xsdiscout(type, nen), &
  &          xspreeqout(type, nen), xsmpreeqout(type, nen), xscompout(type, nen), preeqratio(type, nen), &
@@ -177,14 +183,14 @@ subroutine spectraout
         quantity='emission spectrum in LAB frame'
         topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' at '//Estr//' MeV'
         Ncol=2
-        call write_header(topline,source,user,date,oformat)
-        call write_target
-        call write_reaction(reaction,0.D0,0.D0,MF,MT)
-        write(1,'("# parameters:")')
-        call write_real(2,'E-incident [MeV]',Einc)
-        call write_real(2,'Energy-integrated cross section [mb]',xsejlabint(type))
-        call write_quantity(quantity)
-        call write_datablock(Ncol,iejlab(type),col,un)
+        call write_header(indent,topline,source,user,date,oformat)
+        call write_target(indent)
+        call write_reaction(indent,reaction,0.D0,0.D0,MF,MT)
+        call write_char(id2,'parameters','')
+        call write_real(id4,'E-incident [MeV]',Einc)
+        call write_real(id4,'Energy-integrated cross section [mb]',xsejlabint(type))
+        call write_quantity(id2,quantity)
+        call write_datablock(id2,Ncol,iejlab(type),col,un)
         do nen = 1, iejlab(type)
           write(1, '(2es15.6)') Eejlab(type, nen), xsejlab(type, nen)
         enddo
@@ -207,11 +213,11 @@ subroutine spectraout
         col(1)='E'
         col(2)='E-average'
         un(2)='MeV'
-        call write_header(topline,source,user,date,oformat)
-        call write_target
-        call write_reaction(reaction,0.D0,0.D0,0,0)
-        call write_quantity(quantity)
-        call write_datablock(Ncol,Ninclow,col,un)
+        call write_header(indent,topline,source,user,date,oformat)
+        call write_target(indent)
+        call write_reaction(indent,reaction,0.D0,0.D0,0,0)
+        call write_quantity(id2,quantity)
+        call write_datablock(id2,Ncol,Ninclow,col,un)
         do nen = 1, Ninclow
           write(1, '(2es15.6)') eninc(nen), 0.
         enddo
