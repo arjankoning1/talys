@@ -55,11 +55,17 @@ subroutine nudisout
   integer           :: iz        ! charge number
   integer           :: Ncol      ! number of columns
   integer           :: type      ! particle type
+  integer           :: indent
+  integer           :: id2
+  integer           :: id4
 !
 ! Write results to separate files
 !
 ! nu per number, P(nu) and nubar as function of Z and A
 !
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
   Estring = '0000.000'
   if (Einc0 < 0.001) then
     write(Estring(1:8), '(es8.2)') Einc0
@@ -95,15 +101,15 @@ subroutine nudisout
     col(1)='number'
     col(2)='nu'
     Ncol=2
-    call write_header(topline,source,user,date,oformat)
-    call write_target
-    call write_reaction(reaction,0.d0,0.d0,0,0)
-    call write_real(2,'E-incident [MeV]',Einc0)
-    call write_char(2,'ejectile',parname(type))
-    call write_real(2,'nubar-prompt',nubar(type))
-    call write_real(2,'average P(nu)',Pdisnuav(type))
-    call write_quantity(quantity)
-    call write_datablock(Ncol,numnu+1,col,un)
+    call write_header(indent,topline,source,user,date,oformat)
+    call write_target(indent)
+    call write_reaction(indent,reaction,0.d0,0.d0,0,0)
+    call write_real(id2,'E-incident [MeV]',Einc0)
+    call write_char(id2,'ejectile',parname(type))
+    call write_real(id2,'nubar-prompt',nubar(type))
+    call write_real(id2,'average P(nu)',Pdisnuav(type))
+    call write_quantity(id2,quantity)
+    call write_datablock(id2,Ncol,numnu+1,col,un)
     do i = 0, numnu
       if (Pdisnu(type, i) > 0. .or. i <= 4) then
         write(1, '(i6, 9x, es15.6)') i, Pdisnu(type, i)
@@ -125,14 +131,14 @@ subroutine nudisout
     col(1)='A'
     col(2)='nu'
     Ncol=2
-    call write_header(topline,source,user,date,oformat)
-    call write_target
-    call write_reaction(reaction,0.d0,0.d0,0,0)
-    call write_real(2,'E-incident [MeV]',Einc0)
-    call write_char(2,'ejectile',parname(type))
-    call write_real(2,'nubar-prompt',nubar(type))
-    call write_quantity(quantity)
-    call write_datablock(Ncol,Atarget,col,un)
+    call write_header(indent,topline,source,user,date,oformat)
+    call write_target(indent)
+    call write_reaction(indent,reaction,0.d0,0.d0,0,0)
+    call write_real(id2,'E-incident [MeV]',Einc0)
+    call write_char(id2,'ejectile',parname(type))
+    call write_real(id2,'nubar-prompt',nubar(type))
+    call write_quantity(id2,quantity)
+    call write_datablock(id2,Ncol,Atarget,col,un)
     do ia = 1, Atarget
       write(1, '(i6, 9x, es15.6)') ia, nuA(type, ia)
     enddo
@@ -153,11 +159,11 @@ subroutine nudisout
     col(2)='A'
     col(3)='nu'
     Ncol=3
-    call write_header(topline,source,user,date,oformat)
-    call write_target
-    call write_reaction(reaction,0.d0,0.d0,0,0)
-    call write_real(2,'E-incident [MeV]',Einc0)
-    call write_char(2,'ejectile',parname(type))
+    call write_header(indent,topline,source,user,date,oformat)
+    call write_target(indent)
+    call write_reaction(indent,reaction,0.d0,0.d0,0,0)
+    call write_real(id2,'E-incident [MeV]',Einc0)
+    call write_char(id2,'ejectile',parname(type))
     k = 0
     do iz = 1, Ztarget
       do ia = iz + 1, Atarget
@@ -167,8 +173,8 @@ subroutine nudisout
         endif
       enddo
     enddo
-    call write_quantity(quantity)
-    call write_datablock(Ncol,k,col,un)
+    call write_quantity(id2,quantity)
+    call write_datablock(id2,Ncol,k,col,un)
     do iz = 1, Ztarget
       do ia = iz + 1, Atarget
         in = ia - iz
@@ -200,10 +206,10 @@ subroutine nudisout
   col(4)='neutron'
   un(4)='MeV'
   Ncol=4
-  call write_header(topline,source,user,date,oformat)
-  call write_target
-  call write_reaction(reaction,0.d0,0.d0,0,0)
-  call write_real(2,'E-incident [MeV]',Einc0)
+  call write_header(indent,topline,source,user,date,oformat)
+  call write_target(indent)
+  call write_reaction(indent,reaction,0.d0,0.d0,0,0)
+  call write_real(id2,'E-incident [MeV]',Einc0)
   k = 0
   do iz = 1, Ztarget
     do ia = iz+1, Atarget
@@ -213,8 +219,8 @@ subroutine nudisout
       endif
     enddo
   enddo
-  call write_quantity(quantity)
-  call write_datablock(Ncol,k,col,un)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,k,col,un)
   do iz = 1, Ztarget
     do ia = iz+1, Atarget
       in = ia - iz
@@ -237,12 +243,12 @@ subroutine nudisout
   col(2)='gamma'
   col(3)='neutron'
   Ncol=3
-  call write_header(topline,source,user,date,oformat)
-  call write_target
-  call write_reaction(reaction,0.d0,0.d0,0,0)
-  call write_real(2,'E-incident [MeV]',Einc0)
-  call write_quantity(quantity)
-  call write_datablock(Ncol,Atarget,col,un)
+  call write_header(indent,topline,source,user,date,oformat)
+  call write_target(indent)
+  call write_reaction(indent,reaction,0.d0,0.d0,0,0)
+  call write_real(id2,'E-incident [MeV]',Einc0)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,Atarget,col,un)
   do ia = 1, Atarget
     write(1, '(i6,9x,2es15.6)') ia, (EaverageA(type,ia), type=0,1)
   enddo
