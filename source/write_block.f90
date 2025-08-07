@@ -1,8 +1,8 @@
-  subroutine write_header(title,source,user,date,comment)
+  subroutine write_header(indent,title,source,user,date,comment)
 !
 ! +---------------------------------------------------------------------
 ! | Author: Arjan Koning
-! | Date  : August 8, 2023
+! | Date  : July 25, 2025
 ! | Task  : Write output block for title
 ! +---------------------------------------------------------------------
 !
@@ -15,24 +15,25 @@
   character(len=*) date
   character(len=*) comment
   integer          indent
+  integer          id2
 !
 ! ************* Write output block *************************************
 !
-  write(1,'("# header:")')
-  indent=2
-  call write_char(indent,'title',trim(title))
-  call write_char(indent,'source',trim(source))
-  if (len_trim(user) > 0) call write_char(indent,'user',trim(user))
-  call write_char(indent,'date',trim(date))
-  if (len_trim(comment) > 0) call write_char(indent,'format',trim(comment))
+  call write_char(indent,'header','')
+  id2 = indent + 2
+  call write_char(id2,'title',trim(title))
+  call write_char(id2,'source',trim(source))
+  if (len_trim(user) > 0) call write_char(id2,'user',trim(user))
+  call write_char(id2,'date',trim(date))
+  if (len_trim(comment) > 0) call write_char(id2,'format',trim(comment))
   return
   end
 !Copyright (C)  2023 A.J. Koning
-  subroutine write_target
+  subroutine write_target(indent)
 !
 ! +---------------------------------------------------------------------
 ! | Author: Arjan Koning
-! | Date  : May 20, 2023
+! | Date  : July 25, 2025
 ! | Task  : Write output block for target
 ! +---------------------------------------------------------------------
 !
@@ -47,14 +48,17 @@
   integer          Nixx
   integer          ilev
   integer          P
+  integer          indent
+  integer          id2
   real             J
   real             Ee
   real             tau0
 !
 ! ************* Write output block *************************************
 !
-  write(1,'("# target:")')
-  call write_nuc(2,Ztarget,Atarget,targetnuclide)
+  id2 = indent + 2
+  call write_char(indent,'target','')
+  call write_nuc(id2,Ztarget,Atarget,targetnuclide)
   if (Liso > 0) then
     Zixx=parZ(k0)
     Nixx=parN(k0)
@@ -63,16 +67,16 @@
     J=jdis(Zixx,Nixx,ilev)
     P=parlev(Zixx,Nixx,ilev)
     tau0=tau(Zixx,Nixx,ilev)
-    call write_level(2,Liso,ilev,Ee,J,P,tau0)
+    call write_level(id2,Liso,ilev,Ee,J,P,tau0)
   endif
   return
   end
 !Copyright (C)  2023 A.J. Koning
-  subroutine write_reaction(reaction,Q,E,MF,MT)
+  subroutine write_reaction(indent,reaction,Q,E,MF,MT)
 !
 ! +---------------------------------------------------------------------
 ! | Author: Arjan Koning
-! | Date  : May 20, 2023
+! | Date  : July 25, 2025
 ! | Task  : Write output block for reaction
 ! +---------------------------------------------------------------------
 !
@@ -81,6 +85,7 @@
   implicit none
   character(len=*) reaction
   integer          indent
+  integer          id2
   integer          MF
   integer          MT
   real*8           Q
@@ -88,22 +93,22 @@
 !
 ! ************* Write output block *************************************
 !
-  write(1,'("# reaction:")')
-  indent=2
-  call write_char(indent,'type',trim(reaction))
+  id2 = indent + 2
+  call write_char(indent,'reaction','')
+  call write_char(id2,'type',trim(reaction))
   if (Q /= 0.D0 .or. E /= 0.D0) then
-    call write_double(indent,'Q-value [MeV]',Q)
-    call write_double(indent,'E-threshold [MeV]',E)
+    call write_double(id2,'Q-value [MeV]',Q)
+    call write_double(id2,'E-threshold [MeV]',E)
   endif
-  if( MF > 0 .and. MT > 0) call write_endfMFMT(MF,MT)
+  if( MF > 0 .and. MT > 0) call write_endfMFMT(id2,MF,MT)
   return
   end
 !Copyright (C)  2023 A.J. Koning
-  subroutine write_endfMFMT(MF,MT)
+  subroutine write_endfMFMT(indent,MF,MT)
 !
 ! +---------------------------------------------------------------------
 ! | Author: Arjan Koning
-! | Date  : July 15, 2023
+! | Date  : July 25, 2025
 ! | Task  : Write output block for ENDF MF and MT numbers
 ! +---------------------------------------------------------------------
 !
@@ -116,17 +121,16 @@
 !
 ! ************* Write output block *************************************
 !
-  indent=2
   call write_integer(indent,'ENDF_MF',MF)
   call write_integer(indent,'ENDF_MT',MT)
   return
   end
 !Copyright (C)  2023 A.J. Koning
-  subroutine write_residual(Z,A,nuc)
+  subroutine write_residual(indent,Z,A,nuc)
 !
 ! +---------------------------------------------------------------------
 ! | Author: Arjan Koning
-! | Date  : May 20, 2023
+! | Date  : July 25, 2025
 ! | Task  : Write output block for residual nuclide
 ! +---------------------------------------------------------------------
 !
@@ -136,11 +140,14 @@
   character(len=*) nuc
   integer          Z
   integer          A
+  integer          indent
+  integer          id2
 !
 ! ************* Write output block *************************************
 !
-  write(1,'("# residual:")')
-  call write_nuc(2,Z,A,nuc)
+  call write_char(indent,'residual','')
+  id2 = indent + 2
+  call write_nuc(id2,Z,A,nuc)
   return
   end
 !Copyright (C)  2023 A.J. Koning
@@ -148,7 +155,7 @@
 !
 ! +---------------------------------------------------------------------
 ! | Author: Arjan Koning
-! | Date  : May 20, 2023
+! | Date  : July 25, 2025
 ! | Task  : Write output block for nuclide
 ! +---------------------------------------------------------------------
 !
@@ -172,7 +179,7 @@
 !
 ! +---------------------------------------------------------------------
 ! | Author: Arjan Koning
-! | Date  : May 20, 2023
+! | Date  : July 25, 2025
 ! | Task  : Write output block for level
 ! +---------------------------------------------------------------------
 !
@@ -180,7 +187,7 @@
 !
   implicit none
   integer          indent
-  integer          id
+  integer          id2
   integer          I
   integer          L
   integer          P
@@ -191,25 +198,25 @@
 ! ************* Write output block *************************************
 !
   call write_char(indent,'level','')
-  id=indent+2
+  id2 = indent + 2
   if ( L >= 0 ) then
-    call write_integer(id,'number',L)
-    call write_real(id,'energy [MeV]',E)
+    call write_integer(id2,'number',L)
+    call write_real(id2,'energy [MeV]',E)
   endif
   if (J >= 0.) then
-    call write_real(id,'spin',J)
-    call write_integer(id,'parity',P)
+    call write_real(id2,'spin',J)
+    call write_integer(id2,'parity',P)
   endif
-  if ( I >= 0 ) call write_integer(id,'isomer',I)
-  if ( tau > 0.) call write_real(id,'half-life [sec]',tau)
+  if ( I >= 0 ) call write_integer(id2,'isomer',I)
+  if ( tau > 0.) call write_real(id2,'half-life [sec]',tau)
   return
   end
 !Copyright (C)  2023 A.J. Koning
-  subroutine write_quantity(quantity)
+  subroutine write_quantity(indent,quantity)
 !
 ! +---------------------------------------------------------------------
 ! | Author: Arjan Koning
-! | Date  : February 23, 2025
+! | Date  : July 25, 2025
 ! | Task  : Write output block for quantity
 ! +---------------------------------------------------------------------
 !
@@ -218,20 +225,21 @@
   implicit none
   character(len=*) quantity
   integer          indent
+  integer          id2
 !
 ! ************* Write output block *************************************
 !
-  write(1,'("# quantity:")')
-  indent=2
-  call write_char(indent,'type',trim(quantity))
+  id2 = indent + 2
+  call write_char(indent,'quantity','')
+  call write_char(id2,'type',trim(quantity))
   return
   end
 !Copyright (C)  2025 A.J. Koning
-  subroutine write_datablock(Nc,Ne,col,un)
+  subroutine write_datablock(indent,Nc,Ne,col,un)
 !
 ! +---------------------------------------------------------------------
 ! | Author: Arjan Koning
-! | Date  : February 23, 2025
+! | Date  : July 25, 2025
 ! | Task  : Write output block for data block
 ! +---------------------------------------------------------------------
 !
@@ -243,6 +251,7 @@
   integer            L
   integer            i
   integer            indent
+  integer            id2
   integer            k
   integer            ibeg
   integer            width
@@ -254,10 +263,10 @@
 !
 ! ************* Write output block *************************************
 !
-  write(1,'("#   datablock:")')
-  indent=4
-  call write_integer(indent,'columns',Nc)
-  call write_integer(indent,'entries',Ne)
+  call write_char(indent,'datablock','')
+  id2 = indent + 2
+  call write_integer(id2,'columns',Nc)
+  call write_integer(id2,'entries',Ne)
   width=15
   obs="##"
   k=2
