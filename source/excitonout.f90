@@ -48,12 +48,18 @@ subroutine excitonout
   integer           :: n          ! exciton number
   integer           :: p          ! particle number
   integer           :: type       ! particle type
-  integer            :: Ncol
-  integer            :: Nk
+  integer           :: Ncol
+  integer           :: Nk
+  integer           :: indent
+  integer            :: id2
+  integer           :: id4
   real(sgl)         :: lambdaplus ! transition rate for n --> n+2
 !
 ! ************************ Exciton model *******************************
 !
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
   write(*, '(/" ++++++++++ EXCITON MODEL ++++++++++",/)')
 !
 ! 1. Output of matrix element
@@ -67,21 +73,21 @@ subroutine excitonout
   write(excfile(8:15), '(f8.3)') Einc
   write(excfile(8:11), '(i4.4)') int(Einc)
   open (unit = 1, file = excfile, status = 'replace')
-  call write_header(topline,source,user,date,oformat)
-  call write_target
-  write(1,'("# parameters:")')
-  call write_real(2,'E-incident [MeV]',Einc)
-  call write_real(2,'E-compound [MeV]',Ecomp)
-  call write_real(2,'Surface effective well depth [MeV]',Esurf)
-  call write_real(2,'Constant for matrix element',M2constant)
+  call write_header(indent,topline,source,user,date,oformat)
+  call write_target(indent)
+  call write_char(indent,'parameters','')
+  call write_real(id2,'E-incident [MeV]',Einc)
+  call write_real(id2,'E-compound [MeV]',Ecomp)
+  call write_real(id2,'Surface effective well depth [MeV]',Esurf)
+  call write_real(id2,'Constant for matrix element',M2constant)
   un = ''
   col(1) = 'p'
   col(2) = 'h'
   col(3) = 'M2'     
   Ncol = 3
   Nk = maxpar - p0 + 1
-  call write_quantity(quantity)
-  call write_datablock(Ncol,Nk,col,un)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,Nk,col,un)
   do p = p0, maxpar
     h = p - p0
     n = p + h
@@ -96,8 +102,8 @@ subroutine excitonout
     col(2 + type) = parname(type)
   enddo
   Ncol = 8
-  call write_quantity(quantity)
-  call write_datablock(Ncol,Nk,col,un)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,Nk,col,un)
   do p = p0, maxpar
     h = p - p0
     write(1, '(2(3x, i6, 6x), 6es15.6)') p, h, (Qfactor(type, p), type = 1, 6)
@@ -113,8 +119,8 @@ subroutine excitonout
   col(10) = 'Total'
   un(10) = 'sec^-1'
   Ncol = 10
-  call write_quantity(quantity)
-  call write_datablock(Ncol,Nk,col,un)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,Nk,col,un)
   do p = p0, maxpar
     h = p - p0
     write(1, '(2(3x, i6, 6x), 8es15.6)') p, h, (wemispart(type, p, h), type = 0, 6), wemistot(p, h)
@@ -125,8 +131,8 @@ subroutine excitonout
   enddo
   col(10) = 'Total'
   un(10) = 'MeV'
-  call write_quantity(quantity)
-  call write_datablock(Ncol,Nk,col,un)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,Nk,col,un)
   do p = p0, maxpar
     h = p - p0
     write(1, '(2(3x, i6, 6x), 8es15.6)') p, h, (wemispart(type, p, h) * hbar, type = 0, 6), wemistot(p, h) * hbar
@@ -138,8 +144,8 @@ subroutine excitonout
   col(3) = 'lambdaplus'
   un(3) = 'sec^-1'
   Ncol = 3
-  call write_quantity(quantity)
-  call write_datablock(Ncol,Nk,col,un)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,Nk,col,un)
   do p = p0, maxpar
     h = p - p0
     write(1, '(2(3x, i6, 6x), es15.6)') p, h, lambdaplus(0, 0, p, h)
@@ -147,15 +153,15 @@ subroutine excitonout
   quantity='damping widths'
   col(3) = 'gammaplus'
   un(3) = 'MeV'
-  call write_quantity(quantity)
-  call write_datablock(Ncol,Nk,col,un)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,Nk,col,un)
   do p = p0, maxpar
     h = p - p0
     write(1, '(2(3x, i6, 6x), es15.6)') p, h, lambdaplus(0, 0, p, h)*hbar
   enddo
   quantity='total widths'
-  call write_quantity(quantity)
-  call write_datablock(Ncol,Nk,col,un)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,Nk,col,un)
   do p = p0, maxpar
     h = p - p0
     write(1, '(2(3x, i6, 6x), es15.6)') p, h, (lambdaplus(0, 0, p, h) + wemistot(p, h)) * hbar
@@ -166,8 +172,8 @@ subroutine excitonout
   quantity='depletion factors'
   col(3) = 'depletion'
   un(3) = ''
-  call write_quantity(quantity)
-  call write_datablock(Ncol,Nk,col,un)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,Nk,col,un)
   do p = p0, maxpar
     h = p - p0
     write(1, '(2(3x, i6, 6x), es15.6)') p, h, depletion(p, h)
@@ -178,8 +184,8 @@ subroutine excitonout
   quantity='lifetimes'
   col(3) = 'mean lifetime'
   un(3) = 'sec'   
-  call write_quantity(quantity)
-  call write_datablock(Ncol,Nk,col,un)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,Nk,col,un)
   do p = p0, maxpar
     h = p - p0
     write(1, '(2(3x, i6, 6x), es15.6)') p, h, tauexc(p, h)
