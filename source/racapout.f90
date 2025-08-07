@@ -83,6 +83,9 @@ subroutine racapout
   integer           :: Acpracap     ! compound nucleus A
   integer           :: i            ! counter
   integer           :: Ncol
+  integer           :: indent
+  integer           :: id2
+  integer           :: id4
   integer           :: istat        ! error code
   integer           :: JJJ          ! spin
   integer           :: nracapout    ! energy index
@@ -93,6 +96,9 @@ subroutine racapout
 !
 !************************************************************************
 !
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
   nracapout = nin
   Acpracap = Atarget + parA(k0)
   Zcpracap = ZZ(0, 0, 0)
@@ -180,15 +186,15 @@ subroutine racapout
     col(5)='xs(M1)'
     col(6)='xs(tot)'
     Ncol=6
-    call write_header(topline,source,user,date,oformat)
-    call write_target
-    call write_reaction(reaction,Qres(0, 0, 0),0.D0,0,0)
-    call write_residual(Zcpracap,Acpracap,finalnuclide)
-    write(1,'("# parameters:")')
-    call write_double(2,'E-max [MeV]',S(0, 0, k0))
-    call write_integer(2,'number of levels',nlevracap(0, 0))
-    call write_quantity(quantity)
-    call write_datablock(Ncol,Ninc-Ninclow,col,un)
+    call write_header(indent,topline,source,user,date,oformat)
+    call write_target(indent)
+    call write_reaction(indent,reaction,Qres(0, 0, 0),0.D0,0,0)
+    call write_residual(id2,Zcpracap,Acpracap,finalnuclide)
+    call write_char(id2,'parameters','')
+    call write_double(id4,'E-max [MeV]',S(0, 0, k0))
+    call write_integer(id4,'number of levels',nlevracap(0, 0))
+    call write_quantity(id2,quantity)
+    call write_datablock(id2,Ncol,Ninc-Ninclow,col,un)
 !   write(1, '("# ", a1, " + ", a, ": Direct Capture to ", i3, a2)') &
 !&    parsym(k0), trim(targetnuclide), Acpracap, nuc(Zcpracap)
 !   write(1, '("# Q-value    =", es12.5, " mass=", f11.6, " Emax=", f11.6)') Qres(0, 0, 0), nucmass(0, 0), S(0, 0, k0)
