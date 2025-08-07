@@ -30,7 +30,7 @@ if [ $# -lt 4 ] || [ $# -gt 30 ] ; then
   echo "            Ealways  - plot/print always "
   echo "lib flag  : Lonly    - plot/print only if library data available "
   echo "            Lalways  - plot/print always [default]"
-  echo "log flag  : log      - logarhitmic scale "
+  echo "log flag  : log      - logarithmic scale "
   echo "            nolog    - linear scale [default]"
   echo "maximum   : maximum  - include largest experimental data point "
   echo "          : nomaximum- use reasonable scales [default]"
