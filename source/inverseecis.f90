@@ -169,6 +169,9 @@ subroutine inverseecis(Zcomp, Ncomp)
   integer            :: nen            ! energy counter
   integer            :: Nix            ! neutron number index for residual nucleus
   integer            :: Ncol
+  integer            :: indent
+  integer            :: id2
+  integer            :: id4
   integer            :: type           ! particle type
   integer            :: Z              ! charge number of target nucleus
   integer            :: Zcomp          ! proton number index for compound nucleus
@@ -179,6 +182,9 @@ subroutine inverseecis(Zcomp, Ncomp)
 !
 ! Specific ECIS flags:
 !
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
   flaginvecis = .true.
   legendre = .false.
   hint = 0.
@@ -200,10 +206,10 @@ subroutine inverseecis(Zcomp, Ncomp)
       quantity='radial density'
       topline=trim(targetnuclide)//' '//trim(quantity)//' for OMP'
       open (unit=1, file='radial.out', status='unknown')
-      call write_header(topline,source,user,date,oformat)
-      call write_target
-      call write_quantity(quantity)
-      call write_datablock(Ncol,numjlm,col,un)
+      call write_header(indent,topline,source,user,date,oformat)
+      call write_target(indent)
+      call write_quantity(id2,quantity)
+      call write_datablock(id2,Ncol,numjlm,col,un)
       do i = 1, numjlm
         write(1, '(3es15.6)') 0.1*real(i), rhojlmp(Zcomp, Ncomp, i, 1), rhojlmn(Zcomp, Ncomp, i, 1)
       enddo
@@ -272,12 +278,12 @@ subroutine inverseecis(Zcomp, Ncomp)
         topline=trim(finalnuclide)//' '//parname(type)//' '//trim(quantity)
         ompfile='omppar.'//parsym(type)
         open (unit=1, file=ompfile, status='replace')
-        call write_header(topline,source,user,date,oformat)
-        call write_residual(Z,A,finalnuclide)
-        write(1,'("# parameters:")') 
-        call write_char(2,'particle',parname(type))
-        call write_quantity(quantity)
-        call write_datablock(Ncol,Nen,col,un)
+        call write_header(indent,topline,source,user,date,oformat)
+        call write_residual(indent,Z,A,finalnuclide)
+        call write_char(id2,'parameters','')
+        call write_char(id4,'particle',parname(type))
+        call write_quantity(id2,quantity)
+        call write_datablock(id2,Ncol,Nen,col,un)
       endif
     endif
 !
