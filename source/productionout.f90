@@ -54,12 +54,16 @@ subroutine productionout
   character(len=132) :: topline    ! topline
   integer           :: MF
   integer           :: MT
+  integer           :: indent
+  integer           :: id2
   integer           :: Ncol       ! counter
   integer           :: nen        ! energy counter
   integer           :: type       ! particle type
 !
 ! ************** Total particle production cross sections **************
 !
+  indent = 0
+  id2 = indent + 2
   MF = 3
   quantity='cross section'
   col(1)='E'
@@ -86,11 +90,11 @@ subroutine productionout
         if (type == 0) MT = 202
         if (type == 1) MT = 201
         if (type > 1) MT = 201 + type
-        call write_header(topline,source,user,date,oformat)
-        call write_target
-        call write_reaction(reaction,0.d0,0.d0,MF,MT)
-        call write_quantity(quantity)
-        call write_datablock(Ncol,Ninc,col,un)
+        call write_header(indent,topline,source,user,date,oformat)
+        call write_target(indent)
+        call write_reaction(indent,reaction,0.d0,0.d0,MF,MT)
+        call write_quantity(id2,quantity)
+        call write_datablock(id2,Ncol,Ninc,col,un)
         do nen = 1, Ninclow
           write(1, '(3es15.6)') eninc(nen), 0., 0.
         enddo
@@ -117,11 +121,11 @@ subroutine productionout
         open (unit = 1, file = fisfile, status = 'replace')
         topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)
         MT = 18
-        call write_header(topline,source,user,date,oformat)
-        call write_target
-        call write_reaction(reaction,0.d0,0.d0,MF,MT)
-        call write_quantity(quantity)
-        call write_datablock(Ncol,Ninc,col,un)
+        call write_header(indent,topline,source,user,date,oformat)
+        call write_target(indent)
+        call write_reaction(indent,reaction,0.d0,0.d0,MF,MT)
+        call write_quantity(id2,quantity)
+        call write_datablock(id2,Ncol,Ninc,col,un)
         do nen = 1, Ninclow
           write(1, '(2es15.6)') eninc(nen), 0.
         enddo
