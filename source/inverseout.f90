@@ -60,10 +60,16 @@ subroutine inverseout(Zcomp, Ncomp)
   integer   :: Zix              ! charge number index for residual nucleus
   integer   :: Z
   integer   :: A
+  integer   :: indent
+  integer   :: id2
+  integer   :: id4
   real(sgl) :: e                ! energy
 !
 ! **************** Transmission coefficients per energy ****************
 !
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
   write(*, '(/" ########## TRANSMISSION COEFFICIENTS AND INVERSE REACTION CROSS SECTIONS ##########",/)')
 !
 ! For each energy, the whole set of transmission coefficients is given as a function of the l-value and spin value.
@@ -101,19 +107,19 @@ subroutine inverseout(Zcomp, Ncomp)
     topline=trim(finalnuclide)//' '//trim(quantity)
     tjlfile='transm.'//parsym(type)
     open (unit=1, file=tjlfile, status='replace')
-    call write_header(topline,source,user,date,oformat)
-    call write_residual(Z,A,finalnuclide)
-    write(1,'("# parameters:")')
-    call write_char(2,'particle',parname(type))
+    call write_header(indent,topline,source,user,date,oformat)
+    call write_residual(indent,Z,A,finalnuclide)
+    call write_char(indent,'parameters','')
+    call write_char(id2,'particle',parname(type))
     if (flagtransen) then
       Nen =  eend(type) - ebegin(type) + 1
-      call write_integer(2,'number of energies',Nen)
+      call write_integer(id2,'number of energies',Nen)
       do nen = ebegin(type), eend(type)
         e = real(egrid(nen) / specmass(Zix, Nix, type))
-        write(1,'("# parameters:")')
-        call write_real(2,'energy [MeV]',e)
-        call write_quantity(quantity)
-        call write_datablock(Ncol,lmax(type, nen),col,un)
+        call write_char(id2,'parameters','')
+        call write_real(id4,'energy [MeV]',e)
+        call write_quantity(id2,quantity)
+        call write_datablock(id2,Ncol,lmax(type, nen),col,un)
 !
 ! 1. Spin 1/2 particles: Neutrons, protons, tritons and Helium-3
 !
@@ -147,13 +153,13 @@ subroutine inverseout(Zcomp, Ncomp)
 ! For each l-value, the whole set of transmission coefficients is given as a function of the energy and spin value.
 !
       Nen =  lmax(type, eend(type)) + 1
-      call write_integer(2,'number of angular L-values',Nen)
+      call write_integer(id4,'number of angular L-values',Nen)
       do l = 0, lmax(type, eend(type))
-        write(1,'("# parameters:")')
-        call write_integer(2,'L-value',l)
+        call write_char(id2,'parameters','')
+        call write_integer(id4,'L-value',l)
         Nen =  eend(type) - ebegin(type) + 1
-        call write_quantity(quantity)
-        call write_datablock(Ncol,Nen,col,un)
+        call write_quantity(id2,quantity)
+        call write_datablock(id2,Ncol,Nen,col,un)
 !
 ! 1. Spin 1/2 particles: Neutrons, protons, tritons and Helium-3
 !
@@ -206,13 +212,13 @@ subroutine inverseout(Zcomp, Ncomp)
       Ncol=3
     endif
     open (unit=1, file=crossfile, status='replace')
-    call write_header(topline,source,user,date,oformat)
-    call write_residual(Z,A,finalnuclide)
-    write(1,'("# parameters:")')
-    call write_char(2,'particle',parname(type))
+    call write_header(indent,topline,source,user,date,oformat)
+    call write_residual(indent,Z,A,finalnuclide)
+    call write_char(id2,'parameters','')
+    call write_char(id4,'particle',parname(type))
     Nen =  eend(type) - ebegin(type) + 1
-    call write_quantity(quantity)
-    call write_datablock(Ncol,Nen,col,un)
+    call write_quantity(id2,quantity)
+    call write_datablock(id2,Ncol,Nen,col,un)
     if (type == 1) then
       do nen = ebegin(type), eend(type)
         e = real(egrid(nen) / specmass(Zix, Nix, type))
