@@ -45,6 +45,9 @@ subroutine nubarout
   character(len=80) :: quantity   ! quantity
   integer           :: MF
   integer           :: MT
+  integer           :: indent
+  integer           :: id2
+  integer           :: id4
   integer           :: Ncol      ! number of columns
   integer           :: nen       ! energy counter
   integer           :: type      ! particle type
@@ -53,6 +56,9 @@ subroutine nubarout
 !
 ! nu per number, P(nu) and nubar as function of Z and A
 !
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
   MF = 1
   quantity='multiplicity'
   un = ''
@@ -85,12 +91,12 @@ subroutine nubarout
       else
         MT = 0
       endif
-      call write_header(topline,source,user,date,oformat)
-      call write_target
-      call write_reaction(reaction,0.d0,0.d0,MF,MT)
-      call write_char(2,'ejectile',parname(type))
-      call write_quantity(quantity)
-      call write_datablock(Ncol,Ninc,col,un)
+      call write_header(indent,topline,source,user,date,oformat)
+      call write_target(indent)
+      call write_reaction(indent,reaction,0.d0,0.d0,MF,MT)
+      call write_char(id2,'ejectile',parname(type))
+      call write_quantity(id2,quantity)
+      call write_datablock(id2,Ncol,Ninc,col,un)
       do nen = 1, Ninclow
         write(1, '(2es15.6)') eninc(nen), fnubar(nen, type)
       enddo
