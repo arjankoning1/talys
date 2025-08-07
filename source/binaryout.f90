@@ -5,7 +5,7 @@ subroutine binaryout
 !
 ! Author    : Arjan Koning
 !
-! 2021-12-30: Original code
+! 2025-07-25: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -56,11 +56,17 @@ subroutine binaryout
   integer           :: Ncol       ! number of columns
   integer           :: nen        ! energy counter
   integer           :: type       ! particle type
+  integer           :: indent
+  integer           :: id2
+  integer           :: id4
   real(sgl)         :: xsc        ! interpolated cross section
   real(sgl)         :: xsrac      ! direct radiative capture cross section
 !
 ! ******************* Binary non-elastic channels **********************
 !
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
   quantity='cross section'
   write(*, '(/" 2. Binary non-elastic cross sections ", "(non-exclusive)")')
   if (flagcompo) then
@@ -99,15 +105,15 @@ subroutine binaryout
         un(2+type)= 'mb'
       enddo
       Ncol=8
-      call write_header(topline,source,user,date,oformat)
-      call write_target
-      call write_reaction(reaction,0.D0,0.D0,0,0)
+      call write_header(indent,topline,source,user,date,oformat)
+      call write_target(indent)
+      call write_reaction(indent,reaction,0.D0,0.D0,0,0)
       do type = 0, 6
         Qstring = 'Q('//parsym(k0)//','//parsym(type)//') [MeV]'
-        call write_real(2,Qstring,Q(type))
+        call write_real(id2,Qstring,Q(type))
       enddo
-      call write_quantity(quantity)
-      call write_datablock(Ncol,Ninc,col,un)
+      call write_quantity(id2,quantity)
+      call write_datablock(id2,Ncol,Ninc,col,un)
       do nen = 1, Ninclow
         write(1, '(8es15.6)') eninc(nen), (fxsbinary(nen, type), type = 0, 6)
       enddo
