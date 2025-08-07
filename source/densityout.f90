@@ -89,6 +89,9 @@ subroutine densityout(Zix, Nix)
   integer           :: i             ! counter
   integer           :: i1(numlev2)
   integer           :: k             ! counter
+  integer           :: indent
+  integer           :: id2
+  integer           :: id4
   integer           :: Nk            ! counter
   integer           :: ibar          ! fission barrier
   integer           :: J             ! spin of level
@@ -142,6 +145,9 @@ subroutine densityout(Zix, Nix)
 !
 ! aldmatch   : function to determine effective level density parameter
 !
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
   Z = ZZ(Zix, Nix, 0)
   N = NN(Zix, Nix, 0)
   A = AA(Zix, Nix, 0)
@@ -190,44 +196,44 @@ subroutine densityout(Zix, Nix)
     col(6)='a'
     un(6)='MeV^-1'
     col(7)='Sigma'
-    call write_header(topline,source,user,date,oformat)
-    call write_residual(Z,A,finalnuclide)
-    write(1,'("# parameters:")')
-    call write_integer(2,'fission barrier',ibar)
-    call write_integer(2,'ldmodel keyword',ldmod)
-    call write_char(2,'level density model',model)
+    call write_header(indent,topline,source,user,date,oformat)
+    call write_residual(indent,Z,A,finalnuclide)
+    call write_char(id2,'parameters','')
+    call write_integer(id4,'fission barrier',ibar)
+    call write_integer(id4,'ldmodel keyword',ldmod)
+    call write_char(id4,'level density model',model)
     if (ldmod <= 3) then
       if (flagcol(Zix, Nix) .and. .not. ldexist(Zix, Nix, ibar)) then
-        call write_char(2,'collective enhancement','y')
+        call write_char(id4,'collective enhancement','y')
       else
-        call write_char(2,'collective enhancement','n')
+        call write_char(id4,'collective enhancement','n')
       endif
-      call write_real(2,'a(Sn) [MeV^-1]',alev(Zix,Nix))
-      call write_real(2,'asymptotic a [MeV^-1]',alimit(Zix,Nix))
-      call write_real(2,'shell correction [MeV]',deltaW(Zix,Nix,ibar))
-      call write_real(2,'damping gamma',gammald(Zix,Nix))
-      call write_real(2,'pairing energy [MeV]',P)
-      call write_real(2,'adjusted pairing shift [MeV]',Pshift(Zix, Nix, ibar))
-      call write_real(2,'discrete spin cutoff parameter',scutoffdisc(Zix, Nix, ibar))
-      call write_real(2,'spin cutoff parameter(Sn)',spincut(Zix, Nix, ignatyuk(Zix, Nix, SS, ibar), SS, ibar, 0))
+      call write_real(id4,'a(Sn) [MeV^-1]',alev(Zix,Nix))
+      call write_real(id4,'asymptotic a [MeV^-1]',alimit(Zix,Nix))
+      call write_real(id4,'shell correction [MeV]',deltaW(Zix,Nix,ibar))
+      call write_real(id4,'damping gamma',gammald(Zix,Nix))
+      call write_real(id4,'pairing energy [MeV]',P)
+      call write_real(id4,'adjusted pairing shift [MeV]',Pshift(Zix, Nix, ibar))
+      call write_real(id4,'discrete spin cutoff parameter',scutoffdisc(Zix, Nix, ibar))
+      call write_real(id4,'spin cutoff parameter(Sn)',spincut(Zix, Nix, ignatyuk(Zix, Nix, SS, ibar), SS, ibar, 0))
       if (ldmod == 1) then
-        call write_real(2,'matching energy [MeV]',Exmatch(Zix, Nix, ibar))
-        call write_real(2,'temperature [MeV]',T(Zix, Nix, ibar))
-        call write_real(2,'E0 [MeV]',E0(Zix, Nix, ibar))
+        call write_real(id4,'matching energy [MeV]',Exmatch(Zix, Nix, ibar))
+        call write_real(id4,'temperature [MeV]',T(Zix, Nix, ibar))
+        call write_real(id4,'E0 [MeV]',E0(Zix, Nix, ibar))
       endif
       if (flagcol(Zix, Nix) .and. .not. ldexist(Zix, Nix, 1)) then
-        call write_real(2,'beta2',beta2(Zix, Nix, 0))
-        call write_real(2,'Krotconstant',Krotconstant(Zix, Nix, ibar))
-        call write_real(2,'Ufermi',Ufermi(Zix, Nix, ibar))
-        call write_real(2,'cfermi',cfermi(Zix, Nix, ibar))
+        call write_real(id4,'beta2',beta2(Zix, Nix, 0))
+        call write_real(id4,'Krotconstant',Krotconstant(Zix, Nix, ibar))
+        call write_real(id4,'Ufermi',Ufermi(Zix, Nix, ibar))
+        call write_real(id4,'cfermi',cfermi(Zix, Nix, ibar))
       endif
-      if (ibar > 0) call write_real(2,'a-effective [MeV^-1]',aldmatch(Zix, Nix, SS, ibar)) 
+      if (ibar > 0) call write_real(id4,'a-effective [MeV^-1]',aldmatch(Zix, Nix, SS, ibar)) 
       if (ldmod == 3) then
-        call write_real(2,'Delta0',delta0(Zix, Nix))
-        call write_real(2,'critical a [MeV^-1]',aldcrit(Zix, Nix,ibar))
-        call write_real(2,'critical energy [MeV]',Ucrit(Zix, Nix,ibar))
-        call write_real(2,'condensation energy [MeV]',Econd(Zix, Nix,ibar))
-        call write_real(2,'critical temperature [MeV]',Tcrit(Zix, Nix))
+        call write_real(id4,'Delta0',delta0(Zix, Nix))
+        call write_real(id4,'critical a [MeV^-1]',aldcrit(Zix, Nix,ibar))
+        call write_real(id4,'critical energy [MeV]',Ucrit(Zix, Nix,ibar))
+        call write_real(id4,'condensation energy [MeV]',Econd(Zix, Nix,ibar))
+        call write_real(id4,'critical temperature [MeV]',Tcrit(Zix, Nix))
       endif
       Ncol=7
       if (flagcol(Zix, Nix) .and. .not. ldexist(Zix, Nix, ibar)) then
@@ -239,27 +245,27 @@ subroutine densityout(Zix, Nix)
     else
       Ncol=5
     endif
-    call write_real(2,'separation energy [MeV]',SS)
-    call write_double(2,'Rhotot(Sn) [MeV^-1]',densitytot(Zix, Nix, SS, ibar, ldmod))
-    call write_integer(2,'number of excited levels',nlevmax2(Zix,Nix))
-    call write_integer(2,'Nlow',Nlow(Zix, Nix, ibar))
-    call write_integer(2,'Ntop',Ntop(Zix, Nix, ibar))
-    call write_real(2,'ctable',ctable(Zix, Nix, ibar))
-    call write_real(2,'ptable',ptable(Zix, Nix, ibar))
+    call write_real(id4,'separation energy [MeV]',SS)
+    call write_double(id4,'Rhotot(Sn) [MeV^-1]',densitytot(Zix, Nix, SS, ibar, ldmod))
+    call write_integer(id4,'number of excited levels',nlevmax2(Zix,Nix))
+    call write_integer(id4,'Nlow',Nlow(Zix, Nix, ibar))
+    call write_integer(id4,'Ntop',Ntop(Zix, Nix, ibar))
+    call write_real(id4,'ctable',ctable(Zix, Nix, ibar))
+    call write_real(id4,'ptable',ptable(Zix, Nix, ibar))
     if (ibar == 0) then
-      call write_real(2,'experimental D0 [eV]',D0(Zix, Nix))
-      call write_real(2,'experimental D0 unc. [eV]',dD0(Zix, Nix))
-      call write_real(2,'global D0 [eV]',D0global(Zix, Nix))
-      call write_real(2,'global D0 unc. [eV]',dD0global(Zix, Nix))
-      call write_real(2,'theoretical D0 [eV]',D0theo(Zix, Nix))
-      call write_real(2,'Chi-2 D0',chi2D0(Zix, Nix))
-      call write_real(2,'C/E D0',CED0(Zix, Nix))
-      call write_real(2,'Frms D0',FrmsD0(Zix, Nix))
-      call write_real(2,'Erms D0',ErmsD0(Zix, Nix))
-      call write_real(2,'C/G D0',CGD0(Zix, Nix))
-      call write_real(2,'experimental D1 [eV]',D1r(Zix, Nix))
-      call write_real(2,'experimental D1 unc. [eV]',dD1r(Zix, Nix))
-      call write_real(2,'theoretical D1 [eV]',D1theo(Zix, Nix))
+      call write_real(id4,'experimental D0 [eV]',D0(Zix, Nix))
+      call write_real(id4,'experimental D0 unc. [eV]',dD0(Zix, Nix))
+      call write_real(id4,'global D0 [eV]',D0global(Zix, Nix))
+      call write_real(id4,'global D0 unc. [eV]',dD0global(Zix, Nix))
+      call write_real(id4,'theoretical D0 [eV]',D0theo(Zix, Nix))
+      call write_real(id4,'Chi-2 D0',chi2D0(Zix, Nix))
+      call write_real(id4,'C/E D0',CED0(Zix, Nix))
+      call write_real(id4,'Frms D0',FrmsD0(Zix, Nix))
+      call write_real(id4,'Erms D0',ErmsD0(Zix, Nix))
+      call write_real(id4,'C/G D0',CGD0(Zix, Nix))
+      call write_real(id4,'experimental D1 [eV]',D1r(Zix, Nix))
+      call write_real(id4,'experimental D1 unc. [eV]',dD1r(Zix, Nix))
+      call write_real(id4,'theoretical D1 [eV]',D1theo(Zix, Nix))
       k = 0
       Eex1 = 0.
       i1 = 0
@@ -300,13 +306,13 @@ subroutine densityout(Zix, Nix)
       enddo
       denom = real(NT - NL)
       Nk = k
-      call write_double(2,'Chi-2 per level',chi2lev(Zix, Nix))
-      call write_double(2,'Frms per level',Frmslev(Zix, Nix))
-      call write_double(2,'Erms per level',Ermslev(Zix, Nix))
-      call write_double(2,'average deviation per level',avdevlev(Zix, Nix))
+      call write_double(id4,'Chi-2 per level',chi2lev(Zix, Nix))
+      call write_double(id4,'Frms per level',Frmslev(Zix, Nix))
+      call write_double(id4,'Erms per level',Ermslev(Zix, Nix))
+      call write_double(id4,'average deviation per level',avdevlev(Zix, Nix))
       quantity='total level density'
-      call write_quantity(quantity)
-      call write_datablock(Ncol,Nk,col,un)
+      call write_quantity(id2,quantity)
+      call write_datablock(id2,Ncol,Nk,col,un)
       do k = 1, Nk
         if (ldmod <= 3) then
           if (flagcol(Zix, Nix) .and. .not. ldexist(Zix, Nix, ibar)) then
@@ -342,9 +348,9 @@ subroutine densityout(Zix, Nix)
     str(-1) = 'Negative'
     str(1) = 'Positive'
     do parity = 1, -1, -2
-      call write_quantity(quantity)
-      call write_integer(2,'Parity',parity)
-      call write_datablock(Ncol,nendens(Zix,Nix),col,un)
+      call write_quantity(id2,quantity)
+      call write_integer(id4,'Parity',parity)
+      call write_datablock(id2,Ncol,nendens(Zix,Nix),col,un)
       if (parity == 1) then
         ldfileout = 'nld000000.tab'
         write(ldfileout(4:9), '(2i3.3)') Z, A
@@ -410,9 +416,9 @@ subroutine densityout(Zix, Nix)
       enddo
     enddo
     do nex = 1, nendens(Zix, Nix)
-      call write_quantity(quantity)
-      call write_real(2,'Excitation energy [MeV]',edens(nex))
-      call write_datablock(Ncol,numJ+1,col,un)
+      call write_quantity(id2,quantity)
+      call write_real(id4,'Excitation energy [MeV]',edens(nex))
+      call write_datablock(id2,Ncol,numJ+1,col,un)
       do J = 0, numJ
         write(1, '(6x,f4.1,5x,2es15.6)') real(J + 0.5 * odd),(Rdist(nex, parity, J), parity = -1, 1, 2)
       enddo
