@@ -61,6 +61,8 @@ subroutine gammadecay(Zix, Nix)
   integer            :: Nix                           ! neutron number index for residual nucleus
   integer            :: Z                             ! charge number of target nucleus
   integer            :: Zix                           ! charge number index for residual nucleus
+  integer            :: indent
+  integer            :: id2
   integer            :: plev(numlev, numlev*numlev/2) ! level
   integer            :: plevtmp                       ! help variable
   integer            :: dlev(numlev, numlev*numlev/2) ! level
@@ -80,6 +82,8 @@ subroutine gammadecay(Zix, Nix)
 !
 ! ********************* Construct gamma decay scheme *******************
 !
+  indent = 0
+  id2 = indent + 2
   do i = 1, nlev(Zix, Nix)
     ng = 0
     do j = 0, i - 1
@@ -158,8 +162,8 @@ subroutine gammadecay(Zix, Nix)
   gammafile = 'gamma'//resstring//'.tot'
   open (unit = 1, file = gammafile, status = 'replace')
   topline=trim(targetnuclide)//' '//trim(quantity)
-  call write_header(topline,source,user,date,oformat)
-  call write_target
+  call write_header(indent,topline,source,user,date,oformat)
+  call write_target(indent)
   Nentries=0
   do i = 1, nlev(Zix, Nix)
     Nentries = Nentries + 1 + Ngam(i)
@@ -180,8 +184,8 @@ subroutine gammadecay(Zix, Nix)
   col(10)='Daughter_energy'
   un(10)='MeV'
   Ncol=10
-  call write_quantity(quantity)
-  call write_datablock(Ncol,Nentries,col,un)
+  call write_quantity(indent,quantity)
+  call write_datablock(indent,Ncol,Nentries,col,un)
   do i = 1, nlev(Zix, Nix)
     write(1, '(2(i6, 9x, es15.6))') i, edis(Zix, Nix, i), Ngam(i), yieldg(i)
     do j = 1, Ngam(i)
