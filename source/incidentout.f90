@@ -52,11 +52,17 @@ subroutine incidentout
   integer :: iang              ! running variable for angle
   integer :: l                 ! multipolarity
   integer           :: Ncol        !
+  integer           :: indent
+  integer           :: id2
+  integer           :: id4
   integer           :: Nk
   integer :: type              ! particle type
 !
 ! *********** Total cross sections for incident channel ****************
 !
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
   Estr=''
   write(Estr,'(es12.6)') Einc
   write(*, '(/" Optical model results"/)')
@@ -92,10 +98,10 @@ subroutine incidentout
   topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' at '//Estr//' MeV'
   write(*, '(/" Transmission coefficients for incident channel"/)')
   open (unit=1, file='transm.inc', status='replace')
-  call write_header(topline,source,user,date,oformat)
-  call write_target
-  call write_reaction(reaction,0.D0,0.D0,0,0)
-  call write_real(2,'E-incident [MeV]',Einc)
+  call write_header(indent,topline,source,user,date,oformat)
+  call write_target(indent)
+  call write_reaction(indent,reaction,0.D0,0.D0,0,0)
+  call write_real(id2,'E-incident [MeV]',Einc)
   un=''
   col(1)='L'
   if (k0 /= 3 .and. k0 /= 6) then
@@ -120,8 +126,8 @@ subroutine incidentout
   else
     Nk=lmaxinc + 1
   endif
-  call write_quantity(quantity)
-  call write_datablock(Ncol,Nk,col,un)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,Nk,col,un)
 !
 ! 1. Spin 1/2 particles: Neutrons, protons, tritons and Helium-3
 !
@@ -164,17 +170,17 @@ subroutine incidentout
     reaction='('//parsym(k0)//',el)'
     topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' at '//Estr//' MeV'
     open (unit=1, file='shape.el', status='unknown')
-    call write_header(topline,source,user,date,oformat)
-    call write_target
-    call write_reaction(reaction,0.D0,0.D0,0,0)
-    call write_real(2,'E-incident [MeV]',Einc)
+    call write_header(indent,topline,source,user,date,oformat)
+    call write_target(indent)
+    call write_reaction(indent,reaction,0.D0,0.D0,0,0)
+    call write_real(id2,'E-incident [MeV]',Einc)
     col(1)='Angle'
     un(1)='deg'
     col(2)='xs'
     un(2)='mb/sr'
     Ncol = 2
-    call write_quantity(quantity)
-    call write_datablock(Ncol,nangle+1,col,un)
+    call write_quantity(id2,quantity)
+    call write_datablock(id2,Ncol,nangle+1,col,un)
     do iang = 0, nangle
       write(1, '(2es16.5)') angle(iang), directad(k0, Ltarget, iang)
     enddo
