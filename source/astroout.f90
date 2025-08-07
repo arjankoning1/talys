@@ -5,7 +5,7 @@ subroutine astroout
 !
 ! Author    : Stephane Hilaire and Stephane Goriely
 !
-! 2021-12-30: Original code
+! 2025-07-25: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -100,6 +100,9 @@ subroutine astroout
   integer            :: Z                                ! charge number of target nucleus
   integer            :: Zix
   integer            :: Nix
+  integer            :: indent 
+  integer            :: id2
+  integer            :: id4
   integer            :: Zcomp                            ! proton number index for compound nucleus
   integer            :: zrespro((numZ+1)*(numN+1))       ! Z of residual product
   real(sgl)          :: branch                           ! branching ratio to a given excited state
@@ -129,6 +132,9 @@ subroutine astroout
   col(5)='E-average'
   un(5)='MeV'
   Ncol=5
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
   reaction='('//parsym(k0)//',x)'
   quantity='reaction rate'
   write(*, '(/" 8. Thermonuclear reaction rates",/)')
@@ -150,16 +156,16 @@ subroutine astroout
           topline=trim(targetnuclide)//trim(reaction)//trim(finalnuclide)//' '//trim(quantity)
           astrofile = 'astrorate'//ZAstring//'.tot'
           open (unit = 1, file = astrofile, status = 'replace')
-          call write_header(topline,source,user,date,oformat)
-          call write_target
-          call write_reaction(reaction,0.D0,0.D0,0,0)
+          call write_header(indent,topline,source,user,date,oformat)
+          call write_target(indent)
+          call write_reaction(indent,reaction,0.D0,0.D0,0,0)
           if (nTmax == 1) then
-            call write_real(2,'E-average [MeV]',astroE)
-            call write_char(2,'excited states contribution',yesno(flagastrogs))
+            call write_real(id2,'E-average [MeV]',astroE)
+            call write_char(id2,'excited states contribution',yesno(flagastrogs))
           endif
-          call write_residual(Z,A,finalnuclide)
-          call write_quantity(quantity)
-          call write_datablock(Ncol,nTmax,col,un)
+          call write_residual(id2,Z,A,finalnuclide)
+          call write_quantity(id2,quantity)
+          call write_datablock(id2,Ncol,nTmax,col,un)
 !         if (nTmax == 1) then
 !           write(*, '(/" Reaction rate for Z=", i3, " A=", i3, " (", i3, a2, ") at <E>=", f8.5, &
 !&            " MeV (Excited States Contribution : ", a1, ")"/)') Z, A, A, nuc(Z), astroE, yesno(flagastrogs)
@@ -180,14 +186,14 @@ subroutine astroout
               if (nex > 0 .and. tau(Zcomp, Ncomp, nex) == 0.) cycle
               write(astrofile(17:19),'("L",i2.2)') nex
               open (unit = 1, file = astrofile, status = 'replace')
-              call write_header(topline,source,user,date,oformat)
-              call write_target
-              call write_reaction(reaction,0.D0,0.D0,0,0)
-              call write_residual(Z,A,finalnuclide)
-              call write_level(2,-1,nex,edis(Zcomp, Ncomp, nex),jdis(Zcomp, Ncomp, nex),parlev(Zcomp, Ncomp, nex), &
+              call write_header(indent,topline,source,user,date,oformat)
+              call write_target(indent)
+              call write_reaction(indent,reaction,0.D0,0.D0,0,0)
+              call write_residual(id2,Z,A,finalnuclide)
+              call write_level(id4,-1,nex,edis(Zcomp, Ncomp, nex),jdis(Zcomp, Ncomp, nex),parlev(Zcomp, Ncomp, nex), &
  &              tau(Zcomp, Ncomp, nex))
-              call write_quantity(quantity)
-              call write_datablock(Ncol,nTmax,col,un)
+              call write_quantity(id2,quantity)
+              call write_datablock(id2,Ncol,nTmax,col,un)
 !             write(*, '(/" Reaction rate for Z=", i3, " A=", i3, " (", i3, a2, ") to the excited states L", i2.2, &
 !&              " at E=", f12.5, " MeV", /)') Z, A, A, nuc(Z), nex, edis(Zcomp, Ncomp, nex)
 !             write(*, '("    T       Rate         MACS      ", "Branching"/)')
@@ -294,15 +300,15 @@ subroutine astroout
     quantity='reaction rate'
     topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)
     open (unit = 1, file = astrofile, status = 'replace')
-    call write_header(topline,source,user,date,oformat)
-    call write_target
-    call write_reaction(reaction,Qth,Eth,0,0)
+    call write_header(indent,topline,source,user,date,oformat)
+    call write_target(indent)
+    call write_reaction(indent,reaction,Qth,Eth,0,0)
     if (nTmax == 1) then
-      call write_real(2,'E-average [MeV]',astroE)
-      call write_char(2,'excited states contribution',yesno(flagastrogs))
+      call write_real(id2,'E-average [MeV]',astroE)
+      call write_char(id2,'excited states contribution',yesno(flagastrogs))
     endif
-    call write_quantity(quantity)
-    call write_datablock(Ncol,nTmax,col,un)
+    call write_quantity(id2,quantity)
+    call write_datablock(id2,Ncol,nTmax,col,un)
     if (type <= 3) then
       do i = 1, nTmax
         write(1, '(5es15.6)') T9(i), rateastro(Zix, Nix, i), macsastro(Zix, Nix, i), partf(i), ET9(i)
@@ -354,16 +360,16 @@ subroutine astroout
           write(astrofile(14:15), '(i2.2)') nex
           topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' - Level '//astrofile(14:15)
           open (unit = 1, file = astrofile, status = 'replace')
-          call write_header(topline,source,user,date,oformat)
-          call write_target
-          call write_reaction(reaction,Qth,Eth,0,0)
-          call write_level(2,-1,nex,edis(Zix, Nix, nex),jdis(Zix, Nix, nex),parlev(Zix, Nix, nex),tau(Zix, Nix, nex))
+          call write_header(indent,topline,source,user,date,oformat)
+          call write_target(indent)
+          call write_reaction(indent,reaction,Qth,Eth,0,0)
+          call write_level(id2,-1,nex,edis(Zix, Nix, nex),jdis(Zix, Nix, nex),parlev(Zix, Nix, nex),tau(Zix, Nix, nex))
           if (nTmax == 1) then
-            call write_real(2,'E-average [MeV]',astroE)
-            call write_char(2,'excited states contribution',yesno(flagastrogs))
+            call write_real(id2,'E-average [MeV]',astroE)
+            call write_char(id2,'excited states contribution',yesno(flagastrogs))
           endif
-          call write_quantity(quantity)
-          call write_datablock(Ncol,nTmax,col,un)
+          call write_quantity(id2,quantity)
+          call write_datablock(id2,Ncol,nTmax,col,un)
           do i = 1, nTmax
             branch = 0.
             if (rateastro(Zix, Nix, i) > 0.) branch = rateastroex(Zix, Nix, i, nex) / rateastro(Zix, Nix, i)
@@ -405,30 +411,30 @@ subroutine astroout
   reaction='('//parsym(k0)//',x)'
   topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)
   open (unit = 1, file = astrofile, status = 'replace')
-  call write_header(topline,source,user,date,oformat)
-  call write_target
-  call write_reaction(reaction,0.D0,0.D0,0,0)
-  call write_integer(2,'channels',iresprod+5)
+  call write_header(indent,topline,source,user,date,oformat)
+  call write_target(indent)
+  call write_reaction(indent,reaction,0.D0,0.D0,0,0)
+  call write_integer(id2,'channels',iresprod+5)
   write(1,' ("#   astrogs: ",a1)') yesno(flagastrogs)
   if (nTmax == 1) then
-    call write_real(2,'E-average [MeV]',astroE)
+    call write_real(id4,'E-average [MeV]',astroE)
   else
     if ( .not. flagastrogs) then
       if (nonthermlev ==  - 1) then
-        call write_char(2,'comment','fully thermalized target')
+        call write_char(id4,'comment','fully thermalized target')
       endif
       if (nonthermlev > 0) then
-        call write_integer(2,'comment: thermalized target on the GS excluding level ',nonthermlev)
+        call write_integer(id4,'comment: thermalized target on the GS excluding level ',nonthermlev)
       endif
       if (nonthermlev == 0) then
-        call write_integer(2,'comment: thermalized target in level ',nonthermlev)
+        call write_integer(id4,'comment: thermalized target in level ',nonthermlev)
       endif
     else
       if (Ltarget == 0) then
-        call write_char(2,'comment','non-thermalized target in its ground state')
+        call write_char(id4,'comment','non-thermalized target in its ground state')
       endif
       if (Ltarget > 0) then
-        call write_integer(2,'comment: non-thermalized target in its excited state ',Ltarget)
+        call write_integer(id4,'comment: non-thermalized target in its excited state ',Ltarget)
       endif
     endif
   endif
@@ -456,8 +462,8 @@ subroutine astroout
     col(7 + ires)=trim(nuc(zrespro(ires)))//trim(adjustl(massstring))
   enddo
   Ncol=iresprod + 7
-  call write_quantity(quantity)
-  call write_datablock(Ncol,nTmax,col,un)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,nTmax,col,un)
   do i = 1, nTmax
     write(1, '(200es15.6)') T9(i), partf(i), rateastro(0, 0, i), rateastro(0, 1, i), rateastro(1, 0, i), rateastro(2, 2, i), &
  &    rateastrofis(i), (rateastrorp(i, ires), ires = 1, iresprod)
