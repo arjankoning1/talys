@@ -30,7 +30,8 @@ subroutine talysinitial
 !
   call particles
   call nuclides
-  if (flagreaction) call grid
+! if (flagreaction) call grid
+  call grid
   if (flagmain) call mainout
   return
 end subroutine talysinitial
