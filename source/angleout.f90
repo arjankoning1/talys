@@ -5,7 +5,7 @@ subroutine angleout
 !
 ! Author    : Arjan Koning
 !
-! 2023-08-08: Original code
+! 2025-07-25: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -70,6 +70,9 @@ subroutine angleout
   character(len=80) :: quantity   ! quantity
   integer           :: MF
   integer           :: MT
+  integer           :: indent
+  integer           :: id2
+  integer           :: id4
   integer           :: MT0(0:6)
   integer           :: i           ! counter
   integer           :: iang        ! running variable for angle
@@ -91,6 +94,9 @@ subroutine angleout
   MT0(6) = 800
   MF = 4
   MT = 2
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
 !
 ! 1. Legendre coefficients
 !
@@ -131,12 +137,12 @@ subroutine angleout
     col(5)='Normalized'
     col(6)='ENDF-6'
     Ncol=6
-    call write_header(topline,source,user,date,oformat)
-    call write_target
-    call write_reaction(reaction,0.D0,0.D0,MF,MT)
-    call write_real(2,'E-incident [MeV]',Einc)
-    call write_quantity(quantity)
-    call write_datablock(Ncol,J2end+1,col,un)
+    call write_header(indent,topline,source,user,date,oformat)
+    call write_target(indent)
+    call write_reaction(indent,reaction,0.D0,0.D0,MF,MT)
+    call write_real(id2,'E-incident [MeV]',Einc)
+    call write_quantity(id2,quantity)
+    call write_datablock(id2,Ncol,J2end+1,col,un)
     do LL = 0, J2end
       write(1, '(i6, 9x, 5es15.6)') LL, tleg(k0, Ltarget, LL), dleg(k0, Ltarget, LL), cleg(k0, Ltarget, LL), &
  &      tlegnor(k0, Ltarget, LL), cleg0(k0, Ltarget, LL)
@@ -181,12 +187,12 @@ subroutine angleout
     col(4)='Compound'
     un(4)='mb/sr'
     Ncol=4
-    call write_header(topline,source,user,date,oformat)
-    call write_target
-    call write_reaction(reaction,0.D0,0.D0,MF,MT)
-    call write_real(2,'E-incident [MeV]',Einc)
-    call write_quantity(quantity)
-    call write_datablock(Ncol,nangle+1,col,un)
+    call write_header(indent,topline,source,user,date,oformat)
+    call write_target(indent)
+    call write_reaction(indent,reaction,0.D0,0.D0,MF,MT)
+    call write_real(id2,'E-incident [MeV]',Einc)
+    call write_quantity(id2,quantity)
+    call write_datablock(id2,Ncol,nangle+1,col,un)
     do iang = 0, nangle
       write(1, '(4es15.6)') angle(iang), discad(k0, Ltarget, iang), directad(k0, Ltarget, iang), compad(k0, Ltarget, iang)
     enddo
@@ -230,12 +236,12 @@ subroutine angleout
     col(6)='Nuc+interfer.'
     un(6)=''
     Ncol=6
-    call write_header(topline,source,user,date,oformat)
-    call write_target
-    call write_reaction(reaction,0.D0,0.D0,MF,MT)
-    call write_real(2,'E-incident [MeV]',Einc)
-    call write_quantity(quantity)
-    call write_datablock(Ncol,nangle+1,col,un)
+    call write_header(indent,topline,source,user,date,oformat)
+    call write_target(indent)
+    call write_reaction(indent,reaction,0.D0,0.D0,MF,MT)
+    call write_real(id2,'E-incident [MeV]',Einc)
+    call write_quantity(id2,quantity)
+    call write_datablock(id2,Ncol,nangle+1,col,un)
     do iang = 0, nangle
       write(1, '(6es15.6)') angle(iang), max(discad(k0, Ltarget, iang), directad(k0, Ltarget, iang)), &
  &      directad(k0, Ltarget, iang), compad(k0, Ltarget, iang), ruth(iang), elasni(iang)
@@ -292,13 +298,13 @@ subroutine angleout
         col(5)='Normalized'
         col(6)='ENDF-6'
         Ncol=6
-        call write_header(topline,source,user,date,oformat)
-        call write_target
-        call write_reaction(reaction,0.D0,0.D0,MF,MT)
-        call write_real(2,'E-incident [MeV]',Einc)
-        call write_level(0,-1,i,edis(Zix, Nix, i),jdis(Zix, Nix, i),parlev(Zix, Nix, i),0.)
-        call write_quantity(quantity)
-        call write_datablock(Ncol,J2end+1,col,un)
+        call write_header(indent,topline,source,user,date,oformat)
+        call write_target(indent)
+        call write_reaction(indent,reaction,0.D0,0.D0,MF,MT)
+        call write_real(id2,'E-incident [MeV]',Einc)
+        call write_level(id2,-1,i,edis(Zix, Nix, i),jdis(Zix, Nix, i),parlev(Zix, Nix, i),0.)
+        call write_quantity(id2,quantity)
+        call write_datablock(id2,Ncol,J2end+1,col,un)
         do LL = 0, J2end
           write(1, '(i6, 9x, 5es15.6)') LL, tleg(k0, i, LL), dleg(k0, i, LL), cleg(k0, i, LL), tlegnor(k0, i, LL), cleg0(k0, i, LL)
         enddo
@@ -351,13 +357,13 @@ subroutine angleout
       un(3)='mb/sr'
       col(4)='Compound'
       un(4)='mb/sr'
-      call write_header(topline,source,user,date,oformat)
-      call write_target
-      call write_reaction(reaction,0.D0,0.D0,MF,MT)
-      call write_real(2,'E-incident [MeV]',Einc)
-      call write_level(2,-1,i,edis(Zix, Nix, i),jdis(Zix, Nix, i),parlev(Zix, Nix, i),0.)
-      call write_quantity(quantity)
-      call write_datablock(Ncol,nangle+1,col,un)
+      call write_header(indent,topline,source,user,date,oformat)
+      call write_target(indent)
+      call write_reaction(indent,reaction,0.D0,0.D0,MF,MT)
+      call write_real(id2,'E-incident [MeV]',Einc)
+      call write_level(id2,-1,i,edis(Zix, Nix, i),jdis(Zix, Nix, i),parlev(Zix, Nix, i),0.)
+      call write_quantity(id2,quantity)
+      call write_datablock(id2,Ncol,nangle+1,col,un)
       do iang = 0, nangle
         write(1, '(4es15.6)') angle(iang), discad(k0, i, iang), directad(k0, i, iang), compad(k0, i, iang)
       enddo
@@ -418,13 +424,13 @@ subroutine angleout
           col(5)='Normalized'
           col(6)='ENDF-6'
           Ncol=6
-          call write_header(topline,source,user,date,oformat)
-          call write_target
-          call write_reaction(reaction,0.D0,0.D0,MF,MT)
-          call write_real(2,'E-incident [MeV]',Einc)
-          call write_level(2,-1,i,edis(Zix, Nix, i),jdis(Zix, Nix, i),parlev(Zix, Nix, i),0.)
-          call write_quantity(quantity)
-          call write_datablock(Ncol,J2end+1,col,un)
+          call write_header(indent,topline,source,user,date,oformat)
+          call write_target(indent)
+          call write_reaction(indent,reaction,0.D0,0.D0,MF,MT)
+          call write_real(id2,'E-incident [MeV]',Einc)
+          call write_level(id2,-1,i,edis(Zix, Nix, i),jdis(Zix, Nix, i),parlev(Zix, Nix, i),0.)
+          call write_quantity(id2,quantity)
+          call write_datablock(id2,Ncol,J2end+1,col,un)
           do LL = 0, J2end
             write(1, '(i6, 9x, 5es15.6)') LL, tleg(type, i, LL), dleg(type, i, LL), cleg(type, i, LL), tlegnor(type, i, LL), &
  &            cleg0(type, i, LL)
@@ -477,13 +483,13 @@ subroutine angleout
         un(3)='mb/sr'
         col(4)='Compound'
         un(4)='mb/sr'
-        call write_header(topline,source,user,date,oformat)
-        call write_target
-        call write_reaction(reaction,0.D0,0.D0,MF,MT)
-        call write_real(2,'E-incident [MeV]',Einc)
-        call write_level(2,-1,i,edis(Zix, Nix, i),jdis(Zix, Nix, i),parlev(Zix, Nix, i),0.)
-        call write_quantity(quantity)
-        call write_datablock(Ncol,nangle+1,col,un)
+        call write_header(indent,topline,source,user,date,oformat)
+        call write_target(indent)
+        call write_reaction(indent,reaction,0.D0,0.D0,MF,MT)
+        call write_real(id2,'E-incident [MeV]',Einc)
+        call write_level(id2,-1,i,edis(Zix, Nix, i),jdis(Zix, Nix, i),parlev(Zix, Nix, i),0.)
+        call write_quantity(id2,quantity)
+        call write_datablock(id2,Ncol,nangle+1,col,un)
         do iang = 0, nangle
           write(1, '(4es15.6)') angle(iang), discad(type, i, iang), directad(type, i, iang), compad(type, i, iang)
         enddo
