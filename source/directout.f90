@@ -83,6 +83,9 @@ subroutine directout
   integer   :: nen                               ! energy counter
   integer   :: Ncol
   integer   :: Nk
+  integer   :: indent
+  integer   :: id2
+  integer   :: id4
   integer   :: Nix                               ! neutron number index for residual nucleus
   integer   :: ilevel(numlev2)                   
   integer   :: plev(numlev2)                     ! parity of level
@@ -96,6 +99,9 @@ subroutine directout
 !
 ! *********************** Inelastic cross sections *********************
 !
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
   write(*,'(/" ++++++++++ DIRECT CROSS SECTIONS AND GIANT RESONANCES ++++++++++"/)')
   Zix = Zindex(0, 0, k0)
   Nix = Nindex(0, 0, k0)
@@ -129,12 +135,12 @@ subroutine directout
   reaction='('//parsym(k0)//','//parsym(k0)//"'"//')'
   topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' at '//Estr//' MeV'
   open (unit = 1, file = dirfile, status = 'replace')
-  call write_header(topline,source,user,date,oformat)
-  call write_target
-  call write_reaction(reaction,0.D0,0.D0,0,0)
-  call write_real(2,'E-incident [MeV]',Einc)
-  call write_real(2,'total discrete direct inelastic cross section [mb]',xsdirdisctot(k0))
-  call write_real(2,'collective continuum inelastic cross section [mb]',xscollconttot(k0))
+  call write_header(indent,topline,source,user,date,oformat)
+  call write_target(indent)
+  call write_reaction(indent,reaction,0.D0,0.D0,0,0)
+  call write_real(id2,'E-incident [MeV]',Einc)
+  call write_real(id2,'total discrete direct inelastic cross section [mb]',xsdirdisctot(k0))
+  call write_real(id2,'collective continuum inelastic cross section [mb]',xscollconttot(k0))
   col = ''
   un = ''
   col(1) = 'level'
@@ -148,8 +154,8 @@ subroutine directout
   col(6) = 'def. type'
   col(7) = 'def. par.'
   Ncol = 7
-  call write_quantity(quantity)
-  call write_datablock(Ncol,Nk,col,un)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,Nk,col,un)
   do i = 1, Nk
      write(1, '(3x, i6, 6x, 2es15.6, f10.1, 1x, a1, 4x, es15.6, 6x, a1, 8x, es15.6)') ilevel(i), elev(i), eoutlev(i), &
  &    jlev(i), cparity(plev(i)), xslev(i), deftype(Zix, Nix), dlev(i)
@@ -167,8 +173,8 @@ subroutine directout
     enddo
     Ncol = ilev + 1
     Nk = nangle + 1
-    call write_quantity(quantity)
-    call write_datablock(Ncol,Nk,col,un)
+    call write_quantity(id2,quantity)
+    call write_datablock(id2,Ncol,Nk,col,un)
     do iang = 0, nangle
       write(1, '(5x, f5.1, 5x, 200es15.6)') angle(iang), (dad(i, iang), i = 1, ilev)
     enddo
@@ -191,8 +197,8 @@ subroutine directout
   col(3)='Deform. par.'
   Ncol = 6
   Nk = 4
-  call write_quantity(quantity)
-  call write_datablock(Ncol,Nk,col,un)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,Nk,col,un)
   write(1, '("     GMR       ", 5es15.6)') xsgrcoll(k0, 0, 1), Egrcoll(0, 1), eoutgr(k0, 0, 1), Ggrcoll(0, 1), betagr(0, 1)
   write(1, '("     GQR       ", 5es15.6)') xsgrcoll(k0, 2, 1), Egrcoll(2, 1), eoutgr(k0, 2, 1), Ggrcoll(2, 1), betagr(2, 1)
   write(1, '("     LEOR      ", 5es15.6)') xsgrcoll(k0, 3, 1), Egrcoll(3, 1), eoutgr(k0, 3, 1), Ggrcoll(3, 1), betagr(3, 1)
@@ -209,8 +215,8 @@ subroutine directout
     col(5)='HEOR'
     Ncol = 5
     Nk = nanglecont + 1
-    call write_quantity(quantity)
-    call write_datablock(Ncol,Nk,col,un)
+    call write_quantity(id2,quantity)
+    call write_datablock(id2,Ncol,Nk,col,un)
     do iang = 0, nanglecont
       write(1, '(5es15.6)') anglecont(iang), grcollad(k0, 0, 1, iang), grcollad(k0, 2, 1, iang), &
  &      grcollad(k0, 3, 1, iang), grcollad(k0, 3, 2, iang)
@@ -229,8 +235,8 @@ subroutine directout
     col(7)='Collective'
     Ncol = 7
     Nk = eend(k0) - ebegin(k0) + 1
-    call write_quantity(quantity)
-    call write_datablock(Ncol,Nk,col,un)
+    call write_quantity(id2,quantity)
+    call write_datablock(id2,Ncol,Nk,col,un)
     do nen = ebegin(k0), eend(k0)
       write(1, '(7es15.6)') egrid(nen), xsgr(k0, nen), xsgrstate(k0, 0, 1, nen), xsgrstate(k0, 2, 1, nen), &
  &      xsgrstate(k0, 3, 1, nen), xsgrstate(k0, 3, 2, nen), xscollcont(k0, nen)
