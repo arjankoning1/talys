@@ -143,7 +143,7 @@ subroutine population
       if (Eout < egrid(ebegin(type))) cycle
       Elow = Eout - 0.5 * deltaEx(Zix, Nix, nexout)
       call locate(egrid, ebegin(type), eend(type), Elow, nen1)
-      na1 = nen1
+      na1 = max(nen1, 0)
       nb1 = nen1 + 1
       Ea1 = egrid(na1)
       Eb1 = min(egrid(nb1), Etotal - SS)
