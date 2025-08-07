@@ -68,10 +68,16 @@ subroutine recoilout
   integer           :: nen        ! energy counter
   integer           :: Z          ! charge number of target nucleus
   integer           :: Zcomp      ! proton number index for compound nucleus
+  integer           :: indent
+  integer           :: id2
+  integer           :: id4
   real(dbl)         :: sumcm      ! total residual production in the CM frame
 !
 ! ***************************** Spectra ********************************
 !
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
   MF = 6
   MT = 5
   Estr=''
@@ -119,16 +125,16 @@ subroutine recoilout
           open (unit=1,file=recfile,status='unknown')
         endif
         topline=trim(targetnuclide)//trim(reaction)//' recoil '//trim(quantity)//' at '//Estr//' MeV'
-        call write_header(topline,source,user,date,oformat)
-        call write_target
-        call write_reaction(reaction,0.D0,0.D0,MF,MT)
-        write(1,'("# parameters:")')
-        call write_real(2,'E-incident [MeV]',Einc)
-        call write_real(2,'Integrated recoil spectrum [mb]',recoilint(Zcomp, Ncomp))
-        call write_double(2,'Residual production cross section [mb]',sumcm)
-        call write_residual(Z,A,finalnuclide)
-        call write_quantity(quantity)
-        call write_datablock(Ncol,maxenrec+1,col,un)
+        call write_header(indent,topline,source,user,date,oformat)
+        call write_target(indent)
+        call write_reaction(indent,reaction,0.D0,0.D0,MF,MT)
+        call write_char(id2,'parameters','')
+        call write_real(id4,'E-incident [MeV]',Einc)
+        call write_real(id4,'Integrated recoil spectrum [mb]',recoilint(Zcomp, Ncomp))
+        call write_double(id4,'Residual production cross section [mb]',sumcm)
+        call write_residual(id2,Z,A,finalnuclide)
+        call write_quantity(id2,quantity)
+        call write_datablock(id2,Ncol,maxenrec+1,col,un)
         do nen = 0, maxenrec
           write(1, '(2es15.6)') Erec(Zcomp, Ncomp, nen), specrecoil(Zcomp, Ncomp, nen)
         enddo
