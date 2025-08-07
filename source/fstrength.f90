@@ -97,8 +97,6 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
   real(sgl)         :: fe                  ! help variable
   real(sgl)         :: f0                  ! help variable
   real(sgl)         :: g0                  ! help variable
-  real(sgl)         :: g1                  ! help variable
-  real(sgl)         :: g2                  ! help variable
   real(sgl)         :: gb                  ! help variable
   real(sgl)         :: ge                  ! help variable
   real(sgl)         :: gint                ! help variable
