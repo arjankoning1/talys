@@ -58,9 +58,15 @@ subroutine levelsout(Zix, Nix)
   integer            :: Nix                           ! neutron number index for residual nucleus
   integer            :: Z                             ! charge number of target nucleus
   integer            :: Zix                           ! charge number index for residual nucleus
+  integer            :: indent
+  integer            :: id2
+  integer            :: id4
 !
 ! ********************* Nuclear structure file *************************
 !
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
   Z = ZZ(Zix, Nix, 0)
   A = AA(Zix, Nix, 0)
   massstring='   '
@@ -76,14 +82,14 @@ subroutine levelsout(Zix, Nix)
 !
 ! Mass and separation energies
 !
-  call write_header(topline,source,user,date,oformat)
-  call write_residual(Z,A,finalnuclide)
-  write(1,'("# parameters:")')
-  call write_double(2,'nuclear mass [amu]',nucmass(Zix,Nix))
-  call write_double(2,'neutron separation energy [MeV]',S(Zix,Nix,1))
-  call write_double(2,'proton separation energy [MeV]',S(Zix,Nix,2))
-  call write_double(2,'alpha separation energy [MeV]',S(Zix,Nix,6))
-  call write_integer(2,'number of excited levels',nlev(Zix,Nix))
+  call write_header(indent,topline,source,user,date,oformat)
+  call write_residual(indent,Z,A,finalnuclide)
+  call write_char(id2,'parameters','')
+  call write_double(id4,'nuclear mass [amu]',nucmass(Zix,Nix))
+  call write_double(id4,'neutron separation energy [MeV]',S(Zix,Nix,1))
+  call write_double(id4,'proton separation energy [MeV]',S(Zix,Nix,2))
+  call write_double(id4,'alpha separation energy [MeV]',S(Zix,Nix,6))
+  call write_integer(id4,'number of excited levels',nlev(Zix,Nix))
 !
 ! Discrete levels
 !
@@ -107,8 +113,8 @@ subroutine levelsout(Zix, Nix)
   do i = 0, nlev(Zix, Nix)
     Nentries = Nentries + 1 + nbranch(Zix, Nix, i)
   enddo
-  call write_quantity(quantity)
-  call write_datablock(Ncol,Nentries,col,un)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,Nentries,col,un)
   do i = 0, nlev(Zix, Nix)
     taustring=''
     if (tauripl(Zix, Nix, i) /= 0.) write(taustring(1:15),'(es15.6)') tauripl(Zix, Nix, i)
