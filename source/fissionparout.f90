@@ -71,6 +71,9 @@ subroutine fissionparout(Zix, Nix)
   integer :: i   ! counter
   integer :: j   ! counter
   integer :: Ncol
+  integer :: indent
+  integer :: id2
+  integer :: id4
   integer :: N   ! neutron number of residual nucleus
   integer :: Nix ! neutron number index for residual nucleus
   integer :: Z   ! charge number of target nucleus
@@ -80,6 +83,9 @@ subroutine fissionparout(Zix, Nix)
 !
 ! 1. Main fission parameters
 !
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
   Z = ZZ(Zix, Nix, 0)
   N = NN(Zix, Nix, 0)
   A = AA(Zix, Nix, 0)
@@ -91,18 +97,18 @@ subroutine fissionparout(Zix, Nix)
   write(fisfile(4:9), '(2i3.3)') Z, A
   open (unit = 1, file = fisfile, status = 'replace')
   topline=trim(finalnuclide)//' fission parameters'
-  call write_header(topline,source,user,date,oformat)
-  call write_residual(Z,A,finalnuclide)
-  write(1,'("# parameters:")')
-  call write_integer(2,'Number of fission barriers',nfisbar(Zix, Nix))
-  if (flagclass2) call write_integer(2,'Number of sets of class2 states',nclass2(Zix, Nix))
+  call write_header(indent,topline,source,user,date,oformat)
+  call write_residual(indent,Z,A,finalnuclide)
+  call write_char(id2,'parameters','')
+  call write_integer(id4,'Number of fission barriers',nfisbar(Zix, Nix))
+  if (flagclass2) call write_integer(id4,'Number of sets of class2 states',nclass2(Zix, Nix))
   if (fismodelx(Zix, Nix) >= 5) then
-    call write_real(2,'Correction factor betafiscor',betafiscor(Zix, Nix))
-    call write_real(2,'Correction factor vfiscor',vfiscor(Zix, Nix))
-    call write_real(2,'Correction factor rmiufiscor',rmiufiscor(Zix, Nix))
-    call write_real(2,'Adjustable factor betafiscoradjust',betafiscoradjust(Zix, Nix))
-    call write_real(2,'Adjustable factor vfiscoradjust',vfiscoradjust(Zix, Nix))
-    call write_real(2,'Adjustable factor rmiufiscoradjust',rmiufiscoradjust(Zix, Nix))
+    call write_real(id4,'Correction factor betafiscor',betafiscor(Zix, Nix))
+    call write_real(id4,'Correction factor vfiscor',vfiscor(Zix, Nix))
+    call write_real(id4,'Correction factor rmiufiscor',rmiufiscor(Zix, Nix))
+    call write_real(id4,'Adjustable factor betafiscoradjust',betafiscoradjust(Zix, Nix))
+    call write_real(id4,'Adjustable factor vfiscoradjust',vfiscoradjust(Zix, Nix))
+    call write_real(id4,'Adjustable factor rmiufiscoradjust',rmiufiscoradjust(Zix, Nix))
   endif
   col = ''
   un = ''
@@ -114,20 +120,20 @@ subroutine fissionparout(Zix, Nix)
   Ncol = 4
   do i = 1, nfisbar(Zix, Nix)
     quantity='Head band transition states'
-    call write_quantity(quantity)
-    call write_integer(2,'Fission barrier',i)
-    call write_integer(4,'Type of axiality',axtype(Zix, Nix, i))
-    call write_real(4,'Height of fission barrier',fbarrier(Zix, Nix, i))
-    call write_real(4,'Width of fission barrier',fwidth(Zix, Nix, i))
-    call write_real(4,'Rtransmom',Rtransmom(Zix, Nix, i))
-    call write_real(4,'Moment of inertia',minertia(Zix, Nix, i))
-    call write_integer(4,'Number of head band transition states',nfistrhb(Zix, Nix, i))
-    call write_real(4,'Start of continuum energy',fecont(Zix, Nix, i))
+    call write_quantity(id2,quantity)
+    call write_integer(id4,'Fission barrier',i)
+    call write_integer(id4,'Type of axiality',axtype(Zix, Nix, i))
+    call write_real(id4,'Height of fission barrier',fbarrier(Zix, Nix, i))
+    call write_real(id4,'Width of fission barrier',fwidth(Zix, Nix, i))
+    call write_real(id4,'Rtransmom',Rtransmom(Zix, Nix, i))
+    call write_real(id4,'Moment of inertia',minertia(Zix, Nix, i))
+    call write_integer(id4,'Number of head band transition states',nfistrhb(Zix, Nix, i))
+    call write_real(id4,'Start of continuum energy',fecont(Zix, Nix, i))
 !
 ! 2. Head band transition states
 !
     if (nfistrhb(Zix, Nix, i) > 0) then
-      call write_datablock(Ncol,nfistrhb(Zix, Nix, i),col,un)
+      call write_datablock(id2,Ncol,nfistrhb(Zix, Nix, i),col,un)
       do j = 1, nfistrhb(Zix, Nix, i)
         write(1, '(6x, i6, 3x, es15.6, 6x,f6.1, 3x, 6x, a1)') j, efistrhb(Zix, Nix, i, j), jfistrhb(Zix, Nix, i, j), &
  &        cparity(pfistrhb(Zix, Nix, i, j))
@@ -138,8 +144,8 @@ subroutine fissionparout(Zix, Nix)
 !
     if (nfistrrot(Zix, Nix, i) > 0) then
       quantity='Rotational bands'
-      call write_quantity(quantity)
-      call write_datablock(Ncol,nfistrrot(Zix, Nix, i),col,un)
+      call write_quantity(id2,quantity)
+      call write_datablock(id2,Ncol,nfistrrot(Zix, Nix, i),col,un)
       do j = 1, nfistrrot(Zix, Nix, i)
         write(1, '(6x, i6, 3x, es15.6, 6x,f6.1, 3x, 6x, a1)') j, efistrrot(Zix, Nix, i, j), jfistrrot(Zix, Nix, i, j), &
  &        cparity(pfistrrot(Zix, Nix, i, j))
@@ -151,14 +157,14 @@ subroutine fissionparout(Zix, Nix)
 !
   if (flagclass2) then
     do i = 1, nclass2(Zix, Nix)
-      call write_integer(2,'Set  of class2 states',i)
-      call write_real(2,'Rclass2mom',Rclass2mom(Zix, Nix, i))
-      call write_real(2,'Moment of inertia',minertc2(Zix, Nix, i))
-      call write_integer(2,'Number of class2 states',nfisc2hb(Zix, Nix, i))
-      call write_real(2,'Width of class2 states (MeV)',widthc2(Zix, Nix, i))
+      call write_integer(id4,'Set  of class2 states',i)
+      call write_real(id4,'Rclass2mom',Rclass2mom(Zix, Nix, i))
+      call write_real(id4,'Moment of inertia',minertc2(Zix, Nix, i))
+      call write_integer(id4,'Number of class2 states',nfisc2hb(Zix, Nix, i))
+      call write_real(id4,'Width of class2 states (MeV)',widthc2(Zix, Nix, i))
       if (nfisc2hb(Zix, Nix, i) > 0) then
         quantity='Class 2 states'
-        call write_quantity(quantity)
+        call write_quantity(id2,quantity)
         do j = 1, nfisc2hb(Zix, Nix, i)
           write(1, '(6x, i6, 3x, es15.6, 6x,f6.1, 3x, 6x, a1)') j, efisc2hb(Zix, Nix, i, j), &
  &          jfisc2hb(Zix, Nix, i, j), cparity(pfisc2hb(Zix, Nix, i, j))
@@ -169,8 +175,8 @@ subroutine fissionparout(Zix, Nix)
 !
       if (nfisc2rot(Zix, Nix, i) > 0) then
         quantity='Rotational bands'
-        call write_quantity(quantity)
-        call write_datablock(Ncol,nfisc2rot(Zix, Nix, i),col,un)
+        call write_quantity(id2,quantity)
+        call write_datablock(id2,Ncol,nfisc2rot(Zix, Nix, i),col,un)
         do j = 1, nfisc2rot(Zix, Nix, i)
           write(1, '(6x, i6, 3x, es15.6, 6x,f6.1, 3x, 6x, a1)') j, efisc2rot(Zix, Nix, i, j), &
  &          jfisc2rot(Zix, Nix, i, j), cparity(pfisc2rot(Zix, Nix, i, j))
