@@ -224,6 +224,10 @@ subroutine talysreaction
     if (flagintegral) call integral
     if (flagsacs) call sacs
     if (flagendf) call endf
+  else
+    nin = 1
+    Einc = 1.
+    call gamma(0, 0)
   endif
   if (flagprod) call isoprod
   if (flagmain) call timer
