@@ -5,7 +5,7 @@ subroutine comptarget
 !
 ! Author    : Arjan Koning and Stephane Hilaire
 !
-! 2021-12-30: Original code
+! 2025-07-25: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -188,9 +188,12 @@ subroutine comptarget
   integer   :: lprime      ! 2 * l
   integer   :: modl        ! help variable
   integer   :: Ncomp       ! neutron number index for compound nucleus
-  integer            :: Z
-  integer            :: A
-  integer            :: Ncol
+  integer   :: Z
+  integer   :: A
+  integer   :: Ncol
+  integer   :: indent
+  integer   :: id2
+  integer   :: id4
   integer   :: nex         ! excitation energy bin of compound nucleus
   integer   :: nexout      ! energy index for outgoing energy
   integer   :: Nix         ! neutron number index for residual nucleus
@@ -251,6 +254,9 @@ subroutine comptarget
 !
   if (flaginitpop) return
   if (xsflux <= xseps) return
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
 !
 ! *************************** Initialization ***************************
 !
@@ -290,20 +296,20 @@ subroutine comptarget
     popfile='initial.pop'
     write(*, '(/" ++++++++++ INITIAL COMPOUND NUCLEUS FORMATION +++++++++++++++++++++++++++++++",/)')
     open (unit = 1, file = popfile, status = 'replace')
-    call write_header(topline,source,user,date,oformat)
-    call write_target
-    call write_reaction(reaction,0.D0,0.D0,0,0)
-    call write_real(2,'E-incident [MeV]',Einc)
-    call write_residual(Z,A,finalnuclide)
-    call write_real(2,'Excitation energy [MeV]',Exinc)
+    call write_header(indent,topline,source,user,date,oformat)
+    call write_target(indent)
+    call write_reaction(indent,reaction,0.D0,0.D0,0,0)
+    call write_real(id2,'E-incident [MeV]',Einc)
+    call write_residual(id2,Z,A,finalnuclide)
+    call write_real(id4,'Excitation energy [MeV]',Exinc)
     quantity='Compound nucleus formation'
     un = ''
     col(1)='J/P'
     col(2)='population'
     un(2) = 'mb'
     Ncol = 2
-    call write_quantity(quantity)
-    call write_datablock(Ncol,J2end-J2beg+2,col,un)
+    call write_quantity(id2,quantity)
+    call write_datablock(id2,Ncol,J2end-J2beg+2,col,un)
     do parity = - 1, 1, 2
       do J2 = J2beg, J2end, 2
         J = J2/2
@@ -319,8 +325,8 @@ subroutine comptarget
       col(type+3)=parname(type)
     enddo     
     Ncol = 9
-    call write_quantity(quantity)
-    call write_datablock(Ncol,J2end-J2beg+2,col,un)
+    call write_quantity(id2,quantity)
+    call write_datablock(id2,Ncol,J2end-J2beg+2,col,un)
   endif
   do type = -1, 6
     if (adjustTJ(Zcomp, Ncomp, type)) then
@@ -780,8 +786,8 @@ subroutine comptarget
     col(1)='particle'
     col(2)='isospin factor'
     Ncol = 2
-    call write_quantity(quantity)
-    call write_datablock(Ncol,7,col,un)
+    call write_quantity(id2,quantity)
+    call write_datablock(id2,Ncol,7,col,un)
     do type = 0, 6
       write(1, '(3x, a8, 4x, es15.6)') parname(type), fiso(type)
     enddo
