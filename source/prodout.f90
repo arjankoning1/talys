@@ -90,12 +90,18 @@ subroutine prodout
   integer           :: Nix         ! neutron number index for residual nucleus
   integer           :: Z           ! charge number of target nucleus
   integer           :: Zix         ! charge number index for residual nucleus
+  integer           :: indent
+  integer           :: id2
+  integer           :: id4
 !
 ! ************************* Main output ********************************
 !
 !   mCi, Ci or kCi
 !   mug (micro-gram), mg, g, or kg
 !
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
   rstr = 'MBq'
   ystr = '   '
   if (radiounit == 'bq') rstr = ' Bq'
@@ -207,44 +213,44 @@ subroutine prodout
         un(4)=rstr
         col(5)='Isotopic_fract.'
         Ncol=5
-        call write_header(topline,source,user,date,oformat)
-        call write_target
-        call write_reaction(reaction,0.d0,0.d0,0,0)
-        call write_residual(Z,A,finalnuclide)
-        if (is > 0) write(1,'("#   isomer: ",i1)')
-        write(1,'("# parameters:")')
-        call write_real(2,'Beam current [mA]',Ibeam)
-        call write_real(2,'E-Beam [MeV]',Ebeam)
-        call write_real(2,'E-Back [MeV]',Eback)
+        call write_header(indent,topline,source,user,date,oformat)
+        call write_target(indent)
+        call write_reaction(indent,reaction,0.d0,0.d0,0,0)
+        call write_residual(id2,Z,A,finalnuclide)
+        if (is > 0) call write_integer(id4,'isomer',is)
+        call write_char(id2,'parameters','')
+        call write_real(id4,'Beam current [mA]',Ibeam)
+        call write_real(id4,'E-Beam [MeV]',Ebeam)
+        call write_real(id4,'E-Back [MeV]',Eback)
         string='Initial production rate [s^-1]'
-        call write_real(2,string,prate(Zix, Nix, is))
+        call write_real(id4,string,prate(Zix, Nix, is))
         string='Decay rate [s^-1]'
-        call write_real(2,string,lambda(Zix, Nix, is))
+        call write_real(id4,string,lambda(Zix, Nix, is))
         string='Initial production yield ['//rstr//'/mAh]'
-        call write_real(2,string,yield(Zix, Nix, is, 1))
+        call write_real(id4,string,yield(Zix, Nix, is, 1))
         string='Total activity at EOI ['//rstr//']'
-        call write_real(2,string,activity(Zix, Nix, is, Ntime))
+        call write_real(id4,string,activity(Zix, Nix, is, Ntime))
         string=''
         write(string, '(" ",i6, " years ", i3, " days", i3, " hours", i3, " minutes", i3, " seconds ")') (Tirrad(k), k = 1, 5)
-        call write_char(2,'Irradiation time',string)
+        call write_char(id4,'Irradiation time',string)
         write(string, '(" ",i6, " years ", i3, " days", i3, " hours", i3, " minutes", i3, " seconds ")') (Tcool(k), k = 1, 5)
-        call write_char(2,'Cooling time',string)
+        call write_char(id4,'Cooling time',string)
         if (Thalf(Zix, Nix, is) > 1.e17) then
           string='stable'
         else
           write(string, '(" ",i6, " years ", i3, " days", i3, " hours", i3, " minutes", i3, " seconds ")') &
  & (Td(Zix, Nix, is, k), k = 1, 5)
         endif
-        call write_char(2,'Half-life',string)
+        call write_char(id4,'Half-life',string)
         if (Tmax(Zix, Nix, is) > 1.e17) then
           string='infinity'
         else
           write(string, '(" ",i6, " years ", i3, " days", i3, " hours", i3, " minutes", i3, " seconds ")')  &
  & (Tp(Zix, Nix, is, k), k = 1, 5)
         endif
-        call write_char(2,'Maximum production at',string)
-        call write_quantity(quantity)
-        call write_datablock(Ncol,numtime,col,un)
+        call write_char(id4,'Maximum production at',string)
+        call write_quantity(id2,quantity)
+        call write_datablock(id2,Ncol,numtime,col,un)
         do it = 1, numtime
           write(1, '(5es15.6)') Tgrid(it), activity(Zix, Nix, is, it), Niso(Zix, Nix, is, it), &
  &          yield(Zix, Nix, is, it), Nisorel(Zix, Nix, is, it)
