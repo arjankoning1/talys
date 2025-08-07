@@ -139,14 +139,18 @@ subroutine ecisinput(Zix, Nix, kopt, e, rotational, vibrational, jlmloc)
     do i = 1, npp
       eopt = e - real(Elevel(i) * (resmass + projmass) / resmass)
       call optical(Zix, Nix, kopt, eopt)
-      if (abs(v) >= 1000.) then
+      if (abs(v) >= 10000.) then
         write(9, '(es10.3, 2f10.5)') v, rv, av
       else
         write(9, '(3f10.5)') v, rv, av
       endif
       write(9, '(3f10.5)') w, rw, aw
       write(9, '(3f10.5)') vd, rvd, avd
-      write(9, '(3f10.5)') wd, rwd, awd
+      if (abs(wd) >= 10000.) then
+        write(9, '(es10.3, 2f10.5)') wd, rwd, awd
+      else
+        write(9, '(3f10.5)') wd, rwd, awd
+      endif
       write(9, '(3f10.5)') vso, rvso, avso
       write(9, '(3f10.5)') wso, rwso, awso
       write(9, '(3f10.5)') rc, 0., 0.
