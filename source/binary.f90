@@ -5,7 +5,7 @@ subroutine binary
 !
 ! Author    : Arjan Koning and Stephane Hilaire
 !
-! 2021-12-30: Original code
+! 2025-07-25: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -154,6 +154,9 @@ subroutine binary
   integer   :: Nix         ! neutron number index for residual nucleus
   integer   :: Ncol
   integer   :: Nk
+  integer   :: indent
+  integer   :: id2
+  integer   :: id4
   integer   :: NL          ! last discrete level
   integer   :: odd         ! odd (1) or even (0) nucleus
   integer   :: parity      ! parity
@@ -178,6 +181,9 @@ subroutine binary
 !
 ! No binary reaction for initial excitation energy population.
 !
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
   xselastot = xselasinc
   if (flaginitpop) return
   if (flagomponly .and. .not. flagcomp) return
@@ -383,11 +389,11 @@ subroutine binary
     write(binfile(5:8), '(i4.4)') int(Einc)
     topline=trim(targetnuclide)//trim(reaction)//' binary '//trim(quantity)//' at '//Estr//' MeV'
     open (unit = 1, file = binfile, status = 'replace')
-    call write_header(topline,source,user,date,oformat)
-    call write_target
-    call write_reaction(reaction,0.D0,0.D0,0,0)
-    write(1,'("# parameters:")')
-    call write_real(2,'E-incident [MeV]',Einc)
+    call write_header(indent,topline,source,user,date,oformat)
+    call write_target(indent)
+    call write_reaction(indent,reaction,0.D0,0.D0,0,0)
+    call write_char(id2,'parameters','')
+    call write_real(id4,'E-incident [MeV]',Einc)
     write(*, '(/" ########## BINARY CHANNELS ###########")')
     write(*, '(/" ++++++++++ BINARY CROSS SECTIONS ++++++++++"/)')
     if (flagfission) write(*, '(" fission  channel", 23x, ":", es12.5)') xsbinary( - 1)
@@ -409,8 +415,8 @@ subroutine binary
       enddo
       Ncol = 8
       Nk = eendhigh - ebegin(0) + 1
-      call write_quantity(quantity)
-      call write_datablock(Ncol,Nk,col,un)
+      call write_quantity(id2,quantity)
+      call write_datablock(id2,Ncol,Nk,col,un)
       do nen = ebegin(0), eendhigh
         write(1, '(8es15.6)') egrid(nen), (xsbinemis(type, nen), type = 0, 6)
       enddo
@@ -430,8 +436,8 @@ subroutine binary
       Ncol = 5
       Nk = 7
       quantity = 'check of binary emission spectra'
-      call write_quantity(quantity)
-      call write_datablock(Ncol,Nk,col,un)
+      call write_quantity(id2,quantity)
+      call write_datablock(id2,Ncol,Nk,col,un)
       do type = 0, 6
         if (parskip(type)) cycle
         write(1, '(3x, a8, 4x, 4es15.6)') parname(type), &
@@ -451,14 +457,14 @@ subroutine binary
       A = AA(0, 0, type)
       if (xspopnuc(Zix, Nix) == 0.) cycle
       odd = mod(A, 2)
-      call write_quantity(quantity)
-      call write_char(2,'ejectile',parname(type))
-      call write_double(2,'post-binary population [mb]',xspopnuc(Zix, Nix))
-      call write_real(2,'maximum excitation energy [MeV]',Exmax(Zix, Nix))
+      call write_quantity(id2,quantity)
+      call write_char(id4,'ejectile',parname(type))
+      call write_double(id4,'post-binary population [mb]',xspopnuc(Zix, Nix))
+      call write_real(id4,'maximum excitation energy [MeV]',Exmax(Zix, Nix))
       if (maxex(Zix, Nix) > NL) then
-        call write_integer(2,'number of discrete levels',NL)
-        call write_integer(2,'number of continuum bins',maxex(Zix, Nix) - NL)
-        call write_real(2,'continuum bin size [MeV]',deltaEx(Zix, Nix, maxex(Zix, Nix)))
+        call write_integer(id4,'number of discrete levels',NL)
+        call write_integer(id4,'number of continuum bins',maxex(Zix, Nix) - NL)
+        call write_real(id4,'continuum bin size [MeV]',deltaEx(Zix, Nix, maxex(Zix, Nix)))
       endif
       un = 'mb'
       col(1)='bin'
@@ -473,8 +479,8 @@ subroutine binary
       enddo
       Ncol = 2*(numJ + 1) + 3
       Nk = maxex(Zix, Nix) + 1
-      call write_quantity(quantity)
-      call write_datablock(Ncol,Nk,col,un)
+      call write_quantity(id2,quantity)
+      call write_datablock(id2,Ncol,Nk,col,un)
       do nex = 0, maxex(Zix, Nix)
         write(1, '(3x, i6, 6x, 200es15.6)') nex, Ex(Zix, Nix, nex), &
  &        xspopex(Zix, Nix, nex), ((xspop(Zix, Nix, nex, J, parity), parity = - 1, 1, 2), J = 0, numJ)
