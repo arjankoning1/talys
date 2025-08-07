@@ -48,9 +48,15 @@ subroutine tfissionout(Zcomp, Ncomp, nex)
   integer :: odd   ! odd (1) or even (0) nucleus
   integer :: Z     ! charge number of target nucleus
   integer :: Zcomp ! proton number index for compound nucleus
+  integer :: indent
+  integer :: id2
+  integer :: id4
 !
 ! *************** Output of fission transmission coefficients **********
 !
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
   Z = ZZ(Zcomp, Ncomp, 0)
   N = NN(Zcomp, Ncomp, 0)
   A = AA(Zcomp, Ncomp, 0)
@@ -67,8 +73,8 @@ subroutine tfissionout(Zcomp, Ncomp, nex)
     open (unit = 1, file = fisfile, status = 'replace')
     tfisexist(Zcomp, Ncomp) = .true.
     topline=trim(finalnuclide)//' fission '//trim(quantity)
-    call write_header(topline,source,user,date,oformat)
-    call write_residual(Z,A,finalnuclide) 
+    call write_header(indent,topline,source,user,date,oformat)
+    call write_residual(indent,Z,A,finalnuclide) 
   endif
   un = ''
   un(4)= 'eV'
@@ -87,9 +93,9 @@ subroutine tfissionout(Zcomp, Ncomp, nex)
   col(8)= 'density(J,-)'
   col(9)= 'density(J,+)'
   Ncol = 9
-  call write_quantity(quantity)
-  call write_real(2,'Excitation energy [MeV]',Exinc)
-  call write_datablock(Ncol,maxJ(Zcomp, Ncomp, nex) + 1,col,un)
+  call write_quantity(id2,quantity)
+  call write_real(id4,'Excitation energy [MeV]',Exinc)
+  call write_datablock(id2,Ncol,maxJ(Zcomp, Ncomp, nex) + 1,col,un)
   write(*, '(/" Fission transmission coefficients for Z=", i3, &
  &  " N=", i3, " (",a,") and an excitation energy of ", f8.3, " MeV"/)') Z, N, trim(finalnuclide), Exinc
   odd = mod(A, 2)
