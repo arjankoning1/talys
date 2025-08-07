@@ -83,7 +83,7 @@ subroutine integral
 !
 ! This is for the case where a simple 'integral y' is given in the input file, i.e. no explicit information per case
 !
-  if (Nflux == 0 .and. Liso ==.0) then
+  if (Nflux == 0 .and. Liso == 0) then
     Astring = '   '
     write(Astring(1:3), '(i3.3)') Atarget
     xsfile = trim(path)//'integral/sacs/'//trim(Starget)//Astring//'.sacs'
