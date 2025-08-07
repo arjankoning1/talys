@@ -66,6 +66,9 @@ subroutine massdisout
   integer           :: MF
   integer           :: MT
   integer           :: i
+  integer           :: indent
+  integer           :: id2
+  integer           :: id4
   integer           :: ia                ! mass number from abundance table
   integer           :: in                ! counter for neutrons
   integer           :: iz                ! charge number of residual nucleus
@@ -76,6 +79,9 @@ subroutine massdisout
 !
 ! ****************** Output of fission yields **************************
 !
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
   MF = 8
   MT = 454
   Estr=''
@@ -106,12 +112,12 @@ subroutine massdisout
   quantity='fission yield'
   reaction='('//parsym(k0)//',f)'
   topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' per A'//' at '//Estr//' MeV'
-  call write_header(topline,source,user,date,oformat)
-  call write_target
-  call write_reaction(reaction,0.D0,0.D0,MF,MT)
-  call write_real(2,'E-incident [MeV]',Einc0)
-  call write_quantity(quantity)
-  call write_datablock(Ncol,Atarget,col,un)
+  call write_header(indent,topline,source,user,date,oformat)
+  call write_target(indent)
+  call write_reaction(indent,reaction,0.D0,0.D0,MF,MT)
+  call write_real(id2,'E-incident [MeV]',Einc0)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,Atarget,col,un)
   write(*, '(" Fission yields as function of A"/)')
   write(*, '("   A       FP yield       FF yield ", "         FP xs          FF xs")')
   do ia = 1, Atarget
@@ -157,16 +163,16 @@ subroutine massdisout
             un(2)='mb'
             Ncol=2
           endif
-          call write_header(topline,source,user,date,oformat)
-          call write_target
+          call write_header(indent,topline,source,user,date,oformat)
+          call write_target(indent)
           if (i == 1) then
-            call write_reaction(reaction,0.D0,0.D0,MF,MT)
+            call write_reaction(indent,reaction,0.D0,0.D0,MF,MT)
           else
-            call write_reaction(reaction,0.D0,0.D0,6,5)
+            call write_reaction(indent,reaction,0.D0,0.D0,6,5)
           endif
-          call write_residual(iz,ia,finalnuclide)
-          call write_quantity(quantity)
-          call write_datablock(Ncol,Ninc,col,un)
+          call write_residual(id2,iz,ia,finalnuclide)
+          call write_quantity(id2,quantity)
+          call write_datablock(id2,Ncol,Ninc,col,un)
           if (i == 1) then
             do nen = 1, nin0 - 1
               write(1, '(5es15.6)') eninc(nen), 0., 0., 0., 0.
@@ -212,21 +218,21 @@ subroutine massdisout
                 un(2)='mb'
                 Ncol=2
               endif
-              call write_header(topline,source,user,date,oformat)
-              call write_target
+              call write_header(indent,topline,source,user,date,oformat)
+              call write_target(indent)
               if (i == 1) then
-                call write_reaction(reaction,0.D0,0.D0,0,0)
+                call write_reaction(indent,reaction,0.D0,0.D0,0,0)
               else
-                call write_reaction(reaction,0.D0,0.D0,6,5)
+                call write_reaction(indent,reaction,0.D0,0.D0,6,5)
               endif
-              call write_residual(iz,ia,finalnuclide)
+              call write_residual(id2,iz,ia,finalnuclide)
               if (nex == 0) then
                 write(1, '("#   isomer: 0")') 
               else
                 write(1, '("#   isomer: 1")') 
               endif
-              call write_quantity(quantity)
-              call write_datablock(Ncol,Atarget,col,un)
+              call write_quantity(id2,quantity)
+              call write_datablock(id2,Ncol,Atarget,col,un)
               if (i == 1) then
                 do nen = 1, nin0 - 1
                   write(1, '(4es15.6)') eninc(nen), 0., 0., 0.
@@ -280,12 +286,12 @@ subroutine massdisout
       col(5)='FF_xs'
       un(5)='mb'
       Ncol=5
-      call write_header(topline,source,user,date,oformat)
-      call write_target
-      call write_reaction(reaction,0.D0,0.D0,0,0)
-      call write_residual(iz,ia,finalnuclide)
-      call write_quantity(quantity)
-      call write_datablock(Ncol,Ninc,col,un)
+      call write_header(indent,topline,source,user,date,oformat)
+      call write_target(indent)
+      call write_reaction(indent,reaction,0.D0,0.D0,0,0)
+      call write_residual(id2,iz,ia,finalnuclide)
+      call write_quantity(id2,quantity)
+      call write_datablock(id2,Ncol,Ninc,col,un)
       do nen = 1, nin0 - 1
         write(1, '(5es15.6)') eninc(nen), 0., 0., 0., 0.
       enddo
@@ -318,12 +324,12 @@ subroutine massdisout
   col(8)='Isomeric_ratio'
   Ncol=8
   MT = 459
-  call write_header(topline,source,user,date,oformat)
-  call write_target
-  call write_reaction(reaction,0.D0,0.D0,MF,MT)
-  call write_real(2,'E-incident [MeV]',Einc0)
-  call write_quantity(quantity)
-  call write_datablock(Ncol,Nfy,col,un)
+  call write_header(indent,topline,source,user,date,oformat)
+  call write_target(indent)
+  call write_reaction(indent,reaction,0.D0,0.D0,MF,MT)
+  call write_real(id2,'E-incident [MeV]',Einc0)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,Nfy,col,un)
   do ia = 1, Atarget
     do iz = 1, Ztarget
       in = ia - iz
