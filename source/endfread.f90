@@ -74,6 +74,8 @@ subroutine endfread
   integer           :: infileendf    ! file with cross sections for ENDF file
   integer           :: istat         ! logical for file access
   integer           :: mt            ! MT number
+  integer           :: indent
+  integer           :: id2
   integer           :: Ncol          ! number of columns
   integer           :: nen           ! energy counter
   integer           :: nen2          ! energy counter
@@ -96,6 +98,8 @@ subroutine endfread
 !
 ! ************ Read total, reaction and elastic cross section **********
 !
+  indent = 0
+  id2 = indent + 2
   if (flagendfecis) then
     open (unit = 3, file = 'ecis.endfcs', status = 'unknown')
     infileendf = 3
@@ -234,10 +238,10 @@ Loop1:    do mt = 1, 3
   open (unit = 1, file = 'endf.tot', status = 'replace')
   reaction='('//parsym(k0)//',all)'
   topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)
-  call write_header(topline,source,user,date,oformat)
-  call write_target
-  call write_quantity(quantity)
-  call write_datablock(Ncol,nen6+Ninclow,col,un)
+  call write_header(indent,topline,source,user,date,oformat)
+  call write_target(indent)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,nen6+Ninclow,col,un)
   do nen = 1, Ninclow
     write(1, '(4es15.6)') eninc(nen), fxsnonel(nen), fxselastot(nen), fxstotinc(nen)
   enddo
@@ -253,11 +257,11 @@ Loop1:    do mt = 1, 3
   open (unit = 1, file = 'endftot.tot', status = 'replace')
   reaction='('//parsym(k0)//',tot)'
   topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)
-  call write_header(topline,source,user,date,oformat)
-  call write_target
-  call write_reaction(reaction,0.D0,0.D0,3,1)
-  call write_quantity(quantity)
-  call write_datablock(Ncol,nen6+Ninclow,col,un)
+  call write_header(indent,topline,source,user,date,oformat)
+  call write_target(indent)
+  call write_reaction(indent,reaction,0.D0,0.D0,3,1)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,nen6+Ninclow,col,un)
   do nen = 1, Ninclow
     write(1, '(2es15.6)') eninc(nen), fxstotinc(nen)
   enddo
@@ -271,11 +275,11 @@ Loop1:    do mt = 1, 3
   open (unit = 1, file = 'endfel.tot', status = 'replace')
   reaction='('//parsym(k0)//',el)'
   topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)
-  call write_header(topline,source,user,date,oformat)
-  call write_target
-  call write_reaction(reaction,0.D0,0.D0,3,2)
-  call write_quantity(quantity)
-  call write_datablock(Ncol,nen6+Ninclow,col,un)
+  call write_header(indent,topline,source,user,date,oformat)
+  call write_target(indent)
+  call write_reaction(indent,reaction,0.D0,0.D0,3,2)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,nen6+Ninclow,col,un)
   do nen = 1, Ninclow
     write(1, '(2es15.6)') eninc(nen), fxselastot(nen)
   enddo
@@ -289,11 +293,11 @@ Loop1:    do mt = 1, 3
   open (unit = 1, file = 'endfnon.tot', status = 'replace')
   reaction='('//parsym(k0)//',non)'
   topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)
-  call write_header(topline,source,user,date,oformat)
-  call write_target
-  call write_reaction(reaction,0.D0,0.D0,3,3)
-  call write_quantity(quantity)
-  call write_datablock(Ncol,nen6+Ninclow,col,un)
+  call write_header(indent,topline,source,user,date,oformat)
+  call write_target(indent)
+  call write_reaction(indent,reaction,0.D0,0.D0,3,3)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,nen6+Ninclow,col,un)
   do nen = 1, Ninclow
     write(1, '(2es15.6)') eninc(nen), fxsnonel(nen)
   enddo
