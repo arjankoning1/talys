@@ -122,6 +122,9 @@
   integer            :: keyix
   integer            :: n1                            ! number of coordinate grid points
   integer            :: n2                            ! counter
+  integer            :: indent
+  integer            :: id2
+  integer            :: id4
   integer            :: nen                           ! energy counter
   integer            :: nenen                         ! energy counter
   integer            :: neniso(numiso)                ! number of emission energies per isotope
@@ -175,6 +178,9 @@
 !
 ! For mono-isotopic nuclides we are done.
 !
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
   if (isonum == 1) return
 !
 ! do a full TALYS calculation for each isotope
@@ -246,11 +252,11 @@
     quantity='cross section'
     reaction='('//parsym(k0)//',all)'
     topline=trim(targetnuclide)//trim(reaction)//' general '//trim(quantity)
-    call write_header(topline,source,user,date,oformat)
-    call write_target
-    call write_reaction(reaction,0.d0,0.d0,0,0)
-    call write_quantity(quantity)
-    call write_datablock(Ncol,Ninc,col,un)
+    call write_header(indent,topline,source,user,date,oformat)
+    call write_target(indent)
+    call write_reaction(indent,reaction,0.d0,0.d0,0,0)
+    call write_quantity(id2,quantity)
+    call write_datablock(id2,Ncol,Ninc,col,un)
     do k = 1, Ninc
       write(1, '(11es15.6)') en(k), (xstotnat(k2, k), k2 = 1, 10)
     enddo
@@ -313,11 +319,11 @@
       if (j == 4) MT = 2
       open (1, file = tot0file, status = 'replace')
       topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)
-      call write_header(topline,source,user,date,oformat)
-      call write_target
-      call write_reaction(reaction,0.d0,0.d0,MF,MT)
-      call write_quantity(quantity)
-      call write_datablock(Ncol,Ninc,col,un)
+      call write_header(indent,topline,source,user,date,oformat)
+      call write_target(indent)
+      call write_reaction(indent,reaction,0.d0,0.d0,MF,MT)
+      call write_quantity(id2,quantity)
+      call write_datablock(id2,Ncol,Ninc,col,un)
       do k = 1, Ninc
         write(1, '(2es15.6)') en(k), xstotnat(j, k)
       enddo
@@ -371,11 +377,11 @@
       if (type == 1) MT = 201
       if (type > 1) MT = 201 + type
       open (1, file = prodfile(1:9), status = 'replace')
-      call write_header(topline,source,user,date,oformat)
-      call write_target
-      call write_reaction(reaction,0.d0,0.d0,MF,MT)
-      call write_quantity(quantity)
-      call write_datablock(Ncol,Ninc,col,un)
+      call write_header(indent,topline,source,user,date,oformat)
+      call write_target(indent)
+      call write_reaction(indent,reaction,0.d0,0.d0,MF,MT)
+      call write_quantity(id2,quantity)
+      call write_datablock(id2,Ncol,Ninc,col,un)
       do k = 1, Ninc
         write(1, '(3es15.6)') en(k), xsprodnat(k), xsyieldnat(k)
       enddo
@@ -436,12 +442,12 @@
         col(4)='Compound'
         Ncol=4
         open (1, file = discfile(1:16), status = 'replace')
-        call write_header(topline,source,user,date,oformat)
-        call write_target
-        call write_reaction(reaction,0.D0,0.D0,4,2)
-        call write_real(2,'E-incident [MeV]',eninc(k))
-        call write_quantity(quantity)
-        call write_datablock(Ncol,nangle+1,col,un)
+        call write_header(indent,topline,source,user,date,oformat)
+        call write_target(indent)
+        call write_reaction(indent,reaction,0.D0,0.D0,4,2)
+        call write_real(id2,'E-incident [MeV]',eninc(k))
+        call write_quantity(id2,quantity)
+        call write_datablock(id2,Ncol,nangle+1,col,un)
         do iang = 0, nangle
           write(1, '(4es15.6)') ang(iang), xsnat(iang), xs1nat(iang), xs2nat(iang)
         enddo
@@ -559,12 +565,12 @@ Loop1:    do k2 = 1, neniso(i)
         reaction='('//parsym(k0)//',x'//parsym(type)//')'
         topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' at '//Estr//' MeV'
         open (1, file = specfile(1:17), status = 'replace')
-        call write_header(topline,source,user,date,oformat)
-        call write_target
-        call write_reaction(reaction,0.D0,0.D0,6,5)
-        call write_real(2,'E-incident [MeV]',eninc(k))
-        call write_quantity(quantity)
-        call write_datablock(Ncol,nenen,col,un)
+        call write_header(indent,topline,source,user,date,oformat)
+        call write_target(indent)
+        call write_reaction(indent,reaction,0.D0,0.D0,6,5)
+        call write_real(id2,'E-incident [MeV]',eninc(k))
+        call write_quantity(id2,quantity)
+        call write_datablock(id2,Ncol,nenen,col,un)
         do nen = 1, nenen
           write(1, '(6es15.6)') enspecnat(nen), (xsspecnat(nen, j), j = 1, 5)
         enddo
@@ -629,12 +635,12 @@ Loop1:    do k2 = 1, neniso(i)
           finalnuclide=trim(nuc(iz))//trim(adjustl(massstring))
           topline=trim(targetnuclide)//trim(reaction)//trim(finalnuclide)//' '//trim(quantity)
           open (1, file = resfile(1:12), status = 'replace')
-          call write_header(topline,source,user,date,oformat)
-          call write_target
-          call write_reaction(reaction,0.D0,0.D0,6,5)
-          call write_residual(iz,ia,finalnuclide)
-          call write_quantity(quantity)
-          call write_datablock(Ncol,Ninc,col,un)
+          call write_header(indent,topline,source,user,date,oformat)
+          call write_target(indent)
+          call write_reaction(indent,reaction,0.D0,0.D0,6,5)
+          call write_residual(id2,iz,ia,finalnuclide)
+          call write_quantity(id2,quantity)
+          call write_datablock(id2,Ncol,Ninc,col,un)
           do k = 1, Ninc
             write(1, '(2es15.6)') en(k), xsnat(k)
           enddo
@@ -709,14 +715,14 @@ Loop1:    do k2 = 1, neniso(i)
             Ncol=3
             topline=trim(targetnuclide)//trim(reaction)//trim(finalnuclide)//' '//trim(quantity)
             open (1, file = resfile(1:12), status = 'replace')
-            call write_header(topline,source,user,date,oformat)
-            call write_target
-            call write_reaction(reaction,0.D0,0.D0,6,5)
+            call write_header(indent,topline,source,user,date,oformat)
+            call write_target(indent)
+            call write_reaction(indent,reaction,0.D0,0.D0,6,5)
             do k = 1, Nk
               write(1,'(a)') trim(resline(k))
             enddo
-            call write_quantity(quantity)
-            call write_datablock(Ncol,Ninc,col,un)
+            call write_quantity(id2,quantity)
+            call write_datablock(id2,Ncol,Ninc,col,un)
             do k = 1, Ninc
               write(1, '(3es15.6)') en(k), xsnat(k), natbranch(k)
             enddo
@@ -791,11 +797,11 @@ Loop1:    do k2 = 1, neniso(i)
                       endif
                     enddo
                     open (1, status = 'replace', file = xsfile(1:12))
-                    call write_header(topline,source,user,date,oformat)
-                    call write_target
-                    call write_reaction(reaction,0.D0,0.D0,MF,MT)
-                    call write_quantity(quantity)
-                    call write_datablock(Ncol,Ninc,col,un)
+                    call write_header(indent,topline,source,user,date,oformat)
+                    call write_target(indent)
+                    call write_reaction(indent,reaction,0.D0,0.D0,MF,MT)
+                    call write_quantity(id2,quantity)
+                    call write_datablock(id2,Ncol,Ninc,col,un)
                     do k = 1, Ninc
                       write(1, '(2es15.6)') en(k), xsnat(k)
                     enddo
@@ -846,11 +852,11 @@ Loop1:    do k2 = 1, neniso(i)
       reaction='('//parsym(k0)//',f)'
       topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)
       open (1, status = 'unknown', file = 'fission.tot')
-      call write_header(topline,source,user,date,oformat)
-      call write_target
-      call write_reaction(reaction,0.D0,0.D0,3,18)
-      call write_quantity(quantity)
-      call write_datablock(Ncol,Ninc,col,un)
+      call write_header(indent,topline,source,user,date,oformat)
+      call write_target(indent)
+      call write_reaction(indent,reaction,0.D0,0.D0,3,18)
+      call write_quantity(id2,quantity)
+      call write_datablock(id2,Ncol,Ninc,col,un)
       do k = 1, Ninc
         write(1, '(2es15.6)') en(k), xsnat(k)
       enddo
@@ -1062,12 +1068,12 @@ Loop3:        do i = 1, isonum
             enddo
             open (1, status = 'unknown', file = recfile(1:24))
             topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' at '//Estr//' MeV'
-            call write_header(topline,source,user,date,oformat)
-            call write_target
-            call write_reaction(reaction,0.D0,0.D0,6,5)
-            call write_real(2,'E-incident [MeV]',eninc(k))
-            call write_quantity(quantity)
-            call write_datablock(Ncol,nenen,col,un)
+            call write_header(indent,topline,source,user,date,oformat)
+            call write_target(indent)
+            call write_reaction(indent,reaction,0.D0,0.D0,6,5)
+            call write_real(id2,'E-incident [MeV]',eninc(k))
+            call write_quantity(id2,quantity)
+            call write_datablock(id2,Ncol,nenen,col,un)
             do nen = 1, nenen
               write(1, '(2es15.6)') enspecnat(nen), xsspecnat(nen, 1)
             enddo
