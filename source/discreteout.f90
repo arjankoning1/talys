@@ -91,6 +91,9 @@ subroutine discreteout
   integer           :: MF
   integer           :: MT
   integer           :: MT0(0:6)
+  integer           :: indent
+  integer           :: id2
+  integer           :: id4
   integer          :: Ncomp                   ! neutron number index for compound nucleus
   integer          :: nen                     ! energy counter
   integer          :: Ncol                    ! number of columns
@@ -103,6 +106,9 @@ subroutine discreteout
 !
 ! ************************* Make reaction string ***********************
 !
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
   MT0(0) = 101
   MT0(1) = 50
   MT0(2) = 600
@@ -185,12 +191,12 @@ subroutine discreteout
           else
             MT = 0
           endif
-          call write_header(topline,source,user,date,oformat)
-          call write_target
-          call write_reaction(reaction,Qres(Zix, Nix, nex),Ethresh(Zix, Nix, nex),MF,MT)
-          call write_level(2,-1,nex,edis(Zix, Nix, nex),jdis(Zix, Nix, nex),parlev(Zix, Nix, nex),0.)
-          call write_quantity(quantity)
-          call write_datablock(Ncol,Ninc,col,un)
+          call write_header(indent,topline,source,user,date,oformat)
+          call write_target(indent)
+          call write_reaction(indent,reaction,Qres(Zix, Nix, nex),Ethresh(Zix, Nix, nex),MF,MT)
+          call write_level(id2,-1,nex,edis(Zix, Nix, nex),jdis(Zix, Nix, nex),parlev(Zix, Nix, nex),0.)
+          call write_quantity(id2,quantity)
+          call write_datablock(id2,Ncol,Ninc,col,un)
           do nen = 1, Ninclow
             write(1, '(4es15.6)') eninc(nen), fxsdisc(nen, type, nex), fxsdirdisc(nen, type, nex), fxscompdisc(nen, type, nex)
           enddo
@@ -229,12 +235,12 @@ subroutine discreteout
         endif
         col(3)='Continuum'
         col(4)='('//parsym(k0)//',g'//parsym(type)//')'
-        call write_header(topline,source,user,date,oformat)
-        call write_target
-        call write_reaction(reaction,Qres(Zix, Nix, NL),Ethresh(Zix, Nix, NL),MF,MT)
-        call write_level(2,-1,NL,edis(Zix, Nix, NL),jdis(Zix, Nix, NL),parlev(Zix, Nix, NL),0.)
-        call write_quantity(quantity)
-        call write_datablock(Ncol,Ninc,col,un)
+        call write_header(indent,topline,source,user,date,oformat)
+        call write_target(indent)
+        call write_reaction(indent,reaction,Qres(Zix, Nix, NL),Ethresh(Zix, Nix, NL),MF,MT)
+        call write_level(id2,-1,NL,edis(Zix, Nix, NL),jdis(Zix, Nix, NL),parlev(Zix, Nix, NL),0.)
+        call write_quantity(id2,quantity)
+        call write_datablock(id2,Ncol,Ninc,col,un)
         do nen = 1, Ninclow
           write(1, '(4es15.6)') eninc(nen), fxsexclcont(nen, type) + fxsngn(nen, type), fxsexclcont(nen, type), fxsngn(nen, type)
         enddo
@@ -263,11 +269,11 @@ subroutine discreteout
         col(3)='Discrete'
         col(4)='Continuum'
         col(5)='('//parsym(k0)//',g'//parsym(type)//')'
-        call write_header(topline,source,user,date,oformat)
-        call write_target
-        call write_reaction(reaction,Qres(Zix, Nix, 0),Ethresh(Zix, Nix, 0),0,0)
-        call write_quantity(quantity)
-        call write_datablock(Ncol,Ninc,col,un)
+        call write_header(indent,topline,source,user,date,oformat)
+        call write_target(indent)
+        call write_reaction(indent,reaction,Qres(Zix, Nix, 0),Ethresh(Zix, Nix, 0),0,0)
+        call write_quantity(id4,quantity)
+        call write_datablock(id2,Ncol,Ninc,col,un)
         do nen = 1, Ninclow
           write(1, '(5es15.6)') eninc(nen), fxsexclusive(nen, type), fxsdisctot(nen, type), fxsexclcont(nen, type), &
  &          fxsngn(nen, type)
