@@ -84,6 +84,9 @@ subroutine gammaout(Zcomp, Ncomp)
   integer           :: irad         ! counter
   integer           :: l            ! multipolarity
   integer           :: MM           ! model
+  integer           :: indent
+  integer           :: id2
+  integer           :: id4
   integer           :: N            ! neutron number of residual nucleus
   integer           :: Ncol       ! counter
   integer           :: Ncomp        ! neutron number index for compound nucleus
@@ -105,6 +108,9 @@ subroutine gammaout(Zcomp, Ncomp)
 !
 ! fstrength : gamma-ray strength function
 !
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
   Z = ZZ(Zcomp, Ncomp, 0)
   N = NN(Zcomp, Ncomp, 0)
   A = AA(Zcomp, Ncomp, 0)
@@ -187,56 +193,56 @@ subroutine gammaout(Zcomp, Ncomp)
         col(3)='T('//radtype//')'
         un(3)=''
         Ncol=3
-        call write_header(topline,source,user,date,oformat)
-        call write_residual(Z,A,finalnuclide)
-        write(1,'("# parameters:")')
-        call write_integer(2,'strength keyword',MM)
-        call write_char(2,'PSF model',psfmodel)
+        call write_header(indent,topline,source,user,date,oformat)
+        call write_residual(indent,Z,A,finalnuclide)
+        call write_char(id2,'parameters','')
+        call write_integer(id4,'strength keyword',MM)
+        call write_char(id4,'PSF model',psfmodel)
         if ((irad == 0 .and. strengthM1 <= 4) .or. (irad == 1 .and. (strength <= 2 .or. strength == 5)) .or. l >= 2) then
-          call write_real(2,'sigma0 (sgr) [mb]',sgr(Zcomp, Ncomp, irad, l, 1))
-          call write_real(2,'E (egr) [MeV]',egr(Zcomp, Ncomp, irad, l, 1))
-          call write_real(2,'gamma (ggr) [MeV]',ggr(Zcomp, Ncomp, irad, l, 1))
+          call write_real(id4,'sigma0 (sgr) [mb]',sgr(Zcomp, Ncomp, irad, l, 1))
+          call write_real(id4,'E (egr) [MeV]',egr(Zcomp, Ncomp, irad, l, 1))
+          call write_real(id4,'gamma (ggr) [MeV]',ggr(Zcomp, Ncomp, irad, l, 1))
           if (ngr(Zcomp, Ncomp, irad, l) == 2) then
-            call write_real(2,'sigma0_2 (sgr) [mb]',sgr(Zcomp, Ncomp, irad, l, 2))
-            call write_real(2,'E_2 (egr) [MeV]',egr(Zcomp, Ncomp, irad, l, 2))
-            call write_real(2,'gamma_2 (ggr) [MeV]',ggr(Zcomp, Ncomp, irad, l, 2))
+            call write_real(id4,'sigma0_2 (sgr) [mb]',sgr(Zcomp, Ncomp, irad, l, 2))
+            call write_real(id4,'E_2 (egr) [MeV]',egr(Zcomp, Ncomp, irad, l, 2))
+            call write_real(id4,'gamma_2 (ggr) [MeV]',ggr(Zcomp, Ncomp, irad, l, 2))
           endif
         endif
         if (flagupbend .and. l == 1) then
           if (irad == 0) then
-            call write_real(2,'M1 upbend C',upbendadjust(Zcomp, Ncomp, 0, 1, 1) * upbend(Zcomp, Ncomp, 0, 1, 1))
-            call write_real(2,'M1 upbend eta',upbendadjust(Zcomp, Ncomp, 0, 1, 2) * upbend(Zcomp, Ncomp, 0, 1, 2))
-            call write_real(2,'M1 upbend F',upbendadjust(Zcomp, Ncomp, 0, 1, 3) * upbend(Zcomp, Ncomp, 0, 1, 3))
+            call write_real(id4,'M1 upbend C',upbendadjust(Zcomp, Ncomp, 0, 1, 1) * upbend(Zcomp, Ncomp, 0, 1, 1))
+            call write_real(id4,'M1 upbend eta',upbendadjust(Zcomp, Ncomp, 0, 1, 2) * upbend(Zcomp, Ncomp, 0, 1, 2))
+            call write_real(id4,'M1 upbend F',upbendadjust(Zcomp, Ncomp, 0, 1, 3) * upbend(Zcomp, Ncomp, 0, 1, 3))
           else
-            call write_real(2,'E1 upbend C',upbendadjust(Zcomp, Ncomp, 1, 1, 1) * upbend(Zcomp, Ncomp, 1, 1, 1))
-            call write_real(2,'E1 upbend eta',upbendadjust(Zcomp, Ncomp, 1, 1, 2) * upbend(Zcomp, Ncomp, 1, 1, 2))
+            call write_real(id4,'E1 upbend C',upbendadjust(Zcomp, Ncomp, 1, 1, 1) * upbend(Zcomp, Ncomp, 1, 1, 1))
+            call write_real(id4,'E1 upbend eta',upbendadjust(Zcomp, Ncomp, 1, 1, 2) * upbend(Zcomp, Ncomp, 1, 1, 2))
           endif
         endif
         if (l == 1) then
           if (irad == 0) then
-            call write_real(2,'pygmy tpr [mb]',tpr(Zcomp, Ncomp, 0, 1, 1))
-            call write_real(2,'pygmy epr [MeV]',epr(Zcomp, Ncomp, 0, 1, 1))
-            call write_real(2,'pygmy gpr [MeV]',gpr(Zcomp, Ncomp, 0, 1, 1))
+            call write_real(id4,'pygmy tpr [mb]',tpr(Zcomp, Ncomp, 0, 1, 1))
+            call write_real(id4,'pygmy epr [MeV]',epr(Zcomp, Ncomp, 0, 1, 1))
+            call write_real(id4,'pygmy gpr [MeV]',gpr(Zcomp, Ncomp, 0, 1, 1))
           else
             if (tpr(Zcomp, Ncomp, 1, 1, 1) > 0.) then
-              call write_real(2,'pygmy tpr [mb]',tpr(Zcomp, Ncomp, 1, 1, 1))
-              call write_real(2,'pygmy epr [MeV]',epr(Zcomp, Ncomp, 1, 1, 1))
-              call write_real(2,'pygmy gpr [MeV]',gpr(Zcomp, Ncomp, 1, 1, 1))
+              call write_real(id4,'pygmy tpr [mb]',tpr(Zcomp, Ncomp, 1, 1, 1))
+              call write_real(id4,'pygmy epr [MeV]',epr(Zcomp, Ncomp, 1, 1, 1))
+              call write_real(id4,'pygmy gpr [MeV]',gpr(Zcomp, Ncomp, 1, 1, 1))
             endif
           endif
         endif
-        call write_real(2,'ftable',ftable(Zcomp, Ncomp, irad, l))
-        call write_real(2,'etable',etable(Zcomp, Ncomp, irad, l))
-        call write_real(2,'wtable',wtable(Zcomp, Ncomp, irad, l))
-        write(1,'("# parameters:")')
-        call write_real(2,'experimental Gamma_gamma [eV]',gamgam(Zcomp,Ncomp))
-        call write_real(2,'experimental Gamma_gamma unc. [eV]',dgamgam(Zcomp,Ncomp))
-        call write_real(2,'theoretical Gamma_gamma [eV]',gamgamth(Zcomp,Ncomp,0))
-        call write_real(2,'C/E Gamma_gamma',CEgamgam)
-        call write_real(2,'average resonance energy [eV]',Eavres * 1.e6)
-        call write_real(2,'theoretical S-wave strength function [e-4]',1.e4 * swaveth(Zcomp, Ncomp))
-        call write_quantity(quantity)
-        call write_datablock(Ncol,Npsf,col,un)
+        call write_real(id4,'ftable',ftable(Zcomp, Ncomp, irad, l))
+        call write_real(id4,'etable',etable(Zcomp, Ncomp, irad, l))
+        call write_real(id4,'wtable',wtable(Zcomp, Ncomp, irad, l))
+        call write_char(id2,'parameters','')
+        call write_real(id4,'experimental Gamma_gamma [eV]',gamgam(Zcomp,Ncomp))
+        call write_real(id4,'experimental Gamma_gamma unc. [eV]',dgamgam(Zcomp,Ncomp))
+        call write_real(id4,'theoretical Gamma_gamma [eV]',gamgamth(Zcomp,Ncomp,0))
+        call write_real(id4,'C/E Gamma_gamma',CEgamgam)
+        call write_real(id4,'average resonance energy [eV]',Eavres * 1.e6)
+        call write_real(id4,'theoretical S-wave strength function [e-4]',1.e4 * swaveth(Zcomp, Ncomp))
+        call write_quantity(id2,quantity)
+        call write_datablock(id2,Ncol,Npsf,col,un)
         do nen = 1, Npsf
           e = Epsf(nen)
           write(1,'(3es15.6)') e, fstrength(Zcomp, Ncomp, 0., e, irad, 1),Tjl(0, nen, irad, l)
@@ -260,13 +266,13 @@ subroutine gammaout(Zcomp, Ncomp)
   col(4)='Quasi-deuteron'
   Ncol = 4
   open (unit=1, file=crossfile, status='replace')
-  call write_header(topline,source,user,date,oformat)
-  call write_residual(Z,A,finalnuclide)
-  write(1,'("# parameters:")')
-  call write_char(2,'particle',parname(0))
+  call write_header(indent,topline,source,user,date,oformat)
+  call write_residual(indent,Z,A,finalnuclide)
+  call write_char(id2,'parameters','')
+  call write_char(id4,'particle',parname(0))
   Nen =  eend(0) - ebegin(0) + 1
-  call write_quantity(quantity)
-  call write_datablock(Ncol,Nen,col,un)
+  call write_quantity(id2,quantity)
+  call write_datablock(id2,Ncol,Nen,col,un)
   write(*, '(/" Photoabsorption cross sections"/)')
   do nen = ebegin(0), eend(0)
     call gammaxs(Zcomp, Ncomp, egrid(nen), xsgamma, xsgdr, xsqd)
