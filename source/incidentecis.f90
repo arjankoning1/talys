@@ -163,6 +163,8 @@ subroutine incidentecis
   integer            :: i1             ! value
   integer            :: ii             ! counter
   integer            :: Ncol
+  integer            :: indent
+  integer            :: id2
   integer            :: Nix            ! neutron number index for residual nucleus
   integer            :: Z              ! charge number of target nucleus
   integer            :: Zix            ! charge number index for residual nucleus
@@ -172,6 +174,8 @@ subroutine incidentecis
 !
 ! Specific ECIS flags:
 !
+  indent = 0
+  id2 = indent + 2
   if (flaginccalc) open (unit = 9, file = 'ecisinc.inp', status = 'unknown')
   legendre = .true.
   Ein = Einc
@@ -356,10 +360,10 @@ subroutine incidentecis
       quantity='optical potential'
       open (unit=1, file=optfile, status='unknown')
       topline=trim(targetnuclide)//' '//parname(k0)//' optical potential at '//Estr//' MeV'
-      call write_header(topline,source,user,date,oformat)
-      call write_target
-      call write_quantity(quantity)
-      call write_datablock(Ncol,numjlm,col,un)
+      call write_header(indent,topline,source,user,date,oformat)
+      call write_target(indent)
+      call write_quantity(id2,quantity)
+      call write_datablock(id2,Ncol,numjlm,col,un)
       do i = 1, numjlm
         write(1, '(5es15.6)') radjlm(Zix, Nix, i), normjlm(Zix, Nix, 1) * potjlm(Zix, Nix, i, 1), &
  &        normjlm(Zix, Nix, 2) * potjlm(Zix, Nix, i, 2), normjlm(Zix, Nix, 5) * potjlm(Zix, Nix, i, 5), &
