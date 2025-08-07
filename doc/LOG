@@ -132,7 +132,7 @@ strength 12 - Shellmodel-M1
 
 - August 29 2024
 
-Solved an interpolation error in twkbint which led tot NaN for some 
+Solved an interpolation error in twkbint which led to NaN for some 
 fission transmission coefficients
 
 - August 31 2024
@@ -239,7 +239,7 @@ Made a spherical OMP the default for deuterons up to alpha particles.
 
 - June 16 2025
 
-On the advice of Jose benlliure, make the Levinger parameter for 
+On the advice of Jose Benlliure, make the Levinger parameter for 
 quasi-deuteron breakup adjustable with the keyword 'levinger'.
 
 - June 29 2025
@@ -248,3 +248,13 @@ Solved a problem found by Alexander Gurbich. For cases with a very high
 separation energy, e.g. for light nuclides, the answers for a single 
 energy calculation were different from that of a multi energy 
 calculation. The energy in grid.f90 has been adapted to avoid this.
+
+- July 10 2025
+
+Created a keyword 'bestfile' for addition of TALYS keywords from a file.
+
+- August 7 2025
+
+On the advice of Andrew Ratkiewicz, allowed output of PSF's also 
+when 'reaction n'
+
