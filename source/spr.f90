@@ -46,9 +46,15 @@ subroutine spr
   real(sgl) :: Efac ! help variable
   real(sgl) :: r2k2 ! help variable
   real(sgl) :: Rpot ! standard value for R
+  integer   :: indent
+  integer   :: id2
+  integer   :: id4
 !
 ! **************** S, P and R' resonance parameters ********************
 !
+  indent = 0
+  id2 = indent + 2
+  id4 = indent + 4
   Rprime = 10.*sqrt(0.001*max(xselasinc, 0.)/fourpi)
   Efac = 1. / (sqrt(1.e6 * Einc) * twopi)
   Rpot = 1.35 * Atarget **onethird
@@ -60,12 +66,13 @@ subroutine spr
     open (unit = 1, file = 'spr.opt', status = 'replace')
     quantity='basic OMP quantities'
     topline=trim(targetnuclide)//' '//trim(quantity)
-    call write_header(topline,source,user,date,oformat)
-    call write_target
+    call write_header(indent,topline,source,user,date,oformat)
+    call write_target(indent)
     write(1,'("# parameters:")')
-    call write_real(2,'S0',Sstrength(0)*1.e4)
-    call write_real(2,'S1',Sstrength(1)*1.e4)
-    call write_real(2,'Rprime [fm]',Rprime)
+    call write_char(id2,'parameters','')
+    call write_real(id4,'S0',Sstrength(0)*1.e4)
+    call write_real(id4,'S1',Sstrength(1)*1.e4)
+    call write_real(id4,'Rprime [fm]',Rprime)
 !   write(1, '(2i4, 3f8.4)') Atarget, Ztarget, Sstrength(0)*1.e4, Sstrength(1) * 1.e4, Rprime
     close (unit = 1)
   endif
