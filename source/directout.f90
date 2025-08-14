@@ -189,21 +189,21 @@ subroutine directout
   col(2)='Cross section'
   un(2)='mb'
   col(3)='Exc. energy'
-  un(2)='MeV'
-  col(3)='Emis. energy'
-  un(2)='MeV'
-  col(3)='Width'
-  un(2)='MeV'
-  col(3)='Deform. par.'
+  un(3)='MeV'
+  col(4)='Emis. energy'
+  un(4)='MeV'
+  col(5)='Width'
+  un(5)='MeV'
+  col(6)='Deform. par.'
   Ncol = 6
   Nk = 4
   call write_quantity(id2,quantity)
+  call write_real(id2,'total GR cross section',xsgrtot(k0)-xscollconttot(k0))
   call write_datablock(id2,Ncol,Nk,col,un)
   write(1, '("     GMR       ", 5es15.6)') xsgrcoll(k0, 0, 1), Egrcoll(0, 1), eoutgr(k0, 0, 1), Ggrcoll(0, 1), betagr(0, 1)
   write(1, '("     GQR       ", 5es15.6)') xsgrcoll(k0, 2, 1), Egrcoll(2, 1), eoutgr(k0, 2, 1), Ggrcoll(2, 1), betagr(2, 1)
   write(1, '("     LEOR      ", 5es15.6)') xsgrcoll(k0, 3, 1), Egrcoll(3, 1), eoutgr(k0, 3, 1), Ggrcoll(3, 1), betagr(3, 1)
   write(1, '("     HEOR      ", 5es15.6)') xsgrcoll(k0, 3, 2), Egrcoll(3, 2), eoutgr(k0, 3, 2), Ggrcoll(3, 2), betagr(3, 2)
-! write(1, '(/" Total", f12.5/)') xsgrtot(k0)-xscollconttot(k0)
   if (flagddx) then
     quantity='average angular distributions'
     un=''
