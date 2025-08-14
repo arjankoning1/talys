@@ -915,6 +915,18 @@ subroutine checkvalue
     call range_real_error('Cknock', Cknock(type), 0., 100., index1 = type, name1 = 'type')
     call range_real_error('Cbreak', Cbreak(type), 0., 100., index1 = type, name1 = 'type')
   enddo
+  call range_real_error('GMRadjustE', GMRadjustE, 0.1, 10.)
+  call range_real_error('GQRadjustE', GQRadjustE, 0.1, 10.)
+  call range_real_error('LEORadjustE', LEORadjustE, 0.1, 10.)
+  call range_real_error('HEORadjustE', HEORadjustE, 0.1, 10.)
+  call range_real_error('GMRadjustG', GMRadjustG, 0.1, 10.)
+  call range_real_error('GQRadjustG', GQRadjustG, 0.1, 10.)
+  call range_real_error('LEORadjustG', LEORadjustG, 0.1, 10.)
+  call range_real_error('HEORadjustG', HEORadjustG, 0.1, 10.)
+  call range_real_error('GMRadjustD', GMRadjustD, 0.1, 10.)
+  call range_real_error('GQRadjustD', GQRadjustD, 0.1, 10.)
+  call range_real_error('LEORadjustD', LEORadjustD, 0.1, 10.)
+  call range_real_error('HEORadjustD', HEORadjustD, 0.1, 10.)
 !
 ! 7. Check of values for level densities
 !
