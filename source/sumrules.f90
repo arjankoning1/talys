@@ -5,7 +5,7 @@ subroutine sumrules
 !
 ! Author    : Arjan Koning
 !
-! 2021-12-30: Original code
+! 2025-08-12: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -58,18 +58,18 @@ subroutine sumrules
 ! Using sum rules for giant resonances, the collective strength in the continuum is determined.
 !
   Sgmr = 23.*Atarget**(-5./3.)
-  Egrcoll(0, 1) = 18.7 - 0.025 * Atarget
-  Ggrcoll(0, 1) = 3.
-  Sgqr = 575. * Atarget **( - 5. / 3.)
-  Egrcoll(2, 1) = 65. * Atarget **( - onethird)
-  Ggrcoll(2, 1) = 85. * Atarget **( - twothird)
-  Sgor = 1208. * Atarget **( - 5. / 3.)
+  Egrcoll(0, 1) = GMRadjustE * (18.7 - 0.025 * Atarget)
+  Ggrcoll(0, 1) = GMRadjustG * 3.
+  Sgqr = 575. * Atarget **( -5. / 3.)
+  Egrcoll(2, 1) = GQRadjustE * (65. * Atarget **( -onethird))
+  Ggrcoll(2, 1) = GQRadjustG * (85. * Atarget **( -twothird))
+  Sgor = 1208. * Atarget **( -5. / 3.)
   Sleor = 0.3 * Sgor
-  Egrcoll(3, 1) = 31. * Atarget **( - onethird)
-  Ggrcoll(3, 1) = 5.
+  Egrcoll(3, 1) = LEORadjustE * (31. * Atarget **( -onethird))
+  Ggrcoll(3, 1) = LEORadjustG * 5.
   Sheor = 0.7 * Sgor
-  Egrcoll(3, 2) = 115. * Atarget **( - onethird)
-  Ggrcoll(3, 2) = 9.3 - Atarget / 48.
+  Egrcoll(3, 2) = HEORadjustE * (115. * Atarget **( -onethird))
+  Ggrcoll(3, 2) = HEORadjustG * (9.3 - Atarget / 48.)
 !
 ! Subtract the deformation parameters of the collective low lying states from the sum.
 !
@@ -92,10 +92,10 @@ subroutine sumrules
 !
 ! Determine final GR deformation parameters.
 !
-  if (Sgmr > 0.) betagr(0, 1) = sqrt(Sgmr / Egrcoll(0, 1))
-  if (Sgqr > 0.) betagr(2, 1) = sqrt(Sgqr / Egrcoll(2, 1))
-  if (Sleor > 0.) betagr(3, 1) = sqrt(Sleor / Egrcoll(3, 1))
-  betagr(3, 2) = sqrt(Sheor / Egrcoll(3, 2))
+  if (Sgmr > 0.) betagr(0, 1) = GMRadjustD * sqrt(Sgmr / Egrcoll(0, 1))
+  if (Sgqr > 0.) betagr(2, 1) = GQRadjustD * sqrt(Sgqr / Egrcoll(2, 1))
+  if (Sleor > 0.) betagr(3, 1) = LEORadjustD * sqrt(Sleor / Egrcoll(3, 1))
+  betagr(3, 2) = HEORadjustD * sqrt(Sheor / Egrcoll(3, 2))
   return
 end subroutine sumrules
 ! Copyright A.J. Koning 2021
