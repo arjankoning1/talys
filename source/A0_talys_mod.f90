@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2023-12-30: Original code
-! 2025-08-07: Current version
+! 2025-08-12: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -870,6 +870,18 @@ module A0_talys_mod
   real(sgl), dimension(0:3,2)                          :: betagr     ! deformation parameter for giant resonance
   real(sgl), dimension(0:3,2)                          :: Egrcoll    ! energy of giant resonance
   real(sgl), dimension(0:3,2)                          :: Ggrcoll    ! width of giant resonance
+  real(sgl)                                            :: GMRadjustE ! adjustable factor for GMR energy
+  real(sgl)                                            :: GQRadjustE ! adjustable factor for GQR energy
+  real(sgl)                                            :: LEORadjustE! adjustable factor for LEOR energy
+  real(sgl)                                            :: HEORadjustE! adjustable factor for HEOR energy
+  real(sgl)                                            :: GMRadjustG ! adjustable factor for GMR width
+  real(sgl)                                            :: GQRadjustG ! adjustable factor for GQR width
+  real(sgl)                                            :: LEORadjustG! adjustable factor for LEOR width
+  real(sgl)                                            :: HEORadjustG! adjustable factor for HEOR width
+  real(sgl)                                            :: GMRadjustD ! adjustable factor for GMR deformation parameter
+  real(sgl)                                            :: GQRadjustD ! adjustable factor for GQR deformation parameter
+  real(sgl)                                            :: LEORadjustD! adjustable factor for LEOR deformation parameter
+  real(sgl)                                            :: HEORadjustD! adjustable factor for HEOR deformation parameter
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
 ! Variables for resonance parameters
