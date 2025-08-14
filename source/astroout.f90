@@ -70,9 +70,11 @@ subroutine astroout
 ! integer, parameter :: numN1=numN+1                     ! numN + 1
   logical            :: lexist                           ! logical to determine existence
   character(len=1)   :: sym                              ! symbol
+  character(len=1)   :: targetparity
   character(len=3)   :: massstring
   character(len=6)   :: ZAstring
   character(len=6)   :: finalnuclide !
+  character(len=6)   :: spinparity
   character(len=7)   :: machar                           ! part of filename for MACS
   character(len=132) :: mafile                           ! file with MACS
   character(len=132) :: astrofile                        ! file with astro results
@@ -406,6 +408,11 @@ subroutine astroout
     enddo
   enddo
   astrofile = 'astrorate.tot'
+  targetparity='+'
+  if (targetP.eq.-1) targetparity='-'
+  spinparity='      '
+  write(spinparity(1:5),'(f5.1)') targetspin
+  spinparity(6:6)=targetparity
   Zix = parZ(k0)
   Nix = parN(k0)
   reaction='('//parsym(k0)//',x)'
@@ -415,7 +422,8 @@ subroutine astroout
   call write_target(indent)
   call write_reaction(indent,reaction,0.D0,0.D0,0,0)
   call write_integer(id2,'channels',iresprod+5)
-  write(1,' ("#   astrogs: ",a1)') yesno(flagastrogs)
+  call write_char(id2,'astrogs',yesno(flagastrogs))
+  call write_char(id4,'spin-parity (GS)',spinparity)
   if (nTmax == 1) then
     call write_real(id4,'E-average [MeV]',astroE)
   else
