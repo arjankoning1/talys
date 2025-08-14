@@ -5,7 +5,7 @@ subroutine inputout
 !
 ! Author    : Arjan Koning
 !
-! 2024-10-25: Original code
+! 2025-08-07: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -612,6 +612,19 @@ subroutine inputout
   write(*, '(" outdwba             ", a1, "     flagoutdwba  flag for output of DWBA cross sections for MSD")') yesno(flagoutdwba)
   write(*, '(" outgamdis           ", a1, "     flaggamdis   flag for output of discrete gamma-ray intensities")') yesno(flaggamdis)
   write(*, '(" outexcitation       ", a1, "     flagexc      flag for output of excitation functions")') yesno(flagexc)
+  write(*, '(" filedensity         ", a1, "     filedensity  flag for level densities on separate files")') yesno(filedensity)
+  write(*, '(" filepsf             ", a1, "     filepsf      flag for photon strength functions on separate files")') & 
+ &  yesno(filepsf)
+  write(*, '(" filechannels        ", a1, "     filechannels flag for exclusive channel cross sections on separate file")') &
+ &  yesno(filechannels)
+  write(*, '(" fileelastic         ", a1, "     fileelastic  flag for elastic angular distribution on separate file")') &
+ &  yesno(fileelastic)
+  write(*, '(" filefission         ", a1, "     filefission  flag for fission cross sections on separate file")') yesno(filefission)
+  write(*, '(" filegamdis          ", a1, "     filegamdis   flag for gamma-ray intensities on separate file")') yesno(filegamdis)
+  write(*, '(" filerecoil          ", a1, "     filerecoil   flag for recoil spectra on separate file")') yesno(filerecoil)
+  write(*, '(" fileresidual        ", a1, "     fileresidual flag for residual production cross sections on separate file")') &
+ &  yesno(fileresidual)
+  write(*, '(" filetotal           ", a1, "     filetotal    flag for total cross sections on separate file")') yesno(filetotal)
   write(*, '(" components          ", a1, "     flagcompo    flag for output of cross section components")') yesno(flagcompo)
   write(*, '(" endf                ", a1, "     flagendf     flag for information for ENDF-6 file")') yesno(flagendf)
   write(*, '(" endfdetail          ", a1, "     flagendfdet  flag for detailed ENDF-6 information per channel")') yesno(flagendfdet)
