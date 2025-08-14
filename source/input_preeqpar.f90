@@ -42,6 +42,18 @@ subroutine input_preeqpar
 !   Rpinu           ! ratio for two-component matrix element
 !   Rpipi           ! ratio for two-component matrix element
 !   Rspincutpreeq   ! adjustable constant (global) for preequilibrium spin cutoff factor
+!   GMRadjustE      ! adjustable factor for GMR energy
+!   GQRadjustE      ! adjustable factor for GQR energy
+!   LEORadjustE     ! adjustable factor for LEOR energy
+!   HEORadjustE     ! adjustable factor for HEOR energy
+!   GMRadjustG      ! adjustable factor for GMR width
+!   GQRadjustG      ! adjustable factor for GQR width
+!   LEORadjustG     ! adjustable factor for LEOR width
+!   HEORadjustG     ! adjustable factor for HEOR width
+!   GMRadjustD      ! adjustable factor for GMR deformation parameter
+!   GQRadjustD      ! adjustable factor for GQR deformation parameter
+!   LEORadjustD     ! adjustable factor for LEOR deformation parameter
+!   HEORadjustD     ! adjustable factor for HEOR deformation parameter
 ! Variables for reading input lines
 !   inline            ! input line
 !   nlines            ! number of input lines
@@ -97,6 +109,18 @@ subroutine input_preeqpar
   Rpinu = 1.
   Rpipi = 1.
   Rspincutpreeq = 1.
+  GMRadjustE = 1.
+  GQRadjustE = 1.
+  LEORadjustE = 1.
+  HEORadjustE = 1.
+  GMRadjustG = 1.
+  GQRadjustG = 1.
+  LEORadjustG = 1.
+  HEORadjustG = 1.
+  GMRadjustD = 1.
+  GQRadjustD = 1.
+  LEORadjustD = 1.
+  HEORadjustD = 1.
 !
 ! **************** Read input variables *******************
 !
@@ -248,6 +272,66 @@ subroutine input_preeqpar
     endif
     if (key == 'emsdmin')  then
       read(value, * , iostat = istat) Emsdmin
+      if (istat /= 0) call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'gmradjuste')  then
+      read(value, * , iostat = istat) GMRadjustE
+      if (istat /= 0) call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'gqradjuste')  then
+      read(value, * , iostat = istat) GQRadjustE
+      if (istat /= 0) call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'leoradjuste')  then
+      read(value, * , iostat = istat) LEORadjustE
+      if (istat /= 0) call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'heoradjuste')  then
+      read(value, * , iostat = istat) HEORadjustE
+      if (istat /= 0) call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'gmradjustg')  then
+      read(value, * , iostat = istat) GMRadjustG
+      if (istat /= 0) call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'gqradjustg')  then
+      read(value, * , iostat = istat) GQRadjustG
+      if (istat /= 0) call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'leoradjustg')  then
+      read(value, * , iostat = istat) LEORadjustG
+      if (istat /= 0) call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'heoradjustg')  then
+      read(value, * , iostat = istat) HEORadjustG
+      if (istat /= 0) call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'gmradjustd')  then
+      read(value, * , iostat = istat) GMRadjustD
+      if (istat /= 0) call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'gqradjustd')  then
+      read(value, * , iostat = istat) GQRadjustD
+      if (istat /= 0) call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'leoradjustd')  then
+      read(value, * , iostat = istat) LEORadjustD
+      if (istat /= 0) call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'heoradjustd')  then
+      read(value, * , iostat = istat) HEORadjustD
       if (istat /= 0) call read_error(line, istat)
       cycle
     endif
