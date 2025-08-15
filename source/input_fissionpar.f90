@@ -41,6 +41,7 @@ subroutine input_fissionpar
 !   Rfiseps           ! ratio for limit for fission cross section per nucleus
 !   vfiscor           ! adjustable factor for fission path height
 !   rmiufiscor        ! adjustable factor for inertia mass along the fission path
+!   sffactor          ! factor to constrain vfiscor and rmiufiscor by sp. fis. half-life
 !   vfiscoradjust     ! adjustable factor for fission path height
 !   widthc2           ! width of class2 states
 ! All global variables
@@ -104,7 +105,7 @@ subroutine input_fissionpar
   bdampadjust = 1.
   betafiscor = 1.
   betafiscoradjust = 1.
-  rmiufiscor = 1.
+  rmiufiscor = -1.
   rmiufiscoradjust = 1.
   fbaradjust = 1.
   fbarrier = 0.
@@ -122,7 +123,7 @@ subroutine input_fissionpar
   Rfiseps = 1.e-3
   if (flagmassdis) Rfiseps = 1.e-9
   if (flagastro) Rfiseps = 1.e-6
-  vfiscor = 1.
+  vfiscor = -1.
   vfiscoradjust = 1.
   Cnubar1 = 1.
   Cnubar2 = 1.
@@ -156,7 +157,7 @@ subroutine input_fissionpar
       Aact = max(min(A, 255), 225)
       rfiscor = 0.005
       vfiscor(Zix, Nix) = Vf0 - rfiscor * (Aact - 240)
-      if (fismodel == 6) vfiscor(Zix,Nix) = 1.
+      if (fismodel == 6) vfiscor(Zix,Nix) = -1.
       if (Ninit - Nix > 144 .or. fismodel == 5) axtype(Zix, Nix, 1) = 3
       if (fismodel < 5) axtype(Zix, Nix, 2) = 2
       if (fismodel == 6) then
