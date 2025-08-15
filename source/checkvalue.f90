@@ -429,7 +429,7 @@ subroutine checkvalue
     write(*,'(" TALYS-error: Excited level for target not possible for natural targets")')
     stop
   endif
-  if (Lisoinp ==  - 1) then
+  if (Lisoinp ==  -1) then
     call range_integer_error('maxlevelstar', nlevmax, 0, numlev)
     call range_integer_error('maxlevelsres', nlevmaxres, 0, numlev)
     do type = 0, 6
@@ -460,7 +460,7 @@ subroutine checkvalue
     inquire (file = massfile, exist = lexist)
     if (.not.lexist) write(*, '(" TALYS-warning: Non-existent mass file ",a)') trim(massfile)
   endif
-  if (Lisoinp ==  - 1) call range_integer_error('Ltarget', Ltarget, 0, numlev)
+  if (Lisoinp ==  -1) call range_integer_error('Ltarget', Ltarget, 0, numlev)
   call range_integer_error('Liso', Lisoinp, 0, 9, default = -1)
   call range_real_error('isomer', isomer, 0., 1.e38, unit ='s')
   call range_integer_error('core', core, -1, 1)
@@ -495,12 +495,12 @@ subroutine checkvalue
       write(*, '(" TALYS-error: isotope production not yet enabled for incident photons or neutrons)")')
       stop
     endif
-    if (Ebeam ==  - 1.) then
+    if (Ebeam ==  -1.) then
       write(*, '(" TALYS-error: accelerator energy Ebeam must be given for isotope production (production y)")')
       stop
     endif
     call range_real_error('Ebeam', Ebeam, 0., Emaxtalys, unit = 'MeV')
-    if (Eback ==  - 1.) then
+    if (Eback ==  -1.) then
       Eback = max(Ebeam - 5., 0.1)
     else
       call range_real_error('Eback', Eback, 0., Emaxtalys, unit = 'MeV')
@@ -1094,9 +1094,9 @@ subroutine checkvalue
       enddo
       call range_real_error('betafiscor', betafiscor(Zix, Nix), 0.05, 20., default = 0., index1 = Z, name1 = 'Z', &
  &      index2 = A, name2 = 'A')
-      call range_real_error('rmiufiscor', rmiufiscor(Zix, Nix), 0.01, 50., default = 0., index1 = Z, name1 = 'Z', &
+      call range_real_error('rmiufiscor', rmiufiscor(Zix, Nix), 0.01, 50., default = -1., index1 = Z, name1 = 'Z', &
  &      index2 = A, name2 = 'A')
-      call range_real_error('vfiscor', vfiscor(Zix, Nix), 0.05, 20., default = 0., index1 = Z, name1 = 'Z', &
+      call range_real_error('vfiscor', vfiscor(Zix, Nix), 0.05, 20., default = -1., index1 = Z, name1 = 'Z', &
  &      index2 = A, name2 = 'A')
       call range_real_error('betafiscoradjust', betafiscoradjust(Zix, Nix), 0.1, 10., default = 0., index1 = Z, name1 = 'Z', &
  &      index2 = A, name2 = 'A')
@@ -1104,6 +1104,15 @@ subroutine checkvalue
  &      index2 = A, name2 = 'A')
       call range_real_error('rmiufiscoradjust', rmiufiscoradjust(Zix, Nix), 0.01, 50., default = 0., index1 = Z, name1 = 'Z', &
  &      index2 = A, name2 = 'A')
+      if (flagsffactor) then
+        if (rmiufiscor(Zix, Nix) /= -1. .and. vfiscor(Zix, Nix) /= -1.) then
+          write(*,'(" TALYS-error: if sffactor y one can not give both vfiscor and rmiufiscor in the input")')
+          stop
+        endif
+      else
+        if (vfiscor(Zix, Nix) == -1.) vfiscor(Zix, Nix) = 1.
+        if (rmiufiscor(Zix, Nix) == -1.) rmiufiscor(Zix, Nix) = 1.
+      endif
     enddo
   enddo
 !
