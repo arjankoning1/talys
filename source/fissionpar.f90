@@ -5,7 +5,7 @@ subroutine fissionpar(Zix, Nix)
 !
 ! Author    : Stephane Hilaire, Marieke Duijvestijn and Arjan Koning
 !
-! 2021-12-30: Original code
+! 2025-08-15: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -82,7 +82,8 @@ subroutine fissionpar(Zix, Nix)
   integer           :: A           ! mass number of target nucleus
   integer           :: fislocal    ! fission model
   integer           :: i           ! counter
-  integer           :: ia          ! mass number from abundance table
+  integer           :: iz          ! charge number
+  integer           :: ia          ! mass number
   integer           :: il          ! angular momentum
   integer           :: istat       ! logical for file access
   integer           :: j           ! counter
@@ -106,6 +107,8 @@ subroutine fissionpar(Zix, Nix)
   real(sgl)         :: b22         ! help variable
   real(sgl)         :: b30         ! help variable
   real(sgl)         :: rmiu        ! moment of inertia parameter
+  real(sgl)         :: dum         ! dummy variable
+  real(sgl)         :: sff         ! factor to constrain vfiscor and rmiufiscor by sp. fis. half-life
 !
 ! ****************** Read fission barrier parameters *******************
 !
@@ -219,6 +222,28 @@ subroutine fissionpar(Zix, Nix)
   nextr = 0
   iiextr(0)=1
   if (fislocal >= 5) then
+!
+! Possible use of file with spontaneous fission half-life factor to constrain vfiscor and rmiufiscor
+!
+    if (flagsffactor) then
+      sffactor(Zix, Nix) = 0.
+      fisfile = trim(path)//'fission/hfbpath_bskg3/sf_contraints.dat'
+      open (unit = 2, file = fisfile, status = 'old')
+      read(2, '()')
+      do
+        read(2, *, iostat = istat) iz, ia, dum, dum, sff
+        if (istat == -1) exit
+        if (Z == iz .and. A == ia) then
+          sffactor(Zix, Nix) = sff
+          if (vfiscor(Zix, Nix) == -1.) vfiscor(Zix, Nix) = sffactor(Zix, Nix) / rmiufiscor(Zix, Nix)
+          if (rmiufiscor(Zix, Nix) == -1.) rmiufiscor(Zix, Nix) = sffactor(Zix, Nix) / vfiscor(Zix, Nix)
+        endif
+      enddo
+      close (unit = 2)
+    endif
+!
+! Read hfbpath
+!
     nfisbar(Zix, Nix) = 0
     fischar = trim(nuc(Z))//'.fis'
     if (fislocal == 5) fisfile = trim(path)//'fission/hfbpath/'//fischar
