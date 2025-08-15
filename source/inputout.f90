@@ -5,7 +5,7 @@ subroutine inputout
 !
 ! Author    : Arjan Koning
 !
-! 2025-08-07: Original code
+! 2025-08-15: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -152,7 +152,8 @@ subroutine inputout
 !   flagffevap      ! flag for calculation of particle evaporation from fissi
 !   flagffspin      ! flag to use spin distribution in initial FF population
 !   flagfisout      ! flag for output of fission information
-!   flagfispartdamp   ! flag for fission partial damping
+!   flagfispartdamp ! flag for fission partial damping
+!   flagsffactor    ! flag to constrain vfiscor and rmiufiscor by sp. fis. half-life
 !   flagfisfeed     ! flag for output of fission per excitation bin
 !   flagfission     ! flag for fission
 !   flaghbstate     ! flag for head band states in fission
@@ -553,6 +554,8 @@ subroutine inputout
   write(*, '(" hbstate             ", a1, "     flaghbstate  flag for head band states in fission")') yesno(flaghbstate)
   write(*, '(" class2              ", a1, "     flagclass2   flag for class2 states in fission")') yesno(flagclass2)
   write(*, '(" fispartdamp         ", a1, "  flagfispartdamp flag for fission partial damping")') yesno(flagfispartdamp)
+  write(*, '(" sffactor            ", a1, "     flagsffactor flag to constrain vfiscor and rmiufiscor by sp. fis. half-life")') &
+ &  yesno(flagsffactor)
   write(*, '(" massdis             ", a1, "     flagmassdis  flag for calculation of fission fragment mass yields")') &
  &  yesno(flagmassdis)
   write(*, '(" ffevaporation       ", a1, "     flagffevap   flag for calculation of particle evaporation", &
