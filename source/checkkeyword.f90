@@ -20,7 +20,7 @@ subroutine checkkeyword
 ! *** Declaration of local data
 !
   implicit none
-  integer, parameter :: numkey=425        ! number of keywords
+  integer, parameter :: numkey=426        ! number of keywords
   integer            :: i                 ! counter
   integer            :: j                 ! counter
   character(len=132) :: key               ! keyword
@@ -75,8 +75,8 @@ subroutine checkkeyword
  &  'rmiufiscoradjust', 'rnunu', 'rnupi', 'rotational', 'rpevap', 'rpinu', 'rpipi', 'rprime', 'rspincut', 'rspincutff', &
  &  'rspincutpreeq', 'rtransmom', 'rvadjust', 'rvadjustf', 'rvdadjust', &
  &  'rvdadjustf', 'rvsoadjust', 'rvsoadjustf', 'rwadjust', 'rwadjustf', 'rwdadjust', 'rwdadjustf', 'rwsoadjust', 'rwsoadjustf', &
- &  's2adjust', 'sacs', 'segment', 'sfexp', 'sfth', 'sgr', 'sgradjust', 'shellmodel', 'skipcn', 'soswitch', 'soukho', 'source', &
- &  'spherical', 'spincutmodel', 'spr', 'spradjust', 'statepot', 'strength', 'strengthm1', 'strucpath', 'sysreaction', &
+ &  's2adjust', 'sacs', 'segment', 'sfexp', 'sffactor', 'sfth', 'sgr', 'sgradjust', 'shellmodel', 'skipcn', 'soswitch', 'soukho', &
+ &  'source', 'spherical', 'spincutmodel', 'spr', 'spradjust', 'statepot', 'strength', 'strengthm1', 'strucpath', 'sysreaction', &
  &  't', 'tadjust', 'tcool', 'tirrad', 'tjadjust', 'tmadjust', 'transeps', 'transpower', 'tres', 'twocomponent', 'ufermi', &
  &  'upbend', 'upbendc', 'upbendcadjust', 'upbende','upbendeadjust', 'upbendf', 'upbendfadjust', 'urr', 'urrnjoy', 'user', & 
  &  'v1adjust', 'v2adjust', 'v3adjust', 'v4adjust', 'vfiscor', 'vfiscoradjust', 'vinfadjust', 'vso1adjust', 'vso2adjust', &
