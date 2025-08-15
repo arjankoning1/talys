@@ -222,11 +222,12 @@ subroutine partable(Zix, Nix)
     write(51, '("##   fission")')
     write(51, '("##")')
     do ibar = 1, nfisbar(Zix, Nix)
-      if (fismodelx(Zix, Nix) == 5) then
+      if (fismodelx(Zix, Nix) >= 5) then
         if (ibar == 1) then
           write(51, '("betafiscor     ", 2i4, f10.5)') Z, A, betafiscor(Zix, Nix)
           write(51, '("vfiscor        ", 2i4, f10.5)') Z, A, vfiscor(Zix, Nix)
           write(51, '("rmiufiscor     ", 2i4, f10.5)') Z, A, rmiufiscor(Zix, Nix)
+          if (flagsffactor) write(51, '("sffactor       ", 2i4, f10.5)') Z, A, sffactor(Zix, Nix)
           write(51, '("betafiscoradjust ", 2i4, f10.5)') Z, A, betafiscoradjust(Zix, Nix)
           write(51, '("vfiscoradjust  ", 2i4, f10.5)') Z, A, vfiscoradjust(Zix, Nix)
           write(51, '("rmiufiscoradjust ", 2i4, f10.5)') Z, A, rmiufiscoradjust(Zix, Nix)
