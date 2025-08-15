@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2023-12-30: Original code
-! 2025-08-12: Current version
+! 2025-08-15: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -573,6 +573,7 @@ module A0_talys_mod
   logical                                      :: flagfisfeed     ! flag for output of fission per excitation energy bin
   logical                                      :: flagfisout      ! flag for output of fission information
   logical                                      :: flagfispartdamp ! flag for fission partial damping
+  logical                                      :: flagsffactor    ! flag to constrain vfiscor and rmiufiscor by sp. fis. half-life
   logical                                      :: flagfission     ! flag for fission
   logical                                      :: flaghbstate     ! flag for head band states in fission
   logical                                      :: flagoutfy       ! flag for output detailed fission yield calculation
@@ -591,6 +592,7 @@ module A0_talys_mod
   real(sgl), dimension(0:numZ,0:numN)          :: betafiscoradjust! adjustable factor for fission path width
   real(sgl), dimension(0:numZ,0:numN)          :: rmiufiscor      ! adjustable factor for inertia mass along fission path
   real(sgl), dimension(0:numZ,0:numN)          :: rmiufiscoradjust! adjustable factor for inertia mass along fission path
+  real(sgl), dimension(0:numZ,0:numN)          :: sffactor        ! factor to constrain vfiscor and rmiufiscor by sp. fis. half-life
   real(sgl), dimension(0:numZ,0:numN,numbar)   :: fbaradjust      ! adjustable factor for fission parameters
   real(sgl), dimension(0:numZ,0:numN,numbar)   :: fbarrier        ! height of fission barrier
   real(sgl), dimension(0:numZ,0:numN,numbar)   :: fwidth          ! width of fission barrier
