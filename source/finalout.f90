@@ -246,6 +246,18 @@
       write(51, '("Cknock        ", a1, f10.5)') parsym(type), Cknock(type)
       write(51, '("Cbreak        ", a1, f10.5)') parsym(type), Cbreak(type)
     enddo
+    write(51, '("GMRadjustE     ", f10.5)') GMRadjustE
+    write(51, '("GMRadjustG     ", f10.5)') GMRadjustG
+    write(51, '("GMRadjustD     ", f10.5)') GMRadjustD
+    write(51, '("GQRadjustE     ", f10.5)') GQRadjustE
+    write(51, '("GQRadjustG     ", f10.5)') GQRadjustG
+    write(51, '("GQRadjustD     ", f10.5)') GQRadjustD
+    write(51, '("LEORadjustE    ", f10.5)') LEORadjustE
+    write(51, '("LEORadjustG    ", f10.5)') LEORadjustG
+    write(51, '("LEORadjustD    ", f10.5)') LEORadjustD
+    write(51, '("HEORadjustE    ", f10.5)') HEORadjustE
+    write(51, '("HEORadjustG    ", f10.5)') HEORadjustG
+    write(51, '("HEORadjustD    ", f10.5)') HEORadjustD
     write(51, '("## General parameters:")')
     write(51, '("##   fission")')
     write(51, '("fismodel       ", i1)') fismodel
