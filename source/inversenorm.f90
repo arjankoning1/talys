@@ -54,7 +54,7 @@ subroutine inversenorm(Zcomp, Ncomp)
   real(sgl) :: tripathi                     ! function for semi-empirical reaction cross section of
   real(sgl) :: xs                           ! help variable
   real(sgl) :: xsprev                       ! help variable
-  real(sgl) :: xstripathi(numen)            ! help variable
+  real(sgl) :: xstripathi(0:numen)          ! help variable
 !
 ! ************ Normalization with semi-empirical results ***************
 !
