@@ -133,6 +133,8 @@ subroutine gammaout(Zcomp, Ncomp)
       endif
     endif
   endif
+  modelE1 = ''
+  modelM1 = ''
   write(*, '(/" ########## GAMMA STRENGTH FUNCTIONS, TRANSMISSION COEFFICIENTS AND CROSS SECTIONS ##########")')
   write(*, '(/" Gamma-ray information for Z=", i3, " N=", i3, " (", i3, a2, ") "/)') Z, N, A, nuc(Z)
   if (strength == 1) modelE1 = "Kopecky-Uhl              "
@@ -153,11 +155,11 @@ subroutine gammaout(Zcomp, Ncomp)
   if (strengthM1 == 4) modelM1 = "RIPL-2+Scissors Kawano   "
   if (strengthM1 == 8) modelM1 = "Gogny D1M HFB+QRPA Tables"
   if (strengthM1 == 10) modelM1 = "BSk27+QRPA 2018 Tables   "
-  if (strength == 11) modelM1 = "D1M-Intra-M1             "
-  if (strength == 12) modelM1 = "Shellmodel-M1            "
+  if (strengthM1 == 11) modelM1 = "D1M-Intra-M1             "
+  if (strengthM1 == 12) modelM1 = "Shellmodel-M1            "
   write(*, '(" Gamma-ray strength function model for E1: ", a25)') modelE1
   write(*, '(" Gamma-ray strength function model for M1: ", a25,/)') modelM1
-  do l = 1, gammax
+  do l= 1, gammax
 !
 ! Output on separate files
 !
