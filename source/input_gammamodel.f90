@@ -5,7 +5,7 @@ subroutine input_gammamodel
 !
 ! Author    : Arjan Koning
 !
-! 2021-12-30: Original code
+! 2025-08-23: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -70,6 +70,8 @@ subroutine input_gammamodel
   strengthM1 = 3
   if (strength == 8) strengthM1 = 8
   if (strength == 10) strengthM1 = 10
+  if (strength == 11) strengthM1 = 11
+  if (strength == 12) strengthM1 = 12
   if (strength <= 2) strengthM1 = 2
   ldmodelracap = 3
 !
