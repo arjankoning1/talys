@@ -55,8 +55,7 @@ subroutine densitytable(Zix, Nix)
   integer           :: ibar             ! fission barrier
   integer           :: istat            ! error code
   integer           :: J                ! spin of level
-  integer           :: JJ               ! help variable
-  integer           :: Jmid             ! help variable
+  integer           :: Jtop             ! help variable
   integer           :: ldmod            ! level density model
   integer           :: nex              ! excitation energy bin of compound nucleus
   integer           :: Nix              ! neutron number index for residual nucleus
@@ -71,8 +70,6 @@ subroutine densitytable(Zix, Nix)
   real(sgl)         :: Ktriax           ! level density enhancement factor for triaxial shapes
   real(sgl)         :: spincut          ! spin cutoff factor
   real(sgl)         :: term             ! help variable
-  real(sgl)         :: dJ               ! help variable
-  real(sgl)         :: Jold             ! help variable
   real(sgl)         :: factor           ! help variable
   real(dbl)         :: sumJ             ! help variable
   real(dbl)         :: Rsum             ! help variable
@@ -178,8 +175,8 @@ Loop1: do parity = 1, ploop, -2
 !
               if ((Rspincut /= 1. .or. s2adjust(Zix,Nix,ibar) /= 1.) .and. ldtot > 0.) then
                 jt=Rspincut * s2adjust(Zix,Nix,ibar)
-                Jmid=0
                 Rsum=0.
+                Rdis=0.
                 do J=0,numJ
                   Rdis(J)=ld2j1(J)/ldtot
                   Rsum=Rsum+Rdis(J)
@@ -188,23 +185,17 @@ Loop1: do parity = 1, ploop, -2
                   do J=0,numJ
                     Rdis(J)=Rdis(J)/Rsum
                   enddo
-                  sumJ=0.
-                  do J=0,numJ
-                    sumJ=sumJ+Rdis(J)
-                    if (sumJ >= 0.5) then
-                      Jmid=max(J-1,0)
-                      exit
-                    endif
+                  Jtop=0
+                  do J=1,numJ
+                    if (Rdis(J) > Rdis(Jtop)) Jtop = J
                   enddo
                   sumJ=0.
                   Rdisnew=0.
+!
+! Use exponential squeezing function
+!
                   do J = 0, numJ - 1
-                    dJ=real(J-Jmid)
-                    Jold=Jmid+dJ/jt
-                    JJ=int(Jold)
-                    if (JJ < 0) cycle
-                    if (JJ > 28) cycle
-                    Rd=Rdis(JJ)+(Jold-JJ)*(Rdis(JJ+1)-Rdis(JJ))
+                    Rd = Rdis(Jtop) * (Rdis(J)/Rdis(Jtop))** (1./jt)
                     Rdisnew(J)=Rd
                     sumJ=sumJ+Rdisnew(J)
                   enddo
