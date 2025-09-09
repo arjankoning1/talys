@@ -6,7 +6,7 @@ subroutine checkkeyword
 ! Author    : Arjan Koning
 !
 ! 2021-12-30: Original code
-! 2025-08-12: Latest version
+! 2025-09-04: Latest version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -20,7 +20,7 @@ subroutine checkkeyword
 ! *** Declaration of local data
 !
   implicit none
-  integer, parameter :: numkey=426        ! number of keywords
+  integer, parameter :: numkey=427        ! number of keywords
   integer            :: i                 ! counter
   integer            :: j                 ! counter
   character(len=132) :: key               ! keyword
@@ -57,8 +57,8 @@ subroutine checkkeyword
  &  'gnadjust', 'gnfit', 'gnorm', 'gp', 'gpadjust', 'gpr', 'gpradjust', 'gqradjustd', 'gqradjuste', 'gqradjustg', 'group',  &
  &  'gshell', 'hbstate', 'hbtransfile', 'heoradjustd', 'heoradjuste', 'heoradjustg', 'ibeam', 'incadjust', &
  &  'inccalc', 'integral', 'isomer', 'jlmmode', 'jlmomp', 'kph', 'krotconstant', 'kvibmodel', 'labddx', 'ldmodel', 'ldmodelcn',  &
- &  'ldmodelracap', 'leoradjustd', 'leoradjuste', 'leoradjustg', 'levelfile', 'levinger', 'liso', 'localomp', 'ltarget', 'lurr', &
- &  'lv1adjust', 'lvadjust', 'lvsoadjust', &
+ &  'ldmodelracap', 'legacy', 'leoradjustd', 'leoradjuste', 'leoradjustg', 'levelfile', 'levinger', 'liso', 'localomp', 'ltarget', &
+ &  'lurr', 'lv1adjust', 'lvadjust', 'lvsoadjust', &
  &  'lw1adjust', 'lwadjust', 'lwsoadjust', 'm1file', 'm2constant', 'm2limit', 'm2shift', 'macsfit', 'mass', 'massdir', &
  &  'massdis', 'massexcess', 'massmodel', 'massnucleus', 'maxband', 'maxchannel', 'maxenrec', 'maxlevelsbin', 'maxlevelsres', &
  &  'maxlevelstar', 'maxn', 'maxnrp', 'maxrot', 'maxz', 'maxzrp', 'micro', 'mpreeqmode', 'msdbins', 'multipreeq', 'nafit', &
