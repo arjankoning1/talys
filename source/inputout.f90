@@ -5,7 +5,7 @@ subroutine inputout
 !
 ! Author    : Arjan Koning
 !
-! 2025-08-15: Original code
+! 2025-09-04: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -56,6 +56,7 @@ subroutine inputout
 !   flagrecoilav    ! flag for average velocity in recoil calculation
 !   flagrel         ! flag for relativistic kinematics
 !   flagrpevap      ! flag for evaporation of residual products at high incident energies
+!   flaglegacy      ! flag to run legacy models
 ! Variables for best files
 !   flagbest        ! flag to use best set of adjusted parameters
 !   flagbestend     ! flag to put best set of parameters at end of input file
@@ -369,6 +370,7 @@ subroutine inputout
   write(*, '(" Estop            ", f8.3, " Estop        incident energy above which TALYS stops")') Estop
   write(*, '(" rpevap              ", a1, "     flagrpevap   flag for evaporation of residual products at high", &
  &  " incident energies")') yesno(flagrpevap)
+  write(*, '(" legacy              ", a1, "     flaglegacy   flag to run legacy models")') yesno(flaglegacy)
   write(*, '(" maxZrp            ", i3, "     maxZrp       maximal number of protons from the initial", &
  &  " compound nucleus before residual evaporation")') maxZrp
   write(*, '(" maxNrp            ", i3, "     maxNrp       maximal number of neutrons from the initial", &
