@@ -35,6 +35,7 @@ subroutine input_basicreac
 !   flagrecoilav     ! flag for average velocity in recoil calculation
 !   flagrel          ! flag for relativistic kinematics
 !   flagrpevap       ! flag for evaporation of residual products at high incident energies
+!   flaglegacy       ! flag to run legacy models
 !   flagrpruns       ! flag to designate that run is for residual product
 !   ompenergyfile    ! file with energies for OMP calculation (ENDF files only)
 ! Variables for reading input lines
@@ -83,6 +84,7 @@ subroutine input_basicreac
   flagrecoilav = .false.
   flagrel = .true.
   flagrpevap = .false.
+  flaglegacy = .false.
   ompenergyfile = ' '
 !
 ! **************** Read input variables *******************
@@ -213,6 +215,12 @@ loop1:  do i = 1, nlines
     if (key == 'rpevap') then
       if (ch == 'n') flagrpevap = .false.
       if (ch == 'y') flagrpevap = .true.
+      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'legacy') then
+      if (ch == 'n') flaglegacy = .false.
+      if (ch == 'y') flaglegacy = .true.
       if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
       cycle
     endif
