@@ -5,7 +5,7 @@ subroutine checkvalue
 !
 ! Author    : Arjan Koning
 !
-! 2026-06-16: Current version
+! 2025-09-04: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -794,6 +794,16 @@ subroutine checkvalue
     write(*,'(" TALYS-error: strengthM1 = 1, 2, 3, 4, 8, 10, 11 or 12")')
     stop
   endif
+  if (.not. flaglegacy) then
+    if (strength <= 7) then
+      write(*,'(" TALYS-error: strength = 8, 9, 10, 11 or 12 are recommended. If you want to use legacy models put legacy y")')
+      stop
+    endif
+    if (strengthM1 /= 3 .and. strengthM1 /= 8 .and. strengthM1 /= 10 .and. strengthM1 /= 11 .and. strengthM1 /= 12) then
+      write(*,'(" TALYS-error: strengthM1 = 3, 8, 10, 11 or 12 are recommended. If you want to use legacy models put legacy y")')
+      stop
+    endif
+  endif
   do Zix = 0, numZ
     do Nix = 0, numN
       Z = Zinit - Zix
@@ -934,11 +944,23 @@ subroutine checkvalue
   call range_integer_error('shellmodel', shellmodel, 1, 2)
   call range_integer_error('kvibmodel', kvibmodel, 1, 2)
   call range_integer_error('ldmodelcn', ldmodelCN, 1, 8)
+  if (.not. flaglegacy) then
+    if (ldmodelCN == 3 .or. ldmodelCN == 4 .or. ldmodelCN == 6) then
+      write(*,'(" TALYS-error: ldmodelCN = 1, 2, 5, 7 or 8 are recommended. If you want to use legacy models put legacy y")')
+      stop
+    endif
+  endif
   do Zix = 0, numZ
     do Nix = 0, numN
       Z = Zinit - Zix
       A = Ainit - Zix - Nix
       call range_integer_error('ldmodel', ldmodel(Zix, Nix), 1, 8, index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
+      if (.not. flaglegacy) then
+        if (ldmodel(Zix, Nix) == 3 .or. ldmodel(Zix, Nix) == 4 .or. ldmodel(Zix, Nix) == 6) then
+          write(*,'(" TALYS-error: ldmodel = 1, 2, 5, 7 or 8 are recommended. If you want to use legacy models put legacy y")')
+          stop
+        endif
+      endif
       if (ldmodel(Zix, Nix) >= 4) then
         inquire (file = trim(path) // 'density/ground/hilaire/Sn.tab', exist = lexist)
         if ( .not. lexist) then
