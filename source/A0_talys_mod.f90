@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2023-12-30: Original code
-! 2025-08-23: Current version
+! 2025-09-09: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -235,6 +235,7 @@ module A0_talys_mod
   logical                                         :: flagrecoilav  ! flag for average velocity in recoil calculation
   logical                                         :: flagrel       ! flag for relativistic kinematics
   logical                                         :: flagrpevap    ! flag for eva. of residual products at high incident energies
+  logical                                         :: flaglegacy    ! flag to run legacy models
   character(len=132)                              :: ompenergyfile ! file with energies for OMP calculation (ENDF files only)
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
