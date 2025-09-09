@@ -271,3 +271,20 @@ LEOR, HEOR giant resonance for collective excitations in the continuum.
 Added a keyword 'sffactor' to constrain the rmiufiscor and vfiscor
 parameters for fission.
 
+September 2 2025
+
+Added tables with level density parameters for different values of 
+the spin distribution in the structure database, and changed 
+densitypar.f90 for this.
+
+August 30 2025
+
+Introduced a keyword 'legacy' to only include well validated nuclear
+models. At the moment the code stops and gives a warning for various
+SPF and level density models. Putting 'legacy y' will let TALYS run
+like it used to.
+
+September 9 2025
+
+Used exponential squeezing function to squeeze or widen spin distribution 
+for tabulated level densities.
