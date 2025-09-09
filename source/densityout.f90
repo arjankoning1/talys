@@ -121,6 +121,7 @@ subroutine densityout(Zix, Nix)
   real(sgl)         :: x7(numlev2)
   real(sgl)         :: x8(numlev2)
   real(sgl)         :: rJ
+  real(sgl)         :: Rd
   real(sgl)         :: ignatyuk      ! function for energy dependent level density parameter a
   real(sgl)         :: Kcoll         ! total collective enhancement
   real(sgl)         :: Krot          ! rotational enhancement factor
@@ -252,6 +253,7 @@ subroutine densityout(Zix, Nix)
     call write_integer(id4,'Ntop',Ntop(Zix, Nix, ibar))
     call write_real(id4,'ctable',ctable(Zix, Nix, ibar))
     call write_real(id4,'ptable',ptable(Zix, Nix, ibar))
+    call write_real(id4,'s2adjust',s2adjust(Zix, Nix, ibar))
     if (ibar == 0) then
       call write_real(id4,'experimental D0 [eV]',D0(Zix, Nix))
       call write_real(id4,'experimental D0 unc. [eV]',dD0(Zix, Nix))
@@ -411,7 +413,8 @@ subroutine densityout(Zix, Nix)
         Eex = edens(nex)
         ldtotP = densitytotP(Zix, Nix, Eex, parity, ibar, ldmod)
         do J = 0, numJ
-          Rdist(nex, parity, J) = density(Zix, Nix, Eex, real(J + 0.5 * odd), parity, ibar, ldmod) / ldtotP
+          Rd = density(Zix, Nix, Eex, real(J + 0.5 * odd), parity, ibar, ldmod) / ldtotP
+          if (Rd > 1.e-20) Rdist(nex, parity, J) = Rd
         enddo
       enddo
     enddo
