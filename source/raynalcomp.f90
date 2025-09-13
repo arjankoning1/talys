@@ -64,7 +64,6 @@ subroutine raynalcomp
 !   anginc         ! angle increment
 !   ecis1          ! 50 input flags ('T' or 'F') for ECIS
 !   ecis2          ! 50 input flags ('T' or 'F') for ECIS
-!   hint           ! integration step size h
 !   iterm          ! number of iterations
 !   ncoll          ! number of nuclear states
 !   njmax          ! maximal number of j - values in ECIS
@@ -231,7 +230,6 @@ Loop1:  do type = 1, 6
   ncoll = 1
   iterm = 1
   npp = ilevel + 1
-  hint = 0.
   rmatch = 0.
   nsp1 = ilevel
   nsp2 = ilevel - ildens
@@ -271,10 +269,10 @@ Loop1:  do type = 1, 6
 !
   if (flagoutecis) then
     call ecist('eciscomp.inp ', 'eciscomp.out ', 'ecis.comcs   ', 'ecis.comin   ', 'null         ', &
-      'ecis.comang  ', 'ecis.comleg  ')
+      'ecis.comang  ', 'ecis.comleg  ', 'null         ')
   else
     call ecist('eciscomp.inp ', nulldev, 'ecis.comcs   ', 'ecis.comin   ', 'null         ', &
-      'ecis.comang  ', 'ecis.comleg  ')
+      'ecis.comang  ', 'ecis.comleg  ', 'null         ')
   endif
   return
 end subroutine raynalcomp
