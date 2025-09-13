@@ -332,6 +332,7 @@ subroutine checkvalue
 !   w4adjust          ! adjustable factor for OMP (default 1.)
 !   wso1adjust        ! adjustable factor for OMP (default 1.)
 !   wso2adjust        ! adjustable factor for OMP (default 1.)
+!   ecisstep          ! integration step size for ECIS OMP calculation
 ! Variables for files
 !   path              ! directory containing files to be read
 ! Constants
@@ -698,6 +699,7 @@ subroutine checkvalue
     call range_real_error('wso1adjust', wso1adjust(type), 0.1, 10., index1 = type, name1 = 'type')
     call range_real_error('wso2adjust', wso2adjust(type), 0.1, 10., index1 = type, name1 = 'type')
     call range_real_error('rcadjust', rcadjust(type), 0.1, 10., index1 = type, name1 = 'type')
+    call range_real_error('ecisstep', ecisstep, 0.01, 1., default = 0.)
     do omptype = 1, numompadj
       do nr = 1, ompadjustN(type, omptype)
         call range_real_error('ompadjustE1', ompadjustE1(type, omptype, nr), 0., Emaxtalys, &
