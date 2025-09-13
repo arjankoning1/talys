@@ -5,7 +5,7 @@ subroutine incidentread
 !
 ! Author    : Arjan Koning, Eric Bauge and Pascal Romain
 !
-! 2021-12-30: Original code
+! 2025-09-10: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -65,19 +65,30 @@ subroutine incidentread
 ! *** Declaration of local data
 !
   implicit none
+  integer, parameter:: numpot=20000   ! number of OMP radial points for output
   character(len=72) :: line           ! input line
+  character(len=132):: string        ! input line
+  character(len=21) :: optfile    ! file with optical potential
+  character(len=12) :: Estr
+  character(len=132):: topline    ! topline
+  character(len=15) :: col(5)     ! header
+  character(len=15) :: un(5)     ! header
+  character(len=80) :: quantity   ! quantity
   integer           :: i              ! counter
   integer           :: iang           ! running variable for angle
   integer           :: ii             ! counter
+  integer           :: ix             ! index
   integer           :: infileang      ! file with angular distributions
   integer           :: infilecs       ! file with total cross sections
   integer           :: infilein       ! file with inelastic cross sections
   integer           :: infileleg      ! file with Legendre coefficients
   integer           :: infiletr       ! file with transmission coefficients
+  integer           :: infilepot      ! file with optical model potentials 
   integer           :: ispin          ! spin index
   integer           :: ist            ! counter
   integer           :: istat          ! logical for file access
   integer           :: itype          ! help variable
+  integer           :: N              ! help variable
   integer           :: k              ! designator for particle
   integer           :: l              ! multipolarity
   integer           :: lev            ! level number
@@ -87,12 +98,26 @@ subroutine incidentread
   integer           :: nS             ! number of states
   integer           :: nSt            ! number of states
   integer           :: Zix            ! charge number index for residual nucleus
+  integer           :: iR(numpot)     ! help variable
+  integer           :: indent
+  integer           :: id2
+  integer           :: Ncol
+  integer           :: A              ! mass number of target nucleus
+  integer           :: Z              ! charge number of target nucleus
   real(sgl)         :: eps            ! help variable
   real(sgl)         :: factor         ! multiplication factor
   real(sgl)         :: groundspin2    ! 2 * spin of ground state
   real(sgl)         :: jres           ! j-value
+  real(sgl)         :: step           ! ECIS radius step size for potential
   real(sgl)         :: rj             ! help variable
   real(sgl)         :: xsr            ! help variable
+  real(sgl)         :: Rpo(numpot)    ! help variable
+  real(sgl)         :: Ipo(numpot)    ! help variable
+  real(sgl)         :: radpot(0:numpot) ! radial point for OMP
+  real(sgl)         :: Rpot(0:numpot)   ! real central potential
+  real(sgl)         :: Ipot(0:numpot)   ! imaginary central potential
+  real(sgl)         :: Rsopot(0:numpot) ! real spin-orbit potential
+  real(sgl)         :: Isopot(0:numpot) ! imaginary spin-orbit potential
   real(dbl)         :: ddl            ! direct reaction Legendre coefficient
   real(dbl)         :: Tcoef          ! transmission coefficients as a function of spin and  l-value
   real(dbl)         :: teps           ! help variable
@@ -108,16 +133,19 @@ subroutine incidentread
     open (unit = 8, status = 'unknown', file = 'ecis.incang')
     open (unit = 9, status = 'unknown', file = 'ecis.incleg')
     open (unit = 10, status = 'unknown', file = 'ecis.incin')
+    open (unit = 11, status = 'unknown', file = 'ecis.pot')
     infilecs = 3
     infiletr = 7
     infileang = 8
     infileleg = 9
     infilein = 10
+    infilepot = 11
     open (unit = 13, status = 'unknown', file = 'incident.cs')
     open (unit = 17, status = 'unknown', file = 'incident.tr')
     open (unit = 18, status = 'unknown', file = 'incident.ang')
     open (unit = 19, status = 'unknown', file = 'incident.leg')
     open (unit = 20, status = 'unknown', file = 'incident.in')
+    open (unit = 21, status = 'unknown', file = 'incident.pot')
     do
       read(3, '(a72)', iostat = istat) line
       if(istat == -1) exit
@@ -148,12 +176,19 @@ subroutine incidentread
       write(20, '(a72)') line
     enddo
     rewind 10
+    do
+      read(11, '(a72)', iostat = istat) line
+      if(istat == -1) exit
+      write(21, '(a72)') line
+    enddo
+    rewind 11
   else
     infilecs = 13
     infiletr = 17
     infileang = 18
     infileleg = 19
     infilein = 20
+    infilepot = 21
   endif
   read(infilecs, '()')
   if (k0 == 1) then
@@ -357,6 +392,102 @@ subroutine incidentread
     xsdirdiscsum = xsdirdisctot(k0)
   endif
 !
+! ******************* Read optical model potentials ********************
+!
+  k = 0
+  radpot = 0.
+  Rpot = 0.
+  Ipot = 0.
+  Rsopot = 0.
+  Isopot = 0.
+  do
+    read(infilepot, '(a)', iostat = istat) string
+    if (istat == -1) exit
+    ix = index(string,'integration')
+    if (ix > 0) read(string(25:32),'(f8.5)') step
+    ix = index(string,'central')
+    if (ix > 0) then
+      if (k == 0) Npot = 0
+      k = 1
+    endif
+    ix = index(string,'real spin')
+    if (ix > 0) then
+      if (k == 1) N = 0
+      k = 2
+    endif
+    ix = index(string,'imaginary spin')
+    if (ix > 0) then
+      if (k == 2) N = 0
+      k = 3
+    endif
+    if (k == 1) then
+      read(string, '(3(i10, 2es14.5, 2x))', iostat = istat) (iR(i), Rpo(i), Ipo(i), i = 1, 3)
+      if (istat /= 0) cycle
+      if (iR(1) == 0) cycle
+      if (Npot <= numpot - 3) then
+        do i = 1, 3
+          radpot(Npot + i) = iR(i) * step
+          Rpot(Npot + i) = Rpo(i)
+          Ipot(Npot + i) = Ipo(i)
+        enddo
+        Npot  = Npot  + 3
+      endif
+    endif
+    if (k >= 2) then
+      read(string, '(6(i6, es14.5))', iostat = istat) (iR(i), Rpo(i), i = 1, 6)
+      if (istat /= 0) cycle
+      if (iR(1) == 0) cycle
+      if (k == 2) then
+        if (N <= numpot - 6) then
+          do i = 1, 6
+            Rsopot(N + i) = Rpo(i)
+          enddo
+        endif
+      else
+        if (N <= numpot - 6) then
+          do i = 1, 6
+            Isopot(N + i) = Rpo(i)
+          enddo
+        endif
+      endif
+      N  = N  + 6
+    endif
+  enddo
+  indent = 0
+  id2 = indent + 2
+  optfile='optE0000.000.'//parsym(k0)
+  write(optfile(5:12), '(f8.3)') Einc
+  write(optfile(5:8), '(i4.4)') int(Einc)
+  if (flagoutomp) then
+    Z = ZZ(0, 0, k0)
+    A = AA(0, 0, k0)
+    Estr=''
+    write(Estr,'(es12.6)') Einc
+    un = 'MeV'
+    col(1) = 'radius'
+    un(1) = 'fm'
+    col(2) = 'V'
+    col(3) = 'W'
+    col(4) = 'Vso'
+    col(5) = 'Wso'
+    Ncol = 5
+    optfile='optE0000.000.'//parsym(k0)
+    write(optfile(5:12), '(f8.3)') Einc
+    write(optfile(5:8), '(i4.4)') int(Einc)
+    quantity='optical potential'
+    open (unit=1, file=optfile, status='unknown')
+    topline=trim(targetnuclide)//' '//parname(k0)//' optical potential at '//Estr//' MeV'
+    call write_header(indent,topline,source,user,date,oformat)
+    call write_target(indent)
+    call write_quantity(id2,quantity)
+    call write_datablock(id2,Ncol,Npot,col,un)
+    do i = 1, Npot
+      write(1, '(5es15.6)') radpot(i), Rpot(i), Ipot(i), Rsopot(i), Isopot(i)
+    enddo
+    close(unit = 1)
+    call write_outfile(optfile,flagoutall)
+  endif
+!
 ! Close files
 !
   close (unit = 3, status = ecisstatus)
@@ -364,12 +495,14 @@ subroutine incidentread
   close (unit = 8, status = ecisstatus)
   close (unit = 9, status = ecisstatus)
   close (unit = 10, status = ecisstatus)
+  close (unit = 11, status = ecisstatus)
   if (nin == Ninc) then
     close (unit = 13, status = ecisstatus)
     close (unit = 17, status = ecisstatus)
     close (unit = 18, status = ecisstatus)
     close (unit = 19, status = ecisstatus)
     close (unit = 20, status = ecisstatus)
+    close (unit = 21, status = ecisstatus)
   endif
   return
 end subroutine incidentread
