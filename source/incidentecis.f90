@@ -82,7 +82,6 @@ subroutine incidentecis
 !   ecis2          ! 50 input flags ('T' or 'F') for ECIS
 !   efer           ! Fermi energy
 !   Elevel         ! energy of level
-!   hint           ! integration step size h
 !   iband          ! band number of level
 !   idvib          ! identifier for existence of vibrational state inside rotational
 !   iph            ! help variable
@@ -152,21 +151,12 @@ subroutine incidentecis
   logical            :: vibrational    ! flag for vibrational input
   character(len=132) :: inelfile       ! file for inelastic scattering cross sections
   character(len=132) :: outfile        ! output file
-  character(len=21) :: optfile    ! file with optical potential
-  character(len=12) :: Estr
-  character(len=132) :: topline    ! topline
-  character(len=15) :: col(5)     ! header
-  character(len=15) :: un(5)     ! header
-  character(len=80) :: quantity   ! quantity
-  integer            :: A              ! mass number of target nucleus
   integer            :: i              ! counter
+  integer            :: A              ! mass number of target nucleus
+  integer            :: Z              ! charge number of target nucleus
   integer            :: i1             ! value
   integer            :: ii             ! counter
-  integer            :: Ncol
-  integer            :: indent
-  integer            :: id2
   integer            :: Nix            ! neutron number index for residual nucleus
-  integer            :: Z              ! charge number of target nucleus
   integer            :: Zix            ! charge number index for residual nucleus
   real(sgl)          :: Ein            ! incident energy
 !
@@ -174,12 +164,9 @@ subroutine incidentecis
 !
 ! Specific ECIS flags:
 !
-  indent = 0
-  id2 = indent + 2
   if (flaginccalc) open (unit = 9, file = 'ecisinc.inp', status = 'unknown')
   legendre = .true.
   Ein = Einc
-  hint = 0.
   rmatch = 0.
 !
 ! We use a simple formula to estimate the required number of j-values:
@@ -229,7 +216,6 @@ subroutine incidentecis
       ecis1(15:15) = 'T'
       ecis1(29:29) = 'T'
       ecis1(41:41) = 'T'
-      hint = 0.1
       rmatch = 18.
       nrad = 182
       njmax = 1600
@@ -334,6 +320,7 @@ subroutine incidentecis
 ! Output of optical model parameters, if requested.
 !
   if (flagoutomp) then
+    ecis2(1:1) = 'T'
     Z = ZZ(0, 0, k0)
     A = AA(0, 0, k0)
     if (jlmexist(0, 0, k0)) then
@@ -344,33 +331,11 @@ subroutine incidentecis
         call foldalpha(Zix, Nix, Ein)
         write(*, '(/" +++++++++ DOUBLE FOLDING OPTICAL MODEL POTENTIAL FOR INCIDENT CHANNEL ++++++++++",/)')
       endif
-      Estr=''
-      write(Estr,'(es12.6)') Einc
-      un = 'MeV'
-      col(1) = 'radius'
-      un(1) = 'fm'
-      col(2) = 'V'
-      col(3) = 'W'
-      col(4) = 'Vso'
-      col(5) = 'Wso'
-      Ncol = 5
-      optfile='optE0000.000.'//parsym(k0)
-      write(optfile(5:12), '(f8.3)') Einc
-      write(optfile(5:8), '(i4.4)') int(Einc)
-      quantity='optical potential'
-      open (unit=1, file=optfile, status='unknown')
-      topline=trim(targetnuclide)//' '//parname(k0)//' optical potential at '//Estr//' MeV'
-      call write_header(indent,topline,source,user,date,oformat)
-      call write_target(indent)
-      call write_quantity(id2,quantity)
-      call write_datablock(id2,Ncol,numjlm,col,un)
-      do i = 1, numjlm
-        write(1, '(5es15.6)') radjlm(Zix, Nix, i), normjlm(Zix, Nix, 1) * potjlm(Zix, Nix, i, 1), &
- &        normjlm(Zix, Nix, 2) * potjlm(Zix, Nix, i, 2), normjlm(Zix, Nix, 5) * potjlm(Zix, Nix, i, 5), &
- &        normjlm(Zix, Nix, 6) * potjlm(Zix, Nix, i, 6)
-      enddo
-      close(unit = 1)
-      call write_outfile(optfile,flagoutall)
+!     do i = 1, numjlm
+!       write(1, '(5es15.6)') radjlm(Zix, Nix, i), normjlm(Zix, Nix, 1) * potjlm(Zix, Nix, i, 1), &
+!&        normjlm(Zix, Nix, 2) * potjlm(Zix, Nix, i, 2), normjlm(Zix, Nix, 5) * potjlm(Zix, Nix, i, 5), &
+!&        normjlm(Zix, Nix, 6) * potjlm(Zix, Nix, i, 6)
+!     enddo
     else
       write(*, '(/" +++++++++ OPTICAL MODEL PARAMETERS FOR INCIDENT CHANNEL ++++++++++")')
       write(*, '(/11x, a8, " on ", i3, a2/)') parname(k0), A, nuc(Z)
@@ -401,7 +366,7 @@ subroutine incidentecis
   else
     outfile = nulldev
   endif
-  call ecist('ecisinc.inp  ', outfile, 'ecis.inccs   ', inelfile, 'ecis.inctr   ', 'ecis.incang  ', 'ecis.incleg  ')
+  call ecist('ecisinc.inp  ',outfile,'ecis.inccs   ',inelfile,'ecis.inctr   ','ecis.incang  ','ecis.incleg  ','ecis.pot     ')
   open (unit = 9, file = 'ecisinc.inp', status = 'unknown')
   close (unit = 9, status = ecisstatus)
   return
