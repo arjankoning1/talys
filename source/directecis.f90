@@ -64,7 +64,6 @@ subroutine directecis
 !   efer           ! Fermi energy
 !   Elevel         ! energy of level
 !   flagecisinp    ! flag for existence of ecis input file
-!   hint           ! integration step size h
 !   iband          ! band number of level
 !   idvib          ! identifier for existence of vibrational state inside rotational model
 !   iph            ! help variable
@@ -145,7 +144,6 @@ subroutine directecis
   else
     npp = 1
   endif
-  hint = 0.
   rmatch = 0.
 !
 ! We use a simple formula to estimate the required number of j-values:
@@ -262,7 +260,8 @@ subroutine directecis
   else
     outfile = nulldev
   endif
-  call ecist('ecisdisc.inp ', outfile, 'ecis.dircs   ', 'ecis.dirin   ', 'null         ', 'ecis.dirang  ', 'ecis.dirleg  ')
+  call ecist('ecisdisc.inp ', outfile, 'ecis.dircs   ', 'ecis.dirin   ', 'null         ', 'ecis.dirang  ', 'ecis.dirleg  ', &
+ &  'null         ')
   open (unit = 9, file = 'ecisdisc.inp', status = 'unknown')
   close (unit = 9, status = ecisstatus)
   return
