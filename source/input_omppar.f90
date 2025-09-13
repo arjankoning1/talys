@@ -67,6 +67,7 @@ subroutine input_omppar
 !   wso1adjust       ! adjustable factor for OMP (default 1.)
 !   wso2adjust       ! adjustable factor for OMP (default 1.)
 !   pruittset        ! random set for Pruitt et al OMP
+!   ecisstep         ! integration step size for ECIS OMP calculation
 ! Constants
 !   parsym            ! symbol of particle
 ! Variables for reading input lines
@@ -169,8 +170,10 @@ subroutine input_omppar
   adepthcor = 1.
   pruittset = 0
   if (flagjlm) then
+    ecisstep = 0.1
     flagspher = .true.
   else
+    ecisstep = 0.
     flagspher = .false.
   endif
   if (k0 > 2) flagspher = .true.
@@ -612,6 +615,11 @@ loop1:  do i = 1, nlines
         adepthcor = val
         ompadjustp(6) = .true.
       endif
+      cycle
+    endif
+   if (key == 'ecisstep') then
+      read(value, * , iostat = istat) ecisstep
+      if (istat /= 0) call read_error(line, istat)
       cycle
     endif
     if (key == 'pruittset') then
