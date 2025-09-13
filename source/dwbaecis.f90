@@ -46,7 +46,6 @@ subroutine dwbaecis
 !   anginc          ! angle increment
 !   ecis1           ! 50 input flags ('T' or 'F') for ECIS
 !   ecis2           ! 50 input flags ('T' or 'F') for ECIS
-!   hint            ! integration step size h
 !   iterm           ! number of iterations
 !   ncoll           ! number of nuclear states
 !   njmax           ! maximal number of j - values in ECIS
@@ -91,7 +90,6 @@ subroutine dwbaecis
   ncoll = maxJmsd + 2
   iterm = 1
   npp = 3
-  hint = 0.
   rmatch = 15.
 !
 ! We use a simple formula to estimate the required number of j-values:
@@ -236,7 +234,7 @@ subroutine dwbaecis
         outfile = nulldev
       endif
       call ecist('ecisdwba.inp ', outfile, 'ecis.msdcs   ', 'ecis.msdin   ', 'null         ', &
-        'ecis.msdang  ', 'null         ')
+        'ecis.msdang  ', 'null         ', 'null         ')
       open (unit = 9, file = 'ecisdwba.inp', status = 'unknown')
       close (unit = 9, status = ecisstatus)
     endif
