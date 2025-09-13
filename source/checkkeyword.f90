@@ -6,7 +6,7 @@ subroutine checkkeyword
 ! Author    : Arjan Koning
 !
 ! 2021-12-30: Original code
-! 2025-09-04: Latest version
+! 2025-09-13: Latest version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -20,7 +20,7 @@ subroutine checkkeyword
 ! *** Declaration of local data
 !
   implicit none
-  integer, parameter :: numkey=427        ! number of keywords
+  integer, parameter :: numkey=428        ! number of keywords
   integer            :: i                 ! counter
   integer            :: j                 ! counter
   character(len=132) :: key               ! keyword
@@ -45,7 +45,7 @@ subroutine checkkeyword
  &  'coulomb', 'cpang', 'cstrip', 'ctable', 'ctableadjust', 'ctmglobal', 'd0', 'd1adjust', 'd2adjust', 'd3adjust', 'ddxmode', &
  &  'deformfile', 'deltaw', 'densfile',  &
  &  'deuteronomp', 'disctable', 'dispersion', 'dnfit', 'e0', 'e0adjust', 'e1file', 'eback', 'ebeam', 'eciscalc', 'eciscompound', &
- &  'ecisdwba', 'ecissave', 'egr', 'egradjust', 'ejectiles', 'ejoin', 'electronconv', 'element', 'elow', 'elwidth', &
+ &  'ecisdwba', 'ecissave', 'ecisstep', 'egr', 'egradjust', 'ejectiles', 'ejoin', 'electronconv', 'element', 'elow', 'elwidth', &
  &  'emsdmin', 'endf', 'endfdetail', 'endfecis', 'energy', 'epr', 'epradjust', 'equidistant', 'equispec', &
  &  'estop', 'esurf', 'etable', &
  &  'etableadjust', 'exmatch', 'exmatchadjust', 'expmass', 'ffevaporation', 'ffmodel', 'ffspin', 'fileangle', 'filechannels', &
