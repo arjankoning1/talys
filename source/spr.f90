@@ -45,7 +45,7 @@ subroutine spr
   character(len=80) :: quantity   ! quantity
   real(sgl) :: Efac ! help variable
   real(sgl) :: r2k2 ! help variable
-  real(sgl) :: Rpot ! standard value for R
+  real(sgl) :: Rpo  ! standard value for R
   integer   :: indent
   integer   :: id2
   integer   :: id4
@@ -57,8 +57,8 @@ subroutine spr
   id4 = indent + 4
   Rprime = 10.*sqrt(0.001*max(xselasinc, 0.)/fourpi)
   Efac = 1. / (sqrt(1.e6 * Einc) * twopi)
-  Rpot = 1.35 * Atarget **onethird
-  r2k2 = Rpot * Rpot * wavenum * wavenum
+  Rpo = 1.35 * Atarget **onethird
+  r2k2 = Rpo * Rpo * wavenum * wavenum
   Sstrength(0) = Tlinc(0) * Efac
   Sstrength(1) = Tlinc(1) * Efac * (1. + r2k2) / r2k2
   Sstrength(2) = Tlinc(2) * Efac * (9. + 3. * r2k2 + r2k2 * r2k2) / (r2k2 * r2k2)
