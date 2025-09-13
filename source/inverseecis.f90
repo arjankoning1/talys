@@ -83,7 +83,6 @@ subroutine inverseecis(Zcomp, Ncomp)
 !   Elevel          ! energy of level
 !   flagecisinp     ! flag for existence of ecis input file
 !   flaginvecis     ! logical for calculating inverse channel OMP
-!   hint            ! integration step size h
 !   iband           ! band number of level
 !   idvib           ! identifier for existence of vibrational state inside rotational
 !   iph             ! help variable
@@ -187,7 +186,6 @@ subroutine inverseecis(Zcomp, Ncomp)
   id4 = indent + 4
   flaginvecis = .true.
   legendre = .false.
-  hint = 0.
   rmatch = 0.
   anginc = 180.
   angend = 180.
@@ -314,7 +312,6 @@ subroutine inverseecis(Zcomp, Ncomp)
         ecis1(15:15) = 'T'
         ecis1(29:29) = 'T'
         ecis1(41:41) = 'T'
-        hint = 0.1
         rmatch = 18.
         nrad = 182
         jlmloc = .true.
@@ -469,7 +466,7 @@ subroutine inverseecis(Zcomp, Ncomp)
   else
     outfile = nulldev
   endif
-  call ecist('ecisinv.inp  ', outfile, csfile, 'ecis.invin   ', transfile, 'null         ', 'null         ')
+  call ecist('ecisinv.inp  ', outfile, csfile, 'ecis.invin   ', transfile, 'null         ', 'null         ', 'null         ')
   invexist(Zcomp, Ncomp) = .true.
   open (unit = 9, file = 'ecisinv.inp', status = 'unknown')
   close (unit = 9, status = ecisstatus)
