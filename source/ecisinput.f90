@@ -24,7 +24,7 @@ subroutine ecisinput(Zix, Nix, kopt, e, rotational, vibrational, jlmloc)
 !   ecis2        ! 50 input flags ('T' or 'F') for ECIS
 !   efer         ! Fermi energy
 !   Elevel       ! energy of level
-!   hint         ! integration step size h
+!   ecisstep     ! integration step size for ECIS OMP calculation
 !   iband        ! band number of level
 !   idvib        ! identifier for existence of vibrational state inside rotational
 !   iph          ! help variable
@@ -102,7 +102,7 @@ subroutine ecisinput(Zix, Nix, kopt, e, rotational, vibrational, jlmloc)
   write(9, '(a50)') ecis1
   write(9, '(a50)') ecis2
   write(9, '(4i5)') ncoll, njmax, iterm, npp
-  write(9, '(2f10.5, 10x, "    1.e-10    1.e-10    1.e-30")') hint, rmatch
+  write(9, '(2f10.5, 10x, "    1.e-10    1.e-10    1.e-30")') ecisstep, rmatch
   if (legendre) write(9, '()')
   if (e >= 0.01) then
     Eformat='(f5.2,2i2,a1,5f10.5)'
@@ -192,8 +192,8 @@ subroutine ecisinput(Zix, Nix, kopt, e, rotational, vibrational, jlmloc)
     do k = 1, 2
       write(9, '(9i5)') 1, 1, 0, k, 0, 0, 0, 1, -1
       write(9, '(f10.5)') normjlm(Zix, Nix, k)
-      write(9, '(2(f10.5, e20.6))') (radjlm(Zix, Nix, i), - potjlm(Zix, Nix, i, k), i = 1, nrad - 2)
-      write(9, '(2(f10.5, e20.6), a4)') (radjlm(Zix, Nix, i), - potjlm(Zix, Nix, i, k), i = nrad - 1, nrad), "last"
+      write(9, '(2(f10.5, es20.6))') (radjlm(Zix, Nix, i), - potjlm(Zix, Nix, i, k), i = 1, nrad - 2)
+      write(9, '(2(f10.5, es20.6), a4)') (radjlm(Zix, Nix, i), - potjlm(Zix, Nix, i, k), i = nrad - 1, nrad), "last"
     enddo
 !
 ! 3.  real surface (not used)
@@ -211,8 +211,8 @@ subroutine ecisinput(Zix, Nix, kopt, e, rotational, vibrational, jlmloc)
       do k = 5, 6
         write(9, '(9i5)') 1, 1, 0, k, 0, 0, 0, 1, -1
         write(9, '(f10.5)') normjlm(Zix, Nix, k)
-        write(9, '(2(f10.5, e20.6))') (radjlm(Zix, Nix, i), - 0.5 * potjlm(Zix, Nix, i, k), i = 1, nrad - 2)
-        write(9, '(2(f10.5, e20.6), a4)') (radjlm(Zix, Nix, i), &
+        write(9, '(2(f10.5, es20.6))') (radjlm(Zix, Nix, i), - 0.5 * potjlm(Zix, Nix, i, k), i = 1, nrad - 2)
+        write(9, '(2(f10.5, es20.6), a4)') (radjlm(Zix, Nix, i), &
  &        - 0.5 * potjlm(Zix, Nix, i, k), i = nrad - 1, nrad), "last"
       enddo
     endif
@@ -230,4 +230,3 @@ subroutine ecisinput(Zix, Nix, kopt, e, rotational, vibrational, jlmloc)
   return
 end subroutine ecisinput
 ! Copyright A.J. Koning 2021
-
