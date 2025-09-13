@@ -74,7 +74,6 @@ subroutine endfecis
 !   efer            ! Fermi energy
 !   Elevel          ! energy of level
 !   flagecisinp     ! flag for existence of ecis input file
-!   hint            ! integration step size h
 !   iband           ! band number of level
 !   idvib           ! identifier for existence of vibrational state inside rotational model
 !   iph             ! help variable
@@ -135,7 +134,6 @@ subroutine endfecis
 ! Specific ECIS flags:
 !
   legendre = .false.
-  hint = 0.
   rmatch = 0.
   projmass = parmass(k0)
   spin = parspin(k0)
@@ -181,7 +179,6 @@ subroutine endfecis
       ecis1(15:15) = 'T'
       ecis1(29:29) = 'T'
       ecis1(41:41) = 'T'
-      hint = 0.1
       rmatch = 18.
       nrad = 182
       jlmloc = .true.
@@ -323,7 +320,8 @@ subroutine endfecis
   else
     outfile = nulldev
   endif
-  call ecist('ecisendf.inp ', outfile, 'ecis.endfcs  ', 'ecis.endfin  ', 'null         ', 'null         ', 'null         ')
+  call ecist('ecisendf.inp ',outfile,'ecis.endfcs  ','ecis.endfin  ','null         ','null         ','null         ', &
+ &  'null         ')
   open (unit = 9, file = 'ecisendf.inp', status = 'unknown')
   close (unit = 9, status = ecisstatus)
   return
