@@ -281,10 +281,20 @@ August 30 2025
 
 Introduced a keyword 'legacy' to only include well validated nuclear
 models. At the moment the code stops and gives a warning for various
-SPF and level density models. Putting 'legacy y' will let TALYS run
+PSF and level density models. Putting 'legacy y' will let TALYS run
 like it used to.
 
 September 9 2025
 
-Used exponential squeezing function to squeeze or widen spin distribution 
-for tabulated level densities.
+Used exponential squeezing function to squeeze or widen spin 
+distribution for tabulated level densities. The previous formulation 
+had problems for J = 0
+
+September 13 2025
+
+Added output of OMP as function of radius, i.e. the full radial form for
+each incident energy, if 'outomp y'.
+Also added keyword 'ecisstep' to manually set the integration step size
+for ECIS. The default is still 0. for phenomenological OMP (i.e. 
+internally calculated by ECIS) and 0.1 for JLM.
+
