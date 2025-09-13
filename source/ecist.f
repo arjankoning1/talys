@@ -1,5 +1,5 @@
       subroutine ecist(ecisinp,ecisout,eciscs,ecisin,ecistr,            ak000000
-     +  ecisang,ecisleg)                                                ak000000
+     +  ecisang,ecisleg,ecispot)                                        ak000000
 c 19/04/07                                                      ecis06  ecis-000
 c                                                                       ecis-001
 c the common /inout/ is used in any subroutine with standard input or   ecis-002
@@ -31,7 +31,7 @@ c     parameter (idmx=600000)                                           ecis-027
       parameter (idmx=8000000)                                          ak000000
       character*4 cw(2,idmx)                                            ecis-028
       character*13 ecisinp,ecisout,eciscs,ecisin,ecistr,                ak000000
-     +  ecisang,ecisleg                                                 ak000000
+     +  ecisang,ecisleg,ecispot                                         ak000000
       dimension nw(2,idmx),dw(idmx)                                     ecis-029
       equivalence (dw,nw,cw,w)                                          ecis-030
       common dw                                                         ecis-031
@@ -57,6 +57,8 @@ c     mw=6                                                              ecis-038
      +  open(unit=66,file=ecisang,status='unknown')                     ak000000
       if (ecisleg.ne.'null         ')                                   ak000000
      +  open(unit=65,file=ecisleg,status='unknown')                     ak000000
+      if (ecispot.ne.'null         ')                                   ak000000
+     +  open(unit=67,file=ecispot,status='unknown')                     ak000000
       call calc(nw,cw,dw,idmx)                                          ecis-040
       close (unit=1)                                                    ak000000
       close (unit=2)                                                    ak000000
@@ -65,6 +67,7 @@ c     mw=6                                                              ecis-038
       if (ecistr.ne.'null         ') close (unit=63)                    ak000000
       if (ecisang.ne.'null         ') close (unit=66)                   ak000000
       if (ecisleg.ne.'null         ') close (unit=65)                   ak000000
+      if (ecispot.ne.'null         ') close (unit=67)                   ak000000
       return                                                            ak000000
       stop                                                              ecis-041
       end                                                               ecis-042
@@ -3938,6 +3941,7 @@ c default value for integration step: min(min(a)/2,1/(2*k)).            lect-340
       h=rm/h                                                            lect-345
       rm=h*ism                                                          lect-346
       write (mw,1018) h,rm                                              lect-347
+      write (67,1018) h,rm                                              ak000000
       if (lo(66)) go to 24                                              lect-348
 c input of limits for calculation at equidistant angles.                lect-349
       read (mr,1001) theta1,dtheta,theta2,dthe                          lect-350
@@ -11768,6 +11772,10 @@ c output of potentials.                                                 pote-586
       if (lo(133)) write (mw,1008) (i,v(i,j+ity(9)),i=1,ism)            pote-592
       if (lo(129)) write (mw,1009) (i,v(i,j+ity(3)),i=1,ism)            pote-593
       if (lo(130)) write (mw,1010) (i,v(i,j+ity(4)),i=1,ism)            pote-594
+      write (67,1007) (i,v(i,j+ity(1)),v(i,j+ity(2)),i=1,ism)           ak000000
+      if (lo(133)) write (67,1008) (i,v(i,j+ity(9)),i=1,ism)            ak000000
+      if (lo(129)) write (67,1009) (i,v(i,j+ity(3)),i=1,ism)            ak000000
+      if (lo(130)) write (67,1010) (i,v(i,j+ity(4)),i=1,ism)            ak000000
       if (lo(133).and.lo(103)) write (mw,1011) (i,v(i,j+ity(10)),i=1,ismpote-595
      1)                                                                 pote-596
    69 continue                                                          pote-597
