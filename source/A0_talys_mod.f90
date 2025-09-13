@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2023-12-30: Original code
-! 2025-09-09: Current version
+! 2025-09-13: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -465,6 +465,7 @@ module A0_talys_mod
   integer, dimension(0:numpar, numompadj)                   :: ompadjustN    ! number of energy ranges for local OMP adjustment
   integer                                                   :: pruittset     ! random set for Pruitt et al OMP
   integer                                                   :: radialmodel   ! model for radial matter densities (JLM OMP only)
+  integer                                                   :: Npot          ! number of OMP radial points
   real(sgl)                                                 :: adepthcor     ! adjustable parameter for depth of DF alpha potential
   real(sgl)                                                 :: aradialcor    ! adjustable parameter for shape of DF alpha potential
   real(sgl), dimension(0:numpar)                            :: avadjust      ! adjustable factor for OMP (default 1.)
@@ -477,6 +478,7 @@ module A0_talys_mod
   real(sgl), dimension(0:numpar)                            :: d2adjust      ! adjustable factor for OMP (default 1.)
   real(sgl), dimension(0:numpar)                            :: d3adjust      ! adjustable factor for OMP (default 1.)
   real(sgl), dimension(0:numpar)                            :: Ejoin         ! joining energy for high energy OMP
+  real(sgl)                                                 :: ecisstep      ! integration step size for ECIS OMP calculation
   real(sgl)                                                 :: lvadjust      ! adjustable parameter for JLM OMP
   real(sgl)                                                 :: lv1adjust     ! adjustable parameter for JLM OMP
   real(sgl)                                                 :: lvsoadjust    ! adjustable parameter for JLM OMP
@@ -1105,7 +1107,6 @@ module A0_talys_mod
   real(sgl)                            :: d3disp      ! constant for imaginary potential
   real(sgl)                            :: efer        ! Fermi energy
   real(sgl), dimension(numlev2)        :: Elevel      ! energy of level
-  real(sgl)                            :: hint        ! integration step size h
   real(sgl), dimension(numlev2)        :: Jlevel      ! spin of level
   real(dbl)                            :: projmass    ! mass of projectile
   real(sgl)                            :: prodZ       ! product of charges of projectile and target nucleus
