@@ -456,6 +456,7 @@ subroutine inputout
  &  " 3-5= folding potential, 6,8= Avrigeanu, 7=Nolte)")') alphaomp
   write(*, '(" deuteronomp        ", i2, "     deuteronomp  deuteron OMP (1=normal, 2=Daehnick,", &
  &  " 3=Bojowald, 4=Han-Shi-Shen, 5=An-Cai)")') deuteronomp
+  write(*, '(" ecisstep        ", es9.2, " ecisstep     integration step size for ECIS OMP calculation")') ecisstep
 !
 ! 4. Compound nucleus
 !
