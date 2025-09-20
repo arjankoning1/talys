@@ -5,7 +5,7 @@ subroutine densitypar(Zix, Nix)
 !
 ! Author    : Arjan Koning and Stephane Hilaire
 !
-! 2021-12-30: Original code
+! 2025-09-04: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -104,11 +104,17 @@ subroutine densitypar(Zix, Nix)
   logical           :: inpdeltaW     ! logical to determine existence of input value for deltaW
   logical           :: inpgammald    ! logical to determine existence of input value for gammald
   logical           :: lexist        ! logical to determine existence
+  logical           :: ldfound1      ! logical for existence of level density file
+  logical           :: ldfound2      ! logical for existence of level density file
+  character(len=3)  :: extstring     ! string for level density file
   character(len=5)  :: denchar       ! string for level density file
   character(len=22) :: denformat     ! format specifier
   character(len=132):: denfile       ! level density parameter file
+  character(len=132):: denfile1      ! level density parameter file
+  character(len=132):: denfile2      ! level density parameter file
   integer           :: A             ! mass number of target nucleus
   integer           :: i             ! counter
+  integer           :: k             ! counter
   integer           :: ia            ! mass number from abundance table
   integer           :: ibar          ! fission barrier
   integer           :: iloop         ! counter
@@ -120,12 +126,18 @@ subroutine densitypar(Zix, Nix)
   integer           :: Nix           ! neutron number index for residual nucleus
   integer           :: Nlow0         ! help variable
   integer           :: Ntop0         ! highest discrete level for temperature matching
+  integer           :: Nlow0_1       ! help variable
+  integer           :: Ntop0_1       ! highest discrete level for temperature matching
+  integer           :: Nlow0_2       ! help variable
+  integer           :: Ntop0_2       ! highest discrete level for temperature matching
   integer           :: oddN          ! help variable
   integer           :: oddZ          ! help variable
   integer           :: Z             ! charge number of target nucleus
   integer           :: Zix           ! charge number index for residual nucleus
   real(sgl)         :: ald           ! level density parameter
   real(sgl)         :: ald0          ! level density parameter
+  real(sgl)         :: ald0_1        ! level density parameter
+  real(sgl)         :: ald0_2        ! level density parameter
   real(sgl)         :: argum         ! help variable
   real(sgl)         :: denom         ! help variable
   real(sgl)         :: difprev       ! difference with previous result
@@ -133,11 +145,18 @@ subroutine densitypar(Zix, Nix)
   real(sgl)         :: factor        ! multiplication factor
   real(sgl)         :: fU            ! help variable
   real(sgl)         :: pshift0       ! adjustable pairing shift
+  real(sgl)         :: pshift0_1     ! adjustable pairing shift
+  real(sgl)         :: pshift0_2     ! adjustable pairing shift
   real(sgl)         :: rj            ! help variable
   real(sgl)         :: scutoffsys    ! spin cutoff factor for discrete level from systematics
   real(sgl)         :: sd            ! spin cutoff factor for discrete level region
   real(sgl)         :: sigsum        ! help variable
   real(sgl)         :: Spair         ! help variable
+  real(sgl)         :: ext1          ! filename extension for Rspincut
+  real(sgl)         :: ext2          ! filename extension for Rspincut
+  real(sgl)         :: s2a           ! spin cutoff parameter
+  real(sgl)         :: x             ! help variable
+  real(sgl)         :: frac          ! help variable
   real(dbl)         :: mldm          ! liquid drop mass
   real(dbl)         :: mliquid1      ! function for liquid drop mass (Myers-Swiatecki)
   real(dbl)         :: mliquid2      ! function for liquid drop mass (Goriely)
@@ -164,6 +183,26 @@ subroutine densitypar(Zix, Nix)
 ! With flagasys, all experimental level density parameters a from the table can be overruled by the systematics.
 ! We allow a maximum of Ntop=50
 !
+! We use level density parameter tables for several values of the spin distribution.
+!
+  ext1 = 0.
+  ext2 = 0.
+  s2a = s2adjust(Zix, Nix, 0)
+  if (s2a == 1.) then
+    ext1 = 1.0
+  else
+    do k = 1, 10
+      x = k * 0.2
+      if (s2a > x .and. s2a <= x + 0.2) then
+        ext1 = x
+        ext2 = x + 0.2
+        exit
+      endif
+    enddo
+    if (ext2 > ext1) frac = (s2a - ext1) / (ext2 - ext1)
+    if (s2a <= 0.2) ext1 = 0.2
+    if (s2a >= 2.0) ext2 = 2.0
+  endif
   denchar = trim(nuc(Z))//'.ld'
   if (ldmod == 1) denfile = trim(path)//'density/ground/ctm/'//denchar
   if (ldmod == 2) denfile = trim(path)//'density/ground/bfm/'//denchar
@@ -173,39 +212,99 @@ subroutine densitypar(Zix, Nix)
   if (ldmod == 6) denfile = trim(path)//'density/ground/hilaireD1M/'//denchar
   if (ldmod == 7) denfile = trim(path)//'density/ground/bskg3/'//denchar
   if (ldmod == 8) denfile = trim(path)//'density/ground/qrpa/'//denchar
-  inquire (file = denfile, exist = lexist)
+  if (flagcol(Zix, Nix) .and. ldmod <= 3) then
+    denformat='(4x,i4,32x,2i4,2f12.5)'
+  else
+    denformat='(4x,3i4,2f12.5)'
+  endif
+  ldfound1 = .false.
+  ldfound2 = .false.
+  extstring='   '
+  write(extstring, '(f3.1)') ext1
+  denfile1=trim(denfile)//'_'//extstring
+  inquire (file = denfile1, exist = lexist)
+!
+! Temporary fix for old structure database
+!
+  if (.not. lexist) then
+    ext2 = 0.
+    denfile1=trim(denfile)
+    inquire (file = denfile1, exist = lexist)
+  endif
   if (lexist) then
-    if (flagcol(Zix, Nix) .and. ldmod <= 3) then
-      denformat='(4x,i4,32x,2i4,2f12.5)'
-    else
-      denformat='(4x,3i4,2f12.5)'
-    endif
-    open (unit = 2, file = denfile, status = 'old', iostat = istat)
-    if (istat /= 0) call read_error(denfile, istat)
+    open (unit = 2, file = denfile1, status = 'old', iostat = istat)
+    if (istat /= 0) call read_error(denfile1, istat)
     do
-      read(2, fmt = denformat, iostat = istat) ia, Nlow0, Ntop0, ald0, pshift0
+      read(2, fmt = denformat, iostat = istat) ia, Nlow0_1, Ntop0_1, ald0_1, pshift0_1
       if (istat == -1) exit
-      if (istat /= 0) call read_error(denfile, istat)
+      if (istat /= 0) call read_error(denfile1, istat)
       if (A == ia) then
-        ldparexist(Zix, Nix) = .true.
-        if (Nlow(Zix, Nix, 0) ==  - 1) Nlow(Zix, Nix, 0) = Nlow0
-        if (Ntop(Zix, Nix, 0) ==  - 1) Ntop(Zix, Nix, 0) = min(Ntop0, 50)
-        if ( .not. flagasys) then
-          if (ldmod <= 3) then
-            if (alev(Zix, Nix) == 0.) alev(Zix, Nix) = aadjust(Zix, Nix) * ald0
-            do ibar = 0, nfisbar(Zix, Nix)
-              if (Pshift(Zix, Nix, ibar) == 1.e-20) Pshift(Zix, Nix, ibar) = pshift0 + Pshiftadjust(Zix, Nix, ibar)
-            enddo
-          else
-            if (ctable(Zix,Nix,0) == 1.e-20) ctable(Zix, Nix, 0) = ald0
-            if (ptable(Zix,Nix,0) == 1.e-20) ptable(Zix, Nix, 0) = pshift0
-          endif
-          ctable(Zix, Nix, 0) = ctable(Zix, Nix, 0) + ctableadjust(Zix, Nix, 0)
-          ptable(Zix, Nix, 0) = ptable(Zix, Nix, 0) + ptableadjust(Zix, Nix, 0)
-        endif
+        ldfound1 = .true.
+        close (unit = 2)
+        exit
       endif
     enddo
-    close (unit = 2)
+  endif
+  if (ext2 > 0.) then
+    extstring='   '
+    write(extstring, '(f3.1)') ext2
+    denfile2=trim(denfile)//'_'//extstring
+    inquire (file = denfile2, exist = lexist)
+    if (lexist) then
+      open (unit = 2, file = denfile2, status = 'old', iostat = istat)
+      if (istat /= 0) call read_error(denfile2, istat)
+      do
+        read(2, fmt = denformat, iostat = istat) ia, Nlow0_2, Ntop0_2, ald0_2, pshift0_2
+        if (istat == -1) exit
+        if (istat /= 0) call read_error(denfile2, istat)
+        if (A == ia) then
+          ldfound2 = .true.
+          close (unit = 2)
+          exit
+        endif
+      enddo
+    endif
+  endif
+  if (ldfound1 .and. ldfound2) then
+    if (abs(ext1 - 1.) <= abs(ext2 - 1.)) then
+      Nlow0 = Nlow0_1
+      Ntop0 = Ntop0_1
+    else
+      Nlow0 = Nlow0_2
+      Ntop0 = Ntop0_2
+    endif
+    ald0 = ald0_1 + frac * (ald0_2 - ald0_1)
+    pshift0 = pshift0_1 + frac * (pshift0_2 -pshift0_1)
+  else
+    if (ldfound1) then
+      Nlow0 = Nlow0_1
+      Ntop0 = Ntop0_1
+      ald0 = ald0_1
+      pshift0 = pshift0_1
+    else
+      Nlow0 = Nlow0_2
+      Ntop0 = Ntop0_2
+      ald0 = ald0_2
+      pshift0 = pshift0_2
+    endif
+  endif
+  if (ldfound1 .or. ldfound2) then
+    ldparexist(Zix, Nix) = .true.
+    if (Nlow(Zix, Nix, 0) ==  - 1) Nlow(Zix, Nix, 0) = Nlow0
+    if (Ntop(Zix, Nix, 0) ==  - 1) Ntop(Zix, Nix, 0) = min(Ntop0, 50)
+    if ( .not. flagasys) then
+      if (ldmod <= 3) then
+        if (alev(Zix, Nix) == 0.) alev(Zix, Nix) = aadjust(Zix, Nix) * ald0
+        do ibar = 0, nfisbar(Zix, Nix)
+          if (Pshift(Zix, Nix, ibar) == 1.e-20) Pshift(Zix, Nix, ibar) = pshift0 + Pshiftadjust(Zix, Nix, ibar)
+        enddo
+      else
+        if (ctable(Zix,Nix,0) == 1.e-20) ctable(Zix, Nix, 0) = ald0
+        if (ptable(Zix,Nix,0) == 1.e-20) ptable(Zix, Nix, 0) = pshift0
+      endif
+      ctable(Zix, Nix, 0) = ctable(Zix, Nix, 0) + ctableadjust(Zix, Nix, 0)
+      ptable(Zix, Nix, 0) = ptable(Zix, Nix, 0) + ptableadjust(Zix, Nix, 0)
+    endif
   endif
 !
 ! Matching levels
