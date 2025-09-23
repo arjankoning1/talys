@@ -3941,7 +3941,7 @@ c default value for integration step: min(min(a)/2,1/(2*k)).            lect-340
       h=rm/h                                                            lect-345
       rm=h*ism                                                          lect-346
       write (mw,1018) h,rm                                              lect-347
-      write (67,1018) h,rm                                              ak000000
+      if (lo(51)) write (67,1018) h,rm                                  ak000000
       if (lo(66)) go to 24                                              lect-348
 c input of limits for calculation at equidistant angles.                lect-349
       read (mr,1001) theta1,dtheta,theta2,dthe                          lect-350
