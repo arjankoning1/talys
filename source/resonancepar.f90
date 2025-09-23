@@ -5,7 +5,7 @@ subroutine resonancepar(Zix, Nix)
 !
 ! Author    : Arjan Koning
 !
-! 2021-12-30: Original code
+! 2025-09-23: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -56,6 +56,8 @@ subroutine resonancepar(Zix, Nix)
   integer           :: Zix         ! charge number index for residual nucleus
   real(sgl)         :: Df          ! help variable
   real(sgl)         :: dDf         ! help variable
+  real(sgl)         :: Sf          ! help variable
+  real(sgl)         :: dSf         ! help variable
   real(sgl)         :: dgamgamf    ! uncertainty in gamgam
   real(sgl)         :: gamgamf     ! experimental total radiative width in eV
   real(sgl)         :: D0glob
@@ -80,14 +82,16 @@ subroutine resonancepar(Zix, Nix)
 ! 2. Search for the isotope under consideration and read information
 !
     do
-      read(2, '(4x, 2i4, 2e9.2, 10x, 2f9.5, i4)', iostat = istat) ia, L, Df, dDf, gamgamf, dgamgamf, Nrrf
+      read(2, '(4x, 2i4, 2e9.2, 2f5.2, 2f9.5, i4)', iostat = istat) ia, L, Df, dDf, Sf, dSf, gamgamf, dgamgamf, Nrrf
       if (istat == -1) exit
       if (A == ia) then
         if (L == 0) then
-          if (dDf /= 0..and.D0(Zix, Nix) == 0.) dD0(Zix, Nix) = dDf * 1000.
-          if (Df /= 0..and.D0(Zix, Nix) == 0.) D0(Zix, Nix) = Df * 1000.
-          if (dgamgamf /= 0..and.gamgam(Zix, Nix) == 0.) dgamgam(Zix, Nix) = dgamgamf
-          if (gamgamf /= 0..and.gamgam(Zix, Nix) == 0.) gamgam(Zix, Nix) = gamgamf
+          if (dSf /= 0. .and. S0(Zix, Nix) == 0.) dS0(Zix, Nix) = dSf
+          if (Sf /= 0. .and. S0(Zix, Nix) == 0.) S0(Zix, Nix) = Sf
+          if (dDf /= 0. .and. D0(Zix, Nix) == 0.) dD0(Zix, Nix) = dDf * 1000.
+          if (Df /= 0. .and. D0(Zix, Nix) == 0.) D0(Zix, Nix) = Df * 1000.
+          if (dgamgamf /= 0. .and. gamgam(Zix, Nix) == 0.) dgamgam(Zix, Nix) = dgamgamf
+          if (gamgamf /= 0. .and. gamgam(Zix, Nix) == 0.) gamgam(Zix, Nix) = gamgamf
           if (Nrrf /= 0) Nrr(Zix, Nix) = Nrrf
           if (Zix == 0 .and. Nix == 0) then
             if (Nrrf > 0 .and. D0(Zix, Nix) > 0.) Eavres = 0.5 * ((Nrrf - 1) * D0(Zix, Nix)) * 1.e-6
