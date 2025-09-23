@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2023-12-30: Original code
-! 2025-09-13: Current version
+! 2025-09-23: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -893,6 +893,8 @@ module A0_talys_mod
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
   integer, dimension(0:numZ,0:numN)            :: Nrr      ! number of resonances
+  real(sgl), dimension(0:numZ,0:numN)          :: S0       ! neutron strength function
+  real(sgl), dimension(0:numZ,0:numN)          :: dS0      ! uncertainty in S0
   real(sgl), dimension(0:numZ,0:numN)          :: dD0      ! uncertainty in D0
   real(sgl), dimension(0:numZ,0:numN)          :: dD1r     ! uncertainty in D1
   real(sgl), dimension(0:numZ,0:numN)          :: dgamgam  ! uncertainty in gamgam
