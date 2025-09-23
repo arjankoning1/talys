@@ -5,7 +5,7 @@ subroutine spr
 !
 ! Author    : Arjan Koning
 !
-! 2021-12-30: Original code
+! 2025-09-23: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -62,15 +62,17 @@ subroutine spr
   Sstrength(0) = Tlinc(0) * Efac
   Sstrength(1) = Tlinc(1) * Efac * (1. + r2k2) / r2k2
   Sstrength(2) = Tlinc(2) * Efac * (9. + 3. * r2k2 + r2k2 * r2k2) / (r2k2 * r2k2)
-  if (flagendf .and. flagendfdet .and. (Einc <= 0.1 .or. nin == Ninclow + 1)) then
+  if ((flagoutomp .or. (flagendf .and. flagendfdet)) .and. (Einc <= 0.1 .or. nin == Ninclow + 1)) then
     open (unit = 1, file = 'spr.opt', status = 'replace')
     quantity='basic OMP quantities'
     topline=trim(targetnuclide)//' '//trim(quantity)
     call write_header(indent,topline,source,user,date,oformat)
     call write_target(indent)
-    write(1,'("# parameters:")')
     call write_char(id2,'parameters','')
     call write_real(id4,'S0',Sstrength(0)*1.e4)
+    call write_real(id4,'experimental S0',S0(0,0))
+    call write_real(id4,'experimental S0 unc.',dS0(0,0))
+    if (S0(0,0) > 0.) call write_real(id4,'C/E S0',Sstrength(0)*1.e4/S0(0, 0))
     call write_real(id4,'S1',Sstrength(1)*1.e4)
     call write_real(id4,'Rprime [fm]',Rprime)
 !   write(1, '(2i4, 3f8.4)') Atarget, Ztarget, Sstrength(0)*1.e4, Sstrength(1) * 1.e4, Rprime
