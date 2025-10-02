@@ -22,7 +22,7 @@ The following are the prerequisites for compiling TALYS:
 To download TALYS, you can use one of the following options:
 #### 1. Download the entire tar file (frozen version):
 ```
-https://nds.iaea.org/talys/talys.tar
+curl -O https://nds.iaea.org/talys/codes/talys.tar
 tar zxf talys.tar
 ```
 #### 2. Using git (latest beta version):
@@ -31,8 +31,8 @@ git clone https://github.com/arjankoning1/talys.git
 ```
 The TALYS structure database and sample cases do not fall under the git repository. Hence, to get a  working system you need to download
 ```
-https://nds.iaea.org/talys/misc/structure.tar
-https://nds.iaea.org/talys/samples/talys_samples.tar
+curl -O https://nds.iaea.org/talys/misc/structure.tar
+curl -O https://nds.iaea.org/talys/samples/talys_samples.tar
 ```
 and after
 ```
