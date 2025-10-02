@@ -486,9 +486,9 @@ subroutine binary
  &        xspopex(Zix, Nix, nex), ((xspop(Zix, Nix, nex, J, parity), parity = - 1, 1, 2), J = 0, numJ)
       enddo
     enddo
+    close (unit = 1)
+    call write_outfile(binfile,flagoutall)
   endif
-  close (unit = 1)
-  call write_outfile(binfile,flagoutall)
 !
 ! Remove compound elastic scattering from population of target state.
 !
