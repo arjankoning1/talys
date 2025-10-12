@@ -192,15 +192,24 @@ subroutine prodout
       A = Z + N
       do is = - 1, Nisomer(Zix, Nix)
         if ( .not. Yexist(Zix, Nix, is)) cycle
-        Yfile = 'Y000000.tot'//natstring(iso)
-        write(Yfile(2:7), '(2i3.3)') Z, A
-        if (is >= 0) Yfile(9:11) = 'L00'
-        if (is >= 1) write(Yfile(10:11), '(i2.2)') Lisomer(Zix, Nix, is)
         massstring='   '
         write(massstring,'(i3)') A
         finalnuclide=trim(nuc(Z))//trim(adjustl(massstring))//isochar(is)
 !       call write_char(6,quantity,Yfile)
-        open (unit = 1, file = Yfile, status = 'replace')
+        if (flagblockyield) then
+          Yfile='Y.tot'//natstring(iso)
+          if (Zix == 0 .and. Nix == 0) then
+            open (unit = 1, file = Yfile, status = 'unknown')
+          else
+            open (unit = 1, file = Yfile, status = 'unknown', position = 'append')
+          endif
+        else
+          Yfile = 'Y000000.tot'//natstring(iso)
+          write(Yfile(2:7), '(2i3.3)') Z, A
+          if (is >= 0) Yfile(9:11) = 'L00'
+          if (is >= 1) write(Yfile(10:11), '(i2.2)') Lisomer(Zix, Nix, is)
+          open (unit = 1, file = Yfile, status = 'replace')
+        endif
         topline=trim(targetnuclide)//trim(reaction)//trim(finalnuclide)//' '//trim(quantity)
         un = ''
         col(1)='Time'
