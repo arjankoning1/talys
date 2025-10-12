@@ -108,7 +108,7 @@ subroutine racapout
   cpar = '+'
   if (partar == -1) cpar = '-'
   if (nin == Ninclow + 1) then
-    open (unit = 2, file = 'racap.tot', status = 'unknown')
+    open (unit = 2, file = 'racap.out', status = 'unknown')
     write(2, '("Direct capture reaction on target ", a, " (Z =", i3, ") with projectile ", a1, " (Qvalue=", f7.3, " MeV)"/)') &
  &    trim(targetnuclide), Ztarget, parsym(k0), Q(0)
     write(2, '("Characteristics of the Direct Radiative Capture", " calculation:")')
@@ -131,7 +131,7 @@ subroutine racapout
     enddo
     write(2, * )
   else
-    open (unit = 2, file = 'racap.tot', status = 'unknown')
+    open (unit = 2, file = 'racap.out', status = 'unknown')
     do
       read(2, * , iostat = istat)
       if (istat /= 0) exit
@@ -168,7 +168,7 @@ subroutine racapout
 !
 ! write output racap.out with summary of reaction cross section
 !
-  racapfile = 'racap.out'
+  racapfile = 'racap.tot'
   un = 'mb'
   if (nin == Ninclow + 1) then
     open(unit = 1, file = racapfile, status = 'unknown')
@@ -180,7 +180,7 @@ subroutine racapout
     topline=trim(targetnuclide)//trim(reaction)//trim(finalnuclide)//' direct capture '//trim(quantity)
     col(1)='E'
     un(1)='MeV'
-    col(2)='xs'
+    col(2)='xs(dir. cap.)'
     col(3)='xs(E1)'
     col(4)='xs(E2)'
     col(5)='xs(M1)'
