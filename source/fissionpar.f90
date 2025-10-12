@@ -145,9 +145,9 @@ subroutine fissionpar(Zix, Nix)
         read(2, '(4x, i4, 4x, 1x, 2(f8.2), 5x, 2(f8.2))', iostat = istat) ia, bar1, hw1, bar2, hw2
         if (istat == -1) exit
         if (A == ia) then
-          if (fbarrier(Zix, Nix, 1) == 0.) fbarrier(Zix, Nix, 1) = bar1
+          if (fbarrier(Zix, Nix, 1) == 0.) fbarrier(Zix, Nix, 1) = Cbarrier * bar1
           if (fwidth(Zix, Nix, 1) == 0.) fwidth(Zix, Nix, 1) = hw1
-          if (fbarrier(Zix, Nix, 2) == 0.) fbarrier(Zix, Nix, 2) = bar2
+          if (fbarrier(Zix, Nix, 2) == 0.) fbarrier(Zix, Nix, 2) = Cbarrier * bar2
           if (fwidth(Zix, Nix, 2) == 0.) fwidth(Zix, Nix, 2) = hw2
           if (nfisbar(Zix, Nix) /= 3) nfisbar(Zix, Nix) = 2
           exit
@@ -170,8 +170,8 @@ subroutine fissionpar(Zix, Nix)
         read(2, '(4x, i4, 2(24x, f8.2))', iostat = istat) ia, bar1, bar2
         if (istat == -1) exit
         if (A == ia) then
-          if (fbarrier(Zix, Nix, 1) == 0.) fbarrier(Zix, Nix, 1) = bar1
-          if (fbarrier(Zix, Nix, 2) == 0.) fbarrier(Zix, Nix, 2) = bar2
+          if (fbarrier(Zix, Nix, 1) == 0.) fbarrier(Zix, Nix, 1) = Cbarrier * bar1
+          if (fbarrier(Zix, Nix, 2) == 0.) fbarrier(Zix, Nix, 2) = Cbarrier * bar2
           if (fbarrier(Zix, Nix, 1) == 0..or.fbarrier(Zix, Nix, 2) == 0.) then
             nfisbar(Zix, Nix) = 1
           else
@@ -209,7 +209,7 @@ subroutine fissionpar(Zix, Nix)
     il = 0
     nfisbar(Zix, Nix) = 1
     call rldm(Z, A, il, egs, esp)
-    if (fbarrier(Zix, Nix, 1) == 0.) fbarrier(Zix, Nix, 1) = esp - egs
+    if (fbarrier(Zix, Nix, 1) == 0.) fbarrier(Zix, Nix, 1) = Cbarrier * (esp - egs)
     if (fwidth(Zix, Nix, 1) == 0.) fwidth(Zix, Nix, 1) = 0.24
   endif
 !
@@ -288,7 +288,7 @@ subroutine fissionpar(Zix, Nix)
               iiextr(nextr)=i
             endif
           endif
-          vfis(i) = vfiscoradjust(Zix, Nix) * vfiscor(Zix, Nix) * vv
+          vfis(i) = Cbarrier * vfiscoradjust(Zix, Nix) * vfiscor(Zix, Nix) * vv
           rmiufis(i) = rmiufiscoradjust(Zix, Nix) * rmiufiscor(Zix, Nix) * rmiu
         enddo
         if (nbins0 == 0) then
