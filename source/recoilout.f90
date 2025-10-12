@@ -16,7 +16,7 @@ subroutine recoilout
 !   dbl           ! double precision kind
 ! Variables for output
 !   filerecoil    ! flag for recoil spectra on separate file
-!   flagblock     ! flag to block spectra, angle and gamma files
+!   flagblockspectra  ! flag to block spectra files
 ! Variables for existence libraries
 !   recexist      ! flag for existence of recoils
 ! Variables for numerics
@@ -110,7 +110,7 @@ subroutine recoilout
       if (filerecoil) then
         recstring = 'rec000000'
         write(recstring(4:9), '(2i3.3)') Z, A
-        if (flagblock) then
+        if (flagblockspectra) then
           recfile = recstring//'.tot'//natstring(iso)
           if (.not. recexist(Zcomp,Ncomp)) then
             recexist(Zcomp, Ncomp) = .true.
@@ -139,7 +139,7 @@ subroutine recoilout
           write(1, '(2es15.6)') Erec(Zcomp, Ncomp, nen), specrecoil(Zcomp, Ncomp, nen)
         enddo
         close (unit = 1)
-        call write_outfile(recfile,(flagoutall .and. .not.flagblock))
+        call write_outfile(recfile,(flagoutall .and. .not.flagblockspectra))
       endif
     enddo
   enddo
