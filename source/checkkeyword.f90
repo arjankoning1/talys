@@ -6,7 +6,7 @@ subroutine checkkeyword
 ! Author    : Arjan Koning
 !
 ! 2021-12-30: Original code
-! 2025-09-13: Latest version
+! 2025-10-08: Latest version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -20,7 +20,7 @@ subroutine checkkeyword
 ! *** Declaration of local data
 !
   implicit none
-  integer, parameter :: numkey=428        ! number of keywords
+  integer, parameter :: numkey=439        ! number of keywords
   integer            :: i                 ! counter
   integer            :: j                 ! counter
   character(len=132) :: key               ! keyword
@@ -39,7 +39,8 @@ subroutine checkkeyword
  &  'astroe', 'astroex', 'astrogs', 'astrot', 'asys', 'autorot', 'avadjust', 'avadjustf', 'avdadjust', 'avdadjustf', &
  &  'avsoadjust', 'avsoadjustf', 'awadjust', 'awadjustf', 'awdadjust', 'awdadjustf', 'awsoadjust', 'awsoadjustf', 'axtype', &
  &  'bdamp', 'bdampadjust', 'best', 'bestbranch', 'bestend', 'bestfile', 'bestpath', 'beta2', 'betafiscor', 'betafiscoradjust', &
- &  'betald', 'bins', 'block', &
+ &  'betald', 'bins', 'block', 'blockangle', 'blockastro', 'blockbin', 'blockdirect', 'blockddx', &
+ &  'blocklevels', 'blockomp', 'blockpreeq', 'blockspectra', 'blockyield', 'blockza', &
  &  'branch', 'breakupmodel', 'cbarrier', 'cbreak', 'cfermi', 'cglobal', 'channelenergy', 'channels', 'cknock', 'class2', &
  &  'class2file', 'class2width', 'cnubar1', 'cnubar2', 'colenhance', 'colldamp', 'components', 'compound', 'core', &
  &  'coulomb', 'cpang', 'cstrip', 'ctable', 'ctableadjust', 'ctmglobal', 'd0', 'd1adjust', 'd2adjust', 'd3adjust', 'ddxmode', &
