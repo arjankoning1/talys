@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2023-12-30: Original code
-! 2025-10-02: Current version
+! 2025-10-12: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -701,6 +701,17 @@ module A0_talys_mod
   logical                                 :: filetotal    ! flag for total cross sections on separate file
   logical                                 :: flagbinspec  ! flag for output of emission spectrum per excitation bin
   logical                                 :: flagblock    ! flag to block spectra, angle and gamma files
+  logical                                 :: flagblockddx ! flag to block DDX files
+  logical                                 :: flagblockspectra ! flag to block spectra files
+  logical                                 :: flagblockangle ! flag to block angle files
+  logical                                 :: flagblockbin ! flag to block binary files
+  logical                                 :: flagblockdirect ! flag to block direct reaction files
+  logical                                 :: flagblocklevels ! flag to block discrete level files
+  logical                                 :: flagblockomp ! flag to block optical model files
+  logical                                 :: flagblockpreeq ! flag to block preequilibrium files
+  logical                                 :: flagblockastro ! flag to block astro reaction rate files
+  logical                                 :: flagblockyield ! flag to block isotopic yield files
+  logical                                 :: flagblockZA  ! flag to block residual nuclide files
   logical                                 :: flagcheck    ! flag for output of numerical checks
   logical                                 :: flagcompo    ! flag for output of cross section components
   logical                                 :: flagddx      ! flag for output of double-differential cross sections
