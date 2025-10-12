@@ -156,8 +156,17 @@ subroutine astroout
           write(ZAstring(4:6), '(i3.3)') A
           finalnuclide=trim(nuc(Z))//adjustl(massstring)
           topline=trim(targetnuclide)//trim(reaction)//trim(finalnuclide)//' '//trim(quantity)
-          astrofile = 'astrorate'//ZAstring//'.tot'
-          open (unit = 1, file = astrofile, status = 'replace')
+          if (flagblockastro) then
+            astrofile='astrorateZA.tot'//natstring(iso)
+            if (nin == Ninclow + 1 .and. Zcomp == 0 .and. Acomp == 0) then
+              open (unit = 1, file = astrofile, status = 'unknown')
+            else
+              open (unit = 1, file = astrofile, status = 'unknown', position = 'append')
+            endif
+          else
+            astrofile = 'astrorate'//ZAstring//'.tot'
+            open (unit = 1, file = astrofile, status = 'replace')
+          endif
           call write_header(indent,topline,source,user,date,oformat)
           call write_target(indent)
           call write_reaction(indent,reaction,0.D0,0.D0,0,0)
