@@ -5,7 +5,7 @@ subroutine spectraout
 !
 ! Author    : Arjan Koning
 !
-! 2021-12-30: Original code
+! 2025-10-08: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -14,7 +14,7 @@ subroutine spectraout
 !
 ! Variables for output
 !   filespectrum    ! designator for spectrum on separate file
-!   flagblock       ! flag to block spectra, angle and gamma files
+!   flagblockspectra! flag to block spectra files
 ! Variables for existence libraries
 !   spexist1        ! flag for existence of spectra
 !   spexist2        ! flag for existence of spectra
@@ -66,7 +66,7 @@ subroutine spectraout
 ! *** Declaration of local data
 !
   implicit none
-  character(len=10) :: Efile       ! file with average energies
+  character(len=80) :: Efile       ! file with average energies
   character(len=21) :: specfile    ! file with composite particle spectra
   character(len=12) :: Estr
   character(len=18) :: reaction   ! reaction
@@ -118,7 +118,7 @@ subroutine spectraout
 ! Write results to separate file
 !
     if (filespectrum(type)) then
-      if (flagblock) then
+      if (flagblockspectra) then
         specfile = ' spec.tot'//natstring(iso)
         write(specfile(1:1), '(a1)') parsym(type)
         if (.not. spexist1(type)) then
@@ -161,10 +161,10 @@ subroutine spectraout
         enddo
       endif
       close (unit = 1)
-      call write_outfile(specfile,(flagoutall .and. .not.flagblock))
+      call write_outfile(specfile,(flagoutall .and. .not.flagblockspectra))
       if (flagrecoil .and. flaglabddx) then
         write(*, '(/" LAB spectra for outgoing ", a8/)') parname(type)
-        if (flagblock) then
+        if (flagblockspectra) then
           specfile = ' spec.lab'//natstring(iso)
           write(specfile(1:1), '(a1)') parsym(type)
           if (.not. spexist2(type)) then
@@ -195,7 +195,7 @@ subroutine spectraout
           write(1, '(2es15.6)') Eejlab(type, nen), xsejlab(type, nen)
         enddo
         close (unit = 1)
-        call write_outfile(specfile,(flagoutall .and. .not.flagblock))
+        call write_outfile(specfile,(flagoutall .and. .not.flagblockspectra))
       endif
     endif
   enddo
@@ -203,7 +203,7 @@ subroutine spectraout
   do type = 0, 6
     if (parskip(type)) cycle
     if (filespectrum(type)) then
-      Efile = 'Eaverage.'//parsym(type)
+      Efile = 'Eaverage_'//parsym(type)//'.out'
       if (nin == Ninclow + 1) then
         open (unit = 1, file = Efile, status = 'replace')
         quantity='emission energy'
