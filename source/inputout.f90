@@ -5,7 +5,7 @@ subroutine inputout
 !
 ! Author    : Arjan Koning
 !
-! 2025-09-04: Original code
+! 2025-10-08: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -638,6 +638,17 @@ subroutine inputout
   write(*, '(" partable            ", a1, "     flagpartable flag for output of model parameters on separate file")') &
  &  yesno(flagpartable)
   write(*, '(" block               ", a1, "     flagblock    flag to block spectra, angle and gamma files")') yesno(flagblock)
+  write(*, '(" blockddx            ", a1, "     flagblockddx flag to block DDX files")') yesno(flagblockddx)
+  write(*, '(" blockspectra        ", a1, " flagblockspectra flag to block spectra files")') yesno(flagblockspectra)
+  write(*, '(" blockangle          ", a1, "     flagblockangle flag to block angle files")') yesno(flagblockangle)
+  write(*, '(" blockdirect         ", a1, "     flagblockdirect flag to block direct reaction files")') yesno(flagblockdirect)
+  write(*, '(" blockbin            ", a1, "     flagblockbin flag to block binary files")') yesno(flagblockbin)
+  write(*, '(" blocklevels         ", a1, "  flagblocklevels flag to block discrete level files")') yesno(flagblocklevels)
+  write(*, '(" blockomp            ", a1, "     flagblockomp flag to block optical model files")') yesno(flagblockomp)
+  write(*, '(" blockpreeq          ", a1, "     flagblockpreeq flag to block preequilibrium files")') yesno(flagblockpreeq)
+  write(*, '(" blockastro          ", a1, "     flagblockastro flag to block astro reaction rate files")') yesno(flagblockastro)
+  write(*, '(" blockyield          ", a1, "     flagblockyield flag to block isotopic yield files")') yesno(flagblockyield)
+  write(*, '(" blockZA             ", a1, "     flagblockZA  flag to block residual nuclide files")') yesno(flagblockZA)
   return
 end subroutine inputout
 ! Copyright A.J. Koning 2021
