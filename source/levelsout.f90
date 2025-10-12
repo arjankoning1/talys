@@ -75,8 +75,17 @@ subroutine levelsout(Zix, Nix)
   resstring='000000'
   write(resstring(1:3),'(i3.3)') Z
   write(resstring(4:6),'(i3.3)') A
-  structurefile = 'levels'//resstring//'.tot'
-  open (unit = 1, file = structurefile, status = 'replace')
+  if (flagblocklevels) then
+    structurefile='levels.out'//natstring(iso)
+    if (nin == Ninclow + 1 .and. Zix == 0 .and. Nix == 0) then
+      open (unit = 1, file = structurefile, status = 'unknown')
+    else
+      open (unit = 1, file = structurefile, status = 'unknown', position = 'append')
+    endif
+  else
+    structurefile = 'levels'//resstring//'.out'
+    open (unit = 1, file = structurefile, status = 'replace')
+  endif
   quantity='Nuclear masses and levels'
   topline=trim(finalnuclide)//' '//trim(quantity)
 !
