@@ -97,7 +97,7 @@ subroutine incidentout
   reaction='('//parsym(k0)//',tot)'
   topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' at '//Estr//' MeV'
   write(*, '(/" Transmission coefficients for incident channel"/)')
-  open (unit=1, file='transm.inc', status='replace')
+  open (unit=1, file='transmission_inc.out', status='replace')
   call write_header(indent,topline,source,user,date,oformat)
   call write_target(indent)
   call write_reaction(indent,reaction,0.D0,0.D0,0,0)
@@ -161,7 +161,7 @@ subroutine incidentout
     enddo
   endif
   close (unit = 1)
-  call write_outfile('transm.inc',flagoutall)
+  call write_outfile('transmission_inc.out',flagoutall)
 !
 ! *********** Shape elastic scattering angular distribution ************
 !
@@ -169,7 +169,7 @@ subroutine incidentout
     quantity='shape elastic scattering angular distribution'
     reaction='('//parsym(k0)//',el)'
     topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' at '//Estr//' MeV'
-    open (unit=1, file='shape.el', status='unknown')
+    open (unit=1, file='shape_el.tot', status='unknown')
     call write_header(indent,topline,source,user,date,oformat)
     call write_target(indent)
     call write_reaction(indent,reaction,0.D0,0.D0,0,0)
@@ -185,7 +185,7 @@ subroutine incidentout
       write(1, '(2es16.5)') angle(iang), directad(k0, Ltarget, iang)
     enddo
     close (unit = 1)
-    call write_outfile('shape.el',flagoutall)
+    call write_outfile('shape_el.tot',flagoutall)
   endif
   return
 end subroutine incidentout
