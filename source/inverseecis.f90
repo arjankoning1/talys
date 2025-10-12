@@ -154,7 +154,7 @@ subroutine inverseecis(Zcomp, Ncomp)
   logical            :: vibrational    ! flag for vibrational input
   character(len=3)   :: massstring !
   character(len=6)   :: finalnuclide !
-  character(len=8)   :: ompfile !
+  character(len=80)  :: ompfile !
   character(len=15)  :: col(20)    ! header
   character(len=15)  :: un(20)    ! header
   character(len=80)  :: quantity   ! quantity
@@ -274,7 +274,7 @@ subroutine inverseecis(Zcomp, Ncomp)
         write(massstring,'(i3)') A
         finalnuclide=trim(nuc(Z))//adjustl(massstring)
         topline=trim(finalnuclide)//' '//parname(type)//' '//trim(quantity)
-        ompfile='omppar.'//parsym(type)
+        ompfile='omppar_'//parsym(type)//'.out'
         open (unit=1, file=ompfile, status='replace')
         call write_header(indent,topline,source,user,date,oformat)
         call write_residual(indent,Z,A,finalnuclide)
