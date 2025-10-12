@@ -69,10 +69,19 @@ subroutine excitonout
   quantity='one-component exciton model'
   reaction= '('//parsym(k0)//',x)'
   topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)
-  excfile='exciton0000.000.tot'//natstring(iso)
-  write(excfile(8:15), '(f8.3)') Einc
-  write(excfile(8:11), '(i4.4)') int(Einc)
-  open (unit = 1, file = excfile, status = 'replace')
+  if (flagblockpreeq) then
+    excfile='exciton.out'//natstring(iso)
+    if (nin == Ninclow + 1) then
+      open (unit = 1, file = excfile, status = 'unknown')
+    else
+      open (unit = 1, file = excfile, status = 'unknown', position = 'append')
+    endif
+  else
+    excfile='exciton0000.000.out'//natstring(iso)
+    write(excfile(8:15), '(f8.3)') Einc
+    write(excfile(8:11), '(i4.4)') int(Einc)
+    open (unit = 1, file = excfile, status = 'replace')
+  endif
   call write_header(indent,topline,source,user,date,oformat)
   call write_target(indent)
   call write_char(indent,'parameters','')
