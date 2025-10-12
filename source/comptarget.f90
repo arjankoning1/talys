@@ -293,7 +293,7 @@ subroutine comptarget
     Estr=''
     write(Estr,'(es12.6)') Einc
     topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' of '//trim(finalnuclide)//' at '//Estr//' MeV'
-    popfile='initial.pop'
+    popfile='initial_population.out'
     write(*, '(/" ++++++++++ INITIAL COMPOUND NUCLEUS FORMATION +++++++++++++++++++++++++++++++",/)')
     open (unit = 1, file = popfile, status = 'replace')
     call write_header(indent,topline,source,user,date,oformat)
