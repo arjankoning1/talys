@@ -384,11 +384,20 @@ subroutine binary
     reaction='('//parsym(k0)//',bin)'
     Estr=''
     write(Estr,'(es12.6)') Einc
-    binfile = 'binE0000.000.out'
-    write(binfile(5:12), '(f8.3)') Einc
-    write(binfile(5:8), '(i4.4)') int(Einc)
+    if (flagblockbin) then
+      binfile='bin.out'//natstring(iso)
+      if (nin == Ninclow + 1) then
+        open (unit = 1, file = binfile, status = 'unknown')
+      else
+        open (unit = 1, file = binfile, status = 'unknown', position = 'append')
+      endif
+    else
+      binfile = 'binE0000.000.out'
+      write(binfile(5:12), '(f8.3)') Einc
+      write(binfile(5:8), '(i4.4)') int(Einc)
+      open (unit = 1, file = binfile, status = 'replace')
+    endif
     topline=trim(targetnuclide)//trim(reaction)//' binary '//trim(quantity)//' at '//Estr//' MeV'
-    open (unit = 1, file = binfile, status = 'replace')
     call write_header(indent,topline,source,user,date,oformat)
     call write_target(indent)
     call write_reaction(indent,reaction,0.D0,0.D0,0,0)
