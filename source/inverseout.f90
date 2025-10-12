@@ -44,8 +44,8 @@ subroutine inverseout(Zcomp, Ncomp)
   implicit none
   character(len=3)   :: massstring !
   character(len=6)   :: finalnuclide !
-  character(len=8)   :: tjlfile !
-  character(len=7)   :: crossfile !
+  character(len=80)   :: tjlfile !
+  character(len=80)   :: crossfile !
   character(len=15)  :: col(5)    ! header
   character(len=15)  :: un(5)    ! header
   character(len=80)  :: quantity   ! quantity
@@ -105,7 +105,7 @@ subroutine inverseout(Zcomp, Ncomp)
     endif
     quantity=parname(type)//' transmission coefficients'
     topline=trim(finalnuclide)//' '//trim(quantity)
-    tjlfile='transm.'//parsym(type)
+    tjlfile='transmission_'//parsym(type)//'.out'
     open (unit=1, file=tjlfile, status='replace')
     call write_header(indent,topline,source,user,date,oformat)
     call write_residual(indent,Z,A,finalnuclide)
@@ -196,7 +196,7 @@ subroutine inverseout(Zcomp, Ncomp)
 !
     quantity=parname(type)//' inverse reaction cross sections'
     topline=trim(finalnuclide)//' '//trim(quantity)
-    crossfile='cross.'//parsym(type)
+    crossfile='cross_'//parsym(type)//'.tot'
     un='mb'
     col(1)='E'
     un(1)='MeV'
