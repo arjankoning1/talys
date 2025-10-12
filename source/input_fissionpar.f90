@@ -129,17 +129,20 @@ subroutine input_fissionpar
   Cnubar2 = 1.
   Tmadjust = 1.
   Fsadjust = 1.
-  if (Atarget <= fislim) then
-    if (ldmodel(0,0) <= 3) then
-      Cbarrier = 0.85
+  Cbarrier = 1.
+  if (fismodel == 3) then
+    if (Atarget <= fislim) then
+      if (ldmodel(0,0) <= 3) then
+        Cbarrier = 0.85
+      else
+        Cbarrier = 2.00
+      endif
     else
-      Cbarrier = 2.00
-    endif
-  else
-    if (ldmodel(0,0) <= 3) then
-      Cbarrier = 1.20
-    else
-      Cbarrier = 2.00
+      if (ldmodel(0,0) <= 3) then
+        Cbarrier = 1.20
+      else
+        Cbarrier = 2.00
+      endif
     endif
   endif
   do Zix = 0, numZ
