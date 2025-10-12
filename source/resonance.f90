@@ -290,6 +290,7 @@ Loop2: do
       fact = 3.7335e+10 / (sqrt(am * (temp **3)))
       sum = 0.
       term0 = 0.
+      Ntot = min(Ntot, numP)
       do nen = 1, Ntot
         ee = real(Et(nen) * specmass(Zix, Nix, k0))
         ee1 = ee
