@@ -128,13 +128,22 @@ subroutine directout
   un = ''
   Estr=''
   write(Estr,'(es12.6)') Einc
-  dirfile = 'directE0000.000.out'
-  write(dirfile(8:15), '(f8.3)') Einc
-  write(dirfile(8:11), '(i4.4)') int(Einc)
+  if (flagblockdirect) then
+    dirfile='direct.out'//natstring(iso)
+    if (nin == Ninclow + 1) then
+      open (unit = 1, file = dirfile, status = 'unknown')
+    else
+      open (unit = 1, file = dirfile, status = 'unknown', position = 'append')
+    endif
+  else
+    dirfile = 'directE0000.000.out'
+    write(dirfile(8:15), '(f8.3)') Einc
+    write(dirfile(8:11), '(i4.4)') int(Einc)
+    open (unit = 1, file = dirfile, status = 'replace')
+  endif
   quantity='direct inelastic cross sections'
   reaction='('//parsym(k0)//','//parsym(k0)//"'"//')'
   topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' at '//Estr//' MeV'
-  open (unit = 1, file = dirfile, status = 'replace')
   call write_header(indent,topline,source,user,date,oformat)
   call write_target(indent)
   call write_reaction(indent,reaction,0.D0,0.D0,0,0)
