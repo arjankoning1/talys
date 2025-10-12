@@ -5,7 +5,7 @@ subroutine angleout
 !
 ! Author    : Arjan Koning
 !
-! 2025-07-25: Original code
+! 2025-10-08: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -14,7 +14,7 @@ subroutine angleout
 !
 ! Variables for output
 !   fileangle       ! designator for angular distributions on separate file
-!   flagblock       ! flag to block spectra, angle and gamma files
+!   flagblockangle  ! flag to block angle files
 ! Variables for existence libraries
 !   angexist        ! flag for existence of angular distributions
 !   legexist        ! flag for existence of Legendre coefficients
@@ -108,7 +108,7 @@ subroutine angleout
 !
 ! Write results to separate file
 !
-    if (flagblock) then
+    if (flagblockangle) then
       legfile = '  leg.L00'
       write(legfile(1:2), '(2a1)') parsym(k0), parsym(k0)
       write(legfile(8:9), '(i2.2)') Ltarget
@@ -158,7 +158,7 @@ subroutine angleout
 !
 ! Write results to separate file
 !
-    if (flagblock) then
+    if (flagblockangle) then
       discfile = 'nnang.L00'
       write(discfile(1:2), '(2a1)') parsym(k0), parsym(k0)
       write(discfile(8:9), '(i2.2)') Ltarget
@@ -202,7 +202,7 @@ subroutine angleout
 !
 ! Write results to separate file
 !
-    if (flagblock) then
+    if (flagblockangle) then
       discfile = '  ang.L00'
       write(discfile(1:2), '(2a1)') parsym(k0), parsym(k0)
       write(discfile(8:9), '(i2.2)') Ltarget
@@ -266,7 +266,7 @@ subroutine angleout
 ! Write results to separate file
 !
       if (fileangle(i)) then
-        if (flagblock) then
+        if (flagblockangle) then
           legfile = '  leg.L00'
           write(legfile(1:2), '(2a1)') parsym(k0), parsym(k0)
           write(legfile(8:9), '(i2.2)') i
@@ -324,7 +324,7 @@ subroutine angleout
 ! Write results to separate file
 !
     if (fileangle(i)) then
-      if (flagblock) then
+      if (flagblockangle) then
         discfile = '  ang.L00'
         write(discfile(1:2), '(2a1)') parsym(k0), parsym(k0)
         write(discfile(8:9), '(i2.2)') i
@@ -392,7 +392,7 @@ subroutine angleout
 ! Write results to separate file
 !
         if (fileangle(i)) then
-          if (flagblock) then
+          if (flagblockangle) then
             legfile = '  leg.L00'
             write(legfile(1:2), '(2a1)') parsym(k0), parsym(type)
             write(legfile(8:9), '(i2.2)') i
@@ -450,7 +450,7 @@ subroutine angleout
 ! Write results to separate file
 !
       if (fileangle(i)) then
-        if (flagblock) then
+        if (flagblockangle) then
           discfile = '  ang.L00'
           write(discfile(1:2), '(2a1)') parsym(k0), parsym(type)
           write(discfile(8:9), '(i2.2)') i
