@@ -337,11 +337,32 @@ subroutine multiple
           if (flagfisout) call fissionparout(Zcomp, Ncomp)
           strucwrite(Zcomp, Ncomp) = .true.
         endif
-        popfile = 'pop000000E0000.000.feed'
-        write(popfile(4:6), '(i3.3)') Z
-        write(popfile(7:9), '(i3.3)') A
-        write(popfile(11:18), '(f8.3)') Einc
-        write(popfile(11:14), '(i4.4)') int(Einc)
+        if (flagblock) then
+          popfile = 'population.out'
+          if (nin == Ninclow + 1 .and. Zcomp == 0 .and. Ncomp == 0) then
+            open (unit = 1, file = popfile, status = 'unknown')
+          else
+            open (unit = 1, file = popfile, status = 'unknown', position = 'append')
+          endif
+        else
+          if (flagblockZA) then
+            popfile = 'populationE0000.000.out'
+            write(popfile(12:19), '(f8.3)') Einc
+            write(popfile(12:15), '(i4.4)') int(Einc)
+            if (Zcomp == 0 .and. Ncomp == 0) then
+              open (unit = 1, file = popfile, status = 'unknown')
+            else
+              open (unit = 1, file = popfile, status = 'unknown', position = 'append')
+            endif
+          else
+            popfile = 'population000000E0000.000.out'
+            write(popfile(11:13), '(i3.3)') Z
+            write(popfile(14:16), '(i3.3)') A
+            write(popfile(18:25), '(f8.3)') Einc
+            write(popfile(18:21), '(i4.4)') int(Einc)
+            open (unit = 1, file = popfile, status = 'replace')
+          endif
+        endif
         massstring='   '
         write(massstring,'(i3)') A
         finalnuclide=trim(nuc(Z))//adjustl(massstring)
@@ -349,7 +370,6 @@ subroutine multiple
         quantity='population'
         Estr=''
         write(Estr,'(es12.6)') Einc
-        open (unit = 1, file = popfile, status = 'replace')
         do parity = - 1, 1, 2
           if (parity == -1) then
             topline=trim(targetnuclide)//trim(reaction)//' '//trim(quantity)//' of '//trim(finalnuclide)//' at '//Estr//' MeV'
