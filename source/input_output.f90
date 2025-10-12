@@ -5,7 +5,7 @@ subroutine input_output
 !
 ! Author    : Arjan Koning
 !
-! 2021-12-30: Original code
+! 2025-10-08: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -19,6 +19,16 @@ subroutine input_output
 !   flagang         ! flag for output of angular distributions
 !   flagbinspec     ! flag for output of emission spectrum per excitation bin
 !   flagblock       ! flag to block spectra, angle and gamma files
+!   flagblockddx    ! flag to block DDX files
+!   flagblockspectra! flag to block spectra files
+!   flagblockangle  ! flag to block angle files
+!   flagblocklevels ! flag to block discrete level files
+!   flagblockomp    ! flag to block optical model files
+!   flagblockpreeq  ! flag to block preequilibrium files
+!   flagblockbin    ! flag to block binary files
+!   flagblockdirect ! flag to block direct reaction files
+!   flagblockastro  ! flag to block astro reaction rate files
+!   flagblockyield  ! flag to block isotopic yield files
 !   flagcheck       ! flag for output of numerical checks
 !   flagcompo       ! flag for output of cross section components
 !   flagddx         ! flag for output of double-differential cross sections
@@ -76,6 +86,17 @@ subroutine input_output
 !
   flagbinspec = .false.
   flagblock = .false.
+  flagblockddx = .false.
+  flagblockspectra = .false.
+  flagblockangle = .false.
+  flagblocklevels = .false.
+  flagblockomp = .true.
+  flagblockpreeq = .false.
+  flagblockbin = .false.
+  flagblockdirect = .false.
+  flagblockastro = .false.
+  flagblockyield = .false.
+  flagblockZA = .true.
   flagcheck = flagbasic
   flagang = .false.
   flagcompo = .false.
@@ -107,6 +128,9 @@ subroutine input_output
     flagang = .true.
     flagcheck = .true.
     flagblock = .true.
+    flagblockddx = .true.
+    flagblockspectra = .true.
+    flagblockangle = .true.
     if (k0 == 3) then
       ddxmode = 2
       flagddx = .true.
@@ -153,6 +177,72 @@ subroutine input_output
     if (key == 'block') then
       if (ch == 'n') flagblock = .false.
       if (ch == 'y') flagblock = .true.
+      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'blockddx') then
+      if (ch == 'n') flagblockddx = .false.
+      if (ch == 'y') flagblockddx = .true.
+      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'blockspectra') then
+      if (ch == 'n') flagblockspectra = .false.
+      if (ch == 'y') flagblockspectra = .true.
+      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'blockangle') then
+      if (ch == 'n') flagblockangle = .false.
+      if (ch == 'y') flagblockangle = .true.
+      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'blockdirect') then
+      if (ch == 'n') flagblockdirect = .false.
+      if (ch == 'y') flagblockdirect = .true.
+      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'blocklevels') then
+      if (ch == 'n') flagblocklevels = .false.
+      if (ch == 'y') flagblocklevels = .true.
+      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'blockomp') then
+      if (ch == 'n') flagblockomp = .false.
+      if (ch == 'y') flagblockomp = .true.
+      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'blockpreeq') then
+      if (ch == 'n') flagblockpreeq = .false.
+      if (ch == 'y') flagblockpreeq = .true.
+      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'blockbin') then
+      if (ch == 'n') flagblockbin = .false.
+      if (ch == 'y') flagblockbin = .true.
+      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'blockastro') then
+      if (ch == 'n') flagblockastro = .false.
+      if (ch == 'y') flagblockastro = .true.
+      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'blockyield') then
+      if (ch == 'n') flagblockyield = .false.
+      if (ch == 'y') flagblockyield = .true.
+      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'blockza') then
+      if (ch == 'n') flagblockZA = .false.
+      if (ch == 'y') flagblockZA = .true.
       if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
       cycle
     endif
