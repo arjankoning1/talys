@@ -202,10 +202,19 @@ subroutine preeqout
 !
 ! 2. Output of pre-equilibrium cross sections
 !
-  preeqfile='preeq0000.000.tot'//natstring(iso)
-  write(preeqfile(6:13), '(f8.3)') Einc
-  write(preeqfile(6:9), '(i4.4)') int(Einc)
-  open (unit = 1, file = preeqfile, status = 'unknown')
+  if (flagblockpreeq) then
+    preeqfile='preeq.out'//natstring(iso)
+    if (nin == Ninclow + 1) then
+      open (unit = 1, file = preeqfile, status = 'unknown')
+    else
+      open (unit = 1, file = preeqfile, status = 'unknown', position = 'append')
+    endif
+  else
+    preeqfile='preeq0000.000.out'//natstring(iso)
+    write(preeqfile(6:13), '(f8.3)') Einc
+    write(preeqfile(6:9), '(i4.4)') int(Einc)
+    open (unit = 1, file = preeqfile, status = 'unknown')
+  endif
   un='mb'
   col=''
   col(2)='Total'
