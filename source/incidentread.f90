@@ -68,7 +68,7 @@ subroutine incidentread
   integer, parameter:: numpot=20000   ! number of OMP radial points for output
   character(len=72) :: line           ! input line
   character(len=132):: string        ! input line
-  character(len=21) :: optfile    ! file with optical potential
+  character(len=80) :: optfile    ! file with optical potential
   character(len=12) :: Estr
   character(len=132):: topline    ! topline
   character(len=15) :: col(5)     ! header
@@ -455,9 +455,6 @@ subroutine incidentread
   enddo
   indent = 0
   id2 = indent + 2
-  optfile='optE0000.000.'//parsym(k0)
-  write(optfile(5:12), '(f8.3)') Einc
-  write(optfile(5:8), '(i4.4)') int(Einc)
   if (flagoutomp) then
     Z = ZZ(0, 0, k0)
     A = AA(0, 0, k0)
@@ -471,11 +468,20 @@ subroutine incidentread
     col(4) = 'Vso'
     col(5) = 'Wso'
     Ncol = 5
-    optfile='optE0000.000.'//parsym(k0)
-    write(optfile(5:12), '(f8.3)') Einc
-    write(optfile(5:8), '(i4.4)') int(Einc)
+    if (flagblockomp) then
+      optfile='omp.out'//natstring(iso)
+      if (nin == Ninclow + 1) then
+        open (unit = 1, file = optfile, status = 'unknown')
+      else
+        open (unit = 1, file = optfile, status = 'unknown', position = 'append')
+      endif
+    else
+      optfile='ompE0000.000_'//parsym(k0)//'.tot'
+      write(optfile(5:12), '(f8.3)') Einc
+      write(optfile(5:8), '(i4.4)') int(Einc)
+      open (unit=1, file=optfile, status='unknown')
+    endif
     quantity='optical potential'
-    open (unit=1, file=optfile, status='unknown')
     topline=trim(targetnuclide)//' '//parname(k0)//' optical potential at '//Estr//' MeV'
     call write_header(indent,topline,source,user,date,oformat)
     call write_target(indent)
