@@ -302,3 +302,19 @@ September 23 2025
 
 Added the experimental neutron strength function S0 to the output
 in spr.f90
+
+October 8 2025
+
+Made several keywords to 'block' various output files into larger files
+to reduce the total number of files. Besides 'block' we now have
+'blockangle', 'blockastro', 'blockbin', 'blockdirect', 'blockddx', 
+'blocklevels', 'blockomp', 'blockpreeq', 'blockspectra', 'blockyield', 
+'blockza'.
+
+October 10 2025
+
+Made the keyword Cbarrier now applicable to any fission model. 
+This parameter multiplies all fission barriers by the same factor and
+was so far only used for fismodel 3, for subactinide and 
+charged-particle induced fission.
+
