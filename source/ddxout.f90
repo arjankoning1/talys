@@ -24,10 +24,10 @@ subroutine ddxout
 ! Variables for output
 !   ddxacount        ! counter for double - differential cross section files
 !   ddxecount        ! counter for double - differential cross section files
-!   ddxmode            ! mode for DDX: 0: None, 1: Angular distributions, 2: Spectra per angle, 3: Both
+!   ddxmode          ! mode for DDX: 0: None, 1: Angular distributions, 2: Spectra per angle, 3: Both
 !   fileddxa         ! designator for double - differential cross sections on separate file
 !   fileddxe         ! designator for double - differential cross sections on separate file
-!   flagblock        ! flag to block spectra, angle and gamma files
+!   flagblockddx     ! flag to block DDX files
 ! Variables for basic reaction
 !   flaglabddx       ! flag for calculation of DDX in LAB system
 !   flagrecoil       ! flag for calculation of recoils
@@ -142,7 +142,7 @@ subroutine ddxout
         enf = fileddxe(type, i)
         call locate(Eo, ebegin(type), eendout(type), enf, nen)
         fac = (enf - Eo(nen)) / deltaE(nen)
-        if (flagblock) then
+        if (flagblockddx) then
           ddxfile = ' ddx.MeV'//natstring(iso)
           write(ddxfile(1:1), '(a1)') parsym(type)
           if (.not. ddxexist1(type)) then
@@ -210,7 +210,7 @@ subroutine ddxout
           enf = fileddxe(type, i)
           call locate(Eo, 1, iejlab(type), enf, nen)
           fac = (enf - Eo(nen)) / deltaE(nen)
-          if (flagblock) then
+          if (flagblockddx) then
             ddxfile = ' ddx.lab'//natstring(iso)
             write(ddxfile(1:1), '(a1)') parsym(type)
             if (.not. ddxexist2(type)) then
@@ -278,7 +278,7 @@ subroutine ddxout
         angf = fileddxa(type, i)
         call locate(anglecont, 0, nanglecont, angf, iang)
         fac = (angf - anglecont(iang)) / anginc
-        if (flagblock) then
+        if (flagblockddx) then
           ddxfile = ' ddx.deg'//natstring(iso)
           write(ddxfile(1:1), '(a1)') parsym(type)
           if (.not. ddxexist3(type)) then
@@ -347,7 +347,7 @@ subroutine ddxout
           angf = fileddxa(type, i)
           call locate(anglecont, 0, nanglecont, angf, iang)
           fac = (angf - anglecont(iang)) / anginc
-          if (flagblock) then
+          if (flagblockddx) then
             ddxfile = ' ddx.lab'//natstring(iso)
             write(ddxfile(1:1), '(a1)') parsym(type)
             if (.not. ddxexist4(type)) then
