@@ -69,7 +69,7 @@ subroutine gammaout(Zcomp, Ncomp)
   implicit none
   character(len=3)  :: massstring !
   character(len=6)  :: finalnuclide !
-  character(len=7)  :: crossfile !
+  character(len=80) :: crossfile !
   character(len=15) :: col(4)    ! header
   character(len=15) :: un(4)    ! header
   character(len=80) :: quantity   ! quantity
@@ -259,7 +259,7 @@ subroutine gammaout(Zcomp, Ncomp)
 !
   quantity='photo absorption cross sections'
   topline=trim(finalnuclide)//' '//trim(quantity)
-  crossfile='cross.g'
+  crossfile='cross_g.tot'
   un='mb'
   col(1)='E'
   un(1)='MeV'
