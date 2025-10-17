@@ -319,7 +319,7 @@ subroutine incidentecis
 !
 ! Output of optical model parameters, if requested.
 !
-  if (flagoutomp) then
+  if (flagoutomp .and. flaginccalc) then
     ecis2(1:1) = 'T'
     Z = ZZ(0, 0, k0)
     A = AA(0, 0, k0)
