@@ -133,7 +133,7 @@ subroutine incidentread
     open (unit = 8, status = 'unknown', file = 'ecis.incang')
     open (unit = 9, status = 'unknown', file = 'ecis.incleg')
     open (unit = 10, status = 'unknown', file = 'ecis.incin')
-    open (unit = 11, status = 'unknown', file = 'ecis.pot')
+    if (flagoutomp) open (unit = 11, status = 'unknown', file = 'ecis.pot')
     infilecs = 3
     infiletr = 7
     infileang = 8
@@ -145,7 +145,7 @@ subroutine incidentread
     open (unit = 18, status = 'unknown', file = 'incident.ang')
     open (unit = 19, status = 'unknown', file = 'incident.leg')
     open (unit = 20, status = 'unknown', file = 'incident.in')
-    open (unit = 21, status = 'unknown', file = 'incident.pot')
+    if (flagoutomp) open (unit = 21, status = 'unknown', file = 'incident.pot')
     do
       read(3, '(a72)', iostat = istat) line
       if(istat == -1) exit
@@ -394,68 +394,68 @@ subroutine incidentread
 !
 ! ******************* Read optical model potentials ********************
 !
-  k = 0
-  radpot = 0.
-  Rpot = 0.
-  Ipot = 0.
-  Rsopot = 0.
-  Isopot = 0.
-  do
-    read(infilepot, '(a)', iostat = istat) string
-    if (istat == -1) exit
-    ix = index(string,'integration')
-    if (ix > 0) read(string(25:32),'(f8.5)') step
-    ix = index(string,'central')
-    if (ix > 0) then
-      if (k == 0) Npot = 0
-      k = 1
-    endif
-    ix = index(string,'real spin')
-    if (ix > 0) then
-      if (k == 1) N = 0
-      k = 2
-    endif
-    ix = index(string,'imaginary spin')
-    if (ix > 0) then
-      if (k == 2) N = 0
-      k = 3
-    endif
-    if (k == 1) then
-      read(string, '(3(i10, 2es14.5, 2x))', iostat = istat) (iR(i), Rpo(i), Ipo(i), i = 1, 3)
-      if (istat /= 0) cycle
-      if (iR(1) == 0) cycle
-      if (Npot <= numpot - 3) then
-        do i = 1, 3
-          radpot(Npot + i) = iR(i) * step
-          Rpot(Npot + i) = Rpo(i)
-          Ipot(Npot + i) = Ipo(i)
-        enddo
-        Npot  = Npot  + 3
+  if (flagoutomp .and. flaginccalc) then
+    k = 0
+    radpot = 0.
+    Rpot = 0.
+    Ipot = 0.
+    Rsopot = 0.
+    Isopot = 0.
+    do
+      read(infilepot, '(a)', iostat = istat) string
+      if (istat == -1) exit
+      ix = index(string,'integration')
+      if (ix > 0) read(string(25:32),'(f8.5)') step
+      ix = index(string,'central')
+      if (ix > 0) then
+        if (k == 0) Npot = 0
+        k = 1
       endif
-    endif
-    if (k >= 2) then
-      read(string, '(6(i6, es14.5))', iostat = istat) (iR(i), Rpo(i), i = 1, 6)
-      if (istat /= 0) cycle
-      if (iR(1) == 0) cycle
-      if (k == 2) then
-        if (N <= numpot - 6) then
-          do i = 1, 6
-            Rsopot(N + i) = Rpo(i)
+      ix = index(string,'real spin')
+      if (ix > 0) then
+        if (k == 1) N = 0
+        k = 2
+      endif
+      ix = index(string,'imaginary spin')
+      if (ix > 0) then
+        if (k == 2) N = 0
+        k = 3
+      endif
+      if (k == 1) then
+        read(string, '(3(i10, 2es14.5, 2x))', iostat = istat) (iR(i), Rpo(i), Ipo(i), i = 1, 3)
+        if (istat /= 0) cycle
+        if (iR(1) == 0) cycle
+        if (Npot <= numpot - 3) then
+          do i = 1, 3
+            radpot(Npot + i) = iR(i) * step
+            Rpot(Npot + i) = Rpo(i)
+            Ipot(Npot + i) = Ipo(i)
           enddo
-        endif
-      else
-        if (N <= numpot - 6) then
-          do i = 1, 6
-            Isopot(N + i) = Rpo(i)
-          enddo
+          Npot  = Npot  + 3
         endif
       endif
-      N  = N  + 6
-    endif
-  enddo
-  indent = 0
-  id2 = indent + 2
-  if (flagoutomp) then
+      if (k >= 2) then
+        read(string, '(6(i6, es14.5))', iostat = istat) (iR(i), Rpo(i), i = 1, 6)
+        if (istat /= 0) cycle
+        if (iR(1) == 0) cycle
+        if (k == 2) then
+          if (N <= numpot - 6) then
+            do i = 1, 6
+              Rsopot(N + i) = Rpo(i)
+            enddo
+          endif
+        else
+          if (N <= numpot - 6) then
+            do i = 1, 6
+              Isopot(N + i) = Rpo(i)
+            enddo
+          endif
+          endif
+        N  = N  + 6
+      endif
+    enddo
+    indent = 0
+    id2 = indent + 2
     Z = ZZ(0, 0, k0)
     A = AA(0, 0, k0)
     Estr=''
