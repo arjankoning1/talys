@@ -110,7 +110,6 @@ subroutine densitytable(Zix, Nix)
       if (ldmod == 5) denfile = trim(path)//'density/ground/hilaire/'//trim(denchar)//'.tab'
       if (ldmod == 6) denfile = trim(path)//'density/ground/hilaireD1M/'// trim(denchar)//'.tab'
       if (ldmod == 7) denfile = trim(path)//'density/ground/bskg3/'// trim(denchar)//'.tab'
-      if (ldmod == 8) denfile = trim(path)//'density/ground/qrpa/'// trim(denchar)//'.tab'
       if (densfile(Zix, Nix)(1:1) /= ' ') denfile = densfile(Zix,Nix)
     endif
 !
@@ -119,7 +118,7 @@ subroutine densitytable(Zix, Nix)
     if (ibar == 1) then
       if (ldmod == 4) denfile = trim(path)//'density/fission/goriely/inner/' //trim(denchar)//'.ld'
       if (ldmod == 5 .or. ldmod == 6) denfile = trim(path)//'density/fission/hilaire/Max1/' //trim(denchar)//'.ld'
-      if (ldmod == 7 .or. ldmod == 8) denfile = trim(path)//'density/fission/bskg3/Max1/' //trim(denchar)//'.ld'
+      if (ldmod == 7) denfile = trim(path)//'density/fission/bskg3/Max1/' //trim(denchar)//'.ld'
     endif
 !
 ! Second barrier
@@ -127,14 +126,14 @@ subroutine densitytable(Zix, Nix)
     if (ibar == 2) then
       if (ldmod == 4) denfile = trim(path)//'density/fission/goriely/outer/' //trim(denchar)//'.ld'
       if (ldmod == 5 .or. ldmod == 6) denfile = trim(path)//'density/fission/hilaire/Max2/' //trim(denchar)//'.ld'
-      if (ldmod == 7 .or. ldmod == 8) denfile = trim(path)//'density/fission/bskg3/Max2/' //trim(denchar)//'.ld'
+      if (ldmod == 7) denfile = trim(path)//'density/fission/bskg3/Max2/' //trim(denchar)//'.ld'
     endif
 !
 ! Third barrier
 !
     if (ibar == 3) then
       if (ldmod == 5 .or. ldmod == 6) denfile = trim(path)//'density/fission/hilaire/Max3/' //trim(denchar)//'.ld'
-      if (ldmod == 7 .or. ldmod == 8) denfile = trim(path)//'density/fission/bskg3/Max3/' //trim(denchar)//'.ld'
+      if (ldmod == 7) denfile = trim(path)//'density/fission/bskg3/Max3/' //trim(denchar)//'.ld'
     endif
 !
 ! Check existence of file and read data from the tables.
