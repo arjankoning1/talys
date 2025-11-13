@@ -166,7 +166,6 @@ subroutine densityout(Zix, Nix)
   if (ldmod == 5) model = "Hilaire-Goriely-Skyrme   "
   if (ldmod == 6) model = "Hilaire-Goriely-Gogny    "
   if (ldmod == 7) model = "BSKG3-Combinatorial      "
-  if (ldmod == 8) model = "D1M-QRPA-BE              "
   write(*, '(/" Level densities for Z=", i3, " N=", i3, " (",a,") "/)')  Z, N, trim(finalnuclide)
   write(*, '(" Total level density"/)') 
 !
