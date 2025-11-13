@@ -149,6 +149,7 @@ subroutine gammaout(Zcomp, Ncomp)
   if (strength == 10) modelE1 = "BSk27+QRPA 2018 Tables   "
   if (strength == 11) modelE1 = "D1M-Intra-E1             "
   if (strength == 12) modelE1 = "Shellmodel-E1            "
+  if (strength == 13) modelE1 = "RQFAMz                   "
   if (strengthM1 == 1) modelM1 = "RIPL-1                   "
   if (strengthM1 == 2) modelM1 = "RIPL-2                   "
   if (strengthM1 == 3) modelM1 = "IAEA GSF CRP (2018)      "
