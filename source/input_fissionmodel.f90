@@ -83,12 +83,12 @@ subroutine input_fissionmodel
   hbtransfile = ' '
   fisadjust = .false.
   if (flagmicro) then
-    fismodel = 5
+    fismodel = 6
   else
     fismodel = 1
   endif
   if (k0 <= 1 .and. Atarget > fislim) then
-    fismodel = 5
+    fismodel = 6
     fismodelalt = 4
   else
     fismodel = 3
