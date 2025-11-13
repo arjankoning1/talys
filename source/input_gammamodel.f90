@@ -72,6 +72,7 @@ subroutine input_gammamodel
   if (strength == 10) strengthM1 = 10
   if (strength == 11) strengthM1 = 11
   if (strength == 12) strengthM1 = 12
+  if (strength == 13) strengthM1 = 8
   if (strength <= 2) strengthM1 = 2
   ldmodelracap = 3
 !
