@@ -144,6 +144,7 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
 ! 10. BSk27+QRPA 2018 Tables
 ! 11. D1M-Intra-E1
 ! 12. Shellmodel-E1
+! 13. RQFAMz               
 !
   flagM1 = (irad == 0 .and. l == 1)
   flagE1 = (irad == 1 .and. l == 1)
@@ -208,7 +209,7 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
       endif
     endif
 !
-! 3+4+6+7+8+9+10+11+12. Tabulated QRPA strength functions
+! 3+4+6+7+8+9+10+11+12+13. Tabulated QRPA strength functions
 !
 ! locate    : subroutine to find value in ordered table
 ! numgamqrpa: number of energies for QRPA strength function
