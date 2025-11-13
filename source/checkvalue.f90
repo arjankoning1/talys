@@ -783,22 +783,19 @@ subroutine checkvalue
 ! 5. Check of values for gamma emission
 !
   call range_integer_error('gammax', gammax, 1, 6)
-  call range_integer_error('strength', strength, 1, 12)
-  if (strength == 3 .or. strength == 4) then
-    inquire (file = trim(path)//'gamma/hfb/Sn.psf', exist = lexist)
-    if ( .not. lexist) then
-      write(*, '(" TALYS-error: Microscopic HFB tables are not installed: download the full TALYS package from www.talys.eu")')
-      stop
-    endif
+  call range_integer_error('strength', strength, 1, 13)
+  if (strength == 11) then
+    write(*,'(" TALYS-error: strength = 1-10 or 12-13")')
+    stop
   endif
-  if ((strengthM1 < 1 .or. strengthM1 > 4) .and. strengthM1 /= 8 .and. strengthM1 /= 10 .and. strengthM1 /= 11 .and. &
- &  strengthM1 /= 12) then
-    write(*,'(" TALYS-error: strengthM1 = 1, 2, 3, 4, 8, 10, 11 or 12")')
+  if ((strengthM1 < 1 .or. strengthM1 > 4) .and. strengthM1 /= 8 .and. strengthM1 /= 10 .and. &
+ &  strengthM1 /= 12 .and. strengthM1 /= 13) then
+    write(*,'(" TALYS-error: strengthM1 = 1, 2, 3, 4, 8, 10, 12 or 13")')
     stop
   endif
   if (.not. flaglegacy) then
     if (strength <= 7) then
-      write(*,'(" TALYS-error: strength = 8, 9, 10, 11 or 12 are recommended. If you want to use legacy models put legacy y")')
+      write(*,'(" TALYS-error: strength = 8, 9, 10, 11, 12 or 13 are recommended. If you want to use legacy models put legacy y")')
       stop
     endif
     if (strengthM1 /= 3 .and. strengthM1 /= 8 .and. strengthM1 /= 10 .and. strengthM1 /= 11 .and. strengthM1 /= 12) then
@@ -945,10 +942,10 @@ subroutine checkvalue
   call range_integer_error('spincutmodel', spincutmodel, 1, 2)
   call range_integer_error('shellmodel', shellmodel, 1, 2)
   call range_integer_error('kvibmodel', kvibmodel, 1, 2)
-  call range_integer_error('ldmodelcn', ldmodelCN, 1, 8)
+  call range_integer_error('ldmodelcn', ldmodelCN, 1, 7)
   if (.not. flaglegacy) then
     if (ldmodelCN == 3 .or. ldmodelCN == 4 .or. ldmodelCN == 6) then
-      write(*,'(" TALYS-error: ldmodelCN = 1, 2, 5, 7 or 8 are recommended. If you want to use legacy models put legacy y")')
+      write(*,'(" TALYS-error: ldmodelCN = 1, 2, 5, or 7 are recommended. If you want to use legacy models put legacy y")')
       stop
     endif
   endif
@@ -956,10 +953,10 @@ subroutine checkvalue
     do Nix = 0, numN
       Z = Zinit - Zix
       A = Ainit - Zix - Nix
-      call range_integer_error('ldmodel', ldmodel(Zix, Nix), 1, 8, index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
+      call range_integer_error('ldmodel', ldmodel(Zix, Nix), 1, 7, index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
       if (.not. flaglegacy) then
         if (ldmodel(Zix, Nix) == 3 .or. ldmodel(Zix, Nix) == 4 .or. ldmodel(Zix, Nix) == 6) then
-          write(*,'(" TALYS-error: ldmodel = 1, 2, 5, 7 or 8 are recommended. If you want to use legacy models put legacy y")')
+          write(*,'(" TALYS-error: ldmodel = 1, 2, 5, or 7 are recommended. If you want to use legacy models put legacy y")')
           stop
         endif
       endif
