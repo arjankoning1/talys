@@ -200,6 +200,7 @@ subroutine gammapar(Zix, Nix)
     if (strength == 10) gamfile = trim(path)//'gamma/bsk27_E1/'// gamchar
     if (strength == 11) gamfile = trim(path)//'gamma/d1m-intra-e1/'// gamchar
     if (strength == 12) gamfile = trim(path)//'gamma/shellmodel-e1/'// gamchar
+    if (strength == 13) gamfile = trim(path)//'gamma/rqfamz/'// gamchar
     inquire (file = gamfile, exist = lexist)
     if (lexist) then
       open (unit = 2, file = gamfile, status = 'old', iostat = istat)
