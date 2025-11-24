@@ -5,7 +5,7 @@ subroutine checkvalue
 !
 ! Author    : Arjan Koning
 !
-! 2025-09-04: Current version
+! 2025-11-13: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -1184,6 +1184,7 @@ subroutine checkvalue
 !
   if (flagres) then
     if (trim(reslib) == 'tendl.2023') return
+    if (trim(reslib) == 'tendl.2025') return
     if (trim(reslib) == 'jeff4.0') return
     if (trim(reslib) == 'endfb8.1') return
     if (trim(reslib) == 'cendl3.2') return
