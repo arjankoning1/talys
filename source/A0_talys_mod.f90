@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2023-12-30: Original code
-! 2025-11-13: Current version
+! 2025-11-16: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -55,7 +55,7 @@ module A0_talys_mod
   integer, parameter :: numrot=700                           ! number of rotational states
   integer, parameter :: nummatchT=4000                       ! maximum number of energy points for T matching
   integer, parameter :: numdens=60                           ! number of energy points for tabulated level densities
-  integer, parameter :: numdensracap=200                     ! number of energy points for tabulated level densities for direct cap.
+  integer, parameter :: numdensracap=200                     ! number of energy points for tabulated level densities for dir. cap.
   integer, parameter :: numen=260                            ! maximum number of outgoing energies
   integer, parameter :: numang=90                            ! maximum number of angles
   integer, parameter :: numangcont=36                        ! maximum number of angles for continuum
@@ -331,6 +331,7 @@ module A0_talys_mod
   character(len=132), dimension(0:numZ,0:numN)   :: densfile          ! tabulated level density file
   logical                                        :: filedensity       ! flag for level densities on separate files
   logical                                        :: flagasys          ! flag for all level density parameters a from systematics
+  logical                                        :: flagldglobal      ! flag for global level density model
   logical, dimension(0:numZ, 0:numN)             :: flagcol           ! flag for collective enhancement of level density
   logical                                        :: flagcolall        ! flag for collective enhancement of level density
   logical                                        :: flagcolldamp      ! flag for damp of coll eff in effec lev dens (no expl col en)
@@ -398,6 +399,7 @@ module A0_talys_mod
   logical                                                 :: flaggnorm      ! flag to normalize PSF to average radiative width
   logical                                                 :: flagupbend     ! flag for low-energy upbend of photon strength function
   logical                                                 :: flagpsfglobal  ! flag for global photon strength functions only
+  logical                                                 :: flagglobalwtable ! flag for global average wtable value instead of 1.
   integer                                                 :: gammax         ! number of l-values for gamma multipolarity
   integer                                                 :: ldmodelracap   ! level density model for direct radiative capture
   integer                                                 :: strength       ! E1 strength function model
