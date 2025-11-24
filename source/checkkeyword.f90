@@ -6,7 +6,7 @@ subroutine checkkeyword
 ! Author    : Arjan Koning
 !
 ! 2021-12-30: Original code
-! 2025-10-08: Latest version
+! 2025-11-16: Latest version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -20,7 +20,7 @@ subroutine checkkeyword
 ! *** Declaration of local data
 !
   implicit none
-  integer, parameter :: numkey=439        ! number of keywords
+  integer, parameter :: numkey=441        ! number of keywords
   integer            :: i                 ! counter
   integer            :: j                 ! counter
   character(len=132) :: key               ! keyword
@@ -53,11 +53,11 @@ subroutine checkkeyword
  &  'fileddxa', 'fileddxe', 'filedensity', 'filediscrete', 'fileelastic', 'filefission', 'filegamdis', 'filepsf', 'filerecoil', &
  &  'fileresidual', 'filespectrum', 'filetotal', 'fisbar', 'fisbaradjust', 'fisfeed', 'fishw', 'fishwadjust', 'fismodel', &
  &  'fismodelalt', 'fiso', 'fisom', 'fispartdamp', 'fission', 'fit', 'format', 'fsadjust', 'ftable', 'ftableadjust', 'fullhf', & 
- &  'fymodel', 'g', 'gadjust', 'gamgam', 'gamgamadjust', 'gamgamfit', 'gammald', 'gammashell1', &
- &  'gammashell2', 'gammax', 'gefran', 'ggr', 'ggradjust', 'giantresonance', 'gmradjustd', 'gmradjuste', 'gmradjustg', 'gn', &
+ &  'fymodel', 'g', 'gadjust', 'gamgam', 'gamgamadjust', 'gamgamfit', 'gammald', 'gammashell1', 'gammashell2', 'gammax', &
+ &  'gefran', 'ggr', 'ggradjust', 'giantresonance', 'globalwtable', 'gmradjustd', 'gmradjuste', 'gmradjustg', 'gn', &
  &  'gnadjust', 'gnfit', 'gnorm', 'gp', 'gpadjust', 'gpr', 'gpradjust', 'gqradjustd', 'gqradjuste', 'gqradjustg', 'group',  &
- &  'gshell', 'hbstate', 'hbtransfile', 'heoradjustd', 'heoradjuste', 'heoradjustg', 'ibeam', 'incadjust', &
- &  'inccalc', 'integral', 'isomer', 'jlmmode', 'jlmomp', 'kph', 'krotconstant', 'kvibmodel', 'labddx', 'ldmodel', 'ldmodelcn',  &
+ &  'gshell', 'hbstate', 'hbtransfile', 'heoradjustd', 'heoradjuste', 'heoradjustg', 'ibeam', 'incadjust', 'inccalc', 'integral', &
+ &  'isomer', 'jlmmode', 'jlmomp', 'kph', 'krotconstant', 'kvibmodel', 'labddx', 'ldglobal','ldmodel', 'ldmodelcn',  &
  &  'ldmodelracap', 'legacy', 'leoradjustd', 'leoradjuste', 'leoradjustg', 'levelfile', 'levinger', 'liso', 'localomp', 'ltarget', &
  &  'lurr', 'lv1adjust', 'lvadjust', 'lvsoadjust', &
  &  'lw1adjust', 'lwadjust', 'lwsoadjust', 'm1file', 'm2constant', 'm2limit', 'm2shift', 'macsfit', 'mass', 'massdir', &
