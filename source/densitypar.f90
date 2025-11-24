@@ -5,7 +5,7 @@ subroutine densitypar(Zix, Nix)
 !
 ! Author    : Arjan Koning and Stephane Hilaire
 !
-! 2025-09-04: Original code
+! 2025-11-16: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -290,7 +290,7 @@ subroutine densitypar(Zix, Nix)
     ldparexist(Zix, Nix) = .true.
     if (Nlow(Zix, Nix, 0) ==  - 1) Nlow(Zix, Nix, 0) = Nlow0
     if (Ntop(Zix, Nix, 0) ==  - 1) Ntop(Zix, Nix, 0) = min(Ntop0, 50)
-    if ( .not. flagasys) then
+    if ( .not.flagasys .and. .not.flagldglobal) then
       if (ldmod <= 3) then
         if (alev(Zix, Nix) == 0.) alev(Zix, Nix) = aadjust(Zix, Nix) * ald0
         do ibar = 0, nfisbar(Zix, Nix)
