@@ -325,3 +325,17 @@ Added new PSF model, RQFAMz, which is called with strength 13.
 November 14 2025
 
 Removed ldmodel 8 and strength 11 as they are not yet mature.
+
+November 16 2025
+
+Added a flag to use only global level density models, ldglobal.
+This already existed for microscopic tables, if you put ctable and
+ptable equal to zero, but for CTM still the adjusted temperature for
+discrete levels was used. With ldglobal y, a fair comparison between
+global level density models is used.
+
+November 17 2025
+
+Added a flag, globalwtable, to enable or disable a global value for
+wtable. By default, wtable y, and when wtable n a value of wtable 1.
+is taken.
