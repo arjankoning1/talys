@@ -112,7 +112,7 @@ subroutine input_gammapar
   levinger = 6.5
   do Zix = 0, numZ
     do Nix = 0, numN
-      if (k0 <= 1) then
+      if (k0 <= 1 .and. flagglobalwtable) then
         if (strength == 8) then
           if (ldmodel(Zix,Nix) == 1 .and. flagcol(Zix, Nix)) wtable(Zix,Nix,1,1) = 1.052
           if (ldmodel(Zix,Nix) == 1 .and. .not.flagcol(Zix, Nix)) wtable(Zix,Nix,1,1) = 1.076
