@@ -21,6 +21,7 @@ subroutine input_densitymodel
 !   col                  ! flag for collective enhancement of level density
 !   colall               ! flag for collective enhancement of level density
 !   filedensity          ! flag for level densities on separate files
+!   flagldglobal         ! flag for global level density model
 !   flagasys             ! flag for all level density parameters a from systematic
 !   flagcol              ! flag for collective enhancement of level density
 !   flagcolall           ! flag for collective enhancement of level density
@@ -100,6 +101,7 @@ subroutine input_densitymodel
   flagcolldamp = .false.
   ldmodel = 0
   col = 0.
+  flagldglobal = .false.
   flagasys = .false.
   flagctmglob = .false.
   flagdensity = flagbasic
@@ -168,6 +170,12 @@ subroutine input_densitymodel
     if (key == 'asys') then
       if (ch == 'n') flagasys = .false.
       if (ch == 'y') flagasys = .true.
+      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'ldglobal') then
+      if (ch == 'n') flagldglobal = .false.
+      if (ch == 'y') flagldglobal = .true.
       if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
       cycle
     endif
