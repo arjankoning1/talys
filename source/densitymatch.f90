@@ -5,7 +5,7 @@ subroutine densitymatch(Zix, Nix)
 !
 ! Author    : Arjan Koning and Stephane Hilaire
 !
-! 2021-12-30: Original code
+! 2025-11-16: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -197,6 +197,10 @@ subroutine densitymatch(Zix, Nix)
       endif
       Tmemp = max(Tmemp, 0.1)
       Exmemp = max(Exmemp, 0.1)
+      if (flagldglobal) then
+        Tm = Tmemp
+        Exm = Exmemp
+      endif
 !
 ! Normal case: CTM parameters are derived from matching automatically, i.e. T an Exmatch are not given in the input file.
 !
