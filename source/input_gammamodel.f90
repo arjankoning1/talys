@@ -21,6 +21,7 @@ subroutine input_gammamodel
 !   flagracap         ! flag for radiative capture model
 !   flagupbend        ! flag for low-energy upbend of photon strength function
 !   flagpsfglobal     ! flag for global photon strength functions only
+!   flagglobalwtable  ! flag for global average wtable value instead of 1.    
 !   flaggnorm         ! flag to normalize PSF to average radiative width
 !   ldmodelracap      ! level density model for direct radiative capture
 !   strength          ! E1 strength function model
@@ -66,6 +67,7 @@ subroutine input_gammamodel
     flagupbend = .false.
   endif
   flagpsfglobal = .false.
+  flagglobalwtable = .true.
   flaggnorm = .false.
   strengthM1 = 3
   if (strength == 8) strengthM1 = 8
@@ -150,6 +152,12 @@ subroutine input_gammamodel
     if (key == 'psfglobal') then
       if (ch == 'n') flagpsfglobal = .false.
       if (ch == 'y') flagpsfglobal = .true.
+      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'globalwtable') then
+      if (ch == 'n') flagglobalwtable = .false.
+      if (ch == 'y') flagglobalwtable = .true.
       if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
       cycle
     endif
