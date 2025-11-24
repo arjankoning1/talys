@@ -185,6 +185,7 @@ subroutine inputout
 !   flagracap       ! flag for radiative capture model
 !   flagupbend      ! flag for low-energy upbend of photon strength function
 !   flagpsfglobal   ! flag for global photon strength functions only
+!   flagglobalwtable  ! flag for global average wtable value instead of 1.   
 !   flaggnorm       ! flag to normalize PSF to average radiative width
 !   gammax          ! number of l - values for gamma multipolarity
 !   ldmodelracap    ! level density model for direct radiative capture
@@ -200,6 +201,7 @@ subroutine inputout
 !   nlevmax         ! maximum number of included discrete levels for target
 !   nlevmaxres      ! maximum number of included discrete levels for residual nuclides
 ! Variables for level density
+!   flagldglobal    ! flag for global level density model
 !   flagasys        ! flag for all level density parameters a from systematic
 !   flagcolall      ! flag for collective enhancement of level density
 !   flagcolldamp    ! flag for damping of coll. effects in eff. level density (without explicit coll. enh.)
@@ -372,9 +374,9 @@ subroutine inputout
  &  " incident energies")') yesno(flagrpevap)
   write(*, '(" legacy              ", a1, "     flaglegacy   flag to run legacy models")') yesno(flaglegacy)
   write(*, '(" maxZrp            ", i3, "     maxZrp       maximal number of protons from the initial", &
- &  " compound nucleus before residual evaporation")') maxZrp
+ &  " CN before residual evaporation")') maxZrp
   write(*, '(" maxNrp            ", i3, "     maxNrp       maximal number of neutrons from the initial", &
- &  " compound nucleus before residual evaporation")') maxNrp
+ &  " CN before residual evaporation")') maxNrp
   write(*, '(" user      ", a, t28, "user         user for this calculation")') trim(user)
   write(*, '(" source    ", a, t28, "source       source for this calculation")') trim(source)
   write(*, '(" format    ", a, t28, "oformat      format for output")') trim(oformat)
@@ -453,7 +455,7 @@ subroutine inputout
   write(*, '(" radialmodel        ", i2, "     radialmodel  model for radial matter densities (JLM OMP only)")') radialmodel
   write(*, '(" jlmmode            ", i2, "     jlmmode      option for JLM imaginary potential normalization")') jlmmode
   write(*, '(" alphaomp           ", i2, "     alphaomp     alpha OMP (1=normal, 2= McFadden-Satchler,", &
- &  " 3-5= folding potential, 6,8= Avrigeanu, 7=Nolte)")') alphaomp
+ &  " 3-5= folding pot., 6,8= Avrigeanu, 7=Nolte)")') alphaomp
   write(*, '(" deuteronomp        ", i2, "     deuteronomp  deuteron OMP (1=normal, 2=Daehnick,", &
  &  " 3=Bojowald, 4=Han-Shi-Shen, 5=An-Cai)")') deuteronomp
   write(*, '(" ecisstep        ", es9.2, " ecisstep     integration step size for ECIS OMP calculation")') ecisstep
@@ -499,6 +501,8 @@ subroutine inputout
   write(*, '(" upbend              ", a1, "     flagupbend   flag for low-energy upbend of photon strength function")') &
  &  yesno(flagupbend)
   write(*, '(" psfglobal           ", a1, "    flagpsfglobal flag for global photon strength functions only")') yesno(flagpsfglobal)
+  write(*, '(" globalwtable        ", a1, "    flagglobalwtable flag for global average wtable value instead of 1.")') &
+ & yesno(flagglobalwtable)
   write(*, '(" gnorm               ", a1, "     flaggnorm    flag to normalize PSF to average radiative width")') yesno(flaggnorm)
 !
 ! 6. Pre-equilibrium
@@ -536,6 +540,7 @@ subroutine inputout
   write(*, '(" shellmodel         ", i2, "     shellmodel   model for shell correction energies")') shellmodel
   write(*, '(" kvibmodel          ", i2, "     kvibmodel    model for vibrational enhancement")') kvibmodel
   write(*, '(" spincutmodel       ", i2, "     spincutmodel model for spin cutoff factor for ground state")') spincutmodel
+  write(*, '(" ldglobal            ", a1, "     flagldglobal flag for global level density model")') yesno(flagldglobal)
   write(*, '(" asys                ", a1, "     flagasys     flag for all level density parameters a from systematics")') &
  &  yesno(flagasys)
   write(*, '(" parity              ", a1, "     flagparity   flag for non-equal parity distribution")') yesno(flagparity)
@@ -640,14 +645,14 @@ subroutine inputout
   write(*, '(" block               ", a1, "     flagblock    flag to block spectra, angle and gamma files")') yesno(flagblock)
   write(*, '(" blockddx            ", a1, "     flagblockddx flag to block DDX files")') yesno(flagblockddx)
   write(*, '(" blockspectra        ", a1, " flagblockspectra flag to block spectra files")') yesno(flagblockspectra)
-  write(*, '(" blockangle          ", a1, "     flagblockangle flag to block angle files")') yesno(flagblockangle)
-  write(*, '(" blockdirect         ", a1, "     flagblockdirect flag to block direct reaction files")') yesno(flagblockdirect)
+  write(*, '(" blockangle          ", a1, "   flagblockangle flag to block angle files")') yesno(flagblockangle)
+  write(*, '(" blockdirect         ", a1, "  flagblockdirect flag to block direct reaction files")') yesno(flagblockdirect)
   write(*, '(" blockbin            ", a1, "     flagblockbin flag to block binary files")') yesno(flagblockbin)
   write(*, '(" blocklevels         ", a1, "  flagblocklevels flag to block discrete level files")') yesno(flagblocklevels)
   write(*, '(" blockomp            ", a1, "     flagblockomp flag to block optical model files")') yesno(flagblockomp)
-  write(*, '(" blockpreeq          ", a1, "     flagblockpreeq flag to block preequilibrium files")') yesno(flagblockpreeq)
-  write(*, '(" blockastro          ", a1, "     flagblockastro flag to block astro reaction rate files")') yesno(flagblockastro)
-  write(*, '(" blockyield          ", a1, "     flagblockyield flag to block isotopic yield files")') yesno(flagblockyield)
+  write(*, '(" blockpreeq          ", a1, "   flagblockpreeq flag to block preequilibrium files")') yesno(flagblockpreeq)
+  write(*, '(" blockastro          ", a1, "   flagblockastro flag to block astro reaction rate files")') yesno(flagblockastro)
+  write(*, '(" blockyield          ", a1, "   flagblockyield flag to block isotopic yield files")') yesno(flagblockyield)
   write(*, '(" blockZA             ", a1, "     flagblockZA  flag to block residual nuclide files")') yesno(flagblockZA)
   return
 end subroutine inputout
