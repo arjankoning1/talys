@@ -283,7 +283,7 @@ subroutine fissionpar(Zix, Nix)
 ! ib= 2 corresponds to identified minima
 ! ib= 9 corresponds to non-considered extrema (if more than 3 maxima exist)
 !
-            if (ib.eq.1.or.ib.eq.2) then
+            if ((ib == 1 .or. ib == 2) .and. nextr <= 2*numbar - 1) then
               nextr=nextr+1
               iiextr(nextr)=i
             endif
