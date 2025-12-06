@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2023-12-30: Original code
-! 2025-11-16: Current version
+! 2025-12-01: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -1184,7 +1184,7 @@ module A0_talys_mod
 ! Variables for WKB
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
-  integer, dimension(0:2*numbar)                          :: iiextr    ! WKB counter
+  integer, dimension(0:2*numbar+1)                        :: iiextr    ! WKB counter
   integer                                                 :: nbeta     ! number of beta values
   integer                                                 :: nbinswkb  ! integration step for WKB calculation
   integer                                                 :: nextr     ! WKB counter
