@@ -3,7 +3,7 @@
 # Script to plot TALYS and evaluated data libraries with 
 # experimental data using Gnuplot, reaction by reaction
 #
-# Arjan Koning, December 29 2023
+# Arjan Koning, December 1 2025
 # Cosmetic improvement by Natalia Dzysiuk in 2017
 #
 ################################################################################
@@ -30,7 +30,7 @@ if [ $# -lt 4 ] || [ $# -gt 30 ] ; then
   echo "            Ealways  - plot/print always "
   echo "lib flag  : Lonly    - plot/print only if library data available "
   echo "            Lalways  - plot/print always [default]"
-  echo "log flag  : log      - logarithmic scale "
+  echo "log flag  : log      - logarhitmic scale "
   echo "            nolog    - linear scale [default]"
   echo "maximum   : maximum  - include largest experimental data point "
   echo "          : nomaximum- use reasonable scales [default]"
@@ -63,7 +63,6 @@ if [ $# -lt 4 ] || [ $# -gt 30 ] ; then
   echo "clean     : clean - clean up plot parameter file [default]"
   echo "          : noclean - do not clean up plot parameter file "
   echo "noexp     : exclude experimental data"
-  echo "lib       : include nuclear data libraries "
   echo "nolib     : exclude nuclear data libraries "
   echo "tendl     : tendl - include TENDL data in plot "
   echo "          : notendl - do not include TENDL data in plot "
@@ -100,7 +99,6 @@ if [ $# -lt 4 ] || [ $# -gt 30 ] ; then
   echo "            plot p Nb 93 040090"
   echo "            plot n Nb 93 nn m"
   echo "            plot n Nb 93 nn m print"
-  echo "            plot n Nb 93 nn m Plot Eonly"
   echo "            plot n Nb 93 nna Eonly Lonly"
   echo 
   exit
@@ -148,17 +146,16 @@ iaea=1
 new=1
 gof=0
 tendl=1
-tendlprev=0
+tendlprev=1
 group=1
 high=-1
 noexp=0
-lib=0
 nolib=0
 print=0
 branch=0
 isomer=0
 isosym=
-expflag=0
+expflag=1
 libflag=1
 calchome=xxx
 libshome=xxx
@@ -215,7 +212,6 @@ while [ $# -ge 5 ] ; do
     noclean) clean=0;shift;;
     clean) clean=1;shift;;
     noexp) noexp=1;shift;;
-    lib) lib=1;shift;;
     nolib) nolib=1;shift;;
     noendfb) endfb=0;shift;;
     endfb) endfb=1;shift;;
@@ -319,9 +315,6 @@ else
   talys=1
   nolib=1
 fi
-if [ $lib -eq 1 ] ; then
-  nolib=0
-fi
 if [ $nolib -eq 1 ] ; then
   tendl=0
   tendlprev=0
@@ -336,6 +329,8 @@ if [ $nolib -eq 1 ] ; then
   new=0
   libflag=0
 fi
+tendlyear=2025
+tendlprevyear=2023
 case $proj in
   g) cendl=0;jeff=0;eaf=0;irdff=0;ibandl=0;;
   n) ibandl=0;iaea=0;;
@@ -424,22 +419,17 @@ xsmax=1000
 #
 ### Set paths for experimental and calculated data
 #
-nuclide=${proj}'/'${elem}${mass}'/'
+projnuc=${proj}'/'${elem}${mass}'/'
 Thome=$HOME'/'
 libdir=libraries
-nuchome=${Thome}${libdir}/${nuclide}
-exphome=${nuchome}exfor/
-if [ ! -d $nuchome ] ; then
-  exphome=${Thome}libraries/${nuclide}exfor/
-fi
-exphome=${Thome}exfortables/$nuclide
+exphome=${Thome}exfortables/${projnuc}
 if [ ! -d $exphome ] ; then
-  echo 'No EXFOR data in ' $exphome
+  exphome=${Thome}${libdir}/${projnuc}exfor/
 fi
 weightsfile=${Thome}tasman/misc/score.tab
 extrema=${Thome}bin/extrema
 if [ $calchome == xxx ] ; then
-# calchome=/Users/koning/drip/${nuclide}tables/
+# calchome=/Users/koning/drip/${projnuc}tables/
   calchome=$PWD/
 fi
 if [ $libshome == xxx ] ; then
@@ -815,14 +805,14 @@ fi
 libfile=$libshome$proj'/'$elem$mass'/'
 endfgroup=${endf}'-G1102'
 if [ $jeff -eq 1 ] ; then
-  jefffile=$libfile'jeff3.3/tables/'$dir${endfgroup}.jeff3.3
+  jefffile=$libfile'jeff4.0/tables/'$dir${endfgroup}.jeff4.0
   if [ ! -e $jefffile ] ; then
-    jefffile=$libfile'jeff3.3/tables/'$dir${endf}.jeff3.3
+    jefffile=$libfile'jeff4.0/tables/'$dir${endf}.jeff4.0
   fi
   if [ -e $jefffile ] ; then
     k=$(( k + 1 ))
     file[$k]=$jefffile
-    lib[$k]=JEFF-3.3
+    lib[$k]=JEFF-4.0
     lt[$k]=2
     lw[$k]=$width
     lc[$k]="red" # red
@@ -843,14 +833,14 @@ if [ $jendl -eq 1 ] ; then
   fi
 fi
 if [ $endfb -eq 1 ] ; then
-  endfbfile=$libfile'endfb8.0/tables/'$dir${endfgroup}.endfb8.0
+  endfbfile=$libfile'endfb8.1/tables/'$dir${endfgroup}.endfb8.1
   if [ ! -e $endfbfile ] ; then
-    endfbfile=$libfile'endfb8.0/tables/'$dir${endf}.endfb8.0
+    endfbfile=$libfile'endfb8.1/tables/'$dir${endf}.endfb8.1
   fi
   if [ -e $endfbfile ] ; then
     k=$(( k + 1 ))
     file[$k]=$endfbfile
-    lib[$k]=ENDF/B-VIII
+    lib[$k]=ENDF/B-VIII.1
     lt[$k]=4
     lw[$k]=$width
     lc[$k]="blue" # blue
@@ -910,7 +900,7 @@ if [ $ibandl -eq 1 ] ; then
   fi
 fi
 if [ $iaea -eq 1 ] ; then
-  iaeafile=$libfile'iaea.2022/tables/'$dir${endf}.iaea.2022
+  iaeafile=$libfile'iaea.2024/tables/'$dir${endf}.iaea.2024
   if [ ! -e $iaeafile ] || [ $proj == g ] ; then
     iaeafile=$libfile'iaea.pd/tables/'$dir${endf}.iaea.pd
   fi
@@ -924,14 +914,14 @@ if [ $iaea -eq 1 ] ; then
   fi
 fi
 if [ $tendl -eq 1 ] ; then
-  tendlfile=$libfile'tendl.2023/tables/'$dir${endfgroup}.tendl.2023
+  tendlfile=${libfile}tendl.${tendlyear}/tables/$dir${endfgroup}.tendl.${tendlyear}
   if [ ! -e $tendlfile ] ; then
-    tendlfile=$libfile'tendl.2023/tables/'$dir${endf}.tendl.2023
+    tendlfile=${libfile}tendl.${tendlyear}/tables/$dir${endf}.tendl.${tendlyear}
   fi
   if [ -e $tendlfile ] ; then
     k=$(( k + 1 ))
     file[$k]=$tendlfile
-    lib[$k]=TENDL-2023
+    lib[$k]=TENDL-${tendlyear}
     if [ $talys -eq 1 ] || [ $newpath != xxx ] ; then
       lt[$k]=8
       lw[$k]=$width
@@ -950,14 +940,14 @@ if [ $tendl -eq 1 ] ; then
   fi
 fi
 if [ $tendlprev -eq 1 ] ; then
-  tendlprevfile=$libfile'tendl.2021/tables/'$dir${endfgroup}.tendl.2021
+  tendlprevfile=${libfile}tendl.${tendlprevyear}/tables/$dir${endfgroup}.tendl.${tendlprevyear}
   if [ ! -e $tendlprevfile ] ; then
-    tendlprevfile=$libfile'tendl.2021/tables/'$dir${endf}.tendl.2021
+    tendlprevfile=${libfile}tendl.${tendlprevyear}/tables/$dir${endf}.tendl.${tendlprevyear}
   fi
   if [ -e $tendlprevfile ] ; then
     k=$(( k + 1 ))
     file[$k]=$tendlprevfile
-    lib[$k]=TENDL-2021
+    lib[$k]=TENDL-${tendlprevyear}
     if [ $talys -eq 1 ] || [ $newpath != xxx ] ; then
       lt[$k]=8
       lw[$k]=$width
@@ -967,12 +957,13 @@ if [ $tendlprev -eq 1 ] ; then
       lw[$k]=$width
       lc[$k]="orange" # orange
     fi
-    if [ $uncband -eq 1 ] ; then
-      grep 'columns: 4' $tendlprevfile  >>  /dev/null
-      if [ $? -eq 0 ] ; then
-        unc[$k]=1
-      fi
-    fi
+#No uncertainty band for previous TENDL version
+#   if [ $uncband -eq 1 ] ; then
+#     grep 'columns: 4' $tendlprevfile  >>  /dev/null
+#     if [ $? -eq 0 ] ; then
+#       unc[$k]=1
+#     fi
+#   fi
   fi
 fi
 if [ $new -eq 1 ] ; then
@@ -1156,7 +1147,7 @@ case $chan in
 # ${proj}g     ) xbeg=$Ebeglog; ybeg=$ymin ; xend=$Eend; yend=`echo "3 * $xsmax" | bc`;legend=right;actual_ejec=${gamma};;
   ${proj}g     ) xbeg=$Ebeglog; ybeg=$ymin ; xend=$Eend; yend=`expr $xsmax*3 `;legend=right;actual_ejec=${gamma};;
   ${proj}glow  ) xbeg=0.001   ; ybeg=$ycbeg ; xend=1.   ; yend=$ycend  ;legend=right;actual_ejec=${gamma};;
-  ${proj}ghigh ) xbeg=0.01   ; ybeg=0.1   ; xend=30.   ; yend=1000.  ;legend=right;actual_ejec=${gamma};;
+  ${proj}ghigh ) xbeg=0.001  ; ybeg=1.0   ; xend=10.   ; yend=10000.  ;legend=right;actual_ejec=${gamma};;
   ${proj}p     ) xbeg=$Ebeg   ; ybeg=$xsmin; xend=$Eend; yend=$xsmax;legend=left ;actual_ejec={/=${ejecsize}{p}};;
   ${proj}plog  ) xbeg=$Ebeglog; ybeg=$ymin ; xend=$Eend; yend=$xsmax;legend=right;actual_ejec={/=${ejecsize}{p}};;
   ${proj}d     ) xbeg=$Emin   ; ybeg=$ymin ; xend=$Eend; yend=$xsmax;legend=left ;actual_ejec={/=${ejecsize}{d}};;
@@ -1250,7 +1241,7 @@ decb[14]=2015
 dece[14]=2025
 color[14]="red" # red
 Ndec=14
-for (( k=1; k<=$numexp; k++ )) ; do
+for (( k=1; k<=${numexp+3}; k++ )) ; do
   lcp[$k]=white
   pt[$k]=$k
 done
@@ -1269,7 +1260,7 @@ for (( idec=$Ndec; idec>=1; idec-- )) ; do
       qual[$i]=`grep '#   quality' ${expfile0[$k]} | colrm 1 21 | awk '{print $3}'`
       year[$i]=$yy
       lcp[$i]=${color[idec]}
-      pt[$i]=$i
+      pt[$i]=$((i+3))
       if [ -e $weightsfile ] ; then
         subEE=${subE[$i]}
         weight=`grep -m 1 $subEE $weightsfile | awk '{print $2}'`
@@ -1305,7 +1296,7 @@ done
 ####################################################
 cat > $pltfile << EOI
 #
-# Gnuplot style file generated by 'plot' script, Arjan Koning, August 6 2023
+# Gnuplot style file generated by 'plot' script, Arjan Koning, December 1 2025
 #
 # Axis labels
 #
@@ -1367,7 +1358,7 @@ else
 #
 set size 0.95,0.95
 set object 1 rectangle from screen 0,0 to screen 1,1 fillcolor rgb "white" behind
-set terminal x11 enhanced
+set terminal qt enhanced
 EOI
 fi
 #
@@ -1488,4 +1479,4 @@ if [ $png -eq 1 ] ; then
   convert  $epsfile $pngfile
 fi
 rm dum
-#Copyright (C)  2023 A.J. Koning
+#Copyright (C)  2025 A.J. Koning
