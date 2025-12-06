@@ -58,7 +58,7 @@ subroutine input_compoundpar
 !
 ! ************** Defaults *************
 !
-  reslib = 'tendl.2023'
+  reslib = 'tendl.2025'
   lenreslib = 7
   if (k0 /= 1 .or. .not. flagcomp) then
     eurr = 0.
