@@ -5,7 +5,7 @@ subroutine densitypar(Zix, Nix)
 !
 ! Author    : Arjan Koning and Stephane Hilaire
 !
-! 2025-11-16: Original code
+! 2025-11-30: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -221,14 +221,6 @@ subroutine densitypar(Zix, Nix)
   write(extstring, '(f3.1)') ext1
   denfile1=trim(denfile)//'_'//extstring
   inquire (file = denfile1, exist = lexist)
-!
-! Temporary fix for old structure database
-!
-  if (.not. lexist) then
-    ext2 = 0.
-    denfile1=trim(denfile)
-    inquire (file = denfile1, exist = lexist)
-  endif
   if (lexist) then
     open (unit = 2, file = denfile1, status = 'old', iostat = istat)
     if (istat /= 0) call read_error(denfile1, istat)
