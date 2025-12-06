@@ -132,6 +132,7 @@ subroutine input_fissionpar
   Cbarrier = 1.
   if (fismodel == 6 .and. (ldmodel(0,0) == 5 .or. ldmodel(0,0) == 6)) Cbarrier = 1.4
   if (fismodel <= 3 .or. fismodel == 5) Cbarrier = 1.35
+  if (k0 <= 1 .and. Atarget <= fislim) Cbarrier = Cbarrier * 1.5
 ! if (fismodel == 3) then
 !   if (Atarget <= fislim) then
 !     if (ldmodel(0,0) <= 3) then
