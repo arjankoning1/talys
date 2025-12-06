@@ -82,18 +82,8 @@ subroutine input_fissionmodel
   yieldfile = ' '
   hbtransfile = ' '
   fisadjust = .false.
-  if (flagmicro) then
-    fismodel = 6
-  else
-    fismodel = 1
-  endif
-  if (k0 <= 1 .and. Atarget > fislim) then
-    fismodel = 6
-    fismodelalt = 4
-  else
-    fismodel = 3
-    fismodelalt = 3
-  endif
+  fismodel = 6
+   fismodelalt = 3
   flaghbstate = .false.
   flagclass2 = .false.
   flagfispartdamp = .false.
