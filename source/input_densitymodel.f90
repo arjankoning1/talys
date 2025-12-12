@@ -86,7 +86,7 @@ subroutine input_densitymodel
   else
     ldmodelall = 1
   endif
-  strength= 8
+  strength= 9
   if (k0 <= 1 .and. Atarget > fislim) ldmodelall = 5
   ldmodelCN = 0
   shellmodel = 1
