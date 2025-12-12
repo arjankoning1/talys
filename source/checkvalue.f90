@@ -789,8 +789,8 @@ subroutine checkvalue
     stop
   endif
   if ((strengthM1 < 1 .or. strengthM1 > 4) .and. strengthM1 /= 8 .and. strengthM1 /= 10 .and. &
- &  strengthM1 /= 12 .and. strengthM1 /= 13) then
-    write(*,'(" TALYS-error: strengthM1 = 1, 2, 3, 4, 8, 10, 12 or 13")')
+ &  strengthM1 /= 12) then
+    write(*,'(" TALYS-error: strengthM1 = 1, 2, 3, 4, 8, 10, or 12")')
     stop
   endif
   if (.not. flaglegacy) then
