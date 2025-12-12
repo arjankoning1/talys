@@ -272,7 +272,7 @@ subroutine massdisout
     write(fpfile(3:5), '(i3.3)') ia
     if ( .not. fpaexist(ia)) then
       fpaexist(ia) = .true.
-      finalnuclide=trim(nuc(iz))//trim(adjustl(massstring))
+      finalnuclide=trim(adjustl(massstring))
       open (unit = 1, file = fpfile, status = 'replace')
       reaction='('//parsym(k0)//',f)'
       quantity='fission yield'
