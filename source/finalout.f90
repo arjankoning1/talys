@@ -324,7 +324,7 @@
     if (k0 == 1 .and. (parinclude(0) .or. flagcomp) .and. Rprime /= 0.) then
       write(51, '("## General parameters:")')
       write(51, '("##   resonance parameters")')
-      write(51, '("## Z   A     S0        R      xs(therm)    D0", "         a         P        Sn")')
+      write(51, '("## Z   A     S0        R      xs(therm)    D0         a         P        Sn")')
       write(51, '("##", 2i4, 7es10.3)') Ztarget, Atarget, Sstrength(0) * 1.e4, Rprime, xscaptherm(-1), D0theo(0, 0), &
  &      alev(0, 0), pair(0, 0), S(0, 0, 1)
     endif
