@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2023-12-30: Original code
-! 2025-12-01: Current version
+! 2025-12-14: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -908,9 +908,13 @@ module A0_talys_mod
   integer, dimension(0:numZ,0:numN)            :: Nrr      ! number of resonances
   real(sgl), dimension(0:numZ,0:numN)          :: S0       ! neutron strength function
   real(sgl), dimension(0:numZ,0:numN)          :: dS0      ! uncertainty in S0
+  real(sgl), dimension(0:numZ,0:numN)          :: S1       ! neutron strength function
+  real(sgl), dimension(0:numZ,0:numN)          :: dS1      ! uncertainty in S0
   real(sgl), dimension(0:numZ,0:numN)          :: dD0      ! uncertainty in D0
   real(sgl), dimension(0:numZ,0:numN)          :: dD1r     ! uncertainty in D1
   real(sgl), dimension(0:numZ,0:numN)          :: dgamgam  ! uncertainty in gamgam
+  real(sgl), dimension(0:numZ,0:numN)          :: Rscat    ! potential scattering radius
+  real(sgl), dimension(0:numZ,0:numN)          :: dRscat   ! uncertainty in Rscat
   real(sgl)                                    :: Eavres   ! average resonance energy
   real(sgl), dimension(0:numZ, 0:numN)         :: D0theo   ! mean s-wave resonance spacing
   real(sgl), dimension(0:numZ, 0:numN)         :: D0global ! global mean s-wave resonance spacing
