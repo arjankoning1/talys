@@ -434,6 +434,12 @@ subroutine strucinitial
   Dlj = 0.
   gamgamth = 0.
   Nrr = 0
+  S0 = 0.
+  dS0 = 0.
+  S1 = 0.
+  dS1 = 0.
+  Rscat = 0.
+  dRscat = 0.
   swaveth = 0.
   aldcrit = 0.
   Dcrit = 0.
