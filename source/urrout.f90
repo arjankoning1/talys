@@ -130,9 +130,9 @@ subroutine urrout
   col(13)='Ga(l,J)'
   un(13)='eV'
   Ncol=13
-  if (nin == Ninclow+1) then
+  if (.not.flagurrendf) then
     flagurrendf = .true.
-    open (unit = 21, file = 'urr.dat', status = 'unknown')
+    open (unit = 121, file = 'urr.dat', status = 'unknown')
   endif
   Estr=''
   write(Estr,'(es12.6)') Einc
@@ -172,10 +172,13 @@ subroutine urrout
   enddo
   Nurr = k - 1
   close (unit = 1, status = 'delete')
-  do k = 1, Nurr
-    write(21,'(a)') trim(urrline(k))
-  enddo
-  if (nin == Ninc) close (unit = 21)
+print*," flagurrendf B ",flagurrendf
+  if (flagurrendf) then
+    do k = 1, Nurr
+      write(121,'(a)') trim(urrline(k))
+    enddo
+    if (nin == Ninc) close (unit = 121)
+  endif
 !
 ! Output of (l,J) dependent widths, spacings and strength functions in separate files
 !
