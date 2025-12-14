@@ -271,26 +271,26 @@ LEOR, HEOR giant resonance for collective excitations in the continuum.
 Added a keyword 'sffactor' to constrain the rmiufiscor and vfiscor
 parameters for fission.
 
-September 2 2025
+- September 2 2025
 
 Added tables with level density parameters for different values of 
 the spin distribution in the structure database, and changed 
 densitypar.f90 for this.
 
-August 30 2025
+- August 30 2025
 
 Introduced a keyword 'legacy' to only include well validated nuclear
 models. At the moment the code stops and gives a warning for various
 PSF and level density models. Putting 'legacy y' will let TALYS run
 like it used to.
 
-September 9 2025
+- September 9 2025
 
 Used exponential squeezing function to squeeze or widen spin 
 distribution for tabulated level densities. The previous formulation 
 had problems for J = 0
 
-September 13 2025
+- September 13 2025
 
 Added output of OMP as function of radius, i.e. the full radial form for
 each incident energy, if 'outomp y'.
@@ -298,12 +298,12 @@ Also added keyword 'ecisstep' to manually set the integration step size
 for ECIS. The default is still 0. for phenomenological OMP (i.e. 
 internally calculated by ECIS) and 0.1 for JLM.
 
-September 23 2025
+- September 23 2025
 
 Added the experimental neutron strength function S0 to the output
 in spr.f90
 
-October 8 2025
+- October 8 2025
 
 Made several keywords to 'block' various output files into larger files
 to reduce the total number of files. Besides 'block' we now have
@@ -311,22 +311,22 @@ to reduce the total number of files. Besides 'block' we now have
 'blocklevels', 'blockomp', 'blockpreeq', 'blockspectra', 'blockyield', 
 'blockza'.
 
-October 10 2025
+- October 10 2025
 
 Made the keyword Cbarrier now applicable to any fission model. 
 This parameter multiplies all fission barriers by the same factor and
 was so far only used for fismodel 3, for subactinide and 
 charged-particle induced fission.
 
-November 13 2025
+- November 13 2025
 
 Added new PSF model, RQFAMz, which is called with strength 13.
 
-November 14 2025
+- November 14 2025
 
 Removed ldmodel 8 and strength 11 as they are not yet mature.
 
-November 16 2025
+- November 16 2025
 
 Added a flag to use only global level density models, ldglobal.
 This already existed for microscopic tables, if you put ctable and
@@ -334,8 +334,18 @@ ptable equal to zero, but for CTM still the adjusted temperature for
 discrete levels was used. With ldglobal y, a fair comparison between
 global level density models is used.
 
-November 17 2025
+- November 17 2025
 
 Added a flag, globalwtable, to enable or disable a global value for
 wtable. By default, wtable y, and when wtable n a value of wtable 1.
 is taken.
+
+- December 7 2025
+
+Put back strength 9, SMLO model, for PSF as default, seems to be
+better for (gamma,n) cross sections.
+
+- December 14 2025
+
+Updated all experimental thermal cross sections and average 
+resonance parameters from Resonancetables package.
