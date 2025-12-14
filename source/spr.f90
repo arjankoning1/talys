@@ -5,7 +5,7 @@ subroutine spr
 !
 ! Author    : Arjan Koning
 !
-! 2025-09-23: Original code
+! 2025-12-13: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -70,11 +70,23 @@ subroutine spr
     call write_target(indent)
     call write_char(id2,'parameters','')
     call write_real(id4,'S0',Sstrength(0)*1.e4)
-    call write_real(id4,'experimental S0',S0(0,0))
-    call write_real(id4,'experimental S0 unc.',dS0(0,0))
-    if (S0(0,0) > 0.) call write_real(id4,'C/E S0',Sstrength(0)*1.e4/S0(0, 0))
+    if (S0(0,0) > 0.) then
+      call write_real(id4,'experimental S0',S0(0,0))
+      call write_real(id4,'experimental S0 unc.',dS0(0,0))
+      call write_real(id4,'C/E S0',Sstrength(0)*1.e4/S0(0, 0))
+    endif
     call write_real(id4,'S1',Sstrength(1)*1.e4)
+    if (S1(0,0) > 0.) then
+      call write_real(id4,'experimental S1',S1(0,0))
+      call write_real(id4,'experimental S1 unc.',dS1(0,0))
+      call write_real(id4,'C/E S1',Sstrength(1)*1.e4/S1(0, 0))
+    endif
     call write_real(id4,'Rprime [fm]',Rprime)
+    if (Rscat(0,0) > 0.) then
+      call write_real(id4,'experimental Rprime [fm]',Rscat(0,0))
+      call write_real(id4,'experimental Rprime unc. [fm]',dRscat(0,0))
+      call write_real(id4,'C/E Rprime',Rprime/Rscat(0, 0))
+    endif
 !   write(1, '(2i4, 3f8.4)') Atarget, Ztarget, Sstrength(0)*1.e4, Sstrength(1) * 1.e4, Rprime
     close (unit = 1)
   endif
