@@ -79,8 +79,9 @@ subroutine thermalxs
     xs = 0.
     xsp = 0.
     xsalpha = 0.
+    read(2,'()')
     do
-      read(2, '(4x, 3i4, 3(e9.2, 9x))', iostat = istat) ia, isoT, isoR, xs, xsp, xsalpha
+      read(2, '(4x, 3i4, 3(es15.6, 15x))', iostat = istat) ia, isoT, isoR, xs, xsp, xsalpha
       if (istat == -1) exit
       if (istat /= 0) call read_error(thfile, istat)
       if (A == ia) then
