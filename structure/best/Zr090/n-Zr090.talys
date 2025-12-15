@@ -1,0 +1,10 @@
+#
+# General
+#
+ldmodel 2
+fit y
+#
+# (n,tot), (n,el), (n,inl)
+#
+rvadjust n 1.0 4. 8. 6. 0.99
+rvadjust n 1.0 12. 16. 14. 0.995

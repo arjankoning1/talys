@@ -1,0 +1,15 @@
+#
+# General
+#
+ldmodel 7
+fit y
+#
+# (n,tot), (n,el), (n,inl)
+#
+optmod 72 180 n-Hf180.omp n                                                   
+optmod 72 179 n-Hf179.omp n                                                   
+optmod 72 178 n-Hf178.omp n                                                   
+optmod 72 177 n-Hf177.omp n                                                   
+optmod 72 176 n-Hf176.omp n                                                   
+optmod 72 174 n-Hf174.omp n                                                   
+deformfile  72  n-Hf180.def

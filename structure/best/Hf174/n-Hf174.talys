@@ -1,0 +1,10 @@
+#
+# General
+#
+ldmodel 7
+fit y
+#
+# (n,tot), (n,el), (n,inl)
+#
+optmod 72 174 n-Hf174.omp n                                                   
+deformfile  72  n-Hf174.def

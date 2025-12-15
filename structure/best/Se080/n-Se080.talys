@@ -1,0 +1,12 @@
+#
+# General
+#
+ldmodel 7
+fit y
+#
+# (n,tot), (n,el), (n,inl)
+#
+rvadjust n 1. 0.01 1. 0.5 0.99
+rvadjust n 1. 10. 5.5 1.02 
+#
+bestbranch y

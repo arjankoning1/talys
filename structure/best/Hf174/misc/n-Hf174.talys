@@ -1,0 +1,25 @@
+#
+# General
+#
+ldmodel 2
+#
+# (n,tot), (n,el), (n,inl)
+#
+optmod 72 174 n-Hf174.omp n                                                   
+deformfile  72  n-Hf174.def
+#
+# (n,p), (n,2n), (n,np)
+#
+gnadjust 72 175 1.04
+gpadjust 72 175 1.04
+#
+# (n,a)
+#
+#
+# (n,g)
+ldmodelCN 1 
+#
+#
+# Other: Isomers, (n,d), (n,t), (n,h) etc.
+#
+ngfit y

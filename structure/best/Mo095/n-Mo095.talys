@@ -1,0 +1,13 @@
+#
+# General
+#
+ldmodel 7
+fit y
+#
+# (n,tot), (n,el), (n,inl)
+#
+avadjust n 0.85  
+#
+# (n,gamma)
+ctableadjust 0 0 0.1
+levelfile 42 Mo.lev

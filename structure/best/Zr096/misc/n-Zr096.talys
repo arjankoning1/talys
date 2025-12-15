@@ -1,0 +1,13 @@
+#
+# General
+#
+ldmodel 7
+fit y
+#
+# (n,tot), (n,el), (n,inl)
+#
+rvadjust n 0.98 0. 3. 0.1 1.015
+avadjust n 1.045
+d1adjust n 1.0
+#
+Rgamma 7.5

@@ -1,0 +1,29 @@
+#
+# General
+#
+ldmodel 2
+#
+# (n,tot), (n,el), (n,inl)
+#
+rvadjust n 1.018 -0.2 0.1 0. 0.98
+#
+# (n,p), (n,2n), (n,np)
+#
+rvadjust p 1.05
+avadjust p 1.05
+gnadjust 62 153 0.90
+gpadjust 62 153 0.90
+#
+# (n,a)
+#
+rvadjust a 1.04
+avadjust a 1.04
+#
+# (n,g)
+ldmodelCN 1 
+#
+pshiftadjust 62 152 0.60
+#
+# Other: Isomers, (n,d), (n,t), (n,h) etc.
+#
+ngfit y

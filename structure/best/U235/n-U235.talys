@@ -1,0 +1,35 @@
+fismodel 1
+ldmodel 1
+#avadjustF n 0. 4. -10. 2.
+#rvadjustF n 0. 2. -5. 1.
+Pshiftadjust 92 235 -0.8
+colldamp y
+asys y
+maxrot 5
+class2 y
+t         92 236   0.38103   2
+e0        92 236  -0.60121   2
+exmatch   92 236   6.57756   2
+fisbar    92 236   4.95000  1
+t         92 235   0.48557   1
+e0        92 235  -1.93794   1
+exmatch   92 235   6.08090   1
+t         92 235   0.44883   2
+e0        92 235  -2.76000   2
+exmatch   92 235   6.85826   2
+fishw     92 235   0.57000  1
+class2width   92 235   0.80000  1
+fisbar    92 235   5.90000  2
+fishw     92 235   0.52000  2
+T         92 234   0.42061   0
+E0        92 234  -0.10354   0
+Exmatch   92 234   5.23547   0
+t         92 234   0.49832   1
+e0        92 234  -1.16271   1
+exmatch   92 234   6.89407   1
+t         92 234   0.36787   2
+e0        92 234  -0.77570   2
+exmatch   92 234   6.65837   2
+class2width   92 234   0.10000  1
+#cwidth 0.02
+ngfit y

@@ -1,0 +1,33 @@
+#
+# General
+#
+ldmodel 2
+m2constant 1.30
+#
+# (n,tot), (n,el), (n,inl)
+#
+#
+# (n,p), (n,2n), (n,np)
+#
+rvadjust p 0.88
+avadjust p 0.88
+gnadjust 30 69 1.08
+gpadjust 30 69 1.08
+#
+# (n,a)
+#
+rvadjust a 1.10
+avadjust a 1.10
+Cstrip a 0.25
+Cknock a 0.25
+aadjust  28  65 0.92
+#
+# (n,g)
+ldmodelCN 1 
+#
+#
+# Other: Isomers, (n,d), (n,t), (n,h) etc.
+#
+Cstrip h 3.00
+Cknock h 3.00
+ngfit y

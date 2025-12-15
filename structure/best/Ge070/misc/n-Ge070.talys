@@ -1,0 +1,27 @@
+#
+# General
+#
+ldmodel 2
+m2constant 1.40
+#
+# (n,tot), (n,el), (n,inl)
+#
+optmodfilen 32 n-Ge070.omp
+#
+# (n,p), (n,2n), (n,np)
+#
+rvadjust p 0.94
+avadjust p 0.94
+gnadjust 32 71 0.87
+gpadjust 32 71 0.87
+#
+# (n,a)
+#
+#
+# (n,g)
+ldmodelCN 1 
+#
+#
+# Other: Isomers, (n,d), (n,t), (n,h) etc.
+#
+ngfit y
