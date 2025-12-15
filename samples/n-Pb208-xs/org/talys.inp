@@ -1,0 +1,24 @@
+#
+# n-Pb208-xs
+#
+# General
+#
+projectile n
+element pb
+mass 208
+energy energies
+#
+# Parameters
+#
+Rgamma 2.2
+gn 81 208 9.4
+gp 81 208 6.2
+optmodfileN 82 n-Pb208.omp
+#
+# Output
+#
+channels y
+filechannels y
+filetotal y
+fileresidual y
+outdiscrete y

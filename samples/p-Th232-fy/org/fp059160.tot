@@ -1,0 +1,26 @@
+# header: 
+#   title: Th232(p,f) fission yield for Pr160
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 90
+#   A: 232
+#   nuclide: Th232
+# reaction: 
+#   type: (p,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 59
+#     A: 160
+#     nuclide: Pr160
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 1
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]           []             []            [mb]           [mb]
+   8.000000E+01   9.654946E-43   3.660284E-09   8.131595E-41   3.082040E-07

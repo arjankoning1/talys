@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Br86
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 35
+#     A: 86
+#     nuclide: Br86
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   2.869271E-03   5.390313E-04   1.868980E-02   3.511152E-03
+   1.600000E+00   3.516364E-03   6.346442E-04   2.993010E-01   5.401910E-02
+   5.500000E+00   4.644362E-03   1.012918E-03   2.648733E+00   5.776822E-01
+   1.000000E+01   6.440011E-03   1.633339E-03   3.933281E+00   9.975784E-01

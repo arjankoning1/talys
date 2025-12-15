@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Tc110
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 43
+#     A: 110
+#     nuclide: Tc110
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   1.624937E-04   7.331193E-04   1.058448E-03   4.775405E-03
+   1.600000E+00   2.161639E-04   1.100449E-03   1.839914E-02   9.366704E-02
+   5.500000E+00   1.601274E-04   5.611899E-04   9.132248E-02   3.200550E-01
+   1.000000E+01   2.482197E-04   7.654983E-04   1.516019E-01   4.675359E-01

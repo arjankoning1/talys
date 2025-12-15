@@ -1,0 +1,42 @@
+\begin{samplecase}
+{\bf Unresolved resonance range parameters: n + ${}^{136}$Ba}\newline
+With TALYS, parameters for the unresolved resonance range (URR) can be produced.
+The following input file is used
+
+\VerbatimInput{\samples n-Ba136-URR/org/talys.inp}
+
+where the line {\bf urr y} results in a set of URR output files which are
+described page \pageref{key:urr}. The top of the general output file {\em urr.dat}
+looks as follows:
+{\small \begin{verbatim}
+
+# header:
+#   title: Ba136(n,urr) URR parameter at  1.000000E-03 MeV
+#   source: TALYS-2.0
+#   user: Arjan Koning
+#   date: 2023-12-17
+#   format: YANDF-0.1
+# target:
+#   Z: 56
+#   A: 136
+#   nuclide: Ba136
+# reaction:
+#   type: (n,urr)
+#   E-incident [MeV]:  1.000000E-03
+# parameters:
+#   neutron separation energy [MeV]:  6.905644E+00
+# observables:
+#   thermal capture cross section [mb]:  7.030000E+02
+#   potential scattering radius [fm]:  4.397314E+00
+# datablock:
+#   quantity: URR parameter
+#   columns: 13
+#   entries: 3
+##       l              J              P            D(l)          D(l,J)       
+##      []             []             []            [eV]           [eV]       
+     0            5.000000E-01     1            1.200750E+03   1.200750E+03  
+     1            5.000000E-01    -1            4.147023E+02   1.200750E+03  
+     1            1.500000E+00    -1            4.147023E+02   6.334905E+02  
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+\end{samplecase}

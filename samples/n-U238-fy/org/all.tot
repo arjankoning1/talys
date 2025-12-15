@@ -1,0 +1,23 @@
+# header: 
+#   title: U238(n,all) general cross section
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,all)
+#   quantity: 
+#     type: cross section
+#   datablock: 
+#     columns: 11
+#     entries: 4
+##       E         Non-elastic      Elastic         Total     Compound_elast. Shape_elastic    Reaction    Compound_nonel.    Direct     Preequilibrium Direct_capture
+##     [MeV]          [mb]           [mb]           [mb]           [mb]           [mb]           [mb]           [mb]           [mb]           [mb]           [mb]
+   1.000000E+00   2.606074E+03   4.434496E+03   7.040560E+03   8.408156E+02   3.593680E+03   3.446890E+03   2.131002E+03   4.750724E+02   0.000000E+00   0.000000E+00
+   1.600000E+00   3.615273E+03   3.304437E+03   6.919710E+03   1.664069E+02   3.138030E+03   3.781680E+03   2.828443E+03   7.826492E+02   4.180789E+00   0.000000E+00
+   5.500000E+00   3.389312E+03   4.054828E+03   7.444130E+03   1.811095E-02   4.054810E+03   3.389330E+03   2.687307E+03   5.187651E+02   1.644533E+02   0.000000E+00
+   1.000000E+01   3.255190E+03   2.619160E+03   5.874350E+03   4.481344E-07   2.619160E+03   3.255190E+03   2.465602E+03   3.678865E+02   3.842313E+02   0.000000E+00

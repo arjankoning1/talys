@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Mo102
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 42
+#     A: 102
+#     nuclide: Mo102
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   3.693139E-03   6.501857E-05   2.405629E-02   4.235191E-04
+   1.600000E+00   3.945873E-03   8.097511E-05   3.358593E-01   6.892371E-03
+   5.500000E+00   4.491943E-03   1.527543E-04   2.561806E+00   8.711806E-02
+   1.000000E+01   3.741370E-03   1.161813E-04   2.285068E+00   7.095893E-02

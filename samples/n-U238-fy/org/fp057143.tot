@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for La143
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 57
+#     A: 143
+#     nuclide: La143
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   7.914411E-05   7.901139E-12   5.155272E-04   5.146658E-11
+   1.600000E+00   1.182287E-04   8.761465E-12   1.006322E-02   7.457508E-10
+   5.500000E+00   4.296603E-04   1.621615E-05   2.450402E-01   9.248314E-03
+   1.000000E+01   1.036336E-03   1.439958E-05   6.329495E-01   8.794694E-03

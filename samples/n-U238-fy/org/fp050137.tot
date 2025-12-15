@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Sn137
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 50
+#     A: 137
+#     nuclide: Sn137
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]           []             []            [mb]           [mb]
+   1.000000E+00   7.382735E-07   6.501857E-05   4.808949E-06   4.235191E-04
+   1.600000E+00   3.189003E-07   8.097511E-05   2.714371E-05   6.892371E-03
+   5.500000E+00   1.085506E-09   2.545669E-05   6.190768E-07   1.451834E-02
+   1.000000E+01   7.730886E-10   1.085673E-05   4.721692E-07   6.630862E-03

@@ -1,0 +1,32 @@
+# header: 
+#   title: Pu239(n,f) prompt neutron multiplicity - P(nu) at 1.000000E-06 MeV
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 94
+#   A: 239
+#   nuclide: Pu239
+# reaction: 
+#   type: (n,f)
+#   E-incident [MeV]:  1.000000E-06
+#   ejectile: neutron
+#   nubar-prompt:  2.536832E+00
+#   average P(nu):  2.538254E+00
+#   quantity: 
+#     type: multiplicity
+#   datablock: 
+#     columns: 2
+#     entries: 51
+##    number           nu
+##      []             []
+     0            3.133199E-02
+     1            1.407684E-01
+     2            3.090425E-01
+     3            3.297652E-01
+     4            1.576407E-01
+     5            2.922596E-02
+     6            2.164932E-03
+     7            5.972161E-05
+     8            5.681396E-07

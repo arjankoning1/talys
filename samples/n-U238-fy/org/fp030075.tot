@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Zn75
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 30
+#     A: 75
+#     nuclide: Zn75
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   1.970974E-04   1.437437E-04   1.283849E-03   9.363205E-04
+   1.600000E+00   2.786106E-04   2.000007E-04   2.371439E-02   1.702349E-02
+   5.500000E+00   4.157406E-04   3.745919E-04   2.371016E-01   2.136354E-01
+   1.000000E+01   4.002806E-04   4.033932E-04   2.444742E-01   2.463765E-01

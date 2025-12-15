@@ -1,0 +1,27 @@
+# header: 
+#   title: Pu239(n,f) fission yield for Ge81m
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 94
+#   A: 239
+#   nuclide: Pu239
+# reaction: 
+#   type: (n,f)
+#   residual: 
+#     Z: 32
+#     A: 81
+#     nuclide: Ge81m
+#   isomer: 1
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 4
+#     entries: 239
+##       E          FP_yield         FP_xs          Ratio
+##     [MeV]           []            [mb]            []
+   2.530000E-08   0.000000E+00   0.000000E+00   0.000000E+00
+   2.000000E-07   0.000000E+00   0.000000E+00   0.000000E+00
+   1.000000E-06   1.610805E-04   5.176278E-03   3.074690E-01

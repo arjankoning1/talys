@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Cs145
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 55
+#     A: 145
+#     nuclide: Cs145
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   1.125385E-02   2.178637E-02   7.330510E-02   1.419125E-01
+   1.600000E+00   9.431891E-03   2.432799E-02   8.028107E-01   2.070729E+00
+   5.500000E+00   5.573771E-03   2.657745E-02   3.178786E+00   1.515752E+01
+   1.000000E+01   3.887449E-03   2.844855E-02   2.374286E+00   1.737524E+01

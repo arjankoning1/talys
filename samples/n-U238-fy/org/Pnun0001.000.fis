@@ -1,0 +1,32 @@
+# header: 
+#   title: U238(n,f) prompt neutron multiplicity - P(nu) at 1.000000E+00 MeV
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   E-incident [MeV]:  1.000000E+00
+#   ejectile: neutron
+#   nubar-prompt:  2.667938E+00
+#   average P(nu):  0.000000E+00
+#   quantity: 
+#     type: multiplicity
+#   datablock: 
+#     columns: 2
+#     entries: 51
+##    number           nu
+##      []             []
+     0            0.000000E+00
+     1            1.395007E-01
+     2            3.139989E-01
+     3            3.392223E-01
+     4            1.595560E-01
+     5            4.217754E-02
+     6            5.153302E-03
+     7            3.889472E-04
+     8            2.328261E-06

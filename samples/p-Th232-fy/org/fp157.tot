@@ -1,0 +1,22 @@
+# header: 
+#   title: Th232(p,f) fission yield for  A=157
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 90
+#   A: 232
+#   nuclide: Th232
+# reaction: 
+#   type: (p,f)
+#   residual: 
+#     A: 157
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 1
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]           []             []            [mb]           [mb]
+   8.000000E+01   1.448288E-06   1.420358E-04   1.219719E-04   1.195972E-02

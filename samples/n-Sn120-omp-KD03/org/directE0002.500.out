@@ -1,0 +1,27 @@
+# header: 
+#   title: Sn120(n,n') direct inelastic cross sections at 2.500000E+00 MeV
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 50
+#   A: 120
+#   nuclide: Sn120
+# reaction: 
+#   type: (n,n')
+#   E-incident [MeV]:  2.500000E+00
+#   total discrete direct inelastic cross section [mb]:  5.566617E+01
+#   collective continuum inelastic cross section [mb]:  0.000000E+00
+#   quantity: 
+#     type: direct inelastic cross sections
+#   datablock: 
+#     columns: 7
+#     entries: 5
+##     level         energy          E-out           J/P       cross section    def. type      def. par.
+##      []            [MeV]          [MeV]           []            [mb]            []             []
+        1         1.171265E+00   1.307852E+00       2.0 +       5.275630E+01      B           1.075000E-01
+        3         2.097205E+00   3.819124E-01       2.0 +       6.657060E-01      B           2.000000E-02
+        6         2.194299E+00   2.848183E-01       4.0 +       1.930570E+00      B           9.735045E-02
+        7         2.284270E+00   1.948473E-01       5.0 -       2.499870E-02      B           2.000000E-02
+        9         2.355383E+00   1.237344E-01       2.0 +       2.885970E-01      B           2.000000E-02

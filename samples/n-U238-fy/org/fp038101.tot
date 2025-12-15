@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Sr101
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 38
+#     A: 101
+#     nuclide: Sr101
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]           []             []            [mb]           [mb]
+   1.000000E+00   4.305157E-04   2.686099E-03   2.804284E-03   1.749676E-02
+   1.600000E+00   4.000752E-04   2.430665E-03   3.405305E-02   2.068913E-01
+   5.500000E+00   1.629335E-04   1.507409E-03   9.292287E-02   8.596979E-01
+   1.000000E+01   1.057249E-04   1.042375E-03   6.457223E-02   6.366412E-01

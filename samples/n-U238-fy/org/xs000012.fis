@@ -1,0 +1,25 @@
+# header: 
+#   title: U238(n,h2af) cross section
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,h2af)
+#   Q-value [MeV]:  3.556177E-01
+#   E-threshold [MeV]:  0.000000E+00
+#   quantity: 
+#     type: cross section
+#   datablock: 
+#     columns: 2
+#     entries: 4
+##       E             xs
+##     [MeV]          [mb]
+   1.000000E+00   0.000000E+00
+   1.600000E+00   0.000000E+00
+   5.500000E+00   0.000000E+00
+   1.000000E+01   0.000000E+00

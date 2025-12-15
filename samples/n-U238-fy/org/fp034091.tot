@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Se91
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 34
+#     A: 91
+#     nuclide: Se91
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   1.531746E-04   6.009075E-04   9.977452E-04   3.914202E-03
+   1.600000E+00   1.004560E-04   4.822951E-04   8.550473E-03   4.105158E-02
+   5.500000E+00   5.679624E-05   3.028878E-04   3.239155E-02   1.727415E-01
+   1.000000E+01   4.475153E-05   2.771032E-04   2.733231E-02   1.692436E-01

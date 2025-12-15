@@ -1,0 +1,45 @@
+# header: 
+#   title: Ba136(n,x)Ba137g cross section
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 56
+#   A: 136
+#   nuclide: Ba136
+# reaction: 
+#   type: (n,x)
+#   Q-value [MeV]:  6.905639E+00
+#   E-threshold [MeV]:  0.000000E+00
+#   ENDF_MF: 6
+#   ENDF_MT: 5
+#   residual: 
+#     Z: 56
+#     A: 137
+#     nuclide: Ba137g
+#   parameters: 
+#     mass [amu]:  1.369058E+02
+#     level: 
+#       number: 0
+#       energy [MeV]:  0.000000E+00
+#       spin:  1.500000E+00
+#       parity: 1
+#       isomer: 0
+#   quantity: 
+#     type: cross section
+#   datablock: 
+#     columns: 3
+#     entries: 10
+##       E             xs       Isomeric_ratio
+##     [MeV]          [mb]            []
+   1.000000E-03   4.227640E+02   9.969416E-01
+   2.000000E-03   2.746231E+02   9.957197E-01
+   5.000000E-03   1.782429E+02   9.936269E-01
+   1.000000E-02   1.292614E+02   9.918800E-01
+   2.000000E-02   8.968205E+01   9.886756E-01
+   5.000000E-02   5.618327E+01   9.765159E-01
+   1.000000E-01   4.249623E+01   9.627561E-01
+   2.000000E-01   3.333212E+01   9.484446E-01
+   5.000000E-01   3.024941E+01   9.036486E-01
+   1.000000E+00   2.099940E+01   8.083304E-01

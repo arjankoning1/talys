@@ -1,0 +1,31 @@
+# header: 
+#   title: Ba136(n,non) cross section
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 56
+#   A: 136
+#   nuclide: Ba136
+# reaction: 
+#   type: (n,non)
+#   ENDF_MF: 3
+#   ENDF_MT: 3
+#   quantity: 
+#     type: cross section
+#   datablock: 
+#     columns: 2
+#     entries: 10
+##       E             xs
+##     [MeV]          [mb]
+   1.000000E-03   4.251914E+02
+   2.000000E-03   2.770234E+02
+   5.000000E-03   1.805137E+02
+   1.000000E-02   1.312637E+02
+   2.000000E-02   9.143652E+01
+   5.000000E-02   5.799097E+01
+   1.000000E-01   4.443994E+01
+   2.000000E-01   3.534253E+01
+   5.000000E-01   3.364319E+01
+   1.000000E+00   5.526383E+02

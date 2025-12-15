@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for I134
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 53
+#     A: 134
+#     nuclide: I134
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   7.181306E-04   9.584925E-05   4.677743E-03   6.243446E-04
+   1.600000E+00   1.197479E-03   9.990297E-05   1.019253E-01   8.503456E-03
+   5.500000E+00   3.318766E-03   2.610366E-04   1.892730E+00   1.488731E-01
+   1.000000E+01   8.078045E-03   2.903007E-04   4.933722E+00   1.773041E-01

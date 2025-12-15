@@ -1,0 +1,26 @@
+# header: 
+#   title: Ba138(n,x)Ba138 reaction rate
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 56
+#   A: 138
+#   nuclide: Ba138
+# reaction: 
+#   type: (n,x)
+#   E-average [MeV]:  3.000000E-02
+#   excited states contribution: y
+#   residual: 
+#     Z: 56
+#     A: 138
+#     nuclide: Ba138
+#   quantity: 
+#     type: reaction rate
+#   datablock: 
+#     columns: 5
+#     entries: 1
+##       T        reaction_rate      MACS           G(T)         E-average
+##   [10^9_K]      [cm3/mol/s]       [mb]            []            [MeV]
+   3.481355E-01   5.541582E+00   3.828489E-05   1.000000E+00   3.000000E-02

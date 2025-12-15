@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) cross section for Xe137
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 6
+#   ENDF_MT: 5
+#   residual: 
+#     Z: 54
+#     A: 137
+#     nuclide: Xe137
+#   quantity: 
+#     type: cross section
+#   datablock: 
+#     columns: 2
+#     entries: 4
+##       E            FP_xs
+##     [MeV]          [mb]
+   1.000000E+00   4.477542E-02
+   1.600000E+00   6.855732E-01
+   5.500000E+00   7.678776E+00
+   1.000000E+01   1.241472E+01

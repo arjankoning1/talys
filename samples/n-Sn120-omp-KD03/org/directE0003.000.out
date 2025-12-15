@@ -1,0 +1,52 @@
+# header: 
+#   title: Sn120(n,n') direct inelastic cross sections at 3.000000E+00 MeV
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 50
+#   A: 120
+#   nuclide: Sn120
+# reaction: 
+#   type: (n,n')
+#   E-incident [MeV]:  3.000000E+00
+#   total discrete direct inelastic cross section [mb]:  8.374661E+01
+#   collective continuum inelastic cross section [mb]:  0.000000E+00
+#   quantity: 
+#     type: direct inelastic cross sections
+#   datablock: 
+#     columns: 7
+#     entries: 18
+##     level         energy          E-out           J/P       cross section    def. type      def. par.
+##      []            [MeV]          [MeV]           []            [mb]            []             []
+        1         1.171265E+00   1.803669E+00       2.0 +       6.043970E+01      B           1.075000E-01
+        3         2.097205E+00   8.777296E-01       2.0 +       1.051370E+00      B           2.000000E-02
+        6         2.194299E+00   7.806355E-01       4.0 +       6.185220E+00      B           9.735045E-02
+        7         2.284270E+00   6.906645E-01       5.0 -       9.730310E-02      B           2.000000E-02
+        9         2.355383E+00   6.195516E-01       2.0 +       7.779620E-01      B           2.000000E-02
+       10         2.400300E+00   5.746345E-01       3.0 -       1.367490E+01      B           1.369900E-01
+       11         2.420900E+00   5.540344E-01       2.0 +       7.118380E-01      B           2.000000E-02
+       12         2.465632E+00   5.093026E-01       4.0 +       1.452530E-01      B           2.000000E-02
+       13         2.481630E+00   4.933044E-01       7.0 -       1.731160E-03      B           2.000000E-02
+       14         2.540000E+00   4.349345E-01       5.0 -       7.713720E-02      B           2.000000E-02
+       16         2.643353E+00   3.315815E-01       4.0 +       8.778440E-02      B           2.000000E-02
+       17         2.685160E+00   2.897746E-01       6.0 +       2.427440E-03      B           2.000000E-02
+       18         2.691000E+00   2.839345E-01       6.0 +       2.326670E-03      B           2.000000E-02
+       20         2.728120E+00   2.468144E-01       2.0 +       3.929320E-01      B           2.000000E-02
+       22         2.751000E+00   2.239346E-01       4.0 +       5.810630E-02      B           2.000000E-02
+       23         2.800050E+00   1.748845E-01       5.0 -       4.046640E-02      B           2.000000E-02
+       24         2.802000E+00   1.729344E-01       7.0 -       1.500830E-04      B           2.000000E-02
+       26         2.836520E+00   1.384145E-01       8.0 +       3.092790E-06      B           2.000000E-02
+#   quantity: 
+#     type: giant resonance cross sections
+#   total GR cross section:  0.000000E+00
+#   datablock: 
+#     columns: 6
+#     entries: 4
+##     Type       Cross section   Exc. energy   Emis. energy       Width      Deform. par.
+##      []            [mb]           [MeV]          [MeV]          [MeV]           []
+     GMR          0.000000E+00   1.570000E+01  -1.272507E+01   3.000000E+00   2.240078E-02
+     GQR          0.000000E+00   1.317810E+01  -1.020317E+01   3.493800E+00   1.155461E-01
+     LEOR         0.000000E+00   6.284942E+00  -3.310008E+00   5.000000E+00   1.113238E-01
+     HEOR         0.000000E+00   2.331511E+01  -2.034017E+01   6.800000E+00   1.114584E-01

@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Cs144
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 55
+#     A: 144
+#     nuclide: Cs144
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   2.707734E-02   3.279045E-02   1.763758E-01   2.135910E-01
+   1.600000E+00   2.707176E-02   3.305815E-02   2.304256E+00   2.813815E+00
+   5.500000E+00   2.118552E-02   2.707122E-02   1.208235E+01   1.543912E+01
+   1.000000E+01   1.616889E-02   2.935146E-02   9.875259E+00   1.792670E+01

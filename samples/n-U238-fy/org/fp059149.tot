@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Pr149
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 59
+#     A: 149
+#     nuclide: Pr149
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   1.431717E-04   2.508599E-05   9.325885E-04   1.634056E-04
+   1.600000E+00   1.193224E-04   3.910585E-05   1.015632E-02   3.328578E-03
+   5.500000E+00   4.171928E-04   4.053157E-05   2.379298E-01   2.311576E-02
+   1.000000E+01   8.969586E-04   4.174647E-05   5.478237E-01   2.549708E-02

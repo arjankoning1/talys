@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) cross section for La143
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 6
+#   ENDF_MT: 5
+#   residual: 
+#     Z: 57
+#     A: 143
+#     nuclide: La143
+#   quantity: 
+#     type: cross section
+#   datablock: 
+#     columns: 2
+#     entries: 4
+##       E            FP_xs
+##     [MeV]          [mb]
+   1.000000E+00   5.155272E-04
+   1.600000E+00   1.006322E-02
+   5.500000E+00   2.450402E-01
+   1.000000E+01   6.329495E-01

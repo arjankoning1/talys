@@ -1,0 +1,25 @@
+# header: 
+#   title: U238(n,xh) cross section
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,xh)
+#   ENDF_MF: 3
+#   ENDF_MT: 206
+#   quantity: 
+#     type: cross section
+#   datablock: 
+#     columns: 3
+#     entries: 4
+##       E             xs        Multiplicity
+##     [MeV]          [mb]            []
+   1.000000E+00   0.000000E+00   0.000000E+00
+   1.600000E+00   0.000000E+00   0.000000E+00
+   5.500000E+00   0.000000E+00   0.000000E+00
+   1.000000E+01   4.876478E-33   1.498062E-36

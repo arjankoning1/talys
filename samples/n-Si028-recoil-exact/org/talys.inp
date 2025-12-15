@@ -1,0 +1,20 @@
+#
+# n-Si028-recoil-exact
+#
+# General
+#
+projectile n
+element si
+mass 28
+energy 20.
+#
+# Parameters
+#
+m2constant 0.70
+sysreaction p d t h a 
+spherical y
+#
+# Output
+#
+recoil y
+filerecoil y

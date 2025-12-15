@@ -1,0 +1,37 @@
+\begin{samplecase}
+{\bf Neutron multiplicities and fission yields for n + ${}^{242}$Pu}\newline
+TALYS contains an implementation of several versions of the GEF code by Karl-Heinz Schmidt and Beatriz Jurado. Part of GEF has been translated by Vasily Simutkin and Michail Onegin into a Fortran subroutine.
+In this sample case, the prompt neutron multiplicity as a function of mass, 
+$\overline{\nu}(A)$, number of neutrons, $P({\nu})$, and the total average,
+$\overline{\nu}$,
+are calculated, as well as the pre- and post-neutron fission yields as a 
+function of $N$ and $A$.
+The following input file is used
+
+\VerbatimInput{\samples n-Pu242-fy/org/talys.inp}
+
+Note the comment given at the end of the input file. Note also that a hardwired energy grid is used through {\it n0-20.grid}. The prompt average neutron 
+multiplicity $\overline{\nu}$ is given in the output file {\it nubar.tot}. 
+Fig. \ref{nubar} shows a comparison with experimental data and some of the 
+world nuclear data libraries.
+Fig. \ref{nuA} presents the distribution of $\overline{\nu}(A)$ as a function of fission product mass, for an incident energy of 1 MeV. This is given in output 
+file {\it nuA001.000.fis}.
+Fig. \ref{pnu} presents the distribution of $\nu$ as a function of number of neutrons, for an incident energy of 1 MeV. This is given in output 
+file {\it Pnu001.000.fis}.
+\end{samplecase}
+\begin{figure}
+\centering\includegraphics[scale=0.5,angle=270]{nubar}
+\caption{Average prompt neutron multiplicity $\overline{\nu}$ for n + $^{242}$Pu, with the GEF model, compared with experimental data and nuclear data libraries.}
+\label{nubar}
+\end{figure}
+\begin{figure}
+\centering\includegraphics[scale=0.5,angle=270]{nuA}
+\caption{Average prompt neutron multiplicity $\overline{\nu}(A)$, as a function of fission product mass, for n + $^{242}$Pu, with the GEF model.}
+\label{nuA}
+\end{figure}
+\begin{figure}
+\centering\includegraphics[scale=0.5,angle=270]{pnu}
+\caption{Prompt neutron multiplicity distribution $P(\nu )$, as a function of 
+the number of neutrons, for n + $^{242}$Pu, with the GEF model.}
+\label{pnu}
+\end{figure}

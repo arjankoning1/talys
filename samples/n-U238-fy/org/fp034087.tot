@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Se87
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 34
+#     A: 87
+#     nuclide: Se87
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   8.283010E-03   8.018278E-03   5.395368E-02   5.222960E-02
+   1.600000E+00   7.153907E-03   8.733895E-03   6.089163E-01   7.434042E-01
+   5.500000E+00   8.429982E-03   9.925206E-03   4.807715E+00   5.660494E+00
+   1.000000E+01   8.063709E-03   1.060861E-02   4.924966E+00   6.479316E+00

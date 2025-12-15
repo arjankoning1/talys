@@ -1,0 +1,36 @@
+
+                    SAMPLE CASES FOR TALYS
+
+This directory contains sample cases.
+Every sample case has its own directory with a descriptive name, and contains 
+a subdirectory org/ with input files and OUR calculated results. For this, 
+we used the gfortran compiler on MacOS. There is also a subdirectory new/ which, 
+when you receive this package, contains only the input files.
+By running the script 'verify', the sample cases are executed one by one 
+and the new/ subdirectories are filled with YOUR calculated results. 
+
+To run all sample cases, give
+verify
+To only run the first e.g. 2 sample case, give
+verify 2
+
+There should be no, or at most small, numerical differences between the results 
+in new/ and those in org/. These differences are written to file 'outputdiff' in
+each new/ directory.
+At the end of every 'talys.out' file in the org/ directories the computation time 
+is printed. This should give you an impression of the time it takes to 
+calculate the total test set, which will probably be 1-2 hours.
+The script will produce a further two files:
+times.log: computer time of each sample case, to be compared with times_org.log
+files_dif.log: differences in file length for each output file (should be empty)
+
+The calculated information of interest is in the output file (called 'talys.out') 
+or in the specific files per reaction channel that are created via the 
+input files.
+
+The sample cases also contain a subdirectory tex/ with a description for the
+TALYS tutorial. There is also a plots/ directory with gnuplot files and
+a plotting script for several sample cases.
+
+Consult the manual for the meaning of all the used keywords and a description 
+of all the sample cases.

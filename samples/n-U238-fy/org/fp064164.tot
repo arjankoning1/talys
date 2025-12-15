@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Gd164
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 64
+#     A: 164
+#     nuclide: Gd164
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   3.181261E-05   1.767573E-07   2.072203E-04   1.151365E-06
+   1.600000E+00   7.876678E-05   6.177235E-09   6.704362E-03   5.257886E-07
+   5.500000E+00   9.880387E-05   4.139851E-05   5.634898E-02   2.361019E-02
+   1.000000E+01   1.073563E-04   2.151872E-05   6.556861E-02   1.314278E-02

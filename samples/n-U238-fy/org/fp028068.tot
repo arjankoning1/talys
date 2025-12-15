@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Ni68
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 28
+#     A: 68
+#     nuclide: Ni68
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]           []             []            [mb]           [mb]
+   1.000000E+00   1.197414E-05   1.197451E-05   7.799691E-05   7.799979E-05
+   1.600000E+00   1.862743E-10   1.862731E-10   1.585503E-08   1.585503E-08
+   5.500000E+00   1.366977E-05   8.774418E-06   7.796025E-03   5.004182E-03
+   1.000000E+01   2.596146E-05   2.237495E-05   1.585614E-02   1.366573E-02

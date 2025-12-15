@@ -1,0 +1,24 @@
+# header: 
+#   title: Ba138(n,x) reaction rate
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 56
+#   A: 138
+#   nuclide: Ba138
+# reaction: 
+#   type: (n,x)
+#   channels: 5
+#   astrogs: y
+#     spin-parity (GS):   0.0+
+#     E-average [MeV]:  3.000000E-02
+#   quantity: 
+#     type: reaction rate
+#   datablock: 
+#     columns: 7
+#     entries: 1
+##       T            G(T)        (n,g)Ba139     (n,n)Ba138     (n,p)Cs138     (n,a)Xe135       fission
+##   [10^9_K]          []         [cm3/mol/s]    [cm3/mol/s]    [cm3/mol/s]    [cm3/mol/s]    [cm3/mol/s]
+   3.481355E-01   1.000000E+00   8.970195E+05   5.541582E+00   0.000000E+00   1.663525E-12   0.000000E+00

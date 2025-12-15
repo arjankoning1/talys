@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) cross section for Eu164
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 6
+#   ENDF_MT: 5
+#   residual: 
+#     Z: 63
+#     A: 164
+#     nuclide: Eu164
+#   quantity: 
+#     type: cross section
+#   datablock: 
+#     columns: 2
+#     entries: 4
+##       E            FP_xs
+##     [MeV]          [mb]
+   1.000000E+00   6.370734E-04
+   1.600000E+00   1.009172E-02
+   5.500000E+00   6.146697E-02
+   1.000000E+01   5.196463E-02

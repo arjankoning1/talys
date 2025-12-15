@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Sm165
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 62
+#     A: 165
+#     nuclide: Sm165
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]           []             []            [mb]           [mb]
+   1.000000E+00   1.401855E-05   1.188398E-04   9.131371E-05   7.741010E-04
+   1.600000E+00   2.118372E-07   2.350761E-04   1.803086E-05   2.000901E-02
+   5.500000E+00   3.725248E-06   1.025637E-04   2.124552E-03   5.849364E-02
+   1.000000E+01   1.581936E-06   6.401057E-05   9.661782E-04   3.909511E-02

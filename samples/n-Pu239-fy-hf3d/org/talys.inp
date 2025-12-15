@@ -1,0 +1,18 @@
+projectile n
+element    Pu
+mass       239
+energy   2.53e-8
+ejectiles g n
+massdis y
+fymodel 4
+ffmodel 2
+ldmodel 5
+Rfiseps 1.e-5
+outspectra y
+bins 40
+channels y
+maxchannel 8
+#
+# For more precise results you may decrease Rfiseps to e.g. 1.e-9 and 
+# increase bins to 100
+#

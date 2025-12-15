@@ -1,0 +1,27 @@
+# header: 
+#   title: Pu239(n,f) fission yield for Ag119g
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 94
+#   A: 239
+#   nuclide: Pu239
+# reaction: 
+#   type: (n,f)
+#   residual: 
+#     Z: 47
+#     A: 119
+#     nuclide: Ag119g
+#   isomer: 0
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 4
+#     entries: 239
+##       E          FP_yield         FP_xs          Ratio
+##     [MeV]           []            [mb]            []
+   2.530000E-08   0.000000E+00   0.000000E+00   0.000000E+00
+   2.000000E-07   0.000000E+00   0.000000E+00   0.000000E+00
+   1.000000E-06   4.246646E-05   1.364648E-03   7.385466E-02

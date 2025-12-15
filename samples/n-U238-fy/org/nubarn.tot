@@ -1,0 +1,26 @@
+# header: 
+#   title: U238(n,f) average neutron multiplicity
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 1
+#   ENDF_MT: 456
+#   ejectile: neutron
+#   quantity: 
+#     type: multiplicity
+#   datablock: 
+#     columns: 2
+#     entries: 4
+##       E            nubar
+##     [MeV]           []
+   1.000000E+00   2.667938E+00
+   1.600000E+00   2.874129E+00
+   5.500000E+00   3.695486E+00
+   1.000000E+01   4.267251E+00

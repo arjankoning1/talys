@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Sn129
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 50
+#     A: 129
+#     nuclide: Sn129
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   1.856549E-03   1.408795E-03   1.209315E-02   9.176636E-03
+   1.600000E+00   2.800554E-03   1.746898E-03   2.383736E-01   1.486910E-01
+   5.500000E+00   3.249198E-03   1.928629E-03   1.853055E+00   1.099926E+00
+   1.000000E+01   4.495172E-03   2.213290E-03   2.745457E+00   1.351790E+00

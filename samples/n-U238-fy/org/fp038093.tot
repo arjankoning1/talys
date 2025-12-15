@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Sr93
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 38
+#     A: 93
+#     nuclide: Sr93
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   1.019447E-02   1.331780E-03   6.640451E-02   8.674970E-03
+   1.600000E+00   9.429212E-03   1.405193E-03   8.025826E-01   1.196060E-01
+   5.500000E+00   1.288839E-02   2.452792E-03   7.350396E+00   1.398864E+00
+   1.000000E+01   1.311498E-02   2.681206E-03   8.010063E+00   1.637574E+00

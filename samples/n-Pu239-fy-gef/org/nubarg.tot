@@ -1,0 +1,23 @@
+# header: 
+#   title: Pu239(n,f) average gamma multiplicity
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 94
+#   A: 239
+#   nuclide: Pu239
+# reaction: 
+#   type: (n,f)
+#   ejectile: gamma
+#   quantity: 
+#     type: multiplicity
+#   datablock: 
+#     columns: 2
+#     entries: 3
+##       E            nubar
+##     [MeV]           []
+   2.530000E-08   4.166231E+00
+   2.000000E-07   4.166231E+00
+   1.000000E-06   4.166231E+00

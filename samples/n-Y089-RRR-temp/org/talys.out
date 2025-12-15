@@ -1,0 +1,2985 @@
+
+    TALYS-2.2 (Version: December 14, 2025)
+
+ Copyright (C) 2025  A.J. Koning, S. Hilaire and S. Goriely
+
+ Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees
+
+ User: Arjan Koning
+ Date: 2025-12-14
+
+ ########## USER INPUT ##########
+
+ USER INPUT FILE
+
+ #
+ # n-y089-rrr-temp
+ #
+ # general
+ #
+ projectile n
+ element y
+ mass 89
+ energy energies
+ #
+ # model
+ #
+ resonance y
+ tres 1200.
+ #
+ # output
+ #
+ channels y
+ filechannels y
+ wtable 39 90 0.82 e1
+
+ USER INPUT FILE + DEFAULTS
+
+ Keyword           Value   Variable     Explanation
+
+ #
+ # Four main keywords
+ #
+ projectile          n     ptype0       type of incident particle
+ element            Y      Starget      symbol of target nucleus
+ mass               89     mass         mass number of target nucleus
+ energy energies           energyfile   file with incident energies
+ #
+ # Basic physical and numerical parameters
+ #
+ ejectiles g n p d t h a   outtype      outgoing particles
+ maxz               12     maxZ         maximal number of protons from the initial compound nucleus
+ maxn               32     maxN         maximal number of neutrons from the initial compound nucleus
+ bins               40     nbins        number of continuum excitation energy bins
+ equidistant         y     flagequi     flag to use equidistant excitation bins instead of logarithmic bins
+ equispec            n     flagequispec flag to use equidistant bins for emission spectra
+ popmev              n     flagpopmev   flag to use initial population per MeV instead of histograms
+ segment             1     segment      number of segments to divide emission energy grid
+ maxlevelstar       30     nlevmax      maximum number of included discrete levels for target
+ maxlevelsres       30     nlevmaxres   maximum number of included discrete levels for residual nucleus
+ maxlevelsbin g     30     nlevbin      maximum number of included discrete levels for gamma    channel
+ maxlevelsbin n     30     nlevbin      maximum number of included discrete levels for neutron  channel
+ maxlevelsbin p     30     nlevbin      maximum number of included discrete levels for proton   channel
+ maxlevelsbin d     30     nlevbin      maximum number of included discrete levels for deuteron channel
+ maxlevelsbin t     30     nlevbin      maximum number of included discrete levels for triton   channel
+ maxlevelsbin h     30     nlevbin      maximum number of included discrete levels for helium-3 channel
+ maxlevelsbin a     30     nlevbin      maximum number of included discrete levels for alpha    channel
+ ltarget             0     ltarget      excited level of target
+ isomer           1.00E+00 isomer       definition of isomer in seconds
+ transpower          5     transpower   power for transmission coefficient limit
+ transeps         1.00E-08 transeps     limit for transmission coefficient
+ xseps            1.00E-07 xseps        limit for cross sections
+ popeps           1.00E-03 popeps       limit for population cross section per nucleus
+ Rfiseps          1.00E-03 Rfiseps      ratio for limit for fission cross section per nucleus
+ elow             1.00E-06 elow         minimal incident energy for nuclear model calculations
+ angles             90     nangle       number of angles
+ anglescont         18     nanglecont   number of angles for continuum
+ anglesrec           1     nanglerec    number of recoil angles
+ maxenrec           20     maxenrec     number of recoil energies
+ channels            y     flagchannels flag for exclusive channels calculation
+ maxchannel          4     maxchannel   maximal number of outgoing particles in individual channel description
+ micro               n     flagmicro    flag for completely microscopic Talys calculation
+ best                n     flagbest     flag to use best set of adjusted parameters
+ bestbranch          n     flagbestbr   flag to use flag to use only best set of branching ratios
+ bestend             n     flagbestend  flag to put best set of parameters at end of input file
+ relativistic        y     flagrel      flag for relativistic kinematics
+ recoil              n     flagrecoil   flag for calculation of recoils
+ labddx              n     flaglabddx   flag for calculation of DDX in LAB system
+ recoilaverage       n     flagrecoilav flag for average velocity in recoil calculation
+ channelenergy       n     flagEchannel flag for channel energy for emission spectrum
+ reaction            y     flagreaction flag for calculation of nuclear reactions
+ fit                 n     flagfit      flag to use automatically fitted parameters
+ ngfit               n     flagngfit    flag for using fitted (n,g) nuclear model parameters
+ nffit               n     flagnffit    flag for using fitted (n,f) nuclear model parameters
+ nnfit               n     flagnnfit    flag for using fitted (n,n), (n,2n) and (n,p) nuclear model parameters
+ nafit               n     flagnafit    flag for using fitted (n,a) nuclear model parameters
+ ndfit               n     flagndfit    flag for using fitted (n,d) nuclear model parameters
+ pnfit               n     flagpnfit    flag for using fitted (p,n) nuclear model parameters
+ dnfit               n     flagdnfit    flag for using fitted (d,n) nuclear model parameters
+ gnfit               n     flaggnfit    flag for using fitted (g,n) nuclear model parameters
+ anfit               n     flaganfit    flag for using fitted (a,n) nuclear model parameters
+ gamgamfit           n    flaggamgamfit flag for using fitted Gamma_gamma nuclear model parameters
+ macsfit             n     flagmacsfit  flag for using fitted MACS nuclear model parameters
+ astro               n     flagastro    flag for calculation of astrophysics reaction rate
+ astrogs             n     flagastrogs  flag for calculation of astrophysics reaction rate with target in ground state only
+ astroex             n     flagastroex  flag for calculation of astrophysics reaction rate to long-lived excited states
+ nonthermlev        -1     nonthermlev  excited level non-thermalized in the calculation of astrophysics rate
+ massmodel           2     massmodel    model for theoretical nuclear mass
+ expmass             y     flagexpmass  flag for using experimental nuclear mass if available
+ disctable           1     disctable    table with discrete levels
+ production          n     flagprod     flag for isotope production
+ outfy               n     flagoutfy    flag for output detailed fission yield calculation
+ gefran          50000     gefran       number of random events for GEF calculation
+ Estop            1000.000 Estop        incident energy above which TALYS stops
+ rpevap              n     flagrpevap   flag for evaporation of residual products at high incident energies
+ legacy              n     flaglegacy   flag to run legacy models
+ maxZrp             12     maxZrp       maximal number of protons from the initial CN before residual evaporation
+ maxNrp             32     maxNrp       maximal number of neutrons from the initial CN before residual evaporation
+ user      Arjan Koning    user         user for this calculation
+ source    TALYS-2.2       source       source for this calculation
+ format    YANDF-0.4       oformat      format for output
+ #
+ # Optical model
+ #
+ localomp            y     flaglocalomp flag for local (y) or global (n) optical model
+ dispersion          n     flagdisp     flag for dispersive optical model
+ jlmomp              n     flagjlm      flag for using semi-microscopic JLM OMP
+ pruitt              n     flagpruitt   identifier for Pruitt parameters for KD03
+ pruittset           0     pruittset    random set for Pruitt et al OMP
+ riplomp             n     flagriplomp  flag for RIPL OMP
+ riplrisk            n     flagriplrisk flag for going outside RIPL mass validity range
+ optmodall           n     flagompall   flag for new optical model calculation for all residual nuclei
+ incadjust           y     flagincadj   flag for OMP adjustment on incident channel also
+ omponly             n     flagomponly  flag to execute ONLY an optical model calculation
+ autorot             n     flagautorot  flag for automatic rotational coupled channels calculations for A > 150
+ spherical           n     flagspher    flag to force spherical optical model
+ soukho              y     flagsoukho   flag for Soukhovitskii OMP for actinides
+ coulomb             y     flagcoulomb  flag for Coulomb excitation calculation with ECIS
+ statepot            n     flagstate    flag for optical model potential for each excited state
+ maxband             0     maxband      highest vibrational band added to rotational model
+ maxrot              4     maxrot       number of included excited rotational levels
+ sysreaction               sysreaction  particles with reaction cross section from systematics
+ rotational                rotational   particles with possible rotational optical model
+ core               -1     core         even-even core for weakcoupling (-1 or 1)
+ ecissave            n     flagecissave flag for saving ECIS input and output files
+ eciscalc            y     flageciscalc flag for new ECIS calculation for outgoing particles and energy grid
+ inccalc             y     flaginccalc  flag for new ECIS calculation for incident channel
+ endfecis            y     flagendfecis flag for new ECIS calculation for ENDF-6 files
+ radialmodel         2     radialmodel  model for radial matter densities (JLM OMP only)
+ jlmmode             0     jlmmode      option for JLM imaginary potential normalization
+ alphaomp            6     alphaomp     alpha OMP (1=normal, 2= McFadden-Satchler, 3-5= folding pot., 6,8= Avrigeanu, 7=Nolte)
+ deuteronomp         4     deuteronomp  deuteron OMP (1=normal, 2=Daehnick, 3=Bojowald, 4=Han-Shi-Shen, 5=An-Cai)
+ ecisstep         0.00E+00 ecisstep     integration step size for ECIS OMP calculation
+ #
+ # Compound nucleus
+ #
+ widthfluc           y     flagwidth    flag for width fluctuation calculation
+ widthmode           1     wmode        designator for width fluctuation model
+ WFCfactor           1     WFCfactor    enhancement factor for WFC: 1: Original, 2: Ernebjerg and Herman 3: Kawano
+ compound            y     flagcomp     flag for compound nucleus model
+ fullhf              n     flagfullhf   flag for full spin dependence of transmission coefficients
+ eciscompound        n     flageciscomp flag for compound nucleus calculation by ECIS
+ cpang               n     flagcpang    flag for compound angular distribution calculation for incident charged particles
+ urr                 n     flagurr      flag for URR calculation
+ urrnjoy             n     flagurrnjoy  flag for normalization of URR parameters with NJOY method
+ lurr                2     lurr         maximal orbital angular momentum for URR
+ #
+ # Gamma emission
+ #
+ gammax              2     gammax       number of l-values for gamma multipolarity
+ strength            9     strength     model for E1 gamma-ray strength function
+ strengthM1          3     strengthM1   model for M1 gamma-ray strength function
+ pseudoresonances    n    flagpseudores flag for using light nuclide discrete levels for resonances
+ electronconv        y     flagelectron flag for application of electron conversion coefficient
+ racap               n     flagracap    flag for radiative capture model
+ ldmodelracap        3     ldmodelracap level density model for direct radiative capture
+ upbend              y     flagupbend   flag for low-energy upbend of photon strength function
+ psfglobal           n    flagpsfglobal flag for global photon strength functions only
+ globalwtable        y    flagglobalwtable flag for global average wtable value instead of 1.
+ gnorm               n     flaggnorm    flag to normalize PSF to average radiative width
+ #
+ # Pre-equilibrium
+ #
+ preequilibrium      n     flagpreeq    flag for pre-equilibrium calculation
+ preeqmode           2     preeqmode    designator for pre-equilibrium model
+ multipreeq          n     flagmulpre   flag for multiple pre-equilibrium calculation
+ mpreeqmode          2     mpreeqmode   designator for multiple pre-equilibrium model
+ breakupmodel        1     breakupmodel model for break-up reaction: 1. Kalbach 2. Avrigeanu
+ phmodel             1     phmodel      particle-hole state density model
+ pairmodel           2     pairmodel    designator for pre-equilibrium pairing model
+ preeqspin           1     pespinmodel  model for pre-equilibrium spin distribution
+ giantresonance      y     flaggiant    flag for collective contribution from giant resonances
+ preeqsurface        y     flagsurface  flag for surface effects in exciton model
+ preeqcomplex        y     flagpecomp   flag for Kalbach complex particle emission model
+ twocomponent        y     flag2comp    flag for two-component pre-equilibrium model
+ ecisdwba            y     flagecisdwba flag for new ECIS calculation for DWBA for MSD
+ onestep             n     flagonestep  flag for continuum one-step direct only
+ #
+ # Level densities
+ #
+ ldmodel             1     ldmodelall   level density model
+ ldmodelCN           1     ldmodelCN    level density model for compound nucleus
+ shellmodel          1     shellmodel   model for shell correction energies
+ kvibmodel           2     kvibmodel    model for vibrational enhancement
+ spincutmodel        1     spincutmodel model for spin cutoff factor for ground state
+ ldglobal            n     flagldglobal flag for global level density model
+ asys                n     flagasys     flag for all level density parameters a from systematics
+ parity              n     flagparity   flag for non-equal parity distribution
+ colenhance          n     flagcolall   flag for collective enhancement of level density for all nuclides
+ ctmglobal           n     flagctmglob  flag for global CTM model (no discrete level info)
+ gshell              n     flaggshell   flag for energy dependence of single particle level density parameter g
+ colldamp            n     flagcolldamp flag for damping of collective effects in effective level density
+ #
+ # Fission
+ #
+ fission             n     flagfission  flag for fission
+ fismodel            6     fismodel     fission model
+ fismodelalt         3     fismodelalt  alternative fission model for default barriers
+ hbstate             n     flaghbstate  flag for head band states in fission
+ class2              n     flagclass2   flag for class2 states in fission
+ fispartdamp         n  flagfispartdamp flag for fission partial damping
+ sffactor            n     flagsffactor flag to constrain vfiscor and rmiufiscor by sp. fis. half-life
+ massdis             n     flagmassdis  flag for calculation of fission fragment mass yields
+ ffevaporation       y     flagffevap   flag for calculation of particle evaporation from fission fragment mass yields
+ fisfeed             n     flagfisfeed  flag for output of fission per excitation bin
+ fymodel             2     fymodel      fission yield model, 1: Brosa 2: GEF
+ ffmodel             1     ffmodel      fission fragment model, 1: GEF 2: HF3D (Okumura) 3: SPY 4: Langevin-4D 0: own files
+ pfnsmodel           1     pfnsmodel    PFNS model, 1: Iwamoto 2: from FF decay
+ ffspin              n     flagffspin   flag to use spin distribution in initial FF population
+ #
+ # Output
+ #
+ outmain             y     flagmain     flag for main output
+ outbasic            n     flagbasic    flag for output of basic information and results
+ outall              n     flagoutall   flag for output of all data in main output file
+ outpopulation       n     flagpop      flag for output of population
+ outcheck            n     flagcheck    flag for output of numerical checks
+ outlevels           n     flaglevels   flag for output of discrete level information
+ outdensity          n     flagdensity  flag for output of level densities
+ outomp              n     flagoutomp   flag for output of optical model parameters
+ outkd               n     flagoutkd    flag for output of KD03 OMP parameters
+ outdirect           n     flagdirect   flag for output of direct reaction results
+ outinverse          n     flaginverse  flag for output of transmission coefficients and inverse reaction cross sections
+ outdecay            n     flagdecay    flag for output of decay of each population bin
+ outtransenergy      y     flagtransen  flag for output of transmission coefficients per energy
+ outecis             n     flagoutecis  flag for output of ECIS results
+ outgamma            n     flaggamma    flag for output of gamma-ray information
+ outpreequilibrium   n     flagpeout    flag for output of pre-equilibrium results 
+ outfission          n     flagfisout   flag for output of fission information
+ outdiscrete         n     flagdisc     flag for output of discrete state cross sections
+ outspectra          n     flagspec     flag for output of double-differential cross sections
+ outbinspectra       n     flagbinspec  flag for output of emission spectrum per excitation bin
+ resonance           y     flagres      flag for output of low energy resonance cross sections
+ group               n     flaggroup    flag for output of low energy groupwise cross sections
+ adddiscrete         y     flagadd      flag for addition of discrete states to spectra
+ addelastic          y     flagaddel    flag for addition of elastic peak to spectra
+ outangle            n     flagang      flag for output of angular distributions
+ outlegendre         n     flaglegendre flag for output of Legendre coefficients
+ ddxmode             0     ddxmode      mode for double-differential cross sections
+ outdwba             n     flagoutdwba  flag for output of DWBA cross sections for MSD
+ outgamdis           n     flaggamdis   flag for output of discrete gamma-ray intensities
+ outexcitation       y     flagexc      flag for output of excitation functions
+ filedensity         n     filedensity  flag for level densities on separate files
+ filepsf             n     filepsf      flag for photon strength functions on separate files
+ filechannels        y     filechannels flag for exclusive channel cross sections on separate file
+ fileelastic         n     fileelastic  flag for elastic angular distribution on separate file
+ filefission         n     filefission  flag for fission cross sections on separate file
+ filegamdis          n     filegamdis   flag for gamma-ray intensities on separate file
+ filerecoil          n     filerecoil   flag for recoil spectra on separate file
+ fileresidual        y     fileresidual flag for residual production cross sections on separate file
+ filetotal           y     filetotal    flag for total cross sections on separate file
+ components          n     flagcompo    flag for output of cross section components
+ endf                n     flagendf     flag for information for ENDF-6 file
+ endfdetail          y     flagendfdet  flag for detailed ENDF-6 information per channel
+ sacs                n     flagsacs     flag for statistical analysis of cross sections
+ partable            n     flagpartable flag for output of model parameters on separate file
+ block               n     flagblock    flag to block spectra, angle and gamma files
+ blockddx            n     flagblockddx flag to block DDX files
+ blockspectra        n flagblockspectra flag to block spectra files
+ blockangle          n   flagblockangle flag to block angle files
+ blockdirect         n  flagblockdirect flag to block direct reaction files
+ blockbin            n     flagblockbin flag to block binary files
+ blocklevels         n  flagblocklevels flag to block discrete level files
+ blockomp            y     flagblockomp flag to block optical model files
+ blockpreeq          n   flagblockpreeq flag to block preequilibrium files
+ blockastro          n   flagblockastro flag to block astro reaction rate files
+ blockyield          n   flagblockyield flag to block isotopic yield files
+ blockZA             y     flagblockZA  flag to block residual nuclide files
+
+ ########## BASIC REACTION PARAMETERS ##########
+
+ Projectile           : neutron     Mass in a.m.u.      :   1.008665
+ Target               : Y89         Mass in a.m.u.      :  88.905838
+
+ Included channels:
+                     gamma   
+                     neutron 
+                     proton  
+                     deuteron
+                     triton  
+                     helium-3
+                     alpha   
+
+    30 incident energies (LAB):
+
+  1.000E-11
+  2.530E-08
+  2.000E-07
+  1.000E-06
+  1.000E-05
+  1.000E-04
+      0.001
+      0.002
+      0.004
+      0.007
+      0.010
+      0.020
+      0.040
+      0.070
+      0.100
+      0.200
+      0.300
+      0.310
+      0.400
+      0.500
+      0.600
+      0.700
+      0.800
+      0.900
+      1.000
+      1.200
+      1.400
+      1.600
+      1.800
+      2.000
+
+ Q-values for binary reactions:
+
+ Q(n,g):  6.85703
+ Q(n,n):  0.00000
+ Q(n,p): -0.71976
+ Q(n,d): -4.85414
+ Q(n,t): -9.70951
+ Q(n,h): -9.97281
+ Q(n,a):  0.68250
+
+ ########## RESULTS FOR E= 1.00000E-06 ##########
+
+ Energy dependent input flags
+
+ Width fluctuations (flagwidth)            : y
+ Unresolved resonance parameters (flagurr) : n
+ Preequilibrium (flagpreeq)                : n
+ Multiple preequilibrium (flagmulpre)      : n
+ Number of continuum excitation energy bins: 40
+
+ ########### REACTION SUMMARY FOR E= 1.00000E-06 ###########
+
+ Center-of-mass energy:    0.000
+
+ 1. Total (binary) cross sections
+
+ Total           = 2.01089E+05
+   Shape elastic   = 5.53189E+03
+   Reaction        = 1.95557E+05
+     Compound elastic= 1.60001E+05
+     Non-elastic     = 3.55558E+04
+       Direct          = 0.00000E+00
+       Pre-equilibrium = 0.00000E+00
+       Compound non-el = 3.55558E+04
+     Total elastic   = 1.65533E+05
+
+ 2. Binary non-elastic cross sections (non-exclusive)
+
+ gamma   = 3.55554E+04
+ neutron = 0.00000E+00
+ proton  = 0.00000E+00
+ deuteron= 0.00000E+00
+ triton  = 0.00000E+00
+ helium-3= 0.00000E+00
+ alpha   = 0.00000E+00
+
+ 3. Total particle production cross sections
+
+ gamma   = 6.01919E+04    Multiplicity= 1.69288E+00
+ neutron = 0.00000E+00    Multiplicity= 0.00000E+00
+ proton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
+ triton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
+ alpha   = 0.00000E+00    Multiplicity= 0.00000E+00
+
+ 4. Residual production cross sections
+
+   a. Per isotope
+
+   Z   A  nuclide    total     level   isomeric    isomeric    lifetime
+                 cross section       cross section  ratio
+
+   39  90 ( 90Y ) 3.55554E+04    0    3.55303E+04  0.99929
+                                 2    2.51133E+01  0.00071   1.14800E+04 sec. 
+   37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
+                                 2    0.00000E+00  0.00000   6.10200E+01 sec. 
+
+   b. Per mass
+
+   A  cross section
+
+   90 3.55554E+04
+
+ Total residual production cross section: 35555.4023438
+ Non-elastic cross section              : 35555.8437500
+
+ 6. Exclusive cross sections
+
+ 6a. Total exclusive cross sections 
+
+     Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
+    n   p   d   t   h   a                                        cross section   ratio
+    0   0   0   0   0   0    3.55554E+04  (n,g)                                                     1.00000E+00
+                                                             0     3.55303E+04  0.99929
+                                                             2     2.51133E+01  0.00071   1.14800E+04 sec. 
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     2.81251E-12
+                                                             0     5.00000E-08  0.50000
+                                                             2     5.00000E-08  0.50000   6.10200E+01 sec. 
+
+ Absorption cross section                 : 35555.40234
+
+ Sum over exclusive channel cross sections: 35555.40234
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     0.00000
+ Total                                    : 35555.40234
+ Non-elastic cross section                : 35555.84375
+
+ ########## RESULTS FOR E= 1.00000E-05 ##########
+
+ Energy dependent input flags
+
+ Width fluctuations (flagwidth)            : y
+ Unresolved resonance parameters (flagurr) : n
+ Preequilibrium (flagpreeq)                : n
+ Multiple preequilibrium (flagmulpre)      : n
+ Number of continuum excitation energy bins: 40
+
+ ########### REACTION SUMMARY FOR E= 1.00000E-05 ###########
+
+ Center-of-mass energy:    0.000
+
+ 1. Total (binary) cross sections
+
+ Total           = 6.73790E+04
+   Shape elastic   = 5.53011E+03
+   Reaction        = 6.18489E+04
+     Compound elastic= 5.70380E+04
+     Non-elastic     = 4.81086E+03
+       Direct          = 0.00000E+00
+       Pre-equilibrium = 0.00000E+00
+       Compound non-el = 4.81086E+03
+     Total elastic   = 6.25682E+04
+
+ 2. Binary non-elastic cross sections (non-exclusive)
+
+ gamma   = 4.81037E+03
+ neutron = 0.00000E+00
+ proton  = 0.00000E+00
+ deuteron= 0.00000E+00
+ triton  = 0.00000E+00
+ helium-3= 0.00000E+00
+ alpha   = 0.00000E+00
+
+ 3. Total particle production cross sections
+
+ gamma   = 8.13850E+03    Multiplicity= 1.69169E+00
+ neutron = 0.00000E+00    Multiplicity= 0.00000E+00
+ proton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
+ triton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
+ alpha   = 0.00000E+00    Multiplicity= 0.00000E+00
+
+ 4. Residual production cross sections
+
+   a. Per isotope
+
+   Z   A  nuclide    total     level   isomeric    isomeric    lifetime
+                 cross section       cross section  ratio
+
+   39  90 ( 90Y ) 4.81037E+03    0    4.80668E+03  0.99923
+                                 2    3.68711E+00  0.00077   1.14800E+04 sec. 
+   37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
+                                 2    0.00000E+00  0.00000   6.10200E+01 sec. 
+
+   b. Per mass
+
+   A  cross section
+
+   90 4.81037E+03
+
+ Total residual production cross section:  4810.3662109
+ Non-elastic cross section              :  4810.8554688
+
+ 6. Exclusive cross sections
+
+ 6a. Total exclusive cross sections 
+
+     Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
+    n   p   d   t   h   a                                        cross section   ratio
+    0   0   0   0   0   0    4.81037E+03  (n,g)                                                     1.00000E+00
+                                                             0     4.80668E+03  0.99923
+                                                             2     3.68711E+00  0.00077   1.14800E+04 sec. 
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     2.07884E-11
+                                                             0     5.00000E-08  0.50000
+                                                             2     5.00000E-08  0.50000   6.10200E+01 sec. 
+
+ Absorption cross section                 :  4810.36621
+
+ Sum over exclusive channel cross sections:  4810.36621
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     0.00000
+ Total                                    :  4810.36621
+ Non-elastic cross section                :  4810.85547
+
+ ########## RESULTS FOR E= 1.00000E-04 ##########
+
+ Energy dependent input flags
+
+ Width fluctuations (flagwidth)            : y
+ Unresolved resonance parameters (flagurr) : n
+ Preequilibrium (flagpreeq)                : n
+ Multiple preequilibrium (flagmulpre)      : n
+ Number of continuum excitation energy bins: 40
+
+ ########### REACTION SUMMARY FOR E= 1.00000E-04 ###########
+
+ Center-of-mass energy:    0.000
+
+ 1. Total (binary) cross sections
+
+ Total           = 2.51520E+04
+   Shape elastic   = 5.52419E+03
+   Reaction        = 1.96278E+04
+     Compound elastic= 1.89667E+04
+     Non-elastic     = 6.61133E+02
+       Direct          = 0.00000E+00
+       Pre-equilibrium = 0.00000E+00
+       Compound non-el = 6.61133E+02
+     Total elastic   = 2.44909E+04
+
+ 2. Binary non-elastic cross sections (non-exclusive)
+
+ gamma   = 6.60604E+02
+ neutron = 0.00000E+00
+ proton  = 0.00000E+00
+ deuteron= 0.00000E+00
+ triton  = 0.00000E+00
+ helium-3= 0.00000E+00
+ alpha   = 0.00000E+00
+
+ 3. Total particle production cross sections
+
+ gamma   = 1.12659E+03    Multiplicity= 1.70403E+00
+ neutron = 0.00000E+00    Multiplicity= 0.00000E+00
+ proton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
+ triton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
+ alpha   = 0.00000E+00    Multiplicity= 0.00000E+00
+
+ 4. Residual production cross sections
+
+   a. Per isotope
+
+   Z   A  nuclide    total     level   isomeric    isomeric    lifetime
+                 cross section       cross section  ratio
+
+   39  90 ( 90Y ) 6.60604E+02    0    6.59416E+02  0.99820
+                                 2    1.18746E+00  0.00180   1.14800E+04 sec. 
+   37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
+                                 2    0.00000E+00  0.00000   6.10200E+01 sec. 
+
+   b. Per mass
+
+   A  cross section
+
+   90 6.60604E+02
+
+ Total residual production cross section:   660.6036987
+ Non-elastic cross section              :   661.1328125
+
+ 6. Exclusive cross sections
+
+ 6a. Total exclusive cross sections 
+
+     Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
+    n   p   d   t   h   a                                        cross section   ratio
+    0   0   0   0   0   0    6.60604E+02  (n,g)                                                     1.00000E+00
+                                                             0     6.59416E+02  0.99820
+                                                             2     1.18746E+00  0.00180   1.14800E+04 sec. 
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     1.51377E-10
+                                                             0     5.00000E-08  0.50000
+                                                             2     5.00000E-08  0.50000   6.10200E+01 sec. 
+
+ Absorption cross section                 :   660.60370
+
+ Sum over exclusive channel cross sections:   660.60370
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     0.00000
+ Total                                    :   660.60370
+ Non-elastic cross section                :   661.13281
+
+ ########## RESULTS FOR E=   0.00100 ##########
+
+ Energy dependent input flags
+
+ Width fluctuations (flagwidth)            : y
+ Unresolved resonance parameters (flagurr) : n
+ Preequilibrium (flagpreeq)                : n
+ Multiple preequilibrium (flagmulpre)      : n
+ Number of continuum excitation energy bins: 40
+
+ ########### REACTION SUMMARY FOR E=   0.00100 ###########
+
+ Center-of-mass energy:    0.001
+
+ 1. Total (binary) cross sections
+
+ Total           = 1.19725E+04
+   Shape elastic   = 5.50306E+03
+   Reaction        = 6.46940E+03
+     Compound elastic= 6.31343E+03
+     Non-elastic     = 1.55966E+02
+       Direct          = 0.00000E+00
+       Pre-equilibrium = 0.00000E+00
+       Compound non-el = 1.55966E+02
+     Total elastic   = 1.18165E+04
+
+ 2. Binary non-elastic cross sections (non-exclusive)
+
+ gamma   = 1.55410E+02
+ neutron = 0.00000E+00
+ proton  = 0.00000E+00
+ deuteron= 0.00000E+00
+ triton  = 0.00000E+00
+ helium-3= 0.00000E+00
+ alpha   = 0.00000E+00
+
+ 3. Total particle production cross sections
+
+ gamma   = 2.72783E+02    Multiplicity= 1.74899E+00
+ neutron = 0.00000E+00    Multiplicity= 0.00000E+00
+ proton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
+ triton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
+ alpha   = 0.00000E+00    Multiplicity= 0.00000E+00
+
+ 4. Residual production cross sections
+
+   a. Per isotope
+
+   Z   A  nuclide    total     level   isomeric    isomeric    lifetime
+                 cross section       cross section  ratio
+
+   39  90 ( 90Y ) 1.55410E+02    0    1.54444E+02  0.99378
+                                 2    9.66646E-01  0.00622   1.14800E+04 sec. 
+   37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
+                                 2    0.00000E+00  0.00000   6.10200E+01 sec. 
+
+   b. Per mass
+
+   A  cross section
+
+   90 1.55410E+02
+
+ Total residual production cross section:   155.4103851
+ Non-elastic cross section              :   155.9663086
+
+ 6. Exclusive cross sections
+
+ 6a. Total exclusive cross sections 
+
+     Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
+    n   p   d   t   h   a                                        cross section   ratio
+    0   0   0   0   0   0    1.55410E+02  (n,g)                                                     1.00000E+00
+                                                             0     1.54444E+02  0.99378
+                                                             2     9.66646E-01  0.00622   1.14800E+04 sec. 
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     6.43458E-10
+                                                             0     5.00000E-08  0.50000
+                                                             2     5.00000E-08  0.50000   6.10200E+01 sec. 
+
+ Absorption cross section                 :   155.41037
+
+ Sum over exclusive channel cross sections:   155.41037
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     0.00000
+ Total                                    :   155.41037
+ Non-elastic cross section                :   155.96631
+
+ ########## RESULTS FOR E=   0.00200 ##########
+
+ Energy dependent input flags
+
+ Width fluctuations (flagwidth)            : y
+ Unresolved resonance parameters (flagurr) : n
+ Preequilibrium (flagpreeq)                : n
+ Multiple preequilibrium (flagmulpre)      : n
+ Number of continuum excitation energy bins: 40
+
+ ########### REACTION SUMMARY FOR E=   0.00200 ###########
+
+ Center-of-mass energy:    0.002
+
+ 1. Total (binary) cross sections
+
+ Total           = 1.02766E+04
+   Shape elastic   = 5.48850E+03
+   Reaction        = 4.78812E+03
+     Compound elastic= 4.69011E+03
+     Non-elastic     = 9.80083E+01
+       Direct          = 0.00000E+00
+       Pre-equilibrium = 0.00000E+00
+       Compound non-el = 9.80083E+01
+     Total elastic   = 1.01786E+04
+
+ 2. Binary non-elastic cross sections (non-exclusive)
+
+ gamma   = 9.74892E+01
+ neutron = 0.00000E+00
+ proton  = 0.00000E+00
+ deuteron= 0.00000E+00
+ triton  = 0.00000E+00
+ helium-3= 0.00000E+00
+ alpha   = 0.00000E+00
+
+ 3. Total particle production cross sections
+
+ gamma   = 1.71888E+02    Multiplicity= 1.75381E+00
+ neutron = 9.64721E-05    Multiplicity= 9.84326E-07
+ proton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
+ triton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
+ alpha   = 0.00000E+00    Multiplicity= 0.00000E+00
+
+ 4. Residual production cross sections
+
+   a. Per isotope
+
+   Z   A  nuclide    total     level   isomeric    isomeric    lifetime
+                 cross section       cross section  ratio
+
+   39  90 ( 90Y ) 9.74891E+01    0    9.67835E+01  0.99276
+                                 2    7.05601E-01  0.00724   1.14800E+04 sec. 
+   37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
+                                 2    0.00000E+00  0.00000   6.10200E+01 sec. 
+
+   b. Per mass
+
+   A  cross section
+
+   90 9.74891E+01
+
+ Total residual production cross section:    97.4891434
+ Non-elastic cross section              :    98.0083008
+
+ 6. Exclusive cross sections
+
+ 6a. Total exclusive cross sections 
+
+     Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
+    n   p   d   t   h   a                                        cross section   ratio
+    0   0   0   0   0   0    9.74891E+01  (n,g)                                                     1.00000E+00
+                                                             0     9.67835E+01  0.99276
+                                                             2     7.05601E-01  0.00724   1.14800E+04 sec. 
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     1.02576E-09
+                                                             0     5.00000E-08  0.50000
+                                                             2     5.00000E-08  0.50000   6.10200E+01 sec. 
+
+ Absorption cross section                 :    97.48914
+
+ Sum over exclusive channel cross sections:    97.48914
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     0.00010
+ Total                                    :    97.48924
+ Non-elastic cross section                :    98.00830
+
+ ########## RESULTS FOR E=   0.00400 ##########
+
+ Energy dependent input flags
+
+ Width fluctuations (flagwidth)            : y
+ Unresolved resonance parameters (flagurr) : n
+ Preequilibrium (flagpreeq)                : n
+ Multiple preequilibrium (flagmulpre)      : n
+ Number of continuum excitation energy bins: 40
+
+ ########### REACTION SUMMARY FOR E=   0.00400 ###########
+
+ Center-of-mass energy:    0.004
+
+ 1. Total (binary) cross sections
+
+ Total           = 9.15761E+03
+   Shape elastic   = 5.46577E+03
+   Reaction        = 3.69183E+03
+     Compound elastic= 3.63412E+03
+     Non-elastic     = 5.77139E+01
+       Direct          = 0.00000E+00
+       Pre-equilibrium = 0.00000E+00
+       Compound non-el = 5.77139E+01
+     Total elastic   = 9.09989E+03
+
+ 2. Binary non-elastic cross sections (non-exclusive)
+
+ gamma   = 5.72565E+01
+ neutron = 0.00000E+00
+ proton  = 0.00000E+00
+ deuteron= 0.00000E+00
+ triton  = 0.00000E+00
+ helium-3= 0.00000E+00
+ alpha   = 0.00000E+00
+
+ 3. Total particle production cross sections
+
+ gamma   = 1.01211E+02    Multiplicity= 1.75366E+00
+ neutron = 1.02995E-04    Multiplicity= 1.78458E-06
+ proton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
+ triton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
+ alpha   = 0.00000E+00    Multiplicity= 0.00000E+00
+
+ 4. Residual production cross sections
+
+   a. Per isotope
+
+   Z   A  nuclide    total     level   isomeric    isomeric    lifetime
+                 cross section       cross section  ratio
+
+   39  90 ( 90Y ) 5.72564E+01    0    5.68004E+01  0.99204
+                                 2    4.55948E-01  0.00796   1.14800E+04 sec. 
+   37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
+                                 2    0.00000E+00  0.00000   6.10200E+01 sec. 
+
+   b. Per mass
+
+   A  cross section
+
+   90 5.72564E+01
+
+ Total residual production cross section:    57.2563553
+ Non-elastic cross section              :    57.7138672
+
+ 6. Exclusive cross sections
+
+ 6a. Total exclusive cross sections 
+
+     Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
+    n   p   d   t   h   a                                        cross section   ratio
+    0   0   0   0   0   0    5.72564E+01  (n,g)                                                     1.00000E+00
+                                                             0     5.68004E+01  0.99204
+                                                             2     4.55948E-01  0.00796   1.14800E+04 sec. 
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     1.74653E-09
+                                                             0     5.00000E-08  0.50000
+                                                             2     5.00000E-08  0.50000   6.10200E+01 sec. 
+
+ Absorption cross section                 :    57.25635
+
+ Sum over exclusive channel cross sections:    57.25635
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     0.00010
+ Total                                    :    57.25645
+ Non-elastic cross section                :    57.71387
+
+ ########## RESULTS FOR E=   0.00700 ##########
+
+ Energy dependent input flags
+
+ Width fluctuations (flagwidth)            : y
+ Unresolved resonance parameters (flagurr) : n
+ Preequilibrium (flagpreeq)                : n
+ Multiple preequilibrium (flagmulpre)      : n
+ Number of continuum excitation energy bins: 40
+
+ ########### REACTION SUMMARY FOR E=   0.00700 ###########
+
+ Center-of-mass energy:    0.007
+
+ 1. Total (binary) cross sections
+
+ Total           = 8.57923E+03
+   Shape elastic   = 5.43798E+03
+   Reaction        = 3.14125E+03
+     Compound elastic= 3.10494E+03
+     Non-elastic     = 3.63096E+01
+       Direct          = 0.00000E+00
+       Pre-equilibrium = 0.00000E+00
+       Compound non-el = 3.63096E+01
+     Total elastic   = 8.54292E+03
+
+ 2. Binary non-elastic cross sections (non-exclusive)
+
+ gamma   = 3.59102E+01
+ neutron = 0.00000E+00
+ proton  = 0.00000E+00
+ deuteron= 0.00000E+00
+ triton  = 0.00000E+00
+ helium-3= 0.00000E+00
+ alpha   = 0.00000E+00
+
+ 3. Total particle production cross sections
+
+ gamma   = 6.35537E+01    Multiplicity= 1.75033E+00
+ neutron = 1.07373E-04    Multiplicity= 2.95714E-06
+ proton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
+ triton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
+ alpha   = 0.00000E+00    Multiplicity= 0.00000E+00
+
+ 4. Residual production cross sections
+
+   a. Per isotope
+
+   Z   A  nuclide    total     level   isomeric    isomeric    lifetime
+                 cross section       cross section  ratio
+
+   39  90 ( 90Y ) 3.59101E+01    0    3.56078E+01  0.99158
+                                 2    3.02300E-01  0.00842   1.14800E+04 sec. 
+   37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
+                                 2    0.00000E+00  0.00000   6.10200E+01 sec. 
+
+   b. Per mass
+
+   A  cross section
+
+   90 3.59101E+01
+
+ Total residual production cross section:    35.9101410
+ Non-elastic cross section              :    36.3095703
+
+ 6. Exclusive cross sections
+
+ 6a. Total exclusive cross sections 
+
+     Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
+    n   p   d   t   h   a                                        cross section   ratio
+    0   0   0   0   0   0    3.59101E+01  (n,g)                                                     1.00000E+00
+                                                             0     3.56078E+01  0.99158
+                                                             2     3.02300E-01  0.00842   1.14800E+04 sec. 
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     2.78473E-09
+                                                             0     5.00000E-08  0.50000
+                                                             2     5.00000E-08  0.50000   6.10200E+01 sec. 
+
+ Absorption cross section                 :    35.91014
+
+ Sum over exclusive channel cross sections:    35.91014
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     0.00011
+ Total                                    :    35.91025
+ Non-elastic cross section                :    36.30957
+
+ ########## RESULTS FOR E=   0.01000 ##########
+
+ Energy dependent input flags
+
+ Width fluctuations (flagwidth)            : y
+ Unresolved resonance parameters (flagurr) : n
+ Preequilibrium (flagpreeq)                : n
+ Multiple preequilibrium (flagmulpre)      : n
+ Number of continuum excitation energy bins: 40
+
+ ########### REACTION SUMMARY FOR E=   0.01000 ###########
+
+ Center-of-mass energy:    0.010
+
+ 1. Total (binary) cross sections
+
+ Total           = 8.33744E+03
+   Shape elastic   = 5.41397E+03
+   Reaction        = 2.92347E+03
+     Compound elastic= 2.89667E+03
+     Non-elastic     = 2.68030E+01
+       Direct          = 0.00000E+00
+       Pre-equilibrium = 0.00000E+00
+       Compound non-el = 2.68030E+01
+     Total elastic   = 8.31064E+03
+
+ 2. Binary non-elastic cross sections (non-exclusive)
+
+ gamma   = 2.64327E+01
+ neutron = 0.00000E+00
+ proton  = 0.00000E+00
+ deuteron= 0.00000E+00
+ triton  = 0.00000E+00
+ helium-3= 0.00000E+00
+ alpha   = 0.00000E+00
+
+ 3. Total particle production cross sections
+
+ gamma   = 4.68004E+01    Multiplicity= 1.74609E+00
+ neutron = 1.01074E-04    Multiplicity= 3.77100E-06
+ proton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
+ triton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
+ alpha   = 0.00000E+00    Multiplicity= 0.00000E+00
+
+ 4. Residual production cross sections
+
+   a. Per isotope
+
+   Z   A  nuclide    total     level   isomeric    isomeric    lifetime
+                 cross section       cross section  ratio
+
+   39  90 ( 90Y ) 2.64326E+01    0    2.62025E+01  0.99129
+                                 2    2.30127E-01  0.00871   1.14800E+04 sec. 
+   37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
+                                 2    0.00000E+00  0.00000   6.10200E+01 sec. 
+
+   b. Per mass
+
+   A  cross section
+
+   90 2.64326E+01
+
+ Total residual production cross section:    26.4326153
+ Non-elastic cross section              :    26.8029785
+
+ 6. Exclusive cross sections
+
+ 6a. Total exclusive cross sections 
+
+     Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
+    n   p   d   t   h   a                                        cross section   ratio
+    0   0   0   0   0   0    2.64326E+01  (n,g)                                                     1.00000E+00
+                                                             0     2.62025E+01  0.99129
+                                                             2     2.30127E-01  0.00871   1.14800E+04 sec. 
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     3.78320E-09
+                                                             0     5.00000E-08  0.50000
+                                                             2     5.00000E-08  0.50000   6.10200E+01 sec. 
+
+ Absorption cross section                 :    26.43262
+
+ Sum over exclusive channel cross sections:    26.43262
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     0.00010
+ Total                                    :    26.43272
+ Non-elastic cross section                :    26.80298
+
+ ########## RESULTS FOR E=   0.02000 ##########
+
+ Energy dependent input flags
+
+ Width fluctuations (flagwidth)            : y
+ Unresolved resonance parameters (flagurr) : n
+ Preequilibrium (flagpreeq)                : n
+ Multiple preequilibrium (flagmulpre)      : n
+ Number of continuum excitation energy bins: 40
+
+ ########### REACTION SUMMARY FOR E=   0.02000 ###########
+
+ Center-of-mass energy:    0.020
+
+ 1. Total (binary) cross sections
+
+ Total           = 8.11529E+03
+   Shape elastic   = 5.34731E+03
+   Reaction        = 2.76798E+03
+     Compound elastic= 2.75285E+03
+     Non-elastic     = 1.51306E+01
+       Direct          = 0.00000E+00
+       Pre-equilibrium = 0.00000E+00
+       Compound non-el = 1.51306E+01
+     Total elastic   = 8.10016E+03
+
+ 2. Binary non-elastic cross sections (non-exclusive)
+
+ gamma   = 1.47619E+01
+ neutron = 0.00000E+00
+ proton  = 0.00000E+00
+ deuteron= 0.00000E+00
+ triton  = 0.00000E+00
+ helium-3= 0.00000E+00
+ alpha   = 0.00000E+00
+
+ 3. Total particle production cross sections
+
+ gamma   = 2.61307E+01    Multiplicity= 1.72701E+00
+ neutron = 6.88692E-05    Multiplicity= 4.55165E-06
+ proton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
+ triton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
+ alpha   = 0.00000E+00    Multiplicity= 0.00000E+00
+
+ 4. Residual production cross sections
+
+   a. Per isotope
+
+   Z   A  nuclide    total     level   isomeric    isomeric    lifetime
+                 cross section       cross section  ratio
+
+   39  90 ( 90Y ) 1.47618E+01    0    1.46178E+01  0.99025
+                                 2    1.43964E-01  0.00975   1.14800E+04 sec. 
+   37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
+                                 2    0.00000E+00  0.00000   6.10200E+01 sec. 
+
+   b. Per mass
+
+   A  cross section
+
+   90 1.47618E+01
+
+ Total residual production cross section:    14.7617960
+ Non-elastic cross section              :    15.1306152
+
+ 6. Exclusive cross sections
+
+ 6a. Total exclusive cross sections 
+
+     Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
+    n   p   d   t   h   a                                        cross section   ratio
+    0   0   0   0   0   0    1.47618E+01  (n,g)                                                     1.00000E+00
+                                                             0     1.46178E+01  0.99025
+                                                             2     1.43964E-01  0.00975   1.14800E+04 sec. 
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     6.77424E-09
+                                                             0     5.00000E-08  0.50000
+                                                             2     5.00000E-08  0.50000   6.10200E+01 sec. 
+
+ Absorption cross section                 :    14.76180
+
+ Sum over exclusive channel cross sections:    14.76180
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     0.00007
+ Total                                    :    14.76186
+ Non-elastic cross section                :    15.13062
+
+ ########## RESULTS FOR E=   0.04000 ##########
+
+ Energy dependent input flags
+
+ Width fluctuations (flagwidth)            : y
+ Unresolved resonance parameters (flagurr) : n
+ Preequilibrium (flagpreeq)                : n
+ Multiple preequilibrium (flagmulpre)      : n
+ Number of continuum excitation energy bins: 40
+
+ ########### REACTION SUMMARY FOR E=   0.04000 ###########
+
+ Center-of-mass energy:    0.040
+
+ 1. Total (binary) cross sections
+
+ Total           = 8.19583E+03
+   Shape elastic   = 5.24613E+03
+   Reaction        = 2.94970E+03
+     Compound elastic= 2.94018E+03
+     Non-elastic     = 9.52368E+00
+       Direct          = 0.00000E+00
+       Pre-equilibrium = 0.00000E+00
+       Compound non-el = 9.52368E+00
+     Total elastic   = 8.18631E+03
+
+ 2. Binary non-elastic cross sections (non-exclusive)
+
+ gamma   = 9.07788E+00
+ neutron = 0.00000E+00
+ proton  = 0.00000E+00
+ deuteron= 0.00000E+00
+ triton  = 0.00000E+00
+ helium-3= 0.00000E+00
+ alpha   = 0.00000E+00
+
+ 3. Total particle production cross sections
+
+ gamma   = 1.60379E+01    Multiplicity= 1.68400E+00
+ neutron = 4.03962E-05    Multiplicity= 4.24166E-06
+ proton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
+ triton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
+ alpha   = 0.00000E+00    Multiplicity= 0.00000E+00
+
+ 4. Residual production cross sections
+
+   a. Per isotope
+
+   Z   A  nuclide    total     level   isomeric    isomeric    lifetime
+                 cross section       cross section  ratio
+
+   39  90 ( 90Y ) 9.07783E+00    0    8.95717E+00  0.98671
+                                 2    1.20667E-01  0.01329   1.14800E+04 sec. 
+   37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
+                                 2    0.00000E+00  0.00000   6.10200E+01 sec. 
+
+   b. Per mass
+
+   A  cross section
+
+   90 9.07783E+00
+
+ Total residual production cross section:     9.0778341
+ Non-elastic cross section              :     9.5236816
+
+ 6. Exclusive cross sections
+
+ 6a. Total exclusive cross sections 
+
+     Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
+    n   p   d   t   h   a                                        cross section   ratio
+    0   0   0   0   0   0    9.07784E+00  (n,g)                                                     1.00000E+00
+                                                             0     8.95717E+00  0.98671
+                                                             2     1.20667E-01  0.01329   1.14800E+04 sec. 
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     1.10158E-08
+                                                             0     5.00000E-08  0.50000
+                                                             2     5.00000E-08  0.50000   6.10200E+01 sec. 
+
+ Absorption cross section                 :     9.07784
+
+ Sum over exclusive channel cross sections:     9.07784
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     0.00004
+ Total                                    :     9.07788
+ Non-elastic cross section                :     9.52368
+
+ ########## RESULTS FOR E=   0.07000 ##########
+
+ Energy dependent input flags
+
+ Width fluctuations (flagwidth)            : y
+ Unresolved resonance parameters (flagurr) : n
+ Preequilibrium (flagpreeq)                : n
+ Multiple preequilibrium (flagmulpre)      : n
+ Number of continuum excitation energy bins: 40
+
+ ########### REACTION SUMMARY FOR E=   0.07000 ###########
+
+ Center-of-mass energy:    0.069
+
+ 1. Total (binary) cross sections
+
+ Total           = 8.47121E+03
+   Shape elastic   = 5.14168E+03
+   Reaction        = 3.32952E+03
+     Compound elastic= 3.32219E+03
+     Non-elastic     = 7.32593E+00
+       Direct          = 0.00000E+00
+       Pre-equilibrium = 0.00000E+00
+       Compound non-el = 7.32593E+00
+     Total elastic   = 8.46387E+03
+
+ 2. Binary non-elastic cross sections (non-exclusive)
+
+ gamma   = 6.81252E+00
+ neutron = 0.00000E+00
+ proton  = 0.00000E+00
+ deuteron= 0.00000E+00
+ triton  = 0.00000E+00
+ helium-3= 0.00000E+00
+ alpha   = 0.00000E+00
+
+ 3. Total particle production cross sections
+
+ gamma   = 1.20445E+01    Multiplicity= 1.64409E+00
+ neutron = 2.85808E-05    Multiplicity= 3.90132E-06
+ proton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
+ triton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
+ alpha   = 0.00000E+00    Multiplicity= 0.00000E+00
+
+ 4. Residual production cross sections
+
+   a. Per isotope
+
+   Z   A  nuclide    total     level   isomeric    isomeric    lifetime
+                 cross section       cross section  ratio
+
+   39  90 ( 90Y ) 6.81249E+00    0    6.65858E+00  0.97741
+                                 2    1.53918E-01  0.02259   1.14800E+04 sec. 
+   37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
+                                 2    0.00000E+00  0.00000   6.10200E+01 sec. 
+
+   b. Per mass
+
+   A  cross section
+
+   90 6.81249E+00
+
+ Total residual production cross section:     6.8124948
+ Non-elastic cross section              :     7.3259277
+
+ 6. Exclusive cross sections
+
+ 6a. Total exclusive cross sections 
+
+     Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
+    n   p   d   t   h   a                                        cross section   ratio
+    0   0   0   0   0   0    6.81249E+00  (n,g)                                                     1.00000E+00
+                                                             0     6.65858E+00  0.97741
+                                                             2     1.53918E-01  0.02259   1.14800E+04 sec. 
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     1.46789E-08
+                                                             0     5.00000E-08  0.50000
+                                                             2     5.00000E-08  0.50000   6.10200E+01 sec. 
+
+ Absorption cross section                 :     6.81249
+
+ Sum over exclusive channel cross sections:     6.81249
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     0.00003
+ Total                                    :     6.81252
+ Non-elastic cross section                :     7.32593
+
+ ########## RESULTS FOR E=   0.10000 ##########
+
+ Energy dependent input flags
+
+ Width fluctuations (flagwidth)            : y
+ Unresolved resonance parameters (flagurr) : n
+ Preequilibrium (flagpreeq)                : n
+ Multiple preequilibrium (flagmulpre)      : n
+ Number of continuum excitation energy bins: 40
+
+ ########### REACTION SUMMARY FOR E=   0.10000 ###########
+
+ Center-of-mass energy:    0.099
+
+ 1. Total (binary) cross sections
+
+ Total           = 8.72914E+03
+   Shape elastic   = 5.07648E+03
+   Reaction        = 3.65266E+03
+     Compound elastic= 3.64621E+03
+     Non-elastic     = 6.44775E+00
+       Direct          = 0.00000E+00
+       Pre-equilibrium = 0.00000E+00
+       Compound non-el = 6.44775E+00
+     Total elastic   = 8.72269E+03
+
+ 2. Binary non-elastic cross sections (non-exclusive)
+
+ gamma   = 5.92099E+00
+ neutron = 0.00000E+00
+ proton  = 0.00000E+00
+ deuteron= 0.00000E+00
+ triton  = 0.00000E+00
+ helium-3= 0.00000E+00
+ alpha   = 0.00000E+00
+
+ 3. Total particle production cross sections
+
+ gamma   = 1.05189E+01    Multiplicity= 1.63140E+00
+ neutron = 2.62995E-05    Multiplicity= 4.07887E-06
+ proton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
+ triton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
+ alpha   = 0.00000E+00    Multiplicity= 0.00000E+00
+
+ 4. Residual production cross sections
+
+   a. Per isotope
+
+   Z   A  nuclide    total     level   isomeric    isomeric    lifetime
+                 cross section       cross section  ratio
+
+   39  90 ( 90Y ) 5.92096E+00    0    5.70738E+00  0.96393
+                                 2    2.13580E-01  0.03607   1.14800E+04 sec. 
+   37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
+                                 2    0.00000E+00  0.00000   6.10200E+01 sec. 
+
+   b. Per mass
+
+   A  cross section
+
+   90 5.92096E+00
+
+ Total residual production cross section:     5.9209609
+ Non-elastic cross section              :     6.4477539
+
+ 6. Exclusive cross sections
+
+ 6a. Total exclusive cross sections 
+
+     Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
+    n   p   d   t   h   a                                        cross section   ratio
+    0   0   0   0   0   0    5.92096E+00  (n,g)                                                     1.00000E+00
+                                                             0     5.70738E+00  0.96393
+                                                             2     2.13580E-01  0.03607   1.14800E+04 sec. 
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     1.68892E-08
+                                                             0     5.00000E-08  0.50000
+                                                             2     5.00000E-08  0.50000   6.10200E+01 sec. 
+
+ Absorption cross section                 :     5.92096
+
+ Sum over exclusive channel cross sections:     5.92096
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     0.00003
+ Total                                    :     5.92099
+ Non-elastic cross section                :     6.44775
+
+ ########## RESULTS FOR E=   0.20000 ##########
+
+ Energy dependent input flags
+
+ Width fluctuations (flagwidth)            : y
+ Unresolved resonance parameters (flagurr) : n
+ Preequilibrium (flagpreeq)                : n
+ Multiple preequilibrium (flagmulpre)      : n
+ Number of continuum excitation energy bins: 40
+
+ ########### REACTION SUMMARY FOR E=   0.20000 ###########
+
+ Center-of-mass energy:    0.198
+
+ 1. Total (binary) cross sections
+
+ Total           = 9.22446E+03
+   Shape elastic   = 5.01769E+03
+   Reaction        = 4.20677E+03
+     Compound elastic= 4.20145E+03
+     Non-elastic     = 5.32324E+00
+       Direct          = 0.00000E+00
+       Pre-equilibrium = 0.00000E+00
+       Compound non-el = 5.32324E+00
+     Total elastic   = 9.21914E+03
+
+ 2. Binary non-elastic cross sections (non-exclusive)
+
+ gamma   = 4.89397E+00
+ neutron = 0.00000E+00
+ proton  = 0.00000E+00
+ deuteron= 0.00000E+00
+ triton  = 0.00000E+00
+ helium-3= 0.00000E+00
+ alpha   = 0.00000E+00
+
+ 3. Total particle production cross sections
+
+ gamma   = 8.87750E+00    Multiplicity= 1.66769E+00
+ neutron = 4.16832E-04    Multiplicity= 7.83042E-05
+ proton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
+ triton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
+ alpha   = 0.00000E+00    Multiplicity= 0.00000E+00
+
+ 4. Residual production cross sections
+
+   a. Per isotope
+
+   Z   A  nuclide    total     level   isomeric    isomeric    lifetime
+                 cross section       cross section  ratio
+
+   39  90 ( 90Y ) 4.89356E+00    0    4.50936E+00  0.92149
+                                 2    3.84201E-01  0.07851   1.14800E+04 sec. 
+   37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
+                                 2    0.00000E+00  0.00000   6.10200E+01 sec. 
+
+   b. Per mass
+
+   A  cross section
+
+   90 4.89356E+00
+
+ Total residual production cross section:     4.8935566
+ Non-elastic cross section              :     5.3232422
+
+ 6. Exclusive cross sections
+
+ 6a. Total exclusive cross sections 
+
+     Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
+    n   p   d   t   h   a                                        cross section   ratio
+    0   0   0   0   0   0    4.89356E+00  (n,g)                                                     1.00000E+00
+                                                             0     4.50936E+00  0.92149
+                                                             2     3.84201E-01  0.07851   1.14800E+04 sec. 
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     2.04350E-08
+                                                             0     5.00000E-08  0.50000
+                                                             2     5.00000E-08  0.50000   6.10200E+01 sec. 
+
+ Absorption cross section                 :     4.89356
+
+ Sum over exclusive channel cross sections:     4.89356
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     0.00042
+ Total                                    :     4.89397
+ Non-elastic cross section                :     5.32324
+
+ ########## RESULTS FOR E=   0.30000 ##########
+
+ Energy dependent input flags
+
+ Width fluctuations (flagwidth)            : y
+ Unresolved resonance parameters (flagurr) : n
+ Preequilibrium (flagpreeq)                : n
+ Multiple preequilibrium (flagmulpre)      : n
+ Number of continuum excitation energy bins: 40
+
+ ########### REACTION SUMMARY FOR E=   0.30000 ###########
+
+ Center-of-mass energy:    0.297
+
+ 1. Total (binary) cross sections
+
+ Total           = 9.23767E+03
+   Shape elastic   = 5.02989E+03
+   Reaction        = 4.20778E+03
+     Compound elastic= 4.20307E+03
+     Non-elastic     = 4.70850E+00
+       Direct          = 0.00000E+00
+       Pre-equilibrium = 0.00000E+00
+       Compound non-el = 4.70850E+00
+     Total elastic   = 9.23296E+03
+
+ 2. Binary non-elastic cross sections (non-exclusive)
+
+ gamma   = 4.39341E+00
+ neutron = 0.00000E+00
+ proton  = 0.00000E+00
+ deuteron= 0.00000E+00
+ triton  = 0.00000E+00
+ helium-3= 0.00000E+00
+ alpha   = 0.00000E+00
+
+ 3. Total particle production cross sections
+
+ gamma   = 8.08640E+00    Multiplicity= 1.71741E+00
+ neutron = 1.72486E-03    Multiplicity= 3.66329E-04
+ proton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
+ triton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
+ alpha   = 0.00000E+00    Multiplicity= 0.00000E+00
+
+ 4. Residual production cross sections
+
+   a. Per isotope
+
+   Z   A  nuclide    total     level   isomeric    isomeric    lifetime
+                 cross section       cross section  ratio
+
+   39  90 ( 90Y ) 4.39168E+00    0    3.95503E+00  0.90057
+                                 2    4.36648E-01  0.09943   1.14800E+04 sec. 
+   39  89 ( 89Y ) 1.72486E-03    0    1.72486E-03  1.00000
+                                 1    0.00000E+00  0.00000   1.56600E+01 sec. 
+   37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
+                                 2    0.00000E+00  0.00000   6.10200E+01 sec. 
+
+   b. Per mass
+
+   A  cross section
+
+   90 4.39168E+00
+   89 1.72486E-03
+
+ Total residual production cross section:     4.3934069
+ Non-elastic cross section              :     4.7084961
+
+ 6. Exclusive cross sections
+
+ 6a. Total exclusive cross sections 
+
+     Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
+    n   p   d   t   h   a                                        cross section   ratio
+    0   0   0   0   0   0    4.39168E+00  (n,g)                                                     1.00000E+00
+                                                             0     3.95503E+00  0.90057
+                                                             2     4.36648E-01  0.09943   1.14800E+04 sec. 
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     2.27703E-08
+                                                             0     5.00000E-08  0.50000
+                                                             2     5.00000E-08  0.50000   6.10200E+01 sec. 
+
+ Absorption cross section                 :     4.39168
+
+ Sum over exclusive channel cross sections:     4.39168
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     0.00172
+ Total                                    :     4.39341
+ Non-elastic cross section                :     4.70850
+
+ ########## RESULTS FOR E=   0.31000 ##########
+
+ Energy dependent input flags
+
+ Width fluctuations (flagwidth)            : y
+ Unresolved resonance parameters (flagurr) : n
+ Preequilibrium (flagpreeq)                : n
+ Multiple preequilibrium (flagmulpre)      : n
+ Number of continuum excitation energy bins: 40
+
+ ########### REACTION SUMMARY FOR E=   0.31000 ###########
+
+ Center-of-mass energy:    0.307
+
+ 1. Total (binary) cross sections
+
+ Total           = 9.22022E+03
+   Shape elastic   = 5.02980E+03
+   Reaction        = 4.19043E+03
+     Compound elastic= 4.18577E+03
+     Non-elastic     = 4.65820E+00
+       Direct          = 0.00000E+00
+       Pre-equilibrium = 0.00000E+00
+       Compound non-el = 4.65820E+00
+     Total elastic   = 9.21557E+03
+
+ 2. Binary non-elastic cross sections (non-exclusive)
+
+ gamma   = 4.35352E+00
+ neutron = 0.00000E+00
+ proton  = 0.00000E+00
+ deuteron= 0.00000E+00
+ triton  = 0.00000E+00
+ helium-3= 0.00000E+00
+ alpha   = 0.00000E+00
+
+ 3. Total particle production cross sections
+
+ gamma   = 8.02284E+00    Multiplicity= 1.72230E+00
+ neutron = 1.78582E-03    Multiplicity= 3.83372E-04
+ proton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
+ triton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
+ alpha   = 0.00000E+00    Multiplicity= 0.00000E+00
+
+ 4. Residual production cross sections
+
+   a. Per isotope
+
+   Z   A  nuclide    total     level   isomeric    isomeric    lifetime
+                 cross section       cross section  ratio
+
+   39  90 ( 90Y ) 4.35174E+00    0    3.91311E+00  0.89921
+                                 2    4.38627E-01  0.10079   1.14800E+04 sec. 
+   39  89 ( 89Y ) 1.78582E-03    0    1.78582E-03  1.00000
+                                 1    0.00000E+00  0.00000   1.56600E+01 sec. 
+   37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
+                                 2    0.00000E+00  0.00000   6.10200E+01 sec. 
+
+   b. Per mass
+
+   A  cross section
+
+   90 4.35174E+00
+   89 1.78582E-03
+
+ Total residual production cross section:     4.3535218
+ Non-elastic cross section              :     4.6582031
+
+ 6. Exclusive cross sections
+
+ 6a. Total exclusive cross sections 
+
+     Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
+    n   p   d   t   h   a                                        cross section   ratio
+    0   0   0   0   0   0    4.35174E+00  (n,g)                                                     1.00000E+00
+                                                             0     3.91311E+00  0.89921
+                                                             2     4.38627E-01  0.10079   1.14800E+04 sec. 
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     2.29793E-08
+                                                             0     5.00000E-08  0.50000
+                                                             2     5.00000E-08  0.50000   6.10200E+01 sec. 
+
+ Absorption cross section                 :     4.35174
+
+ Sum over exclusive channel cross sections:     4.35174
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     0.00179
+ Total                                    :     4.35352
+ Non-elastic cross section                :     4.65820
+
+ ########## RESULTS FOR E=   0.40000 ##########
+
+ Energy dependent input flags
+
+ Width fluctuations (flagwidth)            : y
+ Unresolved resonance parameters (flagurr) : n
+ Preequilibrium (flagpreeq)                : n
+ Multiple preequilibrium (flagmulpre)      : n
+ Number of continuum excitation energy bins: 40
+
+ ########### REACTION SUMMARY FOR E=   0.40000 ###########
+
+ Center-of-mass energy:    0.396
+
+ 1. Total (binary) cross sections
+
+ Total           = 8.96515E+03
+   Shape elastic   = 5.00250E+03
+   Reaction        = 3.96264E+03
+     Compound elastic= 3.95834E+03
+     Non-elastic     = 4.30054E+00
+       Direct          = 0.00000E+00
+       Pre-equilibrium = 0.00000E+00
+       Compound non-el = 4.30054E+00
+     Total elastic   = 8.96084E+03
+
+ 2. Binary non-elastic cross sections (non-exclusive)
+
+ gamma   = 4.06421E+00
+ neutron = 0.00000E+00
+ proton  = 0.00000E+00
+ deuteron= 0.00000E+00
+ triton  = 0.00000E+00
+ helium-3= 0.00000E+00
+ alpha   = 0.00000E+00
+
+ 3. Total particle production cross sections
+
+ gamma   = 7.56552E+00    Multiplicity= 1.75920E+00
+ neutron = 4.63616E-03    Multiplicity= 1.07804E-03
+ proton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
+ triton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
+ alpha   = 0.00000E+00    Multiplicity= 0.00000E+00
+
+ 4. Residual production cross sections
+
+   a. Per isotope
+
+   Z   A  nuclide    total     level   isomeric    isomeric    lifetime
+                 cross section       cross section  ratio
+
+   39  90 ( 90Y ) 4.05957E+00    0    3.61181E+00  0.88970
+                                 2    4.47756E-01  0.11030   1.14800E+04 sec. 
+   39  89 ( 89Y ) 4.63617E-03    0    4.63617E-03  1.00000
+                                 1    0.00000E+00  0.00000   1.56600E+01 sec. 
+   37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
+                                 2    0.00000E+00  0.00000   6.10200E+01 sec. 
+
+   b. Per mass
+
+   A  cross section
+
+   90 4.05957E+00
+   89 4.63617E-03
+
+ Total residual production cross section:     4.0642052
+ Non-elastic cross section              :     4.3005371
+
+ 6. Exclusive cross sections
+
+ 6a. Total exclusive cross sections 
+
+     Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
+    n   p   d   t   h   a                                        cross section   ratio
+    0   0   0   0   0   0    4.05957E+00  (n,g)                                                     1.00000E+00
+                                                             0     3.61181E+00  0.88970
+                                                             2     4.47756E-01  0.11030   1.14800E+04 sec. 
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     2.46332E-08
+                                                             0     5.00000E-08  0.50000
+                                                             2     5.00000E-08  0.50000   6.10200E+01 sec. 
+
+ Absorption cross section                 :     4.05957
+
+ Sum over exclusive channel cross sections:     4.05957
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     0.00464
+ Total                                    :     4.06421
+ Non-elastic cross section                :     4.30054
+
+ ########## RESULTS FOR E=   0.50000 ##########
+
+ Energy dependent input flags
+
+ Width fluctuations (flagwidth)            : y
+ Unresolved resonance parameters (flagurr) : n
+ Preequilibrium (flagpreeq)                : n
+ Multiple preequilibrium (flagmulpre)      : n
+ Number of continuum excitation energy bins: 40
+
+ ########### REACTION SUMMARY FOR E=   0.50000 ###########
+
+ Center-of-mass energy:    0.494
+
+ 1. Total (binary) cross sections
+
+ Total           = 8.56013E+03
+   Shape elastic   = 4.91185E+03
+   Reaction        = 3.64828E+03
+     Compound elastic= 3.64421E+03
+     Non-elastic     = 4.06567E+00
+       Direct          = 0.00000E+00
+       Pre-equilibrium = 0.00000E+00
+       Compound non-el = 4.06567E+00
+     Total elastic   = 8.55606E+03
+
+ 2. Binary non-elastic cross sections (non-exclusive)
+
+ gamma   = 3.88228E+00
+ neutron = 0.00000E+00
+ proton  = 0.00000E+00
+ deuteron= 0.00000E+00
+ triton  = 0.00000E+00
+ helium-3= 0.00000E+00
+ alpha   = 0.00000E+00
+
+ 3. Total particle production cross sections
+
+ gamma   = 7.30543E+00    Multiplicity= 1.79686E+00
+ neutron = 7.94186E-03    Multiplicity= 1.95339E-03
+ proton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
+ triton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
+ alpha   = 0.00000E+00    Multiplicity= 0.00000E+00
+
+ 4. Residual production cross sections
+
+   a. Per isotope
+
+   Z   A  nuclide    total     level   isomeric    isomeric    lifetime
+                 cross section       cross section  ratio
+
+   39  90 ( 90Y ) 3.87434E+00    0    3.41564E+00  0.88160
+                                 2    4.58703E-01  0.11840   1.14800E+04 sec. 
+   39  89 ( 89Y ) 7.94186E-03    0    7.94186E-03  1.00000
+                                 1    0.00000E+00  0.00000   1.56600E+01 sec. 
+   37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
+                                 2    0.00000E+00  0.00000   6.10200E+01 sec. 
+
+   b. Per mass
+
+   A  cross section
+
+   90 3.87434E+00
+   89 7.94186E-03
+
+ Total residual production cross section:     3.8822834
+ Non-elastic cross section              :     4.0656738
+
+ 6. Exclusive cross sections
+
+ 6a. Total exclusive cross sections 
+
+     Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
+    n   p   d   t   h   a                                        cross section   ratio
+    0   0   0   0   0   0    3.87434E+00  (n,g)                                                     1.00000E+00
+                                                             0     3.41564E+00  0.88160
+                                                             2     4.58703E-01  0.11840   1.14800E+04 sec. 
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     2.58108E-08
+                                                             0     5.00000E-08  0.50000
+                                                             2     5.00000E-08  0.50000   6.10200E+01 sec. 
+
+ Absorption cross section                 :     3.87434
+
+ Sum over exclusive channel cross sections:     3.87434
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     0.00794
+ Total                                    :     3.88228
+ Non-elastic cross section                :     4.06567
+
+ ########## RESULTS FOR E=   0.60000 ##########
+
+ Energy dependent input flags
+
+ Width fluctuations (flagwidth)            : y
+ Unresolved resonance parameters (flagurr) : n
+ Preequilibrium (flagpreeq)                : n
+ Multiple preequilibrium (flagmulpre)      : n
+ Number of continuum excitation energy bins: 40
+
+ ########### REACTION SUMMARY FOR E=   0.60000 ###########
+
+ Center-of-mass energy:    0.593
+
+ 1. Total (binary) cross sections
+
+ Total           = 8.11107E+03
+   Shape elastic   = 4.76709E+03
+   Reaction        = 3.34398E+03
+     Compound elastic= 3.34002E+03
+     Non-elastic     = 3.95752E+00
+       Direct          = 0.00000E+00
+       Pre-equilibrium = 0.00000E+00
+       Compound non-el = 3.95752E+00
+     Total elastic   = 8.10711E+03
+
+ 2. Binary non-elastic cross sections (non-exclusive)
+
+ gamma   = 3.81090E+00
+ neutron = 0.00000E+00
+ proton  = 0.00000E+00
+ deuteron= 0.00000E+00
+ triton  = 0.00000E+00
+ helium-3= 0.00000E+00
+ alpha   = 0.00000E+00
+
+ 3. Total particle production cross sections
+
+ gamma   = 7.24725E+00    Multiplicity= 1.83126E+00
+ neutron = 1.33424E-02    Multiplicity= 3.37139E-03
+ proton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
+ triton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
+ alpha   = 0.00000E+00    Multiplicity= 0.00000E+00
+
+ 4. Residual production cross sections
+
+   a. Per isotope
+
+   Z   A  nuclide    total     level   isomeric    isomeric    lifetime
+                 cross section       cross section  ratio
+
+   39  90 ( 90Y ) 3.79756E+00    0    3.32137E+00  0.87461
+                                 2    4.76183E-01  0.12539   1.14800E+04 sec. 
+   39  89 ( 89Y ) 1.33424E-02    0    1.33424E-02  1.00000
+                                 1    0.00000E+00  0.00000   1.56600E+01 sec. 
+   37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
+                                 2    0.00000E+00  0.00000   6.10200E+01 sec. 
+
+   b. Per mass
+
+   A  cross section
+
+   90 3.79756E+00
+   89 1.33424E-02
+
+ Total residual production cross section:     3.8108981
+ Non-elastic cross section              :     3.9575195
+
+ 6. Exclusive cross sections
+
+ 6a. Total exclusive cross sections 
+
+     Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
+    n   p   d   t   h   a                                        cross section   ratio
+    0   0   0   0   0   0    3.79756E+00  (n,g)                                                     1.00000E+00
+                                                             0     3.32137E+00  0.87461
+                                                             2     4.76183E-01  0.12539   1.14800E+04 sec. 
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     2.63327E-08
+                                                             0     5.00000E-08  0.50000
+                                                             2     5.00000E-08  0.50000   6.10200E+01 sec. 
+
+ Absorption cross section                 :     3.79756
+
+ Sum over exclusive channel cross sections:     3.79756
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     0.01334
+ Total                                    :     3.81090
+ Non-elastic cross section                :     3.95752
+
+ ########## RESULTS FOR E=   0.70000 ##########
+
+ Energy dependent input flags
+
+ Width fluctuations (flagwidth)            : y
+ Unresolved resonance parameters (flagurr) : n
+ Preequilibrium (flagpreeq)                : n
+ Multiple preequilibrium (flagmulpre)      : n
+ Number of continuum excitation energy bins: 40
+
+ ########### REACTION SUMMARY FOR E=   0.70000 ###########
+
+ Center-of-mass energy:    0.692
+
+ 1. Total (binary) cross sections
+
+ Total           = 7.66508E+03
+   Shape elastic   = 4.58538E+03
+   Reaction        = 3.07970E+03
+     Compound elastic= 3.07575E+03
+     Non-elastic     = 3.94678E+00
+       Direct          = 0.00000E+00
+       Pre-equilibrium = 0.00000E+00
+       Compound non-el = 3.94678E+00
+     Total elastic   = 7.66113E+03
+
+ 2. Binary non-elastic cross sections (non-exclusive)
+
+ gamma   = 3.82629E+00
+ neutron = 0.00000E+00
+ proton  = 0.00000E+00
+ deuteron= 0.00000E+00
+ triton  = 0.00000E+00
+ helium-3= 0.00000E+00
+ alpha   = 0.00000E+00
+
+ 3. Total particle production cross sections
+
+ gamma   = 7.34706E+00    Multiplicity= 1.86153E+00
+ neutron = 2.34909E-02    Multiplicity= 5.95193E-03
+ proton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
+ triton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
+ alpha   = 0.00000E+00    Multiplicity= 0.00000E+00
+
+ 4. Residual production cross sections
+
+   a. Per isotope
+
+   Z   A  nuclide    total     level   isomeric    isomeric    lifetime
+                 cross section       cross section  ratio
+
+   39  90 ( 90Y ) 3.80280E+00    0    3.29901E+00  0.86752
+                                 2    5.03788E-01  0.13248   1.14800E+04 sec. 
+   39  89 ( 89Y ) 2.34909E-02    0    2.34909E-02  1.00000
+                                 1    0.00000E+00  0.00000   1.56600E+01 sec. 
+   37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
+                                 2    0.00000E+00  0.00000   6.10200E+01 sec. 
+
+   b. Per mass
+
+   A  cross section
+
+   90 3.80280E+00
+   89 2.34909E-02
+
+ Total residual production cross section:     3.8262932
+ Non-elastic cross section              :     3.9467773
+
+ 6. Exclusive cross sections
+
+ 6a. Total exclusive cross sections 
+
+     Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
+    n   p   d   t   h   a                                        cross section   ratio
+    0   0   0   0   0   0    3.80280E+00  (n,g)                                                     1.00000E+00
+                                                             0     3.29901E+00  0.86752
+                                                             2     5.03788E-01  0.13248   1.14800E+04 sec. 
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     2.62964E-08
+                                                             0     5.00000E-08  0.50000
+                                                             2     5.00000E-08  0.50000   6.10200E+01 sec. 
+
+ Absorption cross section                 :     3.80280
+
+ Sum over exclusive channel cross sections:     3.80280
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     0.02349
+ Total                                    :     3.82629
+ Non-elastic cross section                :     3.94678
+
+ ########## RESULTS FOR E=   0.80000 ##########
+
+ Energy dependent input flags
+
+ Width fluctuations (flagwidth)            : y
+ Unresolved resonance parameters (flagurr) : n
+ Preequilibrium (flagpreeq)                : n
+ Multiple preequilibrium (flagmulpre)      : n
+ Number of continuum excitation energy bins: 40
+
+ ########### REACTION SUMMARY FOR E=   0.80000 ###########
+
+ Center-of-mass energy:    0.791
+
+ 1. Total (binary) cross sections
+
+ Total           = 7.24465E+03
+   Shape elastic   = 4.38183E+03
+   Reaction        = 2.86282E+03
+     Compound elastic= 2.85881E+03
+     Non-elastic     = 4.00977E+00
+       Direct          = 0.00000E+00
+       Pre-equilibrium = 0.00000E+00
+       Compound non-el = 4.00977E+00
+     Total elastic   = 7.24064E+03
+
+ 2. Binary non-elastic cross sections (non-exclusive)
+
+ gamma   = 3.90593E+00
+ neutron = 0.00000E+00
+ proton  = 0.00000E+00
+ deuteron= 0.00000E+00
+ triton  = 0.00000E+00
+ helium-3= 0.00000E+00
+ alpha   = 0.00000E+00
+
+ 3. Total particle production cross sections
+
+ gamma   = 7.57015E+00    Multiplicity= 1.88793E+00
+ neutron = 3.68100E-02    Multiplicity= 9.18008E-03
+ proton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
+ triton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
+ alpha   = 0.00000E+00    Multiplicity= 0.00000E+00
+
+ 4. Residual production cross sections
+
+   a. Per isotope
+
+   Z   A  nuclide    total     level   isomeric    isomeric    lifetime
+                 cross section       cross section  ratio
+
+   39  90 ( 90Y ) 3.86912E+00    0    3.32771E+00  0.86007
+                                 2    5.41408E-01  0.13993   1.14800E+04 sec. 
+   39  89 ( 89Y ) 3.68100E-02    0    3.68100E-02  1.00000
+                                 1    0.00000E+00  0.00000   1.56600E+01 sec. 
+   37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
+                                 2    0.00000E+00  0.00000   6.10200E+01 sec. 
+
+   b. Per mass
+
+   A  cross section
+
+   90 3.86912E+00
+   89 3.68100E-02
+
+ Total residual production cross section:     3.9059289
+ Non-elastic cross section              :     4.0097656
+
+ 6. Exclusive cross sections
+
+ 6a. Total exclusive cross sections 
+
+     Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
+    n   p   d   t   h   a                                        cross section   ratio
+    0   0   0   0   0   0    3.86912E+00  (n,g)                                                     1.00000E+00
+                                                             0     3.32771E+00  0.86007
+                                                             2     5.41408E-01  0.13993   1.14800E+04 sec. 
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     2.58457E-08
+                                                             0     5.00000E-08  0.50000
+                                                             2     5.00000E-08  0.50000   6.10200E+01 sec. 
+
+ Absorption cross section                 :     3.86912
+
+ Sum over exclusive channel cross sections:     3.86912
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     0.03681
+ Total                                    :     3.90593
+ Non-elastic cross section                :     4.00977
+
+ ########## RESULTS FOR E=   0.90000 ##########
+
+ Energy dependent input flags
+
+ Width fluctuations (flagwidth)            : y
+ Unresolved resonance parameters (flagurr) : n
+ Preequilibrium (flagpreeq)                : n
+ Multiple preequilibrium (flagmulpre)      : n
+ Number of continuum excitation energy bins: 40
+
+ ########### REACTION SUMMARY FOR E=   0.90000 ###########
+
+ Center-of-mass energy:    0.890
+
+ 1. Total (binary) cross sections
+
+ Total           = 6.85971E+03
+   Shape elastic   = 4.16798E+03
+   Reaction        = 2.69174E+03
+     Compound elastic= 2.68761E+03
+     Non-elastic     = 4.13281E+00
+       Direct          = 0.00000E+00
+       Pre-equilibrium = 0.00000E+00
+       Compound non-el = 4.13281E+00
+     Total elastic   = 6.85559E+03
+
+ 2. Binary non-elastic cross sections (non-exclusive)
+
+ gamma   = 4.03919E+00
+ neutron = 0.00000E+00
+ proton  = 0.00000E+00
+ deuteron= 0.00000E+00
+ triton  = 0.00000E+00
+ helium-3= 0.00000E+00
+ alpha   = 0.00000E+00
+
+ 3. Total particle production cross sections
+
+ gamma   = 7.90339E+00    Multiplicity= 1.91235E+00
+ neutron = 4.88805E-02    Multiplicity= 1.18274E-02
+ proton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
+ triton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
+ alpha   = 0.00000E+00    Multiplicity= 0.00000E+00
+
+ 4. Residual production cross sections
+
+   a. Per isotope
+
+   Z   A  nuclide    total     level   isomeric    isomeric    lifetime
+                 cross section       cross section  ratio
+
+   39  90 ( 90Y ) 3.99031E+00    0    3.40189E+00  0.85254
+                                 2    5.88420E-01  0.14746   1.14800E+04 sec. 
+   39  89 ( 89Y ) 4.88805E-02    0    4.88805E-02  1.00000
+                                 1    0.00000E+00  0.00000   1.56600E+01 sec. 
+   37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
+                                 2    0.00000E+00  0.00000   6.10200E+01 sec. 
+
+   b. Per mass
+
+   A  cross section
+
+   90 3.99031E+00
+   89 4.88805E-02
+
+ Total residual production cross section:     4.0391893
+ Non-elastic cross section              :     4.1328125
+
+ 6. Exclusive cross sections
+
+ 6a. Total exclusive cross sections 
+
+     Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
+    n   p   d   t   h   a                                        cross section   ratio
+    0   0   0   0   0   0    3.99031E+00  (n,g)                                                     1.00000E+00
+                                                             0     3.40189E+00  0.85254
+                                                             2     5.88420E-01  0.14746   1.14800E+04 sec. 
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     2.50607E-08
+                                                             0     5.00000E-08  0.50000
+                                                             2     5.00000E-08  0.50000   6.10200E+01 sec. 
+
+ Absorption cross section                 :     3.99031
+
+ Sum over exclusive channel cross sections:     3.99031
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     0.04888
+ Total                                    :     4.03919
+ Non-elastic cross section                :     4.13281
+
+ ########## RESULTS FOR E=   1.00000 ##########
+
+ Energy dependent input flags
+
+ Width fluctuations (flagwidth)            : y
+ Unresolved resonance parameters (flagurr) : n
+ Preequilibrium (flagpreeq)                : n
+ Multiple preequilibrium (flagmulpre)      : n
+ Number of continuum excitation energy bins: 40
+
+ ########### REACTION SUMMARY FOR E=   1.00000 ###########
+
+ Center-of-mass energy:    0.989
+
+ 1. Total (binary) cross sections
+
+ Total           = 6.51392E+03
+   Shape elastic   = 3.95232E+03
+   Reaction        = 2.56160E+03
+     Compound elastic= 2.50150E+03
+     Non-elastic     = 6.01028E+01
+       Direct          = 0.00000E+00
+       Pre-equilibrium = 0.00000E+00
+       Compound non-el = 6.01028E+01
+     Total elastic   = 6.45382E+03
+
+ 2. Binary non-elastic cross sections (non-exclusive)
+
+ gamma   = 2.87566E+00
+ neutron = 5.71471E+01
+ proton  = 0.00000E+00
+ deuteron= 0.00000E+00
+ triton  = 0.00000E+00
+ helium-3= 0.00000E+00
+ alpha   = 0.00000E+00
+
+ 3. Total particle production cross sections
+
+ gamma   = 5.46781E+00    Multiplicity= 9.09743E-02
+ neutron = 5.72051E+01    Multiplicity= 9.51788E-01
+ proton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
+ triton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
+ alpha   = 0.00000E+00    Multiplicity= 0.00000E+00
+
+ 4. Residual production cross sections
+
+   a. Per isotope
+
+   Z   A  nuclide    total     level   isomeric    isomeric    lifetime
+                 cross section       cross section  ratio
+
+   39  90 ( 90Y ) 2.81767E+00    0    2.51911E+00  0.89404
+                                 2    2.98564E-01  0.10596   1.14800E+04 sec. 
+   39  89 ( 89Y ) 5.72051E+01    0    5.79810E-02  0.00101
+                                 1    5.71471E+01  0.99899   1.56600E+01 sec. 
+   37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
+                                 2    0.00000E+00  0.00000   6.10200E+01 sec. 
+
+   b. Per mass
+
+   A  cross section
+
+   90 2.81767E+00
+   89 5.72051E+01
+
+ Total residual production cross section:    60.0227814
+ Non-elastic cross section              :    60.1027832
+
+ 6. Exclusive cross sections
+
+ 6a. Total exclusive cross sections 
+
+     Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
+    n   p   d   t   h   a                                        cross section   ratio
+    0   0   0   0   0   0    2.81767E+00  (n,g)                                                     4.69888E-02
+                                                             0     2.51911E+00  0.89404
+                                                             2     2.98564E-01  0.10596   1.14800E+04 sec. 
+    1   0   0   0   0   0    5.71471E+01  (n,n')                                                    9.53011E-01
+                                                             0     0.00000E+00  0.00000
+                                                             1     5.71471E+01  1.00000   1.56600E+01 sec. 
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     1.66765E-09
+                                                             0     5.00000E-08  0.50000
+                                                             2     5.00000E-08  0.50000   6.10200E+01 sec. 
+
+ Absorption cross section                 :     2.81767
+
+ Sum over exclusive channel cross sections:    59.96479
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     0.05799
+ Total                                    :    60.02279
+ Non-elastic cross section                :    60.10278
+
+ ########## RESULTS FOR E=   1.20000 ##########
+
+ Energy dependent input flags
+
+ Width fluctuations (flagwidth)            : y
+ Unresolved resonance parameters (flagurr) : n
+ Preequilibrium (flagpreeq)                : n
+ Multiple preequilibrium (flagmulpre)      : n
+ Number of continuum excitation energy bins: 40
+
+ ########### REACTION SUMMARY FOR E=   1.20000 ###########
+
+ Center-of-mass energy:    1.187
+
+ 1. Total (binary) cross sections
+
+ Total           = 5.93569E+03
+   Shape elastic   = 3.53561E+03
+   Reaction        = 2.40007E+03
+     Compound elastic= 2.28648E+03
+     Non-elastic     = 1.13586E+02
+       Direct          = 0.00000E+00
+       Pre-equilibrium = 0.00000E+00
+       Compound non-el = 1.13586E+02
+     Total elastic   = 5.82209E+03
+
+ 2. Binary non-elastic cross sections (non-exclusive)
+
+ gamma   = 2.75293E+00
+ neutron = 1.10778E+02
+ proton  = 0.00000E+00
+ deuteron= 0.00000E+00
+ triton  = 0.00000E+00
+ helium-3= 0.00000E+00
+ alpha   = 0.00000E+00
+
+ 3. Total particle production cross sections
+
+ gamma   = 5.23856E+00    Multiplicity= 4.61196E-02
+ neutron = 1.10868E+02    Multiplicity= 9.76066E-01
+ proton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
+ triton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
+ alpha   = 0.00000E+00    Multiplicity= 0.00000E+00
+
+ 4. Residual production cross sections
+
+   a. Per isotope
+
+   Z   A  nuclide    total     level   isomeric    isomeric    lifetime
+                 cross section       cross section  ratio
+
+   39  90 ( 90Y ) 2.66342E+00    0    2.38838E+00  0.89674
+                                 2    2.75037E-01  0.10326   1.14800E+04 sec. 
+   39  89 ( 89Y ) 1.10868E+02    0    8.92865E-02  0.00081
+                                 1    1.10779E+02  0.99919   1.56600E+01 sec. 
+   37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
+                                 2    0.00000E+00  0.00000   6.10200E+01 sec. 
+
+   b. Per mass
+
+   A  cross section
+
+   90 2.66342E+00
+   89 1.10868E+02
+
+ Total residual production cross section:   113.5312119
+ Non-elastic cross section              :   113.5864258
+
+ 6. Exclusive cross sections
+
+ 6a. Total exclusive cross sections 
+
+     Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
+    n   p   d   t   h   a                                        cross section   ratio
+    0   0   0   0   0   0    2.66342E+00  (n,g)                                                     2.34783E-02
+                                                             0     2.38838E+00  0.89674
+                                                             2     2.75037E-01  0.10326   1.14800E+04 sec. 
+    1   0   0   0   0   0    1.10778E+02  (n,n')                                                    9.76522E-01
+                                                             0     0.00000E+00  0.00000
+                                                             1     1.10778E+02  1.00000   1.56600E+01 sec. 
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     8.81510E-10
+                                                             0     5.00000E-08  0.50000
+                                                             2     5.00000E-08  0.50000   6.10200E+01 sec. 
+
+ Absorption cross section                 :     2.66342
+
+ Sum over exclusive channel cross sections:   113.44170
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     0.08952
+ Total                                    :   113.53121
+ Non-elastic cross section                :   113.58643
+
+ ########## RESULTS FOR E=   1.40000 ##########
+
+ Energy dependent input flags
+
+ Width fluctuations (flagwidth)            : y
+ Unresolved resonance parameters (flagurr) : n
+ Preequilibrium (flagpreeq)                : n
+ Multiple preequilibrium (flagmulpre)      : n
+ Number of continuum excitation energy bins: 40
+
+ ########### REACTION SUMMARY FOR E=   1.40000 ###########
+
+ Center-of-mass energy:    1.384
+
+ 1. Total (binary) cross sections
+
+ Total           = 5.49028E+03
+   Shape elastic   = 3.15929E+03
+   Reaction        = 2.33099E+03
+     Compound elastic= 2.16816E+03
+     Non-elastic     = 1.62833E+02
+       Direct          = 0.00000E+00
+       Pre-equilibrium = 0.00000E+00
+       Compound non-el = 1.62833E+02
+     Total elastic   = 5.32745E+03
+
+ 2. Binary non-elastic cross sections (non-exclusive)
+
+ gamma   = 2.84343E+00
+ neutron = 1.59954E+02
+ proton  = 0.00000E+00
+ deuteron= 0.00000E+00
+ triton  = 0.00000E+00
+ helium-3= 0.00000E+00
+ alpha   = 0.00000E+00
+
+ 3. Total particle production cross sections
+
+ gamma   = 5.41691E+00    Multiplicity= 3.32667E-02
+ neutron = 1.60087E+02    Multiplicity= 9.83140E-01
+ proton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
+ triton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
+ alpha   = 0.00000E+00    Multiplicity= 0.00000E+00
+
+ 4. Residual production cross sections
+
+   a. Per isotope
+
+   Z   A  nuclide    total     level   isomeric    isomeric    lifetime
+                 cross section       cross section  ratio
+
+   39  90 ( 90Y ) 2.70965E+00    0    2.42557E+00  0.89516
+                                 2    2.84079E-01  0.10484   1.14800E+04 sec. 
+   39  89 ( 89Y ) 1.60087E+02    0    1.31447E-01  0.00082
+                                 1    1.59956E+02  0.99918   1.56600E+01 sec. 
+   37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
+                                 2    0.00000E+00  0.00000   6.10200E+01 sec. 
+
+   b. Per mass
+
+   A  cross section
+
+   90 2.70965E+00
+   89 1.60087E+02
+
+ Total residual production cross section:   162.7971191
+ Non-elastic cross section              :   162.8327637
+
+ 6. Exclusive cross sections
+
+ 6a. Total exclusive cross sections 
+
+     Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
+    n   p   d   t   h   a                                        cross section   ratio
+    0   0   0   0   0   0    2.70965E+00  (n,g)                                                     1.66580E-02
+                                                             0     2.42557E+00  0.89516
+                                                             2     2.84079E-01  0.10484   1.14800E+04 sec. 
+    1   0   0   0   0   0    1.59954E+02  (n,n')                                                    9.83342E-01
+                                                             0     0.00000E+00  0.00000
+                                                             1     1.59954E+02  1.00000   1.56600E+01 sec. 
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     6.14767E-10
+                                                             0     5.00000E-08  0.50000
+                                                             2     5.00000E-08  0.50000   6.10200E+01 sec. 
+
+ Absorption cross section                 :     2.70965
+
+ Sum over exclusive channel cross sections:   162.66335
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     0.13377
+ Total                                    :   162.79712
+ Non-elastic cross section                :   162.83276
+
+ ########## RESULTS FOR E=   1.60000 ##########
+
+ Energy dependent input flags
+
+ Width fluctuations (flagwidth)            : y
+ Unresolved resonance parameters (flagurr) : n
+ Preequilibrium (flagpreeq)                : n
+ Multiple preequilibrium (flagmulpre)      : n
+ Number of continuum excitation energy bins: 40
+
+ ########### REACTION SUMMARY FOR E=   1.60000 ###########
+
+ Center-of-mass energy:    1.582
+
+ 1. Total (binary) cross sections
+
+ Total           = 5.14752E+03
+   Shape elastic   = 2.83466E+03
+   Reaction        = 2.31286E+03
+     Compound elastic= 1.91277E+03
+     Non-elastic     = 4.00086E+02
+       Direct          = 0.00000E+00
+       Pre-equilibrium = 0.00000E+00
+       Compound non-el = 4.00086E+02
+     Total elastic   = 4.74743E+03
+
+ 2. Binary non-elastic cross sections (non-exclusive)
+
+ gamma   = 2.58967E+00
+ neutron = 3.97486E+02
+ proton  = 0.00000E+00
+ deuteron= 0.00000E+00
+ triton  = 0.00000E+00
+ helium-3= 0.00000E+00
+ alpha   = 0.00000E+00
+
+ 3. Total particle production cross sections
+
+ gamma   = 4.95700E+00    Multiplicity= 1.23898E-02
+ neutron = 3.97648E+02    Multiplicity= 9.93906E-01
+ proton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
+ triton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
+ alpha   = 0.00000E+00    Multiplicity= 0.00000E+00
+
+ 4. Residual production cross sections
+
+   a. Per isotope
+
+   Z   A  nuclide    total     level   isomeric    isomeric    lifetime
+                 cross section       cross section  ratio
+
+   39  90 ( 90Y ) 2.42755E+00    0    2.14333E+00  0.88292
+                                 2    2.84217E-01  0.11708   1.14800E+04 sec. 
+   39  89 ( 89Y ) 3.97648E+02    0    1.95911E+02  0.49267
+                                 1    2.01737E+02  0.50733   1.56600E+01 sec. 
+   37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
+                                 2    0.00000E+00  0.00000   6.10200E+01 sec. 
+
+   b. Per mass
+
+   A  cross section
+
+   90 2.42755E+00
+   89 3.97648E+02
+
+ Total residual production cross section:   400.0758667
+ Non-elastic cross section              :   400.0863037
+
+ 6. Exclusive cross sections
+
+ 6a. Total exclusive cross sections 
+
+     Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
+    n   p   d   t   h   a                                        cross section   ratio
+    0   0   0   0   0   0    2.42755E+00  (n,g)                                                     6.07018E-03
+                                                             0     2.14333E+00  0.88292
+                                                             2     2.84217E-01  0.11708   1.14800E+04 sec. 
+    1   0   0   0   0   0    3.97486E+02  (n,n')                                                    9.93930E-01
+                                                             0     1.95755E+02  0.49248
+                                                             1     2.01731E+02  0.50752   1.56600E+01 sec. 
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     2.50054E-10
+                                                             0     5.00000E-08  0.50000
+                                                             2     5.00000E-08  0.50000   6.10200E+01 sec. 
+
+ Absorption cross section                 :     2.42755
+
+ Sum over exclusive channel cross sections:   399.91376
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     0.16212
+ Total                                    :   400.07587
+ Non-elastic cross section                :   400.08630
+
+ ########## RESULTS FOR E=   1.80000 ##########
+
+ Energy dependent input flags
+
+ Width fluctuations (flagwidth)            : y
+ Unresolved resonance parameters (flagurr) : n
+ Preequilibrium (flagpreeq)                : n
+ Multiple preequilibrium (flagmulpre)      : n
+ Number of continuum excitation energy bins: 40
+
+ ########### REACTION SUMMARY FOR E=   1.80000 ###########
+
+ Center-of-mass energy:    1.780
+
+ 1. Total (binary) cross sections
+
+ Total           = 4.87918E+03
+   Shape elastic   = 2.56416E+03
+   Reaction        = 2.31502E+03
+     Compound elastic= 1.50280E+03
+     Non-elastic     = 8.12225E+02
+       Direct          = 2.31094E+01
+       Pre-equilibrium = 0.00000E+00
+       Compound non-el = 7.89115E+02
+     Total elastic   = 4.06696E+03
+
+ 2. Binary non-elastic cross sections (non-exclusive)
+
+ gamma   = 2.20243E+00
+ neutron = 8.10018E+02
+ proton  = 0.00000E+00
+ deuteron= 0.00000E+00
+ triton  = 0.00000E+00
+ helium-3= 0.00000E+00
+ alpha   = 0.00000E+00
+
+ 3. Total particle production cross sections
+
+ gamma   = 4.23584E+00    Multiplicity= 5.21511E-03
+ neutron = 8.10193E+02    Multiplicity= 9.97498E-01
+ proton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
+ triton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
+ alpha   = 0.00000E+00    Multiplicity= 0.00000E+00
+
+ 4. Residual production cross sections
+
+   a. Per isotope
+
+   Z   A  nuclide    total     level   isomeric    isomeric    lifetime
+                 cross section       cross section  ratio
+
+   39  90 ( 90Y ) 2.02792E+00    0    1.76085E+00  0.86830
+                                 2    2.67073E-01  0.13170   1.14800E+04 sec. 
+   39  89 ( 89Y ) 8.10193E+02    0    5.88089E+02  0.72586
+                                 1    2.22104E+02  0.27414   1.56600E+01 sec. 
+   37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
+                                 2    0.00000E+00  0.00000   6.10200E+01 sec. 
+
+   b. Per mass
+
+   A  cross section
+
+   90 2.02792E+00
+   89 8.10193E+02
+
+ Total residual production cross section:   812.2206421
+ Non-elastic cross section              :   812.2248535
+
+ 6. Exclusive cross sections
+
+ 6a. Total exclusive cross sections 
+
+     Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
+    n   p   d   t   h   a                                        cross section   ratio
+    0   0   0   0   0   0    2.02792E+00  (n,g)                                                     2.49730E-03
+                                                             0     1.76085E+00  0.86830
+                                                             2     2.67073E-01  0.13170   1.14800E+04 sec. 
+    1   0   0   0   0   0    8.10018E+02  (n,n')                                                    9.97503E-01
+                                                             0     5.87926E+02  0.72582
+                                                             1     2.22092E+02  0.27418   1.56600E+01 sec. 
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     1.23146E-10
+                                                             0     5.00000E-08  0.50000
+                                                             2     5.00000E-08  0.50000   6.10200E+01 sec. 
+
+ Absorption cross section                 :     2.02792
+
+ Sum over exclusive channel cross sections:   812.04614
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     0.17451
+ Total                                    :   812.22064
+ Non-elastic cross section                :   812.22485
+
+ ########## RESULTS FOR E=   2.00000 ##########
+
+ Energy dependent input flags
+
+ Width fluctuations (flagwidth)            : y
+ Unresolved resonance parameters (flagurr) : n
+ Preequilibrium (flagpreeq)                : n
+ Multiple preequilibrium (flagmulpre)      : n
+ Number of continuum excitation energy bins: 40
+
+ ########### REACTION SUMMARY FOR E=   2.00000 ###########
+
+ Center-of-mass energy:    1.978
+
+ 1. Total (binary) cross sections
+
+ Total           = 4.66429E+03
+   Shape elastic   = 2.34533E+03
+   Reaction        = 2.31896E+03
+     Compound elastic= 1.16995E+03
+     Non-elastic     = 1.14901E+03
+       Direct          = 3.26631E+01
+       Pre-equilibrium = 0.00000E+00
+       Compound non-el = 1.11634E+03
+     Total elastic   = 3.51528E+03
+
+ 2. Binary non-elastic cross sections (non-exclusive)
+
+ gamma   = 1.85674E+00
+ neutron = 1.14715E+03
+ proton  = 3.73140E-05
+ deuteron= 0.00000E+00
+ triton  = 0.00000E+00
+ helium-3= 0.00000E+00
+ alpha   = 0.00000E+00
+
+ 3. Total particle production cross sections
+
+ gamma   = 3.56356E+00    Multiplicity= 3.10142E-03
+ neutron = 1.14733E+03    Multiplicity= 9.98540E-01
+ proton  = 3.73140E-05    Multiplicity= 3.24750E-08
+ deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
+ triton  = 0.00000E+00    Multiplicity= 0.00000E+00
+ helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
+ alpha   = 0.00000E+00    Multiplicity= 0.00000E+00
+
+ 4. Residual production cross sections
+
+   a. Per isotope
+
+   Z   A  nuclide    total     level   isomeric    isomeric    lifetime
+                 cross section       cross section  ratio
+
+   39  90 ( 90Y ) 1.67536E+00    0    1.45756E+00  0.87000
+                                 2    2.17800E-01  0.13000   1.14800E+04 sec. 
+   39  89 ( 89Y ) 1.14733E+03    0    9.29643E+02  0.81027
+                                 1    2.17686E+02  0.18973   1.56600E+01 sec. 
+   37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
+                                 2    0.00000E+00  0.00000   6.10200E+01 sec. 
+
+   b. Per mass
+
+   A  cross section
+
+   90 1.67536E+00
+   89 1.14733E+03
+
+ Total residual production cross section:  1149.0041504
+ Non-elastic cross section              :  1149.0064697
+
+ 6. Exclusive cross sections
+
+ 6a. Total exclusive cross sections 
+
+     Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
+    n   p   d   t   h   a                                        cross section   ratio
+    0   0   0   0   0   0    1.67536E+00  (n,g)                                                     1.45833E-03
+                                                             0     1.45756E+00  0.87000
+                                                             2     2.17800E-01  0.13000   1.14800E+04 sec. 
+    1   0   0   0   0   0    1.14715E+03  (n,n')                                                    9.98542E-01
+                                                             0     9.29479E+02  0.81025
+                                                             1     2.17669E+02  0.18975   1.56600E+01 sec. 
+    0   1   0   0   0   0    3.73140E-05  (n,p)                                                     3.24802E-08
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     8.70456E-11
+                                                             0     5.00000E-08  0.50000
+                                                             2     5.00000E-08  0.50000   6.10200E+01 sec. 
+
+ Absorption cross section                 :     1.67540
+
+ Sum over exclusive channel cross sections:  1148.82288
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     0.18138
+ Total                                    :  1149.00427
+ Non-elastic cross section                :  1149.00647
+
+ ########## EXCITATION FUNCTIONS ###########
+
+ 1. Total (binary) cross sections
+
+file: all.tot
+file: total.tot
+file: elastic.tot
+file: nonelastic.tot
+file: reaction.tot
+
+ 2. Binary non-elastic cross sections (non-exclusive)
+
+file: binary.tot
+
+ 3. Total particle production cross sections
+
+file: gprod.tot
+file: nprod.tot
+file: pprod.tot
+file: dprod.tot
+file: tprod.tot
+file: hprod.tot
+file: aprod.tot
+
+ 4. Residual production cross sections
+
+file: rp039090.tot
+file: rp039090.L00
+file: rp039090.L02
+file: rp039089.tot
+file: rp039089.L00
+file: rp039089.L01
+file: rp037086.tot
+file: rp037086.L00
+file: rp037086.L02
+
+ 6. Exclusive cross sections
+
+file: xs000000.tot
+file: xs100000.tot
+file: xs010000.tot
+file: xs000001.tot
+
+ Calculate Cross Sections from Resonance Parameters (RECENT 2023-1)
+ ==============================================================================
+ Retrieval Criteria-----------        MAT
+ File 2 Mimimum Cross Section- 1.0000E-30 (No Longer an Input Option)
+ Reactions with No Background-     Output (Resonance Contribution)
+ Calculate/Edit Mode----------  Calculate. List Resonance Parameters.  
+ Negative Cross Sections------   Make = 0 (No Negative Output)     
+ Monitor Mode-----------------         On
+ ==============================================================================
+ ENDF/B Input and Output Data Filenames
+ n-Y089.res.tendl.2025                                                   
+ n-Y089.res.point0                                                       
+ ==============================================================================
+ Requested MAT Ranges
+ ==============================================================================
+    Mimimum    Maximum
+ ==============================================================================
+          1       9999
+ ==============================================================================
+ File 2 Reconstruction Error
+ ==============================================================================
+      Energy      Error   per-cent
+ ==============================================================================
+  0.0         .001000000      0.100 (Default Option)
+ ==============================================================================
+ ENDF/B Tape Label
+ ==============================================================================
+  n-Y089.res.tendl.2025: Merger of MF1 and MF2                       99
+ ******************************************************************************
+ Processing  39-Y -89    MAT= 3925
+ ******************************************************************************
+ Based on the Format and Contents of MF/MT=1/451
+ (1) ENDF/B-6  Format.
+ (2) Material is NOT Fissile (LFI=0).
+ (3) Resonance Parameters are Given (LRP=1).
+ (4) Projectile ZA =      1 (Neutron).
+ (5) Background Temperature  0.0        Kelvin.
+ ==============================================================================
+ Listing of All Resonance Parameters
+ ==============================================================================
+ Element or Material------------------ 39-Y -89   
+ Atomic Weight Ratio------------------ 88.1420900
+ Number of Isotopes-------------------          1
+ ==============================================================================
+ Isotope Number-----------------------          1
+ Isotope------------------------------ 39-Y -89   
+ Fractional Abundance----------------- 1.00000000
+ LFW (Fission Widths)-----------------          0 (No Fission Widths)        
+ Number of Energy Ranges--------------          1
+ ==============================================================================
+ Lower Limit of the Energy Range------ 1.00000E-5 eV
+ Upper Limit of the Energy Range------ 100000.000 eV
+ LRU (Type of Region)-----------------          1 (Resolved Region)          
+ LRF (Type of Resolved Parameters)----          3 (Reich-Moore)              
+ NRO (Scattering Radius)--------------          0 (Energy Independent)        
+ NAPS (Channel Radius)----------------          1 (= Scattering Radius)       
+ ==============================================================================
+ Nuclear Spin of Target--------------- .500000000
+ Scattering Radius-------------------- .670000000
+ Number of L Values-------------------          2
+ ==============================================================================
+ Atomic Weight Ratio of Isotope------- 88.2354400
+ L Dependent Scattering Radius-------- .670000000
+ Angular Momentum (L)-----------------          0
+ Number of Resonances-----------------        150
+ ------------------------------------------------------------------------------
+ Summary of the Above Section
+ ------------------------------------------------------------------------------
+ Section Number.........--------------          1
+ L Value................--------------          0
+ Total Number of Resonances-----------        150
+ Number With Non-ZERO Fission Width---          0
+ Number With 2 Non-ZERO Fission Widths          0
+ ==============================================================================
+ Atomic Weight Ratio of Isotope------- 88.2354400
+ L Dependent Scattering Radius-------- .670000000
+ Angular Momentum (L)-----------------          1
+ Number of Resonances-----------------        546
+ ------------------------------------------------------------------------------
+ Summary of the Above Section
+ ------------------------------------------------------------------------------
+ Section Number.........--------------          2
+ L Value................--------------          1
+ Total Number of Resonances-----------        546
+ Number With Non-ZERO Fission Width---          0
+ Number With 2 Non-ZERO Fission Widths          0
+ ==============================================================================
+ Summary of Calculated MT #
+ ------------------------------------------------------------------------------
+    1    2  102
+ ==============================================================================
+ Reconstructing Cross Sections from Resonance Parameters
+ ==============================================================================
+        E-Low     E-High   Points   Type of Resonance Region
+        (eV)       (eV)   Generated Messages
+ ==============================================================================
+   1.00000E-5 100000.000      51159 Resolved
+ ==============================================================================
+ Entire Resonance Region      51159 Points
+ ==============================================================================
+ Summary of Output MT #
+ ------------------------------------------------------------------------------
+    1    2  102
+ ==============================================================================
+ Combining File 2 and File 3 Data
+ ==============================================================================
+ Reaction   MT  File 2  File 3  Combined
+                Points  Points    Points Comments
+ ==============================================================================
+    Total    1   51159       0     51159 No Background. Output Resonance Part.
+  Elastic    2   51159       0     51159 No Background. Output Resonance Part.
+  Capture  102   51159       0     51159 No Background. Output Resonance Part.
+ ==============================================================================
+ ------------------------------------------------------------------------------
+ All Cross Sections Read. Maximum Tabulated Energy =  100000.000 eV
+ ------------------------------------------------------------------------------
+ ===============================================================================
+      MAT Total Execution Time                0.72 Seconds
+ ===============================================================================
+ ******************************************************************************
+ End of ENDF/B Input Data
+ ******************************************************************************
+ Core Allocation and Requirements
+ ==============================================================================
+         Sections   Nodes Parameter
+                            Storage
+ ==============================================================================
+ Allocated    100  100000    100000
+ Required       2     112       696
+ ==============================================================================
+ End of Run
+ ==============================================================================
+ ===============================================================================
+ SIGMA1   Total Execution Time                0.72 Seconds
+ ===============================================================================
+ Doppler Broaden ENDF/B Cross Sections (SIGMA1 2023-1)
+ -------------------------------------------------------------------------------
+ Retrieval Criteria-----------        MAT
+ Monitor Mode-----------------        Off
+ Temperature------------------ 1200.00000 KELVIN
+ Mimimum Cross Section-------- 1.0000E-30 (No Longer an Input Option)
+ Negative Cross Section------- Make = 0 (No Negative Outout)
+ Unresolved Resonances Region- Copy (No Broadening)
+ -------------------------------------------------------------------------------
+ ENDF/B Input and Output Data Filenames
+ -------------------------------------------------------------------------------
+ n-Y089.res.point0                                                       
+ n-Y089.res.point                                                        
+ -------------------------------------------------------------------------------
+ Requested MAT Ranges
+ -------------------------------------------------------------------------------
+     Mimimum    Maximum
+ -------------------------------------------------------------------------------
+           0       9999 (Default Option)
+ -------------------------------------------------------------------------------
+ Allowable Uncertainty
+ -------------------------------------------------------------------------------
+      Energy Uncertainty   per-cent
+ -------------------------------------------------------------------------------
+  0.0         .001000000     0.1000 (Default Option)
+ -------------------------------------------------------------------------------
+ ENDF/B Tape Label
+ -------------------------------------------------------------------------------
+  n-Y089.res.tendl.2025: Merger of MF1 and MF2                       99
+ -------------------------------------------------------------------------------
+ Projectile        MAT  MT ENDF/B     Kelvin     Q-Value   Points   Points
+       Material            Format         In          eV       In      Out
+ -------------------------------------------------------------------------------
+ n    39-Y -89    3925   1  6     0.0         0.0           51159     6897          
+ n    39-Y -89    3925   2  6     0.0         0.0           51159     6673          
+ n    39-Y -89    3925 102  6     0.0         0.0           51159    18618          
+ -------------------------------------------------------------------------------
+ No Unresolved Region                         MAT Totals   153477    32188
+ -------------------------------------------------------------------------------
+ ===============================================================================
+      MAT Total Execution Time                1.56 Seconds
+ ===============================================================================
+ ------------------------------------------------------------------------------
+ All Cross Sections Read. Maximum Tabulated Energy =  100000.000 eV
+ ------------------------------------------------------------------------------
+ -------------------------------------------------------------------------------
+                                             Tape Totals   153477    32188
+ -------------------------------------------------------------------------------
+
+ Execution time:  0 hours  0 minutes  5.90 seconds 
+
+ The TALYS team congratulates you with this successful calculation.

@@ -1,0 +1,21 @@
+#
+# n-Nb093-14MeV-full
+#
+# General
+#
+projectile n
+element nb
+mass 93
+energy 14.
+#
+# Output
+#
+outbasic            y
+outpreequilibrium   y
+outspectra          y
+outangle            y
+outlegendre         y
+ddxmode             2
+outgamdis           y
+filepsf             y
+partable            y

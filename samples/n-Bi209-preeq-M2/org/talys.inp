@@ -1,0 +1,33 @@
+#
+#  n-Bi209-preeq-M2
+#
+# General
+#
+projectile n
+element bi
+mass 209
+energy 63.
+#
+# Parameters
+#
+M2constant 0.80
+#
+# Output
+#
+ddxmode 2
+filespectrum n p d t h a
+fileddxa p 20.
+fileddxa p 70.
+fileddxa p 110.
+fileddxa d 20.
+fileddxa d 70.
+fileddxa d 110.
+fileddxa t 20.
+fileddxa t 70.
+fileddxa t 110.
+fileddxa h 20.
+fileddxa h 70.
+fileddxa h 110.
+fileddxa a 20.
+fileddxa a 70.
+fileddxa a 110.

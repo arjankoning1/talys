@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Sr97
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 38
+#     A: 97
+#     nuclide: Sr97
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   3.006966E-02   4.046864E-02   1.958671E-01   2.636053E-01
+   1.600000E+00   2.831401E-02   4.014861E-02   2.409993E+00   3.417335E+00
+   5.500000E+00   2.456271E-02   4.054049E-02   1.400840E+01   2.312085E+01
+   1.000000E+01   2.220716E-02   4.037944E-02   1.356318E+01   2.466216E+01

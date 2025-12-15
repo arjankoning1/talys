@@ -1,0 +1,28 @@
+# header: 
+#   title: Pu239(n,f) cross section for I130
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 94
+#   A: 239
+#   nuclide: Pu239
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 6
+#   ENDF_MT: 5
+#   residual: 
+#     Z: 53
+#     A: 130
+#     nuclide: I130
+#   quantity: 
+#     type: cross section
+#   datablock: 
+#     columns: 2
+#     entries: 3
+##       E            FP_xs
+##     [MeV]          [mb]
+   2.530000E-08   0.000000E+00
+   2.000000E-07   0.000000E+00
+   1.000000E-06   1.643734E-03

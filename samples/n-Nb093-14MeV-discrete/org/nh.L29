@@ -1,0 +1,29 @@
+# header: 
+#   title: Nb93(n,h_29) cross section
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 41
+#   A: 93
+#   nuclide: Nb93
+# reaction: 
+#   type: (n,h_29)
+#   Q-value [MeV]: -1.070093E+01
+#   E-threshold [MeV]:  1.081711E+01
+#   ENDF_MF: 3
+#   ENDF_MT: 779
+#   level: 
+#     number: 29
+#     energy [MeV]:  2.980000E+00
+#     spin:  5.000000E-01
+#     parity: -1
+#   quantity: 
+#     type: cross section
+#   datablock: 
+#     columns: 4
+#     entries: 1
+##       E             xs           Direct        Compound
+##     [MeV]          [mb]           [mb]           [mb]
+   1.400000E+01   5.066486E-16   5.066486E-16   0.000000E+00

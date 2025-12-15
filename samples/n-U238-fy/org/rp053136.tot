@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) cross section for I136
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 6
+#   ENDF_MT: 5
+#   residual: 
+#     Z: 53
+#     A: 136
+#     nuclide: I136
+#   quantity: 
+#     type: cross section
+#   datablock: 
+#     columns: 2
+#     entries: 4
+##       E            FP_xs
+##     [MeV]          [mb]
+   1.000000E+00   1.305019E-01
+   1.600000E+00   2.216568E+00
+   5.500000E+00   1.832231E+01
+   1.000000E+01   2.372886E+01

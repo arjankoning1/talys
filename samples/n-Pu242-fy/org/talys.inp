@@ -1,0 +1,28 @@
+#
+# n-Pu242-fy
+#
+# General
+#
+projectile n
+element    Pu
+mass       242
+energy     energies
+#
+# Parameters and models
+#
+maxrot 2
+fymodel 2
+best y
+#
+# Output
+#
+channels y
+filechannels y
+ecissave y
+inccalc y
+eciscalc y
+massdis y
+# In a second run, you may use
+# eciscalc n
+# inccalc n
+# for efficient variations for this input file

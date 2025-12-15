@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) cross section for I145
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 6
+#   ENDF_MT: 5
+#   residual: 
+#     Z: 53
+#     A: 145
+#     nuclide: I145
+#   quantity: 
+#     type: cross section
+#   datablock: 
+#     columns: 2
+#     entries: 4
+##       E            FP_xs
+##     [MeV]          [mb]
+   1.000000E+00   3.796296E-05
+   1.600000E+00   7.573291E-06
+   5.500000E+00   2.630071E-07
+   1.000000E+01   6.056490E-08

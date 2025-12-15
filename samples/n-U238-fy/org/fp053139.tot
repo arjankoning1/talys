@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for I139
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 53
+#     A: 139
+#     nuclide: I139
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   2.087638E-02   2.607861E-02   1.359841E-01   1.698713E-01
+   1.600000E+00   1.974328E-02   2.976825E-02   1.680482E+00   2.533788E+00
+   5.500000E+00   1.373809E-02   3.523451E-02   7.834992E+00   2.009477E+01
+   1.000000E+01   1.063086E-02   3.834031E-02   6.492874E+00   2.341674E+01

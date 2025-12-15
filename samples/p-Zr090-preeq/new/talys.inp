@@ -1,0 +1,21 @@
+#
+# p-Zr090-preeq
+#
+# General 
+# 
+projectile p
+element zr
+mass 90
+energy 120.
+#
+# Output
+#
+outpreequilibrium y
+outpopulation y
+ddxmode 1
+filespectrum n p
+fileddxe p 20.
+fileddxe p 40.
+fileddxe p 60.
+fileddxe p 80.
+fileddxe p 100.

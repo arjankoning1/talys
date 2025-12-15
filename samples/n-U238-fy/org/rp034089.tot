@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) cross section for Se89
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 6
+#   ENDF_MT: 5
+#   residual: 
+#     Z: 34
+#     A: 89
+#     nuclide: Se89
+#   quantity: 
+#     type: cross section
+#   datablock: 
+#     columns: 2
+#     entries: 4
+##       E            FP_xs
+##     [MeV]          [mb]
+   1.000000E+00   1.723806E-02
+   1.600000E+00   2.145324E-01
+   5.500000E+00   1.024368E+00
+   1.000000E+01   9.162437E-01

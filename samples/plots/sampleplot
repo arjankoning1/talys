@@ -1,0 +1,8 @@
+#!/bin/bash
+#
+# This script produces the plots for the sample cases
+#
+for  f  in  `ls -1 *.plt`; do
+  echo $f
+  gnuplot -p $f
+done

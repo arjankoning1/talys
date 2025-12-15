@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Ag125
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 47
+#     A: 125
+#     nuclide: Ag125
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]           []             []             []             []
+   1.000000E+00   0.000000E+00   0.000000E+00   0.000000E+00   0.000000E+00
+   1.600000E+00   0.000000E+00   1.945073E-05   0.000000E+00   1.655590E-03
+   5.500000E+00   7.313151E-09   1.269001E-08   4.170774E-06   7.237300E-06
+   1.000000E+01   6.378516E-06   1.304266E-05   3.895723E-03   7.965940E-03

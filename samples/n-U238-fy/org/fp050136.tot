@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Sn136
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 50
+#     A: 136
+#     nuclide: Sn136
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]           []             []            [mb]           [mb]
+   1.000000E+00   8.863096E-05   5.347465E-04   5.773224E-04   3.483241E-03
+   1.600000E+00   6.112034E-05   3.038846E-04   5.202356E-03   2.586579E-02
+   5.500000E+00   1.548497E-05   2.275836E-04   8.831259E-03   1.297943E-01
+   1.000000E+01   6.082460E-06   1.178294E-04   3.714904E-03   7.196553E-02

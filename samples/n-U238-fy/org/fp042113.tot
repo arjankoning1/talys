@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Mo113
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 42
+#     A: 113
+#     nuclide: Mo113
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   1.299569E-05   9.377248E-05   8.465104E-05   6.108169E-04
+   1.600000E+00   2.934228E-08   1.178536E-04   2.497515E-06   1.003136E-02
+   5.500000E+00   1.292707E-05   7.953994E-05   7.372458E-03   4.536282E-02
+   1.000000E+01   6.994519E-06   7.705567E-05   4.271951E-03   4.706254E-02

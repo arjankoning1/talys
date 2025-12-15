@@ -1,0 +1,1769 @@
+\begin{samplecase}
+{\bf All results for 14 MeV n + ${}^{93}$Nb}\newline
+We have included 9 different versions of this sample case, in order to give an 
+impression of the various types of information that can be retrieved from 
+TALYS.  Most, but not all, output options will be described, while the 
+remainder will appear in the other sample cases. We have chopped the sample 
+output after column 80 to let it fit within this manual. We suggest to consult 
+the output files in the {\em samples/} directory for the full results.
+Note that in later versions of TALYS, more and more output is no longer given in the main large output file, 
+but in separate output files with the results per reaction channel etc.
+\subsubsection{Case a: The simplest input file}
+The first sample problem concerns the simplest possible TALYS calculation.
+Consider the following input file that produces the
+results for a 14 MeV neutron on ${}^{93}$Nb:
+
+\VerbatimInput{\samples n-Nb093-14MeV-general/org/talys.inp}
+
+This input file called {\em input} can simply be run as follows:\newline
+
+{\bf talys $<$ talys.inp $>$ talys.out}\newline
+
+An output file of TALYS consists of several blocks. Whether these blocks are 
+printed or not depends on the status of the various keywords that were 
+discussed in Chapter \ref{input}. By 
+default, the so-called main output is always given (through the default
+{\bf outmain y}), and we discuss this output in the present sample case.
+For a single incident energy, a default calculation gives the most important 
+cross sections only. ``Most important'' is obviously subjective, and probably
+every user has an own opinion on what should always appear by default in 
+the output. We will demonstrate in the other sample problems how to extract all 
+information from TALYS. 
+Some of the information in the main output file in this sample case can only be obtained
+with the keyword {\bf outall y}. Otherwise, it is in separate output files.
+The output file starts with a display of the version of TALYS you are using,
+the name of the authors, and the Copyright statement. Also the physics 
+dimensions used in the output are given:
+
+{\small \begin{verbatim}
+
+    TALYS-2.2 (Version: December 29, 2025)
+
+ Copyright (C) 2025  A.J. Koning, S. Hilaire and S. Goriely
+
+ Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+The next output block begins with:
+
+{\small \begin{verbatim}
+
+########## USER INPUT ##########
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+Here, the first section of the output is a print of the keywords/input 
+parameters. This is done in two steps: First, in the block
+
+{\small \begin{verbatim}
+
+USER INPUT FILE
+
+#
+# n-nb093-14mev
+#
+# general
+#
+projectile n
+element nb
+mass 93
+energy 14.
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+an exact copy of the input file as given by the user is returned. Next, in
+the block
+
+{\small \begin{verbatim}
+
+USER INPUT FILE + DEFAULTS
+
+Keyword           Value   Variable     Explanation
+
+#
+# Four main keywords
+#
+projectile          n     ptype0       type of incident particle
+element            Nb     Starget      symbol of target nucleus
+mass               93     mass         mass number of target nucleus
+energy             14.000 eninc        incident energy in MeV
+#
+# Basic physical and numerical parameters
+#
+ejectiles g n p d t h a   outtype      outgoing particles
+.............
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+a table with all keywords is given, 
+not only the ones that you have specified in the input file, but also all the 
+defaults that are set automatically. The corresponding Fortran variables are 
+also printed, together with a short explanation of their meaning. This table 
+can be helpful as a guide to change further input parameters for a next run. 
+You may also copy and paste the block directly into your next input file.
+
+In the next output block
+
+{\small \begin{verbatim}
+
+########## BASIC REACTION PARAMETERS ##########
+ 
+Projectile           : neutron     Mass in a.m.u.      :   1.008665
+Target               :  93Nb       Mass in a.m.u.      :  92.906373
+ 
+Included channels:
+                    gamma
+                    neutron
+                    proton
+                    deuteron
+                    triton
+                    helium-3
+                    alpha
+ 
+1 incident energy (LAB):
+ 
+    14.000
+ 
+Q-values for binary reactions:
+ 
+Q(n,g):  7.22755
+Q(n,n):  0.00000
+Q(n,p):  0.69112
+Q(n,d): -3.81879
+Q(n,t): -6.19635
+Q(n,h): -7.72313    
+Q(n,a):  4.92559
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+we print the main parameters that characterize the nuclear 
+reaction: the projectile, target and their masses and the outgoing particles 
+that are included as competitive channels. The incident energy or range of 
+incident energies in the LAB system is given together with the binary reaction
+Q-values.
+
+The block with final results starts with
+
+{\small \begin{verbatim}
+
+########## RESULTS FOR E=  14.00000 ##########
+
+ Energy dependent input flags
+
+ Width fluctuations (flagwidth)            : n
+ Unresolved resonance parameters (flagurr) : n
+ Preequilibrium (flagpreeq)                : y
+ Multiple preequilibrium (flagmulpre)      : n
+ Number of continuum excitation energy bins: 40
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+with no further information for the present sample case since no further output 
+was requested.
+When all nuclear model calculations are done, the most important cross sections 
+are summarized in the main part of the output,
+in which we have printed the center-of-mass energy, the main (total) cross 
+sections.
+the inclusive binary cross sections $\sigma^{inc,bin}_{n,k}$, see 
+Eq.~(\ref{incbin}), the total particle production cross sections 
+$\sigma_{n,xn}$ of Eq.~(\ref{cumu}) and the multiplicities $Y_{n}$ of
+Eq.~(\ref{Yn}),
+and the residual production cross sections. The latter are given first
+per produced nuclide and isomer. Next, nuclides with the same mass are summed 
+to give mass yield curves. Also, the sum over all the residual cross sections
+is compared with the non-elastic cross section. Obviously, these two values
+should be approximately equal.
+
+{\small \begin{verbatim}
+
+########### REACTION SUMMARY FOR E=  14.00000 ###########
+
+Center-of-mass energy:   13.849
+
+1. Total (binary) cross sections
+
+Total           = 3.98195E+03
+  Shape elastic   = 2.21132E+03
+  Reaction        = 1.77063E+03
+    Compound elastic= 6.02817E-04
+    Non-elastic     = 1.77063E+03
+      Direct          = 3.09942E+01
+      Pre-equilibrium = 4.19247E+02
+      Giant resonance = 5.69210E+01
+      Compound non-el = 1.26347E+03
+    Total elastic   = 2.21132E+03
+
+2. Binary non-elastic cross sections (non-exclusive)
+
+gamma   = 2.79389E+00
+neutron = 1.69529E+03
+proton  = 3.85805E+01
+deuteron= 4.96449E+00
+triton  = 1.81757E-01
+helium-3= 7.29505E-10
+alpha   = 2.88177E+01
+
+3. Total particle production cross sections
+
+gamma   = 2.21097E+03    Multiplicity= 1.24869E+00
+neutron = 3.08736E+03    Multiplicity= 1.74365E+00
+proton  = 4.10702E+01    Multiplicity= 2.31953E-02
+deuteron= 4.96449E+00    Multiplicity= 2.80380E-03
+triton  = 1.81757E-01    Multiplicity= 1.02651E-04
+helium-3= 7.29505E-10    Multiplicity= 4.12003E-13
+alpha   = 2.93826E+01    Multiplicity= 1.65944E-02
+
+4. Residual production cross sections
+
+  a. Per isotope
+
+  Z   A  nuclide    total     level   isomeric    isomeric    lifetime
+                cross section       cross section  ratio
+
+  41  94 ( 94Nb) 1.19960E+00    0    5.71296E-01  0.47624
+                                1    6.28304E-01  0.52376   3.75800E+02 sec. 
+  41  93 ( 93Nb) 3.14864E+02    0    2.77770E+02  0.88219
+                                1    3.70943E+01  0.11781   5.08700E+08 sec. 
+  40  93 ( 93Zr) 2.97680E+01    0    2.97680E+01  1.00000
+  41  92 ( 92Nb) 1.37917E+03    0    8.65640E+02  0.62765
+                                1    5.13527E+02  0.37235   8.77000E+05 sec. 
+  40  92 ( 92Zr) 1.62764E+01    0    1.62764E+01  1.00000
+  40  91 ( 91Zr) 1.81764E-01    0    1.81764E-01  1.00000
+  39  90 ( 90Y ) 2.63291E+01    0    1.25952E+01  0.47837
+                                2    1.37340E+01  0.52163   1.14800E+04 sec. 
+  39  89 ( 89Y ) 3.05343E+00    0    1.27030E+00  0.41602
+                                1    1.78314E+00  0.58398   1.56600E+01 sec. 
+
+  b. Per mass
+
+  A  cross section
+
+  94 1.19960E+00
+  93 3.44632E+02
+  92 1.39544E+03
+  91 1.81764E-01
+  90 2.63291E+01
+  89 3.05343E+00
+
+Total residual production cross section:  1770.8403320
+Non-elastic cross section              :  1770.6293945
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+At the end of the output, the total calculation time is printed, followed by a 
+message that the calculation has been successfully completed:
+
+{\small \begin{verbatim}
+Execution time:  0 hours  0 minutes  2.23 seconds 
+
+ The TALYS team congratulates you with this successful calculation.
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\subsubsection{Case b: Discrete state cross sections and spectra}
+As a first extension to the simple input/output file given above, we will 
+request the 
+output of cross sections per individual discrete level.
+Also, the cumulated angle-integrated and double-differential 
+particle spectra are requested. This is obtained with the following input file:
+
+{\small \begin{verbatim}
+
+#
+# n-Nb093-14MeV-spectra
+#
+# General
+#
+projectile n
+element nb
+mass 93
+energy 14.
+#
+# Output
+#
+outdiscrete y 
+outspectra y 
+ddxmode 2 
+filespectrum n p a 
+fileddxa n 30. 
+fileddxa n 60. 
+fileddxa a 30. 
+fileddxa a 60.
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+In addition to the information printed for case 1a, the cross 
+sections per discrete state for each binary channel are given, starting with the
+$(n,\gamma )$ channel,
+
+{\small \begin{verbatim}
+
+ 5. Binary reactions to discrete levels and continuum
+
+   (n,g)   cross sections:
+
+ Inclusive:
+
+ Level Energy    E-out     J/P       Direct    Compound      Total     Origin
+
+  0   0.00000  21.07609    6.0+     0.00000     0.00000     0.00000    Preeq
+  1   0.04089  21.03519    3.0+     0.00000     0.00000     0.00000    Preeq
+  2   0.05871  21.01738    4.0+     0.00000     0.00000     0.00000    Preeq
+  3   0.07867  20.99742    7.0+     0.00169     0.00000     0.00169    Preeq
+...............................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+after which the inelastic cross section to every individual discrete state of 
+the target nucleus is printed, including the separation in direct and compound, 
+see Eq.~(\ref{ineldisc}). These are summed, per contribution, to the total 
+discrete inelastic cross section, see Eq.~(\ref{nnprimedisc}). To these cross 
+sections, the continuum inelastic cross sections of Eq.~(\ref{nnprimecont}) are 
+added to give the total inelastic cross section (\ref{nnprime}). Finally, the
+$(n,\gamma n)$ cross section is also printed. This output block looks as follows
+
+{\small \begin{verbatim}
+
+ Inelastic cross sections:
+
+ Inclusive:
+
+ Level Energy    E-out     J/P       Direct    Compound      Total     Origin
+
+  1   0.03077  13.81777    0.5-     0.00000     0.00013     0.00013    Preeq
+  2   0.68679  13.16175    1.5-     0.00000     0.00025     0.00025    Preeq
+  3   0.74395  13.10459    3.5+     3.27713     0.00049     3.27762    Direct
+  4   0.80882  13.03972    2.5+     0.03425     0.00037     0.03463    Direct
+  5   0.81032  13.03822    2.5-     2.45130     0.00036     2.45166    Direct
+  6   0.94980  12.89874    6.5+     5.68166     0.00066     5.68232    Direct
+  7   0.97000  12.87854    1.5-     0.00000     0.00025     0.00025    Preeq
+  8   0.97891  12.86963    5.5+     4.86351     0.00063     4.86414    Direct
+  9   1.08268  12.76586    4.5+     4.03323     0.00057     4.03379    Direct
+ 10   1.12709  12.72145    2.5+     0.03389     0.00037     0.03426    Direct
+ 11   1.28426  12.56428    2.5-     0.03374     0.00035     0.03409    Direct
+ 12   1.29000  12.55854    0.5-     0.32985     0.00012     0.32997    Direct
+ 13   1.29722  12.55132    4.5+     0.05613     0.00056     0.05669    Direct
+ 14   1.31550  12.53304    2.5+     0.00809     0.00036     0.00846    Direct
+ 15   1.33504  12.51350    8.5+     2.96128     0.00061     2.96189    Direct
+                                  ---------   ---------   ---------
+ Discrete  Inelastic:              23.76406     0.00609    23.77015
+ Continuum Inelastic:             420.88937  1250.63110  1671.52051
+                                  ---------   ---------   ---------
+ Total     Inelastic:             444.65344  1250.63721  1695.29114
+
+ (n,gn) cross section:     1.59155
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+This is repeated for the $(n,p)$ and other channels,
+
+{\small \begin{verbatim}
+
+   (n,p)   cross sections:
+
+ Inclusive:
+
+ Level Energy    E-out     J/P       Direct    Compound      Total     Origin
+
+  0   0.00000  14.54008    2.5+     0.33518     0.00026     0.33544    Preeq
+  1   0.26682  14.27326    1.5+     1.11920     0.00017     1.11937    Preeq
+  2   0.94709  13.59299    0.5+     0.78153     0.00008     0.78161    Preeq
+  3   0.94980  13.59028    4.5+     0.08114     0.00037     0.08151    Preeq
+...........................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+The last column in these tables specifies the origin of the direct contribution
+to the discrete state. ``Direct'' means that this is obtained with 
+coupled-channels, DWBA or, as in this case, weak coupling, whereas 
+``Preeq'' means that the pre-equilibrium cross section is collapsed onto the 
+discrete states, as an approximate method for more exact direct reaction 
+approaches for charge-exchange and pick-up reactions.
+We note here that the feature of calculating, and printing, the inelastic 
+cross sections for a specific state is of particular interest in the case of
+excitations, i.e. to obtain this particular cross section for a whole range of
+incident energies. This will be handled in another sample case.
+
+Since {\bf outspectra y} was specified in the input file, the composite
+particle spectra for the continuum are also printed. Besides the total 
+spectrum, the division into 
+direct (i.e. smoothed collective effects and giant resonance contributions), 
+pre-equilibrium, multiple pre-equilibrium and compound is given. First we give 
+the photon spectrum,
+
+{\small \begin{verbatim}
+
+ 7. Composite particle spectra
+
+ Spectra for outgoing gamma
+
+  Energy   Total       Direct    Pre-equil.  Mult. preeq  Compound
+
+   0.001 2.56193E+00 0.00000E+00 2.56817E-13 0.00000E+00 2.56193E+00
+   0.002 3.46083E+00 0.00000E+00 2.44734E-12 0.00000E+00 3.46083E+00
+   0.005 6.22649E+00 0.00000E+00 3.40708E-11 0.00000E+00 6.22649E+00
+   0.010 1.13850E+01 0.00000E+00 2.57561E-10 0.00000E+00 1.13850E+01
+   0.020 2.14177E+01 0.00000E+00 1.94665E-09 0.00000E+00 2.14177E+01
+   0.050 5.15819E+01 0.00000E+00 2.71071E-08 0.00000E+00 5.15819E+01
+...........................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+followed by the neutron spectrum
+
+{\small \begin{verbatim}
+
+Spectra for outgoing neutron
+
+  Energy   Total       Direct    Pre-equil.  Mult. preeq  Compound
+
+   0.001 2.54285E+01 7.90143E-03 9.56260E-02 0.00000E+00 2.53250E+01
+   0.002 5.08020E+01 7.91399E-03 1.44361E-01 0.00000E+00 5.06497E+01
+   0.005 1.34561E+02 7.95178E-03 2.71935E-01 0.00000E+00 1.34281E+02
+   0.010 1.87795E+02 8.01513E-03 4.87956E-01 0.00000E+00 1.87299E+02
+   0.020 2.26559E+02 8.14321E-03 9.81582E-01 0.00000E+00 2.25569E+02
+...........................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+and the spectra for the other outgoing particles.
+Depending on the value of {\bf ddxmode}, the double-differential cross 
+sections are printed as angular distributions or as spectra per fixed angle.
+For the present sample case, {\bf ddxmode 2}, which gives
+
+{\small \begin{verbatim}
+
+ 9. Double-differential cross sections per outgoing angle
+
+ DDX for outgoing neutron  at   0.000 degrees
+
+    E-out    Total      Direct     Pre-equil. Mult. preeq   Compound
+
+    0.001 2.02749E+00 1.54078E-03 1.06465E-02 0.00000E+00 2.01530E+00
+    0.002 4.04819E+00 1.54323E-03 1.60730E-02 0.00000E+00 4.03057E+00
+    0.005 1.07176E+01 1.55060E-03 3.02802E-02 0.00000E+00 1.06857E+01
+    0.010 1.49607E+01 1.56295E-03 5.43443E-02 0.00000E+00 1.49048E+01
+    0.020 1.80612E+01 1.58792E-03 1.09360E-01 0.00000E+00 1.79502E+01
+................................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+followed by the other angles and other particles.
+A final important feature of the present input file is that some requested 
+information has been written to separate output files, i.e. besides the 
+standard output file, TALYS also produces the ready-to-plot files
+
+{\small \begin{verbatim}
+
+aspec014.000.tot
+nspec014.000.tot
+pspec014.000.tot      
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+containing the angle-integrated neutron, proton and alpha spectra, and
+{\small \begin{verbatim}
+
+addx030.0.deg
+addx060.0.deg
+nddx030.0.deg
+nddx060.0.deg
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+containing the double-differential neutron and alpha spectra at 30 and 60 
+degrees.
+All these separate output files are in YANDF format, e.g. the (n,xp) emission
+spectrum of {\it pspec014.000.tot} looks as follows
+{\small \begin{verbatim}
+
+# header:
+#   title: Nb93(n,xp) emission spectrum at  1.400000E+01 MeV
+#   source: TALYS-2.0
+#   user: Arjan Koning
+#   date: 2023-12-12
+#   format: YANDF-0.1
+# target:
+#   Z: 41
+#   A: 93
+#   nuclide: Nb93
+# reaction:
+#   type: (n,xp)
+#   ENDF_MF: 6
+#   ENDF_MT: 5
+#   E-incident [MeV]:  1.400000E+01
+#   E-average [MeV]:  8.456717E+00
+# datablock:
+#   quantity: emission spectrum
+#   columns: 7
+#   entries: 151
+##     E-out           xs           Direct     Preequilibrium Multiple preeq
+##     [MeV]        [mb/MeV]       [mb/MeV]       [mb/MeV]       [mb/MeV]   
+   2.000000E-01   2.678184E-30   0.000000E+00   2.678184E-30   0.000000E+00 
+   3.000000E-01   3.599347E-23   0.000000E+00   3.599347E-23   0.000000E+00 
+   4.000000E-01   5.176781E-19   0.000000E+00   5.176781E-19   0.000000E+00 
+   5.000000E-01   3.460652E-16   0.000000E+00   3.460652E-16   0.000000E+00 
+.............................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+
+\subsubsection{Case c: Exclusive channels and spectra}
+As another extension of the simple input file we can print the exclusive cross
+sections at one incident energy and the associated exclusive spectra.
+This is accomplished with the input file
+
+{\small \begin{verbatim}
+#
+# n-Nb093-14MeV-general-exclusive
+#
+# General
+#
+projectile n
+element nb
+mass 93
+energy 14.
+#
+# Output
+#
+channels y 
+outspectra y
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+Contrary to the previous sample case, in this case no double-differential 
+cross sections or 
+results per separate file are printed (since it only concerns one incident 
+energy). The exclusive cross sections are given 
+in one table, per channel and per ground or isomeric state. It is checked 
+whether the exclusive cross sections add up to the non-elastic cross section. 
+Note that this sum rule, Eq.~(\ref{prod}), is only expected to hold if we 
+include 
+enough exclusive channels in the calculation. If {\bf maxchannel 4}, this 
+equality should always hold for incident energies up to 20 MeV. This output 
+block looks as follows:
+
+{\small \begin{verbatim}
+
+ 6. Exclusive cross sections
+
+ 6a. Total exclusive cross sections
+
+     Emitted particles     cross section reaction         level    isomeric   
+    n   p   d   t   h   a                                        cross section
+    0   0   0   0   0   0    1.19960E+00  (n,g)                               
+                                                             0     5.71296E-01
+                                                             1     6.28304E-01
+    1   0   0   0   0   0    3.13448E+02  (n,n')                              
+                                                             0     2.76520E+02
+                                                             1     3.69274E+01
+    0   1   0   0   0   0    2.97658E+01  (n,p)                               
+    0   0   1   0   0   0    4.96449E+00  (n,d)                               
+    0   0   0   1   0   0    1.81764E-01  (n,t)                               
+    0   0   0   0   0   1    2.63285E+01  (n,a)                               
+                                                             0     1.25948E+01
+                                                             2     1.37337E+01
+    2   0   0   0   0   0    1.37899E+03  (n,2n)                              
+                                                             0     8.65528E+02
+                                                             1     5.13465E+02
+    1   1   0   0   0   0    1.13115E+01  (n,np)                              
+    1   0   0   0   0   1    3.05339E+00  (n,na)                              
+                                                             0     1.27026E+00
+                                                             1     1.78312E+00
+    0   1   0   0   0   1    5.03111E-06  (n,pa)                              
+
+ Absorption cross section                 :    62.44013
+
+ Sum over exclusive channel cross sections:  1769.24536
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     1.59452
+ Total                                    :  1770.83984
+ Non-elastic cross section                :  1770.62939
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+Note that the $(n,np)$ and $(n,d)$ cross sections add up to the residual 
+production cross section for ${}^{92}$Zr, as given in the first sample case.
+
+Since {\bf outspectra y}, for each exclusive channel the spectrum per 
+outgoing particle is given. This output block begins with:
+
+{\small \begin{verbatim}
+
+ 6b. Exclusive spectra
+
+      Emitted particles     cross section reaction      gamma cross section
+    n   p   d   t   h   a
+    1   0   0   0   0   0    3.26664E+02  (n,n')            1.00870E+03
+
+  Outgoing spectra
+
+  Energy  gamma       neutron     proton      deuteron    triton      helium-3  
+
+ 0.001 4.06619E+00 2.14250E-03 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00
+ 0.002 4.08311E+00 4.22497E-03 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00
+ 0.005 4.13354E+00 1.04500E-02 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00
+ 0.010 4.21777E+00 2.08288E-02 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00
+ 0.020 4.38694E+00 4.16553E-02 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00
+ 0.050 4.92328E+00 1.04608E-01 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00
+ 0.100 6.46225E+00 2.10358E-01 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00
+..................................
+      Emitted particles     cross section reaction      gamma cross section
+    n   p   d   t   h   a
+    1   1   0   0   0   0    1.06861E+01  (n,np)            1.97965E+01
+ 
+  Outgoing spectra
+ 
+  Energy  gamma       neutron     proton      deuteron    triton      helium-3  
+   
+ 0.001 6.35050E-02 1.87485E-01 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00
+ 0.002 6.94942E-02 3.74836E-01 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00
+ 0.005 8.74445E-02 9.36836E-01 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00
+ 0.010 1.17368E-01 1.88679E+00 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00
+ 0.020 1.77238E-01 3.89497E+00 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00
+ 0.050 3.57037E-01 6.03595E+00 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00
+ 0.100 6.57333E-01 8.96107E+00 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00
+ 0.200 1.58990E+00 1.04045E+01 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00
+ 0.300 1.88712E+00 9.88185E+00 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00
+ 0.400 2.01034E+00 9.03657E+00 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00
+ 0.500 1.41701E+00 8.28305E+00 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00
+ 0.600 5.68786E+00 7.59201E+00 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00
+ 0.700 8.64822E+00 6.60600E+00 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00
+ 0.800 4.28359E+00 5.86945E+00 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00
+ 0.900 2.37448E+00 5.09628E+00 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00
+ 1.000 2.20641E+00 4.19745E+00 1.23263E-07 0.00000E+00 0.00000E+00 0.00000E+00
+..................................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+Note, as explained in Section \ref{exclspec}, that the (n,np) channel is 
+characterized by both a neutron and a proton spectrum.
+\subsubsection{Case d: Nuclear structure}    
+It is possible to have all the nuclear structure information in the output file.
+The simplest way is to set {\bf outbasic y}, which means that about everything 
+that can be printed, will be printed. This may be a bit overdone if one
+is only interested in e.g. discrete levels or level densities. If the 
+keywords {\bf outlevels} and/or {\bf outdensity} are set to {\bf y}, 
+discrete level and level density information will always be given for the 
+target nucleus and the primary compound nucleus. With {\bf outgamma y}, photon
+strength function information is also given. If we would set, in addition,
+{\bf outpopulation y}, this info will also be given for all the other residual 
+nuclides that are reached in the reaction chain. 
+The input file for this sample case is
+
+{\small \begin{verbatim}
+
+#
+# General
+#
+projectile n
+element nb
+mass 93
+energy 14.
+#
+# Output
+#
+outlevels y
+outdensity y
+outgamma y
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+In addition to the output of case 1a,
+the separation energies for the six light particles are printed. 
+
+{\small \begin{verbatim}
+
+ NUCLEAR STRUCTURE INFORMATION FOR Z= 41 N= 52 ( 93Nb)
+
+ Mass in a.m.u.     :  92.906373
+
+ Separation energies:
+
+ Particle        S
+
+ neutron      8.83087
+ proton       6.04279
+ deuteron    12.45297
+ triton      13.39009
+ helium-3    15.64713
+ alpha        1.92655
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+In the next output block,
+the discrete level scheme is printed for the first levels. 
+The discrete level info contains level number, energy, spin, parity, branching 
+ratios and lifetimes of possible isomers. It is also indicated whether the 
+spin (J) or parity (P) of a level is experimentally known or whether a value 
+was assigned to it (see Section \ref{disclevel}). The ``string'' of the 
+original ENSDF database is also given, so that the user can learn about 
+possible alternative choices for spin and parity. This output block begins with:
+
+{\small \begin{verbatim}
+
+ Discrete levels of Z= 41 N= 52 ( 93Nb)
+
+ Number  Energy Spin Parity  Branching Ratio (%) Lifetime(sec) Assignment        ENSDF
+
+   0     0.0000  4.5   +                                                 
+   1     0.0308  0.5   -                           5.087E+08            
+                               --->  0  100.0000
+   2     0.6868  1.5   -                                    
+                               --->  1  100.0000
+   3     0.7440  3.5   +                                   
+                               --->  0  100.0000
+   4     0.8088  2.5   +                                  
+                               --->  3    2.1580
+                               --->  0   97.8420
+....................................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+Since {\bf outdensity y}, we print all the level density parameters that are 
+involved in the main output file.
+Note also that, since {\bf outdensity y} by default implies {\bf filedensity y},
+the files {\it ld041093.tot} and  {\it ld041094.tot} have been created in YANDF format. They
+contain all level density parameters and a comparison between cumulated 
+discrete levels and the integrated level density.
+discussed in Section \ref{leveldens}: the level density parameter at the 
+neutron separation energy $a(S_{n})$, the experimental and theoretical average 
+resonance spacing $D_{0}$, the asymptotic level density parameter 
+$\tilde{a}$, the shell damping parameter $\gamma$, the pairing energy $\Delta$, 
+the shell correction energy $\delta W$, the matching energy $E_{x}$, the last 
+discrete level, the levels for the matching problem, the temperature $T$, the 
+back-shift energy $E_{0}$, the discrete state spin cut-off parameter 
+$\sigma$ and the spin cut-off parameter at the neutron separation energy.
+Next, we print a table with the level density parameter $a$, the spin cut-off 
+parameter and the level density itself, all as a function of the excitation 
+energy. The file {\bf ld041093.tot} looks as follows:
+
+{\small \begin{verbatim}
+
+# header:
+#   title: Nb93 level density
+#   source: TALYS-2.0
+#   user: Arjan Koning
+#   date: 2023-12-12
+#   format: YANDF-0.1
+# residual:
+#   Z: 41
+#   A: 93
+#   nuclide: Nb93
+# parameters:
+#   ldmodel keyword: 1
+#   level density model: Gilbert-Cameron
+#   Collective enhacement: n
+#   a(Sn) [MeV^-1]:  1.233156E+01
+#   asymptotic a [MeV^-1]:  1.224515E+01
+#   shell correction [MeV]:  1.037895E-01
+#   damping gamma:  9.559104E-02
+#   pairing energy [MeV]:  1.244342E+00
+#   adjusted pairing shift [MeV]:  0.000000E+00
+#   separation energy [MeV]:  8.830873E+00
+#   discrete spin cutoff parameter:  1.165425E+01
+#   spin cutoff parameter(Sn):  2.095789E+01
+#   matching energy [MeV]:  7.615608E+00
+#   temperature [MeV]:  8.670035E-01
+#   E0 [MeV]: -1.345862E+00
+#   Nlow: 5
+#   Ntop: 15
+#   ctable:  1.000000E-20
+#   ptable:  1.000000E-20
+# observables:
+#   experimental D0 [eV]:  0.000000E+00
+#   experimental D0 unc. [eV]:  0.000000E+00
+#   theoretical D0 [eV]:  7.795445E+01
+#   Chi-2 D0:  0.000000E+00
+#   C/E D0:  0.000000E+00
+#   Frms D0:  0.000000E+00
+#   Erms D0:  0.000000E+00
+#   Chi-2 per level:  1.128847E-01
+#   Frms per level:  1.030749E+00
+#   Erms per level:  1.005810E+00
+#   average deviation per level:  7.030114E-02
+# datablock:
+#   quantity: level density
+#   columns: 6
+#   entries: 100
+##       E            Level      N_cumulative     Total LD           a       
+##     [MeV]           []             []          [MeV^-1]       [MeV^-1]    
+   9.498000E-01     6            7.096463E+00   1.628955E+01   1.236664E+01 
+   9.700000E-01     7            7.429368E+00   1.667353E+01   1.236664E+01 
+   9.789100E-01     8            7.578694E+00   1.684576E+01   1.236664E+01 
+   1.082680E+00     9            9.434585E+00   1.898762E+01   1.236664E+01 
+   1.127090E+00    10            1.029970E+01   1.998556E+01   1.236664E+01 
+   1.284260E+00    11            1.373884E+01   2.395769E+01   1.236641E+01 
+   1.290000E+00    12            1.387682E+01   2.411683E+01   1.236638E+01
+....................................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+
+With {\bf outgamma y} the gamma-ray information is printed. 
+First, all relevant parameters are given: the total radiative width 
+$\Gamma_{\Gamma}$, the s-wave resonance spacing $D_{0}$, 
+the s-wave strength function $S_{0}$ and the normalization factor for the
+gamma-ray strength function. Second, we print the giant resonance information.
+For each multipolarity, we print the strength of the giant resonance
+$\sigma_{0}$, its energy and its width.
+Next, the gamma-ray strength function and transmission coefficients for this 
+multipolarity and as a function of energy are printed.
+This output block begins with:
+
+{\small \begin{verbatim}
+
+########## GAMMA STRENGTH FUNCTIONS, TRANSMISSION COEFFICIENTS AND CROSS SEC
+
+ Gamma-ray information for Z= 41 N= 53 ( 94Nb)
+
+ S-wave strength function parameters:
+
+ Exp. total radiative width=   0.14500 eV +/- 0.01000 Theor. total radiative 
+                                                      Theor. total radiative 
+                                                      Theor. total radiative 
+ Exp. D0                   =     80.00 eV +/-   10.00 Theor. D0              
+                                                      Theor. D1              
+ Theor. S-wave strength f. =  15.47386E-4
+ Average resonance energy  =     10000.00 eV
+
+ Incident energy: E[MeV]=  14.000
+
+ Gamma-ray strength function model for E1: IAEA-CRP SMLO 2019 Tables
+
+ Gamma-ray strength function model for M1: IAEA GSF CRP (2018)
+
+ Adjustable parameters for E1: etable=   0.00000 ftable=   1.00000 wtable=   
+
+ Inclusion of an E1 upbend C x U*/ (1+exp(E-eta)) with  C=  0.00E+00 eta=   
+
+ Inclusion of an M1 upbend C exp(-F*|beta2|) exp(-eta*E) with C=  3.50E-0
+
+ Normalized gamma-ray strength functions and transmission coefficients for l= 1
+
+ Giant resonance parameters :
+
+ sigma0(M1) =   1.322       sigma0(E1) = 192.148    PR: sigma0(M1) =   0.066 
+      E(M1) =   8.441            E(E1) =  16.523    PR:      E(M1) =   3.174 
+  gamma(M1) =   4.000        gamma(E1) =   5.515    PR:  gamma(M1) =   1.500 
+      k(M1) =   8.67373E-08      k(E1) =   8.67373E-08
+
+      E       f(M1)        f(E1)        T(M1)        T(E1)
+
+    0.001  1.79672E-08  1.56975E-09  1.12891E-16  2.65817E-17
+    0.002  1.79538E-08  1.57089E-09  9.02457E-16  2.12748E-16
+    0.005  1.79122E-08  1.57435E-09  1.40682E-14  3.32861E-15
+    0.010  1.78432E-08  1.58011E-09  1.12112E-13  2.66879E-14
+    0.020  1.77059E-08  1.59153E-09  8.89998E-13  2.14444E-13
+    0.050  1.73010E-08  1.62634E-09  1.35881E-11  3.39519E-12
+....................................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+which is repeated for each $l$-value. Finally, the photoabsorption
+cross section is printed:
+
+{\small \begin{verbatim}
+
+Photoabsorption cross sections
+
+  E [MeV]   xs [mb]
+
+   1.000000E-03   2.559201E-04
+   2.000000E-03   6.118469E-04
+   5.000000E-03   1.377138E-03
+   1.000000E-02   2.647125E-03
+   2.000000E-02   5.166643E-03
+   5.000000E-02   1.256542E-02
+....................................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+Since we put in this input file the keyword {\bf filepsf y} detailed
+PSF information is also available in separate output files. For example
+{\bf psf041094.E1} reads as follows:
+{\small \begin{verbatim}
+# header:
+#   title: Nb94 photon strength function
+#   source: TALYS-2.0
+#   user: Arjan Koning
+#   date: 2023-12-12
+#   format: YANDF-0.1
+# residual:
+#   Z: 41
+#   A: 94
+#   nuclide: Nb94
+# parameters:
+#   strength keyword: 9
+#   PSF model: IAEA-CRP SMLO 2019 Tables
+#   radiation type: E1
+# observables:
+#   experimental Gamma_gamma [eV]:  1.450000E-01
+#   experimental Gamma_gamma unc. [eV]:  1.000000E-02
+#   theoretical Gamma_gamma [eV]:  1.236158E-01
+#   C/E Gamma_gamma:  8.525231E-01
+# datablock:
+#   quantity: photon strength function
+#   columns: 2
+#   entries: 86
+##       E            f(E1)
+##     [MeV]           []
+   1.000000E-03   1.569746E-09
+   2.000000E-03   1.570894E-09
+   5.000000E-03   1.574351E-09
+   1.000000E-02   1.580114E-09
+   2.000000E-02   1.591526E-09
+.........................................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+
+\subsubsection{Case e: Detailed pre-equilibrium information}
+The single- and double-differential spectra have already been covered in 
+sample 1b. In addition to this, the contribution of the pre-equilibrium 
+mechanism to the spectra 
+and cross sections can be printed in more detail with the 
+{\bf outpreequilibrium} keyword.
+With the input file
+
+{\small \begin{verbatim}
+
+#
+# n-Nb093-14MeV-preeq
+#
+# General
+#
+projectile n
+element nb
+mass 93
+energy 14.
+#
+# Output
+#
+outpreequilibrium y 
+outspectra y
+ddxmode 2
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+we obtain, in addition to the aforementioned output blocks, a detailed outline
+of the pre-equilibrium model used, in this case the default: the two-component 
+exciton model.
+First, the parameters for the exciton model are printed, followed by
+the matrix elements as a function of the exciton number:
+
+{\small \begin{verbatim}
+
+ ########## PRE-EQUILIBRIUM ##########                      
+                     
+ ++++++++++ TWO-COMPONENT EXCITON MODEL ++++++++++
+                               
+ 1. Matrix element for E=  21.076        
+                                        
+ Constant for matrix element :   1.000                                          
+ p-p ratio for matrix element:   1.000
+ n-n ratio for matrix element:   1.500                                          
+ p-n ratio for matrix element:   1.000
+ n-p ratio for matrix element:   1.000
+ 
+ p(p) h(p) p(n) h(n)     M2pipi      M2nunu      M2pinu      M2nupi
+ 
+  0    0    1    0    2.63420E-05 3.95131E-05 2.63420E-05 2.63420E-05
+  0    0    2    1    1.08884E-04 1.63327E-04 1.08884E-04 1.08884E-04
+  1    1    1    0    1.08884E-04 1.63327E-04 1.08884E-04 1.08884E-04
+  0    0    3    2    1.76643E-04 2.64964E-04 1.76643E-04 1.76643E-04
+  1    1    2    1    1.76643E-04 2.64964E-04 1.76643E-04 1.76643E-04
+.....................................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+Next, the emission 
+rates are printed: first as function of particle type and particle-hole number,
+and in the last column summed over particles:
+
+{\small \begin{verbatim}
+
+ 2. Emission rates or escape widths
+
+ A. Emission rates ( /sec)
+
+ p(p) h(p) p(n) h(n)    gamma       neutron     proton      deuteron    triton  
+
+ 0    0    1    0    2.16570E+18 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+0
+ 0    0    2    1    5.29285E+17 1.63578E+21 0.00000E+00 0.00000E+00 0.00000E+0
+ 1    1    1    0    5.58040E+17 8.15540E+20 2.32728E+20 2.79804E+19 0.00000E+0
+ 0    0    3    2    1.26381E+17 4.52770E+20 0.00000E+00 0.00000E+00 0.00000E+0
+ 1    1    2    1    1.08464E+17 3.04371E+20 1.11136E+19 3.36637E+18 9.21406E+1
+.....................................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+Also, the alternative representation in terms of the escape widths, see
+Eqs.~(\ref{gamesc}) and ~(\ref{gamesct}), is given,
+
+{\small \begin{verbatim}
+
+ B. Escape widths (MeV)
+
+p(p) h(p) p(n) h(n)    gamma       neutron     proton      deuteron    triton  
+
+0    0    1    0    1.42549E-03 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+0
+0    0    2    1    3.48382E-04 1.07669E+00 0.00000E+00 0.00000E+00 0.00000E+0
+1    1    1    0    3.67309E-04 5.36798E-01 1.53184E-01 1.84170E-02 0.00000E+0
+0    0    3    2    8.31858E-05 2.98019E-01 0.00000E+00 0.00000E+00 0.00000E+0
+1    1    2    1    7.13921E-05 2.00341E-01 7.31511E-03 2.21578E-03 6.06481E-0
+2    2    1    0    9.92804E-05 8.90114E-02 1.26899E-02 1.26325E-03 0.00000E+0
+.....................................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+The internal transition rates such as those of Eq.~(\ref{lambdapiplus}) and 
+the associated damping and total widths are given next, 
+
+{\small \begin{verbatim}
+
+ 3. Internal transition rates or damping widths, total widths
+
+ A. Internal transition rates ( /sec)
+
+ p(p) h(p) p(n) h(n)     lambdapiplus   lambdanuplus    lambdapinu     lambdanup
+
+0    0    1    0       1.45456E+21    1.74977E+21    0.00000E+00    0.00000E+0
+0    0    2    1       3.18197E+21    3.67047E+21    0.00000E+00    1.62232E+2
+1    1    1    0       1.74347E+21    3.78846E+21    1.30118E+20    0.00000E+0
+0    0    3    2       3.26507E+21    3.59251E+21    0.00000E+00    7.12888E+2
+1    1    2    1       2.35211E+21    3.64486E+21    1.72552E+20    2.29011E+2
+.....................................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+The lifetimes, $t(p,h)$ of Eq.~(\ref{lifetime}) and the depletion factors 
+$D_{p,h}$ of Eq.~(\ref{depletion}), are printed next, 
+
+{\small \begin{verbatim}
+
+ 4. Lifetimes
+ p(p) h(p) p(n) h(n)      Strength
+
+  0    0    1    0       3.11867E-22
+  0    0    2    1       6.41109E-23
+  1    1    1    0       6.88639E-23
+  0    0    3    2       3.09624E-23
+  1    1    2    1       7.50433E-23
+  2    2    1    0       2.43181E-23
+.....................................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+The partial state densities are printed for the first particle-hole 
+combinations as a function of excitation energy. We also print the exciton 
+number-dependent spin distributions and their sum, to see whether we have 
+exhausted all spins. This output block is as follows
+
+{\small \begin{verbatim}
+
+ ++++++++++ PARTIAL STATE DENSITIES ++++++++++
+
+ Particle-hole state densities
+
+    Ex   P(n=3)   gp     gn                            Configuration p(p) h(p) 
+                              1 1 0 0   0 0 1 1   1 1 1 0   1 0 1 1   2 1 0 0  
+
+ 1.000  0.000  2.733  3.533 7.471E+00 1.248E+01 9.728E+00 1.139E+01 0.000E+00 
+ 2.000  0.000  2.733  3.533 1.494E+01 2.497E+01 4.559E+01 5.633E+01 8.212E+00 
+ 3.000  0.000  2.733  3.533 2.241E+01 3.745E+01 1.078E+02 1.354E+02 2.627E+01 
+ 4.000  0.000  2.733  3.533 2.988E+01 4.994E+01 1.965E+02 2.486E+02 5.453E+01 
+ 5.000  0.000  2.733  3.533 3.736E+01 6.242E+01 3.116E+02 3.959E+02 9.301E+01 
+ 6.000  0.000  2.733  3.533 4.483E+01 7.491E+01 4.530E+02 5.774E+02 1.417E+02 
+.....................................
+ Particle-hole spin distributions
+
+  n     J= 0        J= 1        J= 2        J= 3        J= 4        J= 5       
+ 
+  1  1.7785E-02  4.3554E-02  4.8369E-02  3.6832E-02  2.1025E-02  9.3136E-03  
+  2  6.3683E-03  1.7261E-02  2.3483E-02  2.4247E-02  2.0773E-02  1.5284E-02  
+  3  3.4812E-03  9.7603E-03  1.4208E-02  1.6237E-02  1.5926E-02  1.3878E-02  
+  4  2.2659E-03  6.4613E-03  9.7295E-03  1.1698E-02  1.2277E-02  1.1642E-02  
+  5  1.6234E-03  4.6764E-03  7.1862E-03  8.9070E-03  9.7354E-03  9.7128E-03  
+.....................................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+We print a table with the pre-equilibrium cross sections per stage and outgoing 
+energy, for each outgoing particle. At the end of each table, we give the total
+pre-equilibrium cross sections per particle. Finally the total pre-equilibrium 
+cross section summed over outgoing particles is printed,
+
+{\small \begin{verbatim}
+
+ ++++++++++ TOTAL PRE-EQUILIBRIUM CROSS SECTIONS ++++++++++
+  
+ Pre-equilibrium cross sections for gamma
+  
+    E      Total        p=1        p=2        p=3        p=4        p=5        
+
+  0.001 2.2249E-13 9.1810E-14 5.0384E-14 3.8551E-14 4.1750E-14 0.0000E+00 0.000
+  0.002 2.1767E-12 8.9578E-13 4.9358E-13 3.7794E-13 4.0941E-13 0.0000E+00 0.000
+  0.005 2.9926E-11 1.2218E-11 6.8126E-12 5.2280E-12 5.6681E-12 0.0000E+00 0.000
+  0.010 2.2566E-10 9.0941E-11 5.1690E-11 3.9811E-11 4.3221E-11 0.0000E+00 0.000
+  0.020 1.7108E-09 6.7253E-10 3.9631E-10 3.0739E-10 3.3461E-10 0.0000E+00 0.000
+  0.050 2.4211E-08 8.9017E-09 5.7581E-09 4.5550E-09 4.9961E-09 0.0000E+00 0.000
+  0.100 1.7108E-07 5.7425E-08 4.1833E-08 3.4050E-08 3.7774E-08 0.0000E+00 0.000
+.....................................
+ 19.000 1.3505E-01 1.3040E-01 4.3802E-03 2.6369E-04 4.8448E-06 0.0000E+00 0.000
+ 19.500 1.2227E-01 1.1875E-01 3.4007E-03 1.2338E-04 6.6196E-07 0.0000E+00 0.000
+ 20.000 1.1171E-01 1.0895E-01 2.7321E-03 3.1776E-05 0.0000E+00 0.0000E+00 0.000
+ 21.000 0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00 0.000
+ 22.000 0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00 0.000
+
+         1.2864E+00 1.1291E+00 1.2096E-01 2.6279E-02 1.0140E-02 0.0000E+00 0.000
+
+ Integrated:     1.28644
+
+
+ Pre-equilibrium cross sections for neutron
+
+    E      Total        p=1        p=2        p=3        p=4        p=5        
+
+  0.001 9.4598E-02 0.0000E+00 2.6248E-02 2.5416E-02 2.0231E-02 1.4060E-02 8.642
+  0.002 1.4281E-01 0.0000E+00 3.9637E-02 3.8373E-02 3.0539E-02 2.1220E-02 1.304
+  0.005 2.6901E-01 0.0000E+00 7.4728E-02 7.2301E-02 5.7513E-02 3.9941E-02 2.453
+  0.010 4.8271E-01 0.0000E+00 1.3428E-01 1.2979E-01 1.0316E-01 7.1572E-02 4.391
+  0.020 9.7103E-01 0.0000E+00 2.7090E-01 2.6131E-01 2.0733E-01 1.4358E-01 8.790
+.....................................
+ 17.500 2.5293E-01 0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00 0.000
+ 18.000 0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00 0.000
+ 18.500 0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00 0.000
+ 19.000 0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00 0.000
+
+        2.6727E+01 0.0000E+00 0.0000E+00 0.0000E+00 1.0326E-02 1.1088E-02 4.974
+
+ Integrated:    26.72690
+
+ Total pre-equilibrium cross section:   415.82114
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\end{samplecase}
+\begin{samplecase}
+\subsubsection{Case f: Discrete direct cross sections and angular 
+distributions}
+More specific information on the characteristics of direct reactions can be 
+obtained with the following input file,
+
+{\small \begin{verbatim}
+
+#
+# n-Nb093-14MeV-discrete
+#
+# General
+#
+projectile n
+element nb
+mass 93
+energy 14.
+#
+# Output
+#
+outdiscrete         y
+outangle            y     
+outlegendre         y     
+outdirect           y
+outspectra          y
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+Now we obtain, through {\bf outdirect y}, the direct cross sections from 
+inelastic collective scattering and giant resonances. The output block
+begins with
+
+{\small \begin{verbatim}
+
+ ++++++++++ DIRECT CROSS SECTIONS ++++++++++
+
+ Direct inelastic cross sections
+
+ Level  Energy   E-out      J/P   Cross section  Def. par.
+
+   3   0.74395  13.10459    3.5+     3.27713     B  0.04108
+   4   0.80882  13.03972    2.5+     0.03425     B  0.00586
+   5   0.81032  13.03822    2.5-     2.45130     B  0.03558
+   6   0.94980  12.89874    6.5+     5.68166     B  0.05434
+   8   0.97891  12.86963    5.5+     4.86351     B  0.05031
+   9   1.08268  12.76586    4.5+     4.03323     B  0.04593
+.....................................
+  
+ Discrete direct inelastic cross section:    23.76406   Level 1- 30
+ Collective cross section in continuum  :    32.30161
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+which for the case of ${}^{93}$Nb gives the results of the weak-coupling 
+model. For every level, the angular distribution is given, since
+{\bf outangle y} was specified:
+
+{\small \begin{verbatim}
+
+ Direct inelastic angular distributions
+
+ Angle Ex= 0.744   Ex= 0.809   Ex= 0.810   Ex= 0.950   Ex= 0.979   Ex= 1.083   
+        JP= 3.5+    JP= 2.5+    JP= 2.5-    JP= 6.5+    JP= 5.5+    JP= 4.5+   
+
+   0.0 1.00425E+00 1.58216E-03 7.50804E-01 1.73829E+00 1.48762E+00 1.23259E+00 
+   2.0 1.00116E+00 1.59623E-03 7.48488E-01 1.73292E+00 1.48303E+00 1.22878E+00 
+   4.0 9.92237E-01 1.63798E-03 7.41812E-01 1.71744E+00 1.46977E+00 1.21779E+00 
+   6.0 9.78514E-01 1.70633E-03 7.31535E-01 1.69357E+00 1.44933E+00 1.20082E+00 
+.....................................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+The table with total giant resonance results is given next,
+
+{\small \begin{verbatim}
+
+ ++++++++++ GIANT RESONANCES ++++++++++
+
+      Cross section   Exc. energy Emis. energy   Width    Deform. par.
+
+ GMR  :     0.00000    16.37500    -2.52646     3.00000     0.02645
+ GQR  :     0.00000    14.34671    -0.49817     4.14092     0.14236
+ LEOR :    24.61940     6.84228     7.00626     5.00000     0.15971
+ HEOR :     0.00000    25.38264   -11.53410     7.36250     0.13210
+
+ Total:    24.61940
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+followed, since {\bf outspectra y}, by the associated spectra,
+
+{\small \begin{verbatim}
+
+ Giant resonance spectra
+
+  Energy   Total       GMR        GQR       LEOR       HEOR     Collective
+
+   0.001 7.7214E-03 0.0000E+00 0.0000E+00 7.7214E-03 0.0000E+00 0.0000E+00
+   0.002 7.7337E-03 0.0000E+00 0.0000E+00 7.7337E-03 0.0000E+00 0.0000E+00
+   0.005 7.7706E-03 0.0000E+00 0.0000E+00 7.7706E-03 0.0000E+00 0.0000E+00
+   0.010 7.8325E-03 0.0000E+00 0.0000E+00 7.8325E-03 0.0000E+00 0.0000E+00
+   0.020 7.9577E-03 0.0000E+00 0.0000E+00 7.9577E-03 0.0000E+00 0.0000E+00
+   0.050 8.3441E-03 0.0000E+00 0.0000E+00 8.3441E-03 0.0000E+00 0.0000E+00
+.....................................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+The total, i.e. direct $+$ compound cross section per discrete level of 
+each residual nucleus was already described for sample 1b. In addition, we have
+now requested the angular distributions and the associated Legendre 
+coefficients. 
+First, the angular distribution for elastic scattering, separated by direct and 
+compound contribution, is given. Since {\bf outlegendre y} it is given first in 
+terms of Legendre coefficients. This output block begins with:
+
+{\small \begin{verbatim}
+
+ 8. Discrete state angular distributions
+
+ 8a1. Legendre coefficients for elastic scattering
+
+   L       Total           Direct         Compound       Normalized
+
+   0     1.75971E+02     1.75971E+02     4.71035E-05     7.95776E-02
+   1     1.55728E+02     1.55728E+02     0.00000E+00     7.04232E-02
+   2     1.39720E+02     1.39720E+02     1.86062E-06     6.31840E-02
+   3     1.21488E+02     1.21488E+02     0.00000E+00     5.49390E-02
+   4     1.02659E+02     1.02659E+02     3.25580E-07     4.64241E-02
+.....................................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+where the final column means division of the Legendre coefficients by the
+cross section.
+This is followed by the associated angular distribution. This output block 
+begins with:
+
+{\small \begin{verbatim}
+
+ 8a2. Elastic scattering angular distribution
+
+ Angle        Total          Direct         Compound
+
+   0.0     6.69554E+03     6.69554E+03     6.12260E-05
+   2.0     6.62134E+03     6.62134E+03     6.11570E-05
+   4.0     6.40317E+03     6.40317E+03     6.09526E-05
+   6.0     6.05390E+03     6.05390E+03     6.06204E-05
+   8.0     5.59369E+03     5.59369E+03     6.01725E-05
+  10.0     5.04824E+03     5.04824E+03     5.96247E-05
+  12.0     4.44657E+03     4.44657E+03     5.89949E-05
+.....................................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+Next, the Legendre coefficients for inelastic scattering to each discrete
+level, separated by the direct and 
+compound contribution, is given. This output block begins with:
+
+{\small \begin{verbatim}
+
+ 8b1. Legendre coefficients for inelastic scattering
+  
+    Level  1
+  
+   L       Total           Direct         Compound       Normalized
+  
+   0     5.43660E-04     5.33254E-04     1.04057E-05     7.95775E-02
+   1     1.86109E-04     1.86109E-04     0.00000E+00     2.72415E-02
+   2     6.20916E-05     6.21244E-05    -3.27812E-08     9.08857E-03
+   3     1.66523E-05     1.66523E-05     0.00000E+00     2.43746E-03
+   4    -1.37214E-05    -1.35853E-05    -1.36110E-07    -2.00846E-03
+   5    -1.90397E-05    -1.90397E-05     0.00000E+00    -2.78691E-03
+   6    -1.61471E-05    -1.61584E-05     1.12224E-08    -2.36352E-03
+.....................................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+which is also followed by the associated angular distributions. This output 
+block begins with:
+
+{\small \begin{verbatim}
+
+ 8b2. Inelastic angular distributions    
+   
+    Level  1
+   
+ Angle       Total         Direct       Compound
+  
+   0.0    1.07320E-03    1.06392E-03    9.28143E-06
+   2.0    1.07540E-03    1.06611E-03    9.28519E-06
+   4.0    1.08196E-03    1.07266E-03    9.29647E-06
+   6.0    1.09280E-03    1.08348E-03    9.31533E-06
+   8.0    1.10774E-03    1.09840E-03    9.34185E-06
+  10.0    1.12646E-03    1.11708E-03    9.37618E-06
+  12.0    1.14844E-03    1.13902E-03    9.41848E-06
+.....................................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+Finally, the same is given for the $(n,p)$ and the other channels.
+\subsubsection{Case g: Discrete gamma-ray production cross sections}
+The gamma-ray intensity for each mother and daughter discrete level appearing 
+in the reaction can be obtained with the following input file,
+
+{\small \begin{verbatim}
+
+#
+# n-Nb093-14MeV-gamma
+#
+# General
+#
+projectile n
+element nb
+mass 93
+energy 14.
+#
+# Output
+#
+outgamdis           y
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+For all discrete gamma-ray transitions, the intensity is printed.
+For each nucleus, the initial level and the final level is given, the 
+associated gamma energy and the cross section.
+This output block begins with:  
+
+{\small \begin{verbatim}
+
+ 10. Gamma-ray intensities
+
+ Nuclide:  94Nb
+
+     Initial level          Final level     Gamma Energy  Cross section
+
+  no.  J/Pi    Ex         no.  J/Pi    Ex
+
+   2   4.0+  0.0587  --->  1   3.0+  0.0409    0.01780    2.11853E-01
+   3   6.0+  0.0787  --->  0   6.0+  0.0000    0.07867    2.12745E-01
+   4   5.0+  0.1134  --->  0   6.0+  0.0000    0.11340    8.56884E-02
+   4   5.0+  0.1134  --->  2   4.0+  0.0587    0.05470    3.36955E-02
+   5   2.0-  0.1403  --->  1   3.0+  0.0409    0.09941    2.43882E-01
+   6   2.0-  0.3016  --->  5   2.0-  0.1403    0.16126    5.42965E-02
+   7   4.0+  0.3118  --->  2   4.0+  0.0587    0.25311    5.48060E-02
+.....................................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+When we discuss multiple incident energy runs in the other sample cases, 
+we will see 
+how the excitation functions for gamma production cross sections per level are
+accumulated and how they can be written to separate files for easy processing.
+\subsubsection{Case h: The full output file}    
+In this sample case we print basically everything that can be printed in the
+main output file for a single-energy reaction on a non-fissile nucleus. 
+The input file is
+
+{\small \begin{verbatim}
+
+#
+# n-Nb093-14MeV-full
+#
+# General
+#
+projectile n
+element nb
+mass 93
+energy 14.
+#
+# Output
+#
+outbasic            y
+outpreequilibrium   y
+outspectra          y
+outangle            y     
+outlegendre         y     
+ddxmode             2
+outgamdis           y
+partable            y    
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+resulting in an output file that contains all nuclear structure information, 
+all partial results, and moreover all intermediate results of the 
+calculation, as well as results of intermediate checking. Note that basically
+all flags in the "Output" block on top of the output file are set to {\bf y},
+the only exceptions being irrelevant for this sample case.
+In addition to the 
+output that is already described, various other output blocks are present.
+First, since {\bf outbasic y} automatically means {\bf outomp y}, a block with 
+optical model parameters is printed.
+The optical model parameters for all
+included particles are given as a function of incident energy.
+This output block begins with:
+
+{\small \begin{verbatim}
+
+ ######### OPTICAL MODEL PARAMETERS ##########
+ 
+           neutron  on  93Nb
+ 
+  Energy    V     rv    av    W     rw    aw    Vd   rvd   avd    Wd   rwd   awd
+
+   0.001  51.02 1.215 0.663  0.14 1.215 0.663  0.00 1.274 0.534  3.32 1.274 0.53
+   0.002  51.02 1.215 0.663  0.14 1.215 0.663  0.00 1.274 0.534  3.32 1.274 0.53
+   0.005  51.02 1.215 0.663  0.14 1.215 0.663  0.00 1.274 0.534  3.32 1.274 0.53
+   0.010  51.02 1.215 0.663  0.14 1.215 0.663  0.00 1.274 0.534  3.33 1.274 0.53
+   0.020  51.02 1.215 0.663  0.14 1.215 0.663  0.00 1.274 0.534  3.33 1.274 0.53
+.....................................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+In the next part, we print general quantities that are used throughout the 
+nuclear reaction calculations, such as transmission coefficients and inverse 
+reaction cross sections.
+The transmission coefficients as
+a function of energy are given for all particles included in the calculation.
+Depending upon whether {\bf outtransenergy y} or {\bf outtransenergy n}, the 
+transmission coefficient tables will be grouped per energy or per angular 
+momentum, respectively. The latter option may be helpful to study the behavior 
+of a particular transmission coefficient as a function of energy.
+The default is {\bf outtransenergy n}, leading to the following output block,
+
+{\small \begin{verbatim}
+
+ ########## TRANSMISSION COEFFICIENTS AND INVERSE REACTION CROSS SECTIONS ######
+ 
+ Transmission coefficients for incident neutron  at   0.00101 MeV
+ 
+   L   T(L-1/2,L)   T(L+1/2,L)    Tav(L)  
+  
+   0  0.00000E+00  8.82145E-03  8.82145E-03
+   1  1.45449E-04  2.56136E-04  2.19240E-04
+  
+ Transmission coefficients for incident neutron  at   0.00202 MeV
+  
+   L   T(L-1/2,L)   T(L+1/2,L)    Tav(L)
+  
+   0  0.00000E+00  1.24534E-02  1.24534E-02
+   1  4.11628E-04  7.24866E-04  6.20454E-04
+   2  2.55785E-08  1.88791E-08  2.15588E-08
+  
+ Transmission coefficients for incident neutron  at   0.00505 MeV
+  
+   L   T(L-1/2,L)   T(L+1/2,L)    Tav(L)
+  
+   0  0.00000E+00  1.96205E-02  1.96205E-02
+   1  1.62890E-03  2.86779E-03  2.45483E-03
+   2  2.52135E-07  1.86214E-07  2.12582E-07
+.....................................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+which is repeated for each included particle type.
+Next, the (inverse) reaction cross sections 
+is given for all particles on a LAB energy grid. For neutrons also the total 
+elastic and total cross section on this energy grid is printed for completeness.
+This output block begins with:
+
+{\small \begin{verbatim}
+
+ Total cross sections for neutron
+ 
+     E        total      reaction    elastic   OMP reaction
+ 
+   0.00101  1.1594E+04  6.2369E+03  5.3566E+03  6.2369E+03
+   0.00202  1.0052E+04  4.7092E+03  5.3430E+03  4.7092E+03
+   0.00505  8.8645E+03  3.5518E+03  5.3127E+03  3.5518E+03
+   0.01011  8.4660E+03  3.1918E+03  5.2741E+03  3.1918E+03
+   0.02022  8.4357E+03  3.2208E+03  5.2148E+03  3.2208E+03
+   0.05054  8.9304E+03  3.8249E+03  5.1055E+03  3.8249E+03
+   0.10109  9.6344E+03  4.5808E+03  5.0536E+03  4.5808E+03
+   0.20217  1.0198E+04  5.0370E+03  5.1609E+03  5.0370E+03
+   0.30326  1.0068E+04  4.7878E+03  5.2799E+03  4.7878E+03
+   0.40434  9.6390E+03  4.3377E+03  5.3013E+03  4.3377E+03
+   0.50543  9.1158E+03  3.8893E+03  5.2264E+03  3.8893E+03
+   0.60651  8.5881E+03  3.5056E+03  5.0825E+03  3.5056E+03
+   0.70760  8.0915E+03  3.1968E+03  4.8946E+03  3.1968E+03
+.....................................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+The final column "OMP reaction" gives the reaction cross section as obtained 
+from the optical model. This is not necessary the same as the adopted reaction 
+cross section of the middle column, since sometimes (especially for complex 
+particles) this is overruled by 
+systematics, see the {\bf sysreaction} keyword, (p.  \pageref{key:sysreaction}).
+For the incident energy, we separately print the OMP parameters, the 
+transmission coefficients and the shape elastic angular distribution,
+
+{\small \begin{verbatim}
+
++++++++++ OPTICAL MODEL PARAMETERS FOR INCIDENT CHANNEL ++++++++++
+ 
+           neutron  on  93Nb
+ 
+  Energy    V     rv    av    W     rw    aw    Vd   rvd   avd    Wd   rwd   awd
+   
+  14.000  46.11 1.215 0.663  0.98 1.215 0.663  0.00 1.274 0.534  6.84 1.274 0.53
+   
+ Optical model results  
+   
+ Total cross section   : 3.9819E+03 mb
+ Reaction cross section: 1.7706E+03 mb
+ Elastic cross section : 2.2113E+03 mb
+   
+ Transmission coefficients for incident neutron  at  14.000 MeV
+   
+  L    T(L-1/2,L)   T(L+1/2,L)    Tav(L)
+   
+   0  0.00000E+00  7.46404E-01  7.46404E-01
+   1  8.02491E-01  7.78050E-01  7.86197E-01
+   2  7.77410E-01  8.08483E-01  7.96054E-01
+   3  7.75550E-01  6.94249E-01  7.29092E-01
+   4  9.15115E-01  9.53393E-01  9.36381E-01
+   5  6.01374E-01  6.19435E-01  6.11226E-01
+   6  7.00430E-01  4.72026E-01  5.77443E-01
+   7  1.15102E-01  1.90743E-01  1.55444E-01
+   8  1.59959E-02  1.88919E-02  1.75291E-02
+   9  2.36267E-03  2.49532E-03  2.43249E-03
+  10  3.55525E-04  3.61442E-04  3.58625E-04
+  11  5.38245E-05  5.39431E-05  5.38864E-05
+  12  8.20113E-06  8.17260E-06  8.18630E-06
+  13  1.26174E-06  1.25428E-06  1.25788E-06
+
+ Shape elastic scattering angular distribution
+
+ Angle    Cross section
+
+   0.0     6.69554E+03
+   2.0     6.62134E+03
+   4.0     6.40317E+03
+   6.0     6.05390E+03
+   8.0     5.59369E+03
+  10.0     5.04824E+03
+  12.0     4.44657E+03
+  14.0     3.81867E+03
+  16.0     3.19323E+03
+  18.0     2.59561E+03
+  20.0     2.04638E+03
+.....................................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+At some point during a run, TALYS has performed the direct reaction calculation
+and the pre-equilibrium calculation. A table is printed which shows the part 
+of the reaction population that is left for the formation of a compound 
+nucleus. Since the 
+pre-equilibrium cross sections are calculated on an emission energy grid, 
+there is always a small numerical error when transferring these results to the 
+excitation energy grid. The pre-equilibrium spectra are therefore normalized.
+The output block looks as follows
+
+{\small \begin{verbatim}
+
+ ########## POPULATION CHECK ##########
+
+ Particle Pre-equilibrium Population
+  
+ gamma        1.28644     1.27794
+ neutron    428.71729   410.91696
+ proton      25.24361    25.20203
+ deuteron     3.50197     3.49032 
+ triton       0.09480     0.09451
+ helium-3     0.00000     0.00000
+ alpha       26.72690    26.64193
+
+ ++++++++++ Normalization of reaction cross section ++++++++++
+   
+ Reaction cross section          : 1770.63000 (A)
+ Sum over T(j,l)                 : 1770.62537 (B)
+ Compound nucleus formation c.s. : 1243.46240 (C)
+ Ratio C/B                       :    0.70227
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+After the compound nucleus 
+calculation, the results from the binary reaction are printed. First, the 
+binary cross sections for the included outgoing particles are printed, 
+followed by, if {\bf outspectra y}, the binary emission spectra. If also 
+{\bf outcheck y}, the integral over the emission spectra is checked against the 
+cross sections. The printed normalization factor has
+been applied to the emission spectra. This output block begins with:
+
+{\small \begin{verbatim}
+
+ ########## BINARY CHANNELS ###########
+
+ ++++++++++ BINARY CROSS SECTIONS ++++++++++
+
+ gamma    channel to Z= 41 N= 53 ( 94Nb): 2.23665E+00
+ neutron  channel to Z= 41 N= 52 ( 93Nb): 1.68950E+03
+ proton   channel to Z= 40 N= 53 ( 93Zr): 3.79183E+01
+ deuteron channel to Z= 40 N= 52 ( 92Zr): 1.04112E+01
+ triton   channel to Z= 40 N= 51 ( 91Zr): 6.70826E-01
+ helium-3 channel to Z= 39 N= 52 ( 91Y ): 2.35820E-08
+ alpha    channel to Z= 39 N= 51 ( 90Y ): 2.98966E+01
+
+ Binary emission spectra
+
+  Energy   gamma       neutron     proton      deuteron    triton      helium-3 
+
+   0.001 1.14462E-06 1.89788E+00 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+0
+   0.002 2.28923E-06 3.74165E+00 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+0
+   0.005 5.72311E-06 9.25456E+00 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+0
+   0.010 1.14464E-05 1.84461E+01 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+0
+   0.020 2.28940E-05 3.68901E+01 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+0
+   0.050 5.72550E-05 9.26411E+01 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+0
+   0.100 1.14633E-04 1.86293E+02 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+0
+   0.200 2.30055E-04 3.28686E+02 2.64905E-30 1.35926E-43 0.00000E+00 0.00000E+0
+   0.300 7.48114E-04 4.14446E+02 3.56019E-23 9.99027E-34 9.03852E-41 0.00000E+0
+   0.400 1.81798E-03 4.97986E+02 5.12047E-19 1.48517E-27 3.14528E-33 0.00000E+0
+   0.500 2.88939E-03 5.48371E+02 3.42302E-16 1.47275E-23 2.43692E-28 0.00000E+0
+   0.600 3.96241E-03 5.39365E+02 4.07677E-14 1.28871E-20 9.22918E-25 0.00000E+0
+   0.700 5.03710E-03 5.29973E+02 1.64259E-12 2.45195E-18 5.46266E-22 0.00000E+0
+.....................................
+ ++++++++++ CHECK OF INTEGRATED BINARY EMISSION SPECTRA ++++++++++
+ 
+             Continuum cross section  Integrated spectrum  Compound normalizatio
+    
+ gamma              2.19555E+00           2.19555E+00           1.00011E+00     
+ neutron            1.66025E+03           1.64343E+03           1.01805E+00     
+ proton             3.43220E+01           3.43220E+01           1.00226E+00     
+ deuteron           3.51689E+00           3.51689E+00           1.02829E+00     
+ triton             9.54471E-02           9.54471E-02           1.01145E+00     
+ helium-3           2.86109E-10           2.86109E-10           0.00000E+00     
+ alpha              2.86177E+01           2.86176E+01           9.99189E-01     
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+Since {\bf outpopulation y}, the population that remains in the first set of 
+residual nuclides after binary emission is printed,
+
+{\small \begin{verbatim}
+
+ ++++++++++ POPULATION AFTER BINARY EMISSION ++++++++++
+
+ Population of Z= 41 N= 53 ( 94Nb) after binary gamma    emission: 2.23665E+00
+Maximum excitation energy:  21.076 Discrete levels: 10 Continuum bins: 40 Conti
+ 
+ bin    Ex    Popul.    J= 0.0-   J= 0.0+   J= 1.0-   J= 1.0+   J= 2.0-   J= 2.0
+
+  0   0.000 3.206E-07 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+
+  1   0.041 1.889E-07 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+
+  2   0.059 2.525E-07 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+
+  3   0.079 1.528E-03 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+
+  4   0.113 3.443E-03 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+
+  5   0.140 1.051E-02 0.000E+00 0.000E+00 0.000E+00 0.000E+00 1.051E-02 0.000E+
+  6   0.302 9.579E-03 0.000E+00 0.000E+00 0.000E+00 0.000E+00 9.579E-03 0.000E+
+  7   0.312 1.818E-03 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+
+  8   0.334 4.717E-03 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+
+  9   0.396 6.486E-03 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+
+ 10   0.450 3.014E-03 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+
+ 11   0.708 3.665E-02 2.036E-04 1.520E-04 1.592E-03 1.152E-03 3.293E-03 2.540E-
+ 12   1.224 5.702E-02 2.592E-04 1.935E-04 2.065E-03 1.494E-03 4.428E-03 3.415E-
+.....................................
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+where in this case bins 0-10 concern discrete levels and bins 11-50 concern 
+continuum bins.
+
+After this output of the binary emission, we print
+for each nuclide in the decay chain the population as a function of 
+excitation energy, spin and parity {\em before} it decays. This loop starts 
+with the initial compound nucleus and the nuclides formed by binary emission. 
+When all excitation energy bins of the nucleus have been depleted, the final
+production cross section (per ground state/isomer) is printed. The feeding from 
+this nuclide to all its daughter nuclides is also given. If in addition 
+{\bf outspectra y}, the emission spectra for all outgoing particles from this 
+nucleus are printed. At high incident energies, when generally 
+{\bf multipreeq y}, the result from multiple pre-equilibrium emission is 
+printed (not included in this output). If {\bf outcheck y}, it is checked 
+whether the integral over the 
+emission spectra from this nucleus is equal to the corresponding feeding cross 
+section. This output block begins with:
+
+{\small \begin{verbatim}
+
+ ########## MULTIPLE EMISSION ##########
+
+ Population of Z= 41 N= 53 ( 94Nb) before decay: 3.58813E+00
+Maximum excitation energy:  21.076 Discrete levels: 10 Continuum bins: 40 Conti
+
+ bin    Ex    Popul.    J= 0.0    J= 1.0    J= 2.0    J= 3.0    J= 4.0    J= 5.0
+
+  0   0.000 1.050E-06 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+
+  1   0.041 6.181E-07 0.000E+00 0.000E+00 0.000E+00 6.181E-07 0.000E+00 0.000E+
+  2   0.059 8.266E-07 0.000E+00 0.000E+00 0.000E+00 0.000E+00 8.266E-07 0.000E+
+  3   0.079 1.525E-03 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+
+  4   0.113 3.436E-03 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 3.436E-
+  5   0.140 1.049E-02 0.000E+00 0.000E+00 1.049E-02 0.000E+00 0.000E+00 0.000E+
+  6   0.302 9.558E-03 0.000E+00 0.000E+00 9.558E-03 0.000E+00 0.000E+00 0.000E+
+  7   0.312 1.814E-03 0.000E+00 0.000E+00 0.000E+00 0.000E+00 1.814E-03 0.000E+
+  8   0.334 4.706E-03 0.000E+00 0.000E+00 0.000E+00 4.706E-03 0.000E+00 0.000E+
+  9   0.396 6.472E-03 0.000E+00 0.000E+00 0.000E+00 6.472E-03 0.000E+00 0.000E+
+ 10   0.450 3.008E-03 0.000E+00 0.000E+00 0.000E+00 3.008E-03 0.000E+00 0.000E+
+ 11   0.708 3.657E-02 1.517E-04 1.150E-03 2.536E-03 3.531E-03 3.593E-03 2.702E-
+ 12   1.224 5.693E-02 1.939E-04 1.497E-03 3.419E-03 5.023E-03 5.489E-03 4.513E-
+ 13   1.739 6.580E-02 1.843E-04 1.443E-03 3.395E-03 5.210E-03 6.036E-03 5.335E-
+ 14   2.255 7.347E-02 1.744E-04 1.381E-03 3.323E-03 5.274E-03 6.390E-03 5.973E-
+.....................................
+ Emitted flux per excitation energy bin of Z= 41 N= 53 ( 94Nb):
+   
+bin    Ex      gamma       neutron     proton      deuteron    triton      heli
+
+  0   0.000 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00 0.00000
+  1   0.041 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00 0.00000
+  2   0.059 2.11853E-01 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00 0.00000
+  3   0.079 2.12745E-01 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00 0.00000
+  4   0.113 1.19384E-01 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00 0.00000
+  5   0.140 2.43882E-01 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00 0.00000
+  6   0.302 5.42965E-02 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00 0.00000
+.....................................
+ Emission cross sections to residual nuclei from Z= 41 N= 53 ( 94Nb):
+   
+ gamma    channel to Z= 41 N= 53 ( 94Nb): 2.66180E+00
+ neutron  channel to Z= 41 N= 52 ( 93Nb): 1.05107E+00
+ proton   channel to Z= 40 N= 53 ( 93Zr): 1.67352E-03
+ deuteron channel to Z= 40 N= 52 ( 92Zr): 1.07608E-06
+ triton   channel to Z= 40 N= 51 ( 91Zr): 2.06095E-08
+ helium-3 channel to Z= 39 N= 52 ( 91Y ): 1.07027E-16
+ alpha    channel to Z= 39 N= 51 ( 90Y ): 4.69800E-04
+   
+ Emission spectra from Z= 41 N= 53 ( 94Nb):
+   
+  Energy   gamma       neutron     proton      deuteron    triton      helium-3 
+
+   0.001 1.14218E-02 5.11503E-03 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+0
+   0.002 1.19276E-02 1.10501E-02 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+0
+   0.005 1.34434E-02 3.25383E-02 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+0
+   0.010 1.59698E-02 7.24291E-02 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+0
+   0.020 2.10227E-02 1.27402E-01 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+0
+   0.050 4.45166E-02 2.33433E-01 0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+0
+.....................................
+ ++++++++++ CHECK OF INTEGRATED EMISSION SPECTRA ++++++++++
+   
+             Cross section   Integrated spectrum  Average emission energy
+ 
+ gamma        2.66180E+00     2.66180E+00             1.776
+ neutron      1.05107E+00     1.05107E+00             1.174
+ proton       1.67352E-03     1.67334E-03             5.377
+ deuteron     1.07608E-06     7.97929E-07             5.635
+ triton       2.06095E-08     0.00000E+00             0.000
+ helium-3     1.07027E-16     0.00000E+00             0.000
+ alpha        4.69800E-04     4.69563E-04            10.831
+   
+ Final production cross section of Z= 41 N= 53 ( 94Nb):    
+  
+ Total       : 1.18344E+00
+ Ground state: 5.75062E-01
+ Level  1    : 6.08379E-01
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+Note that once a new nucleus is encountered in the reaction chain, all nuclear 
+structure information for that nucleus is printed as well.
+\subsubsection{Case i: No output at all}
+It is even possible to have an empty output file. With the following input file,
+
+{\small \begin{verbatim}
+
+#
+# General
+#
+projectile n
+element nb
+mass 93
+energy 14.
+#
+# Output
+#
+outmain n
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+it is specified that even the main output should be suppressed. 
+The sample output file should be empty. This can be helpful 
+when TALYS is invoked as a subroutine from other programs and the output from 
+TALYS is not required (if the communication is done e.g. through 
+shared arrays or subroutine variables). We have not yet used this option
+ourselves.
+\end{samplecase}

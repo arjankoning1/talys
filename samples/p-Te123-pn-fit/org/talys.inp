@@ -1,0 +1,18 @@
+#
+# p-Te123-pn-fit
+#
+# General
+#
+projectile p
+element Te
+mass 123
+energy 1. 30. 0.5
+#
+# Adjusted parameters
+#
+rvadjust     p    0.95947
+rwdadjust    p    0.93338
+rvadjust     n    1.02377
+gadjust       53 124    0.99089
+gadjust       53 123    1.09408
+ctableadjust  53 123 -2.54809E-01 0

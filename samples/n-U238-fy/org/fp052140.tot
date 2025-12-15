@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Te140
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 52
+#     A: 140
+#     nuclide: Te140
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   1.081740E-03   4.191036E-03   7.046216E-03   2.729964E-02
+   1.600000E+00   8.011289E-04   4.347201E-03   6.818938E-02   3.700213E-01
+   5.500000E+00   2.657158E-04   3.117565E-03   1.515407E-01   1.777994E+00
+   1.000000E+01   1.091655E-04   2.230275E-03   6.667358E-02   1.362163E+00

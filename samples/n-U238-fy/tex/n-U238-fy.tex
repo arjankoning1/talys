@@ -1,0 +1,53 @@
+\begin{samplecase}
+{\bf Fission yields for ${}^{238}$U}\newline
+
+In this sample case we compute fission fragment/product mass/isotope yields.
+The fission fragment mass yield curve is determined for neutrons on $^{238}$U 
+at incident energies of 1.6 and 5.5 MeV (these incident energies are given 
+in the file {\em energies}). The following input file is used:
+
+\VerbatimInput{\samples n-U238-fy/org/talys.inp}
+
+The long list of adjustable parameters, not visible here but automatically 
+taken from 
+{\em talys/structure/best/U238/z092a238n.best} through the {\bf best y} keyword,
+is mainly needed to give a decent (though not yet perfect) description of the 
+total fission cross section.
+For completeness, we show the results for ${}^{238}$U we obtained 
+for incident energies of 1, 1.6, 3.5, 5.5, 7.5 and 10 MeV.
+The TALYS results for the pre-neutron emission mass yields can be found in
+{\em yield001.600.fis} and {\em yield005.500.fis} and are given in the
+upper plot of Fig.~\ref{u238mass}.
+The two other plots show a comparison of the normalized yields with
+experimental data ~\cite{Vives2000}.
+
+Since we have added the keyword {\em ffevaporation y} to the input,
+we have also calculated the fission product isotope yields.
+Fig.~\ref{u238iso} contains the result for the production of the fission
+products $^{115}$Cd and $^{140}$Ba. The left plot shows the cumulative
+yield (obtained after adding the calculated independent yields of all
+beta-decay precursors). The normalized cumulative yields are compared to
+experimental data \cite{Nagy1978,Chapman1978} in the other two plots.
+\end{samplecase}
+\begin{figure}
+\centering\includegraphics[scale=0.45]{massyield1}
+\centering\includegraphics[scale=0.45]{massyield2}
+\centering\includegraphics[scale=0.45]{massyield3}
+\caption{Fission fragment mass yield curves as function of the mass number A,
+produced by 1.6 MeV and
+5.5 MeV neutrons on ${}^{238}$U. The upper curve shows the results as they
+are produced by TALYS and the other two plots contain the comparison with
+experimental data in terms of normalized yields \protect\cite{Vives2000}.}
+\label{u238mass}
+\end{figure}
+\begin{figure}
+\centering\includegraphics[scale=0.45]{fpyield1}
+\centering\includegraphics[scale=0.45]{fpyield2}
+\centering\includegraphics[scale=0.45]{fpyield3}
+\caption{Fission product isotope yields produced by neutrons on $^{238}$U
+as function of the mass number A.
+The upper plot shows the results for $^{115}$Cd and $^{140}$Ba as they
+are produced by TALYS and the other two plots contain the comparison with
+experimental data in terms of normalized yields \protect\cite{Nagy1978,Chapman1978}.}
+\label{u238iso}
+\end{figure}

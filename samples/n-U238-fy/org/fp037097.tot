@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Rb97
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 37
+#     A: 97
+#     nuclide: Rb97
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   2.442511E-03   9.719697E-03   1.590997E-02   6.331234E-02
+   1.600000E+00   2.671474E-03   1.022300E-02   2.273868E-01   8.701525E-01
+   5.500000E+00   1.881748E-03   7.451203E-03   1.073183E+00   4.249533E+00
+   1.000000E+01   1.696248E-03   7.211141E-03   1.035995E+00   4.404278E+00

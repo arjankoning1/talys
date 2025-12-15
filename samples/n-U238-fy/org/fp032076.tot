@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Ge76
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 32
+#     A: 76
+#     nuclide: Ge76
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   4.524093E-06   1.094174E-07   2.946893E-05   7.127248E-07
+   1.600000E+00   1.967319E-05   1.658899E-07   1.674516E-03   1.412007E-05
+   5.500000E+00   3.067178E-05   2.137334E-05   1.749247E-02   1.218953E-02
+   1.000000E+01   2.646230E-05   9.194326E-06   1.616203E-02   5.615529E-03

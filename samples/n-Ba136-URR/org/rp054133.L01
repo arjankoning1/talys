@@ -1,0 +1,46 @@
+# header: 
+#   title: Ba136(n,x)Xe133m cross section
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 56
+#   A: 136
+#   nuclide: Ba136
+# reaction: 
+#   type: (n,x)
+#   Q-value [MeV]:  4.169982E+00
+#   E-threshold [MeV]:  0.000000E+00
+#   ENDF_MF: 6
+#   ENDF_MT: 5
+#   residual: 
+#     Z: 54
+#     A: 133
+#     nuclide: Xe133m
+#   parameters: 
+#     mass [amu]:  1.329059E+02
+#     level: 
+#       number: 1
+#       energy [MeV]:  2.332210E-01
+#       spin:  5.500000E+00
+#       parity: -1
+#       isomer: 1
+#       half-life [sec]:  1.899000E+05
+#   quantity: 
+#     type: cross section
+#   datablock: 
+#     columns: 3
+#     entries: 10
+##       E             xs       Isomeric_ratio
+##     [MeV]          [mb]            []
+   1.000000E-03   0.000000E+00   0.000000E+00
+   2.000000E-03   0.000000E+00   0.000000E+00
+   5.000000E-03   0.000000E+00   0.000000E+00
+   1.000000E-02   0.000000E+00   0.000000E+00
+   2.000000E-02   0.000000E+00   0.000000E+00
+   5.000000E-02   0.000000E+00   0.000000E+00
+   1.000000E-01   0.000000E+00   0.000000E+00
+   2.000000E-01   0.000000E+00   0.000000E+00
+   5.000000E-01   0.000000E+00   0.000000E+00
+   1.000000E+00   0.000000E+00   0.000000E+00

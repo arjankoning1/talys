@@ -1,0 +1,78 @@
+\begin{samplecase}
+{\bf Recoils: 20 MeV  n + ${}^{28}$Si}\newline
+In this sample case, we calculate the recoils of the residual nuclides
+produced by 20 MeV neutrons incident on ${}^{28}$Si reaction. Two methods are
+compared.
+\subsubsection{Case a: ``Exact'' approach}
+In the exact approach, each excitation energy bin of the population of each
+residual nucleus is described by a full distribution of kinetic recoil
+energies.
+The following input file is used
+
+\VerbatimInput{\samples n-Si028-recoil-exact/org/talys.inp}
+
+{\small \begin{verbatim}
+
+#
+# General
+#
+projectile n
+element si
+mass 28
+energy 20.
+#
+# Parameters
+#
+m2constant 0.70
+sysreaction p d t h a
+spherical y
+#
+# Output
+#
+recoil y
+filerecoil y
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+For increasing incident energies, this calculation becomes quickly
+time-expensive.
+The recoil calculation yields separate files with the recoil spectrum per
+residual nucleus, starting with {\it rec}, followed by the Z, A and incident
+energy, e.g. {\em rec012024spec020.000.tot}. Also following additional
+output block is printed:
+
+{\small \begin{verbatim}
+
+ 8. Recoil spectra
+
+ Recoil Spectrum for  29Si
+
+  Energy   Cross section
+
+   0.018 0.00000E+00
+   0.053 0.00000E+00
+   0.088 0.00000E+00
+.....................................
+   0.676 3.21368E+00
+   0.720 3.22112E+00
+   0.763 3.21215E+00
+   0.807 3.10619E+00
+   0.851 2.60156E+00
+   0.894 2.30919E-01
+
+ Integrated recoil spectrum       :  1.04358E+00
+ Residual production cross section:  9.71110E-01
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+
+
+\subsubsection{Case b: Approximative approach}
+As an approximation, each excitation energy bin of the population of each
+residual nucleus is described by a an average kinetic recoil energy.
+For this, we add one line to the input file above,
+{\small \begin{verbatim}
+
+recoilaverage y
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+The results, together with those of case (a), are compared in
+Fig.~\ref{CM2LAB}.
+\end{samplecase}

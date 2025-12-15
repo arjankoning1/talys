@@ -1,0 +1,26 @@
+# header: 
+#   title: Th232(p,f) cross section for Gd167
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 90
+#   A: 232
+#   nuclide: Th232
+# reaction: 
+#   type: (p,f)
+#   ENDF_MF: 6
+#   ENDF_MT: 5
+#   residual: 
+#     Z: 64
+#     A: 167
+#     nuclide: Gd167
+#   quantity: 
+#     type: cross section
+#   datablock: 
+#     columns: 2
+#     entries: 1
+##       E            FP_xs
+##     [MeV]          [mb]
+   8.000000E+01   5.914970E-12

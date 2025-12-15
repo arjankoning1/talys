@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Rh110
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 45
+#     A: 110
+#     nuclide: Rh110
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]           []             []             []             []
+   1.000000E+00   0.000000E+00   0.000000E+00   0.000000E+00   0.000000E+00
+   1.600000E+00   1.497073E-07   1.944997E-05   1.274258E-05   1.655526E-03
+   5.500000E+00   1.023040E-05   3.013212E-07   5.834514E-03   1.718480E-04
+   1.000000E+01   4.852894E-06   3.731299E-07   2.963939E-03   2.278929E-04

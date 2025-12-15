@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Ru113
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 44
+#     A: 113
+#     nuclide: Ru113
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   5.247002E-06   1.636100E-05   3.417780E-05   1.065726E-04
+   1.600000E+00   3.554844E-07   3.627031E-07   3.025763E-05   3.087225E-05
+   5.500000E+00   2.299683E-05   6.583751E-05   1.311536E-02   3.754812E-02
+   1.000000E+01   9.120683E-05   1.366062E-04   5.570520E-02   8.343366E-02

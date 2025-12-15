@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Cd120
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 48
+#     A: 120
+#     nuclide: Cd120
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   0.000000E+00   0.000000E+00   1.669786E-05   0.000000E+00
+   1.600000E+00   1.121851E-09   1.489571E-07   9.548813E-08   1.267880E-05
+   5.500000E+00   7.322368E-06   5.927906E-06   4.176030E-03   3.380774E-03
+   1.000000E+01   4.784516E-05   1.483789E-06   2.922176E-02   9.062393E-04

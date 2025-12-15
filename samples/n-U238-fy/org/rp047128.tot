@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) cross section for Ag128
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 6
+#   ENDF_MT: 5
+#   residual: 
+#     Z: 47
+#     A: 128
+#     nuclide: Ag128
+#   quantity: 
+#     type: cross section
+#   datablock: 
+#     columns: 2
+#     entries: 4
+##       E            FP_xs
+##     [MeV]          [mb]
+   1.000000E+00   0.000000E+00
+   1.600000E+00   1.655526E-03
+   5.500000E+00   3.436567E-04
+   1.000000E+01   1.417499E-04

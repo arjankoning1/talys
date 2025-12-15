@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Ga78
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 31
+#     A: 78
+#     nuclide: Ga78
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   4.911034E-04   3.675632E-04   3.198938E-03   2.394239E-03
+   1.600000E+00   7.503386E-04   5.328954E-04   6.386628E-02   4.535854E-02
+   5.500000E+00   7.393624E-04   5.558034E-04   4.216668E-01   3.169830E-01
+   1.000000E+01   7.802862E-04   6.269780E-04   4.765652E-01   3.829332E-01

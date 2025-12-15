@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for In130
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 49
+#     A: 130
+#     nuclide: In130
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   1.621375E-03   1.163346E-03   1.056128E-02   7.577827E-03
+   1.600000E+00   2.136676E-03   1.854204E-03   1.818666E-01   1.578246E-01
+   5.500000E+00   1.560670E-03   1.538417E-03   8.900678E-01   8.773824E-01
+   1.000000E+01   1.395900E-03   1.688205E-03   8.525556E-01   1.031088E+00

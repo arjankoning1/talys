@@ -1,0 +1,27 @@
+#
+# p-Mo100-medical
+#
+# General
+#
+projectile p
+element    Mo
+mass       100
+energy     8. 30. 0.5
+#
+# Spherical OMP and adjusted parameters
+#
+spherical y
+rvadjust     p    1.00676
+rwdadjust    p    1.11091
+rvadjust     n    1.04395
+gadjust       43 101    1.22030
+gadjust       43 100    1.04828
+ctableadjust  43  99    1.34123 0
+s2adjust      43  99    0.14784 0
+#
+# Medical isotope production
+#
+production y
+Ibeam 0.15
+Ebeam 24.
+Eback 10.

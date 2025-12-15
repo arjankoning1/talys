@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Xe137
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 54
+#     A: 137
+#     nuclide: Xe137
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   6.873955E-03   7.954935E-04   4.477542E-02   5.181700E-03
+   1.600000E+00   8.054516E-03   7.383706E-04   6.855732E-01   6.284799E-02
+   5.500000E+00   1.346418E-02   1.093409E-03   7.678776E+00   6.235878E-01
+   1.000000E+01   2.032677E-02   1.033325E-03   1.241472E+01   6.311139E-01

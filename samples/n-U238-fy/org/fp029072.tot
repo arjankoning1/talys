@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Cu72
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 29
+#     A: 72
+#     nuclide: Cu72
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   4.393623E-06   3.422590E-06   2.861908E-05   2.229413E-05
+   1.600000E+00   3.945128E-05   5.361006E-07   3.357959E-03   4.563135E-05
+   5.500000E+00   5.189226E-05   4.557041E-05   2.959475E-02   2.598949E-02
+   1.000000E+01   1.041970E-04   8.462143E-05   6.363906E-02   5.168341E-02

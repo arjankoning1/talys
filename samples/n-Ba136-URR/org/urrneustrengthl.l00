@@ -1,0 +1,30 @@
+# header: 
+#   title: Ba136(n,urr) URR parameter - neutron strength function per l
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 56
+#   A: 136
+#   nuclide: Ba136
+# reaction: 
+#   type: (n,urr)
+#   l-value: 0
+#   quantity: 
+#     type: URR parameter
+#   datablock: 
+#     columns: 2
+#     entries: 10
+##       E          strength
+##     [MeV]           []
+   1.000000E-03   1.801899E+00
+   2.000000E-03   1.788173E+00
+   5.000000E-03   1.761158E+00
+   1.000000E-02   1.730965E+00
+   2.000000E-02   1.688839E+00
+   5.000000E-02   1.607470E+00
+   1.000000E-01   1.519658E+00
+   2.000000E-01   1.403316E+00
+   5.000000E-01   1.201471E+00
+   1.000000E+00   1.018409E+00

@@ -1,0 +1,22 @@
+# header: 
+#   title: Th232(p,f) fission yield for  A=088
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 90
+#   A: 232
+#   nuclide: Th232
+# reaction: 
+#   type: (p,f)
+#   residual: 
+#     A: 88
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 1
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]           []             []            [mb]           [mb]
+   8.000000E+01   2.796885E-02   1.870510E-02   2.355037E+00   1.575011E+00

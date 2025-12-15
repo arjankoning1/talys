@@ -1,0 +1,43 @@
+\begin{samplecase}
+{\bf Maxwellian averaged cross section at 30 keV: n + ${}^{138}$Ba}\newline
+In this sample case, the Maxwellian averaged cross section (MACS) at 30 keV is calculated.
+The following input file is used
+
+\VerbatimInput{\samples n-Ba138-MACS/org/talys.inp}
+
+where the line {\bf astroE 0.03} determines the energy in MeV for which the
+average is calculated. Note that the line {\bf energy 1.} is irrelevant, 
+but must nevertheless be given.
+The file {\em astrorate.g} looks as follows:
+{\small \begin{verbatim}
+
+# header:
+#   title: Ba138(n,g) reaction rate
+#   source: TALYS-2.0
+#   user: Arjan Koning
+#   date: 2023-12-14
+#   format: YANDF-0.1
+# target:
+#   Z: 56
+#   A: 138
+#   nuclide: Ba138
+# reaction:
+#   type: (n,g)
+#   Q-value [MeV]:  4.723434E+00
+#   E-threshold [MeV]:  0.000000E+00
+#   <E> [MeV]: 3.000000E-02
+#   astrogs: y
+# datablock:
+#   quantity: reaction rate
+#   columns: 4
+#   entries: 1
+##       T        reaction rate      MACS           G(T)
+##   [10^9 K]      [cm3/mol/s]       [mb]            []
+   3.481369E-01   8.521989E+05   5.887537E+00   1.000000E+00
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+in which the temperature, reaction rate and MACS is given.
+For this case, the deviation from a normal 30 keV calculation (which can be 
+obtained by removing the {\bf astroE} line and using {\bf energy 0.03}) is 
+small.
+\end{samplecase}

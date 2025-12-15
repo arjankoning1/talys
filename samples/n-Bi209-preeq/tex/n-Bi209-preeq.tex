@@ -1,0 +1,63 @@
+\begin{samplecase}
+{\bf Continuum spectra at 63 MeV for Bi(n,xp)...Bi(n,x$\alpha$)}\newline
+In this sample case, we calculate angle-integrated and double-differential
+particle spectra for 63 MeV neutrons on ${}^{209}$Bi, see Ref.~\cite{Raeymackers2003}.
+\subsubsection{Case a: Default calculation}
+The following input file is used
+
+\VerbatimInput{\samples n-Bi209-preeq/org/talys.inp}
+
+Note that we request that angle-integrated spectra for all particles are
+written on separate files through {\em filespectrum n p d t h a}.
+At 20, 70 and 110 degrees, we also ask for the
+double-differential spectrum for protons up to alpha-particles.
+The resulting files {\em pspec063.000.tot}, {\em pddx020.0.deg}, etc. are
+presented, together with experimental data, in Figs.~\ref{s10dx} and
+\ref{s10ddx}.
+
+The default results of case (a) for the proton spectra are a bit high.
+Therefore, as a second version of this sample case, we adjust a
+pre-equilibrium parameter and add the following to the input above:
+
+{\small \begin{verbatim}
+
+#
+# Parameters
+#
+M2constant 0.80
+\end{verbatim} } \renewcommand{\baselinestretch}{1.07}\small\normalsize
+\noindent
+By decreasing {\bf M2constant} by 20\% (which is a common and acceptable
+deviation from the average), we favor the pre-equilibrium emission
+rate over the rate rate, leading to a harder spectrum. The result is
+shown in Fig.~\ref{s10dx} for the proton spectrum.
+
+\end{samplecase}
+\begin{figure}
+\centerline{
+\centering\includegraphics[scale=0.35,angle=270]{pspec063}
+\centering\includegraphics[scale=0.35,angle=270]{dspec063}
+}
+\centerline{
+\centering\includegraphics[scale=0.35,angle=270]{tspec063}
+\centering\includegraphics[scale=0.35,angle=270]{aspec063}
+}
+\caption{Angle-integrated proton, deuteron, triton and alpha emission spectra
+for 63 MeV neutrons on ${}^{209}$Bi.
+The experimental data are from \protect\cite{Raeymackers2003}.}
+\label{s10dx}
+\end{figure}
+\begin{figure}
+\centerline{
+\centering\includegraphics[scale=0.35,angle=270]{pddx110}
+\centering\includegraphics[scale=0.35,angle=270]{dddx110}
+}
+\centerline{
+\centering\includegraphics[scale=0.35,angle=270]{tddx110}
+\centering\includegraphics[scale=0.35,angle=270]{addx110}
+}
+\caption{Double-differential proton, deuteron, triton and alpha emission
+spectra for 63 MeV neutrons on ${}^{209}$Bi.
+The experimental data are from \protect\cite{Raeymackers2003}.}
+\label{s10ddx}
+\end{figure}

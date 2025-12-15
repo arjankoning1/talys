@@ -1,0 +1,50 @@
+# header: 
+#   title: Si28(n,x) recoil emission spectrum at 2.000000E+01 MeV
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 14
+#   A: 28
+#   nuclide: Si28
+# reaction: 
+#   type: (n,x)
+#   ENDF_MF: 6
+#   ENDF_MT: 5
+#   parameters: 
+#     E-incident [MeV]:  2.000000E+01
+#     Integrated recoil spectrum [mb]:  2.239867E+02
+#     Residual production cross section [mb]:  2.239876E+02
+#   residual: 
+#     Z: 12
+#     A: 24
+#     nuclide: Mg24
+#   quantity: 
+#     type: emission spectrum
+#   datablock: 
+#     columns: 2
+#     entries: 21
+##     E-out           xs
+##     [MeV]        [mb/MeV]
+   9.820760E-02   3.941128E+01
+   2.946228E-01   4.541653E+01
+   4.910380E-01   5.732485E+01
+   6.874532E-01   8.513087E+01
+   8.838684E-01   1.165542E+02
+   1.080284E+00   1.475758E+02
+   1.276699E+00   1.605895E+02
+   1.473114E+00   1.551762E+02
+   1.669529E+00   1.288743E+02
+   1.865944E+00   7.765441E+01
+   2.062360E+00   4.185770E+01
+   2.258775E+00   2.830426E+01
+   2.455190E+00   2.206264E+01
+   2.651605E+00   1.622087E+01
+   2.848021E+00   1.034824E+01
+   3.044436E+00   5.440067E+00
+   3.240851E+00   1.873898E+00
+   3.437266E+00   5.120209E-01
+   3.633681E+00   4.614603E-02
+   3.830096E+00   0.000000E+00
+   4.026512E+00   0.000000E+00

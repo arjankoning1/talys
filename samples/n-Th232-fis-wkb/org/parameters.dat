@@ -1,0 +1,4171 @@
+## header:
+##   title: Th232(n,x) nuclear model parameters
+##   source: TALYS-2.2
+##   user: Arjan Koning
+##   date: 2025-12-14
+##   format: YANDF-0.4
+## target:
+##   Z: 90
+##   A: 232
+##   nuclide: Th232 
+## residual:
+##   Z: 90
+##   A: 233
+##   nuclide: Th233 
+## parameters: 
+##   level density
+a                90 233  16.70415
+aadjust          90 233   1.00000
+gammald          90 233   0.07697
+pair             90 233   0.78615
+Pshift           90 233   0.00000   0
+Pshiftadjust     90 233   0.00000   0
+deltaW           90 233   3.55283   0
+Ntop             90 233  22   0
+Nlow             90 233   6   0
+s2adjust         90 233   1.00000   0
+ctable           90 233   0.42091   0
+ptable           90 233   0.04523   0
+ctableadjust     90 233   0.00000   0
+ptableadjust     90 233   0.00000   0
+Ufermi           90 233  30.00000   0
+cfermi           90 233   5.00000   0
+Krotconstant     90 233   1.00000   0
+Pshift           90 233   0.00000   1
+Pshiftadjust     90 233   0.00000   1
+deltaW           90 233   1.50000   1
+Ntop             90 233   1   1
+Nlow             90 233   0   1
+s2adjust         90 233   1.00000   1
+ctable           90 233  -0.45900   1
+ptable           90 233   1.03314   1
+ctableadjust     90 233   0.00000   1
+ptableadjust     90 233   0.00000   1
+Ufermi           90 233  45.00000   1
+cfermi           90 233   5.00000   1
+Krotconstant     90 233   1.00000   1
+Pshift           90 233   0.00000   2
+Pshiftadjust     90 233   0.00000   2
+deltaW           90 233   0.60000   2
+Ntop             90 233   1   2
+Nlow             90 233   0   2
+s2adjust         90 233   1.00000   2
+ctable           90 233  -0.99677   2
+ptable           90 233  -0.07728   2
+ctableadjust     90 233   0.00000   2
+ptableadjust     90 233   0.00000   2
+Ufermi           90 233  45.00000   2
+cfermi           90 233   5.00000   2
+Krotconstant     90 233   1.00000   2
+D0               90 233 1.65000E+01
+g                90 233  15.53333
+gp               90 233   6.00000
+gn               90 233   9.53333
+gnadjust         90 233   1.00000
+gpadjust         90 233   1.00000
+gadjust          90 233   1.00000
+Risomer          90 233   1.00000
+## parameters: 
+##   photon strength function
+gamgam           90 233   0.00002
+gamgamadjust     90 233   1.00000
+etable           90 233   0.00000 E1
+ftable           90 233   1.00000 E1
+wtable           90 233   1.00000 E1
+etableadjust     90 233   0.00000 E1
+ftableadjust     90 233   1.00000 E1
+wtableadjust     90 233   1.00000 E1
+upbendc          90 233 3.50000E-08 M1
+upbende          90 233 8.00000E-01 M1
+upbendf          90 233 6.00000E+00 M1
+upbendcadjust    90 233 1.00000E+00 M1
+upbendeadjust    90 233 1.00000E+00 M1
+upbendfadjust    90 233 1.00000E+00 M1
+sgr              90 233   2.818 M1
+egr              90 233   7.256 M1
+ggr              90 233   4.000 M1
+sgradjust        90 233   1.000 M1
+egradjust        90 233   1.000 M1
+ggradjust        90 233   1.000 M1
+etable           90 233   0.00000 E2
+ftable           90 233   1.00000 E2
+wtable           90 233   1.00000 E2
+etableadjust     90 233   0.00000 E2
+ftableadjust     90 233   1.00000 E2
+wtableadjust     90 233   1.00000 E2
+upbendc          90 233 0.00000E+00 M2
+upbende          90 233 0.00000E+00 M2
+upbendf          90 233 0.00000E+00 M2
+upbendcadjust    90 233 1.00000E+00 M2
+upbendeadjust    90 233 1.00000E+00 M2
+upbendfadjust    90 233 1.00000E+00 M2
+sgr              90 233   0.002 M2
+egr              90 233   7.256 M2
+ggr              90 233   4.000 M2
+sgradjust        90 233   1.000 M2
+egradjust        90 233   1.000 M2
+ggradjust        90 233   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       90 233   1.00000
+vfiscor          90 233   0.95765
+rmiufiscor       90 233   1.62396
+betafiscoradjust   90 233   1.00000
+vfiscoradjust    90 233   1.00000
+rmiufiscoradjust   90 233   1.00000
+bdamp            90 233   0.01000  1
+bdampadjust      90 233   1.00000  1
+class2width      90 233   0.20000  1
+Rtransmom        90 233   0.60000  1
+Rclass2mom       90 233   1.00000  1
+bdamp            90 233   0.01000  2
+bdampadjust      90 233   1.00000  2
+Rtransmom        90 233   1.00000  2
+Rclass2mom       90 233   1.00000  2
+## residual:
+##   Z: 90
+##   A: 232
+##   nuclide: Th232 
+## parameters: 
+##   level density
+a                90 232  16.41599
+aadjust          90 232   1.00000
+gammald          90 232   0.07708
+pair             90 232   1.57568
+Pshift           90 232   0.00000   0
+Pshiftadjust     90 232   0.00000   0
+deltaW           90 232   3.39415   0
+Ntop             90 232  36   0
+Nlow             90 232   6   0
+s2adjust         90 232   1.00000   0
+ctable           90 232   0.15966   0
+ptable           90 232   0.23070   0
+ctableadjust     90 232   0.00000   0
+ptableadjust     90 232   0.00000   0
+Ufermi           90 232  30.00000   0
+cfermi           90 232   5.00000   0
+Krotconstant     90 232   1.00000   0
+Pshift           90 232   0.00000   1
+Pshiftadjust     90 232   0.00000   1
+deltaW           90 232   1.50000   1
+Ntop             90 232   1   1
+Nlow             90 232   0   1
+s2adjust         90 232   1.00000   1
+ctable           90 232   0.79898   1
+ptable           90 232   2.44247   1
+ctableadjust     90 232   0.00000   1
+ptableadjust     90 232   0.00000   1
+Ufermi           90 232  45.00000   1
+cfermi           90 232   5.00000   1
+Krotconstant     90 232   1.00000   1
+Pshift           90 232   0.00000   2
+Pshiftadjust     90 232   0.00000   2
+deltaW           90 232   0.60000   2
+Ntop             90 232   1   2
+Nlow             90 232   0   2
+s2adjust         90 232   1.00000   2
+ctable           90 232  -0.56815   2
+ptable           90 232   0.02313   2
+ctableadjust     90 232   0.00000   2
+ptableadjust     90 232   0.00000   2
+Ufermi           90 232  45.00000   2
+cfermi           90 232   5.00000   2
+Krotconstant     90 232   1.00000   2
+g                90 232  15.46667
+gp               90 232   6.00000
+gn               90 232   9.46667
+gnadjust         90 232   1.00000
+gpadjust         90 232   1.00000
+gadjust          90 232   1.00000
+Risomer          90 232   1.00000
+## parameters: 
+##   photon strength function
+gamgam           90 232   0.00000
+gamgamadjust     90 232   1.00000
+etable           90 232   0.00000 E1
+ftable           90 232   1.00000 E1
+wtable           90 232   1.00000 E1
+etableadjust     90 232   0.00000 E1
+ftableadjust     90 232   1.00000 E1
+wtableadjust     90 232   1.00000 E1
+upbendc          90 232 3.50000E-08 M1
+upbende          90 232 8.00000E-01 M1
+upbendf          90 232 6.00000E+00 M1
+upbendcadjust    90 232 1.00000E+00 M1
+upbendeadjust    90 232 1.00000E+00 M1
+upbendfadjust    90 232 1.00000E+00 M1
+sgr              90 232 449.000 E1 2
+egr              90 232  13.870 E1 2
+ggr              90 232   4.770 E1 2
+sgradjust        90 232   1.000 E1 2
+egradjust        90 232   1.000 E1 2
+ggradjust        90 232   1.000 E1 2
+sgr              90 232   2.808 M1
+egr              90 232   7.261 M1
+ggr              90 232   4.000 M1
+sgradjust        90 232   1.000 M1
+egradjust        90 232   1.000 M1
+ggradjust        90 232   1.000 M1
+etable           90 232   0.00000 E2
+ftable           90 232   1.00000 E2
+wtable           90 232   1.00000 E2
+etableadjust     90 232   0.00000 E2
+ftableadjust     90 232   1.00000 E2
+wtableadjust     90 232   1.00000 E2
+upbendc          90 232 0.00000E+00 M2
+upbende          90 232 0.00000E+00 M2
+upbendf          90 232 0.00000E+00 M2
+upbendcadjust    90 232 1.00000E+00 M2
+upbendeadjust    90 232 1.00000E+00 M2
+upbendfadjust    90 232 1.00000E+00 M2
+sgr              90 232   0.002 M2
+egr              90 232   7.261 M2
+ggr              90 232   4.000 M2
+sgradjust        90 232   1.000 M2
+egradjust        90 232   1.000 M2
+ggradjust        90 232   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       90 232   1.00000
+vfiscor          90 232   1.02461
+rmiufiscor       90 232   0.43445
+betafiscoradjust   90 232   1.00000
+vfiscoradjust    90 232   1.00000
+rmiufiscoradjust   90 232   1.00000
+bdamp            90 232   0.01000  1
+bdampadjust      90 232   1.00000  1
+class2width      90 232   0.20000  1
+Rtransmom        90 232   0.60000  1
+Rclass2mom       90 232   1.00000  1
+bdamp            90 232   0.01000  2
+bdampadjust      90 232   1.00000  2
+Rtransmom        90 232   1.00000  2
+Rclass2mom       90 232   1.00000  2
+## residual:
+##   Z: 89
+##   A: 232
+##   nuclide: Ac232 
+## parameters: 
+##   level density
+a                89 232  17.07309
+aadjust          89 232   1.00000
+gammald          89 232   0.07708
+pair             89 232   0.00000
+Pshift           89 232   0.00000   0
+Pshiftadjust     89 232   0.00000   0
+deltaW           89 232   4.12503   0
+Ntop             89 232  30   0
+Nlow             89 232   2   0
+s2adjust         89 232   1.00000   0
+ctable           89 232   0.00000   0
+ptable           89 232   0.00000   0
+ctableadjust     89 232   0.00000   0
+ptableadjust     89 232   0.00000   0
+Ufermi           89 232  30.00000   0
+cfermi           89 232   5.00000   0
+Krotconstant     89 232   1.00000   0
+Pshift           89 232   0.00000   1
+Pshiftadjust     89 232   0.00000   1
+deltaW           89 232   1.50000   1
+Ntop             89 232   1   1
+Nlow             89 232   0   1
+s2adjust         89 232   1.00000   1
+ctable           89 232   0.00000   1
+ptable           89 232   0.00000   1
+ctableadjust     89 232   0.00000   1
+ptableadjust     89 232   0.00000   1
+Ufermi           89 232  45.00000   1
+cfermi           89 232   5.00000   1
+Krotconstant     89 232   1.00000   1
+Pshift           89 232   0.00000   2
+Pshiftadjust     89 232   0.00000   2
+deltaW           89 232   0.60000   2
+Ntop             89 232   1   2
+Nlow             89 232   0   2
+s2adjust         89 232   1.00000   2
+ctable           89 232   0.00000   2
+ptable           89 232   0.00000   2
+ctableadjust     89 232   0.00000   2
+ptableadjust     89 232   0.00000   2
+Ufermi           89 232  45.00000   2
+cfermi           89 232   5.00000   2
+Krotconstant     89 232   1.00000   2
+Pshift           89 232   0.00000   3
+Pshiftadjust     89 232   0.00000   3
+deltaW           89 232   0.60000   3
+Ntop             89 232   1   3
+Nlow             89 232   0   3
+s2adjust         89 232   1.00000   3
+ctable           89 232   0.00000   3
+ptable           89 232   0.00000   3
+ctableadjust     89 232   0.00000   3
+ptableadjust     89 232   0.00000   3
+Ufermi           89 232  45.00000   3
+cfermi           89 232   5.00000   3
+Krotconstant     89 232   1.00000   3
+g                89 232  15.46667
+gp               89 232   5.93333
+gn               89 232   9.53333
+gnadjust         89 232   1.00000
+gpadjust         89 232   1.00000
+gadjust          89 232   1.00000
+Risomer          89 232   1.00000
+## parameters: 
+##   photon strength function
+gamgam           89 232   0.00000
+gamgamadjust     89 232   1.00000
+etable           89 232   0.00000 E1
+ftable           89 232   1.00000 E1
+wtable           89 232   1.00000 E1
+etableadjust     89 232   0.00000 E1
+ftableadjust     89 232   1.00000 E1
+wtableadjust     89 232   1.00000 E1
+upbendc          89 232 3.50000E-08 M1
+upbende          89 232 8.00000E-01 M1
+upbendf          89 232 6.00000E+00 M1
+upbendcadjust    89 232 1.00000E+00 M1
+upbendeadjust    89 232 1.00000E+00 M1
+upbendfadjust    89 232 1.00000E+00 M1
+sgr              89 232   2.808 M1
+egr              89 232   7.261 M1
+ggr              89 232   4.000 M1
+sgradjust        89 232   1.000 M1
+egradjust        89 232   1.000 M1
+ggradjust        89 232   1.000 M1
+etable           89 232   0.00000 E2
+ftable           89 232   1.00000 E2
+wtable           89 232   1.00000 E2
+etableadjust     89 232   0.00000 E2
+ftableadjust     89 232   1.00000 E2
+wtableadjust     89 232   1.00000 E2
+upbendc          89 232 0.00000E+00 M2
+upbende          89 232 0.00000E+00 M2
+upbendf          89 232 0.00000E+00 M2
+upbendcadjust    89 232 1.00000E+00 M2
+upbendeadjust    89 232 1.00000E+00 M2
+upbendfadjust    89 232 1.00000E+00 M2
+sgr              89 232   0.002 M2
+egr              89 232   7.261 M2
+ggr              89 232   4.000 M2
+sgradjust        89 232   1.000 M2
+egradjust        89 232   1.000 M2
+ggradjust        89 232   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       89 232   1.00000
+vfiscor          89 232   1.00000
+rmiufiscor       89 232   1.00000
+betafiscoradjust   89 232   1.00000
+vfiscoradjust    89 232   1.00000
+rmiufiscoradjust   89 232   1.00000
+bdamp            89 232   0.01000  1
+bdampadjust      89 232   1.00000  1
+class2width      89 232   0.20000  1
+Rtransmom        89 232   0.60000  1
+Rclass2mom       89 232   1.00000  1
+bdamp            89 232   0.01000  2
+bdampadjust      89 232   1.00000  2
+class2width      89 232   0.20000  2
+Rtransmom        89 232   1.00000  2
+Rclass2mom       89 232   1.00000  2
+bdamp            89 232   0.01000  3
+bdampadjust      89 232   1.00000  3
+Rtransmom        89 232   1.00000  3
+Rclass2mom       89 232   1.00000  3
+## residual:
+##   Z: 89
+##   A: 231
+##   nuclide: Ac231 
+## parameters: 
+##   level density
+a                89 231  16.88470
+aadjust          89 231   1.00000
+gammald          89 231   0.07719
+pair             89 231   0.78954
+Pshift           89 231   0.00000   0
+Pshiftadjust     89 231   0.00000   0
+deltaW           89 231   4.06840   0
+Ntop             89 231  22   0
+Nlow             89 231   6   0
+s2adjust         89 231   1.00000   0
+ctable           89 231  -0.03444   0
+ptable           89 231  -0.03183   0
+ctableadjust     89 231   0.00000   0
+ptableadjust     89 231   0.00000   0
+Ufermi           89 231  30.00000   0
+cfermi           89 231   5.00000   0
+Krotconstant     89 231   1.00000   0
+Pshift           89 231   0.00000   1
+Pshiftadjust     89 231   0.00000   1
+deltaW           89 231   1.50000   1
+Ntop             89 231   1   1
+Nlow             89 231   0   1
+s2adjust         89 231   1.00000   1
+ctable           89 231   0.00000   1
+ptable           89 231   0.00000   1
+ctableadjust     89 231   0.00000   1
+ptableadjust     89 231   0.00000   1
+Ufermi           89 231  45.00000   1
+cfermi           89 231   5.00000   1
+Krotconstant     89 231   1.00000   1
+Pshift           89 231   0.00000   2
+Pshiftadjust     89 231   0.00000   2
+deltaW           89 231   0.60000   2
+Ntop             89 231   1   2
+Nlow             89 231   0   2
+s2adjust         89 231   1.00000   2
+ctable           89 231   0.00000   2
+ptable           89 231   0.00000   2
+ctableadjust     89 231   0.00000   2
+ptableadjust     89 231   0.00000   2
+Ufermi           89 231  45.00000   2
+cfermi           89 231   5.00000   2
+Krotconstant     89 231   1.00000   2
+Pshift           89 231   0.00000   3
+Pshiftadjust     89 231   0.00000   3
+deltaW           89 231   0.60000   3
+Ntop             89 231   1   3
+Nlow             89 231   0   3
+s2adjust         89 231   1.00000   3
+ctable           89 231   0.00000   3
+ptable           89 231   0.00000   3
+ctableadjust     89 231   0.00000   3
+ptableadjust     89 231   0.00000   3
+Ufermi           89 231  45.00000   3
+cfermi           89 231   5.00000   3
+Krotconstant     89 231   1.00000   3
+g                89 231  15.40000
+gp               89 231   5.93333
+gn               89 231   9.46667
+gnadjust         89 231   1.00000
+gpadjust         89 231   1.00000
+gadjust          89 231   1.00000
+Risomer          89 231   1.00000
+## parameters: 
+##   photon strength function
+gamgam           89 231   0.00000
+gamgamadjust     89 231   1.00000
+etable           89 231   0.00000 E1
+ftable           89 231   1.00000 E1
+wtable           89 231   1.00000 E1
+etableadjust     89 231   0.00000 E1
+ftableadjust     89 231   1.00000 E1
+wtableadjust     89 231   1.00000 E1
+upbendc          89 231 3.50000E-08 M1
+upbende          89 231 8.00000E-01 M1
+upbendf          89 231 6.00000E+00 M1
+upbendcadjust    89 231 1.00000E+00 M1
+upbendeadjust    89 231 1.00000E+00 M1
+upbendfadjust    89 231 1.00000E+00 M1
+sgr              89 231   2.798 M1
+egr              89 231   7.267 M1
+ggr              89 231   4.000 M1
+sgradjust        89 231   1.000 M1
+egradjust        89 231   1.000 M1
+ggradjust        89 231   1.000 M1
+etable           89 231   0.00000 E2
+ftable           89 231   1.00000 E2
+wtable           89 231   1.00000 E2
+etableadjust     89 231   0.00000 E2
+ftableadjust     89 231   1.00000 E2
+wtableadjust     89 231   1.00000 E2
+upbendc          89 231 0.00000E+00 M2
+upbende          89 231 0.00000E+00 M2
+upbendf          89 231 0.00000E+00 M2
+upbendcadjust    89 231 1.00000E+00 M2
+upbendeadjust    89 231 1.00000E+00 M2
+upbendfadjust    89 231 1.00000E+00 M2
+sgr              89 231   0.002 M2
+egr              89 231   7.267 M2
+ggr              89 231   4.000 M2
+sgradjust        89 231   1.000 M2
+egradjust        89 231   1.000 M2
+ggradjust        89 231   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       89 231   1.00000
+vfiscor          89 231   1.00000
+rmiufiscor       89 231   1.00000
+betafiscoradjust   89 231   1.00000
+vfiscoradjust    89 231   1.00000
+rmiufiscoradjust   89 231   1.00000
+bdamp            89 231   0.01000  1
+bdampadjust      89 231   1.00000  1
+class2width      89 231   0.20000  1
+Rtransmom        89 231   0.60000  1
+Rclass2mom       89 231   1.00000  1
+bdamp            89 231   0.01000  2
+bdampadjust      89 231   1.00000  2
+class2width      89 231   0.20000  2
+Rtransmom        89 231   1.00000  2
+Rclass2mom       89 231   1.00000  2
+bdamp            89 231   0.01000  3
+bdampadjust      89 231   1.00000  3
+Rtransmom        89 231   1.00000  3
+Rclass2mom       89 231   1.00000  3
+## residual:
+##   Z: 89
+##   A: 230
+##   nuclide: Ac230 
+## parameters: 
+##   level density
+a                89 230  16.74592
+aadjust          89 230   1.00000
+gammald          89 230   0.07730
+pair             89 230   0.00000
+Pshift           89 230   0.00000   0
+Pshiftadjust     89 230   0.00000   0
+deltaW           89 230   3.90590   0
+Ntop             89 230  18   0
+Nlow             89 230   6   0
+s2adjust         89 230   1.00000   0
+ctable           89 230   0.28694   0
+ptable           89 230   0.35162   0
+ctableadjust     89 230   0.00000   0
+ptableadjust     89 230   0.00000   0
+Ufermi           89 230  30.00000   0
+cfermi           89 230   5.00000   0
+Krotconstant     89 230   1.00000   0
+Pshift           89 230   0.00000   1
+Pshiftadjust     89 230   0.00000   1
+deltaW           89 230   1.50000   1
+Ntop             89 230   1   1
+Nlow             89 230   0   1
+s2adjust         89 230   1.00000   1
+ctable           89 230   0.00000   1
+ptable           89 230   0.00000   1
+ctableadjust     89 230   0.00000   1
+ptableadjust     89 230   0.00000   1
+Ufermi           89 230  45.00000   1
+cfermi           89 230   5.00000   1
+Krotconstant     89 230   1.00000   1
+Pshift           89 230   0.00000   2
+Pshiftadjust     89 230   0.00000   2
+deltaW           89 230   0.60000   2
+Ntop             89 230   1   2
+Nlow             89 230   0   2
+s2adjust         89 230   1.00000   2
+ctable           89 230   0.00000   2
+ptable           89 230   0.00000   2
+ctableadjust     89 230   0.00000   2
+ptableadjust     89 230   0.00000   2
+Ufermi           89 230  45.00000   2
+cfermi           89 230   5.00000   2
+Krotconstant     89 230   1.00000   2
+Pshift           89 230   0.00000   3
+Pshiftadjust     89 230   0.00000   3
+deltaW           89 230   0.60000   3
+Ntop             89 230   1   3
+Nlow             89 230   0   3
+s2adjust         89 230   1.00000   3
+ctable           89 230   0.00000   3
+ptable           89 230   0.00000   3
+ctableadjust     89 230   0.00000   3
+ptableadjust     89 230   0.00000   3
+Ufermi           89 230  45.00000   3
+cfermi           89 230   5.00000   3
+Krotconstant     89 230   1.00000   3
+g                89 230  15.33333
+gp               89 230   5.93333
+gn               89 230   9.40000
+gnadjust         89 230   1.00000
+gpadjust         89 230   1.00000
+gadjust          89 230   1.00000
+Risomer          89 230   1.00000
+## parameters: 
+##   photon strength function
+gamgam           89 230   0.00000
+gamgamadjust     89 230   1.00000
+etable           89 230   0.00000 E1
+ftable           89 230   1.00000 E1
+wtable           89 230   1.00000 E1
+etableadjust     89 230   0.00000 E1
+ftableadjust     89 230   1.00000 E1
+wtableadjust     89 230   1.00000 E1
+upbendc          89 230 3.50000E-08 M1
+upbende          89 230 8.00000E-01 M1
+upbendf          89 230 6.00000E+00 M1
+upbendcadjust    89 230 1.00000E+00 M1
+upbendeadjust    89 230 1.00000E+00 M1
+upbendfadjust    89 230 1.00000E+00 M1
+sgr              89 230   2.788 M1
+egr              89 230   7.272 M1
+ggr              89 230   4.000 M1
+sgradjust        89 230   1.000 M1
+egradjust        89 230   1.000 M1
+ggradjust        89 230   1.000 M1
+etable           89 230   0.00000 E2
+ftable           89 230   1.00000 E2
+wtable           89 230   1.00000 E2
+etableadjust     89 230   0.00000 E2
+ftableadjust     89 230   1.00000 E2
+wtableadjust     89 230   1.00000 E2
+upbendc          89 230 0.00000E+00 M2
+upbende          89 230 0.00000E+00 M2
+upbendf          89 230 0.00000E+00 M2
+upbendcadjust    89 230 1.00000E+00 M2
+upbendeadjust    89 230 1.00000E+00 M2
+upbendfadjust    89 230 1.00000E+00 M2
+sgr              89 230   0.002 M2
+egr              89 230   7.272 M2
+ggr              89 230   4.000 M2
+sgradjust        89 230   1.000 M2
+egradjust        89 230   1.000 M2
+ggradjust        89 230   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       89 230   1.00000
+vfiscor          89 230   1.00000
+rmiufiscor       89 230   1.00000
+betafiscoradjust   89 230   1.00000
+vfiscoradjust    89 230   1.00000
+rmiufiscoradjust   89 230   1.00000
+bdamp            89 230   0.01000  1
+bdampadjust      89 230   1.00000  1
+class2width      89 230   0.20000  1
+Rtransmom        89 230   0.60000  1
+Rclass2mom       89 230   1.00000  1
+bdamp            89 230   0.01000  2
+bdampadjust      89 230   1.00000  2
+class2width      89 230   0.20000  2
+Rtransmom        89 230   1.00000  2
+Rclass2mom       89 230   1.00000  2
+bdamp            89 230   0.01000  3
+bdampadjust      89 230   1.00000  3
+Rtransmom        89 230   1.00000  3
+Rclass2mom       89 230   1.00000  3
+## residual:
+##   Z: 88
+##   A: 230
+##   nuclide: Ra230 
+## parameters: 
+##   level density
+a                88 230  17.02038
+aadjust          88 230   1.00000
+gammald          88 230   0.07730
+pair             88 230   1.58251
+Pshift           88 230   0.00000   0
+Pshiftadjust     88 230   0.00000   0
+deltaW           88 230   4.16568   0
+Ntop             88 230  22   0
+Nlow             88 230   6   0
+s2adjust         88 230   1.00000   0
+ctable           88 230   0.48478   0
+ptable           88 230   0.65550   0
+ctableadjust     88 230   0.00000   0
+ptableadjust     88 230   0.00000   0
+Ufermi           88 230  30.00000   0
+cfermi           88 230   5.00000   0
+Krotconstant     88 230   1.00000   0
+Pshift           88 230   0.00000   1
+Pshiftadjust     88 230   0.00000   1
+deltaW           88 230   1.50000   1
+Ntop             88 230   1   1
+Nlow             88 230   0   1
+s2adjust         88 230   1.00000   1
+ctable           88 230   0.00000   1
+ptable           88 230   0.00000   1
+ctableadjust     88 230   0.00000   1
+ptableadjust     88 230   0.00000   1
+Ufermi           88 230  45.00000   1
+cfermi           88 230   5.00000   1
+Krotconstant     88 230   1.00000   1
+Pshift           88 230   0.00000   2
+Pshiftadjust     88 230   0.00000   2
+deltaW           88 230   0.60000   2
+Ntop             88 230   1   2
+Nlow             88 230   0   2
+s2adjust         88 230   1.00000   2
+ctable           88 230   0.00000   2
+ptable           88 230   0.00000   2
+ctableadjust     88 230   0.00000   2
+ptableadjust     88 230   0.00000   2
+Ufermi           88 230  45.00000   2
+cfermi           88 230   5.00000   2
+Krotconstant     88 230   1.00000   2
+Pshift           88 230   0.00000   3
+Pshiftadjust     88 230   0.00000   3
+deltaW           88 230   0.60000   3
+Ntop             88 230   1   3
+Nlow             88 230   0   3
+s2adjust         88 230   1.00000   3
+ctable           88 230   0.00000   3
+ptable           88 230   0.00000   3
+ctableadjust     88 230   0.00000   3
+ptableadjust     88 230   0.00000   3
+Ufermi           88 230  45.00000   3
+cfermi           88 230   5.00000   3
+Krotconstant     88 230   1.00000   3
+g                88 230  15.33333
+gp               88 230   5.86667
+gn               88 230   9.46667
+gnadjust         88 230   1.00000
+gpadjust         88 230   1.00000
+gadjust          88 230   1.00000
+Risomer          88 230   1.00000
+## parameters: 
+##   photon strength function
+gamgam           88 230   0.00000
+gamgamadjust     88 230   1.00000
+etable           88 230   0.00000 E1
+ftable           88 230   1.00000 E1
+wtable           88 230   1.00000 E1
+etableadjust     88 230   0.00000 E1
+ftableadjust     88 230   1.00000 E1
+wtableadjust     88 230   1.00000 E1
+upbendc          88 230 3.50000E-08 M1
+upbende          88 230 8.00000E-01 M1
+upbendf          88 230 6.00000E+00 M1
+upbendcadjust    88 230 1.00000E+00 M1
+upbendeadjust    88 230 1.00000E+00 M1
+upbendfadjust    88 230 1.00000E+00 M1
+sgr              88 230   2.788 M1
+egr              88 230   7.272 M1
+ggr              88 230   4.000 M1
+sgradjust        88 230   1.000 M1
+egradjust        88 230   1.000 M1
+ggradjust        88 230   1.000 M1
+etable           88 230   0.00000 E2
+ftable           88 230   1.00000 E2
+wtable           88 230   1.00000 E2
+etableadjust     88 230   0.00000 E2
+ftableadjust     88 230   1.00000 E2
+wtableadjust     88 230   1.00000 E2
+upbendc          88 230 0.00000E+00 M2
+upbende          88 230 0.00000E+00 M2
+upbendf          88 230 0.00000E+00 M2
+upbendcadjust    88 230 1.00000E+00 M2
+upbendeadjust    88 230 1.00000E+00 M2
+upbendfadjust    88 230 1.00000E+00 M2
+sgr              88 230   0.002 M2
+egr              88 230   7.272 M2
+ggr              88 230   4.000 M2
+sgradjust        88 230   1.000 M2
+egradjust        88 230   1.000 M2
+ggradjust        88 230   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       88 230   1.00000
+vfiscor          88 230   1.00000
+rmiufiscor       88 230   1.00000
+betafiscoradjust   88 230   1.00000
+vfiscoradjust    88 230   1.00000
+rmiufiscoradjust   88 230   1.00000
+bdamp            88 230   0.01000  1
+bdampadjust      88 230   1.00000  1
+class2width      88 230   0.20000  1
+Rtransmom        88 230   0.60000  1
+Rclass2mom       88 230   1.00000  1
+bdamp            88 230   0.01000  2
+bdampadjust      88 230   1.00000  2
+class2width      88 230   0.20000  2
+Rtransmom        88 230   1.00000  2
+Rclass2mom       88 230   1.00000  2
+bdamp            88 230   0.01000  3
+bdampadjust      88 230   1.00000  3
+Rtransmom        88 230   1.00000  3
+Rclass2mom       88 230   1.00000  3
+## residual:
+##   Z: 88
+##   A: 229
+##   nuclide: Ra229 
+## parameters: 
+##   level density
+a                88 229  17.10171
+aadjust          88 229   1.00000
+gammald          88 229   0.07741
+pair             88 229   0.79298
+Pshift           88 229   0.00000   0
+Pshiftadjust     88 229   0.00000   0
+deltaW           88 229   4.18393   0
+Ntop             88 229  22   0
+Nlow             88 229   6   0
+s2adjust         88 229   1.00000   0
+ctable           88 229   0.36476   0
+ptable           88 229   0.41622   0
+ctableadjust     88 229   0.00000   0
+ptableadjust     88 229   0.00000   0
+Ufermi           88 229  30.00000   0
+cfermi           88 229   5.00000   0
+Krotconstant     88 229   1.00000   0
+Pshift           88 229   0.00000   1
+Pshiftadjust     88 229   0.00000   1
+deltaW           88 229   1.50000   1
+Ntop             88 229   1   1
+Nlow             88 229   0   1
+s2adjust         88 229   1.00000   1
+ctable           88 229   0.00000   1
+ptable           88 229   0.00000   1
+ctableadjust     88 229   0.00000   1
+ptableadjust     88 229   0.00000   1
+Ufermi           88 229  45.00000   1
+cfermi           88 229   5.00000   1
+Krotconstant     88 229   1.00000   1
+Pshift           88 229   0.00000   2
+Pshiftadjust     88 229   0.00000   2
+deltaW           88 229   0.60000   2
+Ntop             88 229   1   2
+Nlow             88 229   0   2
+s2adjust         88 229   1.00000   2
+ctable           88 229   0.00000   2
+ptable           88 229   0.00000   2
+ctableadjust     88 229   0.00000   2
+ptableadjust     88 229   0.00000   2
+Ufermi           88 229  45.00000   2
+cfermi           88 229   5.00000   2
+Krotconstant     88 229   1.00000   2
+Pshift           88 229   0.00000   3
+Pshiftadjust     88 229   0.00000   3
+deltaW           88 229   0.60000   3
+Ntop             88 229   1   3
+Nlow             88 229   0   3
+s2adjust         88 229   1.00000   3
+ctable           88 229   0.00000   3
+ptable           88 229   0.00000   3
+ctableadjust     88 229   0.00000   3
+ptableadjust     88 229   0.00000   3
+Ufermi           88 229  45.00000   3
+cfermi           88 229   5.00000   3
+Krotconstant     88 229   1.00000   3
+g                88 229  15.26667
+gp               88 229   5.86667
+gn               88 229   9.40000
+gnadjust         88 229   1.00000
+gpadjust         88 229   1.00000
+gadjust          88 229   1.00000
+Risomer          88 229   1.00000
+## parameters: 
+##   photon strength function
+gamgam           88 229   0.00000
+gamgamadjust     88 229   1.00000
+etable           88 229   0.00000 E1
+ftable           88 229   1.00000 E1
+wtable           88 229   1.00000 E1
+etableadjust     88 229   0.00000 E1
+ftableadjust     88 229   1.00000 E1
+wtableadjust     88 229   1.00000 E1
+upbendc          88 229 3.50000E-08 M1
+upbende          88 229 8.00000E-01 M1
+upbendf          88 229 6.00000E+00 M1
+upbendcadjust    88 229 1.00000E+00 M1
+upbendeadjust    88 229 1.00000E+00 M1
+upbendfadjust    88 229 1.00000E+00 M1
+sgr              88 229   2.777 M1
+egr              88 229   7.277 M1
+ggr              88 229   4.000 M1
+sgradjust        88 229   1.000 M1
+egradjust        88 229   1.000 M1
+ggradjust        88 229   1.000 M1
+etable           88 229   0.00000 E2
+ftable           88 229   1.00000 E2
+wtable           88 229   1.00000 E2
+etableadjust     88 229   0.00000 E2
+ftableadjust     88 229   1.00000 E2
+wtableadjust     88 229   1.00000 E2
+upbendc          88 229 0.00000E+00 M2
+upbende          88 229 0.00000E+00 M2
+upbendf          88 229 0.00000E+00 M2
+upbendcadjust    88 229 1.00000E+00 M2
+upbendeadjust    88 229 1.00000E+00 M2
+upbendfadjust    88 229 1.00000E+00 M2
+sgr              88 229   0.002 M2
+egr              88 229   7.277 M2
+ggr              88 229   4.000 M2
+sgradjust        88 229   1.000 M2
+egradjust        88 229   1.000 M2
+ggradjust        88 229   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       88 229   1.00000
+vfiscor          88 229   1.00000
+rmiufiscor       88 229   1.00000
+betafiscoradjust   88 229   1.00000
+vfiscoradjust    88 229   1.00000
+rmiufiscoradjust   88 229   1.00000
+bdamp            88 229   0.01000  1
+bdampadjust      88 229   1.00000  1
+class2width      88 229   0.20000  1
+Rtransmom        88 229   0.60000  1
+Rclass2mom       88 229   1.00000  1
+bdamp            88 229   0.01000  2
+bdampadjust      88 229   1.00000  2
+class2width      88 229   0.20000  2
+Rtransmom        88 229   1.00000  2
+Rclass2mom       88 229   1.00000  2
+bdamp            88 229   0.01000  3
+bdampadjust      88 229   1.00000  3
+Rtransmom        88 229   1.00000  3
+Rclass2mom       88 229   1.00000  3
+## residual:
+##   Z: 90
+##   A: 231
+##   nuclide: Th231 
+## parameters: 
+##   level density
+a                90 231  16.35438
+aadjust          90 231   1.00000
+gammald          90 231   0.07719
+pair             90 231   0.78954
+Pshift           90 231   0.00000   0
+Pshiftadjust     90 231   0.00000   0
+deltaW           90 231   3.31792   0
+Ntop             90 231  22   0
+Nlow             90 231   4   0
+s2adjust         90 231   1.00000   0
+ctable           90 231   0.38205   0
+ptable           90 231  -0.00560   0
+ctableadjust     90 231   0.00000   0
+ptableadjust     90 231   0.00000   0
+Ufermi           90 231  30.00000   0
+cfermi           90 231   5.00000   0
+Krotconstant     90 231   1.00000   0
+Pshift           90 231   0.00000   1
+Pshiftadjust     90 231   0.00000   1
+deltaW           90 231   1.50000   1
+Ntop             90 231   1   1
+Nlow             90 231   0   1
+s2adjust         90 231   1.00000   1
+ctable           90 231  -0.91530   1
+ptable           90 231   1.25861   1
+ctableadjust     90 231   0.00000   1
+ptableadjust     90 231   0.00000   1
+Ufermi           90 231  45.00000   1
+cfermi           90 231   5.00000   1
+Krotconstant     90 231   1.00000   1
+Pshift           90 231   0.00000   2
+Pshiftadjust     90 231   0.00000   2
+deltaW           90 231   0.60000   2
+Ntop             90 231   1   2
+Nlow             90 231   0   2
+s2adjust         90 231   1.00000   2
+ctable           90 231  -1.10523   2
+ptable           90 231  -0.00148   2
+ctableadjust     90 231   0.00000   2
+ptableadjust     90 231   0.00000   2
+Ufermi           90 231  45.00000   2
+cfermi           90 231   5.00000   2
+Krotconstant     90 231   1.00000   2
+D0               90 231 9.60000E+00
+g                90 231  15.40000
+gp               90 231   6.00000
+gn               90 231   9.40000
+gnadjust         90 231   1.00000
+gpadjust         90 231   1.00000
+gadjust          90 231   1.00000
+Risomer          90 231   1.00000
+## parameters: 
+##   photon strength function
+gamgam           90 231   0.00003
+gamgamadjust     90 231   1.00000
+etable           90 231   0.00000 E1
+ftable           90 231   1.00000 E1
+wtable           90 231   1.00000 E1
+etableadjust     90 231   0.00000 E1
+ftableadjust     90 231   1.00000 E1
+wtableadjust     90 231   1.00000 E1
+upbendc          90 231 3.50000E-08 M1
+upbende          90 231 8.00000E-01 M1
+upbendf          90 231 6.00000E+00 M1
+upbendcadjust    90 231 1.00000E+00 M1
+upbendeadjust    90 231 1.00000E+00 M1
+upbendfadjust    90 231 1.00000E+00 M1
+sgr              90 231   2.798 M1
+egr              90 231   7.267 M1
+ggr              90 231   4.000 M1
+sgradjust        90 231   1.000 M1
+egradjust        90 231   1.000 M1
+ggradjust        90 231   1.000 M1
+etable           90 231   0.00000 E2
+ftable           90 231   1.00000 E2
+wtable           90 231   1.00000 E2
+etableadjust     90 231   0.00000 E2
+ftableadjust     90 231   1.00000 E2
+wtableadjust     90 231   1.00000 E2
+upbendc          90 231 0.00000E+00 M2
+upbende          90 231 0.00000E+00 M2
+upbendf          90 231 0.00000E+00 M2
+upbendcadjust    90 231 1.00000E+00 M2
+upbendeadjust    90 231 1.00000E+00 M2
+upbendfadjust    90 231 1.00000E+00 M2
+sgr              90 231   0.002 M2
+egr              90 231   7.267 M2
+ggr              90 231   4.000 M2
+sgradjust        90 231   1.000 M2
+egradjust        90 231   1.000 M2
+ggradjust        90 231   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       90 231   1.00000
+vfiscor          90 231   0.94675
+rmiufiscor       90 231   1.59198
+betafiscoradjust   90 231   1.00000
+vfiscoradjust    90 231   1.00000
+rmiufiscoradjust   90 231   1.00000
+bdamp            90 231   0.01000  1
+bdampadjust      90 231   1.00000  1
+class2width      90 231   0.20000  1
+Rtransmom        90 231   0.60000  1
+Rclass2mom       90 231   1.00000  1
+bdamp            90 231   0.01000  2
+bdampadjust      90 231   1.00000  2
+Rtransmom        90 231   1.00000  2
+Rclass2mom       90 231   1.00000  2
+## residual:
+##   Z: 89
+##   A: 229
+##   nuclide: Ac229 
+## parameters: 
+##   level density
+a                89 229  16.57268
+aadjust          89 229   1.00000
+gammald          89 229   0.07741
+pair             89 229   0.79298
+Pshift           89 229   0.00000   0
+Pshiftadjust     89 229   0.00000   0
+deltaW           89 229   3.84308   0
+Ntop             89 229  21   0
+Nlow             89 229   7   0
+s2adjust         89 229   1.00000   0
+ctable           89 229   0.09111   0
+ptable           89 229   0.16572   0
+ctableadjust     89 229   0.00000   0
+ptableadjust     89 229   0.00000   0
+Ufermi           89 229  30.00000   0
+cfermi           89 229   5.00000   0
+Krotconstant     89 229   1.00000   0
+Pshift           89 229   0.00000   1
+Pshiftadjust     89 229   0.00000   1
+deltaW           89 229   1.50000   1
+Ntop             89 229   1   1
+Nlow             89 229   0   1
+s2adjust         89 229   1.00000   1
+ctable           89 229   0.00000   1
+ptable           89 229   0.00000   1
+ctableadjust     89 229   0.00000   1
+ptableadjust     89 229   0.00000   1
+Ufermi           89 229  45.00000   1
+cfermi           89 229   5.00000   1
+Krotconstant     89 229   1.00000   1
+Pshift           89 229   0.00000   2
+Pshiftadjust     89 229   0.00000   2
+deltaW           89 229   0.60000   2
+Ntop             89 229   1   2
+Nlow             89 229   0   2
+s2adjust         89 229   1.00000   2
+ctable           89 229   0.00000   2
+ptable           89 229   0.00000   2
+ctableadjust     89 229   0.00000   2
+ptableadjust     89 229   0.00000   2
+Ufermi           89 229  45.00000   2
+cfermi           89 229   5.00000   2
+Krotconstant     89 229   1.00000   2
+Pshift           89 229   0.00000   3
+Pshiftadjust     89 229   0.00000   3
+deltaW           89 229   0.60000   3
+Ntop             89 229   1   3
+Nlow             89 229   0   3
+s2adjust         89 229   1.00000   3
+ctable           89 229   0.00000   3
+ptable           89 229   0.00000   3
+ctableadjust     89 229   0.00000   3
+ptableadjust     89 229   0.00000   3
+Ufermi           89 229  45.00000   3
+cfermi           89 229   5.00000   3
+Krotconstant     89 229   1.00000   3
+g                89 229  15.26667
+gp               89 229   5.93333
+gn               89 229   9.33333
+gnadjust         89 229   1.00000
+gpadjust         89 229   1.00000
+gadjust          89 229   1.00000
+Risomer          89 229   1.00000
+## parameters: 
+##   photon strength function
+gamgam           89 229   0.00000
+gamgamadjust     89 229   1.00000
+etable           89 229   0.00000 E1
+ftable           89 229   1.00000 E1
+wtable           89 229   1.00000 E1
+etableadjust     89 229   0.00000 E1
+ftableadjust     89 229   1.00000 E1
+wtableadjust     89 229   1.00000 E1
+upbendc          89 229 3.50000E-08 M1
+upbende          89 229 8.00000E-01 M1
+upbendf          89 229 6.00000E+00 M1
+upbendcadjust    89 229 1.00000E+00 M1
+upbendeadjust    89 229 1.00000E+00 M1
+upbendfadjust    89 229 1.00000E+00 M1
+sgr              89 229   2.777 M1
+egr              89 229   7.277 M1
+ggr              89 229   4.000 M1
+sgradjust        89 229   1.000 M1
+egradjust        89 229   1.000 M1
+ggradjust        89 229   1.000 M1
+etable           89 229   0.00000 E2
+ftable           89 229   1.00000 E2
+wtable           89 229   1.00000 E2
+etableadjust     89 229   0.00000 E2
+ftableadjust     89 229   1.00000 E2
+wtableadjust     89 229   1.00000 E2
+upbendc          89 229 0.00000E+00 M2
+upbende          89 229 0.00000E+00 M2
+upbendf          89 229 0.00000E+00 M2
+upbendcadjust    89 229 1.00000E+00 M2
+upbendeadjust    89 229 1.00000E+00 M2
+upbendfadjust    89 229 1.00000E+00 M2
+sgr              89 229   0.002 M2
+egr              89 229   7.277 M2
+ggr              89 229   4.000 M2
+sgradjust        89 229   1.000 M2
+egradjust        89 229   1.000 M2
+ggradjust        89 229   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       89 229   1.00000
+vfiscor          89 229   1.00000
+rmiufiscor       89 229   1.00000
+betafiscoradjust   89 229   1.00000
+vfiscoradjust    89 229   1.00000
+rmiufiscoradjust   89 229   1.00000
+bdamp            89 229   0.01000  1
+bdampadjust      89 229   1.00000  1
+class2width      89 229   0.20000  1
+Rtransmom        89 229   0.60000  1
+Rclass2mom       89 229   1.00000  1
+bdamp            89 229   0.01000  2
+bdampadjust      89 229   1.00000  2
+class2width      89 229   0.20000  2
+Rtransmom        89 229   1.00000  2
+Rclass2mom       89 229   1.00000  2
+bdamp            89 229   0.01000  3
+bdampadjust      89 229   1.00000  3
+Rtransmom        89 229   1.00000  3
+Rclass2mom       89 229   1.00000  3
+## residual:
+##   Z: 88
+##   A: 228
+##   nuclide: Ra228 
+## parameters: 
+##   level density
+a                88 228  16.62709
+aadjust          88 228   1.00000
+gammald          88 228   0.07753
+pair             88 228   1.58944
+Pshift           88 228   0.00000   0
+Pshiftadjust     88 228   0.00000   0
+deltaW           88 228   3.86276   0
+Ntop             88 228  22   0
+Nlow             88 228   6   0
+s2adjust         88 228   1.00000   0
+ctable           88 228   0.38624   0
+ptable           88 228   0.56639   0
+ctableadjust     88 228   0.00000   0
+ptableadjust     88 228   0.00000   0
+Ufermi           88 228  30.00000   0
+cfermi           88 228   5.00000   0
+Krotconstant     88 228   1.00000   0
+Pshift           88 228   0.00000   1
+Pshiftadjust     88 228   0.00000   1
+deltaW           88 228   1.50000   1
+Ntop             88 228   1   1
+Nlow             88 228   0   1
+s2adjust         88 228   1.00000   1
+ctable           88 228   0.00000   1
+ptable           88 228   0.00000   1
+ctableadjust     88 228   0.00000   1
+ptableadjust     88 228   0.00000   1
+Ufermi           88 228  45.00000   1
+cfermi           88 228   5.00000   1
+Krotconstant     88 228   1.00000   1
+Pshift           88 228   0.00000   2
+Pshiftadjust     88 228   0.00000   2
+deltaW           88 228   0.60000   2
+Ntop             88 228   1   2
+Nlow             88 228   0   2
+s2adjust         88 228   1.00000   2
+ctable           88 228   0.00000   2
+ptable           88 228   0.00000   2
+ctableadjust     88 228   0.00000   2
+ptableadjust     88 228   0.00000   2
+Ufermi           88 228  45.00000   2
+cfermi           88 228   5.00000   2
+Krotconstant     88 228   1.00000   2
+Pshift           88 228   0.00000   3
+Pshiftadjust     88 228   0.00000   3
+deltaW           88 228   0.60000   3
+Ntop             88 228   1   3
+Nlow             88 228   0   3
+s2adjust         88 228   1.00000   3
+ctable           88 228   0.00000   3
+ptable           88 228   0.00000   3
+ctableadjust     88 228   0.00000   3
+ptableadjust     88 228   0.00000   3
+Ufermi           88 228  45.00000   3
+cfermi           88 228   5.00000   3
+Krotconstant     88 228   1.00000   3
+g                88 228  15.20000
+gp               88 228   5.86667
+gn               88 228   9.33333
+gnadjust         88 228   1.00000
+gpadjust         88 228   1.00000
+gadjust          88 228   1.00000
+Risomer          88 228   1.00000
+## parameters: 
+##   photon strength function
+gamgam           88 228   0.00000
+gamgamadjust     88 228   1.00000
+etable           88 228   0.00000 E1
+ftable           88 228   1.00000 E1
+wtable           88 228   1.00000 E1
+etableadjust     88 228   0.00000 E1
+ftableadjust     88 228   1.00000 E1
+wtableadjust     88 228   1.00000 E1
+upbendc          88 228 3.50000E-08 M1
+upbende          88 228 8.00000E-01 M1
+upbendf          88 228 6.00000E+00 M1
+upbendcadjust    88 228 1.00000E+00 M1
+upbendeadjust    88 228 1.00000E+00 M1
+upbendfadjust    88 228 1.00000E+00 M1
+sgr              88 228   2.767 M1
+egr              88 228   7.283 M1
+ggr              88 228   4.000 M1
+sgradjust        88 228   1.000 M1
+egradjust        88 228   1.000 M1
+ggradjust        88 228   1.000 M1
+etable           88 228   0.00000 E2
+ftable           88 228   1.00000 E2
+wtable           88 228   1.00000 E2
+etableadjust     88 228   0.00000 E2
+ftableadjust     88 228   1.00000 E2
+wtableadjust     88 228   1.00000 E2
+upbendc          88 228 0.00000E+00 M2
+upbende          88 228 0.00000E+00 M2
+upbendf          88 228 0.00000E+00 M2
+upbendcadjust    88 228 1.00000E+00 M2
+upbendeadjust    88 228 1.00000E+00 M2
+upbendfadjust    88 228 1.00000E+00 M2
+sgr              88 228   0.002 M2
+egr              88 228   7.283 M2
+ggr              88 228   4.000 M2
+sgradjust        88 228   1.000 M2
+egradjust        88 228   1.000 M2
+ggradjust        88 228   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       88 228   1.00000
+vfiscor          88 228   1.00000
+rmiufiscor       88 228   1.00000
+betafiscoradjust   88 228   1.00000
+vfiscoradjust    88 228   1.00000
+rmiufiscoradjust   88 228   1.00000
+bdamp            88 228   0.01000  1
+bdampadjust      88 228   1.00000  1
+class2width      88 228   0.20000  1
+Rtransmom        88 228   0.60000  1
+Rclass2mom       88 228   1.00000  1
+bdamp            88 228   0.01000  2
+bdampadjust      88 228   1.00000  2
+class2width      88 228   0.20000  2
+Rtransmom        88 228   1.00000  2
+Rclass2mom       88 228   1.00000  2
+bdamp            88 228   0.01000  3
+bdampadjust      88 228   1.00000  3
+Rtransmom        88 228   1.00000  3
+Rclass2mom       88 228   1.00000  3
+## residual:
+##   Z: 90
+##   A: 230
+##   nuclide: Th230 
+## parameters: 
+##   level density
+a                90 230  16.14256
+aadjust          90 230   1.00000
+gammald          90 230   0.07730
+pair             90 230   1.58251
+Pshift           90 230   0.00000   0
+Pshiftadjust     90 230   0.00000   0
+deltaW           90 230   3.23841   0
+Ntop             90 230  22   0
+Nlow             90 230   6   0
+s2adjust         90 230   1.00000   0
+ctable           90 230   0.13688   0
+ptable           90 230   0.49139   0
+ctableadjust     90 230   0.00000   0
+ptableadjust     90 230   0.00000   0
+Ufermi           90 230  30.00000   0
+cfermi           90 230   5.00000   0
+Krotconstant     90 230   1.00000   0
+Pshift           90 230   0.00000   1
+Pshiftadjust     90 230   0.00000   1
+deltaW           90 230   1.50000   1
+Ntop             90 230   1   1
+Nlow             90 230   0   1
+s2adjust         90 230   1.00000   1
+ctable           90 230   0.00000   1
+ptable           90 230   0.00000   1
+ctableadjust     90 230   0.00000   1
+ptableadjust     90 230   0.00000   1
+Ufermi           90 230  45.00000   1
+cfermi           90 230   5.00000   1
+Krotconstant     90 230   1.00000   1
+Pshift           90 230   0.00000   2
+Pshiftadjust     90 230   0.00000   2
+deltaW           90 230   0.60000   2
+Ntop             90 230   1   2
+Nlow             90 230   0   2
+s2adjust         90 230   1.00000   2
+ctable           90 230   0.00000   2
+ptable           90 230   0.00000   2
+ctableadjust     90 230   0.00000   2
+ptableadjust     90 230   0.00000   2
+Ufermi           90 230  45.00000   2
+cfermi           90 230   5.00000   2
+Krotconstant     90 230   1.00000   2
+Pshift           90 230   0.00000   3
+Pshiftadjust     90 230   0.00000   3
+deltaW           90 230   0.60000   3
+Ntop             90 230   1   3
+Nlow             90 230   0   3
+s2adjust         90 230   1.00000   3
+ctable           90 230   0.00000   3
+ptable           90 230   0.00000   3
+ctableadjust     90 230   0.00000   3
+ptableadjust     90 230   0.00000   3
+Ufermi           90 230  45.00000   3
+cfermi           90 230   5.00000   3
+Krotconstant     90 230   1.00000   3
+D0               90 230 6.20000E-01
+g                90 230  15.33333
+gp               90 230   6.00000
+gn               90 230   9.33333
+gnadjust         90 230   1.00000
+gpadjust         90 230   1.00000
+gadjust          90 230   1.00000
+Risomer          90 230   1.00000
+## parameters: 
+##   photon strength function
+gamgam           90 230   0.00004
+gamgamadjust     90 230   1.00000
+etable           90 230   0.00000 E1
+ftable           90 230   1.00000 E1
+wtable           90 230   1.00000 E1
+etableadjust     90 230   0.00000 E1
+ftableadjust     90 230   1.00000 E1
+wtableadjust     90 230   1.00000 E1
+upbendc          90 230 3.50000E-08 M1
+upbende          90 230 8.00000E-01 M1
+upbendf          90 230 6.00000E+00 M1
+upbendcadjust    90 230 1.00000E+00 M1
+upbendeadjust    90 230 1.00000E+00 M1
+upbendfadjust    90 230 1.00000E+00 M1
+sgr              90 230   2.788 M1
+egr              90 230   7.272 M1
+ggr              90 230   4.000 M1
+sgradjust        90 230   1.000 M1
+egradjust        90 230   1.000 M1
+ggradjust        90 230   1.000 M1
+etable           90 230   0.00000 E2
+ftable           90 230   1.00000 E2
+wtable           90 230   1.00000 E2
+etableadjust     90 230   0.00000 E2
+ftableadjust     90 230   1.00000 E2
+wtableadjust     90 230   1.00000 E2
+upbendc          90 230 0.00000E+00 M2
+upbende          90 230 0.00000E+00 M2
+upbendf          90 230 0.00000E+00 M2
+upbendcadjust    90 230 1.00000E+00 M2
+upbendeadjust    90 230 1.00000E+00 M2
+upbendfadjust    90 230 1.00000E+00 M2
+sgr              90 230   0.002 M2
+egr              90 230   7.272 M2
+ggr              90 230   4.000 M2
+sgradjust        90 230   1.000 M2
+egradjust        90 230   1.000 M2
+ggradjust        90 230   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       90 230   1.00000
+vfiscor          90 230   1.00000
+rmiufiscor       90 230   1.00000
+betafiscoradjust   90 230   1.00000
+vfiscoradjust    90 230   1.00000
+rmiufiscoradjust   90 230   1.00000
+bdamp            90 230   0.01000  1
+bdampadjust      90 230   1.00000  1
+class2width      90 230   0.20000  1
+Rtransmom        90 230   0.60000  1
+Rclass2mom       90 230   1.00000  1
+bdamp            90 230   0.01000  2
+bdampadjust      90 230   1.00000  2
+class2width      90 230   0.20000  2
+Rtransmom        90 230   1.00000  2
+Rclass2mom       90 230   1.00000  2
+bdamp            90 230   0.01000  3
+bdampadjust      90 230   1.00000  3
+Rtransmom        90 230   1.00000  3
+Rclass2mom       90 230   1.00000  3
+## residual:
+##   Z: 89
+##   A: 228
+##   nuclide: Ac228 
+## parameters: 
+##   level density
+a                89 228  16.32439
+aadjust          89 228   1.00000
+gammald          89 228   0.07753
+pair             89 228   0.00000
+Pshift           89 228   0.00000   0
+Pshiftadjust     89 228   0.00000   0
+deltaW           89 228   3.55143   0
+Ntop             89 228  30   0
+Nlow             89 228   2   0
+s2adjust         89 228   1.00000   0
+ctable           89 228   0.00000   0
+ptable           89 228   0.00000   0
+ctableadjust     89 228   0.00000   0
+ptableadjust     89 228   0.00000   0
+Ufermi           89 228  30.00000   0
+cfermi           89 228   5.00000   0
+Krotconstant     89 228   1.00000   0
+Pshift           89 228   0.00000   1
+Pshiftadjust     89 228   0.00000   1
+deltaW           89 228   1.50000   1
+Ntop             89 228   1   1
+Nlow             89 228   0   1
+s2adjust         89 228   1.00000   1
+ctable           89 228   0.00000   1
+ptable           89 228   0.00000   1
+ctableadjust     89 228   0.00000   1
+ptableadjust     89 228   0.00000   1
+Ufermi           89 228  45.00000   1
+cfermi           89 228   5.00000   1
+Krotconstant     89 228   1.00000   1
+Pshift           89 228   0.00000   2
+Pshiftadjust     89 228   0.00000   2
+deltaW           89 228   0.60000   2
+Ntop             89 228   1   2
+Nlow             89 228   0   2
+s2adjust         89 228   1.00000   2
+ctable           89 228   0.00000   2
+ptable           89 228   0.00000   2
+ctableadjust     89 228   0.00000   2
+ptableadjust     89 228   0.00000   2
+Ufermi           89 228  45.00000   2
+cfermi           89 228   5.00000   2
+Krotconstant     89 228   1.00000   2
+Pshift           89 228   0.00000   3
+Pshiftadjust     89 228   0.00000   3
+deltaW           89 228   0.60000   3
+Ntop             89 228   1   3
+Nlow             89 228   0   3
+s2adjust         89 228   1.00000   3
+ctable           89 228   0.00000   3
+ptable           89 228   0.00000   3
+ctableadjust     89 228   0.00000   3
+ptableadjust     89 228   0.00000   3
+Ufermi           89 228  45.00000   3
+cfermi           89 228   5.00000   3
+Krotconstant     89 228   1.00000   3
+g                89 228  15.20000
+gp               89 228   5.93333
+gn               89 228   9.26667
+gnadjust         89 228   1.00000
+gpadjust         89 228   1.00000
+gadjust          89 228   1.00000
+Risomer          89 228   1.00000
+## parameters: 
+##   photon strength function
+gamgam           89 228   0.00000
+gamgamadjust     89 228   1.00000
+etable           89 228   0.00000 E1
+ftable           89 228   1.00000 E1
+wtable           89 228   1.00000 E1
+etableadjust     89 228   0.00000 E1
+ftableadjust     89 228   1.00000 E1
+wtableadjust     89 228   1.00000 E1
+upbendc          89 228 3.50000E-08 M1
+upbende          89 228 8.00000E-01 M1
+upbendf          89 228 6.00000E+00 M1
+upbendcadjust    89 228 1.00000E+00 M1
+upbendeadjust    89 228 1.00000E+00 M1
+upbendfadjust    89 228 1.00000E+00 M1
+sgr              89 228   2.767 M1
+egr              89 228   7.283 M1
+ggr              89 228   4.000 M1
+sgradjust        89 228   1.000 M1
+egradjust        89 228   1.000 M1
+ggradjust        89 228   1.000 M1
+etable           89 228   0.00000 E2
+ftable           89 228   1.00000 E2
+wtable           89 228   1.00000 E2
+etableadjust     89 228   0.00000 E2
+ftableadjust     89 228   1.00000 E2
+wtableadjust     89 228   1.00000 E2
+upbendc          89 228 0.00000E+00 M2
+upbende          89 228 0.00000E+00 M2
+upbendf          89 228 0.00000E+00 M2
+upbendcadjust    89 228 1.00000E+00 M2
+upbendeadjust    89 228 1.00000E+00 M2
+upbendfadjust    89 228 1.00000E+00 M2
+sgr              89 228   0.002 M2
+egr              89 228   7.283 M2
+ggr              89 228   4.000 M2
+sgradjust        89 228   1.000 M2
+egradjust        89 228   1.000 M2
+ggradjust        89 228   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       89 228   1.00000
+vfiscor          89 228   1.00000
+rmiufiscor       89 228   1.00000
+betafiscoradjust   89 228   1.00000
+vfiscoradjust    89 228   1.00000
+rmiufiscoradjust   89 228   1.00000
+bdamp            89 228   0.01000  1
+bdampadjust      89 228   1.00000  1
+class2width      89 228   0.20000  1
+Rtransmom        89 228   0.60000  1
+Rclass2mom       89 228   1.00000  1
+bdamp            89 228   0.01000  2
+bdampadjust      89 228   1.00000  2
+class2width      89 228   0.20000  2
+Rtransmom        89 228   1.00000  2
+Rclass2mom       89 228   1.00000  2
+bdamp            89 228   0.01000  3
+bdampadjust      89 228   1.00000  3
+Rtransmom        89 228   1.00000  3
+Rclass2mom       89 228   1.00000  3
+## residual:
+##   Z: 88
+##   A: 227
+##   nuclide: Ra227 
+## parameters: 
+##   level density
+a                88 227  16.65030
+aadjust          88 227   1.00000
+gammald          88 227   0.07764
+pair             88 227   0.79647
+Pshift           88 227   0.00000   0
+Pshiftadjust     88 227   0.00000   0
+deltaW           88 227   3.81558   0
+Ntop             88 227  22   0
+Nlow             88 227   7   0
+s2adjust         88 227   1.00000   0
+ctable           88 227   0.72527   0
+ptable           88 227   0.06260   0
+ctableadjust     88 227   0.00000   0
+ptableadjust     88 227   0.00000   0
+Ufermi           88 227  30.00000   0
+cfermi           88 227   5.00000   0
+Krotconstant     88 227   1.00000   0
+Pshift           88 227   0.00000   1
+Pshiftadjust     88 227   0.00000   1
+deltaW           88 227   1.50000   1
+Ntop             88 227   1   1
+Nlow             88 227   0   1
+s2adjust         88 227   1.00000   1
+ctable           88 227   0.00000   1
+ptable           88 227   0.00000   1
+ctableadjust     88 227   0.00000   1
+ptableadjust     88 227   0.00000   1
+Ufermi           88 227  45.00000   1
+cfermi           88 227   5.00000   1
+Krotconstant     88 227   1.00000   1
+Pshift           88 227   0.00000   2
+Pshiftadjust     88 227   0.00000   2
+deltaW           88 227   0.60000   2
+Ntop             88 227   1   2
+Nlow             88 227   0   2
+s2adjust         88 227   1.00000   2
+ctable           88 227   0.00000   2
+ptable           88 227   0.00000   2
+ctableadjust     88 227   0.00000   2
+ptableadjust     88 227   0.00000   2
+Ufermi           88 227  45.00000   2
+cfermi           88 227   5.00000   2
+Krotconstant     88 227   1.00000   2
+D0               88 227 3.10000E+01
+g                88 227  15.13333
+gp               88 227   5.86667
+gn               88 227   9.26667
+gnadjust         88 227   1.00000
+gpadjust         88 227   1.00000
+gadjust          88 227   1.00000
+Risomer          88 227   1.00000
+## parameters: 
+##   photon strength function
+gamgam           88 227   0.00003
+gamgamadjust     88 227   1.00000
+etable           88 227   0.00000 E1
+ftable           88 227   1.00000 E1
+wtable           88 227   1.00000 E1
+etableadjust     88 227   0.00000 E1
+ftableadjust     88 227   1.00000 E1
+wtableadjust     88 227   1.00000 E1
+upbendc          88 227 3.50000E-08 M1
+upbende          88 227 8.00000E-01 M1
+upbendf          88 227 6.00000E+00 M1
+upbendcadjust    88 227 1.00000E+00 M1
+upbendeadjust    88 227 1.00000E+00 M1
+upbendfadjust    88 227 1.00000E+00 M1
+sgr              88 227   2.757 M1
+egr              88 227   7.288 M1
+ggr              88 227   4.000 M1
+sgradjust        88 227   1.000 M1
+egradjust        88 227   1.000 M1
+ggradjust        88 227   1.000 M1
+etable           88 227   0.00000 E2
+ftable           88 227   1.00000 E2
+wtable           88 227   1.00000 E2
+etableadjust     88 227   0.00000 E2
+ftableadjust     88 227   1.00000 E2
+wtableadjust     88 227   1.00000 E2
+upbendc          88 227 0.00000E+00 M2
+upbende          88 227 0.00000E+00 M2
+upbendf          88 227 0.00000E+00 M2
+upbendcadjust    88 227 1.00000E+00 M2
+upbendeadjust    88 227 1.00000E+00 M2
+upbendfadjust    88 227 1.00000E+00 M2
+sgr              88 227   0.002 M2
+egr              88 227   7.288 M2
+ggr              88 227   4.000 M2
+sgradjust        88 227   1.000 M2
+egradjust        88 227   1.000 M2
+ggradjust        88 227   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       88 227   1.00000
+vfiscor          88 227   1.00000
+rmiufiscor       88 227   1.00000
+betafiscoradjust   88 227   1.00000
+vfiscoradjust    88 227   1.00000
+rmiufiscoradjust   88 227   1.00000
+bdamp            88 227   0.01000  1
+bdampadjust      88 227   1.00000  1
+class2width      88 227   0.20000  1
+Rtransmom        88 227   0.60000  1
+Rclass2mom       88 227   1.00000  1
+bdamp            88 227   0.01000  2
+bdampadjust      88 227   1.00000  2
+Rtransmom        88 227   1.00000  2
+Rclass2mom       88 227   1.00000  2
+## residual:
+##   Z: 88
+##   A: 231
+##   nuclide: Ra231 
+## parameters: 
+##   level density
+a                88 231  17.34135
+aadjust          88 231   1.00000
+gammald          88 231   0.07719
+pair             88 231   0.78954
+Pshift           88 231   0.00000   0
+Pshiftadjust     88 231   0.00000   0
+deltaW           88 231   4.31807   0
+Ntop             88 231  22   0
+Nlow             88 231   6   0
+s2adjust         88 231   1.00000   0
+ctable           88 231   0.46013   0
+ptable           88 231   0.49837   0
+ctableadjust     88 231   0.00000   0
+ptableadjust     88 231   0.00000   0
+Ufermi           88 231  30.00000   0
+cfermi           88 231   5.00000   0
+Krotconstant     88 231   1.00000   0
+Pshift           88 231   0.00000   1
+Pshiftadjust     88 231   0.00000   1
+deltaW           88 231   1.50000   1
+Ntop             88 231   1   1
+Nlow             88 231   0   1
+s2adjust         88 231   1.00000   1
+ctable           88 231   0.00000   1
+ptable           88 231   0.00000   1
+ctableadjust     88 231   0.00000   1
+ptableadjust     88 231   0.00000   1
+Ufermi           88 231  45.00000   1
+cfermi           88 231   5.00000   1
+Krotconstant     88 231   1.00000   1
+Pshift           88 231   0.00000   2
+Pshiftadjust     88 231   0.00000   2
+deltaW           88 231   0.60000   2
+Ntop             88 231   1   2
+Nlow             88 231   0   2
+s2adjust         88 231   1.00000   2
+ctable           88 231   0.00000   2
+ptable           88 231   0.00000   2
+ctableadjust     88 231   0.00000   2
+ptableadjust     88 231   0.00000   2
+Ufermi           88 231  45.00000   2
+cfermi           88 231   5.00000   2
+Krotconstant     88 231   1.00000   2
+Pshift           88 231   0.00000   3
+Pshiftadjust     88 231   0.00000   3
+deltaW           88 231   0.60000   3
+Ntop             88 231   1   3
+Nlow             88 231   0   3
+s2adjust         88 231   1.00000   3
+ctable           88 231   0.00000   3
+ptable           88 231   0.00000   3
+ctableadjust     88 231   0.00000   3
+ptableadjust     88 231   0.00000   3
+Ufermi           88 231  45.00000   3
+cfermi           88 231   5.00000   3
+Krotconstant     88 231   1.00000   3
+g                88 231  15.40000
+gp               88 231   5.86667
+gn               88 231   9.53333
+gnadjust         88 231   1.00000
+gpadjust         88 231   1.00000
+gadjust          88 231   1.00000
+Risomer          88 231   1.00000
+## parameters: 
+##   photon strength function
+gamgam           88 231   0.00000
+gamgamadjust     88 231   1.00000
+etable           88 231   0.00000 E1
+ftable           88 231   1.00000 E1
+wtable           88 231   1.00000 E1
+etableadjust     88 231   0.00000 E1
+ftableadjust     88 231   1.00000 E1
+wtableadjust     88 231   1.00000 E1
+upbendc          88 231 3.50000E-08 M1
+upbende          88 231 8.00000E-01 M1
+upbendf          88 231 6.00000E+00 M1
+upbendcadjust    88 231 1.00000E+00 M1
+upbendeadjust    88 231 1.00000E+00 M1
+upbendfadjust    88 231 1.00000E+00 M1
+sgr              88 231   2.798 M1
+egr              88 231   7.267 M1
+ggr              88 231   4.000 M1
+sgradjust        88 231   1.000 M1
+egradjust        88 231   1.000 M1
+ggradjust        88 231   1.000 M1
+etable           88 231   0.00000 E2
+ftable           88 231   1.00000 E2
+wtable           88 231   1.00000 E2
+etableadjust     88 231   0.00000 E2
+ftableadjust     88 231   1.00000 E2
+wtableadjust     88 231   1.00000 E2
+upbendc          88 231 0.00000E+00 M2
+upbende          88 231 0.00000E+00 M2
+upbendf          88 231 0.00000E+00 M2
+upbendcadjust    88 231 1.00000E+00 M2
+upbendeadjust    88 231 1.00000E+00 M2
+upbendfadjust    88 231 1.00000E+00 M2
+sgr              88 231   0.002 M2
+egr              88 231   7.267 M2
+ggr              88 231   4.000 M2
+sgradjust        88 231   1.000 M2
+egradjust        88 231   1.000 M2
+ggradjust        88 231   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       88 231   1.00000
+vfiscor          88 231   1.00000
+rmiufiscor       88 231   1.00000
+betafiscoradjust   88 231   1.00000
+vfiscoradjust    88 231   1.00000
+rmiufiscoradjust   88 231   1.00000
+bdamp            88 231   0.01000  1
+bdampadjust      88 231   1.00000  1
+class2width      88 231   0.20000  1
+Rtransmom        88 231   0.60000  1
+Rclass2mom       88 231   1.00000  1
+bdamp            88 231   0.01000  2
+bdampadjust      88 231   1.00000  2
+class2width      88 231   0.20000  2
+Rtransmom        88 231   1.00000  2
+Rclass2mom       88 231   1.00000  2
+bdamp            88 231   0.01000  3
+bdampadjust      88 231   1.00000  3
+Rtransmom        88 231   1.00000  3
+Rclass2mom       88 231   1.00000  3
+## residual:
+##   Z: 87
+##   A: 229
+##   nuclide: Fr229 
+## parameters: 
+##   level density
+a                87 229  17.40150
+aadjust          87 229   1.00000
+gammald          87 229   0.07741
+pair             87 229   0.79298
+Pshift           87 229   0.00000   0
+Pshiftadjust     87 229   0.00000   0
+deltaW           87 229   4.74364   0
+Ntop             87 229  30   0
+Nlow             87 229   2   0
+s2adjust         87 229   1.00000   0
+ctable           87 229   0.00000   0
+ptable           87 229   0.00000   0
+ctableadjust     87 229   0.00000   0
+ptableadjust     87 229   0.00000   0
+Ufermi           87 229  30.00000   0
+cfermi           87 229   5.00000   0
+Krotconstant     87 229   1.00000   0
+Pshift           87 229   0.00000   1
+Pshiftadjust     87 229   0.00000   1
+deltaW           87 229   1.50000   1
+Ntop             87 229   1   1
+Nlow             87 229   0   1
+s2adjust         87 229   1.00000   1
+ctable           87 229   0.00000   1
+ptable           87 229   0.00000   1
+ctableadjust     87 229   0.00000   1
+ptableadjust     87 229   0.00000   1
+Ufermi           87 229  45.00000   1
+cfermi           87 229   5.00000   1
+Krotconstant     87 229   1.00000   1
+Pshift           87 229   0.00000   2
+Pshiftadjust     87 229   0.00000   2
+deltaW           87 229   0.60000   2
+Ntop             87 229   1   2
+Nlow             87 229   0   2
+s2adjust         87 229   1.00000   2
+ctable           87 229   0.00000   2
+ptable           87 229   0.00000   2
+ctableadjust     87 229   0.00000   2
+ptableadjust     87 229   0.00000   2
+Ufermi           87 229  45.00000   2
+cfermi           87 229   5.00000   2
+Krotconstant     87 229   1.00000   2
+Pshift           87 229   0.00000   3
+Pshiftadjust     87 229   0.00000   3
+deltaW           87 229   0.60000   3
+Ntop             87 229   1   3
+Nlow             87 229   0   3
+s2adjust         87 229   1.00000   3
+ctable           87 229   0.00000   3
+ptable           87 229   0.00000   3
+ctableadjust     87 229   0.00000   3
+ptableadjust     87 229   0.00000   3
+Ufermi           87 229  45.00000   3
+cfermi           87 229   5.00000   3
+Krotconstant     87 229   1.00000   3
+g                87 229  15.26667
+gp               87 229   5.80000
+gn               87 229   9.46667
+gnadjust         87 229   1.00000
+gpadjust         87 229   1.00000
+gadjust          87 229   1.00000
+Risomer          87 229   1.00000
+## parameters: 
+##   photon strength function
+gamgam           87 229   0.00000
+gamgamadjust     87 229   1.00000
+etable           87 229   0.00000 E1
+ftable           87 229   1.00000 E1
+wtable           87 229   1.00000 E1
+etableadjust     87 229   0.00000 E1
+ftableadjust     87 229   1.00000 E1
+wtableadjust     87 229   1.00000 E1
+upbendc          87 229 3.50000E-08 M1
+upbende          87 229 8.00000E-01 M1
+upbendf          87 229 6.00000E+00 M1
+upbendcadjust    87 229 1.00000E+00 M1
+upbendeadjust    87 229 1.00000E+00 M1
+upbendfadjust    87 229 1.00000E+00 M1
+sgr              87 229   2.777 M1
+egr              87 229   7.277 M1
+ggr              87 229   4.000 M1
+sgradjust        87 229   1.000 M1
+egradjust        87 229   1.000 M1
+ggradjust        87 229   1.000 M1
+etable           87 229   0.00000 E2
+ftable           87 229   1.00000 E2
+wtable           87 229   1.00000 E2
+etableadjust     87 229   0.00000 E2
+ftableadjust     87 229   1.00000 E2
+wtableadjust     87 229   1.00000 E2
+upbendc          87 229 0.00000E+00 M2
+upbende          87 229 0.00000E+00 M2
+upbendf          87 229 0.00000E+00 M2
+upbendcadjust    87 229 1.00000E+00 M2
+upbendeadjust    87 229 1.00000E+00 M2
+upbendfadjust    87 229 1.00000E+00 M2
+sgr              87 229   0.002 M2
+egr              87 229   7.277 M2
+ggr              87 229   4.000 M2
+sgradjust        87 229   1.000 M2
+egradjust        87 229   1.000 M2
+ggradjust        87 229   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       87 229   1.00000
+vfiscor          87 229   1.00000
+rmiufiscor       87 229   1.00000
+betafiscoradjust   87 229   1.00000
+vfiscoradjust    87 229   1.00000
+rmiufiscoradjust   87 229   1.00000
+bdamp            87 229   0.01000  1
+bdampadjust      87 229   1.00000  1
+class2width      87 229   0.20000  1
+Rtransmom        87 229   0.60000  1
+Rclass2mom       87 229   1.00000  1
+bdamp            87 229   0.01000  2
+bdampadjust      87 229   1.00000  2
+class2width      87 229   0.20000  2
+Rtransmom        87 229   1.00000  2
+Rclass2mom       87 229   1.00000  2
+bdamp            87 229   0.01000  3
+bdampadjust      87 229   1.00000  3
+Rtransmom        87 229   1.00000  3
+Rclass2mom       87 229   1.00000  3
+## residual:
+##   Z: 87
+##   A: 228
+##   nuclide: Fr228 
+## parameters: 
+##   level density
+a                87 228  17.34915
+aadjust          87 228   1.00000
+gammald          87 228   0.07753
+pair             87 228   0.00000
+Pshift           87 228   0.00000   0
+Pshiftadjust     87 228   0.00000   0
+deltaW           87 228   4.63978   0
+Ntop             87 228  30   0
+Nlow             87 228   2   0
+s2adjust         87 228   1.00000   0
+ctable           87 228   0.00000   0
+ptable           87 228   0.00000   0
+ctableadjust     87 228   0.00000   0
+ptableadjust     87 228   0.00000   0
+Ufermi           87 228  30.00000   0
+cfermi           87 228   5.00000   0
+Krotconstant     87 228   1.00000   0
+Pshift           87 228   0.00000   1
+Pshiftadjust     87 228   0.00000   1
+deltaW           87 228   1.50000   1
+Ntop             87 228   1   1
+Nlow             87 228   0   1
+s2adjust         87 228   1.00000   1
+ctable           87 228   0.00000   1
+ptable           87 228   0.00000   1
+ctableadjust     87 228   0.00000   1
+ptableadjust     87 228   0.00000   1
+Ufermi           87 228  45.00000   1
+cfermi           87 228   5.00000   1
+Krotconstant     87 228   1.00000   1
+Pshift           87 228   0.00000   2
+Pshiftadjust     87 228   0.00000   2
+deltaW           87 228   0.60000   2
+Ntop             87 228   1   2
+Nlow             87 228   0   2
+s2adjust         87 228   1.00000   2
+ctable           87 228   0.00000   2
+ptable           87 228   0.00000   2
+ctableadjust     87 228   0.00000   2
+ptableadjust     87 228   0.00000   2
+Ufermi           87 228  45.00000   2
+cfermi           87 228   5.00000   2
+Krotconstant     87 228   1.00000   2
+Pshift           87 228   0.00000   3
+Pshiftadjust     87 228   0.00000   3
+deltaW           87 228   0.60000   3
+Ntop             87 228   1   3
+Nlow             87 228   0   3
+s2adjust         87 228   1.00000   3
+ctable           87 228   0.00000   3
+ptable           87 228   0.00000   3
+ctableadjust     87 228   0.00000   3
+ptableadjust     87 228   0.00000   3
+Ufermi           87 228  45.00000   3
+cfermi           87 228   5.00000   3
+Krotconstant     87 228   1.00000   3
+g                87 228  15.20000
+gp               87 228   5.80000
+gn               87 228   9.40000
+gnadjust         87 228   1.00000
+gpadjust         87 228   1.00000
+gadjust          87 228   1.00000
+Risomer          87 228   1.00000
+## parameters: 
+##   photon strength function
+gamgam           87 228   0.00000
+gamgamadjust     87 228   1.00000
+etable           87 228   0.00000 E1
+ftable           87 228   1.00000 E1
+wtable           87 228   1.00000 E1
+etableadjust     87 228   0.00000 E1
+ftableadjust     87 228   1.00000 E1
+wtableadjust     87 228   1.00000 E1
+upbendc          87 228 3.50000E-08 M1
+upbende          87 228 8.00000E-01 M1
+upbendf          87 228 6.00000E+00 M1
+upbendcadjust    87 228 1.00000E+00 M1
+upbendeadjust    87 228 1.00000E+00 M1
+upbendfadjust    87 228 1.00000E+00 M1
+sgr              87 228   2.767 M1
+egr              87 228   7.283 M1
+ggr              87 228   4.000 M1
+sgradjust        87 228   1.000 M1
+egradjust        87 228   1.000 M1
+ggradjust        87 228   1.000 M1
+etable           87 228   0.00000 E2
+ftable           87 228   1.00000 E2
+wtable           87 228   1.00000 E2
+etableadjust     87 228   0.00000 E2
+ftableadjust     87 228   1.00000 E2
+wtableadjust     87 228   1.00000 E2
+upbendc          87 228 0.00000E+00 M2
+upbende          87 228 0.00000E+00 M2
+upbendf          87 228 0.00000E+00 M2
+upbendcadjust    87 228 1.00000E+00 M2
+upbendeadjust    87 228 1.00000E+00 M2
+upbendfadjust    87 228 1.00000E+00 M2
+sgr              87 228   0.002 M2
+egr              87 228   7.283 M2
+ggr              87 228   4.000 M2
+sgradjust        87 228   1.000 M2
+egradjust        87 228   1.000 M2
+ggradjust        87 228   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       87 228   1.00000
+vfiscor          87 228   1.00000
+rmiufiscor       87 228   1.00000
+betafiscoradjust   87 228   1.00000
+vfiscoradjust    87 228   1.00000
+rmiufiscoradjust   87 228   1.00000
+bdamp            87 228   0.01000  1
+bdampadjust      87 228   1.00000  1
+class2width      87 228   0.20000  1
+Rtransmom        87 228   0.60000  1
+Rclass2mom       87 228   1.00000  1
+bdamp            87 228   0.01000  2
+bdampadjust      87 228   1.00000  2
+class2width      87 228   0.20000  2
+Rtransmom        87 228   1.00000  2
+Rclass2mom       87 228   1.00000  2
+bdamp            87 228   0.01000  3
+bdampadjust      87 228   1.00000  3
+Rtransmom        87 228   1.00000  3
+Rclass2mom       87 228   1.00000  3
+## residual:
+##   Z: 87
+##   A: 227
+##   nuclide: Fr227 
+## parameters: 
+##   level density
+a                87 227  17.02547
+aadjust          87 227   1.00000
+gammald          87 227   0.07764
+pair             87 227   0.79647
+Pshift           87 227   0.00000   0
+Pshiftadjust     87 227   0.00000   0
+deltaW           87 227   4.45046   0
+Ntop             87 227  22   0
+Nlow             87 227   6   0
+s2adjust         87 227   1.00000   0
+ctable           87 227   0.11255   0
+ptable           87 227  -0.10125   0
+ctableadjust     87 227   0.00000   0
+ptableadjust     87 227   0.00000   0
+Ufermi           87 227  30.00000   0
+cfermi           87 227   5.00000   0
+Krotconstant     87 227   1.00000   0
+Pshift           87 227   0.00000   1
+Pshiftadjust     87 227   0.00000   1
+deltaW           87 227   1.50000   1
+Ntop             87 227   1   1
+Nlow             87 227   0   1
+s2adjust         87 227   1.00000   1
+ctable           87 227   0.00000   1
+ptable           87 227   0.00000   1
+ctableadjust     87 227   0.00000   1
+ptableadjust     87 227   0.00000   1
+Ufermi           87 227  45.00000   1
+cfermi           87 227   5.00000   1
+Krotconstant     87 227   1.00000   1
+Pshift           87 227   0.00000   2
+Pshiftadjust     87 227   0.00000   2
+deltaW           87 227   0.60000   2
+Ntop             87 227   1   2
+Nlow             87 227   0   2
+s2adjust         87 227   1.00000   2
+ctable           87 227   0.00000   2
+ptable           87 227   0.00000   2
+ctableadjust     87 227   0.00000   2
+ptableadjust     87 227   0.00000   2
+Ufermi           87 227  45.00000   2
+cfermi           87 227   5.00000   2
+Krotconstant     87 227   1.00000   2
+Pshift           87 227   0.00000   3
+Pshiftadjust     87 227   0.00000   3
+deltaW           87 227   0.60000   3
+Ntop             87 227   1   3
+Nlow             87 227   0   3
+s2adjust         87 227   1.00000   3
+ctable           87 227   0.00000   3
+ptable           87 227   0.00000   3
+ctableadjust     87 227   0.00000   3
+ptableadjust     87 227   0.00000   3
+Ufermi           87 227  45.00000   3
+cfermi           87 227   5.00000   3
+Krotconstant     87 227   1.00000   3
+g                87 227  15.13333
+gp               87 227   5.80000
+gn               87 227   9.33333
+gnadjust         87 227   1.00000
+gpadjust         87 227   1.00000
+gadjust          87 227   1.00000
+Risomer          87 227   1.00000
+## parameters: 
+##   photon strength function
+gamgam           87 227   0.00000
+gamgamadjust     87 227   1.00000
+etable           87 227   0.00000 E1
+ftable           87 227   1.00000 E1
+wtable           87 227   1.00000 E1
+etableadjust     87 227   0.00000 E1
+ftableadjust     87 227   1.00000 E1
+wtableadjust     87 227   1.00000 E1
+upbendc          87 227 3.50000E-08 M1
+upbende          87 227 8.00000E-01 M1
+upbendf          87 227 6.00000E+00 M1
+upbendcadjust    87 227 1.00000E+00 M1
+upbendeadjust    87 227 1.00000E+00 M1
+upbendfadjust    87 227 1.00000E+00 M1
+sgr              87 227   2.757 M1
+egr              87 227   7.288 M1
+ggr              87 227   4.000 M1
+sgradjust        87 227   1.000 M1
+egradjust        87 227   1.000 M1
+ggradjust        87 227   1.000 M1
+etable           87 227   0.00000 E2
+ftable           87 227   1.00000 E2
+wtable           87 227   1.00000 E2
+etableadjust     87 227   0.00000 E2
+ftableadjust     87 227   1.00000 E2
+wtableadjust     87 227   1.00000 E2
+upbendc          87 227 0.00000E+00 M2
+upbende          87 227 0.00000E+00 M2
+upbendf          87 227 0.00000E+00 M2
+upbendcadjust    87 227 1.00000E+00 M2
+upbendeadjust    87 227 1.00000E+00 M2
+upbendfadjust    87 227 1.00000E+00 M2
+sgr              87 227   0.002 M2
+egr              87 227   7.288 M2
+ggr              87 227   4.000 M2
+sgradjust        87 227   1.000 M2
+egradjust        87 227   1.000 M2
+ggradjust        87 227   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       87 227   1.00000
+vfiscor          87 227   1.00000
+rmiufiscor       87 227   1.00000
+betafiscoradjust   87 227   1.00000
+vfiscoradjust    87 227   1.00000
+rmiufiscoradjust   87 227   1.00000
+bdamp            87 227   0.01000  1
+bdampadjust      87 227   1.00000  1
+class2width      87 227   0.20000  1
+Rtransmom        87 227   0.60000  1
+Rclass2mom       87 227   1.00000  1
+bdamp            87 227   0.01000  2
+bdampadjust      87 227   1.00000  2
+class2width      87 227   0.20000  2
+Rtransmom        87 227   1.00000  2
+Rclass2mom       87 227   1.00000  2
+bdamp            87 227   0.01000  3
+bdampadjust      87 227   1.00000  3
+Rtransmom        87 227   1.00000  3
+Rclass2mom       87 227   1.00000  3
+## residual:
+##   Z: 87
+##   A: 226
+##   nuclide: Fr226 
+## parameters: 
+##   level density
+a                87 226  16.86994
+aadjust          87 226   1.00000
+gammald          87 226   0.07776
+pair             87 226   0.00000
+Pshift           87 226   0.00000   0
+Pshiftadjust     87 226   0.00000   0
+deltaW           87 226   4.21541   0
+Ntop             87 226  30   0
+Nlow             87 226   2   0
+s2adjust         87 226   1.00000   0
+ctable           87 226   0.00000   0
+ptable           87 226   0.00000   0
+ctableadjust     87 226   0.00000   0
+ptableadjust     87 226   0.00000   0
+Ufermi           87 226  30.00000   0
+cfermi           87 226   5.00000   0
+Krotconstant     87 226   1.00000   0
+Pshift           87 226   0.00000   1
+Pshiftadjust     87 226   0.00000   1
+deltaW           87 226   1.50000   1
+Ntop             87 226   1   1
+Nlow             87 226   0   1
+s2adjust         87 226   1.00000   1
+ctable           87 226   0.00000   1
+ptable           87 226   0.00000   1
+ctableadjust     87 226   0.00000   1
+ptableadjust     87 226   0.00000   1
+Ufermi           87 226  45.00000   1
+cfermi           87 226   5.00000   1
+Krotconstant     87 226   1.00000   1
+Pshift           87 226   0.00000   2
+Pshiftadjust     87 226   0.00000   2
+deltaW           87 226   0.60000   2
+Ntop             87 226   1   2
+Nlow             87 226   0   2
+s2adjust         87 226   1.00000   2
+ctable           87 226   0.00000   2
+ptable           87 226   0.00000   2
+ctableadjust     87 226   0.00000   2
+ptableadjust     87 226   0.00000   2
+Ufermi           87 226  45.00000   2
+cfermi           87 226   5.00000   2
+Krotconstant     87 226   1.00000   2
+Pshift           87 226   0.00000   3
+Pshiftadjust     87 226   0.00000   3
+deltaW           87 226   0.60000   3
+Ntop             87 226   1   3
+Nlow             87 226   0   3
+s2adjust         87 226   1.00000   3
+ctable           87 226   0.00000   3
+ptable           87 226   0.00000   3
+ctableadjust     87 226   0.00000   3
+ptableadjust     87 226   0.00000   3
+Ufermi           87 226  45.00000   3
+cfermi           87 226   5.00000   3
+Krotconstant     87 226   1.00000   3
+g                87 226  15.06667
+gp               87 226   5.80000
+gn               87 226   9.26667
+gnadjust         87 226   1.00000
+gpadjust         87 226   1.00000
+gadjust          87 226   1.00000
+Risomer          87 226   1.00000
+## parameters: 
+##   photon strength function
+gamgam           87 226   0.00000
+gamgamadjust     87 226   1.00000
+etable           87 226   0.00000 E1
+ftable           87 226   1.00000 E1
+wtable           87 226   1.00000 E1
+etableadjust     87 226   0.00000 E1
+ftableadjust     87 226   1.00000 E1
+wtableadjust     87 226   1.00000 E1
+upbendc          87 226 3.50000E-08 M1
+upbende          87 226 8.00000E-01 M1
+upbendf          87 226 6.00000E+00 M1
+upbendcadjust    87 226 1.00000E+00 M1
+upbendeadjust    87 226 1.00000E+00 M1
+upbendfadjust    87 226 1.00000E+00 M1
+sgr              87 226   2.747 M1
+egr              87 226   7.293 M1
+ggr              87 226   4.000 M1
+sgradjust        87 226   1.000 M1
+egradjust        87 226   1.000 M1
+ggradjust        87 226   1.000 M1
+etable           87 226   0.00000 E2
+ftable           87 226   1.00000 E2
+wtable           87 226   1.00000 E2
+etableadjust     87 226   0.00000 E2
+ftableadjust     87 226   1.00000 E2
+wtableadjust     87 226   1.00000 E2
+upbendc          87 226 0.00000E+00 M2
+upbende          87 226 0.00000E+00 M2
+upbendf          87 226 0.00000E+00 M2
+upbendcadjust    87 226 1.00000E+00 M2
+upbendeadjust    87 226 1.00000E+00 M2
+upbendfadjust    87 226 1.00000E+00 M2
+sgr              87 226   0.002 M2
+egr              87 226   7.293 M2
+ggr              87 226   4.000 M2
+sgradjust        87 226   1.000 M2
+egradjust        87 226   1.000 M2
+ggradjust        87 226   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       87 226   1.00000
+vfiscor          87 226   1.00000
+rmiufiscor       87 226   1.00000
+betafiscoradjust   87 226   1.00000
+vfiscoradjust    87 226   1.00000
+rmiufiscoradjust   87 226   1.00000
+bdamp            87 226   0.01000  1
+bdampadjust      87 226   1.00000  1
+class2width      87 226   0.20000  1
+Rtransmom        87 226   0.60000  1
+Rclass2mom       87 226   1.00000  1
+bdamp            87 226   0.01000  2
+bdampadjust      87 226   1.00000  2
+class2width      87 226   0.20000  2
+Rtransmom        87 226   1.00000  2
+Rclass2mom       87 226   1.00000  2
+bdamp            87 226   0.01000  3
+bdampadjust      87 226   1.00000  3
+Rtransmom        87 226   1.00000  3
+Rclass2mom       87 226   1.00000  3
+## residual:
+##   Z: 86
+##   A: 226
+##   nuclide: Rn226 
+## parameters: 
+##   level density
+a                86 226  17.00387
+aadjust          86 226   1.00000
+gammald          86 226   0.07776
+pair             86 226   1.59646
+Pshift           86 226   0.00000   0
+Pshiftadjust     86 226   0.00000   0
+deltaW           86 226   4.35178   0
+Ntop             86 226  30   0
+Nlow             86 226   2   0
+s2adjust         86 226   1.00000   0
+ctable           86 226   0.00000   0
+ptable           86 226   0.00000   0
+ctableadjust     86 226   0.00000   0
+ptableadjust     86 226   0.00000   0
+Ufermi           86 226  30.00000   0
+cfermi           86 226   5.00000   0
+Krotconstant     86 226   1.00000   0
+Pshift           86 226   0.00000   1
+Pshiftadjust     86 226   0.00000   1
+deltaW           86 226   1.50000   1
+Ntop             86 226   1   1
+Nlow             86 226   0   1
+s2adjust         86 226   1.00000   1
+ctable           86 226   0.00000   1
+ptable           86 226   0.00000   1
+ctableadjust     86 226   0.00000   1
+ptableadjust     86 226   0.00000   1
+Ufermi           86 226  45.00000   1
+cfermi           86 226   5.00000   1
+Krotconstant     86 226   1.00000   1
+Pshift           86 226   0.00000   2
+Pshiftadjust     86 226   0.00000   2
+deltaW           86 226   0.60000   2
+Ntop             86 226   1   2
+Nlow             86 226   0   2
+s2adjust         86 226   1.00000   2
+ctable           86 226   0.00000   2
+ptable           86 226   0.00000   2
+ctableadjust     86 226   0.00000   2
+ptableadjust     86 226   0.00000   2
+Ufermi           86 226  45.00000   2
+cfermi           86 226   5.00000   2
+Krotconstant     86 226   1.00000   2
+g                86 226  15.06667
+gp               86 226   5.73333
+gn               86 226   9.33333
+gnadjust         86 226   1.00000
+gpadjust         86 226   1.00000
+gadjust          86 226   1.00000
+Risomer          86 226   1.00000
+## parameters: 
+##   photon strength function
+gamgam           86 226   0.00000
+gamgamadjust     86 226   1.00000
+etable           86 226   0.00000 E1
+ftable           86 226   1.00000 E1
+wtable           86 226   1.00000 E1
+etableadjust     86 226   0.00000 E1
+ftableadjust     86 226   1.00000 E1
+wtableadjust     86 226   1.00000 E1
+upbendc          86 226 3.50000E-08 M1
+upbende          86 226 8.00000E-01 M1
+upbendf          86 226 6.00000E+00 M1
+upbendcadjust    86 226 1.00000E+00 M1
+upbendeadjust    86 226 1.00000E+00 M1
+upbendfadjust    86 226 1.00000E+00 M1
+sgr              86 226   2.747 M1
+egr              86 226   7.293 M1
+ggr              86 226   4.000 M1
+sgradjust        86 226   1.000 M1
+egradjust        86 226   1.000 M1
+ggradjust        86 226   1.000 M1
+etable           86 226   0.00000 E2
+ftable           86 226   1.00000 E2
+wtable           86 226   1.00000 E2
+etableadjust     86 226   0.00000 E2
+ftableadjust     86 226   1.00000 E2
+wtableadjust     86 226   1.00000 E2
+upbendc          86 226 0.00000E+00 M2
+upbende          86 226 0.00000E+00 M2
+upbendf          86 226 0.00000E+00 M2
+upbendcadjust    86 226 1.00000E+00 M2
+upbendeadjust    86 226 1.00000E+00 M2
+upbendfadjust    86 226 1.00000E+00 M2
+sgr              86 226   0.002 M2
+egr              86 226   7.293 M2
+ggr              86 226   4.000 M2
+sgradjust        86 226   1.000 M2
+egradjust        86 226   1.000 M2
+ggradjust        86 226   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       86 226   1.00000
+vfiscor          86 226   1.00000
+rmiufiscor       86 226   1.00000
+betafiscoradjust   86 226   1.00000
+vfiscoradjust    86 226   1.00000
+rmiufiscoradjust   86 226   1.00000
+bdamp            86 226   0.01000  1
+bdampadjust      86 226   1.00000  1
+class2width      86 226   0.20000  1
+Rtransmom        86 226   0.60000  1
+Rclass2mom       86 226   1.00000  1
+bdamp            86 226   0.01000  2
+bdampadjust      86 226   1.00000  2
+Rtransmom        86 226   1.00000  2
+Rclass2mom       86 226   1.00000  2
+## residual:
+##   Z: 86
+##   A: 225
+##   nuclide: Rn225 
+## parameters: 
+##   level density
+a                86 225  17.03821
+aadjust          86 225   1.00000
+gammald          86 225   0.07787
+pair             86 225   0.80000
+Pshift           86 225   0.00000   0
+Pshiftadjust     86 225   0.00000   0
+deltaW           86 225   4.27887   0
+Ntop             86 225  30   0
+Nlow             86 225   2   0
+s2adjust         86 225   1.00000   0
+ctable           86 225   0.00000   0
+ptable           86 225   0.00000   0
+ctableadjust     86 225   0.00000   0
+ptableadjust     86 225   0.00000   0
+Ufermi           86 225  30.00000   0
+cfermi           86 225   5.00000   0
+Krotconstant     86 225   1.00000   0
+Pshift           86 225   0.00000   1
+Pshiftadjust     86 225   0.00000   1
+deltaW           86 225   1.50000   1
+Ntop             86 225   1   1
+Nlow             86 225   0   1
+s2adjust         86 225   1.00000   1
+ctable           86 225   0.00000   1
+ptable           86 225   0.00000   1
+ctableadjust     86 225   0.00000   1
+ptableadjust     86 225   0.00000   1
+Ufermi           86 225  45.00000   1
+cfermi           86 225   5.00000   1
+Krotconstant     86 225   1.00000   1
+Pshift           86 225   0.00000   2
+Pshiftadjust     86 225   0.00000   2
+deltaW           86 225   0.60000   2
+Ntop             86 225   1   2
+Nlow             86 225   0   2
+s2adjust         86 225   1.00000   2
+ctable           86 225   0.00000   2
+ptable           86 225   0.00000   2
+ctableadjust     86 225   0.00000   2
+ptableadjust     86 225   0.00000   2
+Ufermi           86 225  45.00000   2
+cfermi           86 225   5.00000   2
+Krotconstant     86 225   1.00000   2
+Pshift           86 225   0.00000   3
+Pshiftadjust     86 225   0.00000   3
+deltaW           86 225   0.60000   3
+Ntop             86 225   1   3
+Nlow             86 225   0   3
+s2adjust         86 225   1.00000   3
+ctable           86 225   0.00000   3
+ptable           86 225   0.00000   3
+ctableadjust     86 225   0.00000   3
+ptableadjust     86 225   0.00000   3
+Ufermi           86 225  45.00000   3
+cfermi           86 225   5.00000   3
+Krotconstant     86 225   1.00000   3
+g                86 225  15.00000
+gp               86 225   5.73333
+gn               86 225   9.26667
+gnadjust         86 225   1.00000
+gpadjust         86 225   1.00000
+gadjust          86 225   1.00000
+Risomer          86 225   1.00000
+## parameters: 
+##   photon strength function
+gamgam           86 225   0.00000
+gamgamadjust     86 225   1.00000
+etable           86 225   0.00000 E1
+ftable           86 225   1.00000 E1
+wtable           86 225   1.00000 E1
+etableadjust     86 225   0.00000 E1
+ftableadjust     86 225   1.00000 E1
+wtableadjust     86 225   1.00000 E1
+upbendc          86 225 3.50000E-08 M1
+upbende          86 225 8.00000E-01 M1
+upbendf          86 225 6.00000E+00 M1
+upbendcadjust    86 225 1.00000E+00 M1
+upbendeadjust    86 225 1.00000E+00 M1
+upbendfadjust    86 225 1.00000E+00 M1
+sgr              86 225   2.737 M1
+egr              86 225   7.299 M1
+ggr              86 225   4.000 M1
+sgradjust        86 225   1.000 M1
+egradjust        86 225   1.000 M1
+ggradjust        86 225   1.000 M1
+etable           86 225   0.00000 E2
+ftable           86 225   1.00000 E2
+wtable           86 225   1.00000 E2
+etableadjust     86 225   0.00000 E2
+ftableadjust     86 225   1.00000 E2
+wtableadjust     86 225   1.00000 E2
+upbendc          86 225 0.00000E+00 M2
+upbende          86 225 0.00000E+00 M2
+upbendf          86 225 0.00000E+00 M2
+upbendcadjust    86 225 1.00000E+00 M2
+upbendeadjust    86 225 1.00000E+00 M2
+upbendfadjust    86 225 1.00000E+00 M2
+sgr              86 225   0.002 M2
+egr              86 225   7.299 M2
+ggr              86 225   4.000 M2
+sgradjust        86 225   1.000 M2
+egradjust        86 225   1.000 M2
+ggradjust        86 225   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       86 225   1.00000
+vfiscor          86 225   1.00000
+rmiufiscor       86 225   1.00000
+betafiscoradjust   86 225   1.00000
+vfiscoradjust    86 225   1.00000
+rmiufiscoradjust   86 225   1.00000
+bdamp            86 225   0.01000  1
+bdampadjust      86 225   1.00000  1
+class2width      86 225   0.20000  1
+Rtransmom        86 225   0.60000  1
+Rclass2mom       86 225   1.00000  1
+bdamp            86 225   0.01000  2
+bdampadjust      86 225   1.00000  2
+class2width      86 225   0.20000  2
+Rtransmom        86 225   1.00000  2
+Rclass2mom       86 225   1.00000  2
+bdamp            86 225   0.01000  3
+bdampadjust      86 225   1.00000  3
+Rtransmom        86 225   1.00000  3
+Rclass2mom       86 225   1.00000  3
+## residual:
+##   Z: 90
+##   A: 229
+##   nuclide: Th229 
+## parameters: 
+##   level density
+a                90 229  16.18119
+aadjust          90 229   1.00000
+gammald          90 229   0.07741
+pair             90 229   0.79298
+Pshift           90 229   0.00000   0
+Pshiftadjust     90 229   0.00000   0
+deltaW           90 229   3.25535   0
+Ntop             90 229  22   0
+Nlow             90 229   6   0
+s2adjust         90 229   1.00000   0
+ctable           90 229   0.33434   0
+ptable           90 229  -0.03665   0
+ctableadjust     90 229   0.00000   0
+ptableadjust     90 229   0.00000   0
+Ufermi           90 229  30.00000   0
+cfermi           90 229   5.00000   0
+Krotconstant     90 229   1.00000   0
+Pshift           90 229   0.00000   1
+Pshiftadjust     90 229   0.00000   1
+deltaW           90 229   1.50000   1
+Ntop             90 229   1   1
+Nlow             90 229   0   1
+s2adjust         90 229   1.00000   1
+ctable           90 229   0.00000   1
+ptable           90 229   0.00000   1
+ctableadjust     90 229   0.00000   1
+ptableadjust     90 229   0.00000   1
+Ufermi           90 229  45.00000   1
+cfermi           90 229   5.00000   1
+Krotconstant     90 229   1.00000   1
+Pshift           90 229   0.00000   2
+Pshiftadjust     90 229   0.00000   2
+deltaW           90 229   0.60000   2
+Ntop             90 229   1   2
+Nlow             90 229   0   2
+s2adjust         90 229   1.00000   2
+ctable           90 229   0.00000   2
+ptable           90 229   0.00000   2
+ctableadjust     90 229   0.00000   2
+ptableadjust     90 229   0.00000   2
+Ufermi           90 229  45.00000   2
+cfermi           90 229   5.00000   2
+Krotconstant     90 229   1.00000   2
+Pshift           90 229   0.00000   3
+Pshiftadjust     90 229   0.00000   3
+deltaW           90 229   0.60000   3
+Ntop             90 229   1   3
+Nlow             90 229   0   3
+s2adjust         90 229   1.00000   3
+ctable           90 229   0.00000   3
+ptable           90 229   0.00000   3
+ctableadjust     90 229   0.00000   3
+ptableadjust     90 229   0.00000   3
+Ufermi           90 229  45.00000   3
+cfermi           90 229   5.00000   3
+Krotconstant     90 229   1.00000   3
+D0               90 229 5.00000E+00
+g                90 229  15.26667
+gp               90 229   6.00000
+gn               90 229   9.26667
+gnadjust         90 229   1.00000
+gpadjust         90 229   1.00000
+gadjust          90 229   1.00000
+Risomer          90 229   1.00000
+## parameters: 
+##   photon strength function
+gamgam           90 229   0.00004
+gamgamadjust     90 229   1.00000
+etable           90 229   0.00000 E1
+ftable           90 229   1.00000 E1
+wtable           90 229   1.00000 E1
+etableadjust     90 229   0.00000 E1
+ftableadjust     90 229   1.00000 E1
+wtableadjust     90 229   1.00000 E1
+upbendc          90 229 3.50000E-08 M1
+upbende          90 229 8.00000E-01 M1
+upbendf          90 229 6.00000E+00 M1
+upbendcadjust    90 229 1.00000E+00 M1
+upbendeadjust    90 229 1.00000E+00 M1
+upbendfadjust    90 229 1.00000E+00 M1
+sgr              90 229   2.777 M1
+egr              90 229   7.277 M1
+ggr              90 229   4.000 M1
+sgradjust        90 229   1.000 M1
+egradjust        90 229   1.000 M1
+ggradjust        90 229   1.000 M1
+etable           90 229   0.00000 E2
+ftable           90 229   1.00000 E2
+wtable           90 229   1.00000 E2
+etableadjust     90 229   0.00000 E2
+ftableadjust     90 229   1.00000 E2
+wtableadjust     90 229   1.00000 E2
+upbendc          90 229 0.00000E+00 M2
+upbende          90 229 0.00000E+00 M2
+upbendf          90 229 0.00000E+00 M2
+upbendcadjust    90 229 1.00000E+00 M2
+upbendeadjust    90 229 1.00000E+00 M2
+upbendfadjust    90 229 1.00000E+00 M2
+sgr              90 229   0.002 M2
+egr              90 229   7.277 M2
+ggr              90 229   4.000 M2
+sgradjust        90 229   1.000 M2
+egradjust        90 229   1.000 M2
+ggradjust        90 229   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       90 229   1.00000
+vfiscor          90 229   1.00000
+rmiufiscor       90 229   1.00000
+betafiscoradjust   90 229   1.00000
+vfiscoradjust    90 229   1.00000
+rmiufiscoradjust   90 229   1.00000
+bdamp            90 229   0.01000  1
+bdampadjust      90 229   1.00000  1
+class2width      90 229   0.20000  1
+Rtransmom        90 229   0.60000  1
+Rclass2mom       90 229   1.00000  1
+bdamp            90 229   0.01000  2
+bdampadjust      90 229   1.00000  2
+class2width      90 229   0.20000  2
+Rtransmom        90 229   1.00000  2
+Rclass2mom       90 229   1.00000  2
+bdamp            90 229   0.01000  3
+bdampadjust      90 229   1.00000  3
+Rtransmom        90 229   1.00000  3
+Rclass2mom       90 229   1.00000  3
+## residual:
+##   Z: 89
+##   A: 227
+##   nuclide: Ac227 
+## parameters: 
+##   level density
+a                89 227  16.01710
+aadjust          89 227   1.00000
+gammald          89 227   0.07764
+pair             89 227   0.79647
+Pshift           89 227   0.00000   0
+Pshiftadjust     89 227   0.00000   0
+deltaW           89 227   3.33668   0
+Ntop             89 227  21   0
+Nlow             89 227   7   0
+s2adjust         89 227   1.00000   0
+ctable           89 227   0.03387   0
+ptable           89 227   0.06406   0
+ctableadjust     89 227   0.00000   0
+ptableadjust     89 227   0.00000   0
+Ufermi           89 227  30.00000   0
+cfermi           89 227   5.00000   0
+Krotconstant     89 227   1.00000   0
+Pshift           89 227   0.00000   1
+Pshiftadjust     89 227   0.00000   1
+deltaW           89 227   1.50000   1
+Ntop             89 227   1   1
+Nlow             89 227   0   1
+s2adjust         89 227   1.00000   1
+ctable           89 227   0.00000   1
+ptable           89 227   0.00000   1
+ctableadjust     89 227   0.00000   1
+ptableadjust     89 227   0.00000   1
+Ufermi           89 227  45.00000   1
+cfermi           89 227   5.00000   1
+Krotconstant     89 227   1.00000   1
+Pshift           89 227   0.00000   2
+Pshiftadjust     89 227   0.00000   2
+deltaW           89 227   0.60000   2
+Ntop             89 227   1   2
+Nlow             89 227   0   2
+s2adjust         89 227   1.00000   2
+ctable           89 227   0.00000   2
+ptable           89 227   0.00000   2
+ctableadjust     89 227   0.00000   2
+ptableadjust     89 227   0.00000   2
+Ufermi           89 227  45.00000   2
+cfermi           89 227   5.00000   2
+Krotconstant     89 227   1.00000   2
+Pshift           89 227   0.00000   3
+Pshiftadjust     89 227   0.00000   3
+deltaW           89 227   0.60000   3
+Ntop             89 227   1   3
+Nlow             89 227   0   3
+s2adjust         89 227   1.00000   3
+ctable           89 227   0.00000   3
+ptable           89 227   0.00000   3
+ctableadjust     89 227   0.00000   3
+ptableadjust     89 227   0.00000   3
+Ufermi           89 227  45.00000   3
+cfermi           89 227   5.00000   3
+Krotconstant     89 227   1.00000   3
+g                89 227  15.13333
+gp               89 227   5.93333
+gn               89 227   9.20000
+gnadjust         89 227   1.00000
+gpadjust         89 227   1.00000
+gadjust          89 227   1.00000
+Risomer          89 227   1.00000
+## parameters: 
+##   photon strength function
+gamgam           89 227   0.00000
+gamgamadjust     89 227   1.00000
+etable           89 227   0.00000 E1
+ftable           89 227   1.00000 E1
+wtable           89 227   1.00000 E1
+etableadjust     89 227   0.00000 E1
+ftableadjust     89 227   1.00000 E1
+wtableadjust     89 227   1.00000 E1
+upbendc          89 227 3.50000E-08 M1
+upbende          89 227 8.00000E-01 M1
+upbendf          89 227 6.00000E+00 M1
+upbendcadjust    89 227 1.00000E+00 M1
+upbendeadjust    89 227 1.00000E+00 M1
+upbendfadjust    89 227 1.00000E+00 M1
+sgr              89 227   2.757 M1
+egr              89 227   7.288 M1
+ggr              89 227   4.000 M1
+sgradjust        89 227   1.000 M1
+egradjust        89 227   1.000 M1
+ggradjust        89 227   1.000 M1
+etable           89 227   0.00000 E2
+ftable           89 227   1.00000 E2
+wtable           89 227   1.00000 E2
+etableadjust     89 227   0.00000 E2
+ftableadjust     89 227   1.00000 E2
+wtableadjust     89 227   1.00000 E2
+upbendc          89 227 0.00000E+00 M2
+upbende          89 227 0.00000E+00 M2
+upbendf          89 227 0.00000E+00 M2
+upbendcadjust    89 227 1.00000E+00 M2
+upbendeadjust    89 227 1.00000E+00 M2
+upbendfadjust    89 227 1.00000E+00 M2
+sgr              89 227   0.002 M2
+egr              89 227   7.288 M2
+ggr              89 227   4.000 M2
+sgradjust        89 227   1.000 M2
+egradjust        89 227   1.000 M2
+ggradjust        89 227   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       89 227   1.00000
+vfiscor          89 227   1.00000
+rmiufiscor       89 227   1.00000
+betafiscoradjust   89 227   1.00000
+vfiscoradjust    89 227   1.00000
+rmiufiscoradjust   89 227   1.00000
+bdamp            89 227   0.01000  1
+bdampadjust      89 227   1.00000  1
+class2width      89 227   0.20000  1
+Rtransmom        89 227   0.60000  1
+Rclass2mom       89 227   1.00000  1
+bdamp            89 227   0.01000  2
+bdampadjust      89 227   1.00000  2
+class2width      89 227   0.20000  2
+Rtransmom        89 227   1.00000  2
+Rclass2mom       89 227   1.00000  2
+bdamp            89 227   0.01000  3
+bdampadjust      89 227   1.00000  3
+Rtransmom        89 227   1.00000  3
+Rclass2mom       89 227   1.00000  3
+## residual:
+##   Z: 88
+##   A: 226
+##   nuclide: Ra226 
+## parameters: 
+##   level density
+a                88 226  16.07416
+aadjust          88 226   1.00000
+gammald          88 226   0.07776
+pair             88 226   1.59646
+Pshift           88 226   0.00000   0
+Pshiftadjust     88 226   0.00000   0
+deltaW           88 226   3.35316   0
+Ntop             88 226  22   0
+Nlow             88 226   6   0
+s2adjust         88 226   1.00000   0
+ctable           88 226   0.31824   0
+ptable           88 226   0.51372   0
+ctableadjust     88 226   0.00000   0
+ptableadjust     88 226   0.00000   0
+Ufermi           88 226  30.00000   0
+cfermi           88 226   5.00000   0
+Krotconstant     88 226   1.00000   0
+Pshift           88 226   0.00000   1
+Pshiftadjust     88 226   0.00000   1
+deltaW           88 226   1.50000   1
+Ntop             88 226   1   1
+Nlow             88 226   0   1
+s2adjust         88 226   1.00000   1
+ctable           88 226   0.00000   1
+ptable           88 226   0.00000   1
+ctableadjust     88 226   0.00000   1
+ptableadjust     88 226   0.00000   1
+Ufermi           88 226  45.00000   1
+cfermi           88 226   5.00000   1
+Krotconstant     88 226   1.00000   1
+Pshift           88 226   0.00000   2
+Pshiftadjust     88 226   0.00000   2
+deltaW           88 226   0.60000   2
+Ntop             88 226   1   2
+Nlow             88 226   0   2
+s2adjust         88 226   1.00000   2
+ctable           88 226   0.00000   2
+ptable           88 226   0.00000   2
+ctableadjust     88 226   0.00000   2
+ptableadjust     88 226   0.00000   2
+Ufermi           88 226  45.00000   2
+cfermi           88 226   5.00000   2
+Krotconstant     88 226   1.00000   2
+Pshift           88 226   0.00000   3
+Pshiftadjust     88 226   0.00000   3
+deltaW           88 226   0.60000   3
+Ntop             88 226   1   3
+Nlow             88 226   0   3
+s2adjust         88 226   1.00000   3
+ctable           88 226   0.00000   3
+ptable           88 226   0.00000   3
+ctableadjust     88 226   0.00000   3
+ptableadjust     88 226   0.00000   3
+Ufermi           88 226  45.00000   3
+cfermi           88 226   5.00000   3
+Krotconstant     88 226   1.00000   3
+g                88 226  15.06667
+gp               88 226   5.86667
+gn               88 226   9.20000
+gnadjust         88 226   1.00000
+gpadjust         88 226   1.00000
+gadjust          88 226   1.00000
+Risomer          88 226   1.00000
+## parameters: 
+##   photon strength function
+gamgam           88 226   0.00000
+gamgamadjust     88 226   1.00000
+etable           88 226   0.00000 E1
+ftable           88 226   1.00000 E1
+wtable           88 226   1.00000 E1
+etableadjust     88 226   0.00000 E1
+ftableadjust     88 226   1.00000 E1
+wtableadjust     88 226   1.00000 E1
+upbendc          88 226 3.50000E-08 M1
+upbende          88 226 8.00000E-01 M1
+upbendf          88 226 6.00000E+00 M1
+upbendcadjust    88 226 1.00000E+00 M1
+upbendeadjust    88 226 1.00000E+00 M1
+upbendfadjust    88 226 1.00000E+00 M1
+sgr              88 226   2.747 M1
+egr              88 226   7.293 M1
+ggr              88 226   4.000 M1
+sgradjust        88 226   1.000 M1
+egradjust        88 226   1.000 M1
+ggradjust        88 226   1.000 M1
+etable           88 226   0.00000 E2
+ftable           88 226   1.00000 E2
+wtable           88 226   1.00000 E2
+etableadjust     88 226   0.00000 E2
+ftableadjust     88 226   1.00000 E2
+wtableadjust     88 226   1.00000 E2
+upbendc          88 226 0.00000E+00 M2
+upbende          88 226 0.00000E+00 M2
+upbendf          88 226 0.00000E+00 M2
+upbendcadjust    88 226 1.00000E+00 M2
+upbendeadjust    88 226 1.00000E+00 M2
+upbendfadjust    88 226 1.00000E+00 M2
+sgr              88 226   0.002 M2
+egr              88 226   7.293 M2
+ggr              88 226   4.000 M2
+sgradjust        88 226   1.000 M2
+egradjust        88 226   1.000 M2
+ggradjust        88 226   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       88 226   1.00000
+vfiscor          88 226   1.00000
+rmiufiscor       88 226   1.00000
+betafiscoradjust   88 226   1.00000
+vfiscoradjust    88 226   1.00000
+rmiufiscoradjust   88 226   1.00000
+bdamp            88 226   0.01000  1
+bdampadjust      88 226   1.00000  1
+class2width      88 226   0.20000  1
+Rtransmom        88 226   0.60000  1
+Rclass2mom       88 226   1.00000  1
+bdamp            88 226   0.01000  2
+bdampadjust      88 226   1.00000  2
+class2width      88 226   0.20000  2
+Rtransmom        88 226   1.00000  2
+Rclass2mom       88 226   1.00000  2
+bdamp            88 226   0.01000  3
+bdampadjust      88 226   1.00000  3
+Rtransmom        88 226   1.00000  3
+Rclass2mom       88 226   1.00000  3
+## residual:
+##   Z: 87
+##   A: 225
+##   nuclide: Fr225 
+## parameters: 
+##   level density
+a                87 225  16.33689
+aadjust          87 225   1.00000
+gammald          87 225   0.07787
+pair             87 225   0.80000
+Pshift           87 225   0.00000   0
+Pshiftadjust     87 225   0.00000   0
+deltaW           87 225   3.77627   0
+Ntop             87 225  26   0
+Nlow             87 225   2   0
+s2adjust         87 225   1.00000   0
+ctable           87 225  -0.12270   0
+ptable           87 225  -0.20212   0
+ctableadjust     87 225   0.00000   0
+ptableadjust     87 225   0.00000   0
+Ufermi           87 225  30.00000   0
+cfermi           87 225   5.00000   0
+Krotconstant     87 225   1.00000   0
+Pshift           87 225   0.00000   1
+Pshiftadjust     87 225   0.00000   1
+deltaW           87 225   1.50000   1
+Ntop             87 225   1   1
+Nlow             87 225   0   1
+s2adjust         87 225   1.00000   1
+ctable           87 225   0.00000   1
+ptable           87 225   0.00000   1
+ctableadjust     87 225   0.00000   1
+ptableadjust     87 225   0.00000   1
+Ufermi           87 225  45.00000   1
+cfermi           87 225   5.00000   1
+Krotconstant     87 225   1.00000   1
+Pshift           87 225   0.00000   2
+Pshiftadjust     87 225   0.00000   2
+deltaW           87 225   0.60000   2
+Ntop             87 225   1   2
+Nlow             87 225   0   2
+s2adjust         87 225   1.00000   2
+ctable           87 225   0.00000   2
+ptable           87 225   0.00000   2
+ctableadjust     87 225   0.00000   2
+ptableadjust     87 225   0.00000   2
+Ufermi           87 225  45.00000   2
+cfermi           87 225   5.00000   2
+Krotconstant     87 225   1.00000   2
+Pshift           87 225   0.00000   3
+Pshiftadjust     87 225   0.00000   3
+deltaW           87 225   0.60000   3
+Ntop             87 225   1   3
+Nlow             87 225   0   3
+s2adjust         87 225   1.00000   3
+ctable           87 225   0.00000   3
+ptable           87 225   0.00000   3
+ctableadjust     87 225   0.00000   3
+ptableadjust     87 225   0.00000   3
+Ufermi           87 225  45.00000   3
+cfermi           87 225   5.00000   3
+Krotconstant     87 225   1.00000   3
+g                87 225  15.00000
+gp               87 225   5.80000
+gn               87 225   9.20000
+gnadjust         87 225   1.00000
+gpadjust         87 225   1.00000
+gadjust          87 225   1.00000
+Risomer          87 225   1.00000
+## parameters: 
+##   photon strength function
+gamgam           87 225   0.00000
+gamgamadjust     87 225   1.00000
+etable           87 225   0.00000 E1
+ftable           87 225   1.00000 E1
+wtable           87 225   1.00000 E1
+etableadjust     87 225   0.00000 E1
+ftableadjust     87 225   1.00000 E1
+wtableadjust     87 225   1.00000 E1
+upbendc          87 225 3.50000E-08 M1
+upbende          87 225 8.00000E-01 M1
+upbendf          87 225 6.00000E+00 M1
+upbendcadjust    87 225 1.00000E+00 M1
+upbendeadjust    87 225 1.00000E+00 M1
+upbendfadjust    87 225 1.00000E+00 M1
+sgr              87 225   2.737 M1
+egr              87 225   7.299 M1
+ggr              87 225   4.000 M1
+sgradjust        87 225   1.000 M1
+egradjust        87 225   1.000 M1
+ggradjust        87 225   1.000 M1
+etable           87 225   0.00000 E2
+ftable           87 225   1.00000 E2
+wtable           87 225   1.00000 E2
+etableadjust     87 225   0.00000 E2
+ftableadjust     87 225   1.00000 E2
+wtableadjust     87 225   1.00000 E2
+upbendc          87 225 0.00000E+00 M2
+upbende          87 225 0.00000E+00 M2
+upbendf          87 225 0.00000E+00 M2
+upbendcadjust    87 225 1.00000E+00 M2
+upbendeadjust    87 225 1.00000E+00 M2
+upbendfadjust    87 225 1.00000E+00 M2
+sgr              87 225   0.002 M2
+egr              87 225   7.299 M2
+ggr              87 225   4.000 M2
+sgradjust        87 225   1.000 M2
+egradjust        87 225   1.000 M2
+ggradjust        87 225   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       87 225   1.00000
+vfiscor          87 225   1.00000
+rmiufiscor       87 225   1.00000
+betafiscoradjust   87 225   1.00000
+vfiscoradjust    87 225   1.00000
+rmiufiscoradjust   87 225   1.00000
+bdamp            87 225   0.01000  1
+bdampadjust      87 225   1.00000  1
+class2width      87 225   0.20000  1
+Rtransmom        87 225   0.60000  1
+Rclass2mom       87 225   1.00000  1
+bdamp            87 225   0.01000  2
+bdampadjust      87 225   1.00000  2
+class2width      87 225   0.20000  2
+Rtransmom        87 225   1.00000  2
+Rclass2mom       87 225   1.00000  2
+bdamp            87 225   0.01000  3
+bdampadjust      87 225   1.00000  3
+Rtransmom        87 225   1.00000  3
+Rclass2mom       87 225   1.00000  3
+## residual:
+##   Z: 86
+##   A: 224
+##   nuclide: Rn224 
+## parameters: 
+##   level density
+a                86 224  16.28364
+aadjust          86 224   1.00000
+gammald          86 224   0.07799
+pair             86 224   1.60357
+Pshift           86 224   0.00000   0
+Pshiftadjust     86 224   0.00000   0
+deltaW           86 224   3.66909   0
+Ntop             86 224  30   0
+Nlow             86 224   2   0
+s2adjust         86 224   1.00000   0
+ctable           86 224   0.00000   0
+ptable           86 224   0.00000   0
+ctableadjust     86 224   0.00000   0
+ptableadjust     86 224   0.00000   0
+Ufermi           86 224  30.00000   0
+cfermi           86 224   5.00000   0
+Krotconstant     86 224   1.00000   0
+Pshift           86 224   0.00000   1
+Pshiftadjust     86 224   0.00000   1
+deltaW           86 224   1.50000   1
+Ntop             86 224   1   1
+Nlow             86 224   0   1
+s2adjust         86 224   1.00000   1
+ctable           86 224   0.00000   1
+ptable           86 224   0.00000   1
+ctableadjust     86 224   0.00000   1
+ptableadjust     86 224   0.00000   1
+Ufermi           86 224  45.00000   1
+cfermi           86 224   5.00000   1
+Krotconstant     86 224   1.00000   1
+Pshift           86 224   0.00000   2
+Pshiftadjust     86 224   0.00000   2
+deltaW           86 224   0.60000   2
+Ntop             86 224   1   2
+Nlow             86 224   0   2
+s2adjust         86 224   1.00000   2
+ctable           86 224   0.00000   2
+ptable           86 224   0.00000   2
+ctableadjust     86 224   0.00000   2
+ptableadjust     86 224   0.00000   2
+Ufermi           86 224  45.00000   2
+cfermi           86 224   5.00000   2
+Krotconstant     86 224   1.00000   2
+g                86 224  14.93333
+gp               86 224   5.73333
+gn               86 224   9.20000
+gnadjust         86 224   1.00000
+gpadjust         86 224   1.00000
+gadjust          86 224   1.00000
+Risomer          86 224   1.00000
+## parameters: 
+##   photon strength function
+gamgam           86 224   0.00000
+gamgamadjust     86 224   1.00000
+etable           86 224   0.00000 E1
+ftable           86 224   1.00000 E1
+wtable           86 224   1.00000 E1
+etableadjust     86 224   0.00000 E1
+ftableadjust     86 224   1.00000 E1
+wtableadjust     86 224   1.00000 E1
+upbendc          86 224 3.50000E-08 M1
+upbende          86 224 8.00000E-01 M1
+upbendf          86 224 6.00000E+00 M1
+upbendcadjust    86 224 1.00000E+00 M1
+upbendeadjust    86 224 1.00000E+00 M1
+upbendfadjust    86 224 1.00000E+00 M1
+sgr              86 224   2.727 M1
+egr              86 224   7.304 M1
+ggr              86 224   4.000 M1
+sgradjust        86 224   1.000 M1
+egradjust        86 224   1.000 M1
+ggradjust        86 224   1.000 M1
+etable           86 224   0.00000 E2
+ftable           86 224   1.00000 E2
+wtable           86 224   1.00000 E2
+etableadjust     86 224   0.00000 E2
+ftableadjust     86 224   1.00000 E2
+wtableadjust     86 224   1.00000 E2
+upbendc          86 224 0.00000E+00 M2
+upbende          86 224 0.00000E+00 M2
+upbendf          86 224 0.00000E+00 M2
+upbendcadjust    86 224 1.00000E+00 M2
+upbendeadjust    86 224 1.00000E+00 M2
+upbendfadjust    86 224 1.00000E+00 M2
+sgr              86 224   0.002 M2
+egr              86 224   7.304 M2
+ggr              86 224   4.000 M2
+sgradjust        86 224   1.000 M2
+egradjust        86 224   1.000 M2
+ggradjust        86 224   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       86 224   1.00000
+vfiscor          86 224   1.00000
+rmiufiscor       86 224   1.00000
+betafiscoradjust   86 224   1.00000
+vfiscoradjust    86 224   1.00000
+rmiufiscoradjust   86 224   1.00000
+bdamp            86 224   0.01000  1
+bdampadjust      86 224   1.00000  1
+class2width      86 224   0.20000  1
+Rtransmom        86 224   0.60000  1
+Rclass2mom       86 224   1.00000  1
+bdamp            86 224   0.01000  2
+bdampadjust      86 224   1.00000  2
+Rtransmom        86 224   1.00000  2
+Rclass2mom       86 224   1.00000  2
+## residual:
+##   Z: 90
+##   A: 228
+##   nuclide: Th228 
+## parameters: 
+##   level density
+a                90 228  15.85747
+aadjust          90 228   1.00000
+gammald          90 228   0.07753
+pair             90 228   1.58944
+Pshift           90 228   0.00000   0
+Pshiftadjust     90 228   0.00000   0
+deltaW           90 228   3.05800   0
+Ntop             90 228  36   0
+Nlow             90 228   6   0
+s2adjust         90 228   1.00000   0
+ctable           90 228   0.34953   0
+ptable           90 228   0.53787   0
+ctableadjust     90 228   0.00000   0
+ptableadjust     90 228   0.00000   0
+Ufermi           90 228  30.00000   0
+cfermi           90 228   5.00000   0
+Krotconstant     90 228   1.00000   0
+Pshift           90 228   0.00000   1
+Pshiftadjust     90 228   0.00000   1
+deltaW           90 228   1.50000   1
+Ntop             90 228   1   1
+Nlow             90 228   0   1
+s2adjust         90 228   1.00000   1
+ctable           90 228   0.00000   1
+ptable           90 228   0.00000   1
+ctableadjust     90 228   0.00000   1
+ptableadjust     90 228   0.00000   1
+Ufermi           90 228  45.00000   1
+cfermi           90 228   5.00000   1
+Krotconstant     90 228   1.00000   1
+Pshift           90 228   0.00000   2
+Pshiftadjust     90 228   0.00000   2
+deltaW           90 228   0.60000   2
+Ntop             90 228   1   2
+Nlow             90 228   0   2
+s2adjust         90 228   1.00000   2
+ctable           90 228   0.00000   2
+ptable           90 228   0.00000   2
+ctableadjust     90 228   0.00000   2
+ptableadjust     90 228   0.00000   2
+Ufermi           90 228  45.00000   2
+cfermi           90 228   5.00000   2
+Krotconstant     90 228   1.00000   2
+Pshift           90 228   0.00000   3
+Pshiftadjust     90 228   0.00000   3
+deltaW           90 228   0.60000   3
+Ntop             90 228   1   3
+Nlow             90 228   0   3
+s2adjust         90 228   1.00000   3
+ctable           90 228   0.00000   3
+ptable           90 228   0.00000   3
+ctableadjust     90 228   0.00000   3
+ptableadjust     90 228   0.00000   3
+Ufermi           90 228  45.00000   3
+cfermi           90 228   5.00000   3
+Krotconstant     90 228   1.00000   3
+g                90 228  15.20000
+gp               90 228   6.00000
+gn               90 228   9.20000
+gnadjust         90 228   1.00000
+gpadjust         90 228   1.00000
+gadjust          90 228   1.00000
+Risomer          90 228   1.00000
+## parameters: 
+##   photon strength function
+gamgam           90 228   0.00000
+gamgamadjust     90 228   1.00000
+etable           90 228   0.00000 E1
+ftable           90 228   1.00000 E1
+wtable           90 228   1.00000 E1
+etableadjust     90 228   0.00000 E1
+ftableadjust     90 228   1.00000 E1
+wtableadjust     90 228   1.00000 E1
+upbendc          90 228 3.50000E-08 M1
+upbende          90 228 8.00000E-01 M1
+upbendf          90 228 6.00000E+00 M1
+upbendcadjust    90 228 1.00000E+00 M1
+upbendeadjust    90 228 1.00000E+00 M1
+upbendfadjust    90 228 1.00000E+00 M1
+sgr              90 228   2.767 M1
+egr              90 228   7.283 M1
+ggr              90 228   4.000 M1
+sgradjust        90 228   1.000 M1
+egradjust        90 228   1.000 M1
+ggradjust        90 228   1.000 M1
+etable           90 228   0.00000 E2
+ftable           90 228   1.00000 E2
+wtable           90 228   1.00000 E2
+etableadjust     90 228   0.00000 E2
+ftableadjust     90 228   1.00000 E2
+wtableadjust     90 228   1.00000 E2
+upbendc          90 228 0.00000E+00 M2
+upbende          90 228 0.00000E+00 M2
+upbendf          90 228 0.00000E+00 M2
+upbendcadjust    90 228 1.00000E+00 M2
+upbendeadjust    90 228 1.00000E+00 M2
+upbendfadjust    90 228 1.00000E+00 M2
+sgr              90 228   0.002 M2
+egr              90 228   7.283 M2
+ggr              90 228   4.000 M2
+sgradjust        90 228   1.000 M2
+egradjust        90 228   1.000 M2
+ggradjust        90 228   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       90 228   1.00000
+vfiscor          90 228   1.00000
+rmiufiscor       90 228   1.00000
+betafiscoradjust   90 228   1.00000
+vfiscoradjust    90 228   1.00000
+rmiufiscoradjust   90 228   1.00000
+bdamp            90 228   0.01000  1
+bdampadjust      90 228   1.00000  1
+class2width      90 228   0.20000  1
+Rtransmom        90 228   0.60000  1
+Rclass2mom       90 228   1.00000  1
+bdamp            90 228   0.01000  2
+bdampadjust      90 228   1.00000  2
+class2width      90 228   0.20000  2
+Rtransmom        90 228   1.00000  2
+Rclass2mom       90 228   1.00000  2
+bdamp            90 228   0.01000  3
+bdampadjust      90 228   1.00000  3
+Rtransmom        90 228   1.00000  3
+Rclass2mom       90 228   1.00000  3
+## residual:
+##   Z: 89
+##   A: 226
+##   nuclide: Ac226 
+## parameters: 
+##   level density
+a                89 226  15.74521
+aadjust          89 226   1.00000
+gammald          89 226   0.07776
+pair             89 226   0.00000
+Pshift           89 226   0.00000   0
+Pshiftadjust     89 226   0.00000   0
+deltaW           89 226   3.03449   0
+Ntop             89 226  30   0
+Nlow             89 226   2   0
+s2adjust         89 226   1.00000   0
+ctable           89 226   0.00000   0
+ptable           89 226   0.00000   0
+ctableadjust     89 226   0.00000   0
+ptableadjust     89 226   0.00000   0
+Ufermi           89 226  30.00000   0
+cfermi           89 226   5.00000   0
+Krotconstant     89 226   1.00000   0
+Pshift           89 226   0.00000   1
+Pshiftadjust     89 226   0.00000   1
+deltaW           89 226   1.50000   1
+Ntop             89 226   1   1
+Nlow             89 226   0   1
+s2adjust         89 226   1.00000   1
+ctable           89 226   0.00000   1
+ptable           89 226   0.00000   1
+ctableadjust     89 226   0.00000   1
+ptableadjust     89 226   0.00000   1
+Ufermi           89 226  45.00000   1
+cfermi           89 226   5.00000   1
+Krotconstant     89 226   1.00000   1
+Pshift           89 226   0.00000   2
+Pshiftadjust     89 226   0.00000   2
+deltaW           89 226   0.60000   2
+Ntop             89 226   1   2
+Nlow             89 226   0   2
+s2adjust         89 226   1.00000   2
+ctable           89 226   0.00000   2
+ptable           89 226   0.00000   2
+ctableadjust     89 226   0.00000   2
+ptableadjust     89 226   0.00000   2
+Ufermi           89 226  45.00000   2
+cfermi           89 226   5.00000   2
+Krotconstant     89 226   1.00000   2
+Pshift           89 226   0.00000   3
+Pshiftadjust     89 226   0.00000   3
+deltaW           89 226   0.60000   3
+Ntop             89 226   1   3
+Nlow             89 226   0   3
+s2adjust         89 226   1.00000   3
+ctable           89 226   0.00000   3
+ptable           89 226   0.00000   3
+ctableadjust     89 226   0.00000   3
+ptableadjust     89 226   0.00000   3
+Ufermi           89 226  45.00000   3
+cfermi           89 226   5.00000   3
+Krotconstant     89 226   1.00000   3
+g                89 226  15.06667
+gp               89 226   5.93333
+gn               89 226   9.13333
+gnadjust         89 226   1.00000
+gpadjust         89 226   1.00000
+gadjust          89 226   1.00000
+Risomer          89 226   1.00000
+## parameters: 
+##   photon strength function
+gamgam           89 226   0.00000
+gamgamadjust     89 226   1.00000
+etable           89 226   0.00000 E1
+ftable           89 226   1.00000 E1
+wtable           89 226   1.00000 E1
+etableadjust     89 226   0.00000 E1
+ftableadjust     89 226   1.00000 E1
+wtableadjust     89 226   1.00000 E1
+upbendc          89 226 3.50000E-08 M1
+upbende          89 226 8.00000E-01 M1
+upbendf          89 226 6.00000E+00 M1
+upbendcadjust    89 226 1.00000E+00 M1
+upbendeadjust    89 226 1.00000E+00 M1
+upbendfadjust    89 226 1.00000E+00 M1
+sgr              89 226   2.747 M1
+egr              89 226   7.293 M1
+ggr              89 226   4.000 M1
+sgradjust        89 226   1.000 M1
+egradjust        89 226   1.000 M1
+ggradjust        89 226   1.000 M1
+etable           89 226   0.00000 E2
+ftable           89 226   1.00000 E2
+wtable           89 226   1.00000 E2
+etableadjust     89 226   0.00000 E2
+ftableadjust     89 226   1.00000 E2
+wtableadjust     89 226   1.00000 E2
+upbendc          89 226 0.00000E+00 M2
+upbende          89 226 0.00000E+00 M2
+upbendf          89 226 0.00000E+00 M2
+upbendcadjust    89 226 1.00000E+00 M2
+upbendeadjust    89 226 1.00000E+00 M2
+upbendfadjust    89 226 1.00000E+00 M2
+sgr              89 226   0.002 M2
+egr              89 226   7.293 M2
+ggr              89 226   4.000 M2
+sgradjust        89 226   1.000 M2
+egradjust        89 226   1.000 M2
+ggradjust        89 226   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       89 226   1.00000
+vfiscor          89 226   1.00000
+rmiufiscor       89 226   1.00000
+betafiscoradjust   89 226   1.00000
+vfiscoradjust    89 226   1.00000
+rmiufiscoradjust   89 226   1.00000
+bdamp            89 226   0.01000  1
+bdampadjust      89 226   1.00000  1
+class2width      89 226   0.20000  1
+Rtransmom        89 226   0.60000  1
+Rclass2mom       89 226   1.00000  1
+bdamp            89 226   0.01000  2
+bdampadjust      89 226   1.00000  2
+class2width      89 226   0.20000  2
+Rtransmom        89 226   1.00000  2
+Rclass2mom       89 226   1.00000  2
+bdamp            89 226   0.01000  3
+bdampadjust      89 226   1.00000  3
+Rtransmom        89 226   1.00000  3
+Rclass2mom       89 226   1.00000  3
+## residual:
+##   Z: 88
+##   A: 225
+##   nuclide: Ra225 
+## parameters: 
+##   level density
+a                88 225  15.90276
+aadjust          88 225   1.00000
+gammald          88 225   0.07787
+pair             88 225   0.80000
+Pshift           88 225   0.00000   0
+Pshiftadjust     88 225   0.00000   0
+deltaW           88 225   3.13284   0
+Ntop             88 225  26   0
+Nlow             88 225   2   0
+s2adjust         88 225   1.00000   0
+ctable           88 225  -0.34348   0
+ptable           88 225  -0.50985   0
+ctableadjust     88 225   0.00000   0
+ptableadjust     88 225   0.00000   0
+Ufermi           88 225  30.00000   0
+cfermi           88 225   5.00000   0
+Krotconstant     88 225   1.00000   0
+Pshift           88 225   0.00000   1
+Pshiftadjust     88 225   0.00000   1
+deltaW           88 225   1.50000   1
+Ntop             88 225   1   1
+Nlow             88 225   0   1
+s2adjust         88 225   1.00000   1
+ctable           88 225   0.00000   1
+ptable           88 225   0.00000   1
+ctableadjust     88 225   0.00000   1
+ptableadjust     88 225   0.00000   1
+Ufermi           88 225  45.00000   1
+cfermi           88 225   5.00000   1
+Krotconstant     88 225   1.00000   1
+Pshift           88 225   0.00000   2
+Pshiftadjust     88 225   0.00000   2
+deltaW           88 225   0.60000   2
+Ntop             88 225   1   2
+Nlow             88 225   0   2
+s2adjust         88 225   1.00000   2
+ctable           88 225   0.00000   2
+ptable           88 225   0.00000   2
+ctableadjust     88 225   0.00000   2
+ptableadjust     88 225   0.00000   2
+Ufermi           88 225  45.00000   2
+cfermi           88 225   5.00000   2
+Krotconstant     88 225   1.00000   2
+Pshift           88 225   0.00000   3
+Pshiftadjust     88 225   0.00000   3
+deltaW           88 225   0.60000   3
+Ntop             88 225   1   3
+Nlow             88 225   0   3
+s2adjust         88 225   1.00000   3
+ctable           88 225   0.00000   3
+ptable           88 225   0.00000   3
+ctableadjust     88 225   0.00000   3
+ptableadjust     88 225   0.00000   3
+Ufermi           88 225  45.00000   3
+cfermi           88 225   5.00000   3
+Krotconstant     88 225   1.00000   3
+g                88 225  15.00000
+gp               88 225   5.86667
+gn               88 225   9.13333
+gnadjust         88 225   1.00000
+gpadjust         88 225   1.00000
+gadjust          88 225   1.00000
+Risomer          88 225   1.00000
+## parameters: 
+##   photon strength function
+gamgam           88 225   0.00000
+gamgamadjust     88 225   1.00000
+etable           88 225   0.00000 E1
+ftable           88 225   1.00000 E1
+wtable           88 225   1.00000 E1
+etableadjust     88 225   0.00000 E1
+ftableadjust     88 225   1.00000 E1
+wtableadjust     88 225   1.00000 E1
+upbendc          88 225 3.50000E-08 M1
+upbende          88 225 8.00000E-01 M1
+upbendf          88 225 6.00000E+00 M1
+upbendcadjust    88 225 1.00000E+00 M1
+upbendeadjust    88 225 1.00000E+00 M1
+upbendfadjust    88 225 1.00000E+00 M1
+sgr              88 225   2.737 M1
+egr              88 225   7.299 M1
+ggr              88 225   4.000 M1
+sgradjust        88 225   1.000 M1
+egradjust        88 225   1.000 M1
+ggradjust        88 225   1.000 M1
+etable           88 225   0.00000 E2
+ftable           88 225   1.00000 E2
+wtable           88 225   1.00000 E2
+etableadjust     88 225   0.00000 E2
+ftableadjust     88 225   1.00000 E2
+wtableadjust     88 225   1.00000 E2
+upbendc          88 225 0.00000E+00 M2
+upbende          88 225 0.00000E+00 M2
+upbendf          88 225 0.00000E+00 M2
+upbendcadjust    88 225 1.00000E+00 M2
+upbendeadjust    88 225 1.00000E+00 M2
+upbendfadjust    88 225 1.00000E+00 M2
+sgr              88 225   0.002 M2
+egr              88 225   7.299 M2
+ggr              88 225   4.000 M2
+sgradjust        88 225   1.000 M2
+egradjust        88 225   1.000 M2
+ggradjust        88 225   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       88 225   1.00000
+vfiscor          88 225   1.00000
+rmiufiscor       88 225   1.00000
+betafiscoradjust   88 225   1.00000
+vfiscoradjust    88 225   1.00000
+rmiufiscoradjust   88 225   1.00000
+bdamp            88 225   0.01000  1
+bdampadjust      88 225   1.00000  1
+class2width      88 225   0.20000  1
+Rtransmom        88 225   0.60000  1
+Rclass2mom       88 225   1.00000  1
+bdamp            88 225   0.01000  2
+bdampadjust      88 225   1.00000  2
+class2width      88 225   0.20000  2
+Rtransmom        88 225   1.00000  2
+Rclass2mom       88 225   1.00000  2
+bdamp            88 225   0.01000  3
+bdampadjust      88 225   1.00000  3
+Rtransmom        88 225   1.00000  3
+Rclass2mom       88 225   1.00000  3
+## residual:
+##   Z: 87
+##   A: 224
+##   nuclide: Fr224 
+## parameters: 
+##   level density
+a                87 224  15.99407
+aadjust          87 224   1.00000
+gammald          87 224   0.07799
+pair             87 224   0.00000
+Pshift           87 224   0.00000   0
+Pshiftadjust     87 224   0.00000   0
+deltaW           87 224   3.37034   0
+Ntop             87 224  30   0
+Nlow             87 224   2   0
+s2adjust         87 224   1.00000   0
+ctable           87 224   0.00000   0
+ptable           87 224   0.00000   0
+ctableadjust     87 224   0.00000   0
+ptableadjust     87 224   0.00000   0
+Ufermi           87 224  30.00000   0
+cfermi           87 224   5.00000   0
+Krotconstant     87 224   1.00000   0
+Pshift           87 224   0.00000   1
+Pshiftadjust     87 224   0.00000   1
+deltaW           87 224   1.50000   1
+Ntop             87 224   1   1
+Nlow             87 224   0   1
+s2adjust         87 224   1.00000   1
+ctable           87 224   0.00000   1
+ptable           87 224   0.00000   1
+ctableadjust     87 224   0.00000   1
+ptableadjust     87 224   0.00000   1
+Ufermi           87 224  45.00000   1
+cfermi           87 224   5.00000   1
+Krotconstant     87 224   1.00000   1
+Pshift           87 224   0.00000   2
+Pshiftadjust     87 224   0.00000   2
+deltaW           87 224   0.60000   2
+Ntop             87 224   1   2
+Nlow             87 224   0   2
+s2adjust         87 224   1.00000   2
+ctable           87 224   0.00000   2
+ptable           87 224   0.00000   2
+ctableadjust     87 224   0.00000   2
+ptableadjust     87 224   0.00000   2
+Ufermi           87 224  45.00000   2
+cfermi           87 224   5.00000   2
+Krotconstant     87 224   1.00000   2
+Pshift           87 224   0.00000   3
+Pshiftadjust     87 224   0.00000   3
+deltaW           87 224   0.60000   3
+Ntop             87 224   1   3
+Nlow             87 224   0   3
+s2adjust         87 224   1.00000   3
+ctable           87 224   0.00000   3
+ptable           87 224   0.00000   3
+ctableadjust     87 224   0.00000   3
+ptableadjust     87 224   0.00000   3
+Ufermi           87 224  45.00000   3
+cfermi           87 224   5.00000   3
+Krotconstant     87 224   1.00000   3
+g                87 224  14.93333
+gp               87 224   5.80000
+gn               87 224   9.13333
+gnadjust         87 224   1.00000
+gpadjust         87 224   1.00000
+gadjust          87 224   1.00000
+Risomer          87 224   1.00000
+## parameters: 
+##   photon strength function
+gamgam           87 224   0.00000
+gamgamadjust     87 224   1.00000
+etable           87 224   0.00000 E1
+ftable           87 224   1.00000 E1
+wtable           87 224   1.00000 E1
+etableadjust     87 224   0.00000 E1
+ftableadjust     87 224   1.00000 E1
+wtableadjust     87 224   1.00000 E1
+upbendc          87 224 3.50000E-08 M1
+upbende          87 224 8.00000E-01 M1
+upbendf          87 224 6.00000E+00 M1
+upbendcadjust    87 224 1.00000E+00 M1
+upbendeadjust    87 224 1.00000E+00 M1
+upbendfadjust    87 224 1.00000E+00 M1
+sgr              87 224   2.727 M1
+egr              87 224   7.304 M1
+ggr              87 224   4.000 M1
+sgradjust        87 224   1.000 M1
+egradjust        87 224   1.000 M1
+ggradjust        87 224   1.000 M1
+etable           87 224   0.00000 E2
+ftable           87 224   1.00000 E2
+wtable           87 224   1.00000 E2
+etableadjust     87 224   0.00000 E2
+ftableadjust     87 224   1.00000 E2
+wtableadjust     87 224   1.00000 E2
+upbendc          87 224 0.00000E+00 M2
+upbende          87 224 0.00000E+00 M2
+upbendf          87 224 0.00000E+00 M2
+upbendcadjust    87 224 1.00000E+00 M2
+upbendeadjust    87 224 1.00000E+00 M2
+upbendfadjust    87 224 1.00000E+00 M2
+sgr              87 224   0.002 M2
+egr              87 224   7.304 M2
+ggr              87 224   4.000 M2
+sgradjust        87 224   1.000 M2
+egradjust        87 224   1.000 M2
+ggradjust        87 224   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       87 224   1.00000
+vfiscor          87 224   1.00000
+rmiufiscor       87 224   1.00000
+betafiscoradjust   87 224   1.00000
+vfiscoradjust    87 224   1.00000
+rmiufiscoradjust   87 224   1.00000
+bdamp            87 224   0.01000  1
+bdampadjust      87 224   1.00000  1
+class2width      87 224   0.20000  1
+Rtransmom        87 224   0.60000  1
+Rclass2mom       87 224   1.00000  1
+bdamp            87 224   0.01000  2
+bdampadjust      87 224   1.00000  2
+class2width      87 224   0.20000  2
+Rtransmom        87 224   1.00000  2
+Rclass2mom       87 224   1.00000  2
+bdamp            87 224   0.01000  3
+bdampadjust      87 224   1.00000  3
+Rtransmom        87 224   1.00000  3
+Rclass2mom       87 224   1.00000  3
+## residual:
+##   Z: 86
+##   A: 223
+##   nuclide: Rn223 
+## parameters: 
+##   level density
+a                86 223  16.21294
+aadjust          86 223   1.00000
+gammald          86 223   0.07810
+pair             86 223   0.80358
+Pshift           86 223   0.00000   0
+Pshiftadjust     86 223   0.00000   0
+deltaW           86 223   3.49468   0
+Ntop             86 223  30   0
+Nlow             86 223   2   0
+s2adjust         86 223   1.00000   0
+ctable           86 223   0.00000   0
+ptable           86 223   0.00000   0
+ctableadjust     86 223   0.00000   0
+ptableadjust     86 223   0.00000   0
+Ufermi           86 223  30.00000   0
+cfermi           86 223   5.00000   0
+Krotconstant     86 223   1.00000   0
+Pshift           86 223   0.00000   1
+Pshiftadjust     86 223   0.00000   1
+deltaW           86 223   1.50000   1
+Ntop             86 223   1   1
+Nlow             86 223   0   1
+s2adjust         86 223   1.00000   1
+ctable           86 223   0.00000   1
+ptable           86 223   0.00000   1
+ctableadjust     86 223   0.00000   1
+ptableadjust     86 223   0.00000   1
+Ufermi           86 223  45.00000   1
+cfermi           86 223   5.00000   1
+Krotconstant     86 223   1.00000   1
+Pshift           86 223   0.00000   2
+Pshiftadjust     86 223   0.00000   2
+deltaW           86 223   0.60000   2
+Ntop             86 223   1   2
+Nlow             86 223   0   2
+s2adjust         86 223   1.00000   2
+ctable           86 223   0.00000   2
+ptable           86 223   0.00000   2
+ctableadjust     86 223   0.00000   2
+ptableadjust     86 223   0.00000   2
+Ufermi           86 223  45.00000   2
+cfermi           86 223   5.00000   2
+Krotconstant     86 223   1.00000   2
+Pshift           86 223   0.00000   3
+Pshiftadjust     86 223   0.00000   3
+deltaW           86 223   0.60000   3
+Ntop             86 223   1   3
+Nlow             86 223   0   3
+s2adjust         86 223   1.00000   3
+ctable           86 223   0.00000   3
+ptable           86 223   0.00000   3
+ctableadjust     86 223   0.00000   3
+ptableadjust     86 223   0.00000   3
+Ufermi           86 223  45.00000   3
+cfermi           86 223   5.00000   3
+Krotconstant     86 223   1.00000   3
+g                86 223  14.86667
+gp               86 223   5.73333
+gn               86 223   9.13333
+gnadjust         86 223   1.00000
+gpadjust         86 223   1.00000
+gadjust          86 223   1.00000
+Risomer          86 223   1.00000
+## parameters: 
+##   photon strength function
+gamgam           86 223   0.00000
+gamgamadjust     86 223   1.00000
+etable           86 223   0.00000 E1
+ftable           86 223   1.00000 E1
+wtable           86 223   1.00000 E1
+etableadjust     86 223   0.00000 E1
+ftableadjust     86 223   1.00000 E1
+wtableadjust     86 223   1.00000 E1
+upbendc          86 223 3.50000E-08 M1
+upbende          86 223 8.00000E-01 M1
+upbendf          86 223 6.00000E+00 M1
+upbendcadjust    86 223 1.00000E+00 M1
+upbendeadjust    86 223 1.00000E+00 M1
+upbendfadjust    86 223 1.00000E+00 M1
+sgr              86 223   2.717 M1
+egr              86 223   7.310 M1
+ggr              86 223   4.000 M1
+sgradjust        86 223   1.000 M1
+egradjust        86 223   1.000 M1
+ggradjust        86 223   1.000 M1
+etable           86 223   0.00000 E2
+ftable           86 223   1.00000 E2
+wtable           86 223   1.00000 E2
+etableadjust     86 223   0.00000 E2
+ftableadjust     86 223   1.00000 E2
+wtableadjust     86 223   1.00000 E2
+upbendc          86 223 0.00000E+00 M2
+upbende          86 223 0.00000E+00 M2
+upbendf          86 223 0.00000E+00 M2
+upbendcadjust    86 223 1.00000E+00 M2
+upbendeadjust    86 223 1.00000E+00 M2
+upbendfadjust    86 223 1.00000E+00 M2
+sgr              86 223   0.002 M2
+egr              86 223   7.310 M2
+ggr              86 223   4.000 M2
+sgradjust        86 223   1.000 M2
+egradjust        86 223   1.000 M2
+ggradjust        86 223   1.000 M2
+##
+## parameters: 
+##   fission
+##
+betafiscor       86 223   1.00000
+vfiscor          86 223   1.00000
+rmiufiscor       86 223   1.00000
+betafiscoradjust   86 223   1.00000
+vfiscoradjust    86 223   1.00000
+rmiufiscoradjust   86 223   1.00000
+bdamp            86 223   0.01000  1
+bdampadjust      86 223   1.00000  1
+class2width      86 223   0.20000  1
+Rtransmom        86 223   0.60000  1
+Rclass2mom       86 223   1.00000  1
+bdamp            86 223   0.01000  2
+bdampadjust      86 223   1.00000  2
+class2width      86 223   0.20000  2
+Rtransmom        86 223   1.00000  2
+Rclass2mom       86 223   1.00000  2
+bdamp            86 223   0.01000  3
+bdampadjust      86 223   1.00000  3
+Rtransmom        86 223   1.00000  3
+Rclass2mom       86 223   1.00000  3
+## General parameters:
+##   level density
+ldmodel        7
+colenhance     y
+Rspincutff        4.00000
+cglobal         1.00000E-20
+pglobal         1.00000E-20
+Kph              15.00000
+## General parameters:
+##   photon strength function
+strength        9
+strengthM1      3
+xscaptherm      7.34100E+03
+levinger        6.50000E+00
+## General parameters:
+##   pre-equilibrium
+M2constant        1.00000
+M2limit           1.00000
+M2shift           1.00000
+Rpipi             1.00000
+Rnunu             1.50000
+Rpinu             1.00000
+Rnupi             1.00000
+Rgamma            2.00000
+Rspincutpreeq     1.00000
+Esurf            13.55631
+Cstrip        n   1.00000
+Cknock        n   1.00000
+Cbreak        n   1.00000
+Cstrip        p   1.00000
+Cknock        p   1.00000
+Cbreak        p   1.00000
+Cstrip        d   1.00000
+Cknock        d   1.00000
+Cbreak        d   1.00000
+Cstrip        t   1.00000
+Cknock        t   1.00000
+Cbreak        t   1.00000
+Cstrip        h   1.00000
+Cknock        h   1.00000
+Cbreak        h   1.00000
+Cstrip        a   1.00000
+Cknock        a   1.00000
+Cbreak        a   1.00000
+GMRadjustE        1.00000
+GMRadjustG        1.00000
+GMRadjustD        1.00000
+GQRadjustE        1.00000
+GQRadjustG        1.00000
+GQRadjustD        1.00000
+LEORadjustE       1.00000
+LEORadjustG       1.00000
+LEORadjustD       1.00000
+HEORadjustE       1.00000
+HEORadjustG       1.00000
+HEORadjustD       1.00000
+## General parameters:
+##   fission
+fismodel       6
+Cnubar1           1.00000
+Cnubar2           1.00000
+Tmadjust          1.00000
+Fsadjust          1.00000
+Cbarrier          1.00000
+## General parameters:
+##   optical model
+deuteronomp    4
+alphaomp       6
+v1adjust      n   1.00000
+v2adjust      n   1.00000
+v3adjust      n   1.00000
+v4adjust      n   1.00000
+rvadjust      n   1.00000
+avadjust      n   1.00000
+w1adjust      n   1.00000
+w2adjust      n   1.00000
+w3adjust      n   1.00000
+w4adjust      n   1.00000
+rwadjust      n   1.00000
+awadjust      n   1.00000
+rvdadjust     n   1.00000
+avdadjust     n   1.00000
+d1adjust      n   1.00000
+d2adjust      n   1.00000
+d3adjust      n   1.00000
+rwdadjust     n   1.00000
+awdadjust     n   1.00000
+rvsoadjust    n   1.00000
+avsoadjust    n   1.00000
+vso1adjust    n   1.00000
+vso2adjust    n   1.00000
+rwsoadjust    n   1.00000
+awsoadjust    n   1.00000
+wso1adjust    n   1.00000
+wso2adjust    n   1.00000
+rcadjust      n   1.00000
+v1adjust      p   1.00000
+v2adjust      p   1.00000
+v3adjust      p   1.00000
+v4adjust      p   1.00000
+rvadjust      p   1.00000
+avadjust      p   1.00000
+w1adjust      p   1.00000
+w2adjust      p   1.00000
+w3adjust      p   1.00000
+w4adjust      p   1.00000
+rwadjust      p   1.00000
+awadjust      p   1.00000
+rvdadjust     p   1.00000
+avdadjust     p   1.00000
+d1adjust      p   1.00000
+d2adjust      p   1.00000
+d3adjust      p   1.00000
+rwdadjust     p   1.00000
+awdadjust     p   1.00000
+rvsoadjust    p   1.00000
+avsoadjust    p   1.00000
+vso1adjust    p   1.00000
+vso2adjust    p   1.00000
+rwsoadjust    p   1.00000
+awsoadjust    p   1.00000
+wso1adjust    p   1.00000
+wso2adjust    p   1.00000
+rcadjust      p   1.00000
+v1adjust      d   1.00000
+v2adjust      d   1.00000
+v3adjust      d   1.00000
+v4adjust      d   1.00000
+rvadjust      d   1.00000
+avadjust      d   1.00000
+w1adjust      d   1.00000
+w2adjust      d   1.00000
+w3adjust      d   1.00000
+w4adjust      d   1.00000
+rwadjust      d   1.00000
+awadjust      d   1.00000
+rvdadjust     d   1.00000
+avdadjust     d   1.00000
+d1adjust      d   1.00000
+d2adjust      d   1.00000
+d3adjust      d   1.00000
+rwdadjust     d   1.00000
+awdadjust     d   1.00000
+rvsoadjust    d   1.00000
+avsoadjust    d   1.00000
+vso1adjust    d   1.00000
+vso2adjust    d   1.00000
+rwsoadjust    d   1.00000
+awsoadjust    d   1.00000
+wso1adjust    d   1.00000
+wso2adjust    d   1.00000
+rcadjust      d   1.00000
+v1adjust      t   1.00000
+v2adjust      t   1.00000
+v3adjust      t   1.00000
+v4adjust      t   1.00000
+rvadjust      t   1.00000
+avadjust      t   1.00000
+w1adjust      t   1.00000
+w2adjust      t   1.00000
+w3adjust      t   1.00000
+w4adjust      t   1.00000
+rwadjust      t   1.00000
+awadjust      t   1.00000
+rvdadjust     t   1.00000
+avdadjust     t   1.00000
+d1adjust      t   1.00000
+d2adjust      t   1.00000
+d3adjust      t   1.00000
+rwdadjust     t   1.00000
+awdadjust     t   1.00000
+rvsoadjust    t   1.00000
+avsoadjust    t   1.00000
+vso1adjust    t   1.00000
+vso2adjust    t   1.00000
+rwsoadjust    t   1.00000
+awsoadjust    t   1.00000
+wso1adjust    t   1.00000
+wso2adjust    t   1.00000
+rcadjust      t   1.00000
+v1adjust      h   1.00000
+v2adjust      h   1.00000
+v3adjust      h   1.00000
+v4adjust      h   1.00000
+rvadjust      h   1.00000
+avadjust      h   1.00000
+w1adjust      h   1.00000
+w2adjust      h   1.00000
+w3adjust      h   1.00000
+w4adjust      h   1.00000
+rwadjust      h   1.00000
+awadjust      h   1.00000
+rvdadjust     h   1.00000
+avdadjust     h   1.00000
+d1adjust      h   1.00000
+d2adjust      h   1.00000
+d3adjust      h   1.00000
+rwdadjust     h   1.00000
+awdadjust     h   1.00000
+rvsoadjust    h   1.00000
+avsoadjust    h   1.00000
+vso1adjust    h   1.00000
+vso2adjust    h   1.00000
+rwsoadjust    h   1.00000
+awsoadjust    h   1.00000
+wso1adjust    h   1.00000
+wso2adjust    h   1.00000
+rcadjust      h   1.00000
+v1adjust      a   1.00000
+v2adjust      a   1.00000
+v3adjust      a   1.00000
+v4adjust      a   1.00000
+rvadjust      a   1.00000
+avadjust      a   1.00000
+w1adjust      a   1.00000
+w2adjust      a   1.00000
+w3adjust      a   1.00000
+w4adjust      a   1.00000
+rwadjust      a   1.00000
+awadjust      a   1.00000
+rvdadjust     a   1.00000
+avdadjust     a   1.00000
+d1adjust      a   1.00000
+d2adjust      a   1.00000
+d3adjust      a   1.00000
+rwdadjust     a   1.00000
+awdadjust     a   1.00000
+rvsoadjust    a   1.00000
+avsoadjust    a   1.00000
+vso1adjust    a   1.00000
+vso2adjust    a   1.00000
+rwsoadjust    a   1.00000
+awsoadjust    a   1.00000
+wso1adjust    a   1.00000
+wso2adjust    a   1.00000
+rcadjust      a   1.00000
+v1adjust      e   1.00000
+v2adjust      e   1.00000
+v3adjust      e   1.00000
+v4adjust      e   1.00000
+rvadjust      e   1.00000
+avadjust      e   1.00000
+w1adjust      e   1.00000
+w2adjust      e   1.00000
+w3adjust      e   1.00000
+w4adjust      e   1.00000
+rwadjust      e   1.00000
+awadjust      e   1.00000
+rvdadjust     e   1.00000
+avdadjust     e   1.00000
+d1adjust      e   1.00000
+d2adjust      e   1.00000
+d3adjust      e   1.00000
+rwdadjust     e   1.00000
+awdadjust     e   1.00000
+rvsoadjust    e   1.00000
+avsoadjust    e   1.00000
+vso1adjust    e   1.00000
+vso2adjust    e   1.00000
+rwsoadjust    e   1.00000
+awsoadjust    e   1.00000
+wso1adjust    e   1.00000
+wso2adjust    e   1.00000
+rcadjust      e   1.00000
+## General parameters:
+##   resonance parameters
+## Z   A     S0        R      xs(therm)    D0         a         P        Sn
+##  90 232 2.909E-01 5.032E+00 7.341E+03 1.650E+01 1.670E+01 7.861E-01 4.786E+00

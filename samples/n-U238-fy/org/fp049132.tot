@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for In132
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 49
+#     A: 132
+#     nuclide: In132
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   4.317433E-04   8.128445E-04   2.812280E-03   5.294721E-03
+   1.600000E+00   4.419371E-04   1.031745E-03   3.761619E-02   8.781916E-02
+   5.500000E+00   1.817617E-04   5.325307E-04   1.036608E-01   3.037103E-01
+   1.000000E+01   8.660176E-05   4.820992E-04   5.289262E-02   2.944470E-01

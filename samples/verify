@@ -1,0 +1,134 @@
+#!/bin/bash
+echo
+echo "     verify (Version December 27 2024) (C) Copyright 2024 Arjan Koning and Viktor Zerkin All Rights Reserved"
+echo
+#
+# verify: run TALYS for each sample case present in the new/ directories and determine
+#         the numerical differences with the results of the org/ directories
+#
+# Examples: verify     (run all sample cases)"
+#           verify 2   (run only the first 2 sample case)"
+#
+# verify has been developed on Linux and Macos.
+# For Windows, change diff --> FC  and /dev/null --> NUL
+#
+# TALYS executable: Relative path from the current directory talys/samples.  
+#
+cwd=`pwd`
+talys=${cwd}/../bin/talys
+#
+# Main output and determine number of sample cases
+# nfiles: total number of TALYS sample cases
+# iimax:  number of sample cases to be run by the user
+#
+start=`date +%F,%T`
+echo "________Script [$0] starting on:`uname -n` at:$start"
+files=`find . -name talys.inp | grep new | sort `
+nfiles=`find . -name talys.inp | grep new | sort  | wc -l`
+iimax=1000
+if [ "$1" != "" ] ; then 
+  iimax=$1 
+else 
+  iimax=${nfiles}
+fi
+if [ $iimax -ge $nfiles ] ; then 
+  iimax=$nfiles
+fi
+iimax=`printf "%2d"  $(echo $iimax)`
+nfiles=`printf "%2d"  $(echo $nfiles)`
+echo "________in total there are ${nfiles} sample cases"
+echo "________going to run TALYS on ${iimax} sample cases"
+#
+# Runtime of the sample cases is printed in times.log
+#
+echo "Script $0 start on:`uname -n` at:`date +%F,%T` with ${iimax} cases">times.log
+echo "TALYS executable: ${talys}">>times.log
+ls -la ${talys}>>times.log
+echo
+echo 'times.log: computer time of each sample case, to be compared with times_org.log'
+echo 'files_dif.log: differences in file length for each output file'
+echo
+echo >> times.log
+echo 'Differences in file length'  > files_dif.log
+echo >> files_dif.log
+#
+# Output of TALYS executable
+#
+homedir=`pwd`
+echo "________TALYS executable: $talys"
+ls -la ${talys}
+echo ""
+#
+# Loop over sample cases
+#
+t00=`date +%s`
+ii=0
+for f in ${files} ; do
+  ii=$((ii+1))
+  dir=`dirname ${f}`
+  cd ${dir}
+#
+# Run TALYS and output of calculation time
+#
+  echo "${ii}/${iimax}  *** Sample case $dir "
+  echo "          *** Start: `date +%F,%T`"
+  t0=`date +%s`
+  $talys < talys.inp > talys.out
+  errCode=$?
+  if [ $errCode -ne 0 ] ; then 
+    echo "___________error=$errCode on $dir"
+  fi
+  t1=`date +%s` 
+  dt=$(($t1-t0))
+  dt0=$(($t1-t00))
+  printf " %2d/%-2d %-30s %s time[sec]:%-5d total[sec]:%-5d sec err:%d\n" $ii ${iimax} $dir `date +%F,%T` $dt ${dt0} $errCode>>../../times.log
+  echo "          *** End  : `date +%F,%T`" time[sec]:${dt}
+  echo
+#
+# Output of file differences
+#
+  if [ -e outputdiff ]; then
+    rm outputdiff
+  fi
+  first=1
+  for of in `ls -1` ; do
+    diff ${of} ../org/${of} | grep -v date >> /dev/null
+    if [ $? -eq 1 ] ; then
+      echo $of >> outputdiff
+      diff ${of} ../org/${of} | grep -v date >> outputdiff
+    fi
+    lines_new=`cat ${of}|wc -l`
+    lines_org=`cat ../org/${of}|wc -l`
+    if [ $lines_new != $lines_org ] ; then 
+      if [ $first -eq 1 ] ;then
+        echo "*** Sample case $dir" >> ../../files_dif.log
+        echo "Difference in length of output file, see files_dif.log"
+        echo
+        first=0
+      fi
+      echo $of "lines - new:" $lines_new " org:" $lines_org >> ../../files_dif.log
+    fi
+    perl -ne 'print if /[^[:ascii:]]/' $of >> /dev/null
+    if [ $? -eq 1 ] ; then
+      echo "Non-ascii characters in " $of >> files_dif.log
+      perl -ne 'print if /[^[:ascii:]]/' $of >> files_dif.log
+    fi
+  done
+#
+# Back to original directory for next sample case
+#
+  cd $homedir
+  if [ $ii -ge $iimax ] ; then 
+    break
+  fi
+done
+#
+# Output of total time
+#
+t11=`date +%s`; dt0=$(($t11-t00))
+echo "Script $0 `date +%F,%T` stop $ii cases ${dt0}sec">>times.log
+echo "Elapsed time[sec]:" ${dt0}
+end=`date +%F,%T`
+echo "*** All sample cases done " 
+echo "Start: " $start
+echo "End  : " $end

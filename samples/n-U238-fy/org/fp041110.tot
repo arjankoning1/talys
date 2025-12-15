@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Nb110
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 41
+#     A: 110
+#     nuclide: Nb110
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   7.669406E-05   1.887581E-04   4.995681E-04   1.229536E-03
+   1.600000E+00   1.567726E-04   3.732602E-04   1.334395E-02   3.177084E-02
+   5.500000E+00   4.439167E-05   2.027445E-04   2.531708E-02   1.156283E-01
+   1.000000E+01   5.876022E-05   2.043659E-04   3.588821E-02   1.248186E-01

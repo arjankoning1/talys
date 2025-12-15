@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Ni73
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 28
+#     A: 73
+#     nuclide: Ni73
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   3.691173E-05   2.572176E-05   2.404348E-04   1.675469E-04
+   1.600000E+00   5.900538E-05   7.864656E-05   5.022338E-03   6.694171E-03
+   5.500000E+00   2.325532E-05   5.049509E-05   1.326278E-02   2.879811E-02
+   1.000000E+01   2.262743E-05   4.184640E-05   1.381986E-02   2.555812E-02

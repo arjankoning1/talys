@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Nd159
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 60
+#     A: 159
+#     nuclide: Nd159
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   3.387441E-04   1.805703E-03   2.206504E-03   1.176202E-02
+   1.600000E+00   3.186756E-04   1.953044E-03   2.712459E-02   1.662376E-01
+   5.500000E+00   1.587901E-04   8.986620E-04   9.055983E-02   5.125204E-01
+   1.000000E+01   6.129828E-05   7.015761E-04   3.743835E-02   4.284948E-01

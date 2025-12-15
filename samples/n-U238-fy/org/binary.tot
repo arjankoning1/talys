@@ -1,0 +1,30 @@
+# header: 
+#   title: U238(n,bin) binary cross section
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,bin)
+#   Q(n,g) [MeV]:  4.806381E+00
+#   Q(n,n) [MeV]:  0.000000E+00
+#   Q(n,p) [MeV]: -2.803891E+00
+#   Q(n,d) [MeV]: -5.284462E+00
+#   Q(n,t) [MeV]: -4.904604E+00
+#   Q(n,h) [MeV]: -5.806882E+00
+#   Q(n,a) [MeV]:  8.936677E+00
+#   quantity: 
+#     type: cross section
+#   datablock: 
+#     columns: 8
+#     entries: 4
+##       E            gamma         neutron        proton        deuteron        triton        helium-3         alpha
+##     [MeV]          [mb]           [mb]           [mb]           [mb]           [mb]           [mb]           [mb]
+   1.000000E+00   4.079412E+01   2.557463E+03   0.000000E+00   0.000000E+00   0.000000E+00   0.000000E+00   0.000000E+00
+   1.600000E+00   3.312380E+01   3.416586E+03   0.000000E+00   0.000000E+00   0.000000E+00   0.000000E+00   1.228459E-14
+   5.500000E+00   1.120875E+01   3.095025E+03   8.280531E-13   0.000000E+00   0.000000E+00   0.000000E+00   1.964388E-07
+   1.000000E+01   2.575295E+00   3.245518E+03   5.310522E-04   6.371401E-10   1.751616E-10   4.876478E-33   7.937291E-05

@@ -1,0 +1,27 @@
+#
+# n-Pb208-omp
+#
+# General
+#
+projectile n
+element pb
+mass 208
+energy energies
+#
+# Avoid unnecessary calculations and output
+#
+ejectiles n
+preequilibrium n
+compound n
+maxZ 0
+maxN 0
+bins 5
+fileresidual n
+filetotal n
+#
+# Output
+#
+outangle y
+fileelastic y
+fileangle 1
+fileangle 2

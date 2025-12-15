@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Pm156
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 61
+#     A: 156
+#     nuclide: Pm156
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   2.412742E-04   2.468474E-05   1.571606E-03   1.607919E-04
+   1.600000E+00   3.189607E-04   1.971160E-05   2.714885E-02   1.677795E-03
+   5.500000E+00   6.183088E-04   5.275274E-05   3.526286E-01   3.008568E-02
+   1.000000E+01   7.893388E-04   1.030476E-04   4.820941E-01   6.293740E-02

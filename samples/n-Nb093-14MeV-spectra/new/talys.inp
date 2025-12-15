@@ -1,0 +1,20 @@
+#
+# n-Nb093-14MeV-spectra
+#
+# General
+#
+projectile n
+element nb
+mass 93
+energy 14.
+#
+# Output
+#
+outdiscrete y 
+outspectra y 
+ddxmode 2 
+filespectrum n p a 
+fileddxa n 30. 
+fileddxa n 60. 
+fileddxa a 30. 
+fileddxa a 60.

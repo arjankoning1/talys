@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Y93
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 39
+#     A: 93
+#     nuclide: Y93
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   2.148464E-04   5.873605E-06   1.399461E-03   3.825959E-05
+   1.600000E+00   6.166445E-05   8.074534E-08   5.248669E-03   6.872812E-06
+   5.500000E+00   2.617805E-04   5.479158E-06   1.492964E-01   3.124846E-03
+   1.000000E+01   3.138006E-04   7.614261E-06   1.916559E-01   4.650488E-03

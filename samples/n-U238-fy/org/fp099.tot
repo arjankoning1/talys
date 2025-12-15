@@ -1,0 +1,25 @@
+# header: 
+#   title: U238(n,f) fission yield for  A=099
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   residual: 
+#     A: 99
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]           []             []            [mb]           [mb]
+   1.000000E+00   5.297479E-02   5.816277E-02   3.453570E-01   3.788677E-01
+   1.600000E+00   5.326515E-02   5.827607E-02   4.533806E+00   4.960372E+00
+   5.500000E+00   5.230538E-02   6.000165E-02   2.985480E+01   3.422043E+01
+   1.000000E+01   5.104707E-02   6.017362E-02   3.117768E+01   3.675228E+01

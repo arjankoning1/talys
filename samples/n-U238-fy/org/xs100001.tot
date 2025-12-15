@@ -1,0 +1,31 @@
+# header: 
+#   title: U238(n,na)Th234 cross section
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,na)
+#   Q-value [MeV]:  4.270155E+00
+#   E-threshold [MeV]:  0.000000E+00
+#   ENDF_MF: 3
+#   ENDF_MT: 22
+#   residual: 
+#     Z: 90
+#     A: 234
+#     nuclide: Th234
+#   quantity: 
+#     type: cross section
+#   datablock: 
+#     columns: 4
+#     entries: 4
+##       E             xs          gamma_xs    xs/res.prod.xs
+##     [MeV]          [mb]           [mb]            []
+   1.000000E+00   1.000000E-12   1.000000E-12   0.000000E+00
+   1.600000E+00   1.000000E-12   1.000000E-12   0.000000E+00
+   5.500000E+00   1.000000E-12   1.000000E-12   0.000000E+00
+   1.000000E+01   5.829289E-06   1.193311E-05   9.999996E-01

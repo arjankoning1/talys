@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Sb131
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 51
+#     A: 131
+#     nuclide: Sb131
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   2.554097E-03   1.291021E-03   1.663682E-02   8.409473E-03
+   1.600000E+00   4.016540E-03   1.918170E-03   3.418742E-01   1.632692E-01
+   5.500000E+00   5.394555E-03   2.509855E-03   3.076577E+00   1.431408E+00
+   1.000000E+01   9.411654E-03   3.107845E-03   5.748233E+00   1.898148E+00

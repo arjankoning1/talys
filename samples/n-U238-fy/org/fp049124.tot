@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for In124
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 49
+#     A: 124
+#     nuclide: In124
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   1.312410E-05   1.197408E-05   8.548745E-05   7.799696E-05
+   1.600000E+00   0.000000E+00   0.000000E+00   1.272579E-05   0.000000E+00
+   5.500000E+00   6.200689E-05   8.286233E-06   3.536324E-02   4.725763E-03
+   1.000000E+01   1.145083E-04   1.894913E-05   6.993675E-02   1.157338E-02

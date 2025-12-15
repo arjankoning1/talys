@@ -1,0 +1,29 @@
+# header: 
+#   title: U238(n,f) fission yield for Dy169
+#   source: TALYS-2.2
+#   user: Arjan Koning
+#   date: 2025-12-14
+#   format: YANDF-0.4
+# target: 
+#   Z: 92
+#   A: 238
+#   nuclide: U238
+# reaction: 
+#   type: (n,f)
+#   ENDF_MF: 8
+#   ENDF_MT: 454
+#   residual: 
+#     Z: 66
+#     A: 169
+#     nuclide: Dy169
+#   quantity: 
+#     type: fission yield
+#   datablock: 
+#     columns: 5
+#     entries: 4
+##       E          FP_yield       FF_yield         FP_xs          FF_xs
+##     [MeV]          [mb]            []            [mb]           [mb]
+   1.000000E+00   0.000000E+00   0.000000E+00   5.652084E-08   0.000000E+00
+   1.600000E+00   0.000000E+00   1.862731E-10   0.000000E+00   1.585503E-08
+   5.500000E+00   3.554911E-06   1.368767E-10   2.027406E-03   7.806284E-08
+   1.000000E+01   5.111938E-06   1.108969E-13   3.122151E-03   6.773141E-11
