@@ -2,7 +2,7 @@
 #   title: Ba138(n,g) reaction rate
 #   source: TALYS-2.2
 #   user: Arjan Koning
-#   date: 2025-12-14
+#   date: 2025-12-18
 #   format: YANDF-0.4
 # target: 
 #   Z: 56
