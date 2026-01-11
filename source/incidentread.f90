@@ -5,7 +5,7 @@ subroutine incidentread
 !
 ! Author    : Arjan Koning, Eric Bauge and Pascal Romain
 !
-! 2025-09-10: Original code
+! 2025-12-18: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -176,12 +176,14 @@ subroutine incidentread
       write(20, '(a72)') line
     enddo
     rewind 10
-    do
-      read(11, '(a72)', iostat = istat) line
-      if(istat == -1) exit
-      write(21, '(a72)') line
-    enddo
-    rewind 11
+    if (flagoutomp) then
+      do
+        read(11, '(a72)', iostat = istat) line
+          if(istat == -1) exit
+        write(21, '(a72)') line
+      enddo
+      rewind 11
+    endif
   else
     infilecs = 13
     infiletr = 17
@@ -501,14 +503,14 @@ subroutine incidentread
   close (unit = 8, status = ecisstatus)
   close (unit = 9, status = ecisstatus)
   close (unit = 10, status = ecisstatus)
-  close (unit = 11, status = ecisstatus)
+  if (flagoutomp) close (unit = 11, status = ecisstatus)
   if (nin == Ninc) then
     close (unit = 13, status = ecisstatus)
     close (unit = 17, status = ecisstatus)
     close (unit = 18, status = ecisstatus)
     close (unit = 19, status = ecisstatus)
     close (unit = 20, status = ecisstatus)
-    close (unit = 21, status = ecisstatus)
+    if (flagoutomp) close (unit = 21, status = ecisstatus)
   endif
   return
 end subroutine incidentread
