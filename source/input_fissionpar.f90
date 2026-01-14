@@ -130,24 +130,6 @@ subroutine input_fissionpar
   Tmadjust = 1.
   Fsadjust = 1.
   Cbarrier = 1.
-  if (fismodel == 6 .and. (ldmodel(0,0) == 5 .or. ldmodel(0,0) == 6)) Cbarrier = 1.4
-  if (fismodel <= 3 .or. fismodel == 5) Cbarrier = 1.35
-  if (k0 <= 1 .and. Atarget <= fislim) Cbarrier = Cbarrier * 1.5
-! if (fismodel == 3) then
-!   if (Atarget <= fislim) then
-!     if (ldmodel(0,0) <= 3) then
-!       Cbarrier = 0.85
-!     else
-!       Cbarrier = 2.00
-!     endif
-!   else
-!     if (ldmodel(0,0) <= 3) then
-!       Cbarrier = 1.20
-!     else
-!       Cbarrier = 2.00
-!     endif
-!   endif
-! endif
   do Zix = 0, numZ
     do Nix = 0, numN
       Z = Zinit - Zix
