@@ -6,7 +6,7 @@
  Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees
 
  User: Arjan Koning
- Date: 2025-12-18
+ Date: 2026-01-14
 
  ########## USER INPUT ##########
 
@@ -3753,7 +3753,7 @@ file: nunZA0010.000.fis
    90 235 (235Th) 7.36444E-05    0    7.36444E-05  1.00000
    90 234 (234Th) 5.82929E-06    0    5.82929E-06  1.00000
    89 234 (234Ac) 1.00000E-12    0    0.00000E+00  0.00000
-   88 231 (231Ra) 1.00000E-12    0    2.27236E-21  0.00000
+   88 231 (231Ra) 1.00000E-12    0    2.27088E-21  0.00000
    88 230 (230Ra) 1.00000E-12    0    0.00000E+00  0.00000
 
    b. Per mass
@@ -3776,9 +3776,9 @@ file: nunZA0010.000.fis
 
    92 239 (239U ) 7.18658E+00
    92 238 (238U ) 1.21432E+03
-   91 238 (238Pa) 9.96422E-22
+   91 238 (238Pa) 1.01643E-12
    92 237 (237U ) 7.86997E-03
-   90 235 (235Th) 4.41848E-23
+   90 235 (235Th) 2.28676E-12
 file: rp092239.fis
 file: rp092238.fis
 file: rp091238.fis
@@ -3816,6 +3816,8 @@ file: rp090235.fis
     n   p   d   t   h   a
     0   0   0   0   0   0    7.18658E+00  (n,gf)           
     1   0   0   0   0   0    1.21397E+03  (n,n'f)          
+    0   1   0   0   0   0    1.01643E-12  (n,pf)           
+    0   0   0   0   0   1    2.28676E-12  (n,af)           
     2   0   0   0   0   0    7.86997E-03  (n,2nf)          
 
  Absorption cross section                 :  1222.73706
@@ -3917,6 +3919,6 @@ file: xs000003.fis
 file: xs200002.fis
 file: xs100003.fis
 
- Execution time:  0 hours  3 minutes 56.33 seconds 
+ Execution time:  0 hours  3 minutes 47.93 seconds 
 
  The TALYS team congratulates you with this successful calculation.
