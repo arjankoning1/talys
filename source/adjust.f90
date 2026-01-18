@@ -5,7 +5,7 @@ subroutine adjust(E, key, Zix, Nix, type, ibar, factor)
 !
 ! Author    : Arjan Koning
 !
-! 2021-12-30: Original code
+! 2026-01-18: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -35,6 +35,7 @@ subroutine adjust(E, key, Zix, Nix, type, ibar, factor)
   integer           :: j                   ! counter
   integer           :: N                   ! neutron number of residual nucleus
   integer           :: nen                 ! energy counter
+  integer           :: intpar              ! help variable
   integer           :: Nix                 ! neutron number index for residual nucleus
   integer           :: npow                ! power of distribution
   integer           :: type                ! particle type
@@ -56,9 +57,17 @@ subroutine adjust(E, key, Zix, Nix, type, ibar, factor)
   factor = 1.
   Eadj(0) = 0.
   Dadj(0) = 1.
+  intpar = ibar
+  if (trim(key) == 'ftable' .or. trim(key) == 'etable' .or. trim(key) == 'wtable' .or.  &
+ &  trim(key) == 'ftableadjust' .or. trim(key) == 'etableadjust' .or. trim(key) == 'wtableadjust' .or. &
+ &  trim(key) == 'ggr' .or. trim(key) == 'egr' .or. trim(key) == 'sgr' .or. &
+ &  trim(key) == 'ggradjust' .or. trim(key) == 'egradjust' .or. trim(key) == 'sgradjust' .or. &
+ &  trim(key) == 'upbende' .or. trim(key) == 'upbendf' .or. trim(key) == 'epr' .or. &
+ &  trim(key) == 'upbendeadjust' .or. trim(key) == 'upbendfadjust' .or. trim(key) == 'epradjust') &
+ &  intpar = 1
   do i = 1, Nadjust
     if (trim(key) == trim(adjustkey(i)) .and. Zix == adjustix(i, 1) .and. Nix == adjustix(i, 2) .and. &
-      type == adjustix(i, 3) .and. ibar == adjustix(i, 4)) then
+      type == adjustix(i, 3) .and. intpar == adjustix(i, 4)) then
       if (adjustfile(i)(1:1) /= ' ') then
         N = nenadjust(i)
         do j = 1, nenadjust(i)
