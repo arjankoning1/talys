@@ -82,12 +82,12 @@ subroutine input_densitymodel
 ! ************** Defaults *************
 !
   if (flagmicro) then
-    ldmodelall = 5
+    ldmodelall = 7
   else
     ldmodelall = 1
   endif
   strength= 9
-  if (k0 <= 1 .and. Atarget > fislim) ldmodelall = 5
+  if (k0 <= 1 .and. Atarget > fislim) ldmodelall = 7
   ldmodelCN = 0
   shellmodel = 1
   spincutmodel = 1
