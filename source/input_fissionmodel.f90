@@ -83,7 +83,7 @@ subroutine input_fissionmodel
   hbtransfile = ' '
   fisadjust = .false.
   fismodel = 6
-   fismodelalt = 3
+  fismodelalt = 3
   flaghbstate = .false.
   flagclass2 = .false.
   flagfispartdamp = .false.
