@@ -172,7 +172,6 @@ subroutine urrout
   enddo
   Nurr = k - 1
   close (unit = 1, status = 'delete')
-print*," flagurrendf B ",flagurrendf
   if (flagurrendf) then
     do k = 1, Nurr
       write(121,'(a)') trim(urrline(k))
