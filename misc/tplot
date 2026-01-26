@@ -3,7 +3,7 @@
 # Script to plot TALYS and evaluated data libraries with 
 # experimental data using Gnuplot, reaction by reaction
 #
-# Arjan Koning, December 1 2025
+# Arjan Koning, January 9 2026
 # Cosmetic improvement by Natalia Dzysiuk in 2017
 #
 ################################################################################
@@ -784,7 +784,7 @@ cat > dum << EOI
 999.9 1.e-10
 999.99 1.e-10
 EOI
-for (( k=0; k<=9; k++ )) ; do
+for (( k=0; k<=20; k++ )) ; do
   file[$k]=dum
   lib[$k]=
   unc[$k]=0
@@ -1479,4 +1479,4 @@ if [ $png -eq 1 ] ; then
   convert  $epsfile $pngfile
 fi
 rm dum
-#Copyright (C)  2025 A.J. Koning
+#Copyright (C)  2026 A.J. Koning
