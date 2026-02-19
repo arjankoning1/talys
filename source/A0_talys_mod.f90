@@ -2292,4 +2292,4 @@ module A0_talys_mod
   real(sgl), dimension(numen6) :: xsreac6   ! reaction cross section for ENDF-6 file
   real(sgl), dimension(numen6) :: xstot6    ! total cross section (neutrons only) for ENDF-6 file
 end module A0_talys_mod
-! Copyright A.J. Koning 2025
+! Copyright A.J. Koning 2026
