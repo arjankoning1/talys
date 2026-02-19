@@ -134,6 +134,7 @@ subroutine endfecis
 ! Specific ECIS flags:
 !
   legendre = .false.
+  hint = ecisstep
   rmatch = 0.
   projmass = parmass(k0)
   spin = parspin(k0)
@@ -179,6 +180,7 @@ subroutine endfecis
       ecis1(15:15) = 'T'
       ecis1(29:29) = 'T'
       ecis1(41:41) = 'T'
+      if (ecisstep == 0.) hint = 0.1
       rmatch = 18.
       nrad = 182
       jlmloc = .true.
