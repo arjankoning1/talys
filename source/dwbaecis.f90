@@ -90,6 +90,7 @@ subroutine dwbaecis
   ncoll = maxJmsd + 2
   iterm = 1
   npp = 3
+  hint = ecisstep
   rmatch = 15.
 !
 ! We use a simple formula to estimate the required number of j-values:
