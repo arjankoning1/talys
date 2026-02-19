@@ -24,7 +24,7 @@ subroutine ecisinput(Zix, Nix, kopt, e, rotational, vibrational, jlmloc)
 !   ecis2        ! 50 input flags ('T' or 'F') for ECIS
 !   efer         ! Fermi energy
 !   Elevel       ! energy of level
-!   ecisstep     ! integration step size for ECIS OMP calculation
+!   hint         ! integration step size for ECIS OMP calculation
 !   iband        ! band number of level
 !   idvib        ! identifier for existence of vibrational state inside rotational
 !   iph          ! help variable
@@ -102,7 +102,7 @@ subroutine ecisinput(Zix, Nix, kopt, e, rotational, vibrational, jlmloc)
   write(9, '(a50)') ecis1
   write(9, '(a50)') ecis2
   write(9, '(4i5)') ncoll, njmax, iterm, npp
-  write(9, '(2f10.5, 10x, "    1.e-10    1.e-10    1.e-30")') ecisstep, rmatch
+  write(9, '(2f10.5, 10x, "    1.e-10    1.e-10    1.e-30")') hint, rmatch
   if (legendre) write(9, '()')
   if (e >= 0.01) then
     Eformat='(f5.2,2i2,a1,5f10.5)'
