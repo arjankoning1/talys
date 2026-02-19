@@ -5,8 +5,8 @@ module A0_talys_mod
 !
 ! Author    : Arjan Koning
 !
-! 2023-12-30: Original code
-! 2025-12-18: Current version
+! 2025-12-30: Original code
+! 2026-02-12: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -1131,6 +1131,7 @@ module A0_talys_mod
   real(sgl)                            :: prodZ       ! product of charges of projectile and target nucleus
   real(dbl)                            :: resmass     ! mass of residual nucleus
   real(sgl)                            :: rmatch      ! matching radius
+  real(sgl)                            :: hint        ! integration step size h
   real(sgl), dimension(numrot)         :: rotbeta     ! deformation parameters for rotational nucleus
   real(sgl)                            :: spin        ! spin of incident particle
   real(sgl)                            :: tarspin     ! spin of target nucleus
