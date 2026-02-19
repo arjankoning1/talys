@@ -5,12 +5,12 @@ program talys
 !
 ! Author    : Arjan Koning, Stephane Hilaire and Stephane Goriely
 !
-! 2023-12-30: Original code
-! 2025-12-18: Current revision
+! 2025-12-18: Original code
+! 2026-02-19: Current revision
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !   |-------------------------------------------------------|
-!   |                 TALYS-2.2                             |
+!   |                 TALYS-2.21                            |
 !   |                 Arjan Koning                          |
 !   |                 Stephane Hilaire                      |
 !   |                 Stephane Goriely                      |
@@ -20,7 +20,7 @@ program talys
 !
 ! MIT License
 !
-! Copyright (c) 2025 Arjan Koning
+! Copyright (c) 2026 Arjan Koning
 !
 ! Permission is hereby granted, free of charge, to any person obtaining a copy
 ! of this software and associated documentation files (the "Software"), to deal
@@ -63,4 +63,4 @@ program talys
   call talysreaction
   if (flagnatural) call natural
 end program talys
-! Copyright A.J. Koning 2025
+! Copyright A.J. Koning 2026
