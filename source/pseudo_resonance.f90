@@ -26,6 +26,7 @@ subroutine pseudo_resonance
   implicit none
   integer           :: i                 ! counter
   integer           :: k                 ! counter
+  integer           :: j                 ! counter
   integer           :: nres
 ! integer           :: Pres(0:numlev2)     ! 
   real(sgl)         :: fgr(0:numresgrid)    ! 
@@ -46,6 +47,8 @@ subroutine pseudo_resonance
   real(sgl)         :: fac1
   real(sgl)         :: hgam
   real(sgl)         :: lorentz
+  real(sgl)         :: sum
+  real(sgl)         :: sumall
 !
 ! ******************** Default nuclear levels **************************
 !
@@ -77,21 +80,40 @@ subroutine pseudo_resonance
   fac1 = 1. / pi
   hgam = 0.5 * reswidth
   maxdis = 0.
+  sumall = 0.
   do i = 1, numresgrid
     Eresgrid(i) = i*degrid
+    sum = 0.
     do k = 1, Nres
       E = abs(Eresgrid(i) - Eres(k))
       lorentz = fac1 * hgam / ( E*E + hgam*hgam)
 !     fgr(i) = fgr(i) + sdis(k) * lorentz
 !     weight = 1. / (sqrt(real(k)))
       weight = 1. / real(k)
+      sum = sum + weight
       fgr(i) = fgr(i) + lorentz * weight
     enddo
 !   maxdis = max(maxdis, fgr(i))
     maxdis = 1.
+!   fgr(i) = fgr(i) / sum
+!   sumall = sumall + fgr(i)
   enddo
+! do j = 0, 9
+!   sum = 0.
+!   do i = j * numresgrid/10 + 1, (j+1) * numresgrid/10
+!     sum = sum + fgr(i)
+!   enddo
+!   if (sum > 0.) then
+!     do i = j * numresgrid/10 + 1, (j+1) * numresgrid/10
+!       fgr(i) = fgr(i)/sum
+!     enddo
+!   endif
+! enddo
+! weight = sumall / numresgrid
   do i = 1, numresgrid
+    resgrid(i) = 1. + weight * fgr(i)
     resgrid(i) = 1. +  peak / maxdis * fgr(i)
+!   resgrid(i) = peak / maxdis * fgr(i)
   enddo
   return
 end subroutine pseudo_resonance
