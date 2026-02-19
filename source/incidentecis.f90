@@ -167,6 +167,7 @@ subroutine incidentecis
   if (flaginccalc) open (unit = 9, file = 'ecisinc.inp', status = 'unknown')
   legendre = .true.
   Ein = Einc
+  hint = ecisstep
   rmatch = 0.
 !
 ! We use a simple formula to estimate the required number of j-values:
@@ -216,6 +217,7 @@ subroutine incidentecis
       ecis1(15:15) = 'T'
       ecis1(29:29) = 'T'
       ecis1(41:41) = 'T'
+      if (ecisstep == 0.) hint = 0.1
       rmatch = 18.
       nrad = 182
       njmax = 1600
