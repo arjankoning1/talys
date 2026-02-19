@@ -169,11 +169,10 @@ subroutine input_omppar
   aradialcor = 1.
   adepthcor = 1.
   pruittset = 0
+  ecisstep = 0.
   if (flagjlm) then
-    ecisstep = 0.1
     flagspher = .true.
   else
-    ecisstep = 0.
     flagspher = .false.
   endif
   if (k0 > 2) flagspher = .true.
