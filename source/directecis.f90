@@ -144,6 +144,7 @@ subroutine directecis
   else
     npp = 1
   endif
+  hint = ecisstep
   rmatch = 0.
 !
 ! We use a simple formula to estimate the required number of j-values:
