@@ -230,6 +230,7 @@ Loop1:  do type = 1, 6
   ncoll = 1
   iterm = 1
   npp = ilevel + 1
+  hint = ecisstep
   rmatch = 0.
   nsp1 = ilevel
   nsp2 = ilevel - ildens
