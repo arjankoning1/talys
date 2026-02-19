@@ -186,6 +186,7 @@ subroutine inverseecis(Zcomp, Ncomp)
   id4 = indent + 4
   flaginvecis = .true.
   legendre = .false.
+  hint = ecisstep
   rmatch = 0.
   anginc = 180.
   angend = 180.
@@ -312,6 +313,7 @@ subroutine inverseecis(Zcomp, Ncomp)
         ecis1(15:15) = 'T'
         ecis1(29:29) = 'T'
         ecis1(41:41) = 'T'
+        if (ecisstep == 0.) hint = 0.1
         rmatch = 18.
         nrad = 182
         jlmloc = .true.
