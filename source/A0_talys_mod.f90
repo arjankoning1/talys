@@ -757,6 +757,7 @@ module A0_talys_mod
   logical, dimension(0:numin,0:numip,0:numid,0:numit,0:numih,0:numia) :: chanexist    ! flag for existence of exclusive cross sect
   logical, dimension(0:numin,0:numip,0:numid,0:numit,0:numih,0:numia) :: chanfisexist ! flag for existence of exclusive fission cr
   logical, dimension(0:numin,0:numip,0:numid,0:numit,0:numih,0:numia,0:numlev) :: chanisoexist ! flag for existence of exclusive iso
+  logical, dimension(0:numin,0:numip,0:numid,0:numit,0:numih,0:numia,0:numlev) :: chanlevexist ! flag for existence of discrete levels
   logical, dimension(0:numin,0:numip,0:numid,0:numit,0:numih,0:numia) :: chanopen     ! flag to open channel with first non-zero c
   logical, dimension(0:numin,0:numip,0:numid,0:numit,0:numih,0:numia) :: gamchanexist ! flag for existence of exclusive discrete g
   logical, dimension(0:numin,0:numip,0:numid,0:numit,0:numih,0:numia) :: recchanexist ! flag for existence of exclusive recoil spe
@@ -2085,6 +2086,7 @@ module A0_talys_mod
   real(sgl), dimension(0:numchantot)                     :: yieldchannel   ! relative yield
   real(sgl), dimension(0:numchantot, 0:numpar, 0:numen)  :: xschannelsp    ! channel cross section spectra
   real(sgl), dimension(0:numchantot,0:numex+1)           :: xsexcl         ! exclusive cross section per excitation energy
+  real(sgl), dimension(0:numchantot,0:numex+1)           :: xsdisclev      ! discrete level cross section per excitation energy
   real(sgl), dimension(0:numchantot)                     :: xsfischannel   ! fission channel cross section
   real(sgl), dimension(0:numchantot, 0:numpar, 0:numen)  :: xsfischannelsp ! fission channel spectrum
   real(sgl), dimension(0:numchantot)                     :: xsgamchannel   ! gamma channel cross section
