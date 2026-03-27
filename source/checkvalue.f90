@@ -5,7 +5,7 @@ subroutine checkvalue
 !
 ! Author    : Arjan Koning
 !
-! 2025-11-13: Current version
+! 2026-03-26: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -784,13 +784,17 @@ subroutine checkvalue
 !
   call range_integer_error('gammax', gammax, 1, 6)
   call range_integer_error('strength', strength, 1, 13)
-  if (strength == 11) then
-    write(*,'(" TALYS-error: strength = 1-10 or 12-13")')
+  if (strength /= 11 .and. flagstrengthjp) then
+    write(*,'(" TALYS-error: strengthjp must be n for strength /= 11")')
     stop
   endif
   if ((strengthM1 < 1 .or. strengthM1 > 4) .and. strengthM1 /= 8 .and. strengthM1 /= 10 .and. &
- &  strengthM1 /= 12) then
-    write(*,'(" TALYS-error: strengthM1 = 1, 2, 3, 4, 8, 10, or 12")')
+ &    strengthM1 /= 11 .and. strengthM1 /= 12) then
+    write(*,'(" TALYS-error: strengthM1 = 1, 2, 3, 4, 8, 10, 11 or 12")')
+    stop
+  endif
+  if (strengthM1 /= 11 .and. flagstrengthjp) then
+    write(*,'(" TALYS-error: strengthjp must be n for strengthM1 /= 11")')
     stop
   endif
   if (.not. flaglegacy) then
