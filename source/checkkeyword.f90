@@ -6,7 +6,7 @@ subroutine checkkeyword
 ! Author    : Arjan Koning
 !
 ! 2021-12-30: Original code
-! 2025-11-16: Latest version
+! 2026-03-25: Latest version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -20,7 +20,7 @@ subroutine checkkeyword
 ! *** Declaration of local data
 !
   implicit none
-  integer, parameter :: numkey=441        ! number of keywords
+  integer, parameter :: numkey=444        ! number of keywords
   integer            :: i                 ! counter
   integer            :: j                 ! counter
   character(len=132) :: key               ! keyword
@@ -54,7 +54,8 @@ subroutine checkkeyword
  &  'fileresidual', 'filespectrum', 'filetotal', 'fisbar', 'fisbaradjust', 'fisfeed', 'fishw', 'fishwadjust', 'fismodel', &
  &  'fismodelalt', 'fiso', 'fisom', 'fispartdamp', 'fission', 'fit', 'format', 'fsadjust', 'ftable', 'ftableadjust', 'fullhf', & 
  &  'fymodel', 'g', 'gadjust', 'gamgam', 'gamgamadjust', 'gamgamfit', 'gammald', 'gammashell1', 'gammashell2', 'gammax', &
- &  'gefran', 'ggr', 'ggradjust', 'giantresonance', 'globalwtable', 'gmradjustd', 'gmradjuste', 'gmradjustg', 'gn', &
+ &  'gefran', 'ggr', 'ggradjust', 'giantresonance', 'globaldisp', 'globalfermi', 'globalwtable', 'gmradjustd', 'gmradjuste', &
+ &  'gmradjustg', 'gn', &
  &  'gnadjust', 'gnfit', 'gnorm', 'gp', 'gpadjust', 'gpr', 'gpradjust', 'gqradjustd', 'gqradjuste', 'gqradjustg', 'group',  &
  &  'gshell', 'hbstate', 'hbtransfile', 'heoradjustd', 'heoradjuste', 'heoradjustg', 'ibeam', 'incadjust', 'inccalc', 'integral', &
  &  'isomer', 'jlmmode', 'jlmomp', 'kph', 'krotconstant', 'kvibmodel', 'labddx', 'ldglobal','ldmodel', 'ldmodelcn',  &
@@ -77,10 +78,10 @@ subroutine checkkeyword
  &  'rspincutpreeq', 'rtransmom', 'rvadjust', 'rvadjustf', 'rvdadjust', &
  &  'rvdadjustf', 'rvsoadjust', 'rvsoadjustf', 'rwadjust', 'rwadjustf', 'rwdadjust', 'rwdadjustf', 'rwsoadjust', 'rwsoadjustf', &
  &  's2adjust', 'sacs', 'segment', 'sfexp', 'sffactor', 'sfth', 'sgr', 'sgradjust', 'shellmodel', 'skipcn', 'soswitch', 'soukho', &
- &  'source', 'spherical', 'spincutmodel', 'spr', 'spradjust', 'statepot', 'strength', 'strengthm1', 'strucpath', 'sysreaction', &
- &  't', 'tadjust', 'tcool', 'tirrad', 'tjadjust', 'tmadjust', 'transeps', 'transpower', 'tres', 'twocomponent', 'ufermi', &
- &  'upbend', 'upbendc', 'upbendcadjust', 'upbende','upbendeadjust', 'upbendf', 'upbendfadjust', 'urr', 'urrnjoy', 'user', & 
- &  'v1adjust', 'v2adjust', 'v3adjust', 'v4adjust', 'vfiscor', 'vfiscoradjust', 'vinfadjust', 'vso1adjust', 'vso2adjust', &
+ &  'source', 'spherical', 'spincutmodel', 'spr', 'spradjust', 'statepot', 'strength', 'strengthjp', 'strengthm1', 'strucpath', &
+ &  'sysreaction', 't', 'tadjust', 'tcool', 'tirrad', 'tjadjust', 'tmadjust', 'transeps', 'transpower', 'tres', 'twocomponent', &
+ &  'ufermi', 'upbend', 'upbendc', 'upbendcadjust', 'upbende','upbendeadjust', 'upbendf', 'upbendfadjust', 'urr', 'urrnjoy', & 
+ &  'user', 'v1adjust', 'v2adjust', 'v3adjust', 'v4adjust', 'vfiscor', 'vfiscoradjust', 'vinfadjust', 'vso1adjust', 'vso2adjust', &
  &  'w1adjust', 'w2adjust', 'w3adjust', 'w4adjust', 'wfcfactor', 'wso1adjust', 'wso2adjust', 'widthfluc', 'widthmode', &
  &  'wtable', 'wtableadjust', 'xsalphatherm', 'xscaptherm', 'xseps', 'xsptherm', 'yieldfile', 'yieldunit'/
 !
