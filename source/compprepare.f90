@@ -328,7 +328,7 @@ subroutine compprepare(Zcomp, Ncomp, J2, parity)
                 else
                   irad = 0
                 endif
-                Tout = Tgam(nexout, lprime, irad)
+                Tout = Tgam(nexout, lprime, irad, J, parity)
               else
 !
 ! 2. Particles
