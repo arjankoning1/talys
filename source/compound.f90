@@ -293,7 +293,7 @@ subroutine compound(Zcomp, Ncomp, nex, J2, parity)
               if (type == 0) then
                 do lprime = lprimebeg, lprimeend
                   irad = 1 - abs(mod(lprime, 2) - pardif2)
-                  total = total + Tgam(nexout, lprime, irad)
+                  total = total + Tgam(nexout, lprime, irad, J, parity)
                 enddo
               else
 !
