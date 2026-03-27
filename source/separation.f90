@@ -5,7 +5,7 @@ subroutine separation
 !
 ! Author    : Arjan Koning
 !
-! 2021-12-30: Original code
+! 2026-03-25: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
