@@ -5,7 +5,7 @@ subroutine deformpar(Zix, Nix)
 !
 ! Author    : Arjan Koning
 !
-! 2021-12-30: Original code
+! 2026-03-26: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -113,6 +113,7 @@ subroutine deformpar(Zix, Nix)
   real(sgl)         :: deform1(numrotcc)    ! deformation parameter
   real(sgl)         :: dspin                ! angular momentum increase for rotational band
   real(sgl)         :: R                    ! radius
+  real(sgl)         :: betafactor           ! factor to reduce the beta2,3,4
 !
 ! ************************ Read deformation parameters *****************
 !
@@ -281,6 +282,9 @@ Loop1: do i = 2, ndef(Zix, Nix)
 ! Assign vibrational deformation parameters
 !
 ! Systematics for first 2+, 3- and 4+ vibrational states, derived from individual deformation parameters.
+! 2026-03-26: For many exotic nuclides, taking the plain systematic formula give direct inelastic
+!             cross sections whose sum is larger than the reaction cross section. We build in security
+!             by multiplying the beta's by betafactor.
 ! Also, we assign small deformation parameter to all remaining discrete levels.
 !
   if (odd /= 0) goto 400
@@ -294,6 +298,7 @@ Loop1: do i = 2, ndef(Zix, Nix)
     first4 = .true.
   endif
   type = 2 * Zix + Nix
+  betafactor = 0.3
   do k = 0, numlev
     if (k == 0 .and. type == k0) cycle
     if (colltype(Zix, Nix) /= 'S' .and. leveltype(Zix, Nix, k) == 'V') cycle
@@ -302,7 +307,7 @@ Loop1: do i = 2, ndef(Zix, Nix)
     if (jdis(Zix, Nix, k) == 0.) cycle
     if (first2 .and. jdis(Zix, Nix, k) == 2..and. parlev(Zix, Nix, k) == 1) then
       if (leveltype(Zix, Nix, k) /= 'R' .and. deform(Zix, Nix, k) == 0.) then
-        deform(Zix, Nix, k) = 0.40 * exp( - 0.012 * A) + 0.025 * min(distance, 5)
+        deform(Zix, Nix, k) = betafactor * 0.40 * exp( - 0.012 * A) + 0.025 * min(distance, 5)
         if (edis(Zix, Nix, k) <= 0.1) deform(Zix, Nix, k) = 0.02
         if (deftype(Zix, Nix) == 'D') deform(Zix, Nix, k) = deform(Zix, Nix, k) * 1.24 * (A **onethird)
       endif
@@ -311,7 +316,7 @@ Loop1: do i = 2, ndef(Zix, Nix)
     endif
     if (first3 .and. jdis(Zix, Nix, k) == 3..and. parlev(Zix, Nix, k) ==  - 1) then
       if (leveltype(Zix, Nix, k) /= 'R' .and. deform(Zix, Nix, k) == 0.) then
-        deform(Zix, Nix, k) = 0.35 * exp( - 0.008 * A)
+        deform(Zix, Nix, k) = betafactor * 0.35 * exp( - 0.008 * A)
         if (edis(Zix, Nix, k) <= 0.1) deform(Zix, Nix, k) = 0.02
         if (deftype(Zix, Nix) == 'D') deform(Zix, Nix, k) = deform(Zix, Nix, k) * 1.24 * (A **onethird)
       endif
@@ -320,7 +325,7 @@ Loop1: do i = 2, ndef(Zix, Nix)
     endif
     if (first4 .and. jdis(Zix, Nix, k) == 4..and. parlev(Zix, Nix, k) == 1) then
       if (leveltype(Zix, Nix, k) /= 'R' .and. deform(Zix, Nix, k) == 0.) then
-        deform(Zix, Nix, k) = 0.20 * exp( - 0.006 * A)
+        deform(Zix, Nix, k) = betafactor * 0.20 * exp( - 0.006 * A)
         if (edis(Zix, Nix, k) <= 0.1) deform(Zix, Nix, k) = 0.02
         if (deftype(Zix, Nix) == 'D') deform(Zix, Nix, k) = deform(Zix, Nix, k) * 1.24 * (A **onethird)
       endif
