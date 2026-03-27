@@ -221,12 +221,23 @@ Loop1: do
   eta(2) = 1.
   do k= 1, 2
     if (rv0(Zix, Nix, k) == 0.) then
-      if (flagdisp) disp(Zix, Nix, k) = .false.
+      if (flagdisp) then
+        if (k == 1 .and. flagglobaldisp) then
+          disp(Zix, Nix, k) = .true.
+        else
+          disp(Zix, Nix, k) = .false.
+        endif
+      endif
       ompglobal(Zix, Nix, k) = .true.
-      if (k == 1) ef(Zix, Nix, 1) = - 11.2814 + 0.02646 * A
-      if (k == 2) ef(Zix, Nix, 2) = - 8.4075 + 0.01378 * A
+      if (flagglobalfermi) then
+        if (k == 1) ef(Zix, Nix, 1) = -11.2814 + 0.02646 * A
+        if (k == 2) ef(Zix, Nix, 2) = -8.4075 + 0.01378 * A
+      else
+        if (k == 1 .and. Nix > 0) ef(Zix, Nix, k) = -0.5 * (S(Zix, Nix, k) + S(Zix, Nix - 1, k))
+        if (k == 2 .and. Zix > 0) ef(Zix, Nix, k) = -0.5 * (S(Zix, Nix, k) + S(Zix - 1, Nix, k))
+      endif
       call kd03(k,pruitt)
-      rv0(Zix, Nix, k) = rv_0 - rv_A * A **( - onethird)
+      rv0(Zix, Nix, k) = rv_0 - rv_A * A **(-onethird)
       av0(Zix, Nix, k) = av_0 - av_A * A
       v1(Zix, Nix, k) = v1_0 + eta(k) * v1_asymm * real(N - Z) / A - v1_A * A
       v2(Zix, Nix, k) = v2_0 + eta(k) * v2_A * A
@@ -239,7 +250,7 @@ Loop1: do
       d1(Zix, Nix, k) = d1_0 + eta(k) * d1_asymm * real(N - Z) / A
       d2(Zix, Nix, k) = d2_0 + d2_A / (1. + exp((A - d2_A3) / d2_A2))
       d3(Zix, Nix, k) = d3_0
-      rvso0(Zix, Nix, k) = rso_0 - rso_A * A **( - onethird)
+      rvso0(Zix, Nix, k) = rso_0 - rso_A * A **(-onethird)
       avso0(Zix, Nix, k) = aso_0
       vso1(Zix, Nix, k) = vso1_0 + vso1_A * A
       vso2(Zix, Nix, k) = vso2_0
