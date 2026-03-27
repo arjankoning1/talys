@@ -5,7 +5,7 @@ subroutine kd03(k, pr)
 !
 ! Author    : Arjan Koning
 !
-! 2024-07-18: Original code
+! 2026-03-10: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !
@@ -23,6 +23,7 @@ subroutine kd03(k, pr)
   character(len=1)  :: pot           ! help variable
   character(len=1)  :: pr            ! help variable
   character(len=3)  :: setstring     ! help variable
+  character(len=5)  :: dispstring    ! help variable
   character(len=30) :: par           ! help variable
   character(len=132):: ompfile       ! optical model parameter file
   integer           :: istat         ! logical for file access
@@ -39,7 +40,12 @@ subroutine kd03(k, pr)
   if (pr /= 'n') set=pruittset
   write(setstring,'(i3)') set
   pot = ''
-  ompfile = trim(path)//'optical/global/'//trim(par)//'/'//trim(adjustl(setstring))//'/parameters.json'
+  if (k == 1 .and. flagdisp .and. flagglobaldisp) then
+    dispstring = '_disp'
+  else
+    dispstring = ''
+  endif
+  ompfile = trim(path)//'optical/global/'//trim(par)//'/'//trim(adjustl(setstring))//'/parameters'//trim(dispstring)//'.json'
   open (unit = 2, file = ompfile, status = 'old', iostat = istat)
    if (istat /= 0) call read_error(ompfile, istat)
   read(2,'()')
