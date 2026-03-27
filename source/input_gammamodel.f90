@@ -68,6 +68,7 @@ subroutine input_gammamodel
   endif
   flagpsfglobal = .false.
   flagglobalwtable = .true.
+  flagstrengthjp = .false.
   flaggnorm = .false.
   strengthM1 = 3
   if (strength == 8) strengthM1 = 8
@@ -158,6 +159,12 @@ subroutine input_gammamodel
     if (key == 'globalwtable') then
       if (ch == 'n') flagglobalwtable = .false.
       if (ch == 'y') flagglobalwtable = .true.
+      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'strengthjp') then
+      if (ch == 'n') flagstrengthjp = .false.
+      if (ch == 'y') flagstrengthjp = .true.
       if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
       cycle
     endif
