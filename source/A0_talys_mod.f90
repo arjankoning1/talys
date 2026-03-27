@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2025-12-30: Original code
-! 2026-02-12: Current version
+! 2026-03-25: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -299,9 +299,9 @@ module A0_talys_mod
 ! Variables for masses
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
-  logical                                          :: flagexpmass ! flag for using experimental nuclear mass if available
-  character(len=132)                               :: massdir     ! directory with mass tables
-  integer                                          :: massmodel   ! model for theoretical nuclear mass
+  logical                                            :: flagexpmass ! flag for using experimental nuclear mass if available
+  character(len=132)                                 :: massdir     ! directory with mass tables
+  integer                                            :: massmodel   ! model for theoretical nuclear mass
   real(sgl), dimension(0:numZ+4,0:numN+4,0:numbar) :: beta2       ! deformation parameter
   real(sgl), dimension(0:numZ+4,0:numN+4)          :: massexcess  ! mass excess in MeV as read from user input file
   real(sgl), dimension(0:numZ+4,0:numN+4)          :: massnucleus ! mass of nucleus in amu as read from user input file
@@ -400,6 +400,7 @@ module A0_talys_mod
   logical                                                 :: flagupbend     ! flag for low-energy upbend of photon strength function
   logical                                                 :: flagpsfglobal  ! flag for global photon strength functions only
   logical                                                 :: flagglobalwtable ! flag for global average wtable value instead of 1.
+  logical                                                 :: flagstrengthjp ! flag for J,P dependent PSF
   integer                                                 :: gammax         ! number of l-values for gamma multipolarity
   integer                                                 :: ldmodelracap   ! level density model for direct radiative capture
   integer                                                 :: strength       ! E1 strength function model
@@ -445,6 +446,8 @@ module A0_talys_mod
   logical                                                   :: flagincadj    ! flag for OMP adjustment on incident channel
   logical                                                   :: flagjlm       ! flag for using semi-microscopic JLM OMP
   logical                                                   :: flaglocalomp  ! flag for local (y) or global (n) optical model
+  logical                                                   :: flagglobaldisp! flag for global dispersive optical model
+  logical                                                   :: flagglobalfermi! flag for global fermi energy
   logical                                                   :: flagompall    ! flag for new optical model calculation for all nuclei
   logical                                                   :: flagomponly   ! flag to execute ONLY an optical model calculation
   logical                                                   :: flagriplomp   ! flag for RIPL OMP
@@ -934,7 +937,8 @@ module A0_talys_mod
   integer, dimension(0:numZ,0:numN,0:1,numgam)                         :: ngr        ! number of GR
   integer                                                              :: nTqrpa     ! number of temperatures for QRPA
   real(sgl), dimension(0:numZ,0:numN,0:numgamqrpa,0:1,numgam)          :: eqrpa      ! energy grid for QRPA strength function
-  real(sgl), dimension(0:numZ,0:numN,0:numgamqrpa,numTqrpa,0:1,numgam) :: fqrpa      ! tabulated QRPA strength functi
+  real(sgl), dimension(0:numZ,0:numN,0:numgamqrpa,numTqrpa,0:1,numgam) :: fqrpa      ! tabulated QRPA strength function
+  real(sgl), dimension(0:numZph,0:numNph,0:numgamqrpa,numTqrpa,0:1,0:9,0:1) :: fqrpaJP    ! tabulated QRPA strength function
   real(sgl), dimension(250)                                            :: gamkopecky ! rad. width in eV by spline fit of Kopecky
   real(sgl), dimension(numgam)                                         :: kgr        ! constant for gamma-ray strength function
   real(sgl), dimension(numTqrpa)                                       :: Tqrpa      ! temperature for QRPA
@@ -1851,7 +1855,7 @@ module A0_talys_mod
   real(dbl), dimension(0:numpar,0:numex,0:numJ,-1:1) :: rho0     ! integrated level density
   real(dbl), dimension(numbinfis,0:numJ,-1:1,numbar) :: rhofis   ! integrated level density corresponding to tfisA
   real(sgl), dimension(0:numZ,0:numN)                :: discfactor! correction for discrete level weight for NL > NT
-  real(sgl), dimension(0:numex,0:numgam,0:1)         :: Tgam     ! gamma transmission coefficients
+  real(sgl), dimension(0:numex,0:numgam,0:1,0:numJ,-1:1) :: Tgam     ! gamma transmission coefficients
   real(sgl), dimension(0:numpar,0:numex,-1:1,0:numl) :: Tjlnex   ! transmission coefficients for particle, energy, spin and l
   real(sgl), dimension(0:numpar,0:numex,0:numl)      :: Tlnex    ! transmission coefficients for particle, emergy and l
 !
