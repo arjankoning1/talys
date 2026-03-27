@@ -6,7 +6,7 @@ subroutine arraysize
 ! Author    : Arjan Koning
 !
 ! 2021-12-30: Original code
-! 2024-07-20: Current revision
+! 2026-03-24: Current revision
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -60,7 +60,8 @@ subroutine arraysize
   write(1, '(" chanisoexist",t20,i9)') numin1*numip1*numid1*numit1*numih1*numia1*numlev1
   write(1, '(" specexcl",t20,i9)') numchantot1*numpar1*numex1*numen1
   write(1, '(" feedexcl",t20,i9)') numZchan1*numNchan1*numpar1*numex1*numex1
-  write(1, '(" fqrpa",t20,i9)') numZ1*numN1*numgamqrpa1*2*numgam
+  write(1, '(" fqrpa",t20,i9)') numZ1*numN1*numgamqrpa1*numTqrpa*2*numgam
+  write(1, '(" fqrpaJP",t20,i9)') numZ1*numN1*numgamqrpa1*numTqrpa*2*2*10
   write(1, '(" bassign",t20,i9)') numZ1*numN1*numlev1*numlev1
   write(1, '(" ldtable",t20,i9)') numZ1*numN1*numdens1*numJ1*3*numbar
   write(1, '(" phtable2",t20,i9)') 2*2*numexc1*numexc1*numexc1*numexc1*numdens1
