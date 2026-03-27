@@ -5,7 +5,7 @@ subroutine radwidtheory(Zcomp, Ncomp, E)
 !
 ! Author    : Arjan Koning
 !
-! 2021-12-30: Original code
+! 2026-03-24: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -50,6 +50,7 @@ subroutine radwidtheory(Zcomp, Ncomp, E)
   integer   :: Irspin2           ! 2 * residual spin
   integer   :: Irspin2beg        ! 2 * start of residual spin summation
   integer   :: Irspin2end        ! 2 * end of residual spin summation
+  integer   :: J                 ! J
   integer   :: J2                ! 2 * J
   integer   :: J2b               ! 2 * start of J summation
   integer   :: J2e               ! 2 * end of J summation
@@ -146,6 +147,7 @@ subroutine radwidtheory(Zcomp, Ncomp, E)
 ! Sum over total angular momentum J (J2) of compound nucleus
 !
       do J2 = J2b, J2e, 2
+        J = J2/2
 !
 !  Sum over outgoing excitation energie
 !
@@ -229,7 +231,7 @@ subroutine radwidtheory(Zcomp, Ncomp, E)
 !
 ! Create sum for normalization
 !
-                Sgamma = (Egamma **(l2 + 1)) * fstrength(Zcomp, Ncomp, E, Egamma, irad, l)
+                Sgamma = (Egamma **(l2 + 1)) * fstrength(Zcomp, Ncomp, E, Egamma, irad, l, J, tpar)
                 Sgamsum = Sgamsum + rho * Sgamma
               enddo
             enddo
