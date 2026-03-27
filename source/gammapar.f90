@@ -5,7 +5,7 @@ subroutine gammapar(Zix, Nix)
 !
 ! Author    : Arjan Koning
 !
-! 2021-12-30: Original code
+! 2026-03-24: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -58,7 +58,7 @@ subroutine gammapar(Zix, Nix)
 !   pi2h2c2       ! 1 / (pi * pi * clight * clight * hbar **2) in mb ** - 1.MeV ** - 2
 !  Variables for gamma-ray strength functions
 !   eqrpa         ! energy grid for QRPA strength functio
-!   fqrpa         ! tabulated QRPA strength functi
+!   fqrpa         ! tabulated QRPA strength function
 !   kgr           ! constant for gamma - ray strength functio
 !   ngr           ! number of GR
 !   nTqrpa        ! number of temperatures for QRPA
@@ -85,6 +85,12 @@ subroutine gammapar(Zix, Nix)
   integer           :: Nix              ! neutron number index for residual nucleus
   integer           :: Z                ! charge number of target nucleus
   integer           :: Zix              ! charge number index for residual nucleus
+  integer           :: parity           ! parity
+  integer           :: iP               ! parity
+  integer           :: J                ! spin
+  integer           :: Jend             ! help variable
+  integer           :: Pend             ! help variable
+  integer           :: Nblock           ! help variable
   real(sgl)         :: dE               ! delta energy
   real(sgl)         :: denom            ! help variable
   real(sgl)         :: dtemp            ! temperature increment
@@ -103,6 +109,7 @@ subroutine gammapar(Zix, Nix)
   real(sgl)         :: fm1(numTqrpa)    ! tabulated M1 strength function
   real(sgl)         :: fstrength        ! gamma ray strength function
   real(sgl)         :: ft               ! help variable
+  real(sgl)         :: fq               ! help variable
   real(sgl)         :: wt               ! help variable
   real(sgl)         :: gg1              ! width of GR
   real(sgl)         :: gg2              ! width of GR
@@ -178,12 +185,22 @@ subroutine gammapar(Zix, Nix)
  &      ngr(Zix, Nix, irad, l) = 2
     enddo
   enddo
+  Jend = 0
+  Pend = -1
+  Nblock = 1
   if (strength > 2 .and. strength /= 5) then
+    if (strength == 11 .and. flagstrengthjp) then
+      Jend = 9
+      Pend = 1
+      Nblock = 20
+    endif
 !
 ! ***************** HFbcs or HFB QRPA strength functions ***************
 !
 ! For Goriely's HFbcs or HFB QRPA strength function we overwrite the E1 strength function with tabulated results, if available.
 !
+    if ((strength == 6 .or. strength == 7 .or. strength == 9 .or. strength == 10) .and. flagupbend) nTqrpa = 11
+    if (strength == 11 .and. flagupbend) nTqrpa = 31
     gamchar = trim(nuc(Z))//'.psf'
     if (strength == 3) gamfile = trim(path)//'gamma/hfbcs/'//gamchar
     if (strength == 4) gamfile = trim(path)//'gamma/hfb/'//gamchar
@@ -198,7 +215,13 @@ subroutine gammapar(Zix, Nix)
       endif
     endif
     if (strength == 10) gamfile = trim(path)//'gamma/bsk27_E1/'// gamchar
-    if (strength == 11) gamfile = trim(path)//'gamma/d1m-intra-e1/'// gamchar
+    if (strength == 11) then
+      if (flagstrengthjp .and. Zix <= numZph .and. Nix <= numNph) then
+        gamfile = trim(path)//'gamma/d1m-intra-e1-jp/'// gamchar
+      else
+        gamfile = trim(path)//'gamma/d1m-intra-e1/'// gamchar
+      endif
+    endif
     if (strength == 12) gamfile = trim(path)//'gamma/shellmodel-e1/'// gamchar
     if (strength == 13) gamfile = trim(path)//'gamma/rqfamz/'// gamchar
     inquire (file = gamfile, exist = lexist)
@@ -213,55 +236,87 @@ subroutine gammapar(Zix, Nix)
         endif
         read(2, *, iostat = istat)
         if (istat /= 0) exit
-        if (ia /= A) then
-          do nen = 1, numgamqrpa + 1
+        if (ia == A) then
+          do J = 0, Jend
+            do parity = -1, Pend, 2
+              iP = max(parity, 0)
+              do nen = 1, numgamqrpa
+                read(2, '(f9.3, 40es12.3)', iostat = istat) ee, (fe1(it), it = 1, nTqrpa)
+                if (istat /= 0) exit
+                if (gamadjust(Zix, Nix)) then
+                  key = 'etable'
+                  call adjust(ee, key, Zix, Nix, 0, 0, factor)
+                  et = etable(Zix, Nix, 1, 1) + etableadjust(Zix, Nix, 1, 1) + factor - 1.
+                  key = 'ftable'
+                  call adjust(ee, key, Zix, Nix, 0, 0, factor)
+                  ft = ftable(Zix, Nix, 1, 1) * ftableadjust(Zix, Nix, 1, 1) + factor - 1.
+                else
+                  et = etable(Zix, Nix, 1, 1) + etableadjust(Zix, Nix, 1, 1)
+                  ft = ftable(Zix, Nix, 1, 1) * ftableadjust(Zix, Nix, 1, 1)
+                endif
+                eqrpa(Zix, Nix, nen, 1, 1) = ee + et
+                do it = 1, nTqrpa
+                  fq = onethird * pi2h2c2 * fe1(it) * ft
+                  fqrpa(Zix, Nix, nen, it, 1, 1) = fq
+                  if (Zix <= numZph .and. Nix <= numNph) fqrpaJP(Zix, Nix, nen, it, 1, J, iP) = fq
+                enddo
+              enddo
+              read(2, *, iostat = istat)
+            enddo
+          enddo
+          if (strength == 11 .and. .not. flagstrengthjp .and. Zix <= numZph .and. Nix <= numNph) then
+            do nen = 1, numgamqrpa
+              fqrpa(Zix, Nix, nen, 1, 1, 1) = fqrpaJP(Zix, Nix, nen, 1, 1, 0, 0)
+              do it = 2, nTqrpa
+                fqrpa(Zix, Nix, nen, it, 1, 1) = 0.
+                do J = 0, Jend
+                  do parity = -1, Pend, 2
+                    iP = max(parity, 0)
+                    fqrpa(Zix, Nix, nen, it, 1, 1) = fqrpa(Zix, Nix, nen, it, 1, 1) + fqrpaJP(Zix, Nix, nen, it, 1, J, iP)
+                  enddo
+                enddo
+              enddo
+            enddo
+          endif
+!
+! Avoid having an increasing function for extrapolation purposes
+!
+          do it = 1, nTqrpa
+            if (fqrpa(Zix, Nix, numgamqrpa, it, 1, 1) > fqrpa(Zix, Nix, numgamqrpa - 1, it, 1, 1)) &
+ &            fqrpa(Zix, Nix, numgamqrpa, it, 1, 1) = fqrpa(Zix, Nix, numgamqrpa - 1, it, 1, 1) * 0.9
+          enddo
+!         if (strength == 11 .and. Zix <= numZph .and. Nix <= numNph) then
+!           do J = 0, Jend
+!             do parity = -1, Pend, 2
+!               iP = max(parity, 0)
+!               do it = 1, nTqrpa
+!                 if (fqrpaJP(Zix, Nix, numgamqrpa, it, 1, J, iP) > fqrpaJP(Zix, Nix, numgamqrpa - 1, it, 1, J, iP)) &
+!&                  fqrpaJP(Zix, Nix, numgamqrpa, it, 1, J, iP) = fqrpaJP(Zix, Nix, numgamqrpa - 1, it, 1, J, iP) * 0.9
+!               enddo
+!             enddo
+!           enddo
+!         endif
+          if (nTqrpa > 1) then
+            if (strength == 11) then
+              dtemp = 1.
+            else
+              dtemp = 0.2
+            endif
+            temp = - dtemp
+            do it = 1, nTqrpa
+              temp = temp + dtemp
+              Tqrpa(it) = temp
+            enddo
+          endif
+          qrpaexist(Zix, Nix, 1, 1) = .true.
+          exit
+        else
+          do nen = 1, Nblock * (numgamqrpa + 1)
             read(2, *, iostat = istat)
             if (istat /= 0) exit
           enddo
           cycle
         endif
-        if ((strength == 6 .or. strength == 7 .or. strength == 9 .or. strength == 10) .and. flagupbend) nTqrpa = 11
-        if (strength == 11 .and. flagupbend) nTqrpa = 31
-        do nen = 1, numgamqrpa
-          read(2, '(f9.3, 40es12.3)', iostat = istat) ee, (fe1(it), it = 1, nTqrpa)
-          if (istat /= 0) exit
-          if (gamadjust(Zix, Nix)) then
-            key = 'etable'
-            call adjust(ee, key, Zix, Nix, 0, 0, factor)
-            et = etable(Zix, Nix, 1, 1) + etableadjust(Zix, Nix, 1, 1) + factor - 1.
-            key = 'ftable'
-            call adjust(ee, key, Zix, Nix, 0, 0, factor)
-            ft = ftable(Zix, Nix, 1, 1) * ftableadjust(Zix, Nix, 1, 1) + factor - 1.
-          else
-            et = etable(Zix, Nix, 1, 1) + etableadjust(Zix, Nix, 1, 1)
-            ft = ftable(Zix, Nix, 1, 1) * ftableadjust(Zix, Nix, 1, 1)
-          endif
-          eqrpa(Zix, Nix, nen, 1, 1) = ee + et
-          do it = 1, nTqrpa
-            fqrpa(Zix, Nix, nen, it, 1, 1) = onethird * pi2h2c2 * fe1(it) * ft
-          enddo
-        enddo
-!
-! Avoid having an increasing function for extrapolation purposes
-!
-        do it = 1, nTqrpa
-          if (fqrpa(Zix, Nix, numgamqrpa, it, 1, 1) > fqrpa(Zix, Nix, numgamqrpa - 1, it, 1, 1)) &
- &          fqrpa(Zix, Nix, numgamqrpa, it, 1, 1) = fqrpa(Zix, Nix, numgamqrpa - 1, it, 1, 1) * 0.9
-        enddo
-        if (nTqrpa > 1) then
-          if (strength == 11) then
-            dtemp = 1.
-          else
-            dtemp = 0.2
-          endif
-          temp = - dtemp
-          do it = 1, nTqrpa
-            temp = temp + dtemp
-            Tqrpa(it) = temp
-          enddo
-        endif
-        qrpaexist(Zix, Nix, 1, 1) = .true.
-        exit
       enddo
       close (unit = 2)
     endif
@@ -283,7 +338,7 @@ subroutine gammapar(Zix, Nix)
       if (strengthM1 == 1) then
         factor = 1.58e-9 * A **0.47
       else
-        factor = fstrength(Zix, Nix, 0., egamref, 1, 1) / (0.0588 * A **0.878)
+        factor = fstrength(Zix, Nix, 0., egamref, 1, 1, 0, 0) / (0.0588 * A **0.878)
       endif
       sgr(Zix, Nix, 0, 1, 1) = factor * denom / enum
     endif
@@ -317,8 +372,12 @@ subroutine gammapar(Zix, Nix)
     gamchar = trim(nuc(Z))//'.psf'
     gamfile = trim(path)//'gamma/gognyM1/'//gamchar
     if (strengthM1 == 10) gamfile = trim(path)//'gamma/bsk27_M1/'//gamchar
-    if (strengthM1 == 11 .and. Zix == 0 .and. Nix == 0) then
-      gamfile = trim(path)//'gamma/d1m-intra-m1/'//gamchar
+    if (strengthM1 == 11) then
+      if (flagstrengthjp .and. Zix <= numZph .and. Nix <= numNph) then
+        gamfile = trim(path)//'gamma/d1m-intra-m1-jp/'// gamchar
+      else
+        gamfile = trim(path)//'gamma/d1m-intra-m1/'// gamchar
+      endif
       nTqrpa=1
       if (flagupbend) nTqrpa=31
       dtemp = 1.
@@ -327,6 +386,11 @@ subroutine gammapar(Zix, Nix)
         temp = temp + dtemp
         Tqrpa(it) = temp
       enddo
+      if (flagstrengthjp) then
+        Jend = 9
+        Pend = 1
+        Nblock = 20
+      endif
     endif
     if (strengthM1 == 12) gamfile = trim(path)//'gamma/shellmodel-m1/'//gamchar
     inquire (file = gamfile, exist = lexist)
@@ -337,24 +401,46 @@ subroutine gammapar(Zix, Nix)
         if (istat == -1) exit
         read(2, * )
         if (ia == A) then
-          do nen = 1, numgamqrpa
-            read(2, '(f9.3, 40es12.3)') ee, (fm1(it),it=1,nTqrpa)
-            if (gamadjust(Zix, Nix)) then
-              key = 'etable'
-              call adjust(ee, key, Zix, Nix, 0, 0, factor)
-              et = etable(Zix, Nix, 0, 1) + etableadjust(Zix, Nix, 0, 1) + factor - 1.
-              key = 'ftable'
-              call adjust(ee, key, Zix, Nix, 0, 0, factor)
-              ft = ftable(Zix, Nix, 0, 1) * ftableadjust(Zix, Nix, 0, 1) + factor - 1.
-            else
-              et = etable(Zix, Nix, 0, 1) + etableadjust(Zix, Nix, 0, 1)
-              ft = ftable(Zix, Nix, 0, 1) * ftableadjust(Zix, Nix, 0, 1)
-            endif
-            eqrpa(Zix, Nix, nen, 0, 1) = ee + et
-            do it = 1, nTqrpa
-              fqrpa(Zix, Nix, nen, 1, 0, 1) = onethird * pi2h2c2 * fm1(it) * ft
+          do J = 0, Jend
+            do parity = -1, Pend, 2
+              iP = max(parity, 0)
+              do nen = 1, numgamqrpa
+                read(2, '(f9.3, 40es12.3)') ee, (fm1(it),it=1,nTqrpa)
+                if (gamadjust(Zix, Nix)) then
+                  key = 'etable'
+                  call adjust(ee, key, Zix, Nix, 0, 0, factor)
+                  et = etable(Zix, Nix, 0, 1) + etableadjust(Zix, Nix, 0, 1) + factor - 1.
+                  key = 'ftable'
+                  call adjust(ee, key, Zix, Nix, 0, 0, factor)
+                  ft = ftable(Zix, Nix, 0, 1) * ftableadjust(Zix, Nix, 0, 1) + factor - 1.
+                else
+                  et = etable(Zix, Nix, 0, 1) + etableadjust(Zix, Nix, 0, 1)
+                  ft = ftable(Zix, Nix, 0, 1) * ftableadjust(Zix, Nix, 0, 1)
+                endif
+                eqrpa(Zix, Nix, nen, 0, 1) = ee + et
+                do it = 1, nTqrpa
+                  fq = onethird * pi2h2c2 * fm1(it) * ft
+                  fqrpa(Zix, Nix, nen, it, 0, 1) = fq
+                  if (Zix <= numZph .and. Nix <= numNph) fqrpaJP(Zix, Nix, nen, it, 0, J, iP) = fq
+                enddo
+              enddo
+              read(2, *, iostat = istat)
             enddo
           enddo
+!         if (strengthM1 == 11 .and. .not. flagstrengthjp .and. Zix <= numZph .and. Nix <= numNph) then
+!           do nen = 1, numgamqrpa
+!             fqrpa(Zix, Nix, nen, 1, 0, 1) = fqrpaJP(Zix, Nix, nen, 1, 0, 0, 0)
+!             do it = 2, nTqrpa
+!               fqrpa(Zix, Nix, nen, it, 0, 1) = 0.
+!               do J = 0, Jend
+!                 do parity = -1, Pend, 2
+!                   iP = max(parity, 0)
+!                   fqrpa(Zix, Nix, nen, it, 0, 1) = fqrpa(Zix, Nix, nen, it, 0, 1) + fqrpaJP(Zix, Nix, nen, it, 0, J, iP)
+!                 enddo
+!               enddo
+!             enddo
+!           enddo
+!         endif
 !
 ! Avoid having an increasing function for extrapolation purposes
 !
@@ -362,11 +448,23 @@ subroutine gammapar(Zix, Nix)
             if (fqrpa(Zix, Nix, numgamqrpa, it, 0, 1) > fqrpa(Zix, Nix, numgamqrpa -1, it, 0, 1)) &
  &            fqrpa(Zix, Nix, numgamqrpa, it, 0, 1) = fqrpa(Zix, Nix, numgamqrpa -1, it, 0, 1) * 0.9
           enddo
+          if (strengthM1 == 11 .and. Zix <= numZph .and. Nix <= numNph) then
+            do J = 0, Jend
+              do parity = -1, Pend, 2
+                iP = max(parity, 0)
+                do it = 1, nTqrpa
+                  if (fqrpaJP(Zix, Nix, numgamqrpa, it, 0, J, iP) > fqrpaJP(Zix, Nix, numgamqrpa - 1, it, 0, J, iP)) &
+ &                  fqrpaJP(Zix, Nix, numgamqrpa, it, 0, J, iP) = fqrpaJP(Zix, Nix, numgamqrpa - 1, it, 0, J, iP) * 0.9
+                enddo
+              enddo
+            enddo
+          endif
           qrpaexist(Zix, Nix, 0, 1) = .true.
           exit
         else
-          do nen = 1, numgamqrpa + 1
-            read(2, * )
+          do nen = 1, Nblock * (numgamqrpa + 1)
+            read(2, *, iostat = istat)
+            if (istat /= 0) exit
           enddo
           cycle
         endif
