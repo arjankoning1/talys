@@ -101,6 +101,7 @@ subroutine densprepare(Zcomp, Ncomp, idfis)
   integer           :: ldmod     ! level density model
   integer           :: na        ! help variable
   integer           :: nb        ! help variable
+  integer           :: iP        ! help variable
   integer           :: nc        ! counter
   integer           :: Ncomp     ! neutron number index for compound nucleus
   integer           :: nen       ! energy counter
@@ -123,6 +124,7 @@ subroutine densprepare(Zcomp, Ncomp, idfis)
   real(sgl)         :: Ec        ! help variable for energy
   real(sgl)         :: Efs       ! fast particle energy for gamma ray strength function
   real(sgl)         :: Egamma    ! gamma energy
+  real(sgl)         :: x         ! help variable
   real(sgl)         :: elow      ! help variable
   real(sgl)         :: elowest   ! help variable
   real(sgl)         :: emax      ! maximal emission energy within bin decay
@@ -295,13 +297,31 @@ subroutine densprepare(Zcomp, Ncomp, idfis)
         Egamma = Exinc - Exout
         do l = 0, gammax
           do irad = 0, 1
-            Tgam(nexout, l, irad) = 0.
+            do Pprime = - 1, 1, 2
+              do Ir = 0, maxJ(Zix, Nix, nexout)
+                Tgam(nexout, l, irad, Ir, Pprime) = 0.
+              enddo
+            enddo
           enddo
         enddo
         if (Egamma <= 0) cycle
         do l = 1, gammax
           do irad = 0, 1
-            Tgam(nexout, l, irad) = twopi * (Egamma **(2 * l + 1)) * fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l) * Fnorm(0)
+            x = twopi * (Egamma **(2 * l + 1)) * fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l, 0, 0) * Fnorm(0)
+            do Pprime = - 1, 1, 2
+              do Ir = 0, maxJ(Zix, Nix, nexout)
+                Tgam(nexout, l, irad, Ir, Pprime) = x
+              enddo
+            enddo
+            if (strength == 11 .and. flagstrengthjp) then
+              do Pprime = - 1, 1, 2
+                iP = max(Pprime, 0)
+                do Ir = 0, 9
+                  x = twopi * (Egamma **(2 * l + 1)) * fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l, Ir, iP) * Fnorm(0)
+                  Tgam(nexout, l, irad, Ir, Pprime) = x
+                enddo
+              enddo
+            endif
           enddo
         enddo
       else
