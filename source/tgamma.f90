@@ -61,7 +61,7 @@ subroutine tgamma(Zcomp, Ncomp)
     lmax(0, nen) = gammax
     do l = 1, gammax
       do irad = 0, 1
-        Tjl(0, nen, irad, l) = twopi * (Egamma **(2 * l + 1)) * fstrength(Zcomp, Ncomp, Einc, Egamma, irad, l) * factor
+        Tjl(0, nen, irad, l) = twopi * (Egamma **(2 * l + 1)) * fstrength(Zcomp, Ncomp, Einc, Egamma, irad, l, 0, 0) * factor
       enddo
     enddo
 !
