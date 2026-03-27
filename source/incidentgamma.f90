@@ -52,7 +52,7 @@ subroutine incidentgamma
   endif
   do irad = 0, 1
     do l = 1, gammax
-      Tgamma = twopi * (Einc **(2 * l + 1)) * fstrength(0, 0, Einc, Einc, irad, l)
+      Tgamma = twopi * (Einc **(2 * l + 1)) * fstrength(0, 0, Einc, Einc, irad, l, 0, 0)
       Tjlinc(irad, l) = Tgamma * factor
     enddo
   enddo
