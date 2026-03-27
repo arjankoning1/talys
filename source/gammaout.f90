@@ -248,7 +248,7 @@ subroutine gammaout(Zcomp, Ncomp)
         call write_datablock(id2,Ncol,Npsf,col,un)
         do nen = 1, Npsf
           e = Epsf(nen)
-          write(1,'(3es15.6)') e, fstrength(Zcomp, Ncomp, 0., e, irad, 1),Tjl(0, nen, irad, l)
+          write(1,'(3es15.6)') e, fstrength(Zcomp, Ncomp, 0., e, irad, 1, 0, 0),Tjl(0, nen, irad, l)
         enddo
         close (unit=1)
         call write_outfile(psffile,flagoutall)      
