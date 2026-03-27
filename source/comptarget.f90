@@ -607,7 +607,7 @@ subroutine comptarget
                           else
                             irad = 0
                           endif
-                          Tout = Tgam(nexout, lprime, irad)
+                          Tout = Tgam(nexout, lprime, irad, J, parity)
                         else
 !
 ! 2. Particles
