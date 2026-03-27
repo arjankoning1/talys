@@ -488,6 +488,7 @@ subroutine strucinitial
   sfactor = 0.
   eqrpa = 0.
   fqrpa = 0.
+  fqrpaJP = 0.
   qrpaexist = .false.
   Tqrpa = 0.
   ngr = 1
