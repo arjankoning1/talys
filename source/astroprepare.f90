@@ -192,7 +192,7 @@ subroutine astroprepare(Zcomp, Ncomp, J2, parity, spin2target, Ptarget, nexastro
         else
           irad = 0
         endif
-        Tinc = Tgam(nexastro, l, irad)
+        Tinc = Tgam(nexastro, l, irad, J, parity)
       else
         if (modl /= pardif) cycle
         updown = (jj2 - l2) / pspin2i
@@ -327,7 +327,7 @@ subroutine astroprepare(Zcomp, Ncomp, J2, parity, spin2target, Ptarget, nexastro
                 else
                   irad = 0
                 endif
-                Tout = Tgam(nexout, lprime, irad)
+                Tout = Tgam(nexout, lprime, irad, J, parity)
               else
 !
 ! 2. Particles
