@@ -5,7 +5,7 @@ subroutine compemission(Zcomp, Ncomp)
 !
 ! Author    : Arjan Koning and Stephane Hilaire
 !
-! 2021-12-30: Original code
+! 2026-03-25: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -92,9 +92,9 @@ subroutine compemission(Zcomp, Ncomp)
   real(sgl) :: term             ! help variable
   real(sgl) :: term1            ! help variable
   real(sgl) :: term2            ! help variable
-  real(sgl) :: weight(numen)    ! weight of emission energy bin
-  real(sgl) :: xsgrid(numen)    ! emission spectrum from compound nucleus
-  real(sgl) :: xsmpegrid(numen) ! multiple-preequilibrium emission spectrum from  compound nucleus
+  real(sgl) :: weight(0:numen)    ! weight of emission energy bin
+  real(sgl) :: xsgrid(0:numen)    ! emission spectrum from compound nucleus
+  real(sgl) :: xsmpegrid(0:numen) ! multiple-preequilibrium emission spectrum from  compound nucleus
   real(sgl) :: xso00            ! cross section on excitation energy grid
   real(sgl) :: xso0m            ! help variable
   real(sgl) :: xso0p            ! help variable
@@ -149,10 +149,9 @@ Loop1:    do type = 0, 6
       Nix = Nindex(Zcomp, Ncomp, type)
       NL = Nlast(Zix, Nix, 0)
       SS = S(Zcomp, Ncomp, type)
-      do nen = 1, numen
-        xsgrid(nen) = 0.
-        xsmpegrid(nen) = 0.
-      enddo
+      xsgrid = 0.
+      xsmpegrid = 0.
+      weight = 0.
 !
 ! Loop over outgoing excitation energy bins
 !
