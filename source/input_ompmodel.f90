@@ -102,6 +102,8 @@ subroutine input_ompmodel
   endif
   pruitt = 'n'
   flaglocalomp = .true.
+  flagglobaldisp = .false.
+  flagglobalfermi = .true.
   flagompall = .false.
   flagomponly = .false.
   flagoutomp = flagbasic
@@ -194,6 +196,18 @@ loop1:  do i = 1, nlines
     if (key == 'localomp') then
       if (ch == 'n') flaglocalomp = .false.
       if (ch == 'y') flaglocalomp = .true.
+      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'globaldisp') then
+      if (ch == 'n') flagglobaldisp = .false.
+      if (ch == 'y') flagglobaldisp = .true.
+      if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'globalfermi') then
+      if (ch == 'n') flagglobalfermi = .false.
+      if (ch == 'y') flagglobalfermi = .true.
       if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
       cycle
     endif
