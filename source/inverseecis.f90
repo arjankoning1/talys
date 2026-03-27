@@ -281,6 +281,7 @@ subroutine inverseecis(Zcomp, Ncomp)
         call write_residual(indent,Z,A,finalnuclide)
         call write_char(id2,'parameters','')
         call write_char(id4,'particle',parname(type))
+        if (type <= 2) call write_real(id4,'Fermi energy [MeV]',ef(Zix, Nix, type))
         call write_quantity(id2,quantity)
         call write_datablock(id2,Ncol,Nen,col,un)
       endif
