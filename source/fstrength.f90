@@ -1,4 +1,4 @@
-function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
+function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l, J, parity)
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
 ! Purpose   : Gamma ray strength functions
@@ -66,6 +66,9 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
   logical           :: flagM1              ! flag for M1
   logical           :: model11             ! flag for strength=11 E1 or M1
   integer           :: i                   ! level
+  integer           :: J                   ! J
+  integer           :: parity              ! parity
+  integer           :: iP                  ! parity
   integer           :: irad                ! variable to indicate M(=0) or E(=1) radiation
   integer           :: it                  ! counter for tritons
   integer           :: itemp               ! end of do loop
@@ -149,6 +152,7 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
   flagM1 = (irad == 0 .and. l == 1)
   flagE1 = (irad == 1 .and. l == 1)
   model11 = (strength == 11 .and. flagE1) .or. (strengthM1 == 11 .and. flagM1)
+  iP = max(parity,0)
   fstrength = 0.
   do i = 1, ngr(Zcomp, Ncomp, irad, l)
    if (gamadjust(Zcomp, Ncomp)) then
@@ -283,8 +287,13 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
 !
         call locate(Eq,0,numgamqrpa,Tnuc,nen)
         if (nen == numgamqrpa) nen = numgamqrpa - 1
-        gamb = fqrpa(Zcomp,Ncomp,nen,1,irad,1)
-        game = fqrpa(Zcomp,Ncomp,nen+1,1,irad,1)
+        if (flagstrengthjp) then
+          gamb = fqrpaJP(Zcomp,Ncomp,nen,1,irad,J,iP)
+          game = fqrpaJP(Zcomp,Ncomp,nen+1,1,irad,J,iP)
+        else
+          gamb = fqrpa(Zcomp,Ncomp,nen,1,irad,1)
+          game = fqrpa(Zcomp,Ncomp,nen+1,1,irad,1)
+        endif
         if (gamb > 0. .and. game > 0.) then
           f1 = log10(gamb) + (Tnuc-Eq(nen)) / (Eq(nen+1) - Eq(nen)) * (log10(game) - log10(gamb))
           f1 = 10.**f1
@@ -314,8 +323,13 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
 !
           call locate(Eq,0,numgamqrpa,Ti,nen)
           if (nen == numgamqrpa) nen = numgamqrpa-1
-          gamb = fqrpa(Zcomp,Ncomp,nen,1,irad,1)
-          game = fqrpa(Zcomp,Ncomp,nen+1,1,irad,1)
+          if (flagstrengthjp) then
+            gamb = fqrpaJP(Zcomp,Ncomp,nen,1,irad,J,iP)
+            game = fqrpaJP(Zcomp,Ncomp,nen+1,1,irad,J,iP)
+          else
+            gamb = fqrpa(Zcomp,Ncomp,nen,1,irad,1)
+            game = fqrpa(Zcomp,Ncomp,nen+1,1,irad,1)
+          endif
           if (gamb > 0. .and. game > 0.) then
             f2 = log10(gamb)+(Ti-Eq(nen)) / (Eq(nen+1)-Eq(nen)) * (log10(game)-log10(gamb))
             f2 = 10.**f2
@@ -327,8 +341,13 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l)
 !
           call locate(Eq,0,numgamqrpa,egeff,nen)
           if (nen == numgamqrpa) nen=numgamqrpa-1
-          gamb=fqrpa(Zcomp,Ncomp,nen,jt,irad,1)
-          game=fqrpa(Zcomp,Ncomp,nen+1,jt,irad,1)
+          if (flagstrengthjp) then
+            gamb=fqrpaJP(Zcomp,Ncomp,nen,jt,irad,J,iP)
+            game=fqrpaJP(Zcomp,Ncomp,nen+1,jt,irad,J,iP)
+          else
+            gamb=fqrpa(Zcomp,Ncomp,nen,jt,irad,1)
+            game=fqrpa(Zcomp,Ncomp,nen+1,jt,irad,1)
+          endif
           if (gamb > 0. .and. game > 0.) then
             f0 = log10(gamb)+(egeff-Eq(nen))/(Eq(nen+1)-Eq(nen))*(log10(game)-log10(gamb))
             f0 = 10.**f0
