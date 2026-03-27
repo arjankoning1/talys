@@ -46,7 +46,7 @@ subroutine gammaxs(Zcomp, Ncomp, Egamma, xsgamma, xsgdr, xsqd)
   xsgdr = 0.
   do irad = 0, 1
     do l = 1, gammax
-      xsgdr = xsgdr + fstrength(Zcomp, Ncomp, Einc, Egamma, irad, l) / kgr(l) * Egamma
+      xsgdr = xsgdr + fstrength(Zcomp, Ncomp, Einc, Egamma, irad, l, 0, 0) / kgr(l) * Egamma
     enddo
   enddo
 !
