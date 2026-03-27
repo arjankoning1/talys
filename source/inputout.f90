@@ -5,7 +5,7 @@ subroutine inputout
 !
 ! Author    : Arjan Koning
 !
-! 2025-10-08: Original code
+! 2026-03-10: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -226,6 +226,7 @@ subroutine inputout
 !   flagjlm         ! flag for using semi - microscopic JLM OMP
 !   flagoutkd       ! flag for output of KD03 OMP parameters
 !   flaglocalomp    ! flag for local (y) or global (n) optical model
+!   flagglobaldisp  ! flag for global dispersive optical model
 !   flagompall      ! flag for new optical model calculation for all residual
 !   flagomponly     ! flag to execute ONLY an optical model calculation
 !   flagoutomp      ! flag for output of optical model parameters
@@ -405,6 +406,8 @@ subroutine inputout
 !
   write(*, '(" #"/" # Optical model"/" #")')
   write(*, '(" localomp            ", a1, "     flaglocalomp flag for local (y) or global (n) optical model")') yesno(flaglocalomp)
+  write(*, '(" globaldisp          ", a1, "   flagglobaldisp flag for global dispersive optical model")') yesno(flagglobaldisp)
+  write(*, '(" globalfermi         ", a1, "  flagglobalfermi flag for global Fermi energy")') yesno(flagglobalfermi)
   write(*, '(" dispersion          ", a1, "     flagdisp     flag for dispersive optical model")') yesno(flagdisp)
   write(*, '(" jlmomp              ", a1, "     flagjlm      flag for using semi-microscopic JLM OMP")') yesno(flagjlm)
   write(*, '(" pruitt              ", a1, "     flagpruitt   identifier for Pruitt parameters for KD03")') pruitt
@@ -501,10 +504,12 @@ subroutine inputout
   write(*, '(" upbend              ", a1, "     flagupbend   flag for low-energy upbend of photon strength function")') &
  &  yesno(flagupbend)
   write(*, '(" psfglobal           ", a1, "    flagpsfglobal flag for global photon strength functions only")') yesno(flagpsfglobal)
-  write(*, '(" globalwtable        ", a1, "    flagglobalwtable flag for global average wtable value instead of 1.")') &
+  write(*, '(" globalwtable        ", a1, " flagglobalwtable flag for global average wtable value instead of 1.")') &
  & yesno(flagglobalwtable)
+  write(*, '(" strengthjp          ", a1, "   flagstrengthjp flag for J,P-dependent photon strength function")') &
+ & yesno(flagstrengthjp)
   write(*, '(" gnorm               ", a1, "     flaggnorm    flag to normalize PSF to average radiative width")') yesno(flaggnorm)
-!
+! 
 ! 6. Pre-equilibrium
 !
   write(*, '(" #"/" # Pre-equilibrium"/" #")')
