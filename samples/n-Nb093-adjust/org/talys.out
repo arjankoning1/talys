@@ -1,12 +1,12 @@
 
-    TALYS-2.2 (Version: December 18, 2025)
+    TALYS-2.22 (Version: March 25, 2026)
 
- Copyright (C) 2025  A.J. Koning, S. Hilaire and S. Goriely
+ Copyright (C) 2026  A.J. Koning, S. Hilaire and S. Goriely
 
  Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees
 
  User: Arjan Koning
- Date: 2026-01-18
+ Date: 2026-03-27
 
  ########## USER INPUT ##########
 
@@ -117,6 +117,8 @@
  # Optical model
  #
  localomp            y     flaglocalomp flag for local (y) or global (n) optical model
+ globaldisp          n   flagglobaldisp flag for global dispersive optical model
+ globalfermi         y  flagglobalfermi flag for global Fermi energy
  dispersion          n     flagdisp     flag for dispersive optical model
  jlmomp              n     flagjlm      flag for using semi-microscopic JLM OMP
  pruitt              n     flagpruitt   identifier for Pruitt parameters for KD03
@@ -170,7 +172,8 @@
  ldmodelracap        3     ldmodelracap level density model for direct radiative capture
  upbend              y     flagupbend   flag for low-energy upbend of photon strength function
  psfglobal           n    flagpsfglobal flag for global photon strength functions only
- globalwtable        y    flagglobalwtable flag for global average wtable value instead of 1.
+ globalwtable        y flagglobalwtable flag for global average wtable value instead of 1.
+ strengthjp          n   flagstrengthjp flag for J,P-dependent photon strength function
  gnorm               n     flaggnorm    flag to normalize PSF to average radiative width
  #
  # Pre-equilibrium
@@ -629,7 +632,7 @@ file: omp.out
 
  3. Total particle production cross sections
 
- gamma   = 9.86566E+01    Multiplicity= 4.91089E-01
+ gamma   = 9.86566E+01    Multiplicity= 4.91088E-01
  neutron = 1.63442E+02    Multiplicity= 8.13574E-01
  proton  = 1.16210E-04    Multiplicity= 5.78466E-07
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
@@ -709,7 +712,7 @@ file: omp.out
 
  3. Total particle production cross sections
 
- gamma   = 7.07525E+01    Multiplicity= 9.30673E-02
+ gamma   = 7.07525E+01    Multiplicity= 9.30672E-02
  neutron = 7.34004E+02    Multiplicity= 9.65503E-01
  proton  = 3.04865E-04    Multiplicity= 4.01017E-07
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
@@ -930,32 +933,32 @@ file: omp.out
  Total           = 6.06827E+03
    Shape elastic   = 4.40542E+03
    Reaction        = 1.66285E+03
-     Compound elastic= 4.30083E+02
-     Non-elastic     = 1.23277E+03
-       Direct          = 4.05531E+01
+     Compound elastic= 4.30195E+02
+     Non-elastic     = 1.23265E+03
+       Direct          = 4.01311E+01
        Pre-equilibrium = 0.00000E+00
-       Compound non-el = 1.19221E+03
-     Total elastic   = 4.83550E+03
+       Compound non-el = 1.19252E+03
+     Total elastic   = 4.83562E+03
 
  2. Binary non-elastic cross sections (non-exclusive)
 
- gamma   = 1.19773E+01
- neutron = 1.22078E+03
- proton  = 4.88580E-03
+ gamma   = 1.19804E+01
+ neutron = 1.22067E+03
+ proton  = 4.88707E-03
  deuteron= 0.00000E+00
  triton  = 0.00000E+00
  helium-3= 0.00000E+00
- alpha   = 1.12734E-03
+ alpha   = 1.12764E-03
 
  3. Total particle production cross sections
 
- gamma   = 3.19690E+01    Multiplicity= 2.59327E-02
- neutron = 1.22159E+03    Multiplicity= 9.90935E-01
- proton  = 4.88584E-03    Multiplicity= 3.96331E-06
+ gamma   = 3.19773E+01    Multiplicity= 2.59418E-02
+ neutron = 1.22148E+03    Multiplicity= 9.90932E-01
+ proton  = 4.88711E-03    Multiplicity= 3.96470E-06
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
  triton  = 0.00000E+00    Multiplicity= 0.00000E+00
  helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
- alpha   = 1.12736E-03    Multiplicity= 9.14495E-07
+ alpha   = 1.12765E-03    Multiplicity= 9.14816E-07
 
  4. Residual production cross sections
 
@@ -964,24 +967,24 @@ file: omp.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   41  94 ( 94Nb) 1.11688E+01    0    6.28456E+00  0.56269
-                                 1    4.88427E+00  0.43731   3.75800E+02 sec. 
-   41  93 ( 93Nb) 1.22159E+03    0    9.52699E+02  0.77988
-                                 1    2.68893E+02  0.22012   5.08700E+08 sec. 
-   40  93 ( 93Zr) 4.88584E-03    0    4.88584E-03  1.00000
-   39  90 ( 90Y ) 1.12736E-03    0    9.54214E-04  0.84642
-                                 2    1.73145E-04  0.15358   1.14800E+04 sec. 
+   41  94 ( 94Nb) 1.11717E+01    0    6.28620E+00  0.56269
+                                 1    4.88554E+00  0.43731   3.75800E+02 sec. 
+   41  93 ( 93Nb) 1.22148E+03    0    9.52562E+02  0.77984
+                                 1    2.68915E+02  0.22016   5.08700E+08 sec. 
+   40  93 ( 93Zr) 4.88711E-03    0    4.88711E-03  1.00000
+   39  90 ( 90Y ) 1.12765E-03    0    9.54462E-04  0.84642
+                                 2    1.73190E-04  0.15358   1.14800E+04 sec. 
 
    b. Per mass
 
    A  cross section
 
-   94 1.11688E+01
-   93 1.22160E+03
-   90 1.12736E-03
+   94 1.11717E+01
+   93 1.22148E+03
+   90 1.12765E-03
 
- Total residual production cross section:  1232.7667236
- Non-elastic cross section              :  1232.7668457
+ Total residual production cross section:  1232.6549072
+ Non-elastic cross section              :  1232.6549072
 
  ########## RESULTS FOR E=   1.80000 ##########
 
@@ -1011,33 +1014,33 @@ file: omp.out
  Total           = 6.05523E+03
    Shape elastic   = 4.23686E+03
    Reaction        = 1.81837E+03
-     Compound elastic= 3.91622E+02
-     Non-elastic     = 1.42675E+03
-       Direct          = 7.01232E+01
-       Pre-equilibrium = 1.04127E-01
+     Compound elastic= 3.92159E+02
+     Non-elastic     = 1.42621E+03
+       Direct          = 6.77242E+01
+       Pre-equilibrium = 1.04270E-01
        Giant resonance = 0.00000E+00
-       Compound non-el = 1.35652E+03
-     Total elastic   = 4.62848E+03
+       Compound non-el = 1.35838E+03
+     Total elastic   = 4.62902E+03
 
  2. Binary non-elastic cross sections (non-exclusive)
 
- gamma   = 1.05300E+01
- neutron = 1.41621E+03
- proton  = 9.75777E-03
+ gamma   = 1.05444E+01
+ neutron = 1.41566E+03
+ proton  = 9.77115E-03
  deuteron= 0.00000E+00
  triton  = 0.00000E+00
  helium-3= 0.00000E+00
- alpha   = 1.78199E-03
+ alpha   = 1.78443E-03
 
  3. Total particle production cross sections
 
- gamma   = 5.84981E+01    Multiplicity= 4.10010E-02
- neutron = 1.41704E+03    Multiplicity= 9.93196E-01
- proton  = 9.75785E-03    Multiplicity= 6.83923E-06
+ gamma   = 5.85784E+01    Multiplicity= 4.10728E-02
+ neutron = 1.41649E+03    Multiplicity= 9.93184E-01
+ proton  = 9.77124E-03    Multiplicity= 6.85119E-06
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
  triton  = 0.00000E+00    Multiplicity= 0.00000E+00
  helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
- alpha   = 1.78203E-03    Multiplicity= 1.24901E-06
+ alpha   = 1.78447E-03    Multiplicity= 1.25119E-06
 
  4. Residual production cross sections
 
@@ -1046,24 +1049,24 @@ file: omp.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   41  94 ( 94Nb) 9.70134E+00    0    5.68613E+00  0.58612
-                                 1    4.01521E+00  0.41388   3.75800E+02 sec. 
-   41  93 ( 93Nb) 1.41704E+03    0    1.09154E+03  0.77030
-                                 1    3.25499E+02  0.22970   5.08700E+08 sec. 
-   40  93 ( 93Zr) 9.75785E-03    0    9.75785E-03  1.00000
-   39  90 ( 90Y ) 1.78203E-03    0    1.38990E-03  0.77995
-                                 2    3.92132E-04  0.22005   1.14800E+04 sec. 
+   41  94 ( 94Nb) 9.71466E+00    0    5.69393E+00  0.58612
+                                 1    4.02072E+00  0.41388   3.75800E+02 sec. 
+   41  93 ( 93Nb) 1.41649E+03    0    1.09079E+03  0.77007
+                                 1    3.25697E+02  0.22993   5.08700E+08 sec. 
+   40  93 ( 93Zr) 9.77124E-03    0    9.77124E-03  1.00000
+   39  90 ( 90Y ) 1.78447E-03    0    1.39180E-03  0.77995
+                                 2    3.92666E-04  0.22005   1.14800E+04 sec. 
 
    b. Per mass
 
    A  cross section
 
-   94 9.70134E+00
-   93 1.41705E+03
-   90 1.78203E-03
+   94 9.71466E+00
+   93 1.41650E+03
+   90 1.78447E-03
 
- Total residual production cross section:  1426.7532959
- Non-elastic cross section              :  1426.7480469
+ Total residual production cross section:  1426.2159424
+ Non-elastic cross section              :  1426.2106934
 
  ########## RESULTS FOR E=   2.00000 ##########
 
@@ -1093,33 +1096,33 @@ file: omp.out
  Total           = 6.10929E+03
    Shape elastic   = 4.16312E+03
    Reaction        = 1.94617E+03
-     Compound elastic= 3.17260E+02
-     Non-elastic     = 1.62891E+03
-       Direct          = 1.07632E+02
-       Pre-equilibrium = 1.78663E+00
+     Compound elastic= 3.18597E+02
+     Non-elastic     = 1.62757E+03
+       Direct          = 9.98799E+01
+       Pre-equilibrium = 1.79417E+00
        Giant resonance = 1.33594E-01
-       Compound non-el = 1.51936E+03
-     Total elastic   = 4.48038E+03
+       Compound non-el = 1.52577E+03
+     Total elastic   = 4.48172E+03
 
  2. Binary non-elastic cross sections (non-exclusive)
 
- gamma   = 8.91698E+00
- neutron = 1.61998E+03
- proton  = 1.73743E-02
+ gamma   = 8.95458E+00
+ neutron = 1.61860E+03
+ proton  = 1.74475E-02
  deuteron= 0.00000E+00
  triton  = 0.00000E+00
  helium-3= 0.00000E+00
- alpha   = 2.92528E-03
+ alpha   = 2.93748E-03
 
  3. Total particle production cross sections
 
- gamma   = 3.01879E+02    Multiplicity= 1.85326E-01
- neutron = 1.62089E+03    Multiplicity= 9.95074E-01
- proton  = 1.73744E-02    Multiplicity= 1.06663E-05
+ gamma   = 3.03152E+02    Multiplicity= 1.86260E-01
+ neutron = 1.61951E+03    Multiplicity= 9.95049E-01
+ proton  = 1.74477E-02    Multiplicity= 1.07201E-05
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
  triton  = 0.00000E+00    Multiplicity= 0.00000E+00
  helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
- alpha   = 2.92534E-03    Multiplicity= 1.79589E-06
+ alpha   = 2.93754E-03    Multiplicity= 1.80486E-06
 
  4. Residual production cross sections
 
@@ -1128,24 +1131,24 @@ file: omp.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   41  94 ( 94Nb) 8.00766E+00    0    4.69988E+00  0.58692
-                                 1    3.30778E+00  0.41308   3.75800E+02 sec. 
-   41  93 ( 93Nb) 1.62089E+03    0    1.29059E+03  0.79622
-                                 1    3.30297E+02  0.20378   5.08700E+08 sec. 
-   40  93 ( 93Zr) 1.73744E-02    0    1.73744E-02  1.00000
-   39  90 ( 90Y ) 2.92534E-03    0    2.12872E-03  0.72768
-                                 2    7.96615E-04  0.27232   1.14800E+04 sec. 
+   41  94 ( 94Nb) 8.04143E+00    0    4.71970E+00  0.58692
+                                 1    3.32173E+00  0.41308   3.75800E+02 sec. 
+   41  93 ( 93Nb) 1.61951E+03    0    1.28859E+03  0.79566
+                                 1    3.30927E+02  0.20434   5.08700E+08 sec. 
+   40  93 ( 93Zr) 1.74477E-02    0    1.74477E-02  1.00000
+   39  90 ( 90Y ) 2.93754E-03    0    2.13758E-03  0.72768
+                                 2    7.99954E-04  0.27232   1.14800E+04 sec. 
 
    b. Per mass
 
    A  cross section
 
-   94 8.00766E+00
-   93 1.62090E+03
-   90 2.92534E-03
+   94 8.04143E+00
+   93 1.61953E+03
+   90 2.93754E-03
 
- Total residual production cross section:  1628.9143066
- Non-elastic cross section              :  1628.9105225
+ Total residual production cross section:  1627.5764160
+ Non-elastic cross section              :  1627.5726318
 
  ########## RESULTS FOR E=   2.20000 ##########
 
@@ -1175,33 +1178,33 @@ file: omp.out
  Total           = 5.77649E+03
    Shape elastic   = 3.89915E+03
    Reaction        = 1.87734E+03
-     Compound elastic= 2.03217E+02
-     Non-elastic     = 1.67412E+03
-       Direct          = 1.05625E+02
-       Pre-equilibrium = 4.27391E+00
+     Compound elastic= 2.04584E+02
+     Non-elastic     = 1.67276E+03
+       Direct          = 9.37347E+01
+       Pre-equilibrium = 4.30265E+00
        Giant resonance = 3.61532E+00
-       Compound non-el = 1.56061E+03
-     Total elastic   = 4.10237E+03
+       Compound non-el = 1.57110E+03
+     Total elastic   = 4.10373E+03
 
  2. Binary non-elastic cross sections (non-exclusive)
 
- gamma   = 7.15049E+00
- neutron = 1.66695E+03
- proton  = 2.74943E-02
+ gamma   = 7.19858E+00
+ neutron = 1.66553E+03
+ proton  = 2.76792E-02
  deuteron= 0.00000E+00
  triton  = 0.00000E+00
  helium-3= 0.00000E+00
- alpha   = 4.12593E-03
+ alpha   = 4.15349E-03
 
  3. Total particle production cross sections
 
- gamma   = 5.59635E+02    Multiplicity= 3.34285E-01
- neutron = 1.66787E+03    Multiplicity= 9.96265E-01
- proton  = 2.74946E-02    Multiplicity= 1.64233E-05
+ gamma   = 5.63374E+02    Multiplicity= 3.36794E-01
+ neutron = 1.66646E+03    Multiplicity= 9.96237E-01
+ proton  = 2.76795E-02    Multiplicity= 1.65472E-05
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
  triton  = 0.00000E+00    Multiplicity= 0.00000E+00
  helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
- alpha   = 4.12601E-03    Multiplicity= 2.46458E-06
+ alpha   = 4.15356E-03    Multiplicity= 2.48307E-06
 
  4. Residual production cross sections
 
@@ -1210,24 +1213,24 @@ file: omp.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   41  94 ( 94Nb) 6.22550E+00    0    3.55117E+00  0.57042
-                                 1    2.67433E+00  0.42958   3.75800E+02 sec. 
-   41  93 ( 93Nb) 1.66787E+03    0    1.37004E+03  0.82143
-                                 1    2.97831E+02  0.17857   5.08700E+08 sec. 
-   40  93 ( 93Zr) 2.74946E-02    0    2.74946E-02  1.00000
-   39  90 ( 90Y ) 4.12601E-03    0    3.15529E-03  0.76473
-                                 2    9.70712E-04  0.23527   1.14800E+04 sec. 
+   41  94 ( 94Nb) 6.26737E+00    0    3.57505E+00  0.57042
+                                 1    2.69232E+00  0.42958   3.75800E+02 sec. 
+   41  93 ( 93Nb) 1.66646E+03    0    1.36777E+03  0.82076
+                                 1    2.98698E+02  0.17924   5.08700E+08 sec. 
+   40  93 ( 93Zr) 2.76795E-02    0    2.76795E-02  1.00000
+   39  90 ( 90Y ) 4.15356E-03    0    3.17641E-03  0.76474
+                                 2    9.77156E-04  0.23526   1.14800E+04 sec. 
 
    b. Per mass
 
    A  cross section
 
-   94 6.22550E+00
-   93 1.66790E+03
-   90 4.12601E-03
+   94 6.26737E+00
+   93 1.66649E+03
+   90 4.15356E-03
 
- Total residual production cross section:  1674.1289062
- Non-elastic cross section              :  1674.1225586
+ Total residual production cross section:  1672.7623291
+ Non-elastic cross section              :  1672.7559814
 
  ########## RESULTS FOR E=   2.40000 ##########
 
@@ -1257,33 +1260,33 @@ file: omp.out
  Total           = 5.20523E+03
    Shape elastic   = 3.45472E+03
    Reaction        = 1.75052E+03
-     Compound elastic= 1.19893E+02
-     Non-elastic     = 1.63063E+03
-       Direct          = 8.17507E+01
-       Pre-equilibrium = 6.61229E+00
+     Compound elastic= 1.20769E+02
+     Non-elastic     = 1.62975E+03
+       Direct          = 6.96128E+01
+       Pre-equilibrium = 6.66062E+00
        Giant resonance = 8.14332E+00
-       Compound non-el = 1.53412E+03
-     Total elastic   = 3.57461E+03
+       Compound non-el = 1.54533E+03
+     Total elastic   = 3.57549E+03
 
  2. Binary non-elastic cross sections (non-exclusive)
 
- gamma   = 5.74536E+00
- neutron = 1.62484E+03
- proton  = 4.08366E-02
+ gamma   = 5.78735E+00
+ neutron = 1.62392E+03
+ proton  = 4.11350E-02
  deuteron= 0.00000E+00
  triton  = 0.00000E+00
  helium-3= 0.00000E+00
- alpha   = 6.68514E-03
+ alpha   = 6.73311E-03
 
  3. Total particle production cross sections
 
- gamma   = 7.26100E+02    Multiplicity= 4.45289E-01
- neutron = 1.62570E+03    Multiplicity= 9.96979E-01
- proton  = 4.08371E-02    Multiplicity= 2.50438E-05
+ gamma   = 7.31346E+02    Multiplicity= 4.48747E-01
+ neutron = 1.62479E+03    Multiplicity= 9.96955E-01
+ proton  = 4.11355E-02    Multiplicity= 2.52404E-05
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
  triton  = 0.00000E+00    Multiplicity= 0.00000E+00
  helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
- alpha   = 6.68524E-03    Multiplicity= 4.09980E-06
+ alpha   = 6.73321E-03    Multiplicity= 4.13144E-06
 
  4. Residual production cross sections
 
@@ -1292,24 +1295,24 @@ file: omp.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   41  94 ( 94Nb) 4.88414E+00    0    2.67118E+00  0.54691
-                                 1    2.21296E+00  0.45309   3.75800E+02 sec. 
-   41  93 ( 93Nb) 1.62570E+03    0    1.37480E+03  0.84566
-                                 1    2.50906E+02  0.15434   5.08700E+08 sec. 
-   40  93 ( 93Zr) 4.08371E-02    0    4.08371E-02  1.00000
-   39  90 ( 90Y ) 6.68523E-03    0    5.25417E-03  0.78594
-                                 2    1.43106E-03  0.21406   1.14800E+04 sec. 
+   41  94 ( 94Nb) 4.91984E+00    0    2.69071E+00  0.54691
+                                 1    2.22914E+00  0.45309   3.75800E+02 sec. 
+   41  93 ( 93Nb) 1.62479E+03    0    1.37317E+03  0.84513
+                                 1    2.51624E+02  0.15487   5.08700E+08 sec. 
+   40  93 ( 93Zr) 4.11355E-02    0    4.11355E-02  1.00000
+   39  90 ( 90Y ) 6.73321E-03    0    5.29190E-03  0.78594
+                                 2    1.44130E-03  0.21406   1.14800E+04 sec. 
 
    b. Per mass
 
    A  cross section
 
-   94 4.88414E+00
-   93 1.62574E+03
-   90 6.68523E-03
+   94 4.91984E+00
+   93 1.62483E+03
+   90 6.73321E-03
 
- Total residual production cross section:  1630.6347656
- Non-elastic cross section              :  1630.6271973
+ Total residual production cross section:  1629.7585449
+ Non-elastic cross section              :  1629.7508545
 
  ########## RESULTS FOR E=   2.60000 ##########
 
@@ -1339,33 +1342,33 @@ file: omp.out
  Total           = 4.66001E+03
    Shape elastic   = 2.80984E+03
    Reaction        = 1.85017E+03
-     Compound elastic= 9.63240E+01
-     Non-elastic     = 1.75385E+03
-       Direct          = 8.19763E+01
-       Pre-equilibrium = 9.68298E+00
+     Compound elastic= 9.72302E+01
+     Non-elastic     = 1.75294E+03
+       Direct          = 6.54778E+01
+       Pre-equilibrium = 9.77408E+00
        Giant resonance = 1.46456E+01
-       Compound non-el = 1.64754E+03
-     Total elastic   = 2.90616E+03
+       Compound non-el = 1.66304E+03
+     Total elastic   = 2.90707E+03
 
  2. Binary non-elastic cross sections (non-exclusive)
 
- gamma   = 5.20959E+00
- neutron = 1.74857E+03
- proton  = 6.55181E-02
+ gamma   = 5.25861E+00
+ neutron = 1.74761E+03
+ proton  = 6.61346E-02
  deuteron= 0.00000E+00
  triton  = 0.00000E+00
  helium-3= 0.00000E+00
- alpha   = 1.13677E-02
+ alpha   = 1.14724E-02
 
  3. Total particle production cross sections
 
- gamma   = 9.01731E+02    Multiplicity= 5.14145E-01
- neutron = 1.74949E+03    Multiplicity= 9.97514E-01
- proton  = 6.55189E-02    Multiplicity= 3.73573E-05
+ gamma   = 9.10074E+02    Multiplicity= 5.19170E-01
+ neutron = 1.74854E+03    Multiplicity= 9.97490E-01
+ proton  = 6.61354E-02    Multiplicity= 3.77283E-05
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
  triton  = 0.00000E+00    Multiplicity= 0.00000E+00
  helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
- alpha   = 1.13679E-02    Multiplicity= 6.48167E-06
+ alpha   = 1.14725E-02    Multiplicity= 6.54473E-06
 
  4. Residual production cross sections
 
@@ -1374,24 +1377,24 @@ file: omp.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   41  94 ( 94Nb) 4.28861E+00    0    2.24104E+00  0.52256
-                                 1    2.04757E+00  0.47744   3.75800E+02 sec. 
-   41  93 ( 93Nb) 1.74949E+03    0    1.53647E+03  0.87824
-                                 1    2.13024E+02  0.12176   5.08700E+08 sec. 
-   40  93 ( 93Zr) 6.55189E-02    0    6.55189E-02  1.00000
-   39  90 ( 90Y ) 1.13678E-02    0    9.63310E-03  0.84740
-                                 2    1.73471E-03  0.15260   1.14800E+04 sec. 
+   41  94 ( 94Nb) 4.32896E+00    0    2.26212E+00  0.52255
+                                 1    2.06684E+00  0.47745   3.75800E+02 sec. 
+   41  93 ( 93Nb) 1.74854E+03    0    1.53499E+03  0.87787
+                                 1    2.13555E+02  0.12213   5.08700E+08 sec. 
+   40  93 ( 93Zr) 6.61354E-02    0    6.61354E-02  1.00000
+   39  90 ( 90Y ) 1.14725E-02    0    9.72213E-03  0.84743
+                                 2    1.75035E-03  0.15257   1.14800E+04 sec. 
 
    b. Per mass
 
    A  cross section
 
-   94 4.28861E+00
-   93 1.74956E+03
-   90 1.13678E-02
+   94 4.32896E+00
+   93 1.74861E+03
+   90 1.14725E-02
 
- Total residual production cross section:  1753.8564453
- Non-elastic cross section              :  1753.8460693
+ Total residual production cross section:  1752.9504395
+ Non-elastic cross section              :  1752.9398193
 
  ########## RESULTS FOR E=   2.80000 ##########
 
@@ -1421,33 +1424,33 @@ file: omp.out
  Total           = 4.36558E+03
    Shape elastic   = 2.29477E+03
    Reaction        = 2.07082E+03
-     Compound elastic= 1.01445E+02
-     Non-elastic     = 1.96937E+03
-       Direct          = 9.87025E+01
-       Pre-equilibrium = 1.38375E+01
+     Compound elastic= 1.02670E+02
+     Non-elastic     = 1.96815E+03
+       Direct          = 7.51032E+01
+       Pre-equilibrium = 1.40046E+01
        Giant resonance = 1.70911E+01
-       Compound non-el = 1.83974E+03
-     Total elastic   = 2.39622E+03
+       Compound non-el = 1.86195E+03
+     Total elastic   = 2.39744E+03
 
  2. Binary non-elastic cross sections (non-exclusive)
 
- gamma   = 5.35034E+00
- neutron = 1.96390E+03
- proton  = 1.08158E-01
+ gamma   = 5.41492E+00
+ neutron = 1.96261E+03
+ proton  = 1.09464E-01
  deuteron= 0.00000E+00
  triton  = 0.00000E+00
  helium-3= 0.00000E+00
- alpha   = 1.93905E-02
+ alpha   = 1.96219E-02
 
  3. Total particle production cross sections
 
- gamma   = 1.14706E+03    Multiplicity= 5.82449E-01
- neutron = 1.96503E+03    Multiplicity= 9.97793E-01
- proton  = 1.08160E-01    Multiplicity= 5.49209E-05
+ gamma   = 1.16069E+03    Multiplicity= 5.89738E-01
+ neutron = 1.96375E+03    Multiplicity= 9.97765E-01
+ proton  = 1.09465E-01    Multiplicity= 5.56184E-05
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
  triton  = 0.00000E+00    Multiplicity= 0.00000E+00
  helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
- alpha   = 1.93907E-02    Multiplicity= 9.84613E-06
+ alpha   = 1.96222E-02    Multiplicity= 9.96985E-06
 
  4. Residual production cross sections
 
@@ -1456,24 +1459,24 @@ file: omp.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   41  94 ( 94Nb) 4.22561E+00    0    2.19931E+00  0.52047
-                                 1    2.02630E+00  0.47953   3.75800E+02 sec. 
-   41  93 ( 93Nb) 1.96503E+03    0    1.74826E+03  0.88968
-                                 1    2.16778E+02  0.11032   5.08700E+08 sec. 
-   40  93 ( 93Zr) 1.08160E-01    0    1.08160E-01  1.00000
-   39  90 ( 90Y ) 1.93906E-02    0    1.70325E-02  0.87839
-                                 2    2.35808E-03  0.12161   1.14800E+04 sec. 
+   41  94 ( 94Nb) 4.27661E+00    0    2.22586E+00  0.52047
+                                 1    2.05076E+00  0.47953   3.75800E+02 sec. 
+   41  93 ( 93Nb) 1.96376E+03    0    1.74646E+03  0.88935
+                                 1    2.17296E+02  0.11065   5.08700E+08 sec. 
+   40  93 ( 93Zr) 1.09465E-01    0    1.09465E-01  1.00000
+   39  90 ( 90Y ) 1.96221E-02    0    1.72367E-02  0.87843
+                                 2    2.38540E-03  0.12157   1.14800E+04 sec. 
 
    b. Per mass
 
    A  cross section
 
-   94 4.22561E+00
-   93 1.96514E+03
-   90 1.93906E-02
+   94 4.27661E+00
+   93 1.96387E+03
+   90 1.96221E-02
 
- Total residual production cross section:  1969.3874512
- Non-elastic cross section              :  1969.3746338
+ Total residual production cross section:  1968.1630859
+ Non-elastic cross section              :  1968.1500244
 
  ########## RESULTS FOR E=   3.00000 ##########
 
@@ -1503,33 +1506,33 @@ file: omp.out
  Total           = 4.17508E+03
    Shape elastic   = 2.13095E+03
    Reaction        = 2.04412E+03
-     Compound elastic= 8.01505E+01
-     Non-elastic     = 1.96397E+03
-       Direct          = 9.87282E+01
-       Pre-equilibrium = 1.69180E+01
+     Compound elastic= 8.11980E+01
+     Non-elastic     = 1.96292E+03
+       Direct          = 7.35413E+01
+       Pre-equilibrium = 1.71391E+01
        Giant resonance = 1.82164E+01
-       Compound non-el = 1.83011E+03
-     Total elastic   = 2.21110E+03
+       Compound non-el = 1.85403E+03
+     Total elastic   = 2.21215E+03
 
  2. Binary non-elastic cross sections (non-exclusive)
 
- gamma   = 5.10378E+00
- neutron = 1.95869E+03
- proton  = 1.53181E-01
+ gamma   = 5.17048E+00
+ neutron = 1.95757E+03
+ proton  = 1.55183E-01
  deuteron= 0.00000E+00
  triton  = 0.00000E+00
  helium-3= 0.00000E+00
- alpha   = 2.98810E-02
+ alpha   = 3.02608E-02
 
  3. Total particle production cross sections
 
- gamma   = 1.29648E+03    Multiplicity= 6.60135E-01
- neutron = 1.95984E+03    Multiplicity= 9.97896E-01
- proton  = 1.53183E-01    Multiplicity= 7.79966E-05
+ gamma   = 1.31318E+03    Multiplicity= 6.68993E-01
+ neutron = 1.95874E+03    Multiplicity= 9.97867E-01
+ proton  = 1.55185E-01    Multiplicity= 7.90581E-05
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
  triton  = 0.00000E+00    Multiplicity= 0.00000E+00
  helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
- alpha   = 2.98813E-02    Multiplicity= 1.52148E-05
+ alpha   = 3.02611E-02    Multiplicity= 1.54164E-05
 
  4. Residual production cross sections
 
@@ -1538,24 +1541,24 @@ file: omp.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   41  94 ( 94Nb) 3.95572E+00    0    2.06288E+00  0.52149
-                                 1    1.89284E+00  0.47851   3.75800E+02 sec. 
-   41  93 ( 93Nb) 1.95984E+03    0    1.73834E+03  0.88698
-                                 1    2.21505E+02  0.11302   5.08700E+08 sec. 
-   40  93 ( 93Zr) 1.53183E-01    0    1.53183E-01  1.00000
-   39  90 ( 90Y ) 2.98811E-02    0    2.57833E-02  0.86286
-                                 2    4.09778E-03  0.13714   1.14800E+04 sec. 
+   41  94 ( 94Nb) 4.00742E+00    0    2.08984E+00  0.52149
+                                 1    1.91758E+00  0.47851   3.75800E+02 sec. 
+   41  93 ( 93Nb) 1.95874E+03    0    1.73658E+03  0.88658
+                                 1    2.22159E+02  0.11342   5.08700E+08 sec. 
+   40  93 ( 93Zr) 1.55185E-01    0    1.55185E-01  1.00000
+   39  90 ( 90Y ) 3.02609E-02    0    2.61117E-02  0.86288
+                                 2    4.14922E-03  0.13711   1.14800E+04 sec. 
 
    b. Per mass
 
    A  cross section
 
-   94 3.95572E+00
-   93 1.96000E+03
-   90 2.98811E-02
+   94 4.00742E+00
+   93 1.95890E+03
+   90 3.02609E-02
 
- Total residual production cross section:  1963.9831543
- Non-elastic cross section              :  1963.9694824
+ Total residual production cross section:  1962.9355469
+ Non-elastic cross section              :  1962.9219971
 
  ########## RESULTS FOR E=   3.20000 ##########
 
@@ -1585,33 +1588,33 @@ file: omp.out
  Total           = 4.02055E+03
    Shape elastic   = 2.02222E+03
    Reaction        = 1.99834E+03
-     Compound elastic= 6.16369E+01
-     Non-elastic     = 1.93670E+03
-       Direct          = 9.73791E+01
-       Pre-equilibrium = 2.01058E+01
+     Compound elastic= 6.24969E+01
+     Non-elastic     = 1.93584E+03
+       Direct          = 7.11200E+01
+       Pre-equilibrium = 2.03864E+01
        Giant resonance = 1.90688E+01
-       Compound non-el = 1.80015E+03
-     Total elastic   = 2.08386E+03
+       Compound non-el = 1.82527E+03
+     Total elastic   = 2.08472E+03
 
  2. Binary non-elastic cross sections (non-exclusive)
 
- gamma   = 4.87768E+00
- neutron = 1.93158E+03
- proton  = 2.07979E-01
+ gamma   = 4.94574E+00
+ neutron = 1.93065E+03
+ proton  = 2.10881E-01
  deuteron= 0.00000E+00
  triton  = 0.00000E+00
  helium-3= 0.00000E+00
- alpha   = 3.93813E-02
+ alpha   = 3.99162E-02
 
  3. Total particle production cross sections
 
- gamma   = 1.42194E+03    Multiplicity= 7.34205E-01
- neutron = 1.93286E+03    Multiplicity= 9.98017E-01
- proton  = 2.07983E-01    Multiplicity= 1.07390E-04
+ gamma   = 1.44150E+03    Multiplicity= 7.44638E-01
+ neutron = 1.93195E+03    Multiplicity= 9.97988E-01
+ proton  = 2.10885E-01    Multiplicity= 1.08937E-04
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
  triton  = 0.00000E+00    Multiplicity= 0.00000E+00
  helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
- alpha   = 3.93819E-02    Multiplicity= 2.03345E-05
+ alpha   = 3.99167E-02    Multiplicity= 2.06198E-05
 
  4. Residual production cross sections
 
@@ -1620,24 +1623,24 @@ file: omp.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   41  94 ( 94Nb) 3.59989E+00    0    1.89071E+00  0.52521
-                                 1    1.70918E+00  0.47479   3.75800E+02 sec. 
-   41  93 ( 93Nb) 1.93287E+03    0    1.70783E+03  0.88357
-                                 1    2.25038E+02  0.11643   5.08700E+08 sec. 
-   40  93 ( 93Zr) 2.07981E-01    0    2.07981E-01  1.00000
-   39  90 ( 90Y ) 3.93813E-02    0    3.34213E-02  0.84866
-                                 2    5.96007E-03  0.15134   1.14800E+04 sec. 
+   41  94 ( 94Nb) 3.65012E+00    0    1.91709E+00  0.52521
+                                 1    1.73303E+00  0.47479   3.75800E+02 sec. 
+   41  93 ( 93Nb) 1.93196E+03    0    1.70611E+03  0.88310
+                                 1    2.25843E+02  0.11690   5.08700E+08 sec. 
+   40  93 ( 93Zr) 2.10883E-01    0    2.10883E-01  1.00000
+   39  90 ( 90Y ) 3.99162E-02    0    3.38774E-02  0.84871
+                                 2    6.03876E-03  0.15129   1.14800E+04 sec. 
 
    b. Per mass
 
    A  cross section
 
-   94 3.59989E+00
-   93 1.93308E+03
-   90 3.93813E-02
+   94 3.65012E+00
+   93 1.93217E+03
+   90 3.99162E-02
 
- Total residual production cross section:  1936.7172852
- Non-elastic cross section              :  1936.7031250
+ Total residual production cross section:  1935.8571777
+ Non-elastic cross section              :  1935.8430176
 
  ########## RESULTS FOR E=   3.40000 ##########
 
@@ -1667,33 +1670,33 @@ file: omp.out
  Total           = 3.89324E+03
    Shape elastic   = 1.93439E+03
    Reaction        = 1.95885E+03
-     Compound elastic= 4.75827E+01
-     Non-elastic     = 1.91127E+03
-       Direct          = 9.55321E+01
-       Pre-equilibrium = 2.36019E+01
+     Compound elastic= 4.82814E+01
+     Non-elastic     = 1.91057E+03
+       Direct          = 6.84633E+01
+       Pre-equilibrium = 2.39485E+01
        Giant resonance = 1.97350E+01
-       Compound non-el = 1.77240E+03
-     Total elastic   = 1.98197E+03
+       Compound non-el = 1.79842E+03
+     Total elastic   = 1.98267E+03
 
  2. Binary non-elastic cross sections (non-exclusive)
 
- gamma   = 4.67059E+00
- neutron = 1.90627E+03
- proton  = 2.76059E-01
+ gamma   = 4.73917E+00
+ neutron = 1.90550E+03
+ proton  = 2.80113E-01
  deuteron= 0.00000E+00
  triton  = 0.00000E+00
  helium-3= 0.00000E+00
- alpha   = 5.18089E-02
+ alpha   = 5.25352E-02
 
  3. Total particle production cross sections
 
- gamma   = 1.53945E+03    Multiplicity= 8.05460E-01
- neutron = 1.90760E+03    Multiplicity= 9.98083E-01
- proton  = 2.76064E-01    Multiplicity= 1.44441E-04
+ gamma   = 1.56175E+03    Multiplicity= 8.17426E-01
+ neutron = 1.90685E+03    Multiplicity= 9.98054E-01
+ proton  = 2.80118E-01    Multiplicity= 1.46615E-04
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
  triton  = 0.00000E+00    Multiplicity= 0.00000E+00
  helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
- alpha   = 5.18096E-02    Multiplicity= 2.71075E-05
+ alpha   = 5.25360E-02    Multiplicity= 2.74976E-05
 
  4. Residual production cross sections
 
@@ -1702,24 +1705,24 @@ file: omp.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   41  94 ( 94Nb) 3.34162E+00    0    1.76405E+00  0.52790
-                                 1    1.57757E+00  0.47210   3.75800E+02 sec. 
-   41  93 ( 93Nb) 1.90761E+03    0    1.67955E+03  0.88044
-                                 1    2.28067E+02  0.11956   5.08700E+08 sec. 
-   40  93 ( 93Zr) 2.76057E-01    0    2.76057E-01  1.00000
-   39  90 ( 90Y ) 5.18089E-02    0    4.23214E-02  0.81687
-                                 2    9.48755E-03  0.18313   1.14800E+04 sec. 
+   41  94 ( 94Nb) 3.39068E+00    0    1.78994E+00  0.52790
+                                 1    1.60074E+00  0.47210   3.75800E+02 sec. 
+   41  93 ( 93Nb) 1.90686E+03    0    1.67785E+03  0.87990
+                                 1    2.29011E+02  0.12010   5.08700E+08 sec. 
+   40  93 ( 93Zr) 2.80113E-01    0    2.80113E-01  1.00000
+   39  90 ( 90Y ) 5.25353E-02    0    4.29188E-02  0.81695
+                                 2    9.61648E-03  0.18305   1.14800E+04 sec. 
 
    b. Per mass
 
    A  cross section
 
-   94 3.34162E+00
-   93 1.90789E+03
-   90 5.18089E-02
+   94 3.39068E+00
+   93 1.90714E+03
+   90 5.25353E-02
 
- Total residual production cross section:  1911.2824707
- Non-elastic cross section              :  1911.2672119
+ Total residual production cross section:  1910.5839844
+ Non-elastic cross section              :  1910.5686035
 
  ########## RESULTS FOR E=   3.60000 ##########
 
@@ -1749,33 +1752,33 @@ file: omp.out
  Total           = 3.79161E+03
    Shape elastic   = 1.86514E+03
    Reaction        = 1.92648E+03
-     Compound elastic= 3.69356E+01
-     Non-elastic     = 1.88954E+03
-       Direct          = 9.32950E+01
-       Pre-equilibrium = 2.74127E+01
+     Compound elastic= 3.74970E+01
+     Non-elastic     = 1.88898E+03
+       Direct          = 6.57415E+01
+       Pre-equilibrium = 2.78293E+01
        Giant resonance = 2.04030E+01
-       Compound non-el = 1.74843E+03
-     Total elastic   = 1.90208E+03
+       Compound non-el = 1.77501E+03
+     Total elastic   = 1.90264E+03
 
  2. Binary non-elastic cross sections (non-exclusive)
 
- gamma   = 4.52273E+00
- neutron = 1.88460E+03
- proton  = 3.56806E-01
+ gamma   = 4.59147E+00
+ neutron = 1.88397E+03
+ proton  = 3.62229E-01
  deuteron= 0.00000E+00
  triton  = 0.00000E+00
  helium-3= 0.00000E+00
- alpha   = 6.62228E-02
+ alpha   = 6.71653E-02
 
  3. Total particle production cross sections
 
- gamma   = 1.65252E+03    Multiplicity= 8.74559E-01
- neutron = 1.88603E+03    Multiplicity= 9.98138E-01
- proton  = 3.56813E-01    Multiplicity= 1.88835E-04
+ gamma   = 1.67731E+03    Multiplicity= 8.87944E-01
+ neutron = 1.88541E+03    Multiplicity= 9.98109E-01
+ proton  = 3.62236E-01    Multiplicity= 1.91763E-04
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
  triton  = 0.00000E+00    Multiplicity= 0.00000E+00
  helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
- alpha   = 6.62238E-02    Multiplicity= 3.50475E-05
+ alpha   = 6.71664E-02    Multiplicity= 3.55569E-05
 
  4. Residual production cross sections
 
@@ -1784,24 +1787,24 @@ file: omp.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   41  94 ( 94Nb) 3.10124E+00    0    1.64553E+00  0.53061
-                                 1    1.45571E+00  0.46939   3.75800E+02 sec. 
-   41  93 ( 93Nb) 1.88604E+03    0    1.65522E+03  0.87762
-                                 1    2.30816E+02  0.12238   5.08700E+08 sec. 
-   40  93 ( 93Zr) 3.56808E-01    0    3.56808E-01  1.00000
-   39  90 ( 90Y ) 6.62232E-02    0    5.19502E-02  0.78447
-                                 2    1.42730E-02  0.21553   1.14800E+04 sec. 
+   41  94 ( 94Nb) 3.14838E+00    0    1.67054E+00  0.53060
+                                 1    1.47784E+00  0.46940   3.75800E+02 sec. 
+   41  93 ( 93Nb) 1.88542E+03    0    1.65354E+03  0.87701
+                                 1    2.31881E+02  0.12299   5.08700E+08 sec. 
+   40  93 ( 93Zr) 3.62231E-01    0    3.62231E-01  1.00000
+   39  90 ( 90Y ) 6.71658E-02    0    5.26941E-02  0.78454
+                                 2    1.44718E-02  0.21546   1.14800E+04 sec. 
 
    b. Per mass
 
    A  cross section
 
-   94 3.10124E+00
-   93 1.88639E+03
-   90 6.62232E-02
+   94 3.14838E+00
+   93 1.88578E+03
+   90 6.71658E-02
 
- Total residual production cross section:  1889.5606689
- Non-elastic cross section              :  1889.5444336
+ Total residual production cross section:  1888.9993896
+ Non-elastic cross section              :  1888.9830322
 
  ########## RESULTS FOR E=   3.80000 ##########
 
@@ -1831,33 +1834,33 @@ file: omp.out
  Total           = 3.71383E+03
    Shape elastic   = 1.81241E+03
    Reaction        = 1.90142E+03
-     Compound elastic= 2.88615E+01
-     Non-elastic     = 1.87256E+03
-       Direct          = 9.07510E+01
-       Pre-equilibrium = 3.15278E+01
+     Compound elastic= 2.93085E+01
+     Non-elastic     = 1.87211E+03
+       Direct          = 6.30345E+01
+       Pre-equilibrium = 3.20161E+01
        Giant resonance = 2.11266E+01
-       Compound non-el = 1.72915E+03
-     Total elastic   = 1.84127E+03
+       Compound non-el = 1.75593E+03
+     Total elastic   = 1.84172E+03
 
  2. Binary non-elastic cross sections (non-exclusive)
 
- gamma   = 4.38329E+00
- neutron = 1.86766E+03
- proton  = 4.35038E-01
+ gamma   = 4.45118E+00
+ neutron = 1.86714E+03
+ proton  = 4.41776E-01
  deuteron= 0.00000E+00
  triton  = 0.00000E+00
  helium-3= 0.00000E+00
- alpha   = 8.17217E-02
+ alpha   = 8.29282E-02
 
  3. Total particle production cross sections
 
- gamma   = 1.76346E+03    Multiplicity= 9.41738E-01
- neutron = 1.86916E+03    Multiplicity= 9.98183E-01
- proton  = 4.35048E-01    Multiplicity= 2.32328E-04
+ gamma   = 1.79043E+03    Multiplicity= 9.56371E-01
+ neutron = 1.86866E+03    Multiplicity= 9.98154E-01
+ proton  = 4.41787E-01    Multiplicity= 2.35983E-04
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
  triton  = 0.00000E+00    Multiplicity= 0.00000E+00
  helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
- alpha   = 8.17232E-02    Multiplicity= 4.36425E-05
+ alpha   = 8.29297E-02    Multiplicity= 4.42974E-05
 
  4. Residual production cross sections
 
@@ -1866,24 +1869,24 @@ file: omp.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   41  94 ( 94Nb) 2.89135E+00    0    1.54524E+00  0.53443
-                                 1    1.34611E+00  0.46557   3.75800E+02 sec. 
-   41  93 ( 93Nb) 1.86917E+03    0    1.63578E+03  0.87514
-                                 1    2.33392E+02  0.12486   5.08700E+08 sec. 
-   40  93 ( 93Zr) 4.35045E-01    0    4.35045E-01  1.00000
-   39  90 ( 90Y ) 8.17225E-02    0    6.20928E-02  0.75980
-                                 2    1.96298E-02  0.24020   1.14800E+04 sec. 
+   41  94 ( 94Nb) 2.93613E+00    0    1.56917E+00  0.53443
+                                 1    1.36697E+00  0.46557   3.75800E+02 sec. 
+   41  93 ( 93Nb) 1.86867E+03    0    1.63411E+03  0.87448
+                                 1    2.34554E+02  0.12552   5.08700E+08 sec. 
+   40  93 ( 93Zr) 4.41783E-01    0    4.41783E-01  1.00000
+   39  90 ( 90Y ) 8.29291E-02    0    6.30212E-02  0.75994
+                                 2    1.99078E-02  0.24006   1.14800E+04 sec. 
 
    b. Per mass
 
    A  cross section
 
-   94 2.89135E+00
-   93 1.86960E+03
-   90 8.17225E-02
+   94 2.93613E+00
+   93 1.86911E+03
+   90 8.29291E-02
 
- Total residual production cross section:  1872.5758057
- Non-elastic cross section              :  1872.5584717
+ Total residual production cross section:  1872.1292725
+ Non-elastic cross section              :  1872.1114502
 
  ########## RESULTS FOR E=   4.00000 ##########
 
@@ -1913,33 +1916,33 @@ file: omp.out
  Total           = 3.65786E+03
    Shape elastic   = 1.77439E+03
    Reaction        = 1.88347E+03
-     Compound elastic= 2.27088E+01
-     Non-elastic     = 1.86076E+03
-       Direct          = 8.81541E+01
-       Pre-equilibrium = 3.59758E+01
+     Compound elastic= 2.30624E+01
+     Non-elastic     = 1.86041E+03
+       Direct          = 6.05431E+01
+       Pre-equilibrium = 3.65359E+01
        Giant resonance = 2.19157E+01
-       Compound non-el = 1.71472E+03
-     Total elastic   = 1.79710E+03
+       Compound non-el = 1.74141E+03
+     Total elastic   = 1.79745E+03
 
  2. Binary non-elastic cross sections (non-exclusive)
 
- gamma   = 4.26524E+00
- neutron = 1.85581E+03
- proton  = 5.84569E-01
+ gamma   = 4.33164E+00
+ neutron = 1.85538E+03
+ proton  = 5.93671E-01
  deuteron= 0.00000E+00
  triton  = 0.00000E+00
  helium-3= 0.00000E+00
- alpha   = 1.10975E-01
+ alpha   = 1.12549E-01
 
  3. Total particle production cross sections
 
- gamma   = 1.87346E+03    Multiplicity= 1.00682E+00
- neutron = 1.85738E+03    Multiplicity= 9.98182E-01
- proton  = 5.84583E-01    Multiplicity= 3.14164E-04
+ gamma   = 1.90227E+03    Multiplicity= 1.02250E+00
+ neutron = 1.85697E+03    Multiplicity= 9.98153E-01
+ proton  = 5.93685E-01    Multiplicity= 3.19115E-04
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
  triton  = 0.00000E+00    Multiplicity= 0.00000E+00
  helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
- alpha   = 1.10977E-01    Multiplicity= 5.96408E-05
+ alpha   = 1.12551E-01    Multiplicity= 6.04980E-05
 
  4. Residual production cross sections
 
@@ -1948,24 +1951,24 @@ file: omp.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   41  94 ( 94Nb) 2.69507E+00    0    1.45408E+00  0.53953
-                                 1    1.24099E+00  0.46047   3.75800E+02 sec. 
-   41  93 ( 93Nb) 1.85739E+03    0    1.62156E+03  0.87303
-                                 1    2.35831E+02  0.12697   5.08700E+08 sec. 
-   40  93 ( 93Zr) 5.84581E-01    0    5.84581E-01  1.00000
-   39  90 ( 90Y ) 1.10977E-01    0    8.27076E-02  0.74527
-                                 2    2.82690E-02  0.25473   1.14800E+04 sec. 
+   41  94 ( 94Nb) 2.73704E+00    0    1.47671E+00  0.53953
+                                 1    1.26032E+00  0.46047   3.75800E+02 sec. 
+   41  93 ( 93Nb) 1.85698E+03    0    1.61992E+03  0.87234
+                                 1    2.37065E+02  0.12766   5.08700E+08 sec. 
+   40  93 ( 93Zr) 5.93683E-01    0    5.93683E-01  1.00000
+   39  90 ( 90Y ) 1.12550E-01    0    8.38834E-02  0.74530
+                                 2    2.86668E-02  0.25470   1.14800E+04 sec. 
 
    b. Per mass
 
    A  cross section
 
-   94 2.69507E+00
-   93 1.85797E+03
-   90 1.10977E-01
+   94 2.73704E+00
+   93 1.85758E+03
+   90 1.12550E-01
 
- Total residual production cross section:  1860.7805176
- Non-elastic cross section              :  1860.7611084
+ Total residual production cross section:  1860.4271240
+ Non-elastic cross section              :  1860.4075928
 
  ########## RESULTS FOR E=   4.20000 ##########
 
@@ -1995,33 +1998,33 @@ file: omp.out
  Total           = 3.62151E+03
    Shape elastic   = 1.74943E+03
    Reaction        = 1.87208E+03
-     Compound elastic= 1.80032E+01
-     Non-elastic     = 1.85408E+03
-       Direct          = 8.55501E+01
-       Pre-equilibrium = 4.06926E+01
+     Compound elastic= 1.82820E+01
+     Non-elastic     = 1.85380E+03
+       Direct          = 5.82317E+01
+       Pre-equilibrium = 4.13228E+01
        Giant resonance = 2.26994E+01
-       Compound non-el = 1.70513E+03
-     Total elastic   = 1.76743E+03
+       Compound non-el = 1.73154E+03
+     Total elastic   = 1.76771E+03
 
  2. Binary non-elastic cross sections (non-exclusive)
 
- gamma   = 4.19694E+00
- neutron = 1.84908E+03
- proton  = 6.72251E-01
- deuteron= 3.82731E-34
+ gamma   = 4.26195E+00
+ neutron = 1.84872E+03
+ proton  = 6.82664E-01
+ deuteron= 3.88659E-34
  triton  = 0.00000E+00
  helium-3= 0.00000E+00
- alpha   = 1.37898E-01
+ alpha   = 1.39855E-01
 
  3. Total particle production cross sections
 
- gamma   = 1.98325E+03    Multiplicity= 1.06967E+00
- neutron = 1.85070E+03    Multiplicity= 9.98177E-01
- proton  = 6.72270E-01    Multiplicity= 3.62590E-04
- deuteron= 3.82731E-34    Multiplicity= 2.06427E-37
+ gamma   = 2.01360E+03    Multiplicity= 1.08620E+00
+ neutron = 1.85037E+03    Multiplicity= 9.98149E-01
+ proton  = 6.82683E-01    Multiplicity= 3.68262E-04
+ deuteron= 3.88659E-34    Multiplicity= 2.09655E-37
  triton  = 0.00000E+00    Multiplicity= 0.00000E+00
  helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
- alpha   = 1.37901E-01    Multiplicity= 7.43772E-05
+ alpha   = 1.39858E-01    Multiplicity= 7.54438E-05
 
  4. Residual production cross sections
 
@@ -2030,24 +2033,24 @@ file: omp.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   41  94 ( 94Nb) 2.57825E+00    0    1.39047E+00  0.53931
-                                 1    1.18779E+00  0.46069   3.75800E+02 sec. 
-   41  93 ( 93Nb) 1.85071E+03    0    1.61256E+03  0.87132
-                                 1    2.38148E+02  0.12868   5.08700E+08 sec. 
-   40  93 ( 93Zr) 6.72268E-01    0    6.72268E-01  1.00000
-   39  90 ( 90Y ) 1.37900E-01    0    1.00982E-01  0.73228
-                                 2    3.69186E-02  0.26772   1.14800E+04 sec. 
+   41  94 ( 94Nb) 2.61818E+00    0    1.41200E+00  0.53931
+                                 1    1.20618E+00  0.46069   3.75800E+02 sec. 
+   41  93 ( 93Nb) 1.85038E+03    0    1.61095E+03  0.87061
+                                 1    2.39429E+02  0.12939   5.08700E+08 sec. 
+   40  93 ( 93Zr) 6.82680E-01    0    6.82680E-01  1.00000
+   39  90 ( 90Y ) 1.39857E-01    0    1.02425E-01  0.73235
+                                 2    3.74322E-02  0.26765   1.14800E+04 sec. 
 
    b. Per mass
 
    A  cross section
 
-   94 2.57825E+00
-   93 1.85138E+03
-   90 1.37900E-01
+   94 2.61818E+00
+   93 1.85106E+03
+   90 1.39857E-01
 
- Total residual production cross section:  1854.0993652
- Non-elastic cross section              :  1854.0767822
+ Total residual production cross section:  1853.8209229
+ Non-elastic cross section              :  1853.7979736
 
  ########## RESULTS FOR E=   4.40000 ##########
 
@@ -2077,33 +2080,33 @@ file: omp.out
  Total           = 3.60253E+03
    Shape elastic   = 1.73605E+03
    Reaction        = 1.86648E+03
-     Compound elastic= 1.43730E+01
-     Non-elastic     = 1.85211E+03
-       Direct          = 8.31028E+01
-       Pre-equilibrium = 4.57859E+01
+     Compound elastic= 1.45929E+01
+     Non-elastic     = 1.85189E+03
+       Direct          = 5.61831E+01
+       Pre-equilibrium = 4.64862E+01
        Giant resonance = 2.34681E+01
-       Compound non-el = 1.69975E+03
-     Total elastic   = 1.75042E+03
+       Compound non-el = 1.72575E+03
+     Total elastic   = 1.75064E+03
 
  2. Binary non-elastic cross sections (non-exclusive)
 
- gamma   = 4.11185E+00
- neutron = 1.84704E+03
- proton  = 7.90213E-01
- deuteron= 8.58366E-24
+ gamma   = 4.17474E+00
+ neutron = 1.84674E+03
+ proton  = 8.02300E-01
+ deuteron= 8.71495E-24
  triton  = 0.00000E+00
  helium-3= 0.00000E+00
- alpha   = 1.74677E-01
+ alpha   = 1.77115E-01
 
  3. Total particle production cross sections
 
- gamma   = 2.09324E+03    Multiplicity= 1.13019E+00
- neutron = 1.84876E+03    Multiplicity= 9.98194E-01
- proton  = 7.90238E-01    Multiplicity= 4.26670E-04
- deuteron= 8.58366E-24    Multiplicity= 4.63454E-27
+ gamma   = 2.12488E+03    Multiplicity= 1.14741E+00
+ neutron = 1.84849E+03    Multiplicity= 9.98166E-01
+ proton  = 8.02326E-01    Multiplicity= 4.33248E-04
+ deuteron= 8.71495E-24    Multiplicity= 4.70599E-27
  triton  = 0.00000E+00    Multiplicity= 0.00000E+00
  helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
- alpha   = 1.74681E-01    Multiplicity= 9.43146E-05
+ alpha   = 1.77119E-01    Multiplicity= 9.56426E-05
 
  4. Residual production cross sections
 
@@ -2112,24 +2115,24 @@ file: omp.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   41  94 ( 94Nb) 2.38955E+00    0    1.30436E+00  0.54586
-                                 1    1.08520E+00  0.45414   3.75800E+02 sec. 
-   41  93 ( 93Nb) 1.84878E+03    0    1.60844E+03  0.87000
-                                 1    2.40339E+02  0.13000   5.08700E+08 sec. 
-   40  93 ( 93Zr) 7.90236E-01    0    7.90236E-01  1.00000
-   39  90 ( 90Y ) 1.74680E-01    0    1.23718E-01  0.70826
-                                 2    5.09616E-02  0.29174   1.14800E+04 sec. 
+   41  94 ( 94Nb) 2.42610E+00    0    1.32431E+00  0.54586
+                                 1    1.10179E+00  0.45414   3.75800E+02 sec. 
+   41  93 ( 93Nb) 1.84851E+03    0    1.60686E+03  0.86927
+                                 1    2.41647E+02  0.13073   5.08700E+08 sec. 
+   40  93 ( 93Zr) 8.02323E-01    0    8.02323E-01  1.00000
+   39  90 ( 90Y ) 1.77119E-01    0    1.25488E-01  0.70850
+                                 2    5.16308E-02  0.29150   1.14800E+04 sec. 
 
    b. Per mass
 
    A  cross section
 
-   94 2.38955E+00
-   93 1.84957E+03
-   90 1.74680E-01
+   94 2.42610E+00
+   93 1.84931E+03
+   90 1.77119E-01
 
- Total residual production cross section:  1852.1317139
- Non-elastic cross section              :  1852.1069336
+ Total residual production cross section:  1851.9122314
+ Non-elastic cross section              :  1851.8870850
 
  ########## RESULTS FOR E=   4.60000 ##########
 
@@ -2159,33 +2162,33 @@ file: omp.out
  Total           = 3.59864E+03
    Shape elastic   = 1.73292E+03
    Reaction        = 1.86572E+03
-     Compound elastic= 1.15506E+01
-     Non-elastic     = 1.85417E+03
-       Direct          = 8.10126E+01
-       Pre-equilibrium = 5.12800E+01
+     Compound elastic= 1.17243E+01
+     Non-elastic     = 1.85400E+03
+       Direct          = 5.45308E+01
+       Pre-equilibrium = 5.20514E+01
        Giant resonance = 2.41891E+01
-       Compound non-el = 1.69769E+03
-     Total elastic   = 1.74447E+03
+       Compound non-el = 1.72322E+03
+     Total elastic   = 1.74464E+03
 
  2. Binary non-elastic cross sections (non-exclusive)
 
- gamma   = 4.03893E+00
- neutron = 1.84889E+03
- proton  = 1.02141E+00
- deuteron= 1.87760E-18
+ gamma   = 4.09968E+00
+ neutron = 1.84864E+03
+ proton  = 1.03678E+00
+ deuteron= 1.90584E-18
  triton  = 0.00000E+00
  helium-3= 0.00000E+00
- alpha   = 2.28716E-01
+ alpha   = 2.31707E-01
 
  3. Total particle production cross sections
 
- gamma   = 2.20383E+03    Multiplicity= 1.18858E+00
- neutron = 1.85064E+03    Multiplicity= 9.98097E-01
- proton  = 1.02145E+00    Multiplicity= 5.50891E-04
- deuteron= 1.87760E-18    Multiplicity= 1.01264E-21
+ gamma   = 2.23659E+03    Multiplicity= 1.20636E+00
+ neutron = 1.85042E+03    Multiplicity= 9.98069E-01
+ proton  = 1.03681E+00    Multiplicity= 5.59230E-04
+ deuteron= 1.90584E-18    Multiplicity= 1.02797E-21
  triton  = 0.00000E+00    Multiplicity= 0.00000E+00
  helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
- alpha   = 2.28721E-01    Multiplicity= 1.23355E-04
+ alpha   = 2.31712E-01    Multiplicity= 1.24980E-04
 
  4. Residual production cross sections
 
@@ -2194,24 +2197,24 @@ file: omp.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   41  94 ( 94Nb) 2.28755E+00    0    1.25531E+00  0.54876
-                                 1    1.03224E+00  0.45124   3.75800E+02 sec. 
-   41  93 ( 93Nb) 1.85066E+03    0    1.60831E+03  0.86905
-                                 1    2.42347E+02  0.13095   5.08700E+08 sec. 
-   40  93 ( 93Zr) 1.02144E+00    0    1.02144E+00  1.00000
-   39  90 ( 90Y ) 2.28721E-01    0    1.62656E-01  0.71116
-                                 2    6.60644E-02  0.28884   1.14800E+04 sec. 
+   41  94 ( 94Nb) 2.32196E+00    0    1.27419E+00  0.54876
+                                 1    1.04776E+00  0.45124   3.75800E+02 sec. 
+   41  93 ( 93Nb) 1.85043E+03    0    1.60677E+03  0.86832
+                                 1    2.43665E+02  0.13168   5.08700E+08 sec. 
+   40  93 ( 93Zr) 1.03681E+00    0    1.03681E+00  1.00000
+   39  90 ( 90Y ) 2.31711E-01    0    1.64791E-01  0.71119
+                                 2    6.69202E-02  0.28881   1.14800E+04 sec. 
 
    b. Per mass
 
    A  cross section
 
-   94 2.28755E+00
-   93 1.85168E+03
-   90 2.28721E-01
+   94 2.32196E+00
+   93 1.85147E+03
+   90 2.31711E-01
 
- Total residual production cross section:  1854.1967773
- Non-elastic cross section              :  1854.1694336
+ Total residual production cross section:  1854.0231934
+ Non-elastic cross section              :  1853.9956055
 
  ########## RESULTS FOR E=   4.80000 ##########
 
@@ -2241,33 +2244,33 @@ file: omp.out
  Total           = 3.60750E+03
    Shape elastic   = 1.73870E+03
    Reaction        = 1.86880E+03
-     Compound elastic= 9.33803E+00
-     Non-elastic     = 1.85946E+03
-       Direct          = 7.91065E+01
-       Pre-equilibrium = 5.68335E+01
+     Compound elastic= 9.47591E+00
+     Non-elastic     = 1.85932E+03
+       Direct          = 5.30484E+01
+       Pre-equilibrium = 5.76726E+01
        Giant resonance = 2.48491E+01
-       Compound non-el = 1.69867E+03
-     Total elastic   = 1.74804E+03
+       Compound non-el = 1.72375E+03
+     Total elastic   = 1.74818E+03
 
  2. Binary non-elastic cross sections (non-exclusive)
 
- gamma   = 4.00714E+00
- neutron = 1.85407E+03
- proton  = 1.12198E+00
- deuteron= 5.04855E-15
+ gamma   = 4.06630E+00
+ neutron = 1.85385E+03
+ proton  = 1.13854E+00
+ deuteron= 5.12309E-15
  triton  = 0.00000E+00
  helium-3= 0.00000E+00
- alpha   = 2.72429E-01
+ alpha   = 2.76008E-01
 
  3. Total particle production cross sections
 
- gamma   = 2.31521E+03    Multiplicity= 1.24510E+00
- neutron = 1.85594E+03    Multiplicity= 9.98108E-01
- proton  = 1.12202E+00    Multiplicity= 6.03410E-04
- deuteron= 5.04855E-15    Multiplicity= 2.71506E-18
+ gamma   = 2.34901E+03    Multiplicity= 1.26337E+00
+ neutron = 1.85575E+03    Multiplicity= 9.98080E-01
+ proton  = 1.13858E+00    Multiplicity= 6.12364E-04
+ deuteron= 5.12309E-15    Multiplicity= 2.75535E-18
  triton  = 0.00000E+00    Multiplicity= 0.00000E+00
  helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
- alpha   = 2.72436E-01    Multiplicity= 1.46513E-04
+ alpha   = 2.76015E-01    Multiplicity= 1.48449E-04
 
  4. Residual production cross sections
 
@@ -2276,24 +2279,24 @@ file: omp.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   41  94 ( 94Nb) 2.13501E+00    0    1.17586E+00  0.55075
-                                 1    9.59150E-01  0.44925   3.75800E+02 sec. 
-   41  93 ( 93Nb) 1.85596E+03    0    1.61181E+03  0.86845
-                                 1    2.44153E+02  0.13155   5.08700E+08 sec. 
-   40  93 ( 93Zr) 1.12202E+00    0    1.12202E+00  1.00000
-   39  90 ( 90Y ) 2.72435E-01    0    1.89307E-01  0.69487
-                                 2    8.31286E-02  0.30513   1.14800E+04 sec. 
+   41  94 ( 94Nb) 2.16654E+00    0    1.19323E+00  0.55075
+                                 1    9.73308E-01  0.44925   3.75800E+02 sec. 
+   41  93 ( 93Nb) 1.85577E+03    0    1.61030E+03  0.86773
+                                 1    2.45470E+02  0.13227   5.08700E+08 sec. 
+   40  93 ( 93Zr) 1.13858E+00    0    1.13858E+00  1.00000
+   39  90 ( 90Y ) 2.76014E-01    0    1.91842E-01  0.69504
+                                 2    8.41722E-02  0.30496   1.14800E+04 sec. 
 
    b. Per mass
 
    A  cross section
 
-   94 2.13501E+00
-   93 1.85709E+03
-   90 2.72435E-01
+   94 2.16654E+00
+   93 1.85691E+03
+   90 2.76014E-01
 
- Total residual production cross section:  1859.4930420
- Non-elastic cross section              :  1859.4620361
+ Total residual production cross section:  1859.3552246
+ Non-elastic cross section              :  1859.3240967
 
  ########## RESULTS FOR E=   5.00000 ##########
 
@@ -2323,33 +2326,33 @@ file: omp.out
  Total           = 3.62685E+03
    Shape elastic   = 1.75220E+03
    Reaction        = 1.87465E+03
-     Compound elastic= 7.58296E+00
-     Non-elastic     = 1.86707E+03
-       Direct          = 7.77744E+01
-       Pre-equilibrium = 6.27933E+01
+     Compound elastic= 7.69288E+00
+     Non-elastic     = 1.86696E+03
+       Direct          = 5.20975E+01
+       Pre-equilibrium = 6.37035E+01
        Giant resonance = 2.54755E+01
-       Compound non-el = 1.70102E+03
-     Total elastic   = 1.75978E+03
+       Compound non-el = 1.72568E+03
+     Total elastic   = 1.75989E+03
 
  2. Binary non-elastic cross sections (non-exclusive)
 
- gamma   = 3.93697E+00
- neutron = 1.86127E+03
- proton  = 1.50537E+00
- deuteron= 5.66996E-13
+ gamma   = 3.99404E+00
+ neutron = 1.86108E+03
+ proton  = 1.52719E+00
+ deuteron= 5.75215E-13
  triton  = 0.00000E+00
  helium-3= 0.00000E+00
- alpha   = 3.64797E-01
+ alpha   = 3.69134E-01
 
  3. Total particle production cross sections
 
- gamma   = 2.42699E+03    Multiplicity= 1.29989E+00
- neutron = 1.86317E+03    Multiplicity= 9.97913E-01
- proton  = 1.50543E+00    Multiplicity= 8.06305E-04
- deuteron= 5.66996E-13    Multiplicity= 3.03683E-16
+ gamma   = 2.46178E+03    Multiplicity= 1.31860E+00
+ neutron = 1.86300E+03    Multiplicity= 9.97883E-01
+ proton  = 1.52725E+00    Multiplicity= 8.18041E-04
+ deuteron= 5.75215E-13    Multiplicity= 3.08103E-16
  triton  = 0.00000E+00    Multiplicity= 0.00000E+00
  helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
- alpha   = 3.64806E-01    Multiplicity= 1.95390E-04
+ alpha   = 3.69143E-01    Multiplicity= 1.97724E-04
 
  4. Residual production cross sections
 
@@ -2358,24 +2361,24 @@ file: omp.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   41  94 ( 94Nb) 2.03675E+00    0    1.12786E+00  0.55375
-                                 1    9.08898E-01  0.44625   3.75800E+02 sec. 
-   41  93 ( 93Nb) 1.86319E+03    0    1.61757E+03  0.86817
-                                 1    2.45626E+02  0.13183   5.08700E+08 sec. 
-   40  93 ( 93Zr) 1.50542E+00    0    1.50542E+00  1.00000
-   39  90 ( 90Y ) 3.64805E-01    0    2.53122E-01  0.69386
-                                 2    1.11683E-01  0.30614   1.14800E+04 sec. 
+   41  94 ( 94Nb) 2.06628E+00    0    1.14421E+00  0.55375
+                                 1    9.22069E-01  0.44625   3.75800E+02 sec. 
+   41  93 ( 93Nb) 1.86303E+03    0    1.61609E+03  0.86746
+                                 1    2.46933E+02  0.13254   5.08700E+08 sec. 
+   40  93 ( 93Zr) 1.52724E+00    0    1.52724E+00  1.00000
+   39  90 ( 90Y ) 3.69142E-01    0    2.56124E-01  0.69384
+                                 2    1.13018E-01  0.30616   1.14800E+04 sec. 
 
    b. Per mass
 
    A  cross section
 
-   94 2.03675E+00
-   93 1.86470E+03
-   90 3.64805E-01
+   94 2.06628E+00
+   93 1.86455E+03
+   90 3.69142E-01
 
- Total residual production cross section:  1867.0985107
- Non-elastic cross section              :  1867.0670166
+ Total residual production cross section:  1866.9891357
+ Non-elastic cross section              :  1866.9571533
 
  ########## EXCITATION FUNCTIONS ###########
 
@@ -2414,6 +2417,6 @@ file: rp039090.tot
 file: rp039090.L00
 file: rp039090.L02
 
- Execution time:  0 hours  0 minutes 33.44 seconds 
+ Execution time:  0 hours  0 minutes 32.80 seconds 
 
  The TALYS team congratulates you with this successful calculation.

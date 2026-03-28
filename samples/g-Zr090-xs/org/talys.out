@@ -1,12 +1,12 @@
 
-    TALYS-2.2 (Version: December 18, 2025)
+    TALYS-2.22 (Version: March 25, 2026)
 
- Copyright (C) 2025  A.J. Koning, S. Hilaire and S. Goriely
+ Copyright (C) 2026  A.J. Koning, S. Hilaire and S. Goriely
 
  Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees
 
  User: Arjan Koning
- Date: 2026-01-18
+ Date: 2026-03-27
 
  ########## USER INPUT ##########
 
@@ -113,6 +113,8 @@
  # Optical model
  #
  localomp            y     flaglocalomp flag for local (y) or global (n) optical model
+ globaldisp          n   flagglobaldisp flag for global dispersive optical model
+ globalfermi         y  flagglobalfermi flag for global Fermi energy
  dispersion          n     flagdisp     flag for dispersive optical model
  jlmomp              n     flagjlm      flag for using semi-microscopic JLM OMP
  pruitt              n     flagpruitt   identifier for Pruitt parameters for KD03
@@ -166,7 +168,8 @@
  ldmodelracap        3     ldmodelracap level density model for direct radiative capture
  upbend              n     flagupbend   flag for low-energy upbend of photon strength function
  psfglobal           n    flagpsfglobal flag for global photon strength functions only
- globalwtable        y    flagglobalwtable flag for global average wtable value instead of 1.
+ globalwtable        y flagglobalwtable flag for global average wtable value instead of 1.
+ strengthjp          n   flagstrengthjp flag for J,P-dependent photon strength function
  gnorm               n     flaggnorm    flag to normalize PSF to average radiative width
  #
  # Pre-equilibrium
@@ -916,7 +919,7 @@
 
  3. Total particle production cross sections
 
- gamma   = 2.21457E+02    Multiplicity= 8.75606E-01
+ gamma   = 2.21457E+02    Multiplicity= 8.75607E-01
  neutron = 2.41049E+02    Multiplicity= 9.53071E-01
  proton  = 1.05428E+01    Multiplicity= 4.16844E-02
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
@@ -987,7 +990,7 @@
 
  3. Total particle production cross sections
 
- gamma   = 2.29527E+02    Multiplicity= 9.85523E-01
+ gamma   = 2.29527E+02    Multiplicity= 9.85524E-01
  neutron = 2.21198E+02    Multiplicity= 9.49761E-01
  proton  = 1.06185E+01    Multiplicity= 4.55929E-02
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
@@ -1129,7 +1132,7 @@
 
  3. Total particle production cross sections
 
- gamma   = 2.03040E+02    Multiplicity= 1.19414E+00
+ gamma   = 2.03041E+02    Multiplicity= 1.19414E+00
  neutron = 1.60276E+02    Multiplicity= 9.42631E-01
  proton  = 9.15816E+00    Multiplicity= 5.38617E-02
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
@@ -1271,7 +1274,7 @@
 
  3. Total particle production cross sections
 
- gamma   = 1.50918E+02    Multiplicity= 1.48512E+00
+ gamma   = 1.50918E+02    Multiplicity= 1.48513E+00
  neutron = 9.51155E+01    Multiplicity= 9.35996E-01
  proton  = 6.25834E+00    Multiplicity= 6.15859E-02
  deuteron= 9.72011E-08    Multiplicity= 9.56520E-10
@@ -1344,7 +1347,7 @@
 
  3. Total particle production cross sections
 
- gamma   = 1.26267E+02    Multiplicity= 1.66279E+00
+ gamma   = 1.26268E+02    Multiplicity= 1.66279E+00
  neutron = 7.08455E+01    Multiplicity= 9.32951E-01
  proton  = 4.93992E+00    Multiplicity= 6.50529E-02
  deuteron= 7.99200E-06    Multiplicity= 1.05245E-07
@@ -1417,7 +1420,7 @@
 
  3. Total particle production cross sections
 
- gamma   = 9.16907E+01    Multiplicity= 1.53985E+00
+ gamma   = 9.16910E+01    Multiplicity= 1.53985E+00
  neutron = 6.36533E+01    Multiplicity= 1.06899E+00
  proton  = 4.13354E+00    Multiplicity= 6.94184E-02
  deuteron= 9.66293E-05    Multiplicity= 1.62279E-06
@@ -1491,7 +1494,7 @@
 
  3. Total particle production cross sections
 
- gamma   = 5.22754E+01    Multiplicity= 1.07432E+00
+ gamma   = 5.22757E+01    Multiplicity= 1.07433E+00
  neutron = 6.51842E+01    Multiplicity= 1.33961E+00
  proton  = 3.72559E+00    Multiplicity= 7.65654E-02
  deuteron= 4.31941E-04    Multiplicity= 8.87691E-06
@@ -1566,7 +1569,7 @@
 
  3. Total particle production cross sections
 
- gamma   = 3.26711E+01    Multiplicity= 7.99092E-01
+ gamma   = 3.26715E+01    Multiplicity= 7.99101E-01
  neutron = 6.09067E+01    Multiplicity= 1.48970E+00
  proton  = 3.65975E+00    Multiplicity= 8.95127E-02
  deuteron= 1.24243E-03    Multiplicity= 3.03883E-05
@@ -1641,7 +1644,7 @@
 
  3. Total particle production cross sections
 
- gamma   = 2.13407E+01    Multiplicity= 6.05568E-01
+ gamma   = 2.13410E+01    Multiplicity= 6.05579E-01
  neutron = 5.56520E+01    Multiplicity= 1.57920E+00
  proton  = 3.86989E+00    Multiplicity= 1.09813E-01
  deuteron= 3.28680E-03    Multiplicity= 9.32672E-05
@@ -1656,7 +1659,7 @@
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   40  90 ( 90Zr) 5.19033E-02    0    5.19033E-02  1.00000
+   40  90 ( 90Zr) 5.19032E-02    0    5.19032E-02  1.00000
    40  89 ( 89Zr) 8.99084E+00    0    4.83216E+00  0.53745
                                  1    4.15868E+00  0.46255   2.49700E+02 sec. 
    39  89 ( 89Y ) 2.02571E+00    0    1.37275E+00  0.67766
@@ -1670,7 +1673,7 @@
 
    A  cross section
 
-   90 5.19033E-02
+   90 5.19032E-02
    89 1.10166E+01
    88 2.44130E+01
    86 9.48840E-02
@@ -1716,8 +1719,8 @@
 
  3. Total particle production cross sections
 
- gamma   = 1.77262E+01    Multiplicity= 5.68594E-01
- neutron = 5.09852E+01    Multiplicity= 1.63543E+00
+ gamma   = 1.77266E+01    Multiplicity= 5.68606E-01
+ neutron = 5.09853E+01    Multiplicity= 1.63543E+00
  proton  = 4.00796E+00    Multiplicity= 1.28561E-01
  deuteron= 7.51581E-03    Multiplicity= 2.41081E-04
  triton  = 8.54933E-06    Multiplicity= 2.74232E-07
@@ -1731,7 +1734,7 @@
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   40  90 ( 90Zr) 4.51746E-02    0    4.51746E-02  1.00000
+   40  90 ( 90Zr) 4.51744E-02    0    4.51744E-02  1.00000
    40  89 ( 89Zr) 5.83847E+00    0    3.27547E+00  0.56102
                                  1    2.56300E+00  0.43898   2.49700E+02 sec. 
    39  89 ( 89Y ) 1.56920E+00    0    1.00861E+00  0.64275
@@ -1745,7 +1748,7 @@
 
    A  cross section
 
-   90 4.51746E-02
+   90 4.51744E-02
    89 7.40768E+00
    88 2.39622E+01
    86 1.04718E-01
@@ -1791,6 +1794,6 @@ file: rp039088.tot
 file: rp038088.tot
 file: rp038086.tot
 
- Execution time:  0 hours  0 minutes 22.45 seconds 
+ Execution time:  0 hours  0 minutes 20.61 seconds 
 
  The TALYS team congratulates you with this successful calculation.

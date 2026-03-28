@@ -1,12 +1,12 @@
 
-    TALYS-2.2 (Version: December 18, 2025)
+    TALYS-2.22 (Version: March 25, 2026)
 
- Copyright (C) 2025  A.J. Koning, S. Hilaire and S. Goriely
+ Copyright (C) 2026  A.J. Koning, S. Hilaire and S. Goriely
 
  Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees
 
  User: Arjan Koning
- Date: 2026-01-18
+ Date: 2026-03-27
 
  ########## USER INPUT ##########
 
@@ -129,6 +129,8 @@
  # Optical model
  #
  localomp            y     flaglocalomp flag for local (y) or global (n) optical model
+ globaldisp          n   flagglobaldisp flag for global dispersive optical model
+ globalfermi         y  flagglobalfermi flag for global Fermi energy
  dispersion          n     flagdisp     flag for dispersive optical model
  jlmomp              n     flagjlm      flag for using semi-microscopic JLM OMP
  pruitt              n     flagpruitt   identifier for Pruitt parameters for KD03
@@ -182,7 +184,8 @@
  ldmodelracap        3     ldmodelracap level density model for direct radiative capture
  upbend              y     flagupbend   flag for low-energy upbend of photon strength function
  psfglobal           n    flagpsfglobal flag for global photon strength functions only
- globalwtable        y    flagglobalwtable flag for global average wtable value instead of 1.
+ globalwtable        y flagglobalwtable flag for global average wtable value instead of 1.
+ strengthjp          n   flagstrengthjp flag for J,P-dependent photon strength function
  gnorm               n     flaggnorm    flag to normalize PSF to average radiative width
  #
  # Pre-equilibrium
@@ -334,18 +337,18 @@
    Reaction        = 2.51540E+03
      Compound elastic= 0.00000E+00
      Non-elastic     = 2.51540E+03
-       Direct          = 1.29382E+02
+       Direct          = 1.18580E+02
        Pre-equilibrium = 0.00000E+00
-       Compound non-el = 2.38602E+03
+       Compound non-el = 2.39682E+03
      Total elastic   = 2.52116E+03
 
  2. Binary non-elastic cross sections (non-exclusive)
 
- neutron = 1.29382E+02
+ neutron = 1.18580E+02
 
  3. Total particle production cross sections
 
- neutron = 1.29382E+02    Multiplicity= 5.14359E-02
+ neutron = 1.18580E+02    Multiplicity= 4.71417E-02
 
  4. Residual production cross sections
 
@@ -412,18 +415,18 @@ file: nn0011.000ang.L29
    Reaction        = 2.54164E+03
      Compound elastic= 0.00000E+00
      Non-elastic     = 2.54164E+03
-       Direct          = 1.14090E+02
+       Direct          = 1.03852E+02
        Pre-equilibrium = 0.00000E+00
-       Compound non-el = 2.42755E+03
+       Compound non-el = 2.43779E+03
      Total elastic   = 2.65155E+03
 
  2. Binary non-elastic cross sections (non-exclusive)
 
- neutron = 1.14090E+02
+ neutron = 1.03852E+02
 
  3. Total particle production cross sections
 
- neutron = 1.14090E+02    Multiplicity= 4.48884E-02
+ neutron = 1.03852E+02    Multiplicity= 4.08601E-02
 
  4. Residual production cross sections
 
@@ -490,18 +493,18 @@ file: nn0013.700ang.L29
    Reaction        = 2.51169E+03
      Compound elastic= 0.00000E+00
      Non-elastic     = 2.51169E+03
-       Direct          = 8.60759E+01
+       Direct          = 7.86572E+01
        Pre-equilibrium = 0.00000E+00
-       Compound non-el = 2.42561E+03
+       Compound non-el = 2.43303E+03
      Total elastic   = 3.27152E+03
 
  2. Binary non-elastic cross sections (non-exclusive)
 
- neutron = 8.60759E+01
+ neutron = 7.86572E+01
 
  3. Total particle production cross sections
 
- neutron = 8.60759E+01    Multiplicity= 3.42701E-02
+ neutron = 7.86572E+01    Multiplicity= 3.13164E-02
 
  4. Residual production cross sections
 
@@ -568,18 +571,18 @@ file: nn0020.000ang.L29
    Reaction        = 2.52638E+03
      Compound elastic= 0.00000E+00
      Non-elastic     = 2.52638E+03
-       Direct          = 7.93860E+01
+       Direct          = 7.26008E+01
        Pre-equilibrium = 0.00000E+00
-       Compound non-el = 2.44699E+03
+       Compound non-el = 2.45378E+03
      Total elastic   = 3.30867E+03
 
  2. Binary non-elastic cross sections (non-exclusive)
 
- neutron = 7.93860E+01
+ neutron = 7.26008E+01
 
  3. Total particle production cross sections
 
- neutron = 7.93860E+01    Multiplicity= 3.14228E-02
+ neutron = 7.26008E+01    Multiplicity= 2.87371E-02
 
  4. Residual production cross sections
 
@@ -646,18 +649,18 @@ file: nn0022.000ang.L29
    Reaction        = 2.50732E+03
      Compound elastic= 0.00000E+00
      Non-elastic     = 2.50732E+03
-       Direct          = 6.94636E+01
+       Direct          = 6.35312E+01
        Pre-equilibrium = 0.00000E+00
-       Compound non-el = 2.43786E+03
+       Compound non-el = 2.44379E+03
      Total elastic   = 3.15376E+03
 
  2. Binary non-elastic cross sections (non-exclusive)
 
- neutron = 6.94636E+01
+ neutron = 6.35312E+01
 
  3. Total particle production cross sections
 
- neutron = 6.94636E+01    Multiplicity= 2.77043E-02
+ neutron = 6.35312E+01    Multiplicity= 2.53383E-02
 
  4. Residual production cross sections
 
@@ -721,6 +724,6 @@ file: reaction.tot
  4. Residual production cross sections
 
 
- Execution time:  0 hours  0 minutes  1.36 seconds 
+ Execution time:  0 hours  0 minutes  1.38 seconds 
 
  The TALYS team congratulates you with this successful calculation.

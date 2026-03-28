@@ -1,12 +1,12 @@
 
-    TALYS-2.2 (Version: December 18, 2025)
+    TALYS-2.22 (Version: March 25, 2026)
 
- Copyright (C) 2025  A.J. Koning, S. Hilaire and S. Goriely
+ Copyright (C) 2026  A.J. Koning, S. Hilaire and S. Goriely
 
  Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees
 
  User: Arjan Koning
- Date: 2026-01-18
+ Date: 2026-03-27
 
  ########## USER INPUT ##########
 
@@ -116,6 +116,8 @@
  # Optical model
  #
  localomp            y     flaglocalomp flag for local (y) or global (n) optical model
+ globaldisp          n   flagglobaldisp flag for global dispersive optical model
+ globalfermi         y  flagglobalfermi flag for global Fermi energy
  dispersion          n     flagdisp     flag for dispersive optical model
  jlmomp              n     flagjlm      flag for using semi-microscopic JLM OMP
  pruitt              n     flagpruitt   identifier for Pruitt parameters for KD03
@@ -169,7 +171,8 @@
  ldmodelracap        3     ldmodelracap level density model for direct radiative capture
  upbend              y     flagupbend   flag for low-energy upbend of photon strength function
  psfglobal           n    flagpsfglobal flag for global photon strength functions only
- globalwtable        y    flagglobalwtable flag for global average wtable value instead of 1.
+ globalwtable        y flagglobalwtable flag for global average wtable value instead of 1.
+ strengthjp          n   flagstrengthjp flag for J,P-dependent photon strength function
  gnorm               n     flaggnorm    flag to normalize PSF to average radiative width
  #
  # Pre-equilibrium
@@ -4477,7 +4480,7 @@
 
  3. Total particle production cross sections
 
- gamma   = 2.13198E+02    Multiplicity= 2.24420E-01
+ gamma   = 2.13199E+02    Multiplicity= 2.24420E-01
  neutron = 7.16756E+02    Multiplicity= 7.54482E-01
  proton  = 4.91712E+02    Multiplicity= 5.17592E-01
  deuteron= 3.19378E+01    Multiplicity= 3.36189E-02
@@ -4645,7 +4648,7 @@
                                                              1     4.89975E-02  0.12438   6.34600E+00 sec. 
     0   0   0   0   1   0    4.57193E-01  (n,h)                                                     5.02638E-04
     0   0   0   0   0   1    4.90695E+01  (n,a)                                                     5.39470E-02
-    2   0   0   0   0   0    6.76585E+00  (n,2n)                                                    7.43838E-03
+    2   0   0   0   0   0    6.76585E+00  (n,2n)                                                    7.43837E-03
     1   1   0   0   0   0    4.06641E+02  (n,np)                                                    4.47061E-01
     0   2   0   0   0   0    2.04152E+00  (n,2p)                                                    2.24445E-03
     0   1   1   0   0   0    1.38299E-03  (n,pd)                                                    1.52046E-06
@@ -4655,9 +4658,9 @@
 
  Absorption cross section                 :   152.88805
 
- Sum over exclusive channel cross sections:   909.58734
+ Sum over exclusive channel cross sections:   909.58740
  (n,gn) + (n,gp) +...(n,ga) cross sections:     0.25825
- Total                                    :   909.84558
+ Total                                    :   909.84564
  Non-elastic cross section                :   909.84894
 
  ########## EXCITATION FUNCTIONS ###########
@@ -4718,6 +4721,6 @@ file: xs100001.tot
 file: xs010001.tot
 file: xs000002.tot
 
- Execution time:  0 hours  0 minutes 27.77 seconds 
+ Execution time:  0 hours  0 minutes 27.23 seconds 
 
  The TALYS team congratulates you with this successful calculation.

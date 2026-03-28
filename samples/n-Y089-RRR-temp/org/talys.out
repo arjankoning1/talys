@@ -1,12 +1,12 @@
 
-    TALYS-2.2 (Version: December 18, 2025)
+    TALYS-2.22 (Version: March 25, 2026)
 
- Copyright (C) 2025  A.J. Koning, S. Hilaire and S. Goriely
+ Copyright (C) 2026  A.J. Koning, S. Hilaire and S. Goriely
 
  Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees
 
  User: Arjan Koning
- Date: 2026-01-18
+ Date: 2026-03-28
 
  ########## USER INPUT ##########
 
@@ -122,6 +122,8 @@
  # Optical model
  #
  localomp            y     flaglocalomp flag for local (y) or global (n) optical model
+ globaldisp          n   flagglobaldisp flag for global dispersive optical model
+ globalfermi         y  flagglobalfermi flag for global Fermi energy
  dispersion          n     flagdisp     flag for dispersive optical model
  jlmomp              n     flagjlm      flag for using semi-microscopic JLM OMP
  pruitt              n     flagpruitt   identifier for Pruitt parameters for KD03
@@ -175,7 +177,8 @@
  ldmodelracap        3     ldmodelracap level density model for direct radiative capture
  upbend              y     flagupbend   flag for low-energy upbend of photon strength function
  psfglobal           n    flagpsfglobal flag for global photon strength functions only
- globalwtable        y    flagglobalwtable flag for global average wtable value instead of 1.
+ globalwtable        y flagglobalwtable flag for global average wtable value instead of 1.
+ strengthjp          n   flagstrengthjp flag for J,P-dependent photon strength function
  gnorm               n     flaggnorm    flag to normalize PSF to average radiative width
  #
  # Pre-equilibrium
@@ -2913,7 +2916,7 @@ file: xs000001.tot
  All Cross Sections Read. Maximum Tabulated Energy =  100000.000 eV
  ------------------------------------------------------------------------------
  ===============================================================================
-      MAT Total Execution Time                0.75 Seconds
+      MAT Total Execution Time                0.71 Seconds
  ===============================================================================
  ******************************************************************************
  End of ENDF/B Input Data
@@ -2929,7 +2932,7 @@ file: xs000001.tot
  End of Run
  ==============================================================================
  ===============================================================================
- SIGMA1   Total Execution Time                0.75 Seconds
+ SIGMA1   Total Execution Time                0.71 Seconds
  ===============================================================================
  Doppler Broaden ENDF/B Cross Sections (SIGMA1 2023-1)
  -------------------------------------------------------------------------------
@@ -2971,7 +2974,7 @@ file: xs000001.tot
  No Unresolved Region                         MAT Totals   153477    32188
  -------------------------------------------------------------------------------
  ===============================================================================
-      MAT Total Execution Time                1.63 Seconds
+      MAT Total Execution Time                1.51 Seconds
  ===============================================================================
  ------------------------------------------------------------------------------
  All Cross Sections Read. Maximum Tabulated Energy =  100000.000 eV
@@ -2980,6 +2983,6 @@ file: xs000001.tot
                                              Tape Totals   153477    32188
  -------------------------------------------------------------------------------
 
- Execution time:  0 hours  0 minutes 28.52 seconds 
+ Execution time:  0 hours  0 minutes 27.24 seconds 
 
  The TALYS team congratulates you with this successful calculation.

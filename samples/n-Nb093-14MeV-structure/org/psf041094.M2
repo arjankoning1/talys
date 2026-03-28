@@ -2,7 +2,7 @@
 #   title: Nb94 M2 photon strength function
 #   source: TALYS-2.2
 #   user: Arjan Koning
-#   date: 2026-01-18
+#   date: 2026-03-27
 #   format: YANDF-0.4
 # residual: 
 #   Z: 41

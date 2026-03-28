@@ -1,12 +1,12 @@
 
-    TALYS-2.2 (Version: December 18, 2025)
+    TALYS-2.22 (Version: March 25, 2026)
 
- Copyright (C) 2025  A.J. Koning, S. Hilaire and S. Goriely
+ Copyright (C) 2026  A.J. Koning, S. Hilaire and S. Goriely
 
  Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees
 
  User: Arjan Koning
- Date: 2026-01-18
+ Date: 2026-03-27
 
  ########## USER INPUT ##########
 
@@ -114,6 +114,8 @@
  # Optical model
  #
  localomp            y     flaglocalomp flag for local (y) or global (n) optical model
+ globaldisp          n   flagglobaldisp flag for global dispersive optical model
+ globalfermi         y  flagglobalfermi flag for global Fermi energy
  dispersion          n     flagdisp     flag for dispersive optical model
  jlmomp              n     flagjlm      flag for using semi-microscopic JLM OMP
  pruitt              n     flagpruitt   identifier for Pruitt parameters for KD03
@@ -167,7 +169,8 @@
  ldmodelracap        3     ldmodelracap level density model for direct radiative capture
  upbend              n     flagupbend   flag for low-energy upbend of photon strength function
  psfglobal           n    flagpsfglobal flag for global photon strength functions only
- globalwtable        y    flagglobalwtable flag for global average wtable value instead of 1.
+ globalwtable        y flagglobalwtable flag for global average wtable value instead of 1.
+ strengthjp          n   flagstrengthjp flag for J,P-dependent photon strength function
  gnorm               n     flaggnorm    flag to normalize PSF to average radiative width
  #
  # Pre-equilibrium
@@ -551,35 +554,35 @@
 
  Final production cross section of Z= 54 N= 85 (139Xe):
 
- Total       : 4.58238E-03
- Ground state: 4.58238E-03
+ Total       : 4.49556E-03
+ Ground state: 4.49556E-03
 
 file: populationE0022.500.out
 
- Population of Z= 54 N= 84 (138Xe) before decay: 9.95416E-01
+ Population of Z= 54 N= 84 (138Xe) before decay: 9.95503E-01
 
  Final production cross section of Z= 54 N= 84 (138Xe):
 
- Total       : 2.10884E-01
- Ground state: 2.10884E-01
+ Total       : 2.01467E-01
+ Ground state: 2.01467E-01
 
 file: populationE0022.500.out
 
- Population of Z= 54 N= 83 (137Xe) before decay: 7.84532E-01
+ Population of Z= 54 N= 83 (137Xe) before decay: 7.94035E-01
 
  Final production cross section of Z= 54 N= 83 (137Xe):
 
- Total       : 6.91455E-01
- Ground state: 6.91455E-01
+ Total       : 7.00876E-01
+ Ground state: 7.00876E-01
 
 file: populationE0022.500.out
 
- Population of Z= 54 N= 82 (136Xe) before decay: 9.30746E-02
+ Population of Z= 54 N= 82 (136Xe) before decay: 9.31573E-02
 
  Final production cross section of Z= 54 N= 82 (136Xe):
 
- Total       : 9.30683E-02
- Ground state: 9.30683E-02
+ Total       : 9.31509E-02
+ Ground state: 9.31509E-02
 
 file: populationE0022.500.out
 
@@ -590,11 +593,11 @@ file: populationE0022.500.out
 
  3. Total particle production cross sections
 
- gamma   = 1.90329E+00    Multiplicity= 1.90329E+00
- neutron = 1.87302E+00    Multiplicity= 1.87303E+00
- proton  = 6.07706E-08    Multiplicity= 6.07707E-08
- deuteron= 1.37361E-09    Multiplicity= 1.37361E-09
- triton  = 1.33272E-08    Multiplicity= 1.33273E-08
+ gamma   = 1.97637E+00    Multiplicity= 1.97638E+00
+ neutron = 1.88270E+00    Multiplicity= 1.88270E+00
+ proton  = 5.87381E-08    Multiplicity= 5.87382E-08
+ deuteron= 1.35638E-09    Multiplicity= 1.35638E-09
+ triton  = 1.34382E-08    Multiplicity= 1.34382E-08
  helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
  alpha   = 2.10431E-06    Multiplicity= 2.10431E-06
 
@@ -605,23 +608,23 @@ file: populationE0022.500.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   54 139 (139Xe) 4.58238E-03    0    4.58238E-03  1.00000
-   54 138 (138Xe) 2.10884E-01    0    2.10884E-01  1.00000
-   54 137 (137Xe) 6.91455E-01    0    6.91455E-01  1.00000
-   54 136 (136Xe) 9.30683E-02    0    9.30683E-02  1.00000
+   54 139 (139Xe) 4.49556E-03    0    4.49556E-03  1.00000
+   54 138 (138Xe) 2.01467E-01    0    2.01467E-01  1.00000
+   54 137 (137Xe) 7.00876E-01    0    7.00876E-01  1.00000
+   54 136 (136Xe) 9.31509E-02    0    9.31509E-02  1.00000
 
    b. Per mass
 
    A  cross section
 
-  139 4.58238E-03
-  138 2.10884E-01
-  137 6.91455E-01
-  136 9.30683E-02
+  139 4.49556E-03
+  138 2.01467E-01
+  137 7.00876E-01
+  136 9.31509E-02
 
  Total residual production cross section:     0.9999890
  Initial population cross section       :     0.9999978
 
- Execution time:  0 hours  0 minutes  6.21 seconds 
+ Execution time:  0 hours  0 minutes  5.68 seconds 
 
  The TALYS team congratulates you with this successful calculation.

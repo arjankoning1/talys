@@ -1,12 +1,12 @@
 
-    TALYS-2.2 (Version: December 18, 2025)
+    TALYS-2.22 (Version: March 25, 2026)
 
- Copyright (C) 2025  A.J. Koning, S. Hilaire and S. Goriely
+ Copyright (C) 2026  A.J. Koning, S. Hilaire and S. Goriely
 
  Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees
 
  User: Arjan Koning
- Date: 2026-01-18
+ Date: 2026-03-27
 
  ########## USER INPUT ##########
 
@@ -111,6 +111,8 @@
  # Optical model
  #
  localomp            y     flaglocalomp flag for local (y) or global (n) optical model
+ globaldisp          n   flagglobaldisp flag for global dispersive optical model
+ globalfermi         y  flagglobalfermi flag for global Fermi energy
  dispersion          n     flagdisp     flag for dispersive optical model
  jlmomp              n     flagjlm      flag for using semi-microscopic JLM OMP
  pruitt              n     flagpruitt   identifier for Pruitt parameters for KD03
@@ -164,7 +166,8 @@
  ldmodelracap        3     ldmodelracap level density model for direct radiative capture
  upbend              y     flagupbend   flag for low-energy upbend of photon strength function
  psfglobal           n    flagpsfglobal flag for global photon strength functions only
- globalwtable        y    flagglobalwtable flag for global average wtable value instead of 1.
+ globalwtable        y flagglobalwtable flag for global average wtable value instead of 1.
+ strengthjp          n   flagstrengthjp flag for J,P-dependent photon strength function
  gnorm               n     flaggnorm    flag to normalize PSF to average radiative width
  #
  # Pre-equilibrium
@@ -322,33 +325,33 @@
  Total           = 3.98195E+03
    Shape elastic   = 2.21132E+03
    Reaction        = 1.77063E+03
-     Compound elastic= 5.46328E-04
+     Compound elastic= 5.50669E-04
      Non-elastic     = 1.77063E+03
-       Direct          = 5.14888E+01
-       Pre-equilibrium = 4.09331E+02
-       Giant resonance = 4.52782E+01
-       Compound non-el = 1.26453E+03
+       Direct          = 3.82084E+01
+       Pre-equilibrium = 4.12336E+02
+       Giant resonance = 4.55037E+01
+       Compound non-el = 1.27458E+03
      Total elastic   = 2.21132E+03
 
  2. Binary non-elastic cross sections (non-exclusive)
 
- gamma   = 2.25896E+00
- neutron = 1.69555E+03
- proton  = 3.82656E+01
- deuteron= 5.19912E+00
- triton  = 1.74197E-01
- helium-3= 6.67267E-10
- alpha   = 2.91801E+01
+ gamma   = 2.27665E+00
+ neutron = 1.69519E+03
+ proton  = 3.85644E+01
+ deuteron= 5.22674E+00
+ triton  = 1.74284E-01
+ helium-3= 6.72393E-10
+ alpha   = 2.91945E+01
 
  3. Total particle production cross sections
 
- gamma   = 1.86329E+03    Multiplicity= 1.05233E+00
- neutron = 3.09627E+03    Multiplicity= 1.74868E+00
- proton  = 4.08901E+01    Multiplicity= 2.30936E-02
- deuteron= 5.19912E+00    Multiplicity= 2.93631E-03
- triton  = 1.74197E-01    Multiplicity= 9.83815E-05
- helium-3= 6.67268E-10    Multiplicity= 3.76853E-13
- alpha   = 2.96766E+01    Multiplicity= 1.67605E-02
+ gamma   = 1.87782E+03    Multiplicity= 1.06054E+00
+ neutron = 3.10700E+03    Multiplicity= 1.75474E+00
+ proton  = 4.12097E+01    Multiplicity= 2.32741E-02
+ deuteron= 5.22674E+00    Multiplicity= 2.95191E-03
+ triton  = 1.74284E-01    Multiplicity= 9.84304E-05
+ helium-3= 6.72393E-10    Multiplicity= 3.79748E-13
+ alpha   = 2.96949E+01    Multiplicity= 1.67708E-02
 
  4. Residual production cross sections
 
@@ -357,34 +360,34 @@
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   41  94 ( 94Nb) 1.28822E+00    0    5.80874E-01  0.45091
-                                 1    7.07345E-01  0.54909   3.75800E+02 sec. 
-   41  93 ( 93Nb) 3.03670E+02    0    2.62011E+02  0.86282
-                                 1    4.16587E+01  0.13718   5.08700E+08 sec. 
-   40  93 ( 93Zr) 3.06286E+01    0    3.06286E+01  1.00000
-   41  92 ( 92Nb) 1.38994E+03    0    8.27114E+02  0.59507
-                                 1    5.62824E+02  0.40493   8.77000E+05 sec. 
-   40  92 ( 92Zr) 1.54696E+01    0    1.54696E+01  1.00000
-   40  91 ( 91Zr) 1.74197E-01    0    1.74197E-01  1.00000
-   39  90 ( 90Y ) 2.70204E+01    0    1.15194E+01  0.42632
-                                 2    1.55010E+01  0.57368   1.14800E+04 sec. 
-   39  89 ( 89Y ) 2.65615E+00    0    1.24139E+00  0.46737
-                                 1    1.41476E+00  0.53263   1.56600E+01 sec. 
+   41  94 ( 94Nb) 1.29823E+00    0    5.85461E-01  0.45097
+                                 1    7.12770E-01  0.54903   3.75800E+02 sec. 
+   41  93 ( 93Nb) 2.92279E+02    0    2.51423E+02  0.86022
+                                 1    4.08558E+01  0.13978   5.08700E+08 sec. 
+   40  93 ( 93Zr) 3.08672E+01    0    3.08672E+01  1.00000
+   41  92 ( 92Nb) 1.40095E+03    0    8.33670E+02  0.59507
+                                 1    5.67285E+02  0.40493   8.77000E+05 sec. 
+   40  92 ( 92Zr) 1.55783E+01    0    1.55783E+01  1.00000
+   40  91 ( 91Zr) 1.74284E-01    0    1.74284E-01  1.00000
+   39  90 ( 90Y ) 2.70303E+01    0    1.15225E+01  0.42628
+                                 2    1.55078E+01  0.57372   1.14800E+04 sec. 
+   39  89 ( 89Y ) 2.66459E+00    0    1.24480E+00  0.46716
+                                 1    1.41979E+00  0.53284   1.56600E+01 sec. 
 
    b. Per mass
 
    A  cross section
 
-   94 1.28822E+00
-   93 3.34298E+02
-   92 1.40541E+03
-   91 1.74197E-01
-   90 2.70204E+01
-   89 2.65615E+00
+   94 1.29823E+00
+   93 3.23146E+02
+   92 1.41653E+03
+   91 1.74284E-01
+   90 2.70303E+01
+   89 2.66459E+00
 
- Total residual production cross section:  1770.8447266
- Non-elastic cross section              :  1770.6295166
+ Total residual production cross section:  1770.8464355
+ Non-elastic cross section              :  1770.6293945
 
- Execution time:  0 hours  0 minutes  3.46 seconds 
+ Execution time:  0 hours  0 minutes  3.51 seconds 
 
  The TALYS team congratulates you with this successful calculation.

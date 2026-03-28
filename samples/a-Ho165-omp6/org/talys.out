@@ -1,12 +1,12 @@
 
-    TALYS-2.2 (Version: December 18, 2025)
+    TALYS-2.22 (Version: March 25, 2026)
 
- Copyright (C) 2025  A.J. Koning, S. Hilaire and S. Goriely
+ Copyright (C) 2026  A.J. Koning, S. Hilaire and S. Goriely
 
  Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees
 
  User: Arjan Koning
- Date: 2026-01-18
+ Date: 2026-03-27
 
  ########## USER INPUT ##########
 
@@ -119,6 +119,8 @@
  # Optical model
  #
  localomp            y     flaglocalomp flag for local (y) or global (n) optical model
+ globaldisp          n   flagglobaldisp flag for global dispersive optical model
+ globalfermi         y  flagglobalfermi flag for global Fermi energy
  dispersion          n     flagdisp     flag for dispersive optical model
  jlmomp              n     flagjlm      flag for using semi-microscopic JLM OMP
  pruitt              n     flagpruitt   identifier for Pruitt parameters for KD03
@@ -172,7 +174,8 @@
  ldmodelracap        3     ldmodelracap level density model for direct radiative capture
  upbend              y     flagupbend   flag for low-energy upbend of photon strength function
  psfglobal           n    flagpsfglobal flag for global photon strength functions only
- globalwtable        y    flagglobalwtable flag for global average wtable value instead of 1.
+ globalwtable        y flagglobalwtable flag for global average wtable value instead of 1.
+ strengthjp          n   flagstrengthjp flag for J,P-dependent photon strength function
  gnorm               n     flaggnorm    flag to normalize PSF to average radiative width
  #
  # Pre-equilibrium
@@ -384,7 +387,7 @@ file: omp.out
 
  3. Total particle production cross sections
 
- gamma   = 8.60634E-03    Multiplicity= 1.50685E+00
+ gamma   = 8.60961E-03    Multiplicity= 1.50742E+00
  neutron = 5.69929E-03    Multiplicity= 9.97864E-01
  proton  = 1.86634E-11    Multiplicity= 3.26769E-09
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
@@ -454,7 +457,7 @@ file: omp.out
 
  3. Total particle production cross sections
 
- gamma   = 1.15940E-01    Multiplicity= 1.89654E+00
+ gamma   = 1.15980E-01    Multiplicity= 1.89720E+00
  neutron = 6.07432E-02    Multiplicity= 9.93634E-01
  proton  = 9.70708E-09    Multiplicity= 1.58788E-07
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
@@ -524,7 +527,7 @@ file: omp.out
 
  3. Total particle production cross sections
 
- gamma   = 1.06531E+00    Multiplicity= 2.22258E+00
+ gamma   = 1.06473E+00    Multiplicity= 2.22135E+00
  neutron = 4.71003E-01    Multiplicity= 9.82661E-01
  proton  = 1.17876E-06    Multiplicity= 2.45926E-06
  deuteron= 1.10923E-28    Multiplicity= 2.31420E-28
@@ -597,7 +600,7 @@ file: omp.out
 
  3. Total particle production cross sections
 
- gamma   = 7.70342E+00    Multiplicity= 2.52422E+00
+ gamma   = 7.74534E+00    Multiplicity= 2.53796E+00
  neutron = 2.95216E+00    Multiplicity= 9.67350E-01
  proton  = 6.22883E-05    Multiplicity= 2.04104E-05
  deuteron= 5.58176E-20    Multiplicity= 1.82901E-20
@@ -625,7 +628,7 @@ file: omp.out
   168 2.95372E+00
   165 9.82620E-02
 
- Total residual production cross section:     3.0532944
+ Total residual production cross section:     3.0532942
  Non-elastic cross section              :     3.0517998
 
  ########## RESULTS FOR E=  16.00000 ##########
@@ -672,7 +675,7 @@ file: omp.out
 
  3. Total particle production cross sections
 
- gamma   = 3.96046E+01    Multiplicity= 2.80466E+00
+ gamma   = 3.97102E+01    Multiplicity= 2.81214E+00
  neutron = 1.32481E+01    Multiplicity= 9.38183E-01
  proton  = 6.94185E-04    Multiplicity= 4.91598E-05
  deuteron= 6.29029E-14    Multiplicity= 4.45456E-15
@@ -747,7 +750,7 @@ file: omp.out
 
  3. Total particle production cross sections
 
- gamma   = 1.27458E+02    Multiplicity= 2.68606E+00
+ gamma   = 1.27705E+02    Multiplicity= 2.69127E+00
  neutron = 4.59704E+01    Multiplicity= 9.68787E-01
  proton  = 4.55563E-03    Multiplicity= 9.60060E-05
  deuteron= 1.79845E-10    Multiplicity= 3.79009E-12
@@ -825,7 +828,7 @@ file: omp.out
 
  3. Total particle production cross sections
 
- gamma   = 1.79951E+02    Multiplicity= 1.54692E+00
+ gamma   = 1.80436E+02    Multiplicity= 1.55108E+00
  neutron = 1.45874E+02    Multiplicity= 1.25398E+00
  proton  = 2.06929E-02    Multiplicity= 1.77882E-04
  deuteron= 2.05217E-08    Multiplicity= 1.76411E-10
@@ -903,7 +906,7 @@ file: omp.out
 
  3. Total particle production cross sections
 
- gamma   = 2.67228E+02    Multiplicity= 1.21771E+00
+ gamma   = 2.68070E+02    Multiplicity= 1.22155E+00
  neutron = 2.98435E+02    Multiplicity= 1.35991E+00
  proton  = 7.03963E-02    Multiplicity= 3.20784E-04
  deuteron= 1.48973E-06    Multiplicity= 6.78842E-09
@@ -981,7 +984,7 @@ file: omp.out
 
  3. Total particle production cross sections
 
- gamma   = 4.44840E+02    Multiplicity= 1.28006E+00
+ gamma   = 4.46111E+02    Multiplicity= 1.28372E+00
  neutron = 4.84172E+02    Multiplicity= 1.39324E+00
  proton  = 1.90473E-01    Multiplicity= 5.48101E-04
  deuteron= 4.32300E-05    Multiplicity= 1.24397E-07
@@ -1059,7 +1062,7 @@ file: omp.out
 
  3. Total particle production cross sections
 
- gamma   = 1.07589E+03    Multiplicity= 1.73865E+00
+ gamma   = 1.07749E+03    Multiplicity= 1.74124E+00
  neutron = 9.17158E+02    Multiplicity= 1.48214E+00
  proton  = 7.95446E-01    Multiplicity= 1.28545E-03
  deuteron= 4.18783E-03    Multiplicity= 6.76758E-06
@@ -1074,12 +1077,12 @@ file: omp.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   69 169 (169Tm) 8.13670E-03    0    8.13670E-03  1.00000
-   69 168 (168Tm) 3.22679E+01    0    3.22679E+01  1.00000
+   69 169 (169Tm) 8.13668E-03    0    8.13668E-03  1.00000
+   69 168 (168Tm) 3.22678E+01    0    3.22678E+01  1.00000
    68 168 (168Er) 7.68992E-01    0    7.68992E-01  1.00000
    69 167 (167Tm) 4.42422E+02    0    4.42422E+02  1.00000
-   68 167 (167Er) 3.12807E-02    0    2.52390E-02  0.80685
-                                 3    6.04175E-03  0.19315   2.26900E+00 sec. 
+   68 167 (167Er) 3.12808E-02    0    2.52390E-02  0.80685
+                                 3    6.04176E-03  0.19315   2.26900E+00 sec. 
    67 165 (165Ho) 1.43292E+02    0    1.43292E+02  1.00000
    67 164 (164Ho) 2.03988E-03    0    9.34201E-04  0.45797
                                  3    1.10568E-03  0.54203   2.19600E+03 sec. 
@@ -1089,8 +1092,8 @@ file: omp.out
 
    A  cross section
 
-  169 8.13670E-03
-  168 3.30369E+01
+  169 8.13668E-03
+  168 3.30368E+01
   167 4.42454E+02
   165 1.43292E+02
   164 2.03988E-03
@@ -1142,7 +1145,7 @@ file: omp.out
 
  3. Total particle production cross sections
 
- gamma   = 2.02113E+03    Multiplicity= 2.37452E+00
+ gamma   = 2.02215E+03    Multiplicity= 2.37572E+00
  neutron = 1.34750E+03    Multiplicity= 1.58311E+00
  proton  = 2.13871E+00    Multiplicity= 2.51266E-03
  deuteron= 5.43657E-02    Multiplicity= 6.38714E-05
@@ -1157,15 +1160,15 @@ file: omp.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   69 169 (169Tm) 3.17045E-03    0    3.17045E-03  1.00000
-   69 168 (168Tm) 2.56900E+01    0    2.56900E+01  1.00000
+   69 169 (169Tm) 3.17036E-03    0    3.17036E-03  1.00000
+   69 168 (168Tm) 2.56891E+01    0    2.56891E+01  1.00000
    68 168 (168Er) 1.80182E+00    0    1.80182E+00  1.00000
-   69 167 (167Tm) 6.60700E+02    0    6.60700E+02  1.00000
-   68 167 (167Er) 3.92095E-01    0    3.17578E-01  0.80995
-                                 3    7.45170E-02  0.19005   2.26900E+00 sec. 
+   69 167 (167Tm) 6.60701E+02    0    6.60701E+02  1.00000
+   68 167 (167Er) 3.92096E-01    0    3.17578E-01  0.80995
+                                 3    7.45173E-02  0.19005   2.26900E+00 sec. 
    68 166 (166Er) 3.32353E-02    0    3.32353E-02  1.00000
    67 165 (165Ho) 1.62484E+02    0    1.62484E+02  1.00000
-   67 164 (164Ho) 3.93563E-02    0    1.70683E-02  0.43369
+   67 164 (164Ho) 3.93564E-02    0    1.70684E-02  0.43369
                                  3    2.22880E-02  0.56631   2.19600E+03 sec. 
    65 161 (161Tb) 1.00000E-07    0    2.29765E-12  0.00000
 
@@ -1173,12 +1176,12 @@ file: omp.out
 
    A  cross section
 
-  169 3.17045E-03
-  168 2.74918E+01
-  167 6.61092E+02
+  169 3.17036E-03
+  168 2.74909E+01
+  167 6.61093E+02
   166 3.32353E-02
   165 1.62484E+02
-  164 3.93563E-02
+  164 3.93564E-02
 
  Total residual production cross section:   851.1433716
  Non-elastic cross section              :   851.1740112
@@ -1227,9 +1230,9 @@ file: omp.out
 
  3. Total particle production cross sections
 
- gamma   = 3.05111E+03    Multiplicity= 2.97707E+00
- neutron = 1.69346E+03    Multiplicity= 1.65237E+00
- proton  = 4.44773E+00    Multiplicity= 4.33980E-03
+ gamma   = 3.06220E+03    Multiplicity= 2.98789E+00
+ neutron = 1.69078E+03    Multiplicity= 1.64976E+00
+ proton  = 4.44775E+00    Multiplicity= 4.33982E-03
  deuteron= 2.55340E-01    Multiplicity= 2.49144E-04
  triton  = 2.88210E-01    Multiplicity= 2.81216E-04
  helium-3= 1.58081E-06    Multiplicity= 1.54245E-09
@@ -1242,16 +1245,16 @@ file: omp.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   69 169 (169Tm) 1.07219E-03    0    1.07219E-03  1.00000
-   69 168 (168Tm) 2.11649E+01    0    2.11649E+01  1.00000
+   69 169 (169Tm) 1.07197E-03    0    1.07197E-03  1.00000
+   69 168 (168Tm) 2.11578E+01    0    2.11578E+01  1.00000
    68 168 (168Er) 2.84224E+00    0    2.84224E+00  1.00000
-   69 167 (167Tm) 8.28393E+02    0    8.28393E+02  1.00000
-   68 167 (167Er) 1.86101E+00    0    1.50803E+00  0.81033
-                                 3    3.52977E-01  0.18967   2.26900E+00 sec. 
-   69 166 (166Tm) 4.45501E+00    0    4.45501E+00  1.00000
-   68 166 (166Er) 2.89339E-01    0    2.89339E-01  1.00000
+   69 167 (167Tm) 8.31085E+02    0    8.31085E+02  1.00000
+   68 167 (167Er) 1.86102E+00    0    1.50804E+00  0.81033
+                                 3    3.52980E-01  0.18967   2.26900E+00 sec. 
+   69 166 (166Tm) 1.77043E+00    0    1.77043E+00  1.00000
+   68 166 (166Er) 2.89357E-01    0    2.89357E-01  1.00000
    67 165 (165Ho) 1.65332E+02    0    1.65332E+02  1.00000
-   67 164 (164Ho) 4.81233E-01    0    2.04668E-01  0.42530
+   67 164 (164Ho) 4.81234E-01    0    2.04669E-01  0.42530
                                  3    2.76565E-01  0.57470   2.19600E+03 sec. 
    65 161 (161Tb) 1.00000E-07    0    3.71447E-11  0.00000
 
@@ -1259,12 +1262,12 @@ file: omp.out
 
    A  cross section
 
-  169 1.07219E-03
-  168 2.40071E+01
-  167 8.30254E+02
-  166 4.74435E+00
+  169 1.07197E-03
+  168 2.40000E+01
+  167 8.32946E+02
+  166 2.05979E+00
   165 1.65332E+02
-  164 4.81233E-01
+  164 4.81234E-01
 
  Total residual production cross section:  1024.8192139
  Non-elastic cross section              :  1024.8699951
@@ -1313,9 +1316,9 @@ file: omp.out
 
  3. Total particle production cross sections
 
- gamma   = 3.22940E+03    Multiplicity= 2.73854E+00
- neutron = 2.25788E+03    Multiplicity= 1.91469E+00
- proton  = 7.82766E+00    Multiplicity= 6.63789E-03
+ gamma   = 3.51567E+03    Multiplicity= 2.98130E+00
+ neutron = 2.20008E+03    Multiplicity= 1.86568E+00
+ proton  = 7.82819E+00    Multiplicity= 6.63834E-03
  deuteron= 7.41398E-01    Multiplicity= 6.28708E-04
  triton  = 8.90816E-01    Multiplicity= 7.55415E-04
  helium-3= 1.00076E-04    Multiplicity= 8.48648E-08
@@ -1328,31 +1331,34 @@ file: omp.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   69 169 (169Tm) 3.62589E-04    0    3.62589E-04  1.00000
-   69 168 (168Tm) 1.83495E+01    0    1.83495E+01  1.00000
-   68 168 (168Er) 3.56767E+00    0    3.56767E+00  1.00000
-   69 167 (167Tm) 7.07272E+02    0    7.07272E+02  1.00000
-   68 167 (167Er) 4.97497E+00    0    4.00877E+00  0.80579
-                                 3    9.66199E-01  0.19421   2.26900E+00 sec. 
-   69 166 (166Tm) 2.72650E+02    0    2.72650E+02  1.00000
-   68 166 (166Er) 9.18496E-01    0    9.18496E-01  1.00000
+   69 169 (169Tm) 3.62559E-04    0    3.62559E-04  1.00000
+   69 168 (168Tm) 1.83358E+01    0    1.83358E+01  1.00000
+   68 168 (168Er) 3.56760E+00    0    3.56760E+00  1.00000
+   69 167 (167Tm) 7.65098E+02    0    7.65098E+02  1.00000
+   68 167 (167Er) 4.97504E+00    0    4.00882E+00  0.80579
+                                 3    9.66224E-01  0.19421   2.26900E+00 sec. 
+   69 166 (166Tm) 2.14838E+02    0    2.14838E+02  1.00000
+   68 166 (166Er) 9.19029E-01    0    9.19029E-01  1.00000
    67 165 (165Ho) 1.68762E+02    0    1.68762E+02  1.00000
    67 164 (164Ho) 2.66917E+00    0    1.11191E+00  0.41658
                                  3    1.55726E+00  0.58342   2.19600E+03 sec. 
+   67 163 (163Ho) 1.02842E-03    0    8.82736E-04  0.85834
+                                 3    1.45688E-04  0.14166   1.09000E+00 sec. 
    65 161 (161Tb) 1.00000E-07    0    4.29853E-10  0.00000
 
    b. Per mass
 
    A  cross section
 
-  169 3.62589E-04
-  168 2.19172E+01
-  167 7.12247E+02
-  166 2.73569E+02
+  169 3.62559E-04
+  168 2.19034E+01
+  167 7.70073E+02
+  166 2.15757E+02
   165 1.68762E+02
   164 2.66917E+00
+  163 1.02842E-03
 
- Total residual production cross section:  1179.1651611
+ Total residual production cross section:  1179.1661377
  Non-elastic cross section              :  1179.2399902
 
  ########## RESULTS FOR E=  30.00000 ##########
@@ -1399,9 +1405,9 @@ file: omp.out
 
  3. Total particle production cross sections
 
- gamma   = 3.29880E+03    Multiplicity= 2.49714E+00
- neutron = 2.93044E+03    Multiplicity= 2.21830E+00
- proton  = 1.23069E+01    Multiplicity= 9.31618E-03
+ gamma   = 3.62996E+03    Multiplicity= 2.74782E+00
+ neutron = 2.89484E+03    Multiplicity= 2.19135E+00
+ proton  = 1.23073E+01    Multiplicity= 9.31648E-03
  deuteron= 1.56947E+00    Multiplicity= 1.18807E-03
  triton  = 1.79364E+00    Multiplicity= 1.35776E-03
  helium-3= 2.36280E-03    Multiplicity= 1.78860E-06
@@ -1414,37 +1420,37 @@ file: omp.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   69 169 (169Tm) 1.37371E-04    0    1.37371E-04  1.00000
-   69 168 (168Tm) 1.59697E+01    0    1.59697E+01  1.00000
-   68 168 (168Er) 3.97146E+00    0    3.97146E+00  1.00000
-   69 167 (167Tm) 4.37773E+02    0    4.37773E+02  1.00000
-   68 167 (167Er) 9.59362E+00    0    7.77349E+00  0.81028
-                                 3    1.82013E+00  0.18972   2.26900E+00 sec. 
-   69 166 (166Tm) 6.73791E+02    0    6.73791E+02  1.00000
-   68 166 (166Er) 2.09509E+00    0    2.09509E+00  1.00000
+   69 169 (169Tm) 1.37303E-04    0    1.37303E-04  1.00000
+   69 168 (168Tm) 1.59501E+01    0    1.59501E+01  1.00000
+   68 168 (168Er) 3.97097E+00    0    3.97097E+00  1.00000
+   69 167 (167Tm) 4.73407E+02    0    4.73407E+02  1.00000
+   68 167 (167Er) 9.59411E+00    0    7.77381E+00  0.81027
+                                 3    1.82031E+00  0.18973   2.26900E+00 sec. 
+   69 166 (166Tm) 6.38177E+02    0    6.38177E+02  1.00000
+   68 166 (166Er) 2.09549E+00    0    2.09549E+00  1.00000
    67 166 (166Ho) 2.36128E-03    0    1.83896E-03  0.77880
                                  1    5.22320E-04  0.22120   3.78700E+10 sec. 
    68 165 (165Er) 8.61463E-03    0    8.61463E-03  1.00000
    67 165 (165Ho) 1.68943E+02    0    1.68943E+02  1.00000
-   67 164 (164Ho) 8.75839E+00    0    3.54217E+00  0.40443
-                                 3    5.21622E+00  0.59557   2.19600E+03 sec. 
-   67 163 (163Ho) 1.57909E-02    0    1.35372E-02  0.85728
-                                 3    2.25363E-03  0.14272   1.09000E+00 sec. 
+   67 164 (164Ho) 8.75841E+00    0    3.54218E+00  0.40443
+                                 3    5.21623E+00  0.59557   2.19600E+03 sec. 
+   67 163 (163Ho) 1.58470E-02    0    1.35857E-02  0.85731
+                                 3    2.26127E-03  0.14269   1.09000E+00 sec. 
    65 161 (161Tb) 1.00000E-07    0    2.91456E-09  0.00000
 
    b. Per mass
 
    A  cross section
 
-  169 1.37371E-04
-  168 1.99412E+01
-  167 4.47367E+02
-  166 6.75889E+02
+  169 1.37303E-04
+  168 1.99211E+01
+  167 4.83001E+02
+  166 6.40275E+02
   165 1.68952E+02
-  164 8.75839E+00
-  163 1.57909E-02
+  164 8.75841E+00
+  163 1.58470E-02
 
- Total residual production cross section:  1320.9228516
+ Total residual production cross section:  1320.9232178
  Non-elastic cross section              :  1321.0300293
 
  ########## RESULTS FOR E=  32.00000 ##########
@@ -1491,9 +1497,9 @@ file: omp.out
 
  3. Total particle production cross sections
 
- gamma   = 3.92660E+03    Multiplicity= 2.71891E+00
- neutron = 3.49333E+03    Multiplicity= 2.41890E+00
- proton  = 1.78024E+01    Multiplicity= 1.23270E-02
+ gamma   = 4.23488E+03    Multiplicity= 2.93237E+00
+ neutron = 3.47851E+03    Multiplicity= 2.40864E+00
+ proton  = 1.78025E+01    Multiplicity= 1.23271E-02
  deuteron= 2.75682E+00    Multiplicity= 1.90892E-03
  triton  = 2.93708E+00    Multiplicity= 2.03374E-03
  helium-3= 2.79399E-02    Multiplicity= 1.93466E-05
@@ -1506,37 +1512,37 @@ file: omp.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   69 169 (169Tm) 5.81271E-05    0    5.81271E-05  1.00000
-   69 168 (168Tm) 1.40204E+01    0    1.40204E+01  1.00000
-   68 168 (168Er) 4.08669E+00    0    4.08669E+00  1.00000
-   69 167 (167Tm) 2.45436E+02    0    2.45436E+02  1.00000
-   68 167 (167Er) 1.48533E+01    0    1.20422E+01  0.81074
-                                 3    2.81113E+00  0.18926   2.26900E+00 sec. 
-   69 166 (166Tm) 9.85200E+02    0    9.85200E+02  1.00000
-   68 166 (166Er) 4.43806E+00    0    4.43806E+00  1.00000
+   69 169 (169Tm) 5.79643E-05    0    5.79643E-05  1.00000
+   69 168 (168Tm) 1.39986E+01    0    1.39986E+01  1.00000
+   68 168 (168Er) 4.08482E+00    0    4.08482E+00  1.00000
+   69 167 (167Tm) 2.60300E+02    0    2.60300E+02  1.00000
+   68 167 (167Er) 1.48551E+01    0    1.20434E+01  0.81072
+                                 3    2.81180E+00  0.18928   2.26900E+00 sec. 
+   69 166 (166Tm) 9.70358E+02    0    9.70358E+02  1.00000
+   68 166 (166Er) 4.43824E+00    0    4.43824E+00  1.00000
    67 166 (166Ho) 2.79542E-02    0    2.16994E-02  0.77625
                                  1    6.25479E-03  0.22375   3.78700E+10 sec. 
    68 165 (165Er) 1.13060E-01    0    1.13060E-01  1.00000
    67 165 (165Ho) 1.58764E+02    0    1.58764E+02  1.00000
-   67 164 (164Ho) 1.69045E+01    0    6.89174E+00  0.40769
+   67 164 (164Ho) 1.69045E+01    0    6.89176E+00  0.40769
                                  3    1.00127E+01  0.59231   2.19600E+03 sec. 
-   67 163 (163Ho) 1.75716E-01    0    1.47576E-01  0.83985
-                                 3    2.81408E-02  0.16015   1.09000E+00 sec. 
+   67 163 (163Ho) 1.75744E-01    0    1.47599E-01  0.83985
+                                 3    2.81448E-02  0.16015   1.09000E+00 sec. 
    65 161 (161Tb) 1.00000E-07    0    1.03259E-08  0.00000
 
    b. Per mass
 
    A  cross section
 
-  169 5.81271E-05
-  168 1.81071E+01
-  167 2.60289E+02
-  166 9.89666E+02
+  169 5.79643E-05
+  168 1.80834E+01
+  167 2.75155E+02
+  166 9.74824E+02
   165 1.58877E+02
   164 1.69045E+01
-  163 1.75716E-01
+  163 1.75744E-01
 
- Total residual production cross section:  1444.0194092
+ Total residual production cross section:  1444.0201416
  Non-elastic cross section              :  1444.1800537
 
  ########## RESULTS FOR E=  34.00000 ##########
@@ -1583,9 +1589,9 @@ file: omp.out
 
  3. Total particle production cross sections
 
- gamma   = 4.88166E+03    Multiplicity= 3.15453E+00
- neutron = 3.83989E+03    Multiplicity= 2.48134E+00
- proton  = 2.41524E+01    Multiplicity= 1.56073E-02
+ gamma   = 5.12831E+03    Multiplicity= 3.31391E+00
+ neutron = 3.83397E+03    Multiplicity= 2.47751E+00
+ proton  = 2.41525E+01    Multiplicity= 1.56074E-02
  deuteron= 4.29154E+00    Multiplicity= 2.77319E-03
  triton  = 4.26375E+00    Multiplicity= 2.75523E-03
  helium-3= 1.66513E-01    Multiplicity= 1.07600E-04
@@ -1598,38 +1604,38 @@ file: omp.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   69 169 (169Tm) 2.63334E-05    0    2.63334E-05  1.00000
-   69 168 (168Tm) 1.23030E+01    0    1.23030E+01  1.00000
-   68 168 (168Er) 3.96774E+00    0    3.96774E+00  1.00000
-   69 167 (167Tm) 1.44663E+02    0    1.44663E+02  1.00000
-   68 167 (167Er) 1.94761E+01    0    1.57670E+01  0.80955
-                                 3    3.70915E+00  0.19045   2.26900E+00 sec. 
-   69 166 (166Tm) 1.15223E+03    0    1.15223E+03  1.00000
-   68 166 (166Er) 8.80484E+00    0    8.80484E+00  1.00000
+   69 169 (169Tm) 2.63151E-05    0    2.63151E-05  1.00000
+   69 168 (168Tm) 1.22801E+01    0    1.22801E+01  1.00000
+   68 168 (168Er) 3.96390E+00    0    3.96390E+00  1.00000
+   69 167 (167Tm) 1.50682E+02    0    1.50682E+02  1.00000
+   68 167 (167Er) 1.94799E+01    0    1.57694E+01  0.80952
+                                 3    3.71053E+00  0.19048   2.26900E+00 sec. 
+   69 166 (166Tm) 1.14618E+03    0    1.14618E+03  1.00000
+   68 166 (166Er) 8.80498E+00    0    8.80498E+00  1.00000
    67 166 (166Ho) 1.66610E-01    0    1.26553E-01  0.75957
                                  1    4.00573E-02  0.24043   3.78700E+10 sec. 
-   69 165 (165Tm) 5.18851E+00    0    5.18851E+00  1.00000
+   69 165 (165Tm) 5.23850E+00    0    5.23850E+00  1.00000
    68 165 (165Er) 4.46469E-01    0    4.46469E-01  1.00000
-   67 165 (165Ho) 1.66281E+02    0    1.66281E+02  1.00000
-   67 164 (164Ho) 3.25045E+01    0    1.30532E+01  0.40158
-                                 3    1.94513E+01  0.59842   2.19600E+03 sec. 
-   67 163 (163Ho) 1.27079E+00    0    1.03260E+00  0.81257
-                                 3    2.38190E-01  0.18743   1.09000E+00 sec. 
+   67 165 (165Ho) 1.66280E+02    0    1.66280E+02  1.00000
+   67 164 (164Ho) 3.25046E+01    0    1.30532E+01  0.40158
+                                 3    1.94514E+01  0.59842   2.19600E+03 sec. 
+   67 163 (163Ho) 1.27082E+00    0    1.03262E+00  0.81257
+                                 3    2.38196E-01  0.18743   1.09000E+00 sec. 
    65 161 (161Tb) 1.00000E-07    0    3.13192E-08  0.00000
 
    b. Per mass
 
    A  cross section
 
-  169 2.63334E-05
-  168 1.62707E+01
-  167 1.64139E+02
-  166 1.16120E+03
-  165 1.71916E+02
-  164 3.25045E+01
-  163 1.27079E+00
+  169 2.63151E-05
+  168 1.62440E+01
+  167 1.70162E+02
+  166 1.15516E+03
+  165 1.71965E+02
+  164 3.25046E+01
+  163 1.27082E+00
 
- Total residual production cross section:  1547.3016357
+ Total residual production cross section:  1547.3023682
  Non-elastic cross section              :  1547.5100098
 
  ########## RESULTS FOR E=  36.00000 ##########
@@ -1676,9 +1682,9 @@ file: omp.out
 
  3. Total particle production cross sections
 
- gamma   = 5.58980E+03    Multiplicity= 3.41744E+00
- neutron = 4.16239E+03    Multiplicity= 2.54476E+00
- proton  = 3.12319E+01    Multiplicity= 1.90943E-02
+ gamma   = 5.76428E+03    Multiplicity= 3.52411E+00
+ neutron = 4.15891E+03    Multiplicity= 2.54264E+00
+ proton  = 3.12320E+01    Multiplicity= 1.90943E-02
  deuteron= 6.13777E+00    Multiplicity= 3.75245E-03
  triton  = 5.48233E+00    Multiplicity= 3.35173E-03
  helium-3= 3.87699E-01    Multiplicity= 2.37028E-04
@@ -1691,38 +1697,38 @@ file: omp.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   69 169 (169Tm) 1.36078E-05    0    1.36078E-05  1.00000
-   69 168 (168Tm) 1.07447E+01    0    1.07447E+01  1.00000
-   68 168 (168Er) 3.67242E+00    0    3.67242E+00  1.00000
-   69 167 (167Tm) 9.97049E+01    0    9.97049E+01  1.00000
-   68 167 (167Er) 2.27243E+01    0    1.83527E+01  0.80762
-                                 3    4.37159E+00  0.19238   2.26900E+00 sec. 
-   69 166 (166Tm) 1.13059E+03    0    1.13059E+03  1.00000
-   68 166 (166Er) 1.53827E+01    0    1.53827E+01  1.00000
+   69 169 (169Tm) 1.35739E-05    0    1.35739E-05  1.00000
+   69 168 (168Tm) 1.07234E+01    0    1.07234E+01  1.00000
+   68 168 (168Er) 3.66730E+00    0    3.66730E+00  1.00000
+   69 167 (167Tm) 1.02993E+02    0    1.02993E+02  1.00000
+   68 167 (167Er) 2.27293E+01    0    1.83559E+01  0.80759
+                                 3    4.37341E+00  0.19241   2.26900E+00 sec. 
+   69 166 (166Tm) 1.12756E+03    0    1.12756E+03  1.00000
+   68 166 (166Er) 1.53829E+01    0    1.53829E+01  1.00000
    67 166 (166Ho) 3.87378E-01    0    2.50111E-01  0.64565
                                  1    1.37268E-01  0.35435   3.78700E+10 sec. 
-   69 165 (165Tm) 1.14550E+02    0    1.14550E+02  1.00000
-   68 165 (165Er) 1.04952E+00    0    1.04952E+00  1.00000
+   69 165 (165Tm) 1.14313E+02    0    1.14313E+02  1.00000
+   68 165 (165Er) 1.04953E+00    0    1.04953E+00  1.00000
    67 165 (165Ho) 1.79735E+02    0    1.79735E+02  1.00000
-   67 164 (164Ho) 5.11756E+01    0    2.05927E+01  0.40239
-                                 3    3.05829E+01  0.59761   2.19600E+03 sec. 
-   67 163 (163Ho) 5.67693E+00    0    4.58171E+00  0.80708
-                                 3    1.09522E+00  0.19292   1.09000E+00 sec. 
+   67 164 (164Ho) 5.11757E+01    0    2.05928E+01  0.40239
+                                 3    3.05830E+01  0.59761   2.19600E+03 sec. 
+   67 163 (163Ho) 5.67697E+00    0    4.58174E+00  0.80707
+                                 3    1.09523E+00  0.19293   1.09000E+00 sec. 
    65 161 (161Tb) 1.00000E-07    0    6.65632E-08  0.00000
 
    b. Per mass
 
    A  cross section
 
-  169 1.36078E-05
-  168 1.44171E+01
-  167 1.22429E+02
-  166 1.14636E+03
-  165 2.95334E+02
-  164 5.11756E+01
-  163 5.67693E+00
+  169 1.35739E-05
+  168 1.43907E+01
+  167 1.25723E+02
+  166 1.14333E+03
+  165 2.95097E+02
+  164 5.11757E+01
+  163 5.67697E+00
 
- Total residual production cross section:  1635.3906250
+ Total residual production cross section:  1635.3911133
  Non-elastic cross section              :  1635.6700439
 
  ########## RESULTS FOR E=  38.00000 ##########
@@ -1769,9 +1775,9 @@ file: omp.out
 
  3. Total particle production cross sections
 
- gamma   = 5.95486E+03    Multiplicity= 3.47587E+00
- neutron = 4.57588E+03    Multiplicity= 2.67096E+00
- proton  = 3.89158E+01    Multiplicity= 2.27153E-02
+ gamma   = 5.88300E+03    Multiplicity= 3.43393E+00
+ neutron = 4.57339E+03    Multiplicity= 2.66950E+00
+ proton  = 3.89160E+01    Multiplicity= 2.27154E-02
  deuteron= 8.27781E+00    Multiplicity= 4.83178E-03
  triton  = 7.01193E+00    Multiplicity= 4.09289E-03
  helium-3= 8.53288E-01    Multiplicity= 4.98067E-04
@@ -1784,40 +1790,40 @@ file: omp.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   69 168 (168Tm) 9.31486E+00    0    9.31486E+00  1.00000
-   68 168 (168Er) 3.31387E+00    0    3.31387E+00  1.00000
-   69 167 (167Tm) 7.92273E+01    0    7.92273E+01  1.00000
-   68 167 (167Er) 2.45264E+01    0    1.97990E+01  0.80726
-                                 3    4.72731E+00  0.19274   2.26900E+00 sec. 
-   69 166 (166Tm) 9.16604E+02    0    9.16604E+02  1.00000
-   68 166 (166Er) 2.42851E+01    0    2.42851E+01  1.00000
+   69 168 (168Tm) 9.28673E+00    0    9.28673E+00  1.00000
+   68 168 (168Er) 3.30636E+00    0    3.30636E+00  1.00000
+   69 167 (167Tm) 8.15187E+01    0    8.15187E+01  1.00000
+   68 167 (167Er) 2.45337E+01    0    1.98037E+01  0.80721
+                                 3    4.72995E+00  0.19279   2.26900E+00 sec. 
+   69 166 (166Tm) 9.14603E+02    0    9.14603E+02  1.00000
+   68 166 (166Er) 2.42854E+01    0    2.42854E+01  1.00000
    67 166 (166Ho) 8.44639E-01    0    5.22253E-01  0.61832
                                  1    3.22386E-01  0.38168   3.78700E+10 sec. 
-   69 165 (165Tm) 3.75250E+02    0    3.75250E+02  1.00000
-   68 165 (165Er) 2.03743E+00    0    2.03743E+00  1.00000
-   67 165 (165Ho) 1.93203E+02    0    1.93203E+02  1.00000
+   69 165 (165Tm) 3.74988E+02    0    3.74988E+02  1.00000
+   68 165 (165Er) 2.03749E+00    0    2.03749E+00  1.00000
+   67 165 (165Ho) 1.93202E+02    0    1.93202E+02  1.00000
    68 164 (164Er) 9.68156E-03    0    9.68156E-03  1.00000
-   67 164 (164Ho) 6.83437E+01    0    2.74227E+01  0.40125
-                                 3    4.09210E+01  0.59875   2.19600E+03 sec. 
-   67 163 (163Ho) 1.58683E+01    0    1.26770E+01  0.79889
-                                 3    3.19126E+00  0.20111   1.09000E+00 sec. 
-   67 162 (162Ho) 3.51064E-03    0    9.67986E-04  0.27573
-                                 3    2.54265E-03  0.72427   4.02000E+03 sec. 
+   67 164 (164Ho) 6.83441E+01    0    2.74230E+01  0.40125
+                                 3    4.09211E+01  0.59875   2.19600E+03 sec. 
+   67 163 (163Ho) 1.58686E+01    0    1.26772E+01  0.79889
+                                 3    3.19141E+00  0.20111   1.09000E+00 sec. 
+   67 162 (162Ho) 3.51210E-03    0    9.68408E-04  0.27574
+                                 3    2.54369E-03  0.72426   4.02000E+03 sec. 
    65 161 (161Tb) 1.00000E-07    0    1.07545E-07  0.00000
 
    b. Per mass
 
    A  cross section
 
-  168 1.26287E+01
-  167 1.03754E+02
-  166 9.41734E+02
-  165 5.70490E+02
-  164 6.83534E+01
-  163 1.58683E+01
-  162 3.51064E-03
+  168 1.25931E+01
+  167 1.06052E+02
+  166 9.39733E+02
+  165 5.70227E+02
+  164 6.83537E+01
+  163 1.58686E+01
+  162 3.51210E-03
 
- Total residual production cross section:  1712.8314209
+ Total residual production cross section:  1712.8319092
  Non-elastic cross section              :  1713.1999512
 
  ########## RESULTS FOR E=  40.00000 ##########
@@ -1864,9 +1870,9 @@ file: omp.out
 
  3. Total particle production cross sections
 
- gamma   = 6.24391E+03    Multiplicity= 3.50431E+00
- neutron = 4.98323E+03    Multiplicity= 2.79677E+00
- proton  = 4.70784E+01    Multiplicity= 2.64221E-02
+ gamma   = 5.83083E+03    Multiplicity= 3.27247E+00
+ neutron = 4.98079E+03    Multiplicity= 2.79540E+00
+ proton  = 4.70786E+01    Multiplicity= 2.64222E-02
  deuteron= 1.06744E+01    Multiplicity= 5.99084E-03
  triton  = 8.63634E+00    Multiplicity= 4.84703E-03
  helium-3= 1.50546E+00    Multiplicity= 8.44917E-04
@@ -1879,41 +1885,41 @@ file: omp.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   69 168 (168Tm) 8.17518E+00    0    8.17518E+00  1.00000
-   68 168 (168Er) 3.20884E+00    0    3.20884E+00  1.00000
-   69 167 (167Tm) 6.75886E+01    0    6.75886E+01  1.00000
-   68 167 (167Er) 2.48193E+01    0    1.99763E+01  0.80487
-                                 3    4.84299E+00  0.19513   2.26900E+00 sec. 
+   69 168 (168Tm) 8.15562E+00    0    8.15562E+00  1.00000
+   68 168 (168Er) 3.20145E+00    0    3.20145E+00  1.00000
+   69 167 (167Tm) 6.94679E+01    0    6.94679E+01  1.00000
+   68 167 (167Er) 2.48265E+01    0    1.99809E+01  0.80482
+                                 3    4.84557E+00  0.19518   2.26900E+00 sec. 
    67 167 (167Ho) 1.03162E-03    0    1.03162E-03  1.00000
-   69 166 (166Tm) 6.36981E+02    0    6.36981E+02  1.00000
-   68 166 (166Er) 3.43020E+01    0    3.43020E+01  1.00000
+   69 166 (166Tm) 6.35730E+02    0    6.35730E+02  1.00000
+   68 166 (166Er) 3.43019E+01    0    3.43019E+01  1.00000
    67 166 (166Ho) 1.44331E+00    0    8.68488E-01  0.60173
                                  1    5.74824E-01  0.39827   3.78700E+10 sec. 
-   69 165 (165Tm) 6.74207E+02    0    6.74207E+02  1.00000
-   68 165 (165Er) 3.92589E+00    0    3.92589E+00  1.00000
-   67 165 (165Ho) 2.05498E+02    0    2.05498E+02  1.00000
+   69 165 (165Tm) 6.73598E+02    0    6.73598E+02  1.00000
+   68 165 (165Er) 3.92639E+00    0    3.92639E+00  1.00000
+   67 165 (165Ho) 2.05495E+02    0    2.05495E+02  1.00000
    68 164 (164Er) 8.43879E-02    0    8.43879E-02  1.00000
-   67 164 (164Ho) 8.80706E+01    0    3.55635E+01  0.40381
-                                 3    5.25071E+01  0.59619   2.19600E+03 sec. 
-   67 163 (163Ho) 3.29420E+01    0    2.58534E+01  0.78481
-                                 3    7.08865E+00  0.21519   1.09000E+00 sec. 
-   67 162 (162Ho) 5.77355E-02    0    1.63771E-02  0.28366
-                                 3    4.13584E-02  0.71634   4.02000E+03 sec. 
+   67 164 (164Ho) 8.80723E+01    0    3.55646E+01  0.40381
+                                 3    5.25077E+01  0.59619   2.19600E+03 sec. 
+   67 163 (163Ho) 3.29436E+01    0    2.58542E+01  0.78480
+                                 3    7.08938E+00  0.21520   1.09000E+00 sec. 
+   67 162 (162Ho) 5.77655E-02    0    1.63864E-02  0.28367
+                                 3    4.13791E-02  0.71633   4.02000E+03 sec. 
    65 161 (161Tb) 1.00000E-07    0    1.51482E-07  0.00000
 
    b. Per mass
 
    A  cross section
 
-  168 1.13840E+01
-  167 9.24089E+01
-  166 6.72726E+02
-  165 8.83631E+02
-  164 8.81550E+01
-  163 3.29420E+01
-  162 5.77355E-02
+  168 1.13571E+01
+  167 9.42954E+01
+  166 6.71475E+02
+  165 8.83020E+02
+  164 8.81567E+01
+  163 3.29436E+01
+  162 5.77655E-02
 
- Total residual production cross section:  1781.3051758
+ Total residual production cross section:  1781.3054199
  Non-elastic cross section              :  1781.7800293
 
  ########## EXCITATION FUNCTIONS ###########
@@ -1970,6 +1976,6 @@ file: rp067162.L00
 file: rp067162.L03
 file: rp065161.tot
 
- Execution time:  0 hours  0 minutes 49.09 seconds 
+ Execution time:  0 hours  0 minutes 45.07 seconds 
 
  The TALYS team congratulates you with this successful calculation.
