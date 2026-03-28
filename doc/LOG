@@ -1,10 +1,35 @@
-Development of TALYS since release of TALYS-2.0
+Development of TALYS since release of TALYS-2.2
 
 - December 18, 2025
 
-********** Release of TALYS-2.0 **********
+********** Release of TALYS-2.2 **********
 
 - February 10 2026
 
 Solved a bug for microscopic alpha OMPs, ecisstep should be defaulted 
 to a value of 0.1, just like for JLM
+
+- March 10 2026
+
+Added a keyword globaldisp, by default set to 'n', to use a global
+dispersive OMP for neutrons
+
+- March 24 2026
+
+Included PSF model for strength 11. This can be spin and 
+parity dependent and for that the keyword strengthjp was introduced.
+
+- March 25 2026
+
+Added an option to use the real Fermi energy for the global optical 
+model. So far, only the systematics formula from KD03 paper was used,
+but this may give problems for exotic nuclides. With the keyword 
+globalfermi y the Fermi energy is calculated from the real 
+separation energies from the mass table.
+
+- March 26 2026
+
+Reduced the beta2,3,4 deformation parameters in deformpar.f90 by 50%.
+For many exotic nuclides, taking the plain systematic formula give 
+direct inelastic cross sections whose sum is larger than the reaction 
+cross section. We build in security by multiplying the beta's by 0.3.
