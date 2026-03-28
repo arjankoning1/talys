@@ -468,8 +468,8 @@ subroutine massdis
     do i = 1, numpop
       Ebin(i) = 0.1 * i
     enddo
+    sumxs = 0.
     if (fymodel == 3) then
-      sumxs = 0.
       do iz = 1, numZff
         do in = 1, numNff
           if (iz > numelem .or. in > numneu) cycle
