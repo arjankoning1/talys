@@ -70,7 +70,7 @@ subroutine initial_best
     write(afile(1:3), '(i3.3)') Atarget
     bestchar = ptype0//'-'//trim(nuc(Ztarget))//afile
     if (bestpath(1:1) == ' ') bestpath = 'best/                                   '
-    do i = 1, 40
+    do i = 1, 132
       if (bestpath(i:i) == ' ') then
         if (bestpath(i-1:i-1) /= '/') then
           bestpath(i:i) = '/'
