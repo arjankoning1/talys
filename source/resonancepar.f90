@@ -90,8 +90,8 @@ subroutine resonancepar(Zix, Nix)
         if (L == 0) then
           if (dSf /= 0. .and. S0(Zix, Nix) == 0.) dS0(Zix, Nix) = dSf
           if (Sf /= 0. .and. S0(Zix, Nix) == 0.) S0(Zix, Nix) = Sf
-          if (dDf /= 0. .and. D0(Zix, Nix) == 0.) dD0(Zix, Nix) = dDf * 1000.
-          if (Df /= 0. .and. D0(Zix, Nix) == 0.) D0(Zix, Nix) = Df * 1000.
+          if (dDf /= 0. .and. D0(Zix, Nix) == 0.) dD0(Zix, Nix) = dDf
+          if (Df /= 0. .and. D0(Zix, Nix) == 0.) D0(Zix, Nix) = Df
           if (dgamgamf /= 0. .and. gamgam(Zix, Nix) == 0.) dgamgam(Zix, Nix) = dgamgamf
           if (gamgamf /= 0. .and. gamgam(Zix, Nix) == 0.) gamgam(Zix, Nix) = gamgamf
           if (dRf /= 0. .and. Rscat(Zix, Nix) == 0.) dRscat(Zix, Nix) = dRf
@@ -101,8 +101,8 @@ subroutine resonancepar(Zix, Nix)
             if (Nrrf > 0 .and. D0(Zix, Nix) > 0.) Eavres = 0.5 * ((Nrrf - 1) * D0(Zix, Nix)) * 1.e-6
           endif
         else
-          if (dDf /= 0..and.D1r(Zix, Nix) == 0.) dD1r(Zix, Nix) = dDf * 1000.
-          if (Df /= 0..and.D1r(Zix, Nix) == 0.) D1r(Zix, Nix) = Df * 1000.
+          if (dDf /= 0..and.D1r(Zix, Nix) == 0.) dD1r(Zix, Nix) = dDf
+          if (Df /= 0..and.D1r(Zix, Nix) == 0.) D1r(Zix, Nix) = Df
           if (dSf /= 0. .and. S1(Zix, Nix) == 0.) dS1(Zix, Nix) = dSf
           if (Sf /= 0. .and. S1(Zix, Nix) == 0.) S1(Zix, Nix) = Sf
         endif
