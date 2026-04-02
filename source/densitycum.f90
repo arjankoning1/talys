@@ -132,6 +132,18 @@ subroutine densitycum(Zix, Nix)
 !
   NL = Nlow(Zix, Nix, 0)
   NT = Ntop(Zix, Nix, 0)
+  do i = 0, nlevmax2(Zix, Nix)
+    Ncum(Zix, Nix, i) = 0.
+    rhoexp(Zix, Nix, i) = 0.
+  enddo
+  do i = 1, nlevmax2(Zix, Nix)
+    if (edis(Zix, Nix, i) == 0.) cycle
+    Eex = 0.5 * (edis(Zix, Nix, i) + edis(Zix, Nix, i - 1))
+    dEx = edis(Zix, Nix, i) - edis(Zix, Nix, i - 1)
+    dens = densitytot(Zix, Nix, Eex, 0, ldmod)
+    Ncum(Zix, Nix, i) = Ncum(Zix, Nix, i-1) + dens * dEx
+    if (i == NL) Ncum(Zix, Nix, i) = real(NL)
+  enddo
   if (filedensity) then
     Dtheo=D0theo(Zix, Nix)
     Dexp=D0(Zix, Nix)
@@ -185,17 +197,7 @@ subroutine densitycum(Zix, Nix)
     Frmssum = 0.
     Ermssum = 0.
     avdevsum = 0.
-    do i = 0, nlevmax2(Zix, Nix)
-      Ncum(Zix, Nix, i) = 0.
-      rhoexp(Zix, Nix, i) = 0.
-    enddo
     do i = 1, nlevmax2(Zix, Nix)
-      if (edis(Zix, Nix, i) == 0.) cycle
-      Eex = 0.5 * (edis(Zix, Nix, i) + edis(Zix, Nix, i - 1))
-      dEx = edis(Zix, Nix, i) - edis(Zix, Nix, i - 1)
-      dens = densitytot(Zix, Nix, Eex, 0, ldmod)
-      Ncum(Zix, Nix, i) = Ncum(Zix, Nix, i-1) + dens * dEx
-      if (i == NL) Ncum(Zix, Nix, i) = real(NL)
       Nav = 10
       ibeg = max(i - Nav/2,0)
       iend = min(i + Nav/2,nlevmax2(Zix, Nix))
@@ -220,11 +222,8 @@ subroutine densitycum(Zix, Nix)
       avdevlev(Zix, Nix) = avdevsum / denom
     endif
     Nk = k
-  endif
 !
 ! Level densities per parity on separate files, as in tabulated format
-!
-  if (filedensity) then
 !
 ! Spin distribution
 !
