@@ -69,7 +69,10 @@ function density(Zix, Nix, Eex, Rspin, parity, ibar, ldmod)
 ! 3. Superfluid model
 !
   density = 0.
-  if (Eex < 0.) goto 100
+  if (Eex < 0.) then
+    density = max(density, 1.d-30)
+    return
+  endif
   if (ldmod <= 3 .or. .not. ldexist(Zix, Nix, ibar)) then
     ald = ignatyuk(Zix, Nix, Eex, ibar)
     sc = spincut(Zix, Nix, ald, Eex, ibar, 0)
@@ -100,7 +103,10 @@ function density(Zix, Nix, Eex, Rspin, parity, ibar, ldmod)
 !
 ! Interpolate from tables
 !
-    if (Eshift <= 0.) goto 100
+    if (Eshift <= 0.) then
+      density = max(density, 1.d-30)
+      return
+    endif
     if (Eshift <= Edensmax(Zix, Nix)) then
       call locate(edens, 0, nendens(Zix, Nix), Eshift, nex2)
       eb = edens(nex2)
@@ -122,7 +128,7 @@ function density(Zix, Nix, Eex, Rspin, parity, ibar, ldmod)
     cctable = exp(dble(expo))
     density = cctable * ldtab
   endif
-  100 density = max(density, 1.d-30)
+  density = max(density, 1.d-30)
   return
 end function density
 ! Copyright A.J. Koning 2021
