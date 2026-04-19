@@ -2,7 +2,7 @@
 #   title: Zr91 level density
 #   source: TALYS-2.2
 #   user: Arjan Koning
-#   date: 2026-03-27
+#   date: 2026-04-11
 #   format: YANDF-0.4
 # residual: 
 #   Z: 40
@@ -32,18 +32,18 @@
 #     ctable:  1.000000E-20
 #     ptable:  1.000000E-20
 #     s2adjust:  1.000000E+00
-#     experimental D0 [eV]:  6.000000E+06
-#     experimental D0 unc. [eV]:  1.400000E+06
+#     experimental D0 [eV]:  6.000000E+03
+#     experimental D0 unc. [eV]:  1.400000E+03
 #     global D0 [eV]:  4.194915E+03
 #     global D0 unc. [eV]:  4.194915E+03
 #     theoretical D0 [eV]:  6.007574E+03
-#     Chi-2 D0:  1.833058E+01
-#     C/E D0:  1.001262E-03
-#     Frms D0:  9.805503E+02
-#     Erms D0:  1.019835E-03
+#     Chi-2 D0:  2.926979E-05
+#     C/E D0:  1.001262E+00
+#     Frms D0:  1.000005E+00
+#     Erms D0:  1.000005E+00
 #     C/G D0:  1.432109E+00
-#     experimental D1 [eV]:  2.500000E+06
-#     experimental D1 unc. [eV]:  5.000000E+05
+#     experimental D1 [eV]:  2.500000E+03
+#     experimental D1 unc. [eV]:  5.000000E+02
 #     theoretical D1 [eV]:  2.118430E+03
 #     Chi-2 per level:  4.705613E-01
 #     Frms per level:  1.088502E+00

@@ -2,7 +2,7 @@
 #   title: Nb94 level density
 #   source: TALYS-2.2
 #   user: Arjan Koning
-#   date: 2026-03-27
+#   date: 2026-04-11
 #   format: YANDF-0.4
 # residual: 
 #   Z: 41
@@ -32,18 +32,18 @@
 #     ctable:  1.000000E-20
 #     ptable:  1.000000E-20
 #     s2adjust:  1.000000E+00
-#     experimental D0 [eV]:  9.400000E+04
-#     experimental D0 unc. [eV]:  1.000000E+04
+#     experimental D0 [eV]:  9.400000E+01
+#     experimental D0 unc. [eV]:  1.000000E+01
 #     global D0 [eV]:  1.633678E+02
 #     global D0 unc. [eV]:  1.633678E+02
 #     theoretical D0 [eV]:  9.399619E+01
-#     Chi-2 D0:  8.818337E+01
-#     C/E D0:  9.999595E-04
-#     Frms D0:  1.000013E+03
-#     Erms D0:  9.999871E-04
+#     Chi-2 D0:  1.449377E-07
+#     C/E D0:  9.999595E-01
+#     Frms D0:  1.000000E+00
+#     Erms D0:  1.000000E+00
 #     C/G D0:  5.753655E-01
-#     experimental D1 [eV]:  5.000000E+04
-#     experimental D1 unc. [eV]:  6.000000E+03
+#     experimental D1 [eV]:  5.000000E+01
+#     experimental D1 unc. [eV]:  6.000000E+00
 #     theoretical D1 [eV]:  4.906046E+01
 #     Chi-2 per level:  1.785420E-01
 #     Frms per level:  1.076718E+00

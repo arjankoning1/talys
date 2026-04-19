@@ -2,7 +2,7 @@
 #   title: Tc100 level density
 #   source: TALYS-2.2
 #   user: Arjan Koning
-#   date: 2026-03-27
+#   date: 2026-04-12
 #   format: YANDF-0.4
 # residual: 
 #   Z: 43
@@ -32,18 +32,18 @@
 #     ctable:  1.000000E-20
 #     ptable:  1.000000E-20
 #     s2adjust:  1.000000E+00
-#     experimental D0 [eV]:  1.400000E+04
-#     experimental D0 unc. [eV]:  1.200000E+03
+#     experimental D0 [eV]:  1.400000E+01
+#     experimental D0 unc. [eV]:  1.200000E+00
 #     global D0 [eV]:  1.591265E+01
 #     global D0 unc. [eV]:  1.591265E+01
 #     theoretical D0 [eV]:  1.400559E+01
-#     Chi-2 D0:  1.358389E+02
-#     C/E D0:  1.000399E-03
-#     Frms D0:  9.995958E+02
-#     Erms D0:  1.000404E-03
+#     Chi-2 D0:  2.168867E-05
+#     C/E D0:  1.000399E+00
+#     Frms D0:  1.000001E+00
+#     Erms D0:  1.000001E+00
 #     C/G D0:  8.801544E-01
-#     experimental D1 [eV]:  6.800000E+03
-#     experimental D1 unc. [eV]:  3.000000E+02
+#     experimental D1 [eV]:  6.800000E+00
+#     experimental D1 unc. [eV]:  3.000000E-01
 #     theoretical D1 [eV]:  7.298481E+00
 #     Chi-2 per level:  9.169006E-01
 #     Frms per level:  1.097698E+00

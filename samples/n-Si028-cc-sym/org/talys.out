@@ -6,7 +6,7 @@
  Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees
 
  User: Arjan Koning
- Date: 2026-03-27
+ Date: 2026-04-12
 
  ########## USER INPUT ##########
 
@@ -4584,17 +4584,17 @@
  proton  = 2.29375E+02
  deuteron= 3.81192E+01
  triton  = 3.93923E-01
- helium-3= 4.57193E-01
+ helium-3= 4.57201E-01
  alpha   = 1.71671E+02
 
  3. Total particle production cross sections
 
  gamma   = 1.41778E+02    Multiplicity= 1.55826E-01
  neutron = 7.63703E+02    Multiplicity= 8.39373E-01
- proton  = 4.72802E+02    Multiplicity= 5.19648E-01
+ proton  = 4.72801E+02    Multiplicity= 5.19648E-01
  deuteron= 3.81194E+01    Multiplicity= 4.18964E-02
  triton  = 3.93923E-01    Multiplicity= 4.32954E-04
- helium-3= 4.57194E-01    Multiplicity= 5.02494E-04
+ helium-3= 4.57201E-01    Multiplicity= 5.02502E-04
  alpha   = 2.39089E+02    Multiplicity= 2.62779E-01
 
  4. Residual production cross sections
@@ -4612,7 +4612,7 @@
    12  27 ( 27Mg) 2.04152E+00    0    2.04152E+00  1.00000
    13  26 ( 26Al) 3.93923E-01    0    3.44925E-01  0.87562
                                  1    4.89975E-02  0.12438   6.34600E+00 sec. 
-   12  26 ( 26Mg) 4.58577E-01    0    4.58577E-01  1.00000
+   12  26 ( 26Mg) 4.58584E-01    0    4.58584E-01  1.00000
    12  25 ( 25Mg) 4.90757E+01    0    4.90757E+01  1.00000
    12  24 ( 24Mg) 1.89839E+02    0    1.89839E+02  1.00000
    11  24 ( 24Na) 2.70050E-02    0    2.70050E-02  1.00000
@@ -4625,12 +4625,12 @@
    29 6.71956E-01
    28 2.15737E+02
    27 4.53568E+02
-   26 8.52499E-01
+   26 8.52507E-01
    25 4.90757E+01
    24 1.89866E+02
    21 7.44435E-02
 
- Total residual production cross section:   909.8457031
+ Total residual production cross section:   909.8456421
  Non-elastic cross section              :   909.8489380
 
  6. Exclusive cross sections
@@ -4646,7 +4646,7 @@
     0   0   0   1   0   0    3.93923E-01  (n,t)                                                     4.33079E-04
                                                              0     3.44925E-01  0.87562
                                                              1     4.89975E-02  0.12438   6.34600E+00 sec. 
-    0   0   0   0   1   0    4.57193E-01  (n,h)                                                     5.02638E-04
+    0   0   0   0   1   0    4.57201E-01  (n,h)                                                     5.02646E-04
     0   0   0   0   0   1    4.90695E+01  (n,a)                                                     5.39470E-02
     2   0   0   0   0   0    6.76585E+00  (n,2n)                                                    7.43837E-03
     1   1   0   0   0   0    4.06641E+02  (n,np)                                                    4.47061E-01
@@ -4656,7 +4656,7 @@
     0   1   0   0   0   1    2.70050E-02  (n,pa)                                                    2.96893E-05
     0   0   0   0   0   2    7.44435E-02  (n,2a)                                                    8.18432E-05
 
- Absorption cross section                 :   152.88805
+ Absorption cross section                 :   152.88806
 
  Sum over exclusive channel cross sections:   909.58740
  (n,gn) + (n,gp) +...(n,ga) cross sections:     0.25825
@@ -4721,6 +4721,6 @@ file: xs100001.tot
 file: xs010001.tot
 file: xs000002.tot
 
- Execution time:  0 hours  0 minutes 27.23 seconds 
+ Execution time:  0 hours  0 minutes 27.62 seconds 
 
  The TALYS team congratulates you with this successful calculation.

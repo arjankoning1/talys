@@ -2,7 +2,7 @@
 #   title: Y90 level density
 #   source: TALYS-2.2
 #   user: Arjan Koning
-#   date: 2026-03-27
+#   date: 2026-04-11
 #   format: YANDF-0.4
 # residual: 
 #   Z: 39
@@ -32,18 +32,18 @@
 #     ctable:  1.000000E-20
 #     ptable:  1.000000E-20
 #     s2adjust:  1.000000E+00
-#     experimental D0 [eV]:  3.700000E+06
-#     experimental D0 unc. [eV]:  4.000000E+05
+#     experimental D0 [eV]:  3.700000E+03
+#     experimental D0 unc. [eV]:  4.000000E+02
 #     global D0 [eV]:  4.968269E+02
 #     global D0 unc. [eV]:  4.968269E+02
 #     theoretical D0 [eV]:  3.733587E+03
-#     Chi-2 D0:  8.538992E+01
-#     C/E D0:  1.009078E-03
-#     Frms D0:  9.909755E+02
-#     Erms D0:  1.009107E-03
+#     Chi-2 D0:  7.050505E-03
+#     C/E D0:  1.009078E+00
+#     Frms D0:  1.000607E+00
+#     Erms D0:  1.000607E+00
 #     C/G D0:  7.514864E+00
-#     experimental D1 [eV]:  1.290000E+06
-#     experimental D1 unc. [eV]:  5.000000E+04
+#     experimental D1 [eV]:  1.290000E+03
+#     experimental D1 unc. [eV]:  5.000000E+01
 #     theoretical D1 [eV]:  1.765541E+03
 #     Chi-2 per level:  6.478324E-02
 #     Frms per level:  1.040703E+00

@@ -2,7 +2,7 @@
 #   title: Cd117 level density
 #   source: TALYS-2.2
 #   user: Arjan Koning
-#   date: 2026-03-27
+#   date: 2026-04-12
 #   format: YANDF-0.4
 # residual: 
 #   Z: 48
@@ -32,18 +32,18 @@
 #     ctable:  1.000000E-20
 #     ptable:  1.000000E-20
 #     s2adjust:  1.000000E+00
-#     experimental D0 [eV]:  7.040000E+05
-#     experimental D0 unc. [eV]:  2.700000E+05
+#     experimental D0 [eV]:  7.040000E+02
+#     experimental D0 unc. [eV]:  2.700000E+02
 #     global D0 [eV]:  1.381723E+02
 #     global D0 unc. [eV]:  1.381723E+02
 #     theoretical D0 [eV]:  7.043487E+02
-#     Chi-2 D0:  6.784976E+00
-#     C/E D0:  1.000495E-03
-#     Frms D0:  9.819162E+01
-#     Erms D0:  1.018417E-02
+#     Chi-2 D0:  1.667866E-06
+#     C/E D0:  1.000495E+00
+#     Frms D0:  1.000000E+00
+#     Erms D0:  1.000000E+00
 #     C/G D0:  5.097611E+00
-#     experimental D1 [eV]:  2.150000E+05
-#     experimental D1 unc. [eV]:  2.000000E+04
+#     experimental D1 [eV]:  2.150000E+02
+#     experimental D1 unc. [eV]:  2.000000E+01
 #     theoretical D1 [eV]:  2.446271E+02
 #     Chi-2 per level:  4.471632E-01
 #     Frms per level:  1.120014E+00

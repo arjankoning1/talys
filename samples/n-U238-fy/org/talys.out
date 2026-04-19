@@ -6,7 +6,7 @@
  Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees
 
  User: Arjan Koning
- Date: 2026-03-28
+ Date: 2026-04-12
 
  ########## USER INPUT ##########
 
@@ -3724,7 +3724,7 @@ file: nunZA0010.000.fis
  gamma   = 2.57530E+00
  neutron = 3.24552E+03
  proton  = 5.97432E-04
- deuteron= 6.37265E-10
+ deuteron= 6.37266E-10
  triton  = 1.83906E-10
  helium-3= 4.87648E-33
  alpha   = 7.91098E-05
@@ -3734,10 +3734,10 @@ file: nunZA0010.000.fis
  gamma   = 2.39915E+03    Multiplicity= 7.37022E-01
  neutron = 4.75540E+03    Multiplicity= 1.46087E+00
  proton  = 5.97432E-04    Multiplicity= 1.83532E-07
- deuteron= 6.37265E-10    Multiplicity= 1.95769E-13
+ deuteron= 6.37266E-10    Multiplicity= 1.95769E-13
  triton  = 1.83906E-10    Multiplicity= 5.64962E-14
  helium-3= 4.87648E-33    Multiplicity= 1.49806E-36
- alpha   = 7.91343E-05    Multiplicity= 2.43102E-08
+ alpha   = 7.91963E-05    Multiplicity= 2.43292E-08
  fission = 1.22152E+03
 
  4. Residual production cross sections
@@ -3753,10 +3753,10 @@ file: nunZA0010.000.fis
    92 237 (237U ) 1.50897E+03    0    1.50897E+03  1.00000
    91 237 (237Pa) 6.37046E-10    0    6.37046E-10  1.00000
    91 236 (236Pa) 1.83654E-10    0    1.83654E-10  1.00000
-   90 235 (235Th) 7.31794E-05    0    7.31794E-05  1.00000
-   90 234 (234Th) 6.03006E-06    0    6.03006E-06  1.00000
+   90 235 (235Th) 7.23384E-05    0    7.23384E-05  1.00000
+   90 234 (234Th) 6.93302E-06    0    6.93302E-06  1.00000
    89 234 (234Ac) 1.00000E-12    0    0.00000E+00  0.00000
-   88 231 (231Ra) 1.00000E-12    0    2.18761E-21  0.00000
+   88 231 (231Ra) 1.00000E-12    0    9.28999E-22  0.00000
    88 230 (230Ra) 1.00000E-12    0    0.00000E+00  0.00000
 
    b. Per mass
@@ -3767,8 +3767,8 @@ file: nunZA0010.000.fis
   238 5.23340E+02
   237 1.50897E+03
   236 1.83654E-10
-  235 7.31794E-05
-  234 6.03006E-06
+  235 7.23384E-05
+  234 6.93302E-06
 
  Total residual production cross section:  2033.8753662
  Total fission cross section            :  1221.5229492
@@ -3781,7 +3781,7 @@ file: nunZA0010.000.fis
    92 238 (238U ) 1.21433E+03
    91 238 (238Pa) 1.07040E-12
    92 237 (237U ) 7.86997E-03
-   90 235 (235Th) 2.38368E-12
+   90 235 (235Th) 1.14914E-12
 file: rp092239.fis
 file: rp092238.fis
 file: rp091238.fis
@@ -3799,9 +3799,9 @@ file: rp090235.fis
     0   1   0   0   0   0    5.97432E-04  (n,p)                                                     1.83571E-07
     0   0   1   0   0   0    6.36906E-10  (n,d)                                                     1.95701E-13
     0   0   0   1   0   0    1.83654E-10  (n,t)                                                     5.64311E-14
-    0   0   0   0   0   1    7.31794E-05  (n,a)                                                     2.24857E-08
+    0   0   0   0   0   1    7.23384E-05  (n,a)                                                     2.22272E-08
     2   0   0   0   0   0    1.50889E+03  (n,2n)                                                    4.63632E-01
-    1   0   0   0   0   1    6.03005E-06  (n,na)                                                    1.85284E-09
+    1   0   0   0   0   1    6.93302E-06  (n,na)                                                    2.13029E-09
     0   1   0   0   0   1    1.00000E-12  (n,pa)                                                    3.07268E-16
     0   0   0   0   0   2    1.00000E-12  (n,2a)                                                    3.07268E-16
     1   0   0   0   0   2    1.00000E-12  (n,n2a)                                                   3.07268E-16
@@ -3820,7 +3820,7 @@ file: rp090235.fis
     0   0   0   0   0   0    7.18658E+00  (n,gf)           
     1   0   0   0   0   0    1.21399E+03  (n,n'f)          
     0   1   0   0   0   0    1.07040E-12  (n,pf)           
-    0   0   0   0   0   1    2.38368E-12  (n,af)           
+    0   0   0   0   0   1    1.14914E-12  (n,af)           
     2   0   0   0   0   0    7.86997E-03  (n,2nf)          
 
  Absorption cross section                 :  1222.75073
@@ -3922,6 +3922,6 @@ file: xs000003.fis
 file: xs200002.fis
 file: xs100003.fis
 
- Execution time:  0 hours  3 minutes 47.40 seconds 
+ Execution time:  0 hours  4 minutes  0.05 seconds 
 
  The TALYS team congratulates you with this successful calculation.

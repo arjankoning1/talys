@@ -2,7 +2,7 @@
 #   title: Sn118 level density
 #   source: TALYS-2.2
 #   user: Arjan Koning
-#   date: 2026-03-27
+#   date: 2026-04-12
 #   format: YANDF-0.4
 # residual: 
 #   Z: 50
@@ -32,18 +32,18 @@
 #     ctable:  1.000000E-20
 #     ptable:  1.000000E-20
 #     s2adjust:  1.000000E+00
-#     experimental D0 [eV]:  6.100000E+04
-#     experimental D0 unc. [eV]:  7.000000E+03
+#     experimental D0 [eV]:  6.100000E+01
+#     experimental D0 unc. [eV]:  7.000000E+00
 #     global D0 [eV]:  3.007475E+01
 #     global D0 unc. [eV]:  3.007475E+01
 #     theoretical D0 [eV]:  6.190270E+01
-#     Chi-2 D0:  7.578473E+01
-#     C/E D0:  1.014798E-03
-#     Frms D0:  9.854459E+02
-#     Erms D0:  1.014769E-03
+#     Chi-2 D0:  1.662989E-02
+#     C/E D0:  1.014798E+00
+#     Frms D0:  1.001518E+00
+#     Erms D0:  1.001518E+00
 #     C/G D0:  2.058295E+00
-#     experimental D1 [eV]:  3.100000E+04
-#     experimental D1 unc. [eV]:  3.000000E+03
+#     experimental D1 [eV]:  3.100000E+01
+#     experimental D1 unc. [eV]:  3.000000E+00
 #     theoretical D1 [eV]:  2.869723E+01
 #     Chi-2 per level:  3.586953E-01
 #     Frms per level:  1.071869E+00
