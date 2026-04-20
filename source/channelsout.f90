@@ -143,6 +143,7 @@ subroutine channelsout
   character(len=8)  :: spstring  ! string
   character(len=12)  :: Estr
   character(len=12) :: isofile   ! file with isomeric cross section
+  character(len=13) :: levfile   ! file with isomeric cross section
   character(len=12) :: gamfile   ! giant resonance parameter file
   character(len=16) :: xsfile    ! file with channel cross sections
   character(len=21) :: spfile    ! file with spectra
@@ -393,6 +394,42 @@ Loop2:    do in = 0, numin
               enddo
               exit
             endif
+          enddo
+!
+! B2. Discrete level cross sections
+!
+          NL = Nlast(Zcomp, Ncomp, 0)
+          do nex = 0, NL
+            levfile = 'dxs000000.L00'
+            write(levfile(4:9), '(6i1)') in, ip, id, it, ih, ia
+            write(levfile(12:13), '(i2.2)') levnum(Zcomp, Ncomp, nex)
+            if ( .not. chanlevexist(in, ip, id, it, ih, ia, nex)) then
+              chanlevexist(in, ip, id, it, ih, ia, nex) = .true.
+              open (unit = 1, file = levfile, status = 'unknown')
+              topline=trim(targetnuclide)//trim(reaction)//trim(finalnuclide)//' '//trim(quantity)
+              Ncol=2
+              MF = 10
+              call write_header(topline,source,user,date,oformat)
+              call write_target
+              call write_reaction(reaction,Qexcl(idc, nex),Ethrexcl(idc, nex),MF,MT)
+              call write_residual(Z,A,finalnuclide)
+              call write_level(2,kiso,levnum(Zcomp, Ncomp, nex),edis(Zcomp, Ncomp, nex), &
+ &              jdis(Zcomp, Ncomp, nex),parlev(Zcomp, Ncomp, nex),tau(Zcomp, Ncomp, nex))
+              call write_quantity(quantity)
+              call write_datablock(Ncol,Ninc,col,un)
+              do nen = 1, Ninclow
+                write(1, '(3es15.6)') eninc(nen), fxschaniso(nen, idc, nex)
+                  fxschaniso(nen, idc, nex) = 0.
+                  fexclbranch(nen, idc, nex) = 0.
+              enddo
+              do nen = Ninclow + 1, nin - 1
+                write(1, '(3es15.6)') eninc(nen), 0.
+              enddo
+            else
+              open (unit = 1, file = levfile, status = 'old', position = 'append')
+            endif
+            write(1, '(3es15.6)') Einc, xsdisclev(idc, nex)
+            close (unit = 1)
           enddo
 !
 ! C. Discrete gamma-rays

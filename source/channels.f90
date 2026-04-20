@@ -172,8 +172,10 @@ subroutine channels
 !
   if (flaginitpop) then
     xsexcl(0, maxex(0, 0) + 1) = xsinitpop
+    xsdisclev(0, maxex(0, 0) + 1) = xsinitpop
   else
     xsexcl(0, maxex(0, 0) + 1) = xsreacinc
+    xsdisclev(0, maxex(0, 0) + 1) = xsreacinc
   endif
   gamexcl(0, maxex(0, 0) + 1) = 0.
 !
@@ -259,6 +261,7 @@ subroutine channels
         Qexcl(0, 0) = S(0, 0, k0) + targetE
         do nexout = 0, numex + 1
           xsexcl(idnum, nexout) = 0.
+          xsdisclev(idnum, nexout) = 0.
           gamexcl(idnum, nexout) = 0.
         enddo
         if (flagspec) then
@@ -339,6 +342,7 @@ subroutine channels
             if (Zcomp == 0 .and. Ncomp == 0) then
               nex = maxex(Zcomp, Ncomp) + 1
               xsexcl(idnum, nexout) = xsexcl(idnum, nexout) + feedexcl(Zcomp, Ncomp, type, nex, nexout)
+              xsdisclev(idnum, nexout) = xsdisclev(idnum, nexout) + feedexcl(Zcomp, Ncomp, type, nex, nexout)
               if (type == 0) gamexcl(idnum, nexout) = gamexcl(idnum, nexout) + &
                 feedexcl(Zcomp, Ncomp, 0, nex, nexout)
               if (flagspec) then
@@ -359,6 +363,8 @@ subroutine channels
               if (type == 0) then
                 gamexcl(idnum, nexout) = gamexcl(idnum, nexout) + term2
                 if (nex <= Nlast(Zcomp, Ncomp, 0)) xsgamdischan(idnum, nex, nexout) = term2
+                else
+                  xsdisclev(idnum, nexout) = xsdisclev(idnum, nexout) + term2
               endif
                 gamexcl(idnum, nexout) = gamexcl(idnum, nexout) + term1 * gamexcl(idorg, nex)
 !   endif
