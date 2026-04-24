@@ -5,7 +5,7 @@ subroutine convert(i)
 !
 ! Author    : Arjan Koning
 !
-! 2021-12-30: Original code
+! 2026-04-24: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -18,7 +18,7 @@ subroutine convert(i)
 ! *** Declaration of local data
 !
   implicit none
-  integer, parameter :: numkey=21       ! number of keywords
+  integer, parameter :: numkey=24       ! number of keywords
   character(len=132) :: keyword(numkey) ! keyword
   character(len=132) :: str             ! input line
   integer            :: i               ! counter
@@ -31,9 +31,9 @@ subroutine convert(i)
 ! For easy handling of all the input parameters, the whole input, both keywords and values, is converted to lowercase characters,
 ! with the exception of filenames or other character strings.
 !
-  data (keyword(m), m = 1, numkey) / 'abundance', 'bestfile', 'bestpath', 'class2file', 'deformfile', 'e1file', 'hbtransfile', &
-    'm1file', 'energy', 'integral', 'levelfile', 'nulldev', 'ompenergyfile', 'optmod', 'optmodfilen', 'optmodfilep', &
-    'radialfile', 'rescuefile', 'strucpath', 'tjadjust', 'yieldfile' /
+  data (keyword(m), m = 1, numkey) / 'abundance', 'bestfile', 'bestpath', 'class2file', 'deformfile', 'e1file', 'format', &
+ &   'hbtransfile', 'm1file', 'energy', 'integral', 'levelfile', 'nulldev', 'ompenergyfile', 'optmod', 'optmodfilen', &
+ &   'optmodfilep', 'radialfile', 'rescuefile', 'source', 'strucpath', 'tjadjust', 'user', 'yieldfile' /
   str = inline(i)
   do k = 1, 132
     if (inline(i)(k:k) >= 'A' .and. inline(i)(k:k) <= 'Z') inline(i)(k:k) = achar(iachar(inline(i)(k:k)) + 32)
@@ -48,4 +48,4 @@ subroutine convert(i)
     enddo
   enddo
 end subroutine convert
-! Copyright A.J. Koning 2021
+! Copyright A.J. Koning 2026
