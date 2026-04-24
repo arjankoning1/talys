@@ -33,3 +33,16 @@ Reduced the beta2,3,4 deformation parameters in deformpar.f90 by 50%.
 For many exotic nuclides, taking the plain systematic formula give 
 direct inelastic cross sections whose sum is larger than the reaction 
 cross section. We build in security by multiplying the beta's by 0.3.
+
+- April 2 2026
+
+Corrected the output of D0 in level density tables which is in eV and 
+not in keV. Problem found by Sandor Kovacs.
+
+- April 2 2026
+
+Solved an error found by Alexandre Konobeyev. Results were different
+depending on whether filedensity was set to n or y. It turned out
+that without output of level densities the value of Ncum was not 
+initialized, and thus zero. This affects the correction for missing
+levels when calculating discrete levels versus continuum cross sections.
