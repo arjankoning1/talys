@@ -61,7 +61,7 @@ subroutine input_directpar
     endif
   endif
   elwidth = 0.5
-  soswitch = 3.
+  soswitch = 10.
 !
 ! **************** Read input variables *******************
 !
