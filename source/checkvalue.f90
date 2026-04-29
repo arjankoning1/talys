@@ -732,7 +732,7 @@ subroutine checkvalue
   call range_real_error('lwsoadjust', lwsoadjust, 0.5, 1.5)
   call range_real_error('aradialcor', aradialcor, 0.5, 1.5)
   call range_real_error('adepthcor', adepthcor, 0.5, 1.5)
-  call range_real_error('soswitch', soswitch, 0.1, 10.)
+  call range_real_error('soswitch', soswitch, 0.1, 20.)
   do type = 1, 2
     call range_real_error('Ejoin', Ejoin(type), 0., Emaxtalys, index1 = type, name1 = 'type')
     call range_real_error('Vinfadjust', Vinfadjust(type), 0.01, 10., index1 = type, name1 = 'type')
