@@ -46,3 +46,8 @@ depending on whether filedensity was set to n or y. It turned out
 that without output of level densities the value of Ncum was not 
 initialized, and thus zero. This affects the correction for missing
 levels when calculating discrete levels versus continuum cross sections.
+
+- April 29 2026
+
+Changed the default of soswitch from 3. to 20. Too large discontinuities 
+for the total cross sections for rotation nuclei were observed.
