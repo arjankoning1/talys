@@ -91,6 +91,9 @@ subroutine input_levels
   branchratio = 0.
   Risomer = 1.
   flagpseudores = .false.
+  Emaxpseudores = -1.
+  pseudoreswidth = 0.3
+  pseudoresfade = 0.2
   flagelectron = .true.
   if (flagendf) flagelectron = .true.
   deformfile = ' '
@@ -103,13 +106,6 @@ subroutine input_levels
   nlevmax = max(30, Ltarget)
   nlevbin = 30
   nlevmaxres = 30
-! do type = 0, 6
-!   if (type <= 2 .or. type == 6) then
-!     nlevbin(type) = 10
-!   else
-!     nlevbin(type) = 5
-!   endif
-! enddo
   nlevbin(k0) = nlevmax
 !
 ! **************** Read input variables *******************
@@ -208,6 +204,21 @@ subroutine input_levels
       if (ch /= 'y' .and. ch /= 'n') call read_error(line, istat)
       cycle
     endif
+    if (key == 'emaxpseudores')  then
+      read(value, * , iostat = istat) Emaxpseudores
+      if (istat /= 0) call read_error(line, istat)
+      cycle
+    endif 
+    if (key == 'pseudoreswidth')  then
+      read(value, * , iostat = istat) pseudoreswidth
+      if (istat /= 0) call read_error(line, istat)
+      cycle
+    endif 
+    if (key == 'pseudoresfade')  then
+      read(value, * , iostat = istat) pseudoresfade
+      if (istat /= 0) call read_error(line, istat)
+      cycle
+    endif 
     if (key == 'levelfile') then
       class = 10
       call getvalues(class, word, Zix, Nix, type, ibar, irad, lval, igr, val, ival, cval, flagassign)
