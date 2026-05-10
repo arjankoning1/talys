@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2025-12-30: Original code
-! 2026-04-24: Current version
+! 2026-05-10: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -45,7 +45,7 @@ module A0_talys_mod
   integer, parameter :: numresgrid=1000                      ! number of energies on resonance grid
   integer, parameter :: numflux=100                          ! number of integral experiments
   integer, parameter :: numfile=100                          ! maximum number of separate output files
-  integer, parameter :: numlev2=200                          ! maximum number of levels
+  integer, parameter :: numlev2=300                          ! maximum number of levels
   integer, parameter :: numrotcc=4                           ! number of rotational deformation parameters
   integer, parameter :: numgamqrpa=300                       ! number of energies for QRPA strength function
   integer, parameter :: numTqrpa=31                          ! number of temperatures for QRPA strength functions
@@ -323,6 +323,9 @@ module A0_talys_mod
   integer                               :: nlevmaxres   ! maximum number of included discrete levels for residual nucleus
   real(sgl), dimension(0:numresgrid)    :: Eresgrid     ! energies on resonance grid
   real(sgl), dimension(0:numresgrid)    :: resgrid      ! resonance grid
+  real(sgl)                             :: Emaxpseudores  ! max lab incident energy for pseudo-resonances
+  real(sgl)                             :: pseudoreswidth ! Lorentzian full width
+  real(sgl)                             :: pseudoresfade  ! fade width to return smoothly to optical model 
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
 ! Variables for level densities
