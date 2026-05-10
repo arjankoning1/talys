@@ -23,6 +23,7 @@ subroutine incidentnorm
 !   k0            ! index of incident particle
 !   Ztarget       ! charge number of target nucleus
 ! Variables for energy grid
+!   eninccm       ! center-of-mass incident energy in MeV
 !   Einc          ! incident energy in MeV
 ! Variables for incident channel
 !   Tjlinc        ! transm. coeff. as a function of spin and l for inc. channel
@@ -70,7 +71,7 @@ subroutine incidentnorm
 ! Normalization for compound nucleus resonances of light nuclides
 !
   if (flagpseudores) then
-    call locate(Eresgrid, 0, numresgrid, Einc, nen)
+    call locate(Eresgrid, 0, numresgrid, eninccm, nen)
     norm = resgrid(nen)
     xs = xsreacinc * norm
   endif
