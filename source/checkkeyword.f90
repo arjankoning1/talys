@@ -6,7 +6,7 @@ subroutine checkkeyword
 ! Author    : Arjan Koning
 !
 ! 2021-12-30: Original code
-! 2026-03-25: Latest version
+! 2026-05-06: Latest version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -20,7 +20,7 @@ subroutine checkkeyword
 ! *** Declaration of local data
 !
   implicit none
-  integer, parameter :: numkey=444        ! number of keywords
+  integer, parameter :: numkey=447        ! number of keywords
   integer            :: i                 ! counter
   integer            :: j                 ! counter
   character(len=132) :: key               ! keyword
@@ -47,7 +47,7 @@ subroutine checkkeyword
  &  'deformfile', 'deltaw', 'densfile',  &
  &  'deuteronomp', 'disctable', 'dispersion', 'dnfit', 'e0', 'e0adjust', 'e1file', 'eback', 'ebeam', 'eciscalc', 'eciscompound', &
  &  'ecisdwba', 'ecissave', 'ecisstep', 'egr', 'egradjust', 'ejectiles', 'ejoin', 'electronconv', 'element', 'elow', 'elwidth', &
- &  'emsdmin', 'endf', 'endfdetail', 'endfecis', 'energy', 'epr', 'epradjust', 'equidistant', 'equispec', &
+ &  'emsdmin', 'endf', 'endfdetail', 'endfecis', 'energy', 'epr', 'epradjust', 'emaxpseudores','equidistant', 'equispec', &
  &  'estop', 'esurf', 'etable', &
  &  'etableadjust', 'exmatch', 'exmatchadjust', 'expmass', 'ffevaporation', 'ffmodel', 'ffspin', 'fileangle', 'filechannels', &
  &  'fileddxa', 'fileddxe', 'filedensity', 'filediscrete', 'fileelastic', 'filefission', 'filegamdis', 'filepsf', 'filerecoil', &
@@ -71,7 +71,8 @@ subroutine checkkeyword
  &  'outpopulation', 'outpreequilibrium', 'outspectra', 'outtransenergy', 'pair', &
  &  'pairconstant', 'pairmodel', 'parity', 'partable', 'pfnsmodel', 'pglobal', 'phmodel', 'pnfit', 'popeps', 'popmev', &
  &  'preeqcomplex', 'preeqmode', 'preeqspin', 'preeqsurface', 'preequilibrium', 'production', 'projectile', 'pruitt', 'pruittset', &
- &  'pseudoresonances', 'psfglobal', 'pshift', 'pshiftadjust', 'pshiftconstant', 'ptable', 'ptableadjust', 'racap', & 
+ &  'pseudoresfade', 'pseudoresonances', 'pseudoreswidth', 'psfglobal', 'pshift', 'pshiftadjust', 'pshiftconstant', 'ptable', &
+ &  'ptableadjust', 'racap', & 
  &  'radialfile', 'radialmodel', 'radiounit', 'rcadjust', 'rclass2mom', 'reaction', 'recoil', 'recoilaverage', 'relativistic', &
  &  'rescuefile', 'reslib', 'resonance', 'rfiseps', 'rgamma', 'rho', 'riplomp', 'riplrisk', 'risomer', 'rmiufiscor', &
  &  'rmiufiscoradjust', 'rnunu', 'rnupi', 'rotational', 'rpevap', 'rpinu', 'rpipi', 'rprime', 'rspincut', 'rspincutff', &
