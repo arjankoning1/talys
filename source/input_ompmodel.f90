@@ -268,7 +268,6 @@ loop1:  do i = 1, nlines
       if (key == 'avsoadjustf') omptype = 10
       if (key == 'rwsoadjustf') omptype = 11
       if (key == 'awsoadjustf') omptype = 12
-      if (key == 'rcadjustf') omptype = 13
       do type = 1, 6
         if (ch == parsym(type)) then
           type2 = type
