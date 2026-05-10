@@ -437,6 +437,9 @@ subroutine checkvalue
       call range_integer_error('maxlevelsbin', nlevbin(type), 0, numlev, index1 = type, name1 = 'type')
     enddo
   endif
+  call range_real_error('emaxpseudores', emaxpseudores, 0., 100., default = -1.)
+  call range_real_error('pseudoreswidth', pseudoreswidth, 0.001, 10.)
+  call range_real_error('pseudoresfade', pseudoresfade, 0.001, 10.)
   do Zix = 0, numZ
     do Nix = 0, numN
       Z = Zinit - Zix
@@ -674,7 +677,7 @@ subroutine checkvalue
     call range_real_error('rvadjust', rvadjust(type), 0.1, 10., index1 = type, name1 = 'type')
     call range_real_error('avadjust', avadjust(type), 0.1, 10., index1 = type, name1 = 'type')
     call range_real_error('v1adjust', v1adjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('v3adjust', v2adjust(type), 0.1, 10., index1 = type, name1 = 'type')
+    call range_real_error('v2adjust', v2adjust(type), 0.1, 10., index1 = type, name1 = 'type')
     call range_real_error('v3adjust', v3adjust(type), 0.1, 10., index1 = type, name1 = 'type')
     call range_real_error('v4adjust', v4adjust(type), 0.1, 10., index1 = type, name1 = 'type')
     call range_real_error('rwadjust', rwadjust(type), 0.1, 10., index1 = type, name1 = 'type')
@@ -1061,7 +1064,7 @@ subroutine checkvalue
   call range_real_error('Kph', Kph, 1., 100.)
   call range_real_error('Rspincut', Rspincut, 0., 10.)
   call range_real_error('Rspincutpreeq', Rspincutpreeq, 0., 10.)
-  call range_real_error('Rspincutff', Rspincut, 0., 20.)
+  call range_real_error('Rspincutff', Rspincutff, 0., 20.)
 !
 ! 8. Check of values for fission
 !
@@ -1106,7 +1109,7 @@ subroutine checkvalue
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
         call range_real_error('fission width', fwidth(Zix, Nix, ibar), 0.01, 10., default = 0., index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_real_error('fwidthadjust', fwidthadjust(Zix, Nix, ibar), 0.02, 50., default = 0., index1 = Z, name1 = 'Z', &
+        call range_real_error('fishwadjust', fwidthadjust(Zix, Nix, ibar), 0.02, 50., default = 0., index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
         call range_real_error('bdamp', bdamp(Zix, Nix, ibar), 0., 50., default = 0., index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
@@ -1115,6 +1118,8 @@ subroutine checkvalue
         call range_real_error('Rtransmom', Rtransmom(Zix, Nix, ibar), 0.05, 20., default = 0., index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
         call range_real_error('Rclass2mom', Rclass2mom(Zix, Nix, ibar), 0.05, 20., default = 0., index1 = Z, name1 = 'Z', &
+ &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
+        call range_real_error('class2width', widthc2(Zix, Nix, ibar), 0.01, 10., default = 0., index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
       enddo
       call range_real_error('betafiscor', betafiscor(Zix, Nix), 0.05, 20., default = 0., index1 = Z, name1 = 'Z', &
