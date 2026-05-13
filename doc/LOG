@@ -12,7 +12,7 @@ to a value of 0.1, just like for JLM
 - March 10 2026
 
 Added a keyword globaldisp, by default set to 'n', to use a global
-dispersive OMP for neutrons
+dispersive OMP for neutrons. results are not good yet.
 
 - March 24 2026
 
@@ -51,3 +51,13 @@ levels when calculating discrete levels versus continuum cross sections.
 
 Changed the default of soswitch from 3. to 20. Too large discontinuities 
 for the total cross sections for rotation nuclei were observed.
+
+- May 6 2026
+
+Changed numlev2 from 200 to 300 to get resonating (alpha,n) cross sections
+with 'pseudoresonances y'
+
+- May 9 2026
+
+Added keywords Emaxpseudores, pseudoreswidth, pseudoresfade to adjust the
+contribution from resonance reactions.
