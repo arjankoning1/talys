@@ -995,7 +995,7 @@ subroutine checkvalue
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
         call range_real_error('Krotconstant', Krotconstant(Zix, Nix, ibar), 0.001, 1000., index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_real_error('Ufermi', cfermi(Zix, Nix, ibar), 0., 1000., index1 = Z, name1 = 'Z', &
+        call range_real_error('Ufermi', ufermi(Zix, Nix, ibar), 0., 1000., index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
         call range_real_error('cfermi', cfermi(Zix, Nix, ibar), 0., 1000., index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
