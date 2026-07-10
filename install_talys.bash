@@ -26,4 +26,4 @@ if [ -e $pfile ] ; then
   mv -f tmp $pfile
 fi
 chmod a+x $pfile
-code_build.bash talys
+./code_build.bash talys
