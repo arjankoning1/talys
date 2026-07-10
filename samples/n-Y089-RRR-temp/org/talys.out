@@ -6,7 +6,7 @@
  Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees
 
  User: Arjan Koning
- Date: 2026-05-13
+ Date: 2026-06-28
 
  ########## USER INPUT ##########
 
@@ -1735,7 +1735,7 @@
     n   p   d   t   h   a                                        cross section   ratio
     0   0   0   0   0   0    4.24398E+00  (n,g)                                                     1.00000E+00
                                                              0     3.79964E+00  0.89530
-                                                             2     4.44335E-01  0.10470   1.14800E+04 sec. 
+                                                             2     4.44336E-01  0.10470   1.14800E+04 sec. 
     0   0   0   0   0   1    1.00000E-07  (n,a)                                                     2.35628E-08
                                                              0     5.00000E-08  0.50000
                                                              2     5.00000E-08  0.50000   6.10200E+01 sec. 
@@ -2657,9 +2657,9 @@
 
  Absorption cross section                 :     2.13567
 
- Sum over exclusive channel cross sections:   812.11646
+ Sum over exclusive channel cross sections:   812.11639
  (n,gn) + (n,gp) +...(n,ga) cross sections:     0.17418
- Total                                    :   812.29065
+ Total                                    :   812.29059
  Non-elastic cross section                :   812.29468
 
  ########## RESULTS FOR E=   2.00000 ##########
@@ -2916,7 +2916,7 @@ file: xs000001.tot
  All Cross Sections Read. Maximum Tabulated Energy =  100000.000 eV
  ------------------------------------------------------------------------------
  ===============================================================================
-      MAT Total Execution Time                0.73 Seconds
+      MAT Total Execution Time                2.25 Seconds
  ===============================================================================
  ******************************************************************************
  End of ENDF/B Input Data
@@ -2932,7 +2932,7 @@ file: xs000001.tot
  End of Run
  ==============================================================================
  ===============================================================================
- SIGMA1   Total Execution Time                0.74 Seconds
+ SIGMA1   Total Execution Time                2.25 Seconds
  ===============================================================================
  Doppler Broaden ENDF/B Cross Sections (SIGMA1 2023-1)
  -------------------------------------------------------------------------------
@@ -2974,7 +2974,7 @@ file: xs000001.tot
  No Unresolved Region                         MAT Totals   153477    32188
  -------------------------------------------------------------------------------
  ===============================================================================
-      MAT Total Execution Time                1.58 Seconds
+      MAT Total Execution Time                4.84 Seconds
  ===============================================================================
  ------------------------------------------------------------------------------
  All Cross Sections Read. Maximum Tabulated Energy =  100000.000 eV
@@ -2983,6 +2983,6 @@ file: xs000001.tot
                                              Tape Totals   153477    32188
  -------------------------------------------------------------------------------
 
- Execution time:  0 hours  0 minutes 25.65 seconds 
+ Execution time:  0 hours  0 minutes 58.97 seconds 
 
  The TALYS team congratulates you with this successful calculation.

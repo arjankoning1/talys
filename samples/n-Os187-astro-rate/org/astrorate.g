@@ -2,7 +2,7 @@
 #   title: Os187(n,g) reaction rate
 #   source: TALYS-2.2
 #   user: Arjan Koning
-#   date: 2026-05-13
+#   date: 2026-06-28
 #   format: YANDF-0.4
 # target: 
 #   Z: 76
