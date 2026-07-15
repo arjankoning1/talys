@@ -131,7 +131,6 @@ subroutine massdis
   real(sgl)          :: Effrel                                      !
   real(sgl)          :: EH                                          !
   real(sgl)          :: ELL
-  real(sgl)          :: pfac
   real(sgl)          :: Eheavy(2, numpair)                          !
   real(sgl)          :: Elight(2, numpair)                          !
   real(sgl)          :: popJ(0:numJ)                             !
@@ -736,13 +735,8 @@ subroutine massdis
               write(*, '(" TALYS-error: fymodel 5 requires one or two parities in ",a)') trim(fffile)
               stop
             endif
-            if (npopPfile == 1) then
-              pfac = 2.
-            else
-              pfac = 1.
-            endif
             do J = 0, npopJfile - 1
-              xsfisFF = xsfisFF + pfac * popJ(J)
+              xsfisFF = xsfisFF + popJ(J)
             enddo
           enddo
         enddo
