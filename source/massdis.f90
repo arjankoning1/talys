@@ -5,7 +5,7 @@ subroutine massdis
 !
 ! Author    : Arjan Koning
 !
-! 2021-12-30: Original code
+! 2026-07-15: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -133,6 +133,9 @@ subroutine massdis
   real(sgl)          :: ELL
   real(sgl)          :: Eheavy(2, numpair)                          !
   real(sgl)          :: Elight(2, numpair)                          !
+  real(sgl)          :: popJ(0:numJ)                             !
+  real(sgl)          :: sumJP
+  real(sgl)          :: poptotal
   real(sgl)          :: fisepsA                                     ! fission tolerance
   real(sgl)          :: fisepsB                                     ! fission tolerance
   real(sgl)          :: Fmulti                                      ! factor for multi-chance fission
@@ -179,6 +182,10 @@ subroutine massdis
   integer            :: inL                                         !
   integer            :: iaH                                         !
   integer            :: iaL                                         !
+  integer            :: ip
+  integer            :: npopEfile
+  integer            :: npopJfile
+  integer            :: npopPfile
   integer            :: iza                                         ! counter for Z,A combinations
   integer            :: izH                                         !
   integer            :: izL                                         !
@@ -703,22 +710,27 @@ subroutine massdis
 !
   if (fymodel == 5) then
     fffile = 'ff000000.ex'
-    do iz = 1, Z
-      do ia = iz + 1, A
+    do iz = 1, Zinit
+      do ia = iz + 1, Ainit
+        in = ia - iz
+        if (in < 1 .or. in > numneu) cycle
         write(fffile(3:5), '(i3.3)') iz
         write(fffile(6:8), '(i3.3)') ia
         inquire (file = fffile , exist = lexist)
-        if (lexist) then
-          open (unit = 1, file = fffile, status = 'old')
-          in = ia - iz
-          if (in <= numneu) then
-            read(1, * ) nb
-            do nex = 0, nb
-              read(1, '(f10.5, es12.5)') Ebin(nex), popffEx(iz, in, nex)
-            enddo
-          endif
-          close (1)
-        endif
+        if (.not. lexist) cycle
+        open(unit = 1, file = fffile, status = 'old')
+        read(1, *) npopEfile, npopJfile, npopPfile
+        xsfisFF = 0.
+        popJ = 0.
+        do ip = 1, npopPfile
+          do nen = 1, npopEfile
+            read(1, '(f10.5,200es12.5)') Ebin(nen), poptotal, (popJ(J),  J = 0, numJ)
+            xsfisFF = xsfisFF + popJ(J)
+          enddo
+        enddo
+        close(1)
+        xsZApre(iz, in) = xsZApre(iz, in) + xsfisFF
+        xsApre(ia)      = xsApre(ia)      + xsfisFF
       enddo
     enddo
   endif
