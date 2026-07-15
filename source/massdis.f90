@@ -11,6 +11,7 @@ subroutine massdis
 ! *** Use data from other modules
 !
   use A0_talys_mod
+  use A1_error_handling_mod
 !
 ! Definition of single and double precision variables
 !   sgl             ! single precision kind
@@ -715,26 +716,28 @@ subroutine massdis
         write(fffile(3:5), '(i3.3)') iz
         write(fffile(6:8), '(i3.3)') ia
         inquire (file = fffile , exist = lexist)
+
         if (.not. lexist) cycle
         open(unit = 1, file = fffile, status = 'old')
-        read(1, *) npopEfile, npopJfile, npopPfile
+        read(1, *, iostat = istat) npopEfile, npopJfile, npopPfile
+        if (istat /= 0) call read_error(fffile, istat)
+        if (npopEfile < 1 .or. npopEfile > numpop) then
+          write(*, '(" TALYS-error: invalid number of population energies in ",a)') trim(fffile)
+          stop
+        endif
+        if (npopJfile < 1 .or. npopJfile > numJ + 1) then
+          write(*, '(" TALYS-error: invalid number of spins in ",a)') trim(fffile)
+          stop
+        endif
+        if (npopPfile < 1 .or. npopPfile > 2) then
+          write(*, '(" TALYS-error: fymodel 5 requires one or two parities in ",a)') trim(fffile)
+          stop
+        endif
         xsfisFF = 0.
         popJ = 0.
         do ip = 1, npopPfile
           do nen = 1, npopEfile
             read(1, *) Ebin(nen), (popJ(J),  J = 0, npopJfile - 1)
-            if (npopEfile < 1 .or. npopEfile > numpop) then
-              write(*, '(" TALYS-error: invalid number of population energies in ",a)') trim(fffile)
-              stop
-            endif
-            if (npopJfile < 1 .or. npopJfile > numJ + 1) then
-              write(*, '(" TALYS-error: invalid number of spins in ",a)') trim(fffile)
-              stop
-            endif
-            if (npopPfile < 1 .or. npopPfile > 2) then
-              write(*, '(" TALYS-error: fymodel 5 requires one or two parities in ",a)') trim(fffile)
-              stop
-            endif
             do J = 0, npopJfile - 1
               xsfisFF = xsfisFF + popJ(J)
             enddo
