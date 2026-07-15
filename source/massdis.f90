@@ -135,7 +135,6 @@ subroutine massdis
   real(sgl)          :: Eheavy(2, numpair)                          !
   real(sgl)          :: Elight(2, numpair)                          !
   real(sgl)          :: popJ(0:numJ)                             !
-  real(sgl)          :: poptotal
   real(sgl)          :: fisepsA                                     ! fission tolerance
   real(sgl)          :: fisepsB                                     ! fission tolerance
   real(sgl)          :: Fmulti                                      ! factor for multi-chance fission
@@ -724,7 +723,7 @@ subroutine massdis
         popJ = 0.
         do ip = 1, npopPfile
           do nen = 1, npopEfile
-            read(1, '(f10.5,200es12.5)') Ebin(nen), poptotal, (popJ(J),  J = 0, npopJfile - 1)
+            read(1, *) Ebin(nen), (popJ(J),  J = 0, npopJfile - 1)
             if (npopEfile < 1 .or. npopEfile > numpop) then
               write(*, '(" TALYS-error: invalid number of population energies in ",a)') trim(fffile)
               stop
