@@ -384,6 +384,7 @@ subroutine checkvalue
 !
 ! 1. Check of values for four main keywords.
 !
+  call loadkeyranges
   do type = 0, 6
     if (ptype0 == parsym(type)) goto 20
   enddo
@@ -431,23 +432,23 @@ subroutine checkvalue
     stop
   endif
   if (Lisoinp ==  -1) then
-    call range_integer_error('maxlevelstar', nlevmax, 0, numlev)
-    call range_integer_error('maxlevelsres', nlevmaxres, 0, numlev)
+    call range_integer_error('maxlevelstar', nlevmax, nlevmaxLIM(1), nlevmaxLIM(2))
+    call range_integer_error('maxlevelsres', nlevmaxres, nlevmaxresLIM(1), nlevmaxresLIM(2))
     do type = 0, 6
-      call range_integer_error('maxlevelsbin', nlevbin(type), 0, numlev, index1 = type, name1 = 'type')
+      call range_integer_error('maxlevelsbin', nlevbin(type), nlevbinLIM(1), nlevbinLIM(2), index1 = type, name1 = 'type')
     enddo
   endif
-  call range_real_error('emaxpseudores', emaxpseudores, 0., 100., default = -1.)
-  call range_real_error('pseudoreswidth', pseudoreswidth, 0.001, 10.)
-  call range_real_error('pseudoresfade', pseudoresfade, 0.001, 10.)
+  call range_real_error('emaxpseudores', emaxpseudores, EmaxpseudoresLIM(1), EmaxpseudoresLIM(2), default = -1.)
+  call range_real_error('pseudoreswidth', pseudoreswidth, pseudoreswidthLIM(1), pseudoreswidthLIM(2))
+  call range_real_error('pseudoresfade', pseudoresfade, pseudoresfadeLIM(1), pseudoresfadeLIM(2))
   do Zix = 0, numZ
     do Nix = 0, numN
       Z = Zinit - Zix
       A = Ainit - Zix - Nix
-      call range_integer_error('nlevels', nlev(Zix, Nix), 0, numlev, index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
-      call range_real_error('massnucleus', massnucleus(Zix, Nix), real(A) - 1., real(A) + 1., default = 0., &
+      call range_integer_error('nlevels', nlev(Zix, Nix), nlevLIM(1), nlevLim(2), index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
+      call range_real_error('massnucleus', massnucleus(Zix, Nix), massnucleusLIM(1), massnucleusLIM(2), default = 0., &
  &      index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
-      call range_real_error('massexcess', massexcess(Zix, Nix), -600., 600., default = 0., &
+      call range_real_error('massexcess', massexcess(Zix, Nix), massexcessLIM(1), massexcessLIM(2), default = 0., &
  &      index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
     enddo
   enddo
@@ -464,36 +465,36 @@ subroutine checkvalue
     inquire (file = massfile, exist = lexist)
     if (.not.lexist) write(*, '(" TALYS-warning: Non-existent mass file ",a)') trim(massfile)
   endif
-  if (Lisoinp ==  -1) call range_integer_error('Ltarget', Ltarget, 0, numlev)
-  call range_integer_error('Liso', Lisoinp, 0, 9, default = -1)
-  call range_real_error('isomer', isomer, 0., 1.e38, unit ='s')
-  call range_integer_error('core', core, -1, 1)
+  if (Lisoinp ==  -1) call range_integer_error('Ltarget', Ltarget, LtargetLIM(1), LtargetLIM(2))
+  call range_integer_error('Liso', Lisoinp, LisoinpLIM(1), LisoinpLIM(2), default = -1)
+  call range_real_error('isomer', isomer, isomerLIM(1), isomerLIM(2), unit ='s')
+  call range_integer_error('core', core, coreLIM(1), coreLIM(2))
   if (core ==  0) then
     write(*, '(" TALYS-error: core = -1 or 1")')
     stop
   endif
-  call range_integer_error('transpower', transpower, 2, 20)
-  call range_real_error('transeps', real(transeps), 0., 1.)
-  call range_real_error('xseps', xseps, 0., 1000.)
-  call range_real_error('popeps', popeps, 0., 1000.)
-  call range_real_error('Rfiseps', Rfiseps, 0., 1.)
-  call range_real_error('Elow', eninclow, 1.e-11, 1., default = 0.)
-  call range_integer_error('angles', nangle, 1, numang)
-  call range_integer_error('anglescont', nanglecont, 1, numangcont)
-  call range_integer_error('anglesrec', nanglerec, 1, numangrec)
-  call range_integer_error('maxenrec', maxenrec, 1, numenrec)
-  call range_integer_error('maxchannel', maxchannel, 1, 8)
-  call range_integer_error('massmodel', massmodel, 0, 3)
-  call range_integer_error('disctable', disctable, 1, 3)
-  call range_real_error('astroT', astroT9, 0.0001, 10., default = 0.)
-  call range_real_error('astroE', astroE, 0.00001, 1., default = 0.)
+  call range_integer_error('transpower', transpower, transpowerLIM(1), transpowerLIM(2))
+  call range_real_error('transeps', real(transeps), transepsLIM(1), transepsLIM(2))
+  call range_real_error('xseps', xseps, xsepsLIM(1), xsepsLIM(2))
+  call range_real_error('popeps', popeps, popepsLIM(1), popepsLIM(2))
+  call range_real_error('Rfiseps', Rfiseps, RfisepsLIM(1), RfisepsLIM(2))
+  call range_real_error('Elow', eninclow, eninclowLIM(1), eninclowLIM(2), default = 0.)
+  call range_integer_error('angles', nangle, nangleLIM(1), nangleLIM(2))
+  call range_integer_error('anglescont', nanglecont, nanglecontLIM(1), nanglecontLIM(2))
+  call range_integer_error('anglesrec', nanglerec, nanglerecLIM(1), nanglerecLIM(2))
+  call range_integer_error('maxenrec', maxenrec, maxenrecLIM(1), maxenrecLIM(2))
+  call range_integer_error('maxchannel', maxchannel, maxchannelLIM(1), maxchannelLIM(2))
+  call range_integer_error('massmodel', massmodel, massmodelLIM(1), massmodelLIM(2))
+  call range_integer_error('disctable', disctable, disctableLIM(1), disctableLIM(2))
+  call range_real_error('astroT', astroT9, astroT9LIM(1), astroT9LIM(2), default = 0.)
+  call range_real_error('astroE', astroE, astroELIM(1), astroELIM(2), default = 0.)
   if (astroE /= 0..and.astroT9 /= 0.) then
     write(*, '(" TALYS-error: Only astroE OR astroT can be given")')
     stop
   endif
   if (astroE /= 0.) astroT9 = astroE / kT
   if (astroT9 /= 0.) astroE = astroT9 * kT
-  call range_integer_error('nonthermlev', nonthermlev, 0, numlev, default = -1)
+  call range_integer_error('nonthermlev', nonthermlev, nonthermlevLIM(1), nonthermlevLIM(2), default = -1)
   if (flagprod) then
     if (k0 <= 1) then
       write(*, '(" TALYS-error: isotope production not yet enabled for incident photons or neutrons)")')
@@ -503,11 +504,11 @@ subroutine checkvalue
       write(*, '(" TALYS-error: accelerator energy Ebeam must be given for isotope production (production y)")')
       stop
     endif
-    call range_real_error('Ebeam', Ebeam, 0., Emaxtalys, unit = 'MeV')
+    call range_real_error('Ebeam', Ebeam, EbeamLIM(1), EbeamLIM(2), unit = 'MeV')
     if (Eback ==  -1.) then
       Eback = max(Ebeam - 5., 0.1)
     else
-      call range_real_error('Eback', Eback, 0., Emaxtalys, unit = 'MeV')
+      call range_real_error('Eback', Eback, EbackLIM(1), EbackLIM(2), unit = 'MeV')
     endif
     call range_real_error('Ebeam', Ebeam, Eback, Emaxtalys, unit = 'MeV')
     if (Ebeam > enincmax + 1.e-4) then
@@ -530,11 +531,11 @@ subroutine checkvalue
       write(*, '(" TALYS-error: yieldunit should be equal to num (number), mug (micro-gram), mg, g, or kg")')
       stop
     endif
-    call range_real_error('Ibeam', Ibeam, 0., 10000., unit = 'mA')
-    call range_real_error('Area', Area, 0., 10000., unit = 'cm^2')
+    call range_real_error('Ibeam', Ibeam, IbeamLIM(1), IbeamLIM(2), unit = 'mA')
+    call range_real_error('Area', Area, AreaLIM(1), AreaLIM(2), unit = 'cm^2')
     do k = 1, 5
-      call range_integer_error('Tirrad', Tirrad(k), 0, 1000000, index1 = k, name1 = 'k')
-      call range_integer_error('Tcool', Tcool(k), 0, 1000000, index1 = k, name1 = 'k')
+      call range_integer_error('Tirrad', Tirrad(k), TirradLIM(1), TirradLIM(2), index1 = k, name1 = 'k')
+      call range_integer_error('Tcool', Tcool(k), TcoolLIM(1), TcoolLIM(2), index1 = k, name1 = 'k')
     enddo
     do k = 1, 5
       if (unitTirrad(k) /= ' ' .and. unitTirrad(k) /= 'y' .and. unitTirrad(k) /= 'd' .and. unitTirrad(k) /= 'h' .and. &
@@ -548,9 +549,9 @@ subroutine checkvalue
         stop
       endif
     enddo
-    call range_real_error('rhotarget', rhotarget, 0., 100., default = -1.)
+    call range_real_error('rhotarget', rhotarget, rhotargetLIM(1), rhotargetLIM(2), default = -1.)
   endif
-  call range_real_error('Tres', Tres, 0., 1.e12)
+  call range_real_error('Tres', Tres, TresLIM(1), TresLIM(2))
 !
 ! 3. Check of values of optical model
 !
@@ -664,50 +665,50 @@ subroutine checkvalue
           stop
         endif
       endif
-      call range_real_error('grescue', grescue(mt, is), 0.001, 1000., index1 = mt, name1 = 'MT', index2 = is, name2 = 'iso')
+      call range_real_error('grescue', grescue(mt, is), grescueLIM(1), grescueLIM(2), index1 = mt, name1 = 'MT', index2 = is, name2 = 'iso')
     enddo
   enddo
-  call range_integer_error('alphaomp', alphaomp, 1, 8)
-  call range_integer_error('deuteronomp', deuteronomp, 1, 5)
-  call range_integer_error('radialmodel', radialmodel, 1, 2)
+  call range_integer_error('alphaomp', alphaomp, alphaompLIM(1), alphaompLIM(2))
+  call range_integer_error('deuteronomp', deuteronomp, deuteronompLIM(1), deuteronompLIM(2))
+  call range_integer_error('radialmodel', radialmodel, radialmodelLIM(1), radialmodelLIM(2))
 !
 ! Check adjustable OMP parameters
 !
   do type = 0, 6
-    call range_real_error('rvadjust', rvadjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('avadjust', avadjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('v1adjust', v1adjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('v2adjust', v2adjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('v3adjust', v3adjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('v4adjust', v4adjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('rwadjust', rwadjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('awadjust', awadjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('w1adjust', w1adjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('w2adjust', w2adjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('w3adjust', w3adjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('w4adjust', w4adjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('rvdadjust', rvdadjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('avdadjust', avdadjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('d1adjust', d1adjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('d2adjust', d2adjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('d3adjust', d3adjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('rwdadjust', rwdadjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('awdadjust', awdadjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('rvsoadjust', rvsoadjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('avsoadjust', avsoadjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('vso1adjust', vso1adjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('vso2adjust', vso2adjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('rwsoadjust', rwsoadjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('awsoadjust', awsoadjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('wso1adjust', wso1adjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('wso2adjust', wso2adjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('rcadjust', rcadjust(type), 0.1, 10., index1 = type, name1 = 'type')
-    call range_real_error('ecisstep', ecisstep, 0.01, 1., default = 0.)
+    call range_real_error('rvadjust', rvadjust(type), rvadjustLIM(1), rvadjustLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('avadjust', avadjust(type), avadjustLIM(1), avadjustLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('v1adjust', v1adjust(type), v1adjustLIM(1), v2adjustLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('v2adjust', v2adjust(type), v2adjustLIM(1), v2adjustLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('v3adjust', v3adjust(type), v3adjustLIM(1), v3adjustLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('v4adjust', v4adjust(type), v4adjustLIM(1), v4adjustLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('rwadjust', rwadjust(type), rwadjustLIM(1), rwadjustLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('awadjust', awadjust(type), awadjustLIM(1), awadjustLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('w1adjust', w1adjust(type), w1adjustLIM(1), w1adjustLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('w2adjust', w2adjust(type), w2adjustLIM(1), w2adjustLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('w3adjust', w3adjust(type), w3adjustLIM(1), w3adjustLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('w4adjust', w4adjust(type), w4adjustLIM(1), w4adjustLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('rvdadjust', rvdadjust(type), rvdadjustLIM(1), rvdadjustLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('avdadjust', avdadjust(type), avdadjustLIM(1), avdadjustLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('d1adjust', d1adjust(type), d1adjustLIM(1), d1adjustLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('d2adjust', d2adjust(type), d2adjustLIM(1), d2adjustLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('d3adjust', d3adjust(type), d3adjustLIM(1), d3adjustLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('rwdadjust', rwdadjust(type), rwdadjustLIM(1), rwdadjustLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('awdadjust', awdadjust(type), awdadjustLIM(1), awdadjustLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('rvsoadjust', rvsoadjust(type), rvsoadjustLIM(1), rvsoadjustLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('avsoadjust', avsoadjust(type), avsoadjustLIM(1), avsoadjustLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('vso1adjust', vso1adjust(type), vso1adjustLIM(1), vso1adjustLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('vso2adjust', vso2adjust(type), vso2adjustLIM(1), vso2adjustLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('rwsoadjust', rwsoadjust(type), rwsoadjustLIM(1), rwsoadjustLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('awsoadjust', awsoadjust(type), awsoadjustLIM(1), awsoadjustLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('wso1adjust', wso1adjust(type), wso1adjustLIM(1), wso1adjustLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('wso2adjust', wso2adjust(type), wso2adjustLIM(1), wso2adjustLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('rcadjust', rcadjust(type), rcadjustLIM(1), rcadjustLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('ecisstep', ecisstep, ecisstepLIM(1), ecisstepLIM(2), default = 0.)
     do omptype = 1, numompadj
       do nr = 1, ompadjustN(type, omptype)
-        call range_real_error('ompadjustE1', ompadjustE1(type, omptype, nr), 0., Emaxtalys, &
+        call range_real_error('ompadjustE1', ompadjustE1(type, omptype, nr), ompadjustE1LIM(1), ompadjustE1LIM(2), &
  &        index1 = type, name1 = 'type', index2 = omptype, name2 = 'omptype', index3 = nr, name3 = 'nr')
-        call range_real_error('ompadjustE2', ompadjustE2(type, omptype, nr), 0., Emaxtalys, &
+        call range_real_error('ompadjustE2', ompadjustE2(type, omptype, nr), ompadjustE2LIM(1), ompadjustE2LIM(2), &
  &        index1 = type, name1 = 'type', index2 = omptype, name2 = 'omptype', index3 = nr, name3 = 'nr')
         call range_real_error('ompadjustE2', ompadjustE2(type, omptype, nr),  ompadjustE1(type, omptype, nr), Emaxtalys, &
  &        index1 = type, name1 = 'type', index2 = omptype, name2 = 'omptype', index3 = nr, name3 = 'nr')
@@ -719,33 +720,33 @@ subroutine checkvalue
             stop
           endif
         enddo
-        call range_real_error('ompadjustD', ompadjustD(type, omptype, nr), -100., 100., &
+        call range_real_error('ompadjustD', ompadjustD(type, omptype, nr), ompadjustDLIM(1), ompadjustDLIM(2), &
  &        index1 = type, name1 = 'type', index2 = omptype, name2 = 'omptype', index3 = nr, name3 = 'nr')
-        call range_real_error('ompadjusts', ompadjusts(type, omptype, nr), 0., 100., &
+        call range_real_error('ompadjusts', ompadjusts(type, omptype, nr), ompadjustsLIM(1), ompadjustsLIM(2), &
  &        index1 = type, name1 = 'type', index2 = omptype, name2 = 'omptype', index3 = nr, name3 = 'nr')
       enddo
     enddo
   enddo
-  call range_integer_error('jlmmode', jlmmode, 0, 3)
-  call range_real_error('lvadjust', lvadjust, 0.5, 1.5)
-  call range_real_error('lwadjust', lwadjust, 0.5, 1.5)
-  call range_real_error('lv1adjust', lv1adjust, 0.5, 1.5)
-  call range_real_error('lw1adjust', lw1adjust, 0.5, 1.5)
-  call range_real_error('lvsoadjust', lvsoadjust, 0.5, 1.5)
-  call range_real_error('lwsoadjust', lwsoadjust, 0.5, 1.5)
-  call range_real_error('aradialcor', aradialcor, 0.5, 1.5)
-  call range_real_error('adepthcor', adepthcor, 0.5, 1.5)
-  call range_real_error('soswitch', soswitch, 0.1, 20.)
+  call range_integer_error('jlmmode', jlmmode, jlmmodeLIM(1), jlmmodeLIM(2))
+  call range_real_error('lvadjust', lvadjust, lvadjustLIM(1), lvadjustLIM(2))
+  call range_real_error('lwadjust', lwadjust, lwadjustLIM(1), lwadjustLIM(2))
+  call range_real_error('lv1adjust', lv1adjust, lv1adjustLIM(1), lv1adjustLIM(2))
+  call range_real_error('lw1adjust', lw1adjust, lw1adjustLIM(1), lw1adjustLIM(2))
+  call range_real_error('lvsoadjust', lvsoadjust, lvsoadjustLIM(1), lvsoadjustLIM(2))
+  call range_real_error('lwsoadjust', lwsoadjust, lwsoadjustLIM(1), lwsoadjustLIM(2))
+  call range_real_error('aradialcor', aradialcor, aradialcorLIM(1), aradialcorLIM(2))
+  call range_real_error('adepthcor', adepthcor, adepthcorLIM(1), adepthcorLIM(2))
+  call range_real_error('soswitch', soswitch, soswitchLIM(1), soswitchLIM(2))
   do type = 1, 2
-    call range_real_error('Ejoin', Ejoin(type), 0., Emaxtalys, index1 = type, name1 = 'type')
-    call range_real_error('Vinfadjust', Vinfadjust(type), 0.01, 10., index1 = type, name1 = 'type')
+    call range_real_error('Ejoin', Ejoin(type), EjoinLIM(1), EjoinLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('Vinfadjust', Vinfadjust(type), VinfadjustLIM(1), VinfadjustLIM(2), index1 = type, name1 = 'type')
   enddo
-  call range_integer_error('pruittset', pruittset, 0, 416)
+  call range_integer_error('pruittset', pruittset, pruittsetLIM(1), pruittsetLIM(2))
 !
 ! Check direct reaction parameters
 !
-  call range_integer_error('maxband', maxband, 0, 10)
-  call range_integer_error('maxrot', maxrot, 0, 20)
+  call range_integer_error('maxband', maxband, maxbandLIM(1), maxbandLIM(2))
+  call range_integer_error('maxrot', maxrot, maxrotLIM(1), maxrotLIM(2))
   if (k0 == 0 .and. flaggiant0) then
     write(*, '(" TALYS-error: No giant resonance sumrules for photonuclear reactions")')
     stop
@@ -753,11 +754,11 @@ subroutine checkvalue
 !
 ! 4. Check of values for compound nucleus
 !
-  call range_real_error('ewfc', ewfc, 0., 20., default = -1.)
-  call range_real_error('eurr', eurr, 0., 20., default = -1.)
-  call range_integer_error('wmode', wmode, 0, 3)
+  call range_real_error('ewfc', ewfc, ewfcLIM(1), ewfcLIM(2), default = -1.)
+  call range_real_error('eurr', eurr, eurrLIM(1), eurrLIM(2), default = -1.)
+  call range_integer_error('wmode', wmode, wmodeLIM(1), wmodeLIM(2))
   call range_integer_error('wfcfactor', wfcfactor, 1, 3)
-  call range_integer_error('lurr', lurr, 0, numl)
+  call range_integer_error('lurr', lurr, lurrLIM(1), lurrLIM(2))
   if (k0 == 0 .and. ewfc > 0.) then
     write(*, '(" TALYS-error: No width fluctuations for photonuclear reactions")')
     stop
@@ -785,8 +786,8 @@ subroutine checkvalue
 !
 ! 5. Check of values for gamma emission
 !
-  call range_integer_error('gammax', gammax, 1, 6)
-  call range_integer_error('strength', strength, 1, 13)
+  call range_integer_error('gammax', gammax, gammaxLIM(1), gammaxLIM(2))
+  call range_integer_error('strength', strength, strengthLIM(1), strengthLIM(2))
   if (strength /= 11 .and. flagstrengthjp) then
     write(*,'(" TALYS-error: strengthjp must be n for strength /= 11")')
     stop
@@ -816,82 +817,82 @@ subroutine checkvalue
       A = Ainit - Zix - Nix
       do irad = 0, 1
         do lval = 1, gammax
-          call range_real_error('etable', etable(Zix, Nix, irad, lval), -10., 10., &
+          call range_real_error('etable', etable(Zix, Nix, irad, lval), etableLIM(1), etableLIM(2), &
  &          index1 = Z, name1 = 'Z', index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L')
-          call range_real_error('ftable', ftable(Zix, Nix, irad, lval), 0.1, 10., &
+          call range_real_error('ftable', ftable(Zix, Nix, irad, lval), ftableLIM(1), ftableLIM(2), &
  &          index1 = Z, name1 = 'Z', index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L')
-          call range_real_error('wtable', wtable(Zix, Nix, irad, lval), 0.1, 10., &
+          call range_real_error('wtable', wtable(Zix, Nix, irad, lval), wtableLIM(1), wtableLIM(2), &
  &          index1 = Z, name1 = 'Z', index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L')
-          call range_real_error('etableadjust', etableadjust(Zix, Nix, irad, lval), -10., 10., &
+          call range_real_error('etableadjust', etableadjust(Zix, Nix, irad, lval), etableadjustLIM(1), etableadjustLIM(2), &
  &          index1 = Z, name1 = 'Z', index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L')
-          call range_real_error('ftableadjust', ftableadjust(Zix, Nix, irad, lval), 0.1, 10., &
+          call range_real_error('ftableadjust', ftableadjust(Zix, Nix, irad, lval), ftableadjustLIM(1), ftableadjustLIM(2), &
  &          index1 = Z, name1 = 'Z', index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L')
-          call range_real_error('wtableadjust', wtableadjust(Zix, Nix, irad, lval), 0.1, 10., &
+          call range_real_error('wtableadjust', wtableadjust(Zix, Nix, irad, lval), wtableadjustLIM(1), wtableadjustLIM(2), &
  &          index1 = Z, name1 = 'Z', index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L')
           do igr = 1, 2
-            call range_real_error('energy of GR', egr(Zix, Nix, irad, lval, igr), 1., 100., default = 0., index1 = Z, name1 = 'Z', &
+            call range_real_error('energy of GR', egr(Zix, Nix, irad, lval, igr), egrLIM(1), egrLIM(2), default = 0., index1 = Z, name1 = 'Z', &
  &            index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L', index5 = igr, name5 = 'igr')
-            call range_real_error('width of GR', ggr(Zix, Nix, irad, lval, igr), 0.5, 100., default = 0., index1 = Z, name1 = 'Z', &
+            call range_real_error('width of GR', ggr(Zix, Nix, irad, lval, igr), ggrLIM(1), ggrLIM(2), default = 0., index1 = Z, name1 = 'Z', &
  &            index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L', index5 = igr, name5 = 'igr')
-            call range_real_error('strength of GR', sgr(Zix, Nix, irad, lval, igr), 0., 10000., index1 = Z, name1 = 'Z', &
+            call range_real_error('strength of GR', sgr(Zix, Nix, irad, lval, igr), sgrLIM(1), sgrLIM(2), index1 = Z, name1 = 'Z', &
  &            index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L', index5 = igr, name5 = 'igr')
-            call range_real_error('energy of PR', epr(Zix, Nix, irad, lval, igr), 1., 100., default = 0., index1 = Z, name1 = 'Z', &
+            call range_real_error('energy of PR', epr(Zix, Nix, irad, lval, igr), eprLIM(1), eprLIM(2), default = 0., index1 = Z, name1 = 'Z', &
  &            index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L', index5 = igr, name5 = 'igr')
-            call range_real_error('width of PR', gpr(Zix, Nix, irad, lval, igr), 0.1, 100., default = 0., index1 = Z, name1 = 'Z', &
+            call range_real_error('width of PR', gpr(Zix, Nix, irad, lval, igr), gprLIM(1), gprLIM(2), default = 0., index1 = Z, name1 = 'Z', &
  &            index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L', index5 = igr, name5 = 'igr')
-            call range_real_error('strength of PR', tpr(Zix, Nix, irad, lval, igr), 0., 10000., index1 = Z, name1 = 'Z', &
+            call range_real_error('strength of PR', tpr(Zix, Nix, irad, lval, igr), tprLIM(1), tprLIM(2), index1 = Z, name1 = 'Z', &
  &            index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L', index5 = igr, name5 = 'igr')
-            call range_real_error('egradjust', egradjust(Zix, Nix, irad, lval, igr), 0.05, 20., index1 = Z, name1 = 'Z', &
+            call range_real_error('egradjust', egradjust(Zix, Nix, irad, lval, igr), egradjustLIM(1), egradjustLIM(2), index1 = Z, name1 = 'Z', &
  &            index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L', index5 = igr, name5 = 'igr')
-            call range_real_error('ggradjust', ggradjust(Zix, Nix, irad, lval, igr), 0.05, 20., index1 = Z, name1 = 'Z', &
+            call range_real_error('ggradjust', ggradjust(Zix, Nix, irad, lval, igr), ggradjustLIM(1), ggradjustLIM(2), index1 = Z, name1 = 'Z', &
  &            index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L', index5 = igr, name5 = 'igr')
-            call range_real_error('sgradjust', sgradjust(Zix, Nix, irad, lval, igr), 0.05, 20., index1 = Z, name1 = 'Z', &
+            call range_real_error('sgradjust', sgradjust(Zix, Nix, irad, lval, igr), sgradjustLIM(1), sgradjustLIM(2), index1 = Z, name1 = 'Z', &
  &            index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L', index5 = igr, name5 = 'igr')
-            call range_real_error('epradjust', epradjust(Zix, Nix, irad, lval, igr), 0.05, 20., index1 = Z, name1 = 'Z', &
+            call range_real_error('epradjust', epradjust(Zix, Nix, irad, lval, igr), epradjustLIM(1), epradjustLIM(2), index1 = Z, name1 = 'Z', &
  &            index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L', index5 = igr, name5 = 'igr')
-            call range_real_error('gpradjust', gpradjust(Zix, Nix, irad, lval, igr), 0.05, 20., index1 = Z, name1 = 'Z', &
+            call range_real_error('gpradjust', gpradjust(Zix, Nix, irad, lval, igr), gpradjustLIM(1), gpradjustLIM(2), index1 = Z, name1 = 'Z', &
  &            index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L', index5 = igr, name5 = 'igr')
-            call range_real_error('spradjust', tpradjust(Zix, Nix, irad, lval, igr), 0.05, 20., index1 = Z, name1 = 'Z', &
+            call range_real_error('spradjust', tpradjust(Zix, Nix, irad, lval, igr), tpradjustLIM(1), tpradjustLIM(2), index1 = Z, name1 = 'Z', &
  &            index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L', index5 = igr, name5 = 'igr')
           enddo
-          call range_real_error('upbendc', upbend(Zix, Nix, irad, lval, 1), 0., 1.e-5, index1 = Z, name1 = 'Z', &
+          call range_real_error('upbendc', upbend(Zix, Nix, irad, lval, 1), upbendcLIM(1), upbendcLIM(2), index1 = Z, name1 = 'Z', &
  &          index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L', index5 = 1, name5 = 'igr')
-          call range_real_error('upbende', upbend(Zix, Nix, irad, lval, 2), 0., 10., index1 = Z, name1 = 'Z', &
+          call range_real_error('upbende', upbend(Zix, Nix, irad, lval, 2), upbendeLIM(1), upbendeLIM(2), index1 = Z, name1 = 'Z', &
  &          index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L', index5 = 2, name5 = 'igr')
-          call range_real_error('upbendf', upbend(Zix, Nix, irad, lval, 3), -10., 10., index1 = Z, name1 = 'Z', &
+          call range_real_error('upbendf', upbend(Zix, Nix, irad, lval, 3), upbendfLIM(1), upbendfLIM(2), index1 = Z, name1 = 'Z', &
  &          index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L', index5 = 2, name5 = 'igr')
-          call range_real_error('upbendcadjust', upbendadjust(Zix, Nix, irad, lval, 1), 0.05, 20., index1 = Z, name1 = 'Z', &
+          call range_real_error('upbendcadjust', upbendadjust(Zix, Nix, irad, lval, 1), upbendcadjustLIM(1), upbendcadjustLIM(2), index1 = Z, name1 = 'Z', &
  &          index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L', index5 = 1, name5 = 'igr')
-          call range_real_error('upbendeadjust', upbendadjust(Zix, Nix, irad, lval, 2), 0.05, 20., index1 = Z, name1 = 'Z', &
+          call range_real_error('upbendeadjust', upbendadjust(Zix, Nix, irad, lval, 2), upbendeadjustLIM(1), upbendcadjustLIM(2), index1 = Z, name1 = 'Z', &
  &          index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L', index5 = 2, name5 = 'igr')
-          call range_real_error('upbendfadjust', upbendadjust(Zix, Nix, irad, lval, 3), 0.05, 20., index1 = Z, name1 = 'Z', &
+          call range_real_error('upbendfadjust', upbendadjust(Zix, Nix, irad, lval, 3), upbendfadjustLIM(1), upbendfadjustLIM(2), index1 = Z, name1 = 'Z', &
  &          index2 = A, name2 = 'A', index3 = irad, name3 = 'irad', index4 = lval, name4 = 'L', index5 = 2, name5 = 'igr')
         enddo
       enddo
-      call range_real_error('gamgam', gamgam(Zix, Nix), 0., 10., default = 0., index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
-      call range_real_error('D0', D0(Zix, Nix), 1.e-3, 1.e7, default = 0., unit = 'keV', index1 = Z, name1 = 'Z', &
+      call range_real_error('gamgam', gamgam(Zix, Nix), gamgamLIM(1), gamgamLIM(2), default = 0., index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
+      call range_real_error('D0', D0(Zix, Nix), D0LIM(1), D0LIM(2), default = 0., unit = 'keV', index1 = Z, name1 = 'Z', &
  &      index2 = A, name2 = 'A')
       do type = -1, 6
-        call range_real_error('fiso', fiso(type), 0.01, 100., index1 = Z, name1 = 'Z', index2 = A, name2 = 'A', &
+        call range_real_error('fiso', fiso(type), fisoLIM(1), fisoLIM(2), index1 = Z, name1 = 'Z', index2 = A, name2 = 'A', &
  &        index3 = type, name3 = 'type', default = -1.)
-        call range_real_error('fisom', fisom(type), 0.01, 100., index1 = Z, name1 = 'Z', index2 = A, name2 = 'A', &
+        call range_real_error('fisom', fisom(type), fisomLIM(1), fisomLIM(2), index1 = Z, name1 = 'Z', index2 = A, name2 = 'A', &
  &        index3 = type, name3 = 'type', default = -1.)
       enddo
-      call range_real_error('gamgamadjust', gamgamadjust(Zix, Nix), 0.01, 20., index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
+      call range_real_error('gamgamadjust', gamgamadjust(Zix, Nix), gamgamadjustLIM(1), gamgamadjustLIM(2), index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
     enddo
   enddo
-  call range_real_error('RprimeU', RprimeU, 0., 10.)
+  call range_real_error('RprimeU', RprimeU, RprimeULIM(1), RprimeULIM(2))
   if (flagracap .and. k0 == 0) then
     write(*, '(" TALYS-error: Radiative capture model not possible for incident photons")')
     stop
   endif
-  call range_integer_error('ldmodelracap', ldmodelracap, 1, 3)
-  call range_real_error('levinger', levinger, 0.01, 100.)
+  call range_integer_error('ldmodelracap', ldmodelracap, ldmodelracapLIM(1), ldmodelracapLIM(2))
+  call range_real_error('levinger', levinger, levingerLIM(1), levingerLIM(2))
   do Zix = 0, numZ
     do Nix = 0, numN
-      call range_real_error('sfth', spectfacth(Zix, Nix), 0., 10., index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
+      call range_real_error('sfth', spectfacth(Zix, Nix), spectfacthLIM(1), spectfacthLIM(2), index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
       do i = 0, numlev
-        call range_real_error('sfexp', spectfacexp(Zix, Nix, i), 0., 10., index1 = Z, name1 = 'Z', index2 = A, name2 = 'A', &
+        call range_real_error('sfexp', spectfacexp(Zix, Nix, i), spectfacexpLIM(1), spectfacexpLIM(2), index1 = Z, name1 = 'Z', index2 = A, name2 = 'A', &
  &        index3 = i, name3 = 'level')
       enddo
     enddo
@@ -899,57 +900,57 @@ subroutine checkvalue
 !
 ! 6. Check of values for pre-equilibrium
 !
-  call range_real_error('epreeq', epreeq, 0., Emaxtalys, default = -1.)
-  call range_integer_error('preeqmode', preeqmode, 1, 4)
-  call range_integer_error('mpreeqmode', mpreeqmode, 1, 2)
-  call range_integer_error('breakupmodel', breakupmodel, 1, 2)
-  call range_integer_error('phmodel', phmodel, 1, 2)
-  call range_integer_error('pairmodel', pairmodel, 1, 2)
-  call range_integer_error('pespinmodel', pespinmodel, 1, 4)
-  call range_real_error('emulpre', emulpre, 0., Emaxtalys)
-  call range_real_error('M2constant', M2constant, 0., 100.)
-  call range_real_error('M2limit', M2limit, 0., 100.)
-  call range_real_error('M2shift', M2shift, 0., 100.)
-  call range_real_error('Rpipi', Rpipi, 0., 100.)
-  call range_real_error('Rnunu', Rnunu, 0., 100.)
-  call range_real_error('Rpinu', Rpinu, 0., 100.)
-  call range_real_error('Rnupi', Rnupi, 0., 100.)
-  call range_real_error('Rgamma', Rgamma, 0., 100.)
-  call range_real_error('Esurf', Esurf0, 0., 38., default = -1.)
-  call range_integer_error('msdbins', msdbins, 2, numenmsd/2 - 1, default = 0)
-  call range_real_error('E-in', Emsdmin, 0., Emaxtalys)
-  call range_real_error('elwidth', elwidth, 1.e-6, 100.)
-  call range_real_error('xscaptherm', xscaptherm(-1), 1.e-20, 1.e10, default = 0.)
-  call range_real_error('xsptherm', xsptherm(-1), 1.e-20, 1.e10, default = 0.)
-  call range_real_error('xsalphatherm', xsalphatherm(-1), 1.e-20, 1.e10, default = 0.)
+  call range_real_error('epreeq', epreeq, epreeqLIM(1), epreeqLIM(2), default = -1.)
+  call range_integer_error('preeqmode', preeqmode, preeqmodeLIM(1), preeqmodeLIM(2))
+  call range_integer_error('mpreeqmode', mpreeqmode, mpreeqmodeLIM(1), mpreeqmodeLIM(2))
+  call range_integer_error('breakupmodel', breakupmodel, breakupmodelLIM(1), breakupmodelLIM(2))
+  call range_integer_error('phmodel', phmodel, phmodelLIM(1), phmodelLIM(2))
+  call range_integer_error('pairmodel', pairmodel, pairmodelLIM(1), pairmodelLIM(2))
+  call range_integer_error('pespinmodel', pespinmodel, pespinmodelLIM(1), pespinmodelLIM(2))
+  call range_real_error('emulpre', emulpre, emulpreLIM(1), emulpreLIM(2))
+  call range_real_error('M2constant', M2constant, M2constantLIM(1), M2constantLIM(2))
+  call range_real_error('M2limit', M2limit, M2limitLIM(1), M2limitLIM(2))
+  call range_real_error('M2shift', M2shift, M2shiftLIM(1), M2shiftLIM(2))
+  call range_real_error('Rpipi', Rpipi, RpipiLIM(1), RpipiLIM(2))
+  call range_real_error('Rnunu', Rnunu, RnunuLIM(1), RnunuLIM(2))
+  call range_real_error('Rpinu', Rpinu, RpinuLIM(1), RpinuLIM(2))
+  call range_real_error('Rnupi', Rnupi, RnupiLIM(1), RnupiLIM(2))
+  call range_real_error('Rgamma', Rgamma, RgammaLIM(1), RgammaLIM(2))
+  call range_real_error('Esurf', Esurf0, Esurf0LIM(1), Esurf0LIM(2), default = -1.)
+  call range_integer_error('msdbins', msdbins, msdbinsLIM(1), msdbinsLIM(2), default = 0)
+  call range_real_error('E-in', Emsdmin, EmsdminLIM(1), EmsdminLIM(2))
+  call range_real_error('elwidth', elwidth, elwidthLIM(1), elwidthLIM(2))
+  call range_real_error('xscaptherm', xscaptherm(-1), xscapthermLIM(1), xscapthermLIM(2), default = 0.)
+  call range_real_error('xsptherm', xsptherm(-1), xspthermLIM(1), xspthermLIM(2), default = 0.)
+  call range_real_error('xsalphatherm', xsalphatherm(-1), xsalphathermLIM(1), xsalphathermLIM(2), default = 0.)
   if (k0 == 0 .and. flagpecomp) then
     write(*, '(" TALYS-error: No pick-up and knock-out mechanism for photonuclear reactions")')
     stop
   endif
   do type = 0, 6
-    call range_real_error('Cstrip', Cstrip(type), 0., 100., index1 = type, name1 = 'type')
-    call range_real_error('Cknock', Cknock(type), 0., 100., index1 = type, name1 = 'type')
-    call range_real_error('Cbreak', Cbreak(type), 0., 100., index1 = type, name1 = 'type')
+    call range_real_error('Cstrip', Cstrip(type), CstripLIM(1), CstripLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('Cknock', Cknock(type), CknockLIM(1), CknockLIM(2), index1 = type, name1 = 'type')
+    call range_real_error('Cbreak', Cbreak(type), CbreakLIM(1), CbreakLIM(2), index1 = type, name1 = 'type')
   enddo
-  call range_real_error('GMRadjustE', GMRadjustE, 0.1, 10.)
-  call range_real_error('GQRadjustE', GQRadjustE, 0.1, 10.)
-  call range_real_error('LEORadjustE', LEORadjustE, 0.1, 10.)
-  call range_real_error('HEORadjustE', HEORadjustE, 0.1, 10.)
-  call range_real_error('GMRadjustG', GMRadjustG, 0.1, 10.)
-  call range_real_error('GQRadjustG', GQRadjustG, 0.1, 10.)
-  call range_real_error('LEORadjustG', LEORadjustG, 0.1, 10.)
-  call range_real_error('HEORadjustG', HEORadjustG, 0.1, 10.)
-  call range_real_error('GMRadjustD', GMRadjustD, 0.1, 10.)
-  call range_real_error('GQRadjustD', GQRadjustD, 0.1, 10.)
-  call range_real_error('LEORadjustD', LEORadjustD, 0.1, 10.)
-  call range_real_error('HEORadjustD', HEORadjustD, 0.1, 10.)
+  call range_real_error('GMRadjustE', GMRadjustE, GMRadjustELIM(1), GMRadjustELIM(2))
+  call range_real_error('GQRadjustE', GQRadjustE, GQRadjustELIM(1), GQRadjustELIM(2))
+  call range_real_error('LEORadjustE', LEORadjustE, LEORadjustELIM(1), LEORadjustELIM(2))
+  call range_real_error('HEORadjustE', HEORadjustE, HEORadjustELIM(1), HEORadjustELIM(2))
+  call range_real_error('GMRadjustG', GMRadjustG, GMRadjustGLIM(1), GMRadjustGLIM(2))
+  call range_real_error('GQRadjustG', GQRadjustG, GQRadjustGLIM(1), GQRadjustGLIM(2))
+  call range_real_error('LEORadjustG', LEORadjustG, LEORadjustGLIM(1), LEORadjustGLIM(2))
+  call range_real_error('HEORadjustG', HEORadjustG, HEORadjustGLIM(1), HEORadjustGLIM(2))
+  call range_real_error('GMRadjustD', GMRadjustD, GMRadjustDLIM(1), GMRadjustDLIM(2))
+  call range_real_error('GQRadjustD', GQRadjustD, GQRadjustDLIM(1), GQRadjustDLIM(2))
+  call range_real_error('LEORadjustD', LEORadjustD, LEORadjustDLIM(1), LEORadjustDLIM(2))
+  call range_real_error('HEORadjustD', HEORadjustD, HEORadjustDLIM(1), HEORadjustDLIM(2))
 !
 ! 7. Check of values for level densities
 !
-  call range_integer_error('spincutmodel', spincutmodel, 1, 2)
-  call range_integer_error('shellmodel', shellmodel, 1, 2)
-  call range_integer_error('kvibmodel', kvibmodel, 1, 2)
-  call range_integer_error('ldmodelcn', ldmodelCN, 1, 7)
+  call range_integer_error('spincutmodel', spincutmodel, spincutmodelLIM(1), spincutmodelLIM(2))
+  call range_integer_error('shellmodel', shellmodel, shellmodelLIM(1), shellmodelLIM(2))
+  call range_integer_error('kvibmodel', kvibmodel, kvibmodelLIM(1), kvibmodelLIM(2))
+  call range_integer_error('ldmodelcn', ldmodelCN, ldmodelCNLIM(1), ldmodelCNLIM(2))
   if (.not. flaglegacy) then
     if (ldmodelCN == 3 .or. ldmodelCN == 4 .or. ldmodelCN == 6) then
       write(*,'(" TALYS-error: ldmodelCN = 1, 2, 5, or 7 are recommended. If you want to use legacy models put legacy y")')
@@ -974,74 +975,74 @@ subroutine checkvalue
           stop
         endif
       endif
-      call range_real_error('a', alev(Zix, Nix), 1., 100., default = 0.,  index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
-      call range_real_error('alimit', alimit(Zix, Nix), 1., 100., default = 0.,  index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
-      call range_real_error('gammald', gammald(Zix, Nix), 0., 1., default = -1.,  index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
-      call range_real_error('risomer', Risomer(Zix, Nix), 0.1, 10., index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
+      call range_real_error('a', alev(Zix, Nix), alevLIM(1), alevLIM(2), default = 0.,  index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
+      call range_real_error('alimit', alimit(Zix, Nix), alimitLIM(1), alimitLIM(2), default = 0.,  index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
+      call range_real_error('gammald', gammald(Zix, Nix), gammaldLIM(1), gammaldLIM(2), default = -1.,  index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
+      call range_real_error('risomer', Risomer(Zix, Nix), RisomerLIM(1), RisomerLIM(2), index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
       do ibar = 0, numbar
-        call range_real_error('deltaW', deltaW(Zix, Nix, ibar), -20., 20., default = 0.,  index1 = Z, name1 = 'Z', &
+        call range_real_error('deltaW', deltaW(Zix, Nix, ibar), deltaWLIM(1), deltaWLIM(2), default = 0.,  index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_integer_error('Nlow', Nlow(Zix, Nix, ibar), 0, 200, default = -1,  index1 = Z, name1 = 'Z', &
+        call range_integer_error('Nlow', Nlow(Zix, Nix, ibar), NlowLIM(1), NlowLIM(2), default = -1,  index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_integer_error('Ntop', Ntop(Zix, Nix, ibar), 0, 200, default = -1,  index1 = Z, name1 = 'Z', &
+        call range_integer_error('Ntop', Ntop(Zix, Nix, ibar), NtopLIM(1), NtopLIM(2), default = -1,  index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
         call range_integer_error('Ntop', Ntop(Zix, Nix, ibar), Nlow(Zix, Nix, ibar), 200, default = -1,  index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_real_error('E0', E0(Zix, Nix, ibar), -15., 15., default = 0.,  index1 = Z, name1 = 'Z', &
+        call range_real_error('E0', E0(Zix, Nix, ibar), E0LIM(1), E0LIM(2), default = 0.,  index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_real_error('beta2', beta2(Zix, Nix, ibar), -0.5, 1.5, index1 = Z, name1 = 'Z', &
+        call range_real_error('beta2', beta2(Zix, Nix, ibar), beta2LIM(1), beta2LIM(2), index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_real_error('s2adjust', s2adjust(Zix, Nix, ibar), 0.02, 50., index1 = Z, name1 = 'Z', &
+        call range_real_error('s2adjust', s2adjust(Zix, Nix, ibar), s2adjustLIM(1), s2adjustLIM(2), index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_real_error('Krotconstant', Krotconstant(Zix, Nix, ibar), 0.001, 1000., index1 = Z, name1 = 'Z', &
+        call range_real_error('Krotconstant', Krotconstant(Zix, Nix, ibar), KrotconstantLIM(1), KrotconstantLIM(2), index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_real_error('Ufermi', ufermi(Zix, Nix, ibar), 0., 1000., index1 = Z, name1 = 'Z', &
+        call range_real_error('Ufermi', Ufermi(Zix, Nix, ibar), UfermiLIM(1), UfermiLIM(2), index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_real_error('cfermi', cfermi(Zix, Nix, ibar), 0., 1000., index1 = Z, name1 = 'Z', &
+        call range_real_error('cfermi', cfermi(Zix, Nix, ibar), cfermiLIM(1), cfermiLIM(2), index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_real_error('T', T(Zix, Nix, ibar), 1.e-3, 10., default = 0.,  index1 = Z, name1 = 'Z', &
+        call range_real_error('T', T(Zix, Nix, ibar), TLIM(1), TLIM(2), default = 0.,  index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_real_error('Exmatch', Exmatch(Zix, Nix, ibar), 0.05, 20., default = 0.,  index1 = Z, name1 = 'Z', &
+        call range_real_error('Exmatch', Exmatch(Zix, Nix, ibar), ExmatchLIM(1), ExmatchLIM(2), default = 0.,  index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_real_error('Tadjust', Tadjust(Zix, Nix, ibar), 0.05, 20., default = 0.,  index1 = Z, name1 = 'Z', &
+        call range_real_error('Tadjust', Tadjust(Zix, Nix, ibar), TadjustLIM(1), TadjustLIM(2), default = 0.,  index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_real_error('E0adjust', E0adjust(Zix, Nix, ibar), 0.02, 50., default = 0.,  index1 = Z, name1 = 'Z', &
+        call range_real_error('E0adjust', E0adjust(Zix, Nix, ibar), E0adjustLIM(1), E0adjustLIM(2), default = 0.,  index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_real_error('Exmatchadjust', Exmatchadjust(Zix, Nix, ibar), 0.2, 2., index1 = Z, name1 = 'Z', &
+        call range_real_error('Exmatchadjust', Exmatchadjust(Zix, Nix, ibar), ExmatchadjustLIM(1), ExmatchadjustLIM(2), index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_real_error('Pshift', Pshift(Zix, Nix, ibar), -10., 10., index1 = Z, name1 = 'Z', &
+        call range_real_error('Pshift', Pshift(Zix, Nix, ibar), PshiftLIM(1), PshiftLIM(2), index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_real_error('Pshiftadjust', Pshiftadjust(Zix, Nix, ibar), -10., 10., index1 = Z, name1 = 'Z', &
+        call range_real_error('Pshiftadjust', Pshiftadjust(Zix, Nix, ibar), PshiftadjustLIM(1), PshiftadjustLIM(2), index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_real_error('ctable', ctable(Zix, Nix, ibar), -10., 10., default = 0., index1 = Z, name1 = 'Z', &
+        call range_real_error('ctable', ctable(Zix, Nix, ibar), ctableLIM(1), ctableLIM(2), default = 0., index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_real_error('ptable', ptable(Zix, Nix, ibar), -10., 10., default = 0., index1 = Z, name1 = 'Z', &
+        call range_real_error('ptable', ptable(Zix, Nix, ibar), ptableLIM(1), ptableLIM(2), default = 0., index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_real_error('ctableadjust', ctableadjust(Zix, Nix, ibar), -10., 10., default = 0., index1 = Z, name1 = 'Z', &
+        call range_real_error('ctableadjust', ctableadjust(Zix, Nix, ibar), ctableadjustLIM(1), ctableadjustLIM(2), default = 0., index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_real_error('ptableadjust', ptableadjust(Zix, Nix, ibar), -10., 10., default = 0., index1 = Z, name1 = 'Z', &
+        call range_real_error('ptableadjust', ptableadjust(Zix, Nix, ibar), ptableadjustLIM(1), ptableadjustLIM(2), default = 0., index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
       enddo
-      call range_real_error('aadjust', aadjust(Zix, Nix), 0.1, 10., index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
-      call range_real_error('gadjust', gadjust(Zix, Nix), 0.1, 10., index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
-      call range_real_error('gnadjust', gnadjust(Zix, Nix), 0.1, 10., index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
-      call range_real_error('gpadjust', gpadjust(Zix, Nix), 0.1, 10., index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
-      call range_real_error('pair', pair(Zix, Nix), -10., 10., index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
-      call range_real_error('g', g(Zix, Nix), 0.1, 100., default = 0., index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
-      call range_real_error('gn', gn(Zix, Nix), 0.1, 100., default = 0., index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
-      call range_real_error('gp', gp(Zix, Nix), 0.1, 100., default = 0., index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
-      call range_real_error('alphald', alphald(Zix, Nix), 0.01, 0.2, index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
-      call range_real_error('betald', betald(Zix, Nix), -0.5, 0.5, index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
+      call range_real_error('aadjust', aadjust(Zix, Nix), aadjustLIM(1), aadjustLIM(2), index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
+      call range_real_error('gadjust', gadjust(Zix, Nix), gadjustLIM(1), gadjustLIM(2), index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
+      call range_real_error('gnadjust', gnadjust(Zix, Nix), gnadjustLIM(1), gnadjustLIM(2), index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
+      call range_real_error('gpadjust', gpadjust(Zix, Nix), gpadjustLIM(1), gpadjustLIM(2), index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
+      call range_real_error('pair', pair(Zix, Nix), pairLIM(1), pairLIM(2), index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
+      call range_real_error('g', g(Zix, Nix), gLIM(1), gLIM(2), default = 0., index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
+      call range_real_error('gn', gn(Zix, Nix), gnLIM(1), gnLIM(2), default = 0., index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
+      call range_real_error('gp', gp(Zix, Nix), gpLIM(1), gpLIM(2), default = 0., index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
+      call range_real_error('alphald', alphald(Zix, Nix), alphaldLIM(1), alphaldLIM(2), index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
+      call range_real_error('betald', betald(Zix, Nix), betaldLIM(1), betaldLIM(2), index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
       if (betald(Zix, Nix) < 0..and. abs(betald(Zix, Nix)) > alphald(Zix, Nix)) then
         write(*, '(" TALYS-error: if betald<0, |betald|<alphald")')
         stop
       endif
-      call range_real_error('gammashell1', gammashell1(Zix, Nix), 0., 1., index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
-      call range_real_error('Pshiftconstant', Pshiftconstant(Zix, Nix), -5., 5., index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
+      call range_real_error('gammashell1', gammashell1(Zix, Nix), gammashell1LIM(1), gammashell1LIM(2), index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
+      call range_real_error('Pshiftconstant', Pshiftconstant(Zix, Nix), PshiftconstantLIM(1), PshiftconstantLIM(2), index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
     enddo
   enddo
-  call range_real_error('cglobal', cglobal, -10., 10., default = 0.)
-  call range_real_error('pglobal', pglobal, -10., 10., default = 0.)
+  call range_real_error('cglobal', cglobal, cglobalLIM(1), cglobalLIM(2), default = 0.)
+  call range_real_error('pglobal', pglobal, pglobalLIM(1), pglobalLIM(2), default = 0.)
 !
 ! There are many input possibilities for the energy dependent level density parameter of the Ignatyuk formula.
 ! The required parameters are alev, alimit, gammald and deltaW.
@@ -1059,12 +1060,12 @@ subroutine checkvalue
       enddo
     enddo
   enddo
-  call range_real_error('gammashell2', gammashell2, 0., 0.2)
-  call range_real_error('pairconstant', pairconstant, 0., 30.)
-  call range_real_error('Kph', Kph, 1., 100.)
-  call range_real_error('Rspincut', Rspincut, 0., 10.)
-  call range_real_error('Rspincutpreeq', Rspincutpreeq, 0., 10.)
-  call range_real_error('Rspincutff', Rspincutff, 0., 20.)
+  call range_real_error('gammashell2', gammashell2, gammashell2LIM(1), gammashell2LIM(2))
+  call range_real_error('pairconstant', pairconstant, pairconstantLIM(1), pairconstantLIM(2))
+  call range_real_error('Kph', Kph, KphLIM(1), KphLIM(2))
+  call range_real_error('Rspincut', Rspincut, RspincutLIM(1), RspincutLIM(2))
+  call range_real_error('Rspincutpreeq', Rspincutpreeq, RspincutpreeqLIM(1), RspincutpreeqLIM(2))
+  call range_real_error('Rspincutff', Rspincutff, RspincutffLIM(1), RspincutffLIM(2))
 !
 ! 8. Check of values for fission
 !
@@ -1076,21 +1077,21 @@ subroutine checkvalue
     write(*, '(" TALYS-error: Fission yield calculation not possible for natural targets")')
     stop
   endif
-  call range_integer_error('fismodel', fismodel, 1, 6)
-  call range_integer_error('fismodelalt', fismodelalt, 3, 4)
+  call range_integer_error('fismodel', fismodel, fismodelLIM(1), fismodelLIM(2))
+  call range_integer_error('fismodelalt', fismodelalt, fismodelaltLIM(1), fismodelaltLIM(2))
   if (fismodel < 5 .and. flagfispartdamp) then
     write(*,'(" TALYS-error: Fission partial damping only allowed for fismodel 5 or 6")')
     stop
   endif
-  call range_integer_error('fymodel', fymodel, 1, 5)
-  call range_integer_error('ffmodel', ffmodel, 0, 4)
-  call range_integer_error('pfnsmodel', pfnsmodel, 1, 2)
-  call range_integer_error('gefran', gefran, 1000, 1000000)
-  call range_real_error('Cnubar1', Cnubar1, 0.1, 10.)
-  call range_real_error('Cnubar2', Cnubar2, 0.1, 10.)
-  call range_real_error('Tmadjust', Tmadjust, 0.1, 10.)
-  call range_real_error('Fsadjust', Fsadjust, 0.1, 10.)
-  call range_real_error('Cbarrier', Cbarrier, 0.1, 10.)
+  call range_integer_error('fymodel', fymodel, fymodelLIM(1), fymodelLIM(2))
+  call range_integer_error('ffmodel', ffmodel, ffmodelLIM(1), ffmodelLIM(2))
+  call range_integer_error('pfnsmodel', pfnsmodel, pfnsmodelLIM(1), pfnsmodelLIM(2))
+  call range_integer_error('gefran', gefran, gefranLIM(1), gefranLIM(2))
+  call range_real_error('Cnubar1', Cnubar1, Cnubar1LIM(1), Cnubar1LIM(2))
+  call range_real_error('Cnubar2', Cnubar2, Cnubar2LIM(1), Cnubar2LIM(2))
+  call range_real_error('Tmadjust', Tmadjust, TmadjustLIM(1), TmadjustLIM(2))
+  call range_real_error('Fsadjust', Fsadjust, FsadjustLIM(1), FsadjustLIM(2))
+  call range_real_error('Cbarrier', Cbarrier, CbarrierLIM(1), CbarrierLIM(2))
   if (yieldfile(1:1) /= ' ') then
     inquire (file = yieldfile, exist = lexist)
     if ( .not. lexist) then
@@ -1101,38 +1102,38 @@ subroutine checkvalue
   do Zix = 0, numZ
     do Nix = 0, numN
       do ibar = 1, numbar
-        call range_integer_error('type of axiality', axtype(Zix, Nix, ibar), 1, 5, default = 0, index1 = Z, name1 = 'Z', &
+        call range_integer_error('type of axiality', axtype(Zix, Nix, ibar), axtypeLIM(1), axtypeLIM(2), default = 0, index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_real_error('fission barrier', fbarrier(Zix, Nix, ibar), 0., 100., default = 0., index1 = Z, name1 = 'Z', &
+        call range_real_error('fission barrier', fbarrier(Zix, Nix, ibar), fbarrierLIM(1), fbarrierLIM(2), default = 0., index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_real_error('fisbaradjust', fbaradjust(Zix, Nix, ibar), 0.02, 50., default = 0., index1 = Z, name1 = 'Z', &
+        call range_real_error('fisbaradjust', fbaradjust(Zix, Nix, ibar), fbaradjustLIM(1), fbaradjustLIM(2), default = 0., index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_real_error('fission width', fwidth(Zix, Nix, ibar), 0.01, 10., default = 0., index1 = Z, name1 = 'Z', &
+        call range_real_error('fission width', fwidth(Zix, Nix, ibar), fwidthLIM(1), fwidthLIM(2), default = 0., index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_real_error('fishwadjust', fwidthadjust(Zix, Nix, ibar), 0.02, 50., default = 0., index1 = Z, name1 = 'Z', &
+        call range_real_error('fishwadjust', fwidthadjust(Zix, Nix, ibar), fwidthadjustLIM(1), fwidthadjustLIM(2), default = 0., index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_real_error('bdamp', bdamp(Zix, Nix, ibar), 0., 50., default = 0., index1 = Z, name1 = 'Z', &
+        call range_real_error('bdamp', bdamp(Zix, Nix, ibar), bdampLIM(1), bdampLIM(2), default = 0., index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_real_error('bdampadjust', bdampadjust(Zix, Nix, ibar), 0.01, 100., default = 0., index1 = Z, name1 = 'Z', &
+        call range_real_error('bdampadjust', bdampadjust(Zix, Nix, ibar), bdampadjustLIM(1), bdampadjustLIM(2), default = 0., index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_real_error('Rtransmom', Rtransmom(Zix, Nix, ibar), 0.05, 20., default = 0., index1 = Z, name1 = 'Z', &
+        call range_real_error('Rtransmom', Rtransmom(Zix, Nix, ibar), RtransmomLIM(1), RtransmomLIM(2), default = 0., index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_real_error('Rclass2mom', Rclass2mom(Zix, Nix, ibar), 0.05, 20., default = 0., index1 = Z, name1 = 'Z', &
+        call range_real_error('Rclass2mom', Rclass2mom(Zix, Nix, ibar), Rclass2momLIM(1), Rclass2momLIM(2), default = 0., index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
-        call range_real_error('class2width', widthc2(Zix, Nix, ibar), 0.01, 10., default = 0., index1 = Z, name1 = 'Z', &
+        call range_real_error('class2width', widthc2(Zix, Nix, ibar), widthc2LIM(1), widthc2LIM(2), default = 0., index1 = Z, name1 = 'Z', &
  &        index2 = A, name2 = 'A', index3 = ibar, name3 = 'barrier')
       enddo
-      call range_real_error('betafiscor', betafiscor(Zix, Nix), 0.05, 20., default = 0., index1 = Z, name1 = 'Z', &
+      call range_real_error('betafiscor', betafiscor(Zix, Nix), betafiscorLIM(1), betafiscorLIM(2), default = 0., index1 = Z, name1 = 'Z', &
  &      index2 = A, name2 = 'A')
-      call range_real_error('rmiufiscor', rmiufiscor(Zix, Nix), 0.01, 50., default = -1., index1 = Z, name1 = 'Z', &
+      call range_real_error('rmiufiscor', rmiufiscor(Zix, Nix), rmiufiscorLIM(1), rmiufiscorLIM(2), default = -1., index1 = Z, name1 = 'Z', &
  &      index2 = A, name2 = 'A')
-      call range_real_error('vfiscor', vfiscor(Zix, Nix), 0.05, 20., default = -1., index1 = Z, name1 = 'Z', &
+      call range_real_error('vfiscor', vfiscor(Zix, Nix), vfiscorLIM(1), vfiscorLIM(2), default = -1., index1 = Z, name1 = 'Z', &
  &      index2 = A, name2 = 'A')
-      call range_real_error('betafiscoradjust', betafiscoradjust(Zix, Nix), 0.1, 10., default = 0., index1 = Z, name1 = 'Z', &
+      call range_real_error('betafiscoradjust', betafiscoradjust(Zix, Nix), betafiscoradjustLIM(1), betafiscoradjustLIM(2), default = 0., index1 = Z, name1 = 'Z', &
  &      index2 = A, name2 = 'A')
-      call range_real_error('vfiscoradjust', vfiscoradjust(Zix, Nix), 0.1, 10., default = 0., index1 = Z, name1 = 'Z', &
+      call range_real_error('vfiscoradjust', vfiscoradjust(Zix, Nix), vfiscoradjustLIM(1), vfiscoradjustLIM(2), default = 0., index1 = Z, name1 = 'Z', &
  &      index2 = A, name2 = 'A')
-      call range_real_error('rmiufiscoradjust', rmiufiscoradjust(Zix, Nix), 0.01, 50., default = 0., index1 = Z, name1 = 'Z', &
+      call range_real_error('rmiufiscoradjust', rmiufiscoradjust(Zix, Nix), rmiufiscoradjustLIM(1), rmiufiscoradjustLIM(2), default = 0., index1 = Z, name1 = 'Z', &
  &      index2 = A, name2 = 'A')
       if (flagsffactor) then
         if (rmiufiscor(Zix, Nix) /= -1. .and. vfiscor(Zix, Nix) /= -1.) then
@@ -1148,16 +1149,16 @@ subroutine checkvalue
 !
 ! 9. Check of values for output
 !
-  call range_real_error('eadd', eadd, 0., Emaxtalys, unit = 'MeV')
-  call range_real_error('eaddel', eaddel, 0., Emaxtalys, unit = 'MeV')
-  call range_integer_error('ddxmode', ddxmode, 0, 3)
+  call range_real_error('eadd', eadd, eaddLIM(1), eaddLIM(2), unit = 'MeV')
+  call range_real_error('eaddel', eaddel, eaddelLIM(1), eaddelLIM(2), unit = 'MeV')
+  call range_integer_error('ddxmode', ddxmode, ddxmodeLIM(1), ddxmodeLIM(2))
   do type = 0, 6
     do i = 1, ddxecount(type)
-      call range_real_error('fileddxe', fileddxe(type, i), 0., enincmax, default = 0., index1 = type, name1 = 'type', &
+      call range_real_error('fileddxe', fileddxe(type, i), fileddxeLIM(1), fileddxeLIM(2), default = 0., index1 = type, name1 = 'type', &
  &      index2 = i, name2 = 'i')
     enddo
     do i = 1, ddxacount(type)
-      call range_real_error('fileddxa', fileddxa(type, i), 0., 180., default = 0., index1 = type, name1 = 'type', &
+      call range_real_error('fileddxa', fileddxa(type, i), fileddxaLIM(1), fileddxaLIM(2), default = 0., index1 = type, name1 = 'type', &
  &      index2 = i, name2 = 'i')
     enddo
   enddo
@@ -1176,7 +1177,7 @@ subroutine checkvalue
  &      " be given as follows: Ea Eb Em D, with Ea < Em < Eb for keyword ", a)') trim(adjustkey(n))
       stop
     endif
-    call range_real_error(adjustkey(n), D, 0., 10., index1 = n, name1 = 'n')
+    call range_real_error(adjustkey(n), D, DLIM(1), DLIM(2), index1 = n, name1 = 'n')
     do m = 1, Nadjust
       if (m == n) cycle
       if (adjustkey(m) /= adjustkey(n)) cycle
