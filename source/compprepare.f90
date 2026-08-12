@@ -232,7 +232,7 @@ subroutine compprepare(Zcomp, Ncomp, J2, parity)
 ! If not, the sum over j,l of the transmission coefficients can be lumped into one factor, which decreases the calculation time.
 ! In the latter case, the partial decay widths are stored in enumhf.
 !
-  enumhf(k0, Ltarget, int(targetspin), targetP) = feed
+  enumhf(int(targetspin), targetP, k0, Ltarget) = feed
   tNinc = tnum
 !
 ! ********************* Loop over outgoing channels ********************
@@ -294,8 +294,8 @@ subroutine compprepare(Zcomp, Ncomp, J2, parity)
 !
         do Irspin2 = Irspin2beg, Irspin2end, 2
           Ir = Irspin2 / 2
-          enumhf(type, nexout, Ir, Pprime) = 0.
-          rho = rho0(type, nexout, Ir, Pprime)
+          enumhf(Ir, Pprime, type, nexout) = 0.
+          rho = rho0(Ir, Pprime, type, nexout)
           if (rho < 1.e-20) cycle
           if (flagastro .and. .not. flagastrogs) then
             J2maxastro = int(2 * (lmaxhf(k0, nexout) + parspin(k0) + Ir))
@@ -328,7 +328,7 @@ subroutine compprepare(Zcomp, Ncomp, J2, parity)
                 else
                   irad = 0
                 endif
-                Tout = Tgam(nexout, lprime, irad, J, parity)
+                Tout = Tgam(lprime, nexout, irad, J, parity)
               else
 !
 ! 2. Particles
@@ -338,7 +338,7 @@ subroutine compprepare(Zcomp, Ncomp, J2, parity)
 !
                 if (modl /= pardif2) cycle
                 updown2 = (jj2prime - l2prime) / pspin2o
-                Tout = Tjlnex(type, nexout, updown2, lprime)
+                Tout = Tjlnex(lprime, updown2, type, nexout)
               endif
 !
 ! The contribution is added to the total width.
@@ -368,8 +368,8 @@ subroutine compprepare(Zcomp, Ncomp, J2, parity)
 ! If NO width fluctuation corrections or angular distributions are required, the partial decay width is used in
 ! subroutine comptarget.
 !
-                if ( .not. flagcompang) enumhf(type, nexout, Ir, Pprime) = &
-                  enumhf(type, nexout, Ir, Pprime) + factor
+                if ( .not. flagcompang) enumhf(Ir, Pprime, type, nexout) = &
+                  enumhf(Ir, Pprime, type, nexout) + factor
               endif
 !
 ! Astrophysical case
