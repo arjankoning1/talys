@@ -165,7 +165,7 @@ subroutine astroprepare(Zcomp, Ncomp, J2, parity, spin2target, Ptarget, nexastro
 !
   jj2beg = abs(J2 - spin2target)
   jj2end = J2 + spin2target
-  rho = rho0(k0, nexastro, spintarget, Ptarget)
+  rho = rho0(spintarget, Ptarget, k0, nexastro)
 !
 ! Loop over j (jj2) of incident channel
 !
@@ -192,11 +192,11 @@ subroutine astroprepare(Zcomp, Ncomp, J2, parity, spin2target, Ptarget, nexastro
         else
           irad = 0
         endif
-        Tinc = Tgam(nexastro, l, irad, J, parity)
+        Tinc = Tgam(l, nexastro, irad, J, parity)
       else
         if (modl /= pardif) cycle
         updown = (jj2 - l2) / pspin2i
-        Tinc = Tjlnex(k0, nexastro, updown, l)
+        Tinc = Tjlnex(updown, l, k0, nexastro)
       endif
       if (flagwidth) then
         if (Tinc > 0.) then
@@ -239,7 +239,7 @@ subroutine astroprepare(Zcomp, Ncomp, J2, parity, spin2target, Ptarget, nexastro
     enddo
     tNinc = tnum
   else
-    enumhf(k0, nexastro, spintarget, Ptarget) = feed
+    enumhf(spintarget, Ptarget, k0, nexastro) = feed
     if (feed < transeps) return
   endif
 !
@@ -303,8 +303,8 @@ subroutine astroprepare(Zcomp, Ncomp, J2, parity, spin2target, Ptarget, nexastro
         pardif2 = abs(parity - Pprime) / 2
         do Irspin2 = Irspin2beg, Irspin2end, 2
           Ir = Irspin2 / 2
-          enumhf(type, nexout, Ir, Pprime) = 0.
-          rho = rho0(type, nexout, Ir, Pprime)
+          enumhf(Ir, Pprime, type, nexout) = 0.
+          rho = rho0(Ir, Pprime, type, nexout)
           if (rho < 1.0d-20) cycle
           jj2primebeg = abs(J2 - Irspin2)
           jj2primeend = J2 + Irspin2
@@ -327,7 +327,7 @@ subroutine astroprepare(Zcomp, Ncomp, J2, parity, spin2target, Ptarget, nexastro
                 else
                   irad = 0
                 endif
-                Tout = Tgam(nexout, lprime, irad, J, parity)
+                Tout = Tgam(lprime, nexout, irad, J, parity)
               else
 !
 ! 2. Particles
@@ -337,7 +337,7 @@ subroutine astroprepare(Zcomp, Ncomp, J2, parity, spin2target, Ptarget, nexastro
 !
                 if (modl /= pardif2) cycle
                 updown2 = (jj2prime - l2prime) / pspin2o
-                Tout = Tjlnex(type, nexout, updown2, lprime)
+                Tout = Tjlnex(lprime, updown2, type, nexout)
               endif
 !
 ! The contribution is added to the total width.
@@ -356,7 +356,7 @@ subroutine astroprepare(Zcomp, Ncomp, J2, parity, spin2target, Ptarget, nexastro
                   Tastroout(1, type, nexout, Ir, Pprime) = Tastroout(1, type, nexout, Ir, Pprime) + rho * Tout
                 endif
               else
-                enumhf(type, nexout, Ir, Pprime) = enumhf(type, nexout, Ir, Pprime) + factor
+                enumhf(Ir, Pprime, type, nexout) = enumhf(Ir, Pprime, type, nexout) + factor
               endif
             enddo
           enddo
