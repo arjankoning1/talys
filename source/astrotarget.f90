@@ -169,7 +169,7 @@ subroutine astrotarget
 !
       do spin2target = spin2beg, spin2end, 2
         spintarget = spin2target / 2
-        rhoinc = rho0(k0, nexastro, spintarget, Ptarget)
+        rhoinc = rho0(spintarget, Ptarget, k0, nexastro)
         if (rhoinc == 0.) cycle
         J2cnend = int(2 * (lmaxhf(k0, nexastro) + parspin(k0) + spintarget))
         J2cnend = min(J2cnend, numJ)
@@ -292,9 +292,9 @@ subroutine astrotarget
                       endif
                       fluxsum = fluxsum + factor1
                     else
-                      factor1 = feed * enumhf(type, nexout, Ir, Pprime) / denomhf
+                      factor1 = feed * enumhf(Ir, Pprime, type, nexout) / denomhf
                       if (flagastro .and. elastic) then
-                        sumIPas = sumIPas + CNfactor * (J2 + 1) * enumhf(type, nexout, Ir, Pprime) **2 / denomhf
+                        sumIPas = sumIPas + CNfactor * (J2 + 1) * enumhf(Ir, Pprime, type, nexout) **2 / denomhf
                       endif
                     endif
                     compterm = CNfactor * (J2 + 1.) * factor1
