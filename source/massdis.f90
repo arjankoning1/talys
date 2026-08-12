@@ -254,6 +254,7 @@ subroutine massdis
   xstabtot = 0.
   Etabtot = 0.
   Jtabtot = 0.
+  Ytabtot = 0.
   popffEx = 0.
   popffJ = 0.
   xstabcomp = 0.
@@ -466,8 +467,6 @@ subroutine massdis
   enddo
 !
 ! GEF + TALYS evaporation (fymodel 3)
-!  or
-! yields + TALYS evaporation (fymodel 4)
 !
   if (fymodel >= 3) then
     Ebin(0) = 0.
