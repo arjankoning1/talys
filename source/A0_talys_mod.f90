@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2025-12-30: Original code
-! 2026-07-15: Current version
+! 2026-08-11: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -1768,7 +1768,7 @@ module A0_talys_mod
   real(dbl)                                          :: feed     ! feeding term for compound nucleus
   real(dbl), dimension(0:5, numtrans)                :: transjl  ! array for width fluctuation calculation
   real(dbl)                                          :: fiswidth ! fission width
-  real(dbl), dimension(0:numpar,0:numex,0:numJ,-1:1) :: enumhf   ! enumerator for compound nucleus formula
+  real(dbl), dimension(0:numJ,-1:1,0:numpar,0:numex) :: enumhf   ! enumerator for compound nucleus formula
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
 ! Variables for ECIS calculation of compound cross sections (reference only)
@@ -1855,12 +1855,12 @@ module A0_talys_mod
   integer, dimension(0:numpar,0:numex)               :: lmaxhf   ! maximal l-value for transmission coefficients
   integer, dimension(numbar)                         :: nbintfis ! number of bins
   real(sgl), dimension(numbinfis,numbar)             :: eintfis  ! excitation energy for fission
-  real(dbl), dimension(0:numpar,0:numex,0:numJ,-1:1) :: rho0     ! integrated level density
+  real(dbl), dimension(0:numJ,-1:1,0:numpar,0:numex) :: rho0     ! integrated level density
   real(dbl), dimension(numbinfis,0:numJ,-1:1,numbar) :: rhofis   ! integrated level density corresponding to tfisA
   real(sgl), dimension(0:numZ,0:numN)                :: discfactor! correction for discrete level weight for NL > NT
-  real(sgl), dimension(0:numex,0:numgam,0:1,0:numJ,-1:1) :: Tgam     ! gamma transmission coefficients
-  real(sgl), dimension(0:numpar,0:numex,-1:1,0:numl) :: Tjlnex   ! transmission coefficients for particle, energy, spin and l
-  real(sgl), dimension(0:numpar,0:numex,0:numl)      :: Tlnex    ! transmission coefficients for particle, emergy and l
+  real(sgl), dimension(0:numgam,0:numex,0:1,0:numJ,-1:1) :: Tgam ! gamma transmission coefficients
+  real(sgl), dimension(0:numl,-1:1,0:numpar,0:numex) :: Tjlnex   ! transmission coefficients for particle, energy, spin and l
+  real(sgl), dimension(0:numl,0:numpar,0:numex)      :: Tlnex    ! transmission coefficients for particle, emergy and l
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
 ! Variables for fission transmission coefficients
