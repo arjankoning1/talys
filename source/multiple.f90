@@ -568,10 +568,10 @@ Loop1:  do type = 1, 6
 ! compound   : subroutine for Hauser-Feshbach model for multiple emission
 ! tfissionout: subroutine for output of fission transmission coefficients
 !
+              if (xspop(Zcomp, Ncomp, nex, J, parity) < popepsB) cycle
               popdecay = 0.
               partdecay = 0.
               partdecaytot = 0.
-              if (xspop(Zcomp, Ncomp, nex, J, parity) < popepsB) cycle
               xsp = xspop(Zcomp, Ncomp, nex, J, parity)
               J2 = 2 * J + odd
               if (flagfission .and. nfisbar(Zcomp, Ncomp) /= 0) call tfission(Zcomp, Ncomp, nex, J2, parity)
