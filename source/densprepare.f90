@@ -273,14 +273,14 @@ subroutine densprepare(Zcomp, Ncomp, idfis)
         else
           weight = Rboundary
         endif
-        rho0(type, nexout, Ir, Pprime) = weight
+        rho0(Ir, Pprime, type, nexout) = weight
       else
 !
 ! For decay to the continuum we use a spin and parity dependent level density.
 !
         do Pprime = - 1, 1, 2
           do Ir = 0, maxJ(Zix, Nix, nexout)
-            rho0(type, nexout, Ir, Pprime) = Rboundary * rhogrid(Zix, Nix, nexout, Ir, Pprime)
+            rho0(Ir, Pprime, type, nexout) = Rboundary * rhogrid(Zix, Nix, nexout, Ir, Pprime)
           enddo
         enddo
       endif
@@ -299,7 +299,7 @@ subroutine densprepare(Zcomp, Ncomp, idfis)
           do irad = 0, 1
             do Pprime = - 1, 1, 2
               do Ir = 0, maxJ(Zix, Nix, nexout)
-                Tgam(nexout, l, irad, Ir, Pprime) = 0.
+                Tgam(l, nexout, irad, Ir, Pprime) = 0.
               enddo
             enddo
           enddo
@@ -310,7 +310,7 @@ subroutine densprepare(Zcomp, Ncomp, idfis)
             x = twopi * (Egamma **(2 * l + 1)) * fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l, 0, 0) * Fnorm(0)
             do Pprime = - 1, 1, 2
               do Ir = 0, maxJ(Zix, Nix, nexout)
-                Tgam(nexout, l, irad, Ir, Pprime) = x
+                Tgam(l, nexout, irad, Ir, Pprime) = x
               enddo
             enddo
             if (strength == 11 .and. flagstrengthjp) then
@@ -318,7 +318,7 @@ subroutine densprepare(Zcomp, Ncomp, idfis)
                 iP = max(Pprime, 0)
                 do Ir = 0, 9
                   x = twopi * (Egamma **(2 * l + 1)) * fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l, Ir, iP) * Fnorm(0)
-                  Tgam(nexout, l, irad, Ir, Pprime) = x
+                  Tgam(l, nexout, irad, Ir, Pprime) = x
                 enddo
               enddo
             endif
@@ -333,11 +333,11 @@ subroutine densprepare(Zcomp, Ncomp, idfis)
 !
         do updown = - 1, 1
           do l = 0, numl
-            Tjlnex(type, nexout, updown, l) = 0.
+            Tjlnex(l, updown, type, nexout) = 0.
           enddo
         enddo
         do l = 0, numl
-          Tlnex(type, nexout, l) = 0.
+          Tlnex(l, type, nexout) = 0.
         enddo
         lmaxhf(type, nexout) = 0
         if (ebegin(type) >= eend(type)) cycle
@@ -369,7 +369,7 @@ subroutine densprepare(Zcomp, Ncomp, idfis)
             tc = Tjl(type, nc, updown, l)
             call pol2(Ea, Eb, Ec, ta, tb, tc, Eout, tint)
             if (tint < transeps) tint = 0.
-            Tjlnex(type, nexout, updown, l) = Fnorm(type) * tint
+            Tjlnex(l, updown, type, nexout) = Fnorm(type) * tint
           enddo
         enddo
         if ( .not. flagfullhf) then
@@ -379,7 +379,7 @@ subroutine densprepare(Zcomp, Ncomp, idfis)
             tc = Tl(type, nc, l)
             call pol2(Ea, Eb, Ec, ta, tb, tc, Eout, tint)
             if (tint < transeps) tint = 0.
-            Tlnex(type, nexout, l) = Fnorm(type) * tint
+            Tlnex(l, type, nexout) = Fnorm(type) * tint
           enddo
         endif
 !
