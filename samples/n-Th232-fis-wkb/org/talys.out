@@ -3,14 +3,14 @@
  OMP retrieval flag=  0  RIPL OMP retrieval succeeded                                      
  ******************************************************************************************
 
-    TALYS-2.23 (Version: July 15, 2026)
+    TALYS-2.24 (Version: August 11, 2026)
 
  Copyright (C) 2026  A.J. Koning, S. Hilaire and S. Goriely
 
  Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees
 
  User: Arjan Koning
- Date: 2026-07-16
+ Date: 2026-08-11
 
  ########## USER INPUT ##########
 
@@ -139,7 +139,7 @@
  maxZrp             12     maxZrp       maximal number of protons from the initial CN before residual evaporation
  maxNrp             32     maxNrp       maximal number of neutrons from the initial CN before residual evaporation
  user      Arjan Koning    user         user for this calculation
- source    TALYS-2.2       source       source for this calculation
+ source    TALYS-2.24      source       source for this calculation
  format    YANDF-0.4       oformat      format for output
  #
  # Optical model
@@ -763,7 +763,7 @@ file: pfns0001.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 1.96065E+03    Multiplicity= 5.45730E-01
+ gamma   = 1.96052E+03    Multiplicity= 5.45696E-01
  neutron = 3.41964E+03    Multiplicity= 9.51831E-01
  proton  = 0.00000E+00    Multiplicity= 0.00000E+00
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
@@ -1127,7 +1127,7 @@ file: pfns0002.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 3.37170E+03    Multiplicity= 9.40652E-01
+ gamma   = 3.37124E+03    Multiplicity= 9.40523E-01
  neutron = 3.43810E+03    Multiplicity= 9.59176E-01
  proton  = 0.00000E+00    Multiplicity= 0.00000E+00
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
@@ -1425,18 +1425,18 @@ file: pfns0003.000.fis
     n   p   d   t   h   a                                        cross section   ratio
     0   0   0   0   0   0    1.92976E+01  (n,g)                                                     5.40986E-03
     1   0   0   0   0   0    3.42079E+03  (n,n')                                                    9.58980E-01
-    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     2.80339E-11
-    1   0   0   0   0   1    1.00000E-07  (n,na)                                                    2.80339E-11
-    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    2.80339E-11
-    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    2.80339E-11
-    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   2.80339E-11
-    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   2.80339E-11
-    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   2.80339E-11
-    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   2.80339E-11
-    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   2.80339E-11
-    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    2.80339E-11
-    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  2.80339E-11
-    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   2.80339E-11
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     2.80338E-11
+    1   0   0   0   0   1    1.00000E-07  (n,na)                                                    2.80338E-11
+    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    2.80338E-11
+    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    2.80338E-11
+    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   2.80338E-11
+    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   2.80338E-11
+    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   2.80338E-11
+    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   2.80338E-11
+    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   2.80338E-11
+    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    2.80338E-11
+    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  2.80338E-11
+    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   2.80338E-11
 
  6a2. Exclusive fission cross sections 
 
@@ -1446,9 +1446,9 @@ file: pfns0003.000.fis
 
  Absorption cross section                 :   146.32179
 
- Sum over exclusive channel cross sections:  3567.11572
+ Sum over exclusive channel cross sections:  3567.11621
  (n,gn) + (n,gp) +...(n,ga) cross sections:    20.93295
- Total                                    :  3588.04858
+ Total                                    :  3588.04907
  Non-elastic cross section                :  3584.42798
 
  ########## RESULTS FOR E=   4.00000 ##########
@@ -1491,7 +1491,7 @@ file: pfns0003.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 4.44620E+03    Multiplicity= 1.28726E+00
+ gamma   = 4.44523E+03    Multiplicity= 1.28698E+00
  neutron = 3.30051E+03    Multiplicity= 9.55564E-01
  proton  = 1.37727E-34    Multiplicity= 3.98747E-38
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
@@ -1810,9 +1810,9 @@ file: pfns0004.000.fis
 
  Absorption cross section                 :   153.50925
 
- Sum over exclusive channel cross sections:  3437.99048
+ Sum over exclusive channel cross sections:  3437.99023
  (n,gn) + (n,gp) +...(n,ga) cross sections:    20.21999
- Total                                    :  3458.21045
+ Total                                    :  3458.21021
  Non-elastic cross section                :  3453.99048
 
  ########## RESULTS FOR E=   5.00000 ##########
@@ -1855,7 +1855,7 @@ file: pfns0004.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 5.50425E+03    Multiplicity= 1.65355E+00
+ gamma   = 5.50217E+03    Multiplicity= 1.65293E+00
  neutron = 3.17938E+03    Multiplicity= 9.55132E-01
  proton  = 5.90537E-18    Multiplicity= 1.77406E-21
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
@@ -2177,9 +2177,9 @@ file: pfns0005.000.fis
 
  Absorption cross section                 :   149.27892
 
- Sum over exclusive channel cross sections:  3318.56909
+ Sum over exclusive channel cross sections:  3318.56860
  (n,gn) + (n,gp) +...(n,ga) cross sections:    14.79484
- Total                                    :  3333.36401
+ Total                                    :  3333.36353
  Non-elastic cross section                :  3328.73438
 
  ########## RESULTS FOR E=   6.00000 ##########
@@ -2222,7 +2222,7 @@ file: pfns0005.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 6.34672E+03    Multiplicity= 1.95053E+00
+ gamma   = 6.34265E+03    Multiplicity= 1.94927E+00
  neutron = 3.10825E+03    Multiplicity= 9.55254E-01
  proton  = 1.17326E-11    Multiplicity= 3.60574E-15
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
@@ -2544,9 +2544,9 @@ file: pfns0006.000.fis
 
  Absorption cross section                 :   169.73560
 
- Sum over exclusive channel cross sections:  3250.93628
+ Sum over exclusive channel cross sections:  3250.93652
  (n,gn) + (n,gp) +...(n,ga) cross sections:    10.38933
- Total                                    :  3261.32568
+ Total                                    :  3261.32593
  Non-elastic cross section                :  3253.85156
 
  ########## RESULTS FOR E=   7.00000 ##########
@@ -2589,7 +2589,7 @@ file: pfns0006.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 5.77190E+03    Multiplicity= 1.78009E+00
+ gamma   = 5.76559E+03    Multiplicity= 1.77814E+00
  neutron = 3.41028E+03    Multiplicity= 1.05175E+00
  proton  = 8.46998E-09    Multiplicity= 2.61219E-12
  deuteron= 2.46561E-27    Multiplicity= 7.60408E-31
@@ -2959,7 +2959,7 @@ file: pfns0007.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 3.32937E+03    Multiplicity= 1.02554E+00
+ gamma   = 3.32305E+03    Multiplicity= 1.02360E+00
  neutron = 4.57756E+03    Multiplicity= 1.41002E+00
  proton  = 2.55450E-06    Multiplicity= 7.86859E-10
  deuteron= 3.01850E-18    Multiplicity= 9.29785E-22
@@ -3329,7 +3329,7 @@ file: pfns0008.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 3.04916E+03    Multiplicity= 9.42694E-01
+ gamma   = 3.04195E+03    Multiplicity= 9.40464E-01
  neutron = 5.25721E+03    Multiplicity= 1.62534E+00
  proton  = 8.36975E-05    Multiplicity= 2.58763E-08
  deuteron= 5.18225E-13    Multiplicity= 1.60217E-16
@@ -3652,7 +3652,7 @@ file: pfns0009.000.fis
     0   0   0   0   0   0    8.12407E+01  (n,gf)           
     1   0   0   0   0   0    2.22255E+02  (n,n'f)          
 
- Absorption cross section                 :   305.06943
+ Absorption cross section                 :   305.06940
 
  Sum over exclusive channel cross sections:  3245.46045
  (n,gn) + (n,gp) +...(n,ga) cross sections:     3.72180
@@ -3699,7 +3699,7 @@ file: pfns0009.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 3.95189E+03    Multiplicity= 1.23162E+00
+ gamma   = 3.94581E+03    Multiplicity= 1.22972E+00
  neutron = 5.46605E+03    Multiplicity= 1.70351E+00
  proton  = 1.06150E-03    Multiplicity= 3.30818E-07
  deuteron= 8.60469E-10    Multiplicity= 2.68167E-13
@@ -3717,7 +3717,7 @@ file: pfns0009.000.fis
 
    90 233 (233Th) 1.76594E+00    0    1.76594E+00  1.00000
    90 232 (232Th) 6.30138E+02    0    6.30138E+02  1.00000
-   89 232 (232Ac) 1.05565E-03    0    1.05565E-03  1.00000
+   89 232 (232Ac) 1.05557E-03    0    1.05557E-03  1.00000
    90 231 (231Th) 2.32126E+03    0    2.32126E+03  1.00000
    88 229 (229Ra) 1.00000E-07    0    1.17105E-07  0.00000
    88 228 (228Ra) 1.00000E-07    0    3.41280E-09  0.00000
@@ -4003,7 +4003,7 @@ file: pfns0010.000.fis
     n   p   d   t   h   a                                        cross section   ratio
     0   0   0   0   0   0    1.76594E+00  (n,g)                                                     5.48401E-04
     1   0   0   0   0   0    6.27424E+02  (n,n')                                                    1.94842E-01
-    0   1   0   0   0   0    1.05565E-03  (n,p)                                                     3.27824E-07
+    0   1   0   0   0   0    1.05557E-03  (n,p)                                                     3.27800E-07
     0   0   0   0   0   1    1.17096E-07  (n,a)                                                     3.63633E-11
     2   0   0   0   0   0    2.32113E+03  (n,2n)                                                    7.20810E-01
     1   0   0   0   0   1    1.00000E-07  (n,na)                                                    3.10543E-11
@@ -4025,7 +4025,7 @@ file: pfns0010.000.fis
     0   0   0   0   0   0    6.22036E+01  (n,gf)           
     1   0   0   0   0   0    2.07642E+02  (n,n'f)          
 
- Absorption cross section                 :   271.61298
+ Absorption cross section                 :   271.61295
 
  Sum over exclusive channel cross sections:  3220.16650
  (n,gn) + (n,gp) +...(n,ga) cross sections:     3.00854
@@ -4072,7 +4072,7 @@ file: pfns0010.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 4.96904E+03    Multiplicity= 1.56423E+00
+ gamma   = 4.96472E+03    Multiplicity= 1.56287E+00
  neutron = 5.51753E+03    Multiplicity= 1.73690E+00
  proton  = 7.37046E-03    Multiplicity= 2.32019E-06
  deuteron= 1.63269E-07    Multiplicity= 5.13963E-11
@@ -4447,7 +4447,7 @@ file: pfns0011.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 5.93942E+03    Multiplicity= 1.88713E+00
+ gamma   = 5.93551E+03    Multiplicity= 1.88589E+00
  neutron = 5.53214E+03    Multiplicity= 1.75773E+00
  proton  = 3.41591E-02    Multiplicity= 1.08534E-05
  deuteron= 9.47999E-06    Multiplicity= 3.01207E-09
@@ -4468,7 +4468,7 @@ file: pfns0011.000.fis
    89 232 (232Ac) 3.43044E-02    0    3.43044E-02  1.00000
    90 231 (231Th) 2.42109E+03    0    2.42109E+03  1.00000
    90 230 (230Th) 1.26849E+00    0    1.26849E+00  1.00000
-   88 229 (229Ra) 6.39278E-03    0    6.39278E-03  1.00000
+   88 229 (229Ra) 6.39279E-03    0    6.39279E-03  1.00000
    88 228 (228Ra) 1.00000E-07    0    5.76046E-06  0.00000
    87 228 (228Fr) 1.00000E-07    0    0.00000E+00  0.00000
    86 225 (225Rn) 1.00000E-07    0    0.00000E+00  0.00000
@@ -4481,7 +4481,7 @@ file: pfns0011.000.fis
   232 4.91794E+02
   231 2.42109E+03
   230 1.26849E+00
-  229 6.39278E-03
+  229 6.39279E-03
 
  Total residual production cross section:  2915.8493652
  Total fission cross section            :   247.6977386
@@ -4760,9 +4760,9 @@ file: pfns0012.000.fis
     0   0   0   0   0   0    1.68940E+00  (n,g)                                                     5.34474E-04
     1   0   0   0   0   0    4.89529E+02  (n,n')                                                    1.54872E-01
     0   1   0   0   0   0    3.43044E-02  (n,p)                                                     1.08529E-05
-    0   0   0   0   0   1    6.39278E-03  (n,a)                                                     2.02248E-06
+    0   0   0   0   0   1    6.39279E-03  (n,a)                                                     2.02248E-06
     2   0   0   0   0   0    2.42073E+03  (n,2n)                                                    7.65845E-01
-    1   0   0   0   0   1    5.76046E-06  (n,na)                                                    1.82243E-09
+    1   0   0   0   0   1    5.76045E-06  (n,na)                                                    1.82243E-09
     0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.16370E-11
     0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.16370E-11
     3   0   0   0   0   0    1.26849E+00  (n,3n)                                                    4.01310E-04
@@ -4783,7 +4783,7 @@ file: pfns0012.000.fis
     1   0   0   0   0   0    2.10386E+02  (n,n'f)          
     2   0   0   0   0   0    4.33921E-03  (n,2nf)          
 
- Absorption cross section                 :   249.33269
+ Absorption cross section                 :   249.33264
 
  Sum over exclusive channel cross sections:  3160.85767
  (n,gn) + (n,gp) +...(n,ga) cross sections:     2.79458
@@ -4830,7 +4830,7 @@ file: pfns0012.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 6.51417E+03    Multiplicity= 2.08721E+00
+ gamma   = 6.50984E+03    Multiplicity= 2.08583E+00
  neutron = 5.64144E+03    Multiplicity= 1.80758E+00
  proton  = 1.18791E-01    Multiplicity= 3.80618E-05
  deuteron= 2.14866E-04    Multiplicity= 6.88453E-08
@@ -5171,7 +5171,7 @@ file: pfns0013.000.fis
     1   0   0   0   0   0    2.03925E+02  (n,n'f)          
     2   0   0   0   0   0    4.88790E+00  (n,2nf)          
 
- Absorption cross section                 :   240.31795
+ Absorption cross section                 :   240.31793
 
  Sum over exclusive channel cross sections:  3136.53906
  (n,gn) + (n,gp) +...(n,ga) cross sections:     3.05968
@@ -5218,7 +5218,7 @@ file: pfns0013.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 5.94322E+03    Multiplicity= 1.91938E+00
+ gamma   = 5.93961E+03    Multiplicity= 1.91821E+00
  neutron = 6.01250E+03    Multiplicity= 1.94175E+00
  proton  = 3.31837E-01    Multiplicity= 1.07168E-04
  deuteron= 2.50050E-03    Multiplicity= 8.07543E-07
@@ -5538,7 +5538,7 @@ file: pfns0014.000.fis
     0   1   0   0   0   0    3.34420E-01  (n,p)                                                     1.07552E-04
     0   0   1   0   0   0    2.49711E-03  (n,d)                                                     8.03094E-07
     0   0   0   1   0   0    2.40967E-06  (n,t)                                                     7.74971E-10
-    0   0   0   0   0   1    5.38994E-02  (n,a)                                                     1.73345E-05
+    0   0   0   0   0   1    5.38994E-02  (n,a)                                                     1.73346E-05
     2   0   0   0   0   0    1.96714E+03  (n,2n)                                                    6.32650E-01
     1   1   0   0   0   0    1.14664E-03  (n,np)                                                    3.68771E-07
     1   0   0   0   0   1    4.16404E-03  (n,na)                                                    1.33919E-06
@@ -5611,7 +5611,7 @@ file: pfns0014.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 4.79279E+03    Multiplicity= 1.55943E+00
+ gamma   = 4.78926E+03    Multiplicity= 1.55828E+00
  neutron = 6.46616E+03    Multiplicity= 2.10390E+00
  proton  = 7.76096E-01    Multiplicity= 2.52519E-04
  deuteron= 1.71068E-02    Multiplicity= 5.56605E-06
@@ -5644,7 +5644,7 @@ file: pfns0014.000.fis
 
    A  cross section
 
-  233 1.03125E+00
+  233 1.03126E+00
   232 3.87371E+02
   231 1.44951E+03
   230 9.04361E+02
@@ -5927,14 +5927,14 @@ file: pfns0015.000.fis
 
      Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
     n   p   d   t   h   a                                        cross section   ratio
-    0   0   0   0   0   0    1.03125E+00  (n,g)                                                     3.33979E-04
+    0   0   0   0   0   0    1.03126E+00  (n,g)                                                     3.33979E-04
     1   0   0   0   0   0    3.83943E+02  (n,n')                                                    1.24342E-01
     0   1   0   0   0   0    7.76490E-01  (n,p)                                                     2.51472E-04
-    0   0   1   0   0   0    1.71195E-02  (n,d)                                                     5.54427E-06
+    0   0   1   0   0   0    1.71195E-02  (n,d)                                                     5.54426E-06
     0   0   0   1   0   0    6.30681E-03  (n,t)                                                     2.04250E-06
     0   0   0   0   0   1    1.24784E-01  (n,a)                                                     4.04120E-05
     2   0   0   0   0   0    1.44856E+03  (n,2n)                                                    4.69127E-01
-    1   1   0   0   0   0    9.39176E-03  (n,np)                                                    3.04158E-06
+    1   1   0   0   0   0    9.39176E-03  (n,np)                                                    3.04159E-06
     1   0   0   0   0   1    1.54624E-02  (n,na)                                                    5.00760E-06
     0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.23857E-11
     0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.23857E-11
@@ -6005,7 +6005,7 @@ file: pfns0015.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 3.99247E+03    Multiplicity= 1.30801E+00
+ gamma   = 3.98926E+03    Multiplicity= 1.30696E+00
  neutron = 6.83151E+03    Multiplicity= 2.23814E+00
  proton  = 1.56233E+00    Multiplicity= 5.11853E-04
  deuteron= 7.81744E-02    Multiplicity= 2.56116E-05
@@ -6400,7 +6400,7 @@ file: pfns0016.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 3.79803E+03    Multiplicity= 1.25209E+00
+ gamma   = 3.79465E+03    Multiplicity= 1.25098E+00
  neutron = 7.07473E+03    Multiplicity= 2.33232E+00
  proton  = 2.87502E+00    Multiplicity= 9.47806E-04
  deuteron= 2.65325E-01    Multiplicity= 8.74696E-05
@@ -6756,7 +6756,7 @@ file: pfns0017.000.fis
     2   0   0   0   0   0    3.04940E+02  (n,2nf)          
     3   0   0   0   0   0    3.87594E-05  (n,3nf)          
 
- Absorption cross section                 :   459.97028
+ Absorption cross section                 :   459.97025
 
  Sum over exclusive channel cross sections:  3044.00562
  (n,gn) + (n,gp) +...(n,ga) cross sections:     4.84588
@@ -6803,7 +6803,7 @@ file: pfns0017.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 4.00787E+03    Multiplicity= 1.32862E+00
+ gamma   = 4.00546E+03    Multiplicity= 1.32782E+00
  neutron = 7.24650E+03    Multiplicity= 2.40223E+00
  proton  = 4.63810E+00    Multiplicity= 1.53754E-03
  deuteron= 6.54561E-01    Multiplicity= 2.16989E-04
@@ -7134,7 +7134,7 @@ file: pfns0018.000.fis
     0   0   0   1   0   0    3.04466E-01  (n,t)                                                     1.00703E-04
     0   0   0   0   0   1    7.85289E-01  (n,a)                                                     2.59736E-04
     2   0   0   0   0   0    5.69059E+02  (n,2n)                                                    1.88218E-01
-    1   1   0   0   0   0    5.59696E-01  (n,np)                                                    1.85121E-04
+    1   1   0   0   0   0    5.59697E-01  (n,np)                                                    1.85121E-04
     1   0   1   0   0   0    3.40166E-06  (n,nd)                                                    1.12511E-09
     1   0   0   1   0   0    1.21599E-05  (n,nt)                                                    4.02190E-09
     1   0   0   0   0   1    4.26965E-01  (n,na)                                                    1.41220E-04
@@ -7211,7 +7211,7 @@ file: pfns0018.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 4.39389E+03    Multiplicity= 1.46374E+00
+ gamma   = 4.39153E+03    Multiplicity= 1.46296E+00
  neutron = 7.36955E+03    Multiplicity= 2.45503E+00
  proton  = 6.92035E+00    Multiplicity= 2.30539E-03
  deuteron= 1.28457E+00    Multiplicity= 4.27931E-04
@@ -7548,7 +7548,7 @@ file: pfns0019.000.fis
     0   0   0   0   0   1    1.08258E+00  (n,a)                                                     3.59830E-04
     2   0   0   0   0   0    4.58051E+02  (n,2n)                                                    1.52248E-01
     1   1   0   0   0   0    1.32131E+00  (n,np)                                                    4.39180E-04
-    1   0   1   0   0   0    1.74081E-04  (n,nd)                                                    5.78614E-08
+    1   0   1   0   0   0    1.74081E-04  (n,nd)                                                    5.78615E-08
     1   0   0   1   0   0    2.95096E-03  (n,nt)                                                    9.80844E-07
     1   0   0   0   0   1    1.01907E+00  (n,na)                                                    3.38721E-04
     0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.32382E-11
@@ -7628,7 +7628,7 @@ file: pfns0019.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 4.65028E+03    Multiplicity= 1.55593E+00
+ gamma   = 4.64852E+03    Multiplicity= 1.55534E+00
  neutron = 7.44305E+03    Multiplicity= 2.49036E+00
  proton  = 9.77746E+00    Multiplicity= 3.27142E-03
  deuteron= 2.12336E+00    Multiplicity= 7.10450E-04
@@ -7960,17 +7960,17 @@ file: pfns0020.000.fis
     0   0   0   0   0   0    3.65692E-01  (n,g)                                                     1.22251E-04
     1   0   0   0   0   0    2.77852E+02  (n,n')                                                    9.28861E-02
     0   1   0   0   0   0    7.09310E+00  (n,p)                                                     2.37123E-03
-    0   0   1   0   0   0    2.13133E+00  (n,d)                                                     7.12504E-04
+    0   0   1   0   0   0    2.13132E+00  (n,d)                                                     7.12503E-04
     0   0   0   1   0   0    9.92442E-01  (n,t)                                                     3.31774E-04
     0   0   0   0   0   1    1.04853E+00  (n,a)                                                     3.50524E-04
     2   0   0   0   0   0    4.08720E+02  (n,2n)                                                    1.36635E-01
-    1   1   0   0   0   0    2.77436E+00  (n,np)                                                    9.27471E-04
-    1   0   1   0   0   0    1.82190E-03  (n,nd)                                                    6.09064E-07
+    1   1   0   0   0   0    2.77437E+00  (n,np)                                                    9.27472E-04
+    1   0   1   0   0   0    1.82191E-03  (n,nd)                                                    6.09066E-07
     1   0   0   1   0   0    2.14010E-02  (n,nt)                                                    7.15435E-06
     1   0   0   0   0   1    2.19419E+00  (n,na)                                                    7.33520E-04
     0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.34301E-11
     0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.34301E-11
-    3   0   0   0   0   0    1.77574E+03  (n,3n)                                                    5.93632E-01
+    3   0   0   0   0   0    1.77574E+03  (n,3n)                                                    5.93633E-01
     2   1   0   0   0   0    1.94313E-04  (n,2np)                                                   6.49590E-08
     2   0   0   0   0   1    9.68313E-03  (n,2na)                                                   3.23708E-06
     1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.34301E-11
@@ -8120,6 +8120,6 @@ file: xs400000.fis
 file: xs200002.fis
 file: xs100003.fis
 
- Execution time:  0 hours  2 minutes 51.33 seconds 
+ Execution time:  0 hours  2 minutes 57.90 seconds 
 
  The TALYS team congratulates you with this successful calculation.

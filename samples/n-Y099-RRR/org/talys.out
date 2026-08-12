@@ -1,12 +1,12 @@
 
-    TALYS-2.23 (Version: July 15, 2026)
+    TALYS-2.24 (Version: August 11, 2026)
 
  Copyright (C) 2026  A.J. Koning, S. Hilaire and S. Goriely
 
  Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees
 
  User: Arjan Koning
- Date: 2026-07-16
+ Date: 2026-08-11
 
  ########## USER INPUT ##########
 
@@ -114,7 +114,7 @@
  maxZrp             12     maxZrp       maximal number of protons from the initial CN before residual evaporation
  maxNrp             32     maxNrp       maximal number of neutrons from the initial CN before residual evaporation
  user      Arjan Koning    user         user for this calculation
- source    TALYS-2.2       source       source for this calculation
+ source    TALYS-2.24      source       source for this calculation
  format    YANDF-0.4       oformat      format for output
  #
  # Optical model
@@ -2748,7 +2748,7 @@ file: xs100000.tot
  All Cross Sections Read. Maximum Tabulated Energy =  2186.64000 eV
  ------------------------------------------------------------------------------
  ===============================================================================
-      MAT Total Execution Time                0.08 Seconds
+      MAT Total Execution Time                0.09 Seconds
  ===============================================================================
  ******************************************************************************
  End of ENDF/B Input Data
@@ -2764,7 +2764,7 @@ file: xs100000.tot
  End of Run
  ==============================================================================
  ===============================================================================
- SIGMA1   Total Execution Time                0.08 Seconds
+ SIGMA1   Total Execution Time                0.09 Seconds
  ===============================================================================
  Doppler Broaden ENDF/B Cross Sections (SIGMA1 2023-1)
  -------------------------------------------------------------------------------
@@ -2806,7 +2806,7 @@ file: xs100000.tot
  Unresolved  2186.64000 to 123871.000 eV      MAT Totals    78153    16475
  -------------------------------------------------------------------------------
  ===============================================================================
-      MAT Total Execution Time                0.33 Seconds
+      MAT Total Execution Time                0.34 Seconds
  ===============================================================================
  ------------------------------------------------------------------------------
  All Cross Sections Read. Maximum Tabulated Energy =  2186.64000 eV
@@ -2815,6 +2815,6 @@ file: xs100000.tot
                                              Tape Totals    78153    16475
  -------------------------------------------------------------------------------
 
- Execution time:  0 hours  0 minutes  5.85 seconds 
+ Execution time:  0 hours  0 minutes  6.02 seconds 
 
  The TALYS team congratulates you with this successful calculation.
