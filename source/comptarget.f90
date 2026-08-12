@@ -357,7 +357,7 @@ subroutine comptarget
 !
   do updown = - 1, 1
     do l = 0, lmaxinc
-      Tjlnex(k0, Ltarget, updown, l) = Tjlinc(updown, l)
+      Tjlnex(l, updown, k0, Ltarget) = Tjlinc(updown, l)
     enddo
   enddo
   nex = maxex(Zcomp, Ncomp)
@@ -564,7 +564,7 @@ subroutine comptarget
 !
                 do Irspin2 = Irspin2beg, Irspin2end, 2
                   Ir = Irspin2 / 2
-                  rho = rho0(type, nexout, Ir, Pprime)
+                  rho = rho0(Ir, Pprime, type, nexout)
                   if (rho < 1.e-20) cycle
 !
 ! On-set of loop over jprime in the case of width fluctuations or angular distributions.
@@ -607,7 +607,7 @@ subroutine comptarget
                           else
                             irad = 0
                           endif
-                          Tout = Tgam(nexout, lprime, irad, J, parity)
+                          Tout = Tgam(lprime, nexout, irad, J, parity)
                         else
 !
 ! 2. Particles
@@ -617,7 +617,7 @@ subroutine comptarget
 !
                           if (modl /= pardif2) cycle
                           updown2 = (jj2prime - l2prime) / pspin2o
-                          Tout = Tjlnex(type, nexout, updown2, lprime)
+                          Tout = Tjlnex(lprime, updown2, type, nexout)
                         endif
 !
 ! ** Populate the outgoing channels using the compound nucleus formula *
@@ -640,9 +640,9 @@ subroutine comptarget
 ! already determined in subroutine compprepare.
 ! This means we are now in the short loop with l=j=lprime=jprime=1.
 !
-                        factor1 = feed * enumhf(type, nexout, Ir, Pprime) / denomhf
+                        factor1 = feed * enumhf(Ir, Pprime, type, nexout) / denomhf
                         if (flagastro .and. .not. flagastrogs .and. type == k0) &
- &                        sumIPas = sumIPas + CNfactor * (J2 + 1) * enumhf(type, nexout, Ir, Pprime) **2 / denomhf
+ &                        sumIPas = sumIPas + CNfactor * (J2 + 1) * enumhf(Ir, Pprime, type, nexout) **2 / denomhf
                       endif
 !
 ! The contribution is added to the total width for the particular incident l and j.
