@@ -136,6 +136,8 @@ subroutine compound(Zcomp, Ncomp, nex, J2, parity)
   real(dbl) :: tfu         ! help variable
   real(dbl) :: total       ! help variable
   real(dbl) :: totalrho    ! help variable
+  real(dbl) :: Tgamprefix(0:numl + 1, 0:1) ! parity-specific prefix sums of gamma transmission coefficients
+  real(dbl) :: Tprefix(0:numl + 1, 0:1) ! parity-specific prefix sums of averaged transmission coefficients
 !
 ! **************************** Initialization **************************
 !
@@ -204,11 +206,11 @@ subroutine compound(Zcomp, Ncomp, nex, J2, parity)
 ! Photon and particle channels
 !
     if (iloop == 1) then
-      do Pprime = - 1, 1, 2
-        do Ir = 0, numJ
-          do type = 0, 6
-            do nexout = 0, nexmax(type)
-              enumhf(type, nexout, Ir, Pprime) = 0.
+      do type = 0, 6
+        do nexout = 0, nexmax(type)
+          do Pprime = - 1, 1, 2
+            do Ir = 0, numJ
+              enumhf(Ir, Pprime, type, nexout) = 0.
             enddo
           enddo
         enddo
@@ -256,6 +258,31 @@ subroutine compound(Zcomp, Ncomp, nex, J2, parity)
         l2maxhf = 2 * lmaxhf(type, nexout)
         if (iloop == 1) then
 !
+! Build parity-specific prefix sums once per outgoing energy bin. The gamma prefix uses the radiation selection rule for each
+! residual parity. The averaged particle prefix uses the parity of l. The full-spin calculation remains unchanged because its
+! channel-spin sum depends on residual spin.
+!
+          if (type == 0) then
+            Tgamprefix = 0.
+            do lprime = 0, l2maxhf / 2
+              Tgamprefix(lprime + 1, 0) = Tgamprefix(lprime, 0)
+              Tgamprefix(lprime + 1, 1) = Tgamprefix(lprime, 1)
+              do pardif2 = 0, 1
+                irad = 1 - abs(mod(lprime, 2) - pardif2)
+                Tgamprefix(lprime + 1, pardif2) = Tgamprefix(lprime + 1, pardif2) + &
+                  Tgam(lprime, nexout, irad, J, parity)
+              enddo
+            enddo
+          else if (.not. flagfullhf) then
+            Tprefix = 0.
+            do lprime = 0, l2maxhf / 2
+              Tprefix(lprime + 1, 0) = Tprefix(lprime, 0)
+              Tprefix(lprime + 1, 1) = Tprefix(lprime, 1)
+              Tprefix(lprime + 1, mod(lprime, 2)) = &
+                Tprefix(lprime + 1, mod(lprime, 2)) + Tlnex(lprime, type, nexout)
+            enddo
+          endif
+!
 ! The variable pardif2 is used as an indicator of parity conservation for the outgoing channel.
 !
 ! Loop over residual parity
@@ -267,7 +294,8 @@ subroutine compound(Zcomp, Ncomp, nex, J2, parity)
 !
             do Irspin2 = Irspin2beg, Irspin2end, 2
               Ir = Irspin2 / 2
-              rho = rho0(type, nexout, Ir, Pprime)
+              rho = rho0(Ir, Pprime, type, nexout)
+              if (rho < 1.e-20) cycle
 !
 ! The Hauser-Feshbach formula contains the following triangular relations:
 ! |J-I| < j < J+I
@@ -291,10 +319,8 @@ subroutine compound(Zcomp, Ncomp, nex, J2, parity)
 ! 1. Photons
 !
               if (type == 0) then
-                do lprime = lprimebeg, lprimeend
-                  irad = 1 - abs(mod(lprime, 2) - pardif2)
-                  total = total + Tgam(nexout, lprime, irad, J, parity)
-                enddo
+                if (lprimebeg <= lprimeend) total = Tgamprefix(lprimeend + 1, pardif2) - &
+                  Tgamprefix(lprimebeg, pardif2)
               else
 !
 ! 2. Particles
@@ -315,21 +341,19 @@ subroutine compound(Zcomp, Ncomp, nex, J2, parity)
                     jj2primeend = min(J2plusI2, l2prime + parspin2)
                     do jj2prime = jj2primebeg, jj2primeend, 2
                       updown2 = (jj2prime - l2prime) / pspin2
-                      total = total + Tjlnex(type, nexout, updown2, lprime)
+                      total = total + Tjlnex(lprime, updown2, type, nexout)
                     enddo
                   enddo
                 else
-                  do lprime = lb, lprimeend, 2
-                    total = total + Tlnex(type, nexout, lprime)
-                  enddo
-                  total = s2plus1 * total
+                  if (lb <= lprimeend) total = s2plus1 * (Tprefix(lprimeend + 1, pardif2) - &
+                    Tprefix(lb, pardif2))
                 endif
               endif
 !
 ! iloop=1: The partial decay widths are stored in enumhf and also added to the total decay width denomhf.
 !
               totalrho = rho * total
-              enumhf(type, nexout, Ir, Pprime) = totalrho
+              enumhf(Ir, Pprime, type, nexout) = totalrho
               denomhf = denomhf + totalrho
             enddo
           enddo
@@ -344,7 +368,7 @@ subroutine compound(Zcomp, Ncomp, nex, J2, parity)
           do Pprime = Pprimebeg, Pprimeend, 2
             do Irspin2 = Irspin2beg, Irspin2end, 2
               Ir = Irspin2 / 2
-              factor = real(feed * enumhf(type, nexout, Ir, Pprime))
+              factor = real(feed * enumhf(Ir, Pprime, type, nexout))
               xspop(Zix, Nix, nexout, Ir, Pprime) = xspop(Zix, Nix, nexout, Ir, Pprime) + factor
               if (flagpop) then
                 xspopnucP(Zix, Nix, Pprime) = xspopnucP(Zix, Nix, Pprime) + factor
