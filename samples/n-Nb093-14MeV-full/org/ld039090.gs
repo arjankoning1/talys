@@ -2,7 +2,7 @@
 #   title: Y90 level density
 #   source: TALYS-2.24
 #   user: Arjan Koning
-#   date: 2026-08-11
+#   date: 2026-08-17
 #   format: YANDF-0.4
 # residual: 
 #   Z: 39
