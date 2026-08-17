@@ -20,10 +20,13 @@ subroutine machine
 !
   implicit none
   logical           :: lexist  ! logical to determine existence
-  character(len=132):: codedir ! code directory
-  character(len=132):: TALYSDIR! code directory runtime defined
+  character(len=1024):: codedir ! code directory
+  character(len=1024):: TALYSDIR! code directory runtime defined
+  character(len=1024):: talysuser
   character(len=132):: OS      ! OS:windows
   integer           :: i       ! counter
+  integer           :: envstat
+  integer           :: n
   integer           :: year    ! year
   integer           :: month   ! month
   integer           :: day     ! day
@@ -37,15 +40,13 @@ subroutine machine
   i = len_trim(codedir)
   if (codedir(i:i) /= '/') codedir = trim(codedir)//'/'
 !
-! Another option is to set an environment variable TALYSDIR, e.g. put
+! The best option is to set an environment variable TALYSDIR, e.g. put
 ! export TALYSDIR=/Users/koning/talys/     
-! in your ~/.profile file.
-! If TALYSDIR is not set, getenv will simply return an empty string
-! (option provided by Viktor Zerkin: CODEDIR is in uppercase to
-! prevent the path_change script changing this variable).
+! in your ~/.profile or ~/.zshrc file.
+! If TALYSDIR is not set, get_environment_variable will simply return an empty string
 !
-  call getenv('TALYSDIR',TALYSDIR)
-  if (TALYSDIR.ne.' ') then
+  call get_environment_variable('TALYSDIR', TALYSDIR, length=n, status=envstat)
+  if (envstat == 0 .and. n > 0) then
     CODEDIR=TALYSDIR
     i = len_trim(CODEDIR)
     if (CODEDIR(i:i) /= '/') CODEDIR(i+1:i+1)='/'
@@ -68,7 +69,7 @@ subroutine machine
 ! Windows option provided by Viktor Zerkin.
 !
   nulldev = '/dev/null'
-  call getenv('OS',OS)
+  call get_environment_variable('OS',OS)
   if (OS.eq.'Windows_NT') nulldev='NUL'
 !
 ! Test to check accessibility of structure files
@@ -92,7 +93,15 @@ subroutine machine
   write(date(1:4),'(i4.4)') year
   write(date(6:7),'(i2.2)') month
   write(date(9:10),'(i2.2)') day
+!
+! Set user
+! The best option is to set an environment variable TALYS_USER, e.g. put
+! export TALYS_USER="Your Name" g
+! in your ~/.profile or ~/.zshrc file.
+!
   user = 'Arjan Koning'
+  call get_environment_variable('TALYS_USER', talysuser, length=n, status=envstat)
+  if (envstat == 0 .and. n > 0) user=talysuser
   return
 end subroutine machine
 ! Copyright A.J. Koning 2023
