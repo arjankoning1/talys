@@ -70,3 +70,12 @@ Robert found an error with the Ufermi boundary, solved in checkvalues.f90
 
 Added fymodel 5 to read in full Z, A, Ex, J, pi fission fragment 
 distributions. 
+
+- August 11 2026
+
+Changed the order of various array indices in compound.f90 for faster 
+reading, e.g. 'l' or 'lprime' should always be first.
+
+- August 16 2026
+
+Read environment variables in machine.f90 for more portable installation
