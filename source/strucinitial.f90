@@ -641,7 +641,7 @@ subroutine strucinitial
     epfns(nen) = Eout
     if (Eeps > 0.01) degrid = 0.01
     if (Eeps > 0.2) degrid = 0.02
-    if (Eeps > 0.5) degrid = 0.05
+    if (Eeps > 0.5) degrid = 0.025
     if (Eeps > 3.) degrid = 0.1
     if (Eeps > 10.) degrid = 0.5
   enddo

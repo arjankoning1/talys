@@ -99,7 +99,7 @@ module A0_talys_mod
   integer, parameter :: numenlow=20                          ! number of energies for low energy regime
   integer, parameter :: numtime=100                          ! number of time points
   integer, parameter :: numP=1000000                         ! number of points in reconstructed data file
-  integer, parameter :: numpfns=300                          ! number of energies for PFNS grid
+  integer, parameter :: numpfns=600                          ! number of energies for PFNS grid
   integer, parameter :: numenout=1000                        ! number of outgoing energies
   integer, parameter :: numenrp=200                          ! number of incident energies for residual products
   integer, parameter :: numen6=memorypar*1700                ! number of energies for ENDF6 energy grid
@@ -2149,14 +2149,14 @@ module A0_talys_mod
   real(sgl), dimension(nummass, numelem)          :: disazcor     ! normalised fission product isotope yield per exc. energy bin
   real(sgl), dimension(0:numpar)                  :: Eavpfns      ! average energy of prompt fission neutrons spectrum
   real(sgl), dimension(numelem, numneu)           :: dExcff       ! width of excitation energy of fission fragment
-  real(sgl), dimension(numen2)                    :: Epfns        ! energy of PFNS
-  real(sgl), dimension(numen2)                    :: dEpfns       ! delta energy of PFNS
+  real(sgl), dimension(numpfns)                   :: Epfns        ! energy of PFNS
+  real(sgl), dimension(numpfns)                   :: dEpfns       ! delta energy of PFNS
   real(sgl), dimension(0:numpar)                  :: Epfnsaverage ! average energy of PFNS
   real(sgl), dimension(numelem, numneu)           :: Excff        ! excitation energy of fission fragment
   real(sgl)                                       :: excfis       ! excitation energy at fission
   real(sgl)                                       :: fpeps        ! ratio for limit for fission product cross section
   real(sgl), dimension(numelem, numneu, 0:1)      :: fpratio      ! fission product isomeric ratio
-  real(sgl), dimension(0:numpar, 0:numen2)        :: maxpfns      ! maximum energy of prompt fission neutrons spectrum
+  real(sgl), dimension(0:numpar, 0:numpfns)       :: maxpfns      ! maximum energy of prompt fission neutrons spectrum
   real(sgl), dimension(0:numpar, nummass)         :: nuA          ! nu per A
   real(sgl), dimension(0:numpar, numelem, numneu) :: nuZA         ! nu per Z,A
   real(sgl), dimension(0:numpar, nummass)         :: EaverageA    ! average emission energy per A
@@ -2164,8 +2164,8 @@ module A0_talys_mod
   real(sgl), dimension(0:numpar)                  :: nubar        ! average nu
   real(sgl), dimension(0:numpar, 0:numnu)         :: Pdisnu       ! prompt fission neutrons distribution
   real(sgl), dimension(0:numpar)                  :: Pdisnuav     ! average prompt fission neutrons distribution
-  real(sgl), dimension(0:numpar, 0:numen2)        :: pfns         ! prompt fission neutron spectrum
-  real(sgl), dimension(0:numpar, 0:numen2)        :: pfnscm       ! prompt fission neutron spectrum in CM
+  real(sgl), dimension(0:numpar, 0:numpfns)       :: pfns         ! prompt fission neutron spectrum
+  real(sgl), dimension(0:numpar, 0:numpfns)       :: pfnscm       ! prompt fission neutron spectrum in CM
   real(sgl), dimension(numelem, numneu)           :: TKE          ! total kinetic energy
   real(sgl), dimension(nummass)                   :: xsApost      ! post-neutron emission corrected cross section
   real(sgl), dimension(nummass)                   :: xsApre       ! pre-neutron emission cross section
