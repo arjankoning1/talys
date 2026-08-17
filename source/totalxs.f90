@@ -49,6 +49,7 @@ subroutine totalxs
 !   xsconttot       ! total cross section for continuum
 !   xsdisctot       ! total cross section summed over discrete states
 !   xsnonel         ! non - elastic cross
+!   xsgamdistot     ! total discrete gamma-ray cross section
 ! Variables for nuclides
 !   parskip         ! logical to skip outgoing particle
 ! Variables for mass distribution
@@ -99,6 +100,7 @@ subroutine totalxs
     do Zcomp = 0, maxZ
       do Ncomp = 0, maxN
         xsparticle(type) = xsparticle(type) + xsfeed(Zcomp, Ncomp, type)
+        if (type == 0 .and. flagffruns) xsparticle(type) = xsparticle(type) + xsgamdistot(Zcomp, Ncomp)
       enddo
     enddo
     if (flaginitpop) then
