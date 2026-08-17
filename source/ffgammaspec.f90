@@ -26,7 +26,8 @@ subroutine ffgammaspec
 !
 ! Locate the two surrounding PFGS grid points.
 !
-          call locate(Epfns, 1, NEpfns, Egam, nen)
+          call locate(Epfns, 0, NEpfns - 1, Egam, nen)
+          nen = nen + 1
           nen = max(1, min(nen, NEpfns - 1))
           dE = Epfns(nen + 1) - Epfns(nen)
           if (dE > 0.) then
