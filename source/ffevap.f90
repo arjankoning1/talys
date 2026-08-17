@@ -249,7 +249,7 @@ subroutine ffevap
       Aff = ia
       Zff = iz
       call evaptalys
-      if (xsinitpop > 0. .and. .not. parskip(0)) call ffgammaspec
+      if (flagspec .and. xsinitpop > 0. .and. .not. parskip(0)) call ffgammaspec
 !
 ! Add fission product cross sections
 !
