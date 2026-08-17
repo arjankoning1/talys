@@ -5,7 +5,7 @@ subroutine ffevap
 !
 ! Author    : Arjan Koning and Jean-Francois Lemaitre
 !
-! 2021-12-30: Original code
+! 2026-08-17: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -249,6 +249,7 @@ subroutine ffevap
       Aff = ia
       Zff = iz
       call evaptalys
+      if (xsinitpop > 0. .and. .not. parskip(0)) call ffgammaspec
 !
 ! Add fission product cross sections
 !
