@@ -80,9 +80,7 @@ subroutine cascade(Zcomp, Ncomp, nex)
         xsgamma = intens
       endif
       xsgamdistot(Zcomp, Ncomp) = xsgamdistot(Zcomp, Ncomp) + xsgamma
-    endif
-    if (flaggamdis .or. (flagffruns .and. flagspec)) then
-      xsgamdis(Zcomp, Ncomp, nex, k) = xsgamma
+      if (flaggamdis .or. (flagffruns .and. flagspec)) xsgamdis(Zcomp, Ncomp, nex, k) = xsgamma
     endif
   enddo
   return
