@@ -73,14 +73,16 @@ subroutine cascade(Zcomp, Ncomp, nex)
 !
 ! ************ Storage of discrete gamma line intensities **************
 !
-    if (flaggamdis) then
+    if (flaggamdis .or. flagffruns) then
       if (flagelectron) then
         xsgamma = intens / (1. + conv(Zcomp, Ncomp, nex, i))
       else
         xsgamma = intens
       endif
-      xsgamdis(Zcomp, Ncomp, nex, k) = xsgamma
       xsgamdistot(Zcomp, Ncomp) = xsgamdistot(Zcomp, Ncomp) + xsgamma
+    endif
+    if (flaggamdis .or. (flagffruns .and. flagspec)) then
+      xsgamdis(Zcomp, Ncomp, nex, k) = xsgamma
     endif
   enddo
   return
