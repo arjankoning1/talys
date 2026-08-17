@@ -189,7 +189,7 @@ subroutine gammapar(Zix, Nix)
   Pend = -1
   Nblock = 1
   if (strength > 2 .and. strength /= 5) then
-    if (strength == 11 .and. flagstrengthjp) then
+    if (strength == 11 .and. flagstrengthjp .and. Zix <= numZph .and. Nix <= numNph) then
       Jend = 9
       Pend = 1
       Nblock = 20
@@ -386,7 +386,7 @@ subroutine gammapar(Zix, Nix)
         temp = temp + dtemp
         Tqrpa(it) = temp
       enddo
-      if (flagstrengthjp) then
+      if (flagstrengthjp .and. Zix <= numZph .and. Nix <= numNph) then
         Jend = 9
         Pend = 1
         Nblock = 20
@@ -405,7 +405,8 @@ subroutine gammapar(Zix, Nix)
             do parity = -1, Pend, 2
               iP = max(parity, 0)
               do nen = 1, numgamqrpa
-                read(2, '(f9.3, 40es12.3)') ee, (fm1(it),it=1,nTqrpa)
+                read(2, '(f9.3, 40es12.3)',iostat=istat) ee, (fm1(it),it=1,nTqrpa)
+                if (istat /= 0) exit
                 if (gamadjust(Zix, Nix)) then
                   key = 'etable'
                   call adjust(ee, key, Zix, Nix, 0, 0, factor)
