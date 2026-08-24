@@ -41,32 +41,27 @@ subroutine machine
 !
 ! If TALYS_DIR is not set, get_environment_variable will simply return an empty string
 !
-  call get_environment_variable('TALYS_DIR', TALYS_DIR, length=n, status=envstat)
+  call get_environment_variable('TALYS_DIR', talys_dir, length=n, status=envstat)
   if (envstat == 0 .and. n > 0) then
-    CODE_DIR = TALYS_DIR
-    i = len_trim(CODE_DIR)
-    if (CODE_DIR(i:i) /= '/') CODE_DIR(i+1:i+1)='/'
+    code_dir = trim(talys_dir)
   else
 !
 ! If for some reason the above does not work, the code directory can be changed here manually.
 !
     code_dir = '/path/to/talys/'
-    i = len_trim(code_dir)
+  endif
+  i = len_trim(code_dir)
+  if (i > 0) then
     if (code_dir(i:i) /= '/') code_dir = trim(code_dir)//'/'
   endif
 !
 ! Structure database
 !
   path = trim(code_dir)//'structure/'
-  i = len_trim(path)
-  if (path(i:i) /= '/') then
-    i = i + 1
-    path(i:i) = '/'
-  endif
 !
 ! The null device is a "black hole" for output that is produced, but not of interest to the user.
 ! Some ECIS output files are written to it.
-! To ensure compatibility with Macos, Linux, Windows and other systems a null device string is used,
+! To ensure compatibility with macOS, Linux, Windows and other systems a null device string is used,
 ! of which the default setting is given here.
 ! The input file may also be used to alter this setting, through the nulldev keyword
 !
@@ -78,10 +73,12 @@ subroutine machine
 !
   inquire (file = trim(path)//'abundance/H.abun', exist = lexist)
   if (.not. lexist) then
-    write(*,*) 'code_dir:[',trim(code_dir),']'
-    write(*,*) 'TALYS_DIR:[',trim(TALYS_DIR),']'
-    write(*,*) 'expected file:',trim(path)//'abundance/H.abun'
-    write(*, '(" TALYS-error: Structure database not installed: change code_dir in machine.f90")')
+    write(*, '(a)') 'TALYS error: structure database not found.'
+    write(*, '(2a)') 'Expected file: ', trim(path)//'abundance/H.abun'
+    write(*, '(a)') 'Set the TALYS_DIR environment variable:'
+    write(*, '(a)') '  export TALYS_DIR=/path/to/talys'
+    write(*, '(a)') 'Alternatively, edit code_dir in source/machine.f90'
+    write(*, '(a)') 'and rebuild TALYS.'
     call exit(77)
   endif
 !
