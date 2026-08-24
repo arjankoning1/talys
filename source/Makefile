@@ -3,36 +3,32 @@
 # Examples:
 #
 #   make
-#   make FC=ifx
-#   make FFLAGS="-O3 -march=native"
 #   make FC=gfortran FFLAGS="-w -O3 -ffp-contract=off"
+#   make FC=ifx FFLAGS="-O3"
 #   make clean
 #   make check
 
-# GNU make has a built-in default FC=f77. Replace that built-in default
-# with gfortran, while respecting settings from the environment or the
-# command line.
+# GNU make defines FC=f77 internally. Use gfortran unless FC was
+# specified in the environment or on the make command line.
 
 ifeq ($(origin FC), default)
   FC = gfortran
 endif
 
-# Default compilation flags. Can be overridden on the command line or
-# through the environment.
+# Portable default. Compiler-specific flags can be supplied by the user.
 
-FFLAGS ?= -w -O3 -ffp-contract=off
+FFLAGS ?= -w -O3
 
 # Installation directories.
 
 TALYS_DIR := $(abspath ..)
-BIN_DIR    ?= $(TALYS_DIR)/bin
-TARGET     := $(BIN_DIR)/talys
+BIN_DIR  ?= $(TALYS_DIR)/bin
+TARGET   := $(BIN_DIR)/talys
 
-# Source files.
+# TALYS source files.
 #
-# Keep fixed-form files first, matching the existing build procedure.
-# Free-form files are sorted alphabetically; module files such as
-# A0_talys_mod.f90 therefore appear before routines that use them.
+# Free-form source files must be named so that alphabetical order places
+# module definitions, such as A0_talys_mod.f90, before their users.
 
 FIXED_SOURCES := $(sort $(wildcard *.f))
 FREE_SOURCES  := $(sort $(wildcard *.f90))
@@ -40,7 +36,7 @@ SOURCES       := $(FIXED_SOURCES) $(FREE_SOURCES)
 
 .PHONY: all install clean check
 
-all: $(TARGET)
+all install: $(TARGET)
 
 $(TARGET): $(SOURCES)
 	@echo "Compiler: $(FC)"
@@ -49,8 +45,6 @@ $(TARGET): $(SOURCES)
 	$(FC) $(FFLAGS) -o "$(TARGET)" $(SOURCES)
 	@rm -f *.o *.mod
 	@echo "Installed: $(TARGET)"
-
-install: all
 
 clean:
 	rm -f *.o *.mod talys "$(TARGET)"
