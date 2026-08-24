@@ -34,22 +34,25 @@ subroutine machine
 !
 ! ********************* Set directory for structure data ***************
 !
-! The code directory can be changed here via a script, or manually.
 !
-  codedir = '/Users/koning/talys/'
-  i = len_trim(codedir)
-  if (codedir(i:i) /= '/') codedir = trim(codedir)//'/'
+! The best option is to set an environment variable TALYSDIR, e.g. put in your ~/.profile or ~/.zshrc file.
 !
-! The best option is to set an environment variable TALYSDIR, e.g. put
-! export TALYSDIR=/Users/koning/talys/     
-! in your ~/.profile or ~/.zshrc file.
+! export TALYSDIR=/path/to/talys/     
+!
 ! If TALYSDIR is not set, get_environment_variable will simply return an empty string
 !
   call get_environment_variable('TALYSDIR', TALYSDIR, length=n, status=envstat)
   if (envstat == 0 .and. n > 0) then
-    CODEDIR=TALYSDIR
+    CODEDIR = TALYSDIR
     i = len_trim(CODEDIR)
     if (CODEDIR(i:i) /= '/') CODEDIR(i+1:i+1)='/'
+  else
+!
+! The code directory can be changed here or manually.
+!
+    codedir = '/Users/koning/talys/'
+    i = len_trim(codedir)
+    if (codedir(i:i) /= '/') codedir = trim(codedir)//'/'
   endif
 !
 ! Structure database
@@ -94,14 +97,17 @@ subroutine machine
   write(date(6:7),'(i2.2)') month
   write(date(9:10),'(i2.2)') day
 !
-! Set user
-! The best option is to set an environment variable TALYS_USER, e.g. put
-! export TALYS_USER="Your Name" g
-! in your ~/.profile or ~/.zshrc file.
+! Set user name for output files
+! The best option is to set an environment variable TALYS_USER, e.g. put in your ~/.profile or ~/.zshrc file.
 !
-  user = 'Arjan Koning'
+! export TALYS_USER="Your Name" 
+!
   call get_environment_variable('TALYS_USER', talysuser, length=n, status=envstat)
-  if (envstat == 0 .and. n > 0) user=talysuser
+  if (envstat == 0 .and. n > 0) then
+    user = talysuser
+  else
+    user = 'Unknown User'
+  endif
   return
 end subroutine machine
-! Copyright A.J. Koning 2023
+! Copyright A.J. Koning 2026
