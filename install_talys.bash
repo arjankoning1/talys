@@ -37,18 +37,24 @@ echo
 #
 # ./install_talys.bash FC=ifx
 # ./install_talys.bash FFLAGS="-O3 -march=native"
-# ./install_talys.bash FC=gfortran FFLAGS="-w -O3"
+# ./install_talys.bash FC=gfortran FFLAGS="-w -O3 -ffp-contract=off"   (the optimal choice for MacOS)
 # ./install_talys.bash clean
 
 make -C "$source_dir" "$@"
 
-echo
-echo "TALYS executable:"
-echo "  $talys_dir/bin/talys"
-echo
-echo "If not alreay done, add the following lines to your shell configuration:"
-echo
-echo "  export TALYS_DIR=\"$talys_dir\""
-echo "  export PATH=\"\$TALYS_DIR/bin:\$PATH\""
-echo "  export TALYS_USER=\"Your Name\""
-echo
+talys_exe="$talys_dir/bin/talys"
+
+if [[ -x "$talys_exe" ]]; then
+  echo
+  echo "TALYS executable:"
+  echo "  $talys_exe"
+  echo
+  echo "If not already done, add the following lines to your shell configuration:"
+  echo
+  echo "  export TALYS_DIR=\"$talys_dir\""
+  echo "  export PATH=\"\$TALYS_DIR/bin:\$PATH\""
+  echo "  export TALYS_USER=\"Your Name\""
+  echo
+  echo "Alternatively, edit code_dir in source/machine.f90 and rebuild TALYS."
+  echo
+fi
