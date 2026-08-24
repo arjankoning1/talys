@@ -22,7 +22,7 @@ The following are the prerequisites for compiling TALYS:
 To download TALYS, you can use one of the following options:
 #### 1. Download the entire tar file (frozen version TALYS-2.2):
 ```
-https://nds.iaea.org/talys/talys.tar
+curl -LO https://nds.iaea.org/talys/talys.tar
 tar zxf talys.tar
 ```
 #### 2. Using git (latest beta version):
@@ -35,7 +35,7 @@ To install TALYS,
 #### 1. For the tar file (frozen version TALYS-2.2)
 ```
 cd talys
-install_talys.bash 
+./install_talys.bash 
 ```
 after which you will be prompted for your name, which will appear in the output files.
 An alternative option is
@@ -47,11 +47,16 @@ The compiler and its flags can be set in either *source/Makefile* or in *code_bu
 #### 2. For the git (latest beta) version,
 ```
 cd talys
-install_talys.bash 
+./install_talys.bash 
 ```
 which automatically will execute the *Makefile* in *talys/source*. At the end, *install_talys.bash*
-will print the shell variables which you may set in your startup files (e.g. *.zshrc*)
-Specific Fortran compilers and compilation options can be added as flags to *install_talys.bash* (see the comments in the script).
+will print the shell variables which you may set in your startup files (e.g. *.zshrc*). In my case this is
+```
+  export TALYS_DIR="/Users/koning/talys"
+  export PATH="$TALYS_DIR/bin:$PATH"
+  export TALYS_USER="Arjan Koning"
+```
+A compiler and compilation options can be passed to the Makefile through *install_talys.bash*
 
 The above will produce a *talys* executable in the *talys/bin* directory. 
 ### Memory restrictions:
