@@ -5,7 +5,7 @@ subroutine machine
 !
 ! Author    : Arjan Koning
 !
-! 2023-07-28: Original code
+! 2026-08-24: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -19,45 +19,45 @@ subroutine machine
 ! *** Declaration of local data
 !
   implicit none
-  logical           :: lexist  ! logical to determine existence
-  character(len=1024):: codedir ! code directory
-  character(len=1024):: TALYSDIR! code directory runtime defined
-  character(len=1024):: talysuser
-  character(len=132):: OS      ! OS:windows
-  integer           :: i       ! counter
-  integer           :: envstat
-  integer           :: n
-  integer           :: year    ! year
-  integer           :: month   ! month
-  integer           :: day     ! day
-  integer           :: values(8) ! date and time values
+  logical            :: lexist    ! logical to determine existence
+  character(len=1024):: code_dir  ! code directory
+  character(len=1024):: TALYS_DIR ! code directory runtime defined
+  character(len=1024):: talys_user
+  character(len=132) :: OS        ! OS:windows
+  integer            :: i         ! counter
+  integer            :: envstat
+  integer            :: n
+  integer            :: year      ! year
+  integer            :: month     ! month
+  integer            :: day       ! day
+  integer            :: values(8) ! date and time values
 !
 ! ********************* Set directory for structure data ***************
 !
 !
-! The best option is to set an environment variable TALYSDIR, e.g. put in your ~/.profile or ~/.zshrc file.
+! The preferred option is to set an environment variable TALYS_DIR, e.g. put in your ~/.profile or ~/.zshrc file.
 !
-! export TALYSDIR=/path/to/talys/     
+! export TALYS_DIR=/path/to/talys/     
 !
-! If TALYSDIR is not set, get_environment_variable will simply return an empty string
+! If TALYS_DIR is not set, get_environment_variable will simply return an empty string
 !
-  call get_environment_variable('TALYSDIR', TALYSDIR, length=n, status=envstat)
+  call get_environment_variable('TALYS_DIR', TALYS_DIR, length=n, status=envstat)
   if (envstat == 0 .and. n > 0) then
-    CODEDIR = TALYSDIR
-    i = len_trim(CODEDIR)
-    if (CODEDIR(i:i) /= '/') CODEDIR(i+1:i+1)='/'
+    CODE_DIR = TALYS_DIR
+    i = len_trim(CODE_DIR)
+    if (CODE_DIR(i:i) /= '/') CODE_DIR(i+1:i+1)='/'
   else
 !
-! The code directory can be changed here or manually.
+! If for some reason the above does not work, the code directory can be changed here manually.
 !
-    codedir = '/Users/koning/talys/'
-    i = len_trim(codedir)
-    if (codedir(i:i) /= '/') codedir = trim(codedir)//'/'
+    code_dir = '/path/to/talys/'
+    i = len_trim(code_dir)
+    if (code_dir(i:i) /= '/') code_dir = trim(code_dir)//'/'
   endif
 !
 ! Structure database
 !
-  path = trim(codedir)//'structure/'
+  path = trim(code_dir)//'structure/'
   i = len_trim(path)
   if (path(i:i) /= '/') then
     i = i + 1
@@ -65,11 +65,10 @@ subroutine machine
   endif
 !
 ! The null device is a "black hole" for output that is produced, but not of interest to the user.
-! Some ECIS output files fall in this category.
-! To ensure compatibility with Unix, Linux, Windows and other systems a null device string is used,
+! Some ECIS output files are written to it.
+! To ensure compatibility with Macos, Linux, Windows and other systems a null device string is used,
 ! of which the default setting is given here.
 ! The input file may also be used to alter this setting, through the nulldev keyword
-! Windows option provided by Viktor Zerkin.
 !
   nulldev = '/dev/null'
   call get_environment_variable('OS',OS)
@@ -79,10 +78,10 @@ subroutine machine
 !
   inquire (file = trim(path)//'abundance/H.abun', exist = lexist)
   if (.not. lexist) then
-    write(*,*) 'codedir:[',trim(codedir),']'
-    write(*,*) 'TALYSDIR:[',trim(TALYSDIR),']'
+    write(*,*) 'code_dir:[',trim(code_dir),']'
+    write(*,*) 'TALYS_DIR:[',trim(TALYS_DIR),']'
     write(*,*) 'expected file:',trim(path)//'abundance/H.abun'
-    write(*, '(" TALYS-error: Structure database not installed: change path in machine.f90")')
+    write(*, '(" TALYS-error: Structure database not installed: change code_dir in machine.f90")')
     call exit(77)
   endif
 !
@@ -102,9 +101,9 @@ subroutine machine
 !
 ! export TALYS_USER="Your Name" 
 !
-  call get_environment_variable('TALYS_USER', talysuser, length=n, status=envstat)
+  call get_environment_variable('TALYS_USER', talys_user, length=n, status=envstat)
   if (envstat == 0 .and. n > 0) then
-    user = talysuser
+    user = talys_user
   else
     user = 'Unknown User'
   endif
