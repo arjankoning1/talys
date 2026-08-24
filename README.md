@@ -31,25 +31,32 @@ git clone https://github.com/arjankoning1/talys.git
 ```
 ### Installation instructions :
 
-To install TALYS, you can use one of the following options:
-#### 1. Using make:
-```
-cd talys/source
-make
-```
-#### 2. Using the install_talys.bash script:
+To install TALYS,
+#### 1. For the tar file (frozen version TALYS-2.2)
 ```
 cd talys
 install_talys.bash 
 ```
 after which you will be prompted for your name, which will appear in the output files.
+An alternative option is
+```
+cd talys/source
+make
+```
+The compiler and its flags can be set in either *source/Makefile* or in *code_build.bash*.
+#### 2. For the git (latest beta) version,
+```
+cd talys
+install_talys.bash 
+```
+which automatically will execute the *Makefile* in *talys/source*. At the end, *install_talys.bash*
+will print the shell variables which you may set in your startup files (e.g. *.zshrc*)
+Specific Fortran compilers and compilation options can be added as flags to *install_talys.bash* (see the comments in the script).
 
 The above will produce a *talys* executable in the *talys/bin* directory. 
-The compiler and its flags can be set in either *source/Makefile* or in *code_build.bash*.
-
 ### Memory restrictions:
 
-For computers with (very) small RAM, or for installation on Windows, the total allocated memory may be too large. 
+For old computers with (very) small RAM, or for installation on Windows, the total allocated memory may be too large. 
 In that case, edit *A0_talys_mod.f90* in the source directory and reduce the value of the *memorypar* variable.
 
 ## The TALYS package
@@ -58,7 +65,7 @@ The *talys/* directory contains the following directories and files:
 
 + `README.md` this README file
 + `LICENSE` the License file
-+ `install_talys.bash` and `code_build.bash` installation scripts
++ `install_talys.bash` installation script
 + `source/` the Fortran source code of TALYS and the Makefile
 + `bin/` the *talys* executable after successful installation
 + `structure/` the nuclear structure and reaction database in various subdirectories
