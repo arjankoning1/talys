@@ -1,29 +1,54 @@
-#!/bin/bash
-unalias -a
-echo
-echo "       TALYS installation (Version December 29 2024) (C) Copyright 2024 Arjan Koning All Rights Reserved"
-echo
-echo " Two ways to use this script:"
-echo
-echo " install_talys.bash 'Arjan Koning'"
-echo "     Replace  Arjan Koning by your own name"
-echo
-echo " or"
-echo
-echo " install_talys.bash"
-echo "     after which you will be prompted to input your name"
-echo
-if [ $# -eq 1 ] ; then
-  yourname=$1
-else
-  echo 'Enter your name (which will appear in the output files): '
-  read yourname
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Determine the TALYS installation directory, independently of where
+# the script is called from.
+
+talys_dir=$(cd "$(dirname "$0")" && pwd)
+source_dir="$talys_dir/source"
+
+# Verify that the expected directories and build files exist.
+
+if [[ ! -d "$source_dir" ]]; then
+  echo "TALYS installation error: source directory not found:" >&2
+  echo "  $source_dir" >&2
+  exit 1
 fi
-echo ${yourname}
-pfile=path_change.bash
-if [ -e $pfile ] ; then
-  sed "s/user=.*/user='${yourname}'/" $pfile > tmp
-  mv -f tmp $pfile
+
+if [[ ! -f "$source_dir/Makefile" ]]; then
+  echo "TALYS installation error: Makefile not found:" >&2
+  echo "  $source_dir/Makefile" >&2
+  exit 1
 fi
-chmod a+x $pfile
-./code_build.bash talys
+
+if [[ ! -d "$talys_dir/structure" ]]; then
+  echo "TALYS installation error: structure database not found:" >&2
+  echo "  $talys_dir/structure" >&2
+  exit 1
+fi
+
+echo
+echo "Installing TALYS"
+echo "Installation directory: $talys_dir"
+echo
+
+# Pass all command-line arguments directly to make. This permits, e.g.:
+#
+# ./install_talys.bash FC=ifx
+# ./install_talys.bash FFLAGS="-O3 -march=native"
+# ./install_talys.bash FC=gfortran FFLAGS="-w -O3"
+# ./install_talys.bash clean
+
+make -C "$source_dir" "$@"
+
+echo
+echo "TALYS executable:"
+echo "  $talys_dir/bin/talys"
+echo
+echo "If not alreay done, add the following lines to your shell configuration:"
+echo
+echo "  export TALYS_DIR=\"$talys_dir\""
+echo "  export PATH=\"\$TALYS_DIR/bin:\$PATH\""
+echo "  export TALYS_USER=\"Your Name\""
+echo
