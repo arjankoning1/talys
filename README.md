@@ -51,8 +51,8 @@ The compiler and its flags can be set in either *source/Makefile* or in *code_bu
 cd talys
 ./install_talys.bash 
 ```
-which automatically will execute the *Makefile* in *talys/source*. At the end, *install_talys.bash*
-will print the required shell variables.
+which automatically executes the *Makefile* in *talys/source*. At the end, *install_talys.bash*
+will print the recommended shell configuration.
 Set TALYS_DIR to the TALYS installation directory. This variable is
 required unless the fallback path in source/machine.f90 has been set
 manually. In my case this is
@@ -63,11 +63,11 @@ If you want to run *talys* from anywhere, set
 ```
   export PATH="$TALYS_DIR/bin:$PATH"
 ```
-And if you want to have your name in all the output files (helpful when results are exchanged with others)
+To include your name in the output files, set:
 ```
   export TALYS_USER="Your Name"
 ```
-Compiler and compilation options can be passed to the Makefile through *install_talys.bash*
+Compiler and compilation options can be passed to the Makefile through *install_talys.bash*.
 e.g. you may replace the installation command above by
 ```
 # GNU Fortran
