@@ -21,7 +21,7 @@ subroutine machine
   implicit none
   logical            :: lexist    ! logical to determine existence
   character(len=1024):: code_dir  ! code directory
-  character(len=1024):: TALYS_DIR ! code directory runtime defined
+  character(len=1024):: talys_dir ! code directory runtime defined
   character(len=1024):: talys_user
   character(len=132) :: OS        ! OS:windows
   integer            :: i         ! counter
@@ -100,7 +100,7 @@ subroutine machine
 !
   call get_environment_variable('TALYS_USER', talys_user, length=n, status=envstat)
   if (envstat == 0 .and. n > 0) then
-    user = talys_user
+    user = trim(talys_user)
   else
     user = 'Unknown User'
   endif
