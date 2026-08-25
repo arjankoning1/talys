@@ -14,8 +14,8 @@ Arjan Koning, Stephane Hilaire and Stephane Goriely, *TALYS: modeling of nuclear
 ### Prerequisites:
 
 The following are the prerequisites for compiling TALYS:
-  - git (only if the package is downloaded via Github)
-  - make
+  - git (only if the package is downloaded via GitHub)
+  - GNU make
   - a recent Fortran compiler, such as GNU Fortran (gfortran)
 
 ### Downloads:
@@ -52,7 +52,10 @@ cd talys
 ./install_talys.bash 
 ```
 which automatically will execute the *Makefile* in *talys/source*. At the end, *install_talys.bash*
-will print the shell variables which you may set in your startup files (e.g. *.zshrc*). In my case this is
+will print the required shell variables.
+Set TALYS_DIR to the TALYS installation directory. This variable is
+required unless the fallback path in source/machine.f90 has been set
+manually. In my case this is
 ```
   export TALYS_DIR="/Users/koning/talys"
 ```
