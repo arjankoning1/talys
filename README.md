@@ -106,6 +106,10 @@ The sample cases serve to provide examples of the use of TALYS and to verify a s
 cd samples
 ./verify
 ```
+For the git version, you may do
+```
+make -C source check
+```
 
 You may create your own input file, e.g. *talys.inp* after which TALYS works as follows:
 ```
