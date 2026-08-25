@@ -1,13 +1,13 @@
 
 # TALYS
 TALYS is a software package for the simulation of nuclear reactions below 200 MeV. 
-TALYS is based on state-of-art nuclear structure and reaction models. 
+TALYS is based on state-of-the-art nuclear structure and reaction models. 
 
 ## Documentation and reference
 A description of the code and its options can be found in the [TALYS Tutorial (pdf)](https://github.com/arjankoning1/talys/blob/main/doc/talys.pdf).
 The reference to be used for TALYS is
 
-Arjan Koning, Stephane Hilaire and Stephane Goriely, *TALYS: modeling of nuclear reactions*, European Journal of Physics A59 (6), 131 (2023).
+Arjan Koning, Stephane Hilaire and Stephane Goriely, *TALYS: modeling of nuclear reactions*, European Physical Journal A59 (6), 131 (2023).
 
 ## Installation
 
@@ -16,7 +16,7 @@ Arjan Koning, Stephane Hilaire and Stephane Goriely, *TALYS: modeling of nuclear
 The following are the prerequisites for compiling TALYS:
   - git (only if the package is downloaded via Github)
   - make
-  - a recent Fortran compiler such as gcc (gfortran)
+  - a recent Fortran compiler, such as GNU Fortran (gfortran)
 
 ### Downloads:
 
@@ -67,8 +67,11 @@ And if you want to have your name in all the output files (helpful when results 
 Compiler and compilation options can be passed to the Makefile through *install_talys.bash*
 e.g. you may replace the installation command above by
 ```
-./install_talys.bash FC=gfortran FFLAGS="-O3 -ffp-contract=off"  (gfortran)
-./install_talys.bash FC=ifx FFLAGS="-O3"  (Intel)
+# GNU Fortran
+./install_talys.bash FC=gfortran FFLAGS="-O3 -ffp-contract=off"
+
+# Intel Fortran
+./install_talys.bash FC=ifx FFLAGS="-O3"
 ```
 
 The above will produce a *talys* executable in the *talys/bin* directory. 
@@ -91,7 +94,7 @@ The *talys/* directory contains the following directories and files:
 + `doc/` the tutorial in pdf format
 + `samples/` the input and output files of the sample cases, and the *verify* script to run the sample cases
 
-In total, you will need about 8 Gb of free disk space to install TALYS.
+In total, you will need about 8 GB of free disk space to install TALYS.
 
 ## Sample cases
 
@@ -105,7 +108,7 @@ You may create your own input file, e.g. *talys.inp* after which TALYS works as 
 ```
 talys < talys.inp > talys.out
 ```
-assuming that *talys/bin* as been added to PATH.
+assuming that *talys/bin* has been added to PATH.
 
 ## Plotting
 
