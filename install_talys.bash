@@ -28,6 +28,14 @@ if [[ ! -d "$talys_dir/structure" ]]; then
   exit 1
 fi
 
+structure_file="$talys_dir/structure/abundance/H.abun"
+
+if [[ ! -f "$structure_file" ]]; then
+  echo "TALYS installation error: structure database missing or incomplete:" >&2
+  echo "  $structure_file" >&2
+  exit 1
+fi
+
 echo
 echo "Installing TALYS"
 echo "Installation directory: $talys_dir"
@@ -35,9 +43,8 @@ echo
 
 # Pass all command-line arguments directly to make. This permits, e.g.:
 #
-# ./install_talys.bash FC=ifx
-# ./install_talys.bash FFLAGS="-O3 -march=native"
-# ./install_talys.bash FC=gfortran FFLAGS="-w -O3 -ffp-contract=off"   (the optimal choice for MacOS)
+# ./install_talys.bash FC=ifx FFLAGS="-O3"
+# ./install_talys.bash FC=gfortran FFLAGS="-w -O3 -ffp-contract=off"   (used to produce the sample cases on macOS)
 
 make -C "$source_dir" clean
 make -C "$source_dir" all "$@"
