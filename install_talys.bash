@@ -40,6 +40,7 @@ echo
 # ./install_talys.bash FC=gfortran FFLAGS="-w -O3 -ffp-contract=off"   (the optimal choice for MacOS)
 # ./install_talys.bash clean
 
+make -C "$source_dir" clean
 make -C "$source_dir" "$@"
 
 talys_exe="$talys_dir/bin/talys"
