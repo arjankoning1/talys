@@ -15,6 +15,7 @@ Arjan Koning, Stephane Hilaire and Stephane Goriely, *TALYS: modeling of nuclear
 
 The following are the prerequisites for compiling TALYS:
   - git (only if the package is downloaded via Github)
+  - make
   - a recent Fortran compiler such as gcc (gfortran)
 
 ### Downloads:
@@ -43,6 +44,7 @@ An alternative option is
 cd talys/source
 make
 ```
+The above will invoke the default compiler gfortran.
 The compiler and its flags can be set in either *source/Makefile* or in *code_build.bash*.
 #### 2. For the git (latest beta) version,
 ```
@@ -53,13 +55,20 @@ which automatically will execute the *Makefile* in *talys/source*. At the end, *
 will print the shell variables which you may set in your startup files (e.g. *.zshrc*). In my case this is
 ```
   export TALYS_DIR="/Users/koning/talys"
+```
+If you want to run *talys* from anywhere, set
+```
   export PATH="$TALYS_DIR/bin:$PATH"
-  export TALYS_USER="Arjan Koning"
 ```
-A compiler and compilation options can be passed to the Makefile through *install_talys.bash*
-e.g. you may replace the above by
+And if you want to have your name in all the output files (helpful when results are exchanged with others)
 ```
-./install_talys.bash FC=gfortran FFLAGS="-O3 -ffp-contract=off"
+  export TALYS_USER="Your Name"
+```
+Compiler and compilation options can be passed to the Makefile through *install_talys.bash*
+e.g. you may replace the installation command above by
+```
+./install_talys.bash FC=gfortran FFLAGS="-O3 -ffp-contract=off"  (gfortran)
+./install_talys.bash FC=ifx FFLAGS="-O3"  (Intel)
 ```
 
 The above will produce a *talys* executable in the *talys/bin* directory. 
@@ -96,7 +105,7 @@ You may create your own input file, e.g. *talys.inp* after which TALYS works as 
 ```
 talys < talys.inp > talys.out
 ```
-assuming that *talys* is linked to the *talys/bin/talys* executable.
+assuming that *talys/bin* as been added to PATH.
 
 ## Plotting
 
