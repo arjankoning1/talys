@@ -8,16 +8,18 @@
 #   make clean
 #   make check
 
-# GNU make defines FC=f77 internally. Use gfortran unless FC was
-# specified in the environment or on the make command line.
-
+# Compiler-specific flags can be supplied by the user.
 ifeq ($(origin FC), default)
   FC = gfortran
 endif
 
-# Portable default. Compiler-specific flags can be supplied by the user.
-
-FFLAGS ?= -w -O3
+ifeq ($(origin FFLAGS), undefined)
+  ifneq ($(findstring gfortran,$(FC)),)
+    FFLAGS = -w -O3 -ffp-contract=off
+  else
+    FFLAGS =
+  endif
+endif
 
 # Installation directories.
 
@@ -50,4 +52,5 @@ clean:
 	rm -f *.o *.mod talys "$(TARGET)"
 
 check: all
-	cd "$(TALYS_DIR)/samples" && ./verify
+	cd "$(TALYS_DIR)/samples" && \
+	  TALYS_DIR="$(TALYS_DIR)" ./verify
