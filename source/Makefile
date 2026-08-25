@@ -24,8 +24,8 @@ endif
 # Installation directories.
 
 TALYS_DIR := $(abspath ..)
-BIN_DIR  ?= $(TALYS_DIR)/bin
-TARGET   := $(BIN_DIR)/talys
+BIN_DIR   := $(TALYS_DIR)/bin
+TARGET    := $(BIN_DIR)/talys
 
 # TALYS source files.
 #
