@@ -22,12 +22,6 @@ if [[ ! -f "$source_dir/Makefile" ]]; then
   exit 1
 fi
 
-if [[ ! -d "$talys_dir/structure" ]]; then
-  echo "TALYS installation error: structure database not found:" >&2
-  echo "  $talys_dir/structure" >&2
-  exit 1
-fi
-
 structure_file="$talys_dir/structure/abundance/H.abun"
 
 if [[ ! -f "$structure_file" ]]; then
