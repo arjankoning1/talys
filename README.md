@@ -57,6 +57,10 @@ will print the shell variables which you may set in your startup files (e.g. *.z
   export TALYS_USER="Arjan Koning"
 ```
 A compiler and compilation options can be passed to the Makefile through *install_talys.bash*
+e.g. you may replace the above by
+```
+./install_talys.bash FC=gfortran FFLAGS="-O3 -ffp-contract=off"
+```
 
 The above will produce a *talys* executable in the *talys/bin* directory. 
 ### Memory restrictions:
