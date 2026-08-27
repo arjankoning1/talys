@@ -55,7 +55,7 @@ which automatically executes the *Makefile* in *talys/source*. At the end, *inst
 will print the recommended shell configuration.
 Set TALYS_DIR to the TALYS installation directory. This variable is
 required unless the fallback path in source/machine.f90 has been set
-manually. In my case this is
+manually. For example:
 ```
   export TALYS_DIR="/Users/koning/talys"
 ```
@@ -67,6 +67,15 @@ To include your name in the output files, set:
 ```
   export TALYS_USER="Your Name"
 ```
+
+For both installation methods, the default compiler is `gfortran`. When `gfortran` is used and no `FFLAGS` are supplied, the Makefil
+
+```text
+-w -O3 -ffp-contract=off
+```
+
+For other compilers, no default compiler flags are imposed.
+
 Compiler and compilation options can be passed to the Makefile through *install_talys.bash*.
 e.g. you may replace the installation command above by
 ```
