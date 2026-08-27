@@ -45,17 +45,21 @@ make -C "$source_dir" all "$@"
 
 talys_exe="$talys_dir/bin/talys"
 
-if [[ -x "$talys_exe" ]]; then
-  echo
-  echo "TALYS executable:"
-  echo "  $talys_exe"
-  echo
-  echo "If not already done, add the following lines to your shell configuration:"
-  echo
-  echo "  export TALYS_DIR=\"$talys_dir\""
-  echo "  export PATH=\"\$TALYS_DIR/bin:\$PATH\""
-  echo "  export TALYS_USER=\"Your Name\""
-  echo
-  echo "Alternatively, edit code_dir in source/machine.f90 and rebuild TALYS."
-  echo
+if [[ ! -x "$talys_exe" ]]; then
+  echo "TALYS installation error: executable not created:" >&2
+  echo "  $talys_exe" >&2
+  exit 1
 fi
+
+echo
+echo "TALYS executable:"
+echo "  $talys_exe"
+echo
+echo "If not already done, add the following lines to your shell configuration:"
+echo
+echo "  export TALYS_DIR=\"$talys_dir\""
+echo "  export PATH=\"\$TALYS_DIR/bin:\$PATH\""
+echo "  export TALYS_USER=\"Your Name\""
+echo
+echo "Alternatively, edit code_dir in source/machine.f90 and rebuild TALYS."
+echo
