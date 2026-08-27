@@ -32,9 +32,7 @@ TARGET    := $(BIN_DIR)/talys
 # Free-form source files must be named so that alphabetical order places
 # module definitions, such as A0_talys_mod.f90, before their users.
 
-FIXED_SOURCES := $(sort $(wildcard *.f))
-FREE_SOURCES  := $(sort $(wildcard *.f90))
-SOURCES       := $(FIXED_SOURCES) $(FREE_SOURCES)
+SOURCES := $(sort $(wildcard *.f) $(wildcard *.f90))
 
 .PHONY: all install clean check
 
