@@ -26,7 +26,7 @@ module A0_talys_mod
   integer, parameter :: numelem=124                          ! number of elements
   integer, parameter :: numelem0=124                         ! number of elements
   integer, parameter :: numl=60                              ! number of l values
-  integer, parameter :: numlines=5000                        ! number of input lines
+  integer, parameter :: numlines=50000                       ! number of input lines
   integer, parameter :: numpop=1000                          ! number of population bins
   integer, parameter :: numenin=600                          ! number of incident energies
   integer, parameter :: numZ=2+2*memorypar                   ! maximum number of protons from initial compound nucleus
@@ -2298,5 +2298,260 @@ module A0_talys_mod
   real(sgl), dimension(numen6) :: xsopt6    ! optical model reaction cross section for ENDF-6 file
   real(sgl), dimension(numen6) :: xsreac6   ! reaction cross section for ENDF-6 file
   real(sgl), dimension(numen6) :: xstot6    ! total cross section (neutrons only) for ENDF-6 file
+! 
+!----------------------------------------------------------------------------------------------------------------------------------- 
+! Variables for valid key ranges; comment is associated key word (user facing)
+!-----------------------------------------------------------------------------------------------------------------------------------
+!
+  integer,   dimension(2) :: nlevmaxLIM           ! maxlevelstar  
+  integer,   dimension(2) :: nlevmaxresLIM        ! maxlevelsres  
+  integer,   dimension(2) :: nlevbinLIM           ! maxlevelsbin  
+  integer,   dimension(2) :: nlevLIM              ! nlevels       
+  real(sgl), dimension(2) :: massnucleusLIM       ! massnucleus   
+  real(sgl), dimension(2) :: massexcessLIM        ! massexcess    
+  integer,   dimension(2) :: LtargetLIM           ! Ltarget       
+  integer,   dimension(2) :: LisoinpLIM           ! Liso          
+  real(sgl), dimension(2) :: isomerLIM            ! isomer        
+  integer,   dimension(2) :: coreLIM              ! core          
+  integer,   dimension(2) :: transpowerLIM        ! transpower    
+  real(sgl), dimension(2) :: transepsLIM          ! transeps      
+  real(sgl), dimension(2) :: xsepsLIM             ! xseps         
+  real(sgl), dimension(2) :: popepsLIM            ! popeps        
+  real(sgl), dimension(2) :: RfisepsLIM           ! Rfiseps       
+  real(sgl), dimension(2) :: eninclowLIM          ! Elow          
+  integer,   dimension(2) :: nangleLIM            ! angles        
+  integer,   dimension(2) :: nanglecontLIM        ! anglescont    
+  integer,   dimension(2) :: nanglerecLIM         ! anglesrec     
+  integer,   dimension(2) :: maxenrecLIM          ! maxenrec      
+  integer,   dimension(2) :: maxchannelLIM        ! maxchannel    
+  integer,   dimension(2) :: massmodelLIM         ! massmodel     
+  integer,   dimension(2) :: disctableLIM         ! disctable     
+  real(sgl), dimension(2) :: astroT9LIM           ! astroT        
+  real(sgl), dimension(2) :: astroELIM            ! astroE        
+  integer,   dimension(2) :: nonthermlevLIM       ! nonthermlev   
+  real(sgl), dimension(2) :: EbeamLIM             ! Ebeam         
+  real(sgl), dimension(2) :: EbackLIM             ! Eback         
+  real(sgl), dimension(2) :: IbeamLIM             ! Ibeam         
+  real(sgl), dimension(2) :: AreaLIM              ! Area          
+  integer,   dimension(2) :: TirradLIM            ! Tirrad        
+  integer,   dimension(2) :: TcoolLIM             ! Tcool         
+  real(sgl), dimension(2) :: rhotargetLIM         ! rhotarget     
+  real(sgl), dimension(2) :: TresLIM              ! Tres          
+  real(sgl), dimension(2) :: grescueLIM           ! grescue       
+  integer,   dimension(2) :: alphaompLIM          ! alphaomp      
+  integer,   dimension(2) :: deuteronompLIM       ! deuteronomp   
+  integer,   dimension(2) :: radialmodelLIM       ! radialmodel   
+  real(sgl), dimension(2) :: rvadjustLIM          ! rvadjust      
+  real(sgl), dimension(2) :: avadjustLIM          ! avadjust      
+  real(sgl), dimension(2) :: v1adjustLIM          ! v1adjust      
+  real(sgl), dimension(2) :: v2adjustLIM          ! v2adjust      
+  real(sgl), dimension(2) :: v3adjustLIM          ! v3adjust      
+  real(sgl), dimension(2) :: v4adjustLIM          ! v4adjust      
+  real(sgl), dimension(2) :: rwadjustLIM          ! rwadjust      
+  real(sgl), dimension(2) :: awadjustLIM          ! awadjust      
+  real(sgl), dimension(2) :: w1adjustLIM          ! w1adjust      
+  real(sgl), dimension(2) :: w2adjustLIM          ! w2adjust      
+  real(sgl), dimension(2) :: w3adjustLIM          ! w3adjust      
+  real(sgl), dimension(2) :: w4adjustLIM          ! w4adjust      
+  real(sgl), dimension(2) :: rvdadjustLIM         ! rvdadjust     
+  real(sgl), dimension(2) :: avdadjustLIM         ! avdadjust     
+  real(sgl), dimension(2) :: d1adjustLIM          ! d1adjust      
+  real(sgl), dimension(2) :: d2adjustLIM          ! d2adjust      
+  real(sgl), dimension(2) :: d3adjustLIM          ! d3adjust      
+  real(sgl), dimension(2) :: rwdadjustLIM         ! rwdadjust     
+  real(sgl), dimension(2) :: awdadjustLIM         ! awdadjust     
+  real(sgl), dimension(2) :: rvsoadjustLIM        ! rvsoadjust    
+  real(sgl), dimension(2) :: avsoadjustLIM        ! avsoadjust    
+  real(sgl), dimension(2) :: vso1adjustLIM        ! vso1adjust    
+  real(sgl), dimension(2) :: vso2adjustLIM        ! vso2adjust    
+  real(sgl), dimension(2) :: rwsoadjustLIM        ! rwsoadjust    
+  real(sgl), dimension(2) :: awsoadjustLIM        ! awsoadjust    
+  real(sgl), dimension(2) :: wso1adjustLIM        ! wso1adjust    
+  real(sgl), dimension(2) :: wso2adjustLIM        ! wso2adjust    
+  real(sgl), dimension(2) :: rcadjustLIM          ! rcadjust      
+  real(sgl), dimension(2) :: ecisstepLIM          ! ecisstep      
+  real(sgl), dimension(2) :: ompadjustE1LIM       ! ompadjustE1  
+  real(sgl), dimension(2) :: ompadjustE2LIM       ! ompadjustE2   
+  real(sgl), dimension(2) :: ompadjustDLIM        ! ompadjustD    
+  real(sgl), dimension(2) :: ompadjustsLIM        ! ompadjusts    
+  integer,   dimension(2) :: jlmmodeLIM           ! jlmmode       
+  real(sgl), dimension(2) :: lvadjustLIM          ! lvadjust      
+  real(sgl), dimension(2) :: lwadjustLIM          ! lwadjust      
+  real(sgl), dimension(2) :: lv1adjustLIM         ! lv1adjust     
+  real(sgl), dimension(2) :: lw1adjustLIM         ! lw1adjust     
+  real(sgl), dimension(2) :: lvsoadjustLIM        ! lvsoadjust    
+  real(sgl), dimension(2) :: lwsoadjustLIM        ! lwsoadjust    
+  real(sgl), dimension(2) :: aradialcorLIM        ! aradialcor    
+  real(sgl), dimension(2) :: adepthcorLIM         ! adepthcor     
+  real(sgl), dimension(2) :: soswitchLIM          ! soswitch      
+  real(sgl), dimension(2) :: EjoinLIM             ! Ejoin         
+  real(sgl), dimension(2) :: VinfadjustLIM        ! Vinfadjust    
+  integer,   dimension(2) :: pruittsetLIM         ! pruittset     
+  integer,   dimension(2) :: maxbandLIM           ! maxband       
+  integer,   dimension(2) :: maxrotLIM            ! maxrot        
+  real(sgl), dimension(2) :: ewfcLIM              ! ewfc          
+  real(sgl), dimension(2) :: eurrLIM              ! eurr          
+  integer,   dimension(2) :: wmodeLIM             ! wmode         
+  integer,   dimension(2) :: wfcfactorLIM         ! wfcfactor     
+  integer,   dimension(2) :: lurrLIM              ! lurr          
+  integer,   dimension(2) :: gammaxLIM            ! gammax        
+  integer,   dimension(2) :: strengthLIM          ! strength      
+  real(sgl), dimension(2) :: etableLIM            ! etable        
+  real(sgl), dimension(2) :: ftableLIM            ! ftable        
+  real(sgl), dimension(2) :: wtableLIM            ! wtable        
+  real(sgl), dimension(2) :: etableadjustLIM      ! etableadjust  
+  real(sgl), dimension(2) :: ftableadjustLIM      ! ftableadjust  
+  real(sgl), dimension(2) :: wtableadjustLIM      ! wtableadjust  
+  real(sgl), dimension(2) :: egrLIM               ! egr (Energy of GR)    
+  real(sgl), dimension(2) :: ggrLIM               ! ggr (Width of GR)     
+  real(sgl), dimension(2) :: sgrLIM               ! sgr (Strength of GR)  
+  real(sgl), dimension(2) :: eprLIM               ! epr (Energy of PR)    
+  real(sgl), dimension(2) :: gprLIM               ! gpr (Width of PR)     
+  real(sgl), dimension(2) :: tprLIM               ! spr (Strength of PR)  
+  real(sgl), dimension(2) :: egradjustLIM         ! egradjust     
+  real(sgl), dimension(2) :: ggradjustLIM         ! ggradjust     
+  real(sgl), dimension(2) :: sgradjustLIM         ! sgradjust     
+  real(sgl), dimension(2) :: epradjustLIM         ! epradjust     
+  real(sgl), dimension(2) :: gpradjustLIM         ! gpradjust     
+  real(sgl), dimension(2) :: tpradjustLIM         ! spradjust     
+  real(sgl), dimension(2) :: upbendcLIM           ! upbendc       
+  real(sgl), dimension(2) :: upbendeLIM           ! upbende       
+  real(sgl), dimension(2) :: upbendfLIM           ! upbendf       
+  real(sgl), dimension(2) :: upbendcadjustLIM     ! upbendcadjust 
+  real(sgl), dimension(2) :: upbendeadjustLIM     ! upbendeadjust 
+  real(sgl), dimension(2) :: upbendfadjustLIM     ! upbendfadjust 
+  real(sgl), dimension(2) :: gamgamLIM            ! gamgam        
+  real(sgl), dimension(2) :: D0LIM                ! D0            
+  real(sgl), dimension(2) :: fisoLIM              ! fiso          
+  real(sgl), dimension(2) :: fisomLIM             ! fisom         
+  real(sgl), dimension(2) :: gamgamadjustLIM      ! gamgamadjust  
+  real(sgl), dimension(2) :: RprimeULIM           ! RprimeU       
+  integer,   dimension(2) :: ldmodelracapLIM      ! ldmodelracap  
+  real(sgl), dimension(2) :: levingerLIM          ! levinger      
+  real(sgl), dimension(2) :: spectfacthLIM        ! sfth          
+  real(sgl), dimension(2) :: spectfacexpLIM       ! sfexp         
+  real(sgl), dimension(2) :: epreeqLIM            ! epreeq        
+  integer,   dimension(2) :: preeqmodeLIM         ! preeqmode     
+  integer,   dimension(2) :: mpreeqmodeLIM        ! mpreeqmode    
+  integer,   dimension(2) :: breakupmodelLIM      ! breakupmodel  
+  integer,   dimension(2) :: phmodelLIM           ! phmodel       
+  integer,   dimension(2) :: pairmodelLIM         ! pairmodel     
+  integer,   dimension(2) :: pespinmodelLIM       ! pespinmodel   
+  real(sgl), dimension(2) :: emulpreLIM           ! emulpre       
+  real(sgl), dimension(2) :: M2constantLIM        ! M2constant    
+  real(sgl), dimension(2) :: M2limitLIM           ! M2limit       
+  real(sgl), dimension(2) :: M2shiftLIM           ! M2shift       
+  real(sgl), dimension(2) :: RpipiLIM             ! Rpipi         
+  real(sgl), dimension(2) :: RnunuLIM             ! Rnunu         
+  real(sgl), dimension(2) :: RpinuLIM             ! Rpinu         
+  real(sgl), dimension(2) :: RnupiLIM             ! Rnupi         
+  real(sgl), dimension(2) :: RgammaLIM            ! Rgamma        
+  real(sgl), dimension(2) :: Esurf0LIM            ! Esurf         
+  integer,   dimension(2) :: msdbinsLIM           ! msdbins       
+  real(sgl), dimension(2) :: EmsdminLIM           ! Emsdmin (E-in for MSD calc)   
+  real(sgl), dimension(2) :: elwidthLIM           ! elwidth       
+  real(sgl), dimension(2) :: xscapthermLIM        ! xscaptherm    
+  real(sgl), dimension(2) :: xspthermLIM          ! xsptherm      
+  real(sgl), dimension(2) :: xsalphathermLIM      ! xsalphatherm  
+  real(sgl), dimension(2) :: CstripLIM            ! Cstrip        
+  real(sgl), dimension(2) :: CknockLIM            ! Cknock        
+  real(sgl), dimension(2) :: CbreakLIM            ! Cbreak        
+  real(sgl), dimension(2) :: GMRadjustELIM        ! GMRadjustE    
+  real(sgl), dimension(2) :: GQRadjustELIM        ! GQRadjustE    
+  real(sgl), dimension(2) :: LEORadjustELIM       ! LEORadjustE   
+  real(sgl), dimension(2) :: HEORadjustELIM       ! HEORadjustE   
+  real(sgl), dimension(2) :: GMRadjustGLIM        ! GMRadjustG   
+  real(sgl), dimension(2) :: GQRadjustGLIM        ! GQRadjustG    
+  real(sgl), dimension(2) :: LEORadjustGLIM       ! LEORadjustG   
+  real(sgl), dimension(2) :: HEORadjustGLIM       ! HEORadjustG   
+  real(sgl), dimension(2) :: GMRadjustDLIM        ! GMRadjustD    
+  real(sgl), dimension(2) :: GQRadjustDLIM        ! GQRadjustD    
+  real(sgl), dimension(2) :: LEORadjustDLIM       ! LEORadjustD   
+  real(sgl), dimension(2) :: HEORadjustDLIM       ! HEORadjustD   
+  integer,   dimension(2) :: spincutmodelLIM      ! spincutmodel  
+  integer,   dimension(2) :: shellmodelLIM        ! shellmodel    
+  integer,   dimension(2) :: kvibmodelLIM         ! kvibmodel     
+  integer,   dimension(2) :: ldmodelCNLIM         ! ldmodelcn     
+  integer,   dimension(2) :: ldmodelLIM           ! ldmodel       
+  real(sgl), dimension(2) :: alevLIM              ! a             
+  real(sgl), dimension(2) :: alimitLIM            ! alimit        
+  real(sgl), dimension(2) :: gammaldLIM           ! gammald       
+  real(sgl), dimension(2) :: RisomerLIM           ! risomer       
+  real(sgl), dimension(2) :: deltaWLIM            ! deltaW        
+  integer,   dimension(2) :: NlowLIM              ! Nlow          
+  integer,   dimension(2) :: NtopLIM              ! Ntop          
+  real(sgl), dimension(2) :: E0LIM                ! E0            
+  real(sgl), dimension(2) :: beta2LIM             ! beta2         
+  real(sgl), dimension(2) :: s2adjustLIM          ! s2adjust      
+  real(sgl), dimension(2) :: KrotconstantLIM      ! Krotconstant  
+  real(sgl), dimension(2) :: UfermiLIM            ! Ufermi        
+  real(sgl), dimension(2) :: cfermiLIM            ! cfermi        
+  real(sgl), dimension(2) :: TLIM                 ! T             
+  real(sgl), dimension(2) :: ExmatchLIM           ! Exmatch       
+  real(sgl), dimension(2) :: TadjustLIM           ! Tadjust       
+  real(sgl), dimension(2) :: E0adjustLIM          ! E0adjust      
+  real(sgl), dimension(2) :: ExmatchadjustLIM     ! Exmatchadjust 
+  real(sgl), dimension(2) :: PshiftLIM            ! Pshift        
+  real(sgl), dimension(2) :: PshiftadjustLIM      ! Pshiftadjust  
+  real(sgl), dimension(2) :: ctableLIM            ! ctable        
+  real(sgl), dimension(2) :: ptableLIM            ! ptable        
+  real(sgl), dimension(2) :: ctableadjustLIM      ! ctableadjust  
+  real(sgl), dimension(2) :: ptableadjustLIM      ! ptableadjust  
+  real(sgl), dimension(2) :: aadjustLIM           ! aadjust       
+  real(sgl), dimension(2) :: gadjustLIM           ! gadjust
+  real(sgl), dimension(2) :: gnadjustLIM          ! gnadjust
+  real(sgl), dimension(2) :: gpadjustLIM          ! gpadjust
+  real(sgl), dimension(2) :: pairLIM              ! pair
+  real(sgl), dimension(2) :: gLIM                 ! g
+  real(sgl), dimension(2) :: gnLIM                ! gn
+  real(sgl), dimension(2) :: gpLIM                ! gp
+  real(sgl), dimension(2) :: alphaldLIM           ! alphald
+  real(sgl), dimension(2) :: betaldLIM            ! betald
+  real(sgl), dimension(2) :: gammashell1LIM       ! gammashell1
+  real(sgl), dimension(2) :: PshiftconstantLIM    ! Pshiftconstant
+  real(sgl), dimension(2) :: cglobalLIM           ! cglobal
+  real(sgl), dimension(2) :: pglobalLIM           ! pglobal
+  real(sgl), dimension(2) :: gammashell2LIM       ! gammashell2
+  real(sgl), dimension(2) :: pairconstantLIM      ! pairconstant
+  real(sgl), dimension(2) :: KphLIM               ! Kph
+  real(sgl), dimension(2) :: RspincutLIM          ! Rspincut
+  real(sgl), dimension(2) :: RspincutpreeqLIM     ! Rspincutpreeq
+  real(sgl), dimension(2) :: RspincutffLIM        ! Rspincutff
+  integer,   dimension(2) :: fismodelLIM          ! fismodel
+  integer,   dimension(2) :: fismodelaltLIM       ! fismodelalt
+  integer,   dimension(2) :: fymodelLIM           ! fymodel
+  integer,   dimension(2) :: ffmodelLIM           ! ffmodel
+  integer,   dimension(2) :: pfnsmodelLIM         ! pfnsmodel
+  integer,   dimension(2) :: gefranLIM            ! gefran
+  real(sgl), dimension(2) :: Cnubar1LIM           ! Cnubar1
+  real(sgl), dimension(2) :: Cnubar2LIM           ! Cnubar2
+  real(sgl), dimension(2) :: TmadjustLIM          ! Tmadjust
+  real(sgl), dimension(2) :: FsadjustLIM          ! Fsadjust
+  real(sgl), dimension(2) :: CbarrierLIM          ! Cbarrier
+  integer,   dimension(2) :: axtypeLIM            ! axtype (type of axiality)
+  real(sgl), dimension(2) :: fbarrierLIM          ! fbarrier (fission barrier)
+  real(sgl), dimension(2) :: fbaradjustLIM        ! fisbaradjust
+  real(sgl), dimension(2) :: fwidthLIM            ! fwidth (fission width)
+  real(sgl), dimension(2) :: fwidthadjustLIM      ! fishwadjust
+  real(sgl), dimension(2) :: bdampLIM             ! bdamp
+  real(sgl), dimension(2) :: bdampadjustLIM       ! bdampadjust
+  real(sgl), dimension(2) :: RtransmomLIM         ! Rtransmom
+  real(sgl), dimension(2) :: Rclass2momLIM        ! Rclass2mom
+  real(sgl), dimension(2) :: betafiscorLIM        ! betafiscor
+  real(sgl), dimension(2) :: rmiufiscorLIM        ! rmiufiscor
+  real(sgl), dimension(2) :: vfiscorLIM           ! vfiscor
+  real(sgl), dimension(2) :: betafiscoradjustLIM  ! betafiscoradjust
+  real(sgl), dimension(2) :: vfiscoradjustLIM     ! vfiscoradjust
+  real(sgl), dimension(2) :: rmiufiscoradjustLIM  ! rmiufiscoradjust
+  real(sgl), dimension(2) :: eaddLIM              ! eadd
+  real(sgl), dimension(2) :: eaddelLIM            ! eaddel
+  integer,   dimension(2) :: ddxmodeLIM           ! ddxmode
+  real(sgl), dimension(2) :: fileddxeLIM          ! fileddxe
+  real(sgl), dimension(2) :: fileddxaLIM          ! fileddxa
+  real(sgl), dimension(2) :: DLIM                 ! adjustkey(n, 4)
+  real(sgl), dimension(2) :: EmaxpseudoresLIM     ! Emaxpseudores
+  real(sgl), dimension(2) :: pseudoreswidthLIM    ! pseudoreswidth
+  real(sgl), dimension(2) :: pseudoresfadeLIM     ! pseudoresfade
+  real(sgl), dimension(2) :: widthc2LIM           ! class2width
 end module A0_talys_mod
 ! Copyright A.J. Koning 2026
