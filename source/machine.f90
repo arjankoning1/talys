@@ -66,6 +66,7 @@ subroutine machine
 ! The input file may also be used to alter this setting, through the nulldev keyword
 !
   nulldev = '/dev/null'
+  OS = ''
   call get_environment_variable('OS',OS)
   if (OS.eq.'Windows_NT') nulldev='NUL'
 !
