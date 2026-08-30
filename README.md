@@ -68,7 +68,8 @@ To include your name in the output files, set:
   export TALYS_USER="Your Name"
 ```
 
-For both installation methods, the default compiler is `gfortran`. When `gfortran` is used and no `FFLAGS` are supplied, the Makefil
+For both installation methods, the default compiler is `gfortran`. When `gfortran` is used and no `FFLAGS` are supplied, 
+the Makefile will use the following flags:
 
 ```text
 -w -O3 -ffp-contract=off
