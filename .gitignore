@@ -1,15 +1,13 @@
-# General
+# ============================================================
+# macOS
+# ============================================================
+
 .DS_Store
 .AppleDouble
 .LSOverride
-
-# Icon must end with two \r
-Icon
-
-# Thumbnails
+Icon?
 ._*
 
-# Files that might appear in the root of a volume
 .DocumentRevisions-V100
 .fseventsd
 .Spotlight-V100
@@ -18,7 +16,6 @@ Icon
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
 
-# Directories potentially created on remote AFP share
 .AppleDB
 .AppleDesktop
 Network Trash Folder
@@ -26,7 +23,10 @@ Temporary Items
 .apdisk
 
 
-# LaTeX build files
+# ============================================================
+# LaTeX
+# ============================================================
+
 *.dvi
 *.aux
 *.bbl
@@ -34,64 +34,54 @@ Temporary Items
 *.lof
 *.log
 *.lot
-##*.out
-report.pdf
 *.synctex.gz
 *.synctex
 *.toc
 *.spl
-leer.eps
+
+
+# ============================================================
+# Editor temporary files
+# ============================================================
+
 *~
 *.swp
+*.swo
 *.bak
-
-# vim/vi
-# Swap
-[._]*.s[a-v][a-z]
-!*.svg  # comment out if you don't need vector files
-[._]*.sw[a-p]
-[._]s[a-rt-v][a-z]
-[._]ss[a-gi-z]
-[._]sw[a-p]
-
-# Session
+.netrwhist
 Session.vim
 Sessionx.vim
-
-# Temporary
-.netrwhist
-*~
-
-# Auto-generated tag files
 tags
-# Persistent undo
 [._]*.un~
 
 
-# Fortran and C++
-# Prerequisites
+# ============================================================
+# Fortran / C / C++
+# ============================================================
+
+# Dependencies
 *.d
 
-# Compiled Object files
+# Object files
 *.slo
 *.lo
 *.o
 *.obj
 
-# Precompiled Headers
+# Precompiled headers
 *.gch
 *.pch
 
-# Compiled Dynamic libraries
+# Dynamic libraries
 *.so
 *.dylib
 *.dll
 
-# Fortran module files
+# Fortran modules
 *.mod
 *.smod
 
-# Compiled Static libraries
+# Static libraries
 *.lai
 *.la
 *.a
@@ -99,22 +89,29 @@ tags
 
 # Executables
 *.exe
-##*.out
 *.app
 
-#AK software
+# Coverage
+*.gcda
+*.gcno
+*.gcov
 
-##samples
-samples1.97
+
+# ============================================================
+# AK software
+# ============================================================
+
 LOG-*
-export
-bin
-source1.97
-source1.0
-source_noyandf
-##structure
-##parameters
+/export
+/hi
+/bin
+struc.git
+source_lean
 t6copy
 exforcopy
 create
 clean
+/structure/data
+/structure/source
+/structure/tools
+structure.setup
