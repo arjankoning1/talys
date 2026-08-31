@@ -10,9 +10,7 @@ By running the script 'verify', the sample cases are executed one by one
 and the new/ subdirectories are filled with YOUR calculated results. 
 
 To run all sample cases, give
-verify
-To only run the first e.g. 2 sample case, give
-verify 2
+./verify
 
 There should be no, or at most small, numerical differences between the results 
 in new/ and those in org/. These differences are written to file 'outputdiff' in
