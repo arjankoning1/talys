@@ -196,7 +196,7 @@ subroutine astroprepare(Zcomp, Ncomp, J2, parity, spin2target, Ptarget, nexastro
       else
         if (modl /= pardif) cycle
         updown = (jj2 - l2) / pspin2i
-        Tinc = Tjlnex(updown, l, k0, nexastro)
+        Tinc = Tjlnex(l, updown, k0, nexastro)
       endif
       if (flagwidth) then
         if (Tinc > 0.) then
