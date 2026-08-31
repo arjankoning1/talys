@@ -1,134 +1,485 @@
-#!/bin/bash
-echo
-echo "     verify (Version December 27 2024) (C) Copyright 2024 Arjan Koning and Viktor Zerkin All Rights Reserved"
-echo
+#!/usr/bin/env bash
+
 #
-# verify: run TALYS for each sample case present in the new/ directories and determine
-#         the numerical differences with the results of the org/ directories
+# verify: run all TALYS sample cases and compare new/ results with org/
 #
-# Examples: verify     (run all sample cases)"
-#           verify 2   (run only the first 2 sample case)"
+# Usage:
 #
-# verify has been developed on Linux and Macos.
-# For Windows, change diff --> FC  and /dev/null --> NUL
+#   ./verify
+#   ./verify -t /full/path/to/talys
+#   ./verify --talys /full/path/to/talys
 #
-# TALYS executable: Relative path from the current directory talys/samples.  
+# Without -t/--talys:
+#   1. use $TALYS_DIR/bin/talys if TALYS_DIR is set
+#   2. otherwise use ../bin/talys
 #
-cwd=`pwd`
-talys=${cwd}/../bin/talys
+# With -t/--talys, the TALYS installation directory is normally derived
+# from the executable pathname. For example:
 #
-# Main output and determine number of sample cases
-# nfiles: total number of TALYS sample cases
-# iimax:  number of sample cases to be run by the user
+#   /path/to/talys-2.2/bin/talys
 #
-start=`date +%F,%T`
-echo "________Script [$0] starting on:`uname -n` at:$start"
-files=`find . -name talys.inp | grep new | sort `
-nfiles=`find . -name talys.inp | grep new | sort  | wc -l`
-iimax=1000
-if [ "$1" != "" ] ; then 
-  iimax=$1 
-else 
-  iimax=${nfiles}
+# implies:
+#
+#   TALYS_DIR=/path/to/talys-2.2
+#
+# A locally built executable may instead be copied or linked into a
+# separate bin directory.  In that case, verify uses the structure/
+# directory beside this samples/ directory when it is available.
+#
+# Numerical differences are written to outputdiff, but do not cause
+# verify to fail because small compiler-dependent differences may occur.
+#
+# Execution failures and missing expected output files do cause a
+# non-zero exit status.
+#
+
+set -u
+set -o pipefail
+
+# ----------------------------------------------------------------------
+# TALYS sample directory
+# ----------------------------------------------------------------------
+
+samples_dir=$(cd "$(dirname "$0")" && pwd)
+cd "$samples_dir"
+
+# ----------------------------------------------------------------------
+# Default TALYS executable
+# ----------------------------------------------------------------------
+
+if [[ -n "${TALYS_DIR:-}" ]]; then
+  talys="$TALYS_DIR/bin/talys"
+else
+  talys="$samples_dir/../bin/talys"
 fi
-if [ $iimax -ge $nfiles ] ; then 
-  iimax=$nfiles
-fi
-iimax=`printf "%2d"  $(echo $iimax)`
-nfiles=`printf "%2d"  $(echo $nfiles)`
-echo "________in total there are ${nfiles} sample cases"
-echo "________going to run TALYS on ${iimax} sample cases"
-#
-# Runtime of the sample cases is printed in times.log
-#
-echo "Script $0 start on:`uname -n` at:`date +%F,%T` with ${iimax} cases">times.log
-echo "TALYS executable: ${talys}">>times.log
-ls -la ${talys}>>times.log
-echo
-echo 'times.log: computer time of each sample case, to be compared with times_org.log'
-echo 'files_dif.log: differences in file length for each output file'
-echo
-echo >> times.log
-echo 'Differences in file length'  > files_dif.log
-echo >> files_dif.log
-#
-# Output of TALYS executable
-#
-homedir=`pwd`
-echo "________TALYS executable: $talys"
-ls -la ${talys}
-echo ""
-#
-# Loop over sample cases
-#
-t00=`date +%s`
-ii=0
-for f in ${files} ; do
-  ii=$((ii+1))
-  dir=`dirname ${f}`
-  cd ${dir}
-#
-# Run TALYS and output of calculation time
-#
-  echo "${ii}/${iimax}  *** Sample case $dir "
-  echo "          *** Start: `date +%F,%T`"
-  t0=`date +%s`
-  $talys < talys.inp > talys.out
-  errCode=$?
-  if [ $errCode -ne 0 ] ; then 
-    echo "___________error=$errCode on $dir"
-  fi
-  t1=`date +%s` 
-  dt=$(($t1-t0))
-  dt0=$(($t1-t00))
-  printf " %2d/%-2d %-30s %s time[sec]:%-5d total[sec]:%-5d sec err:%d\n" $ii ${iimax} $dir `date +%F,%T` $dt ${dt0} $errCode>>../../times.log
-  echo "          *** End  : `date +%F,%T`" time[sec]:${dt}
-  echo
-#
-# Output of file differences
-#
-  if [ -e outputdiff ]; then
-    rm outputdiff
-  fi
-  first=1
-  for of in `ls -1` ; do
-    diff ${of} ../org/${of} | grep -v date >> /dev/null
-    if [ $? -eq 1 ] ; then
-      echo $of >> outputdiff
-      diff ${of} ../org/${of} | grep -v date >> outputdiff
-    fi
-    lines_new=`cat ${of}|wc -l`
-    lines_org=`cat ../org/${of}|wc -l`
-    if [ $lines_new != $lines_org ] ; then 
-      if [ $first -eq 1 ] ;then
-        echo "*** Sample case $dir" >> ../../files_dif.log
-        echo "Difference in length of output file, see files_dif.log"
-        echo
-        first=0
+
+# ----------------------------------------------------------------------
+# Command-line options
+# ----------------------------------------------------------------------
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+
+    -t|--talys)
+      if [[ $# -lt 2 ]]; then
+        echo "*** TALYS verify error: $1 requires a pathname" >&2
+        exit 2
       fi
-      echo $of "lines - new:" $lines_new " org:" $lines_org >> ../../files_dif.log
-    fi
-    perl -ne 'print if /[^[:ascii:]]/' $of >> /dev/null
-    if [ $? -eq 1 ] ; then
-      echo "Non-ascii characters in " $of >> files_dif.log
-      perl -ne 'print if /[^[:ascii:]]/' $of >> files_dif.log
+      talys=$2
+      shift 2
+      ;;
+
+    -h|--help)
+      echo "Usage:"
+      echo "  ./verify"
+      echo "  ./verify -t /full/path/to/talys"
+      echo "  ./verify --talys /full/path/to/talys"
+      exit 0
+      ;;
+
+    *)
+      echo "*** TALYS verify error: unknown option: $1" >&2
+      echo "Use ./verify --help for usage." >&2
+      exit 2
+      ;;
+
+  esac
+done
+
+# ----------------------------------------------------------------------
+# Convert the TALYS executable to an absolute pathname
+# ----------------------------------------------------------------------
+
+if [[ "$talys" != /* ]]; then
+  talys_bin_dir=$(cd "$(dirname "$talys")" 2>/dev/null && pwd) || {
+    echo "*** TALYS verify error: executable directory not found:" >&2
+    echo "  $talys" >&2
+    exit 2
+  }
+  talys="$talys_bin_dir/$(basename "$talys")"
+fi
+
+if [[ ! -x "$talys" ]]; then
+  echo "*** TALYS verify error: executable not found or not executable:" >&2
+  echo "  $talys" >&2
+  exit 2
+fi
+
+# ----------------------------------------------------------------------
+# Determine TALYS_DIR belonging to the selected executable
+#
+# Expected layout:
+#
+#   TALYS_DIR/
+#   ├── bin/
+#   │   └── talys
+#   └── structure/
+#
+# ----------------------------------------------------------------------
+
+talys_bin_dir=$(cd "$(dirname "$talys")" && pwd)
+talys_dir=$(cd "$talys_bin_dir/.." && pwd)
+
+if [[ ! -d "$talys_dir/structure" ]]; then
+  local_talys_dir=$(cd "$samples_dir/.." && pwd)
+
+  if [[ -d "$local_talys_dir/structure" ]]; then
+    echo "Using structure database from $local_talys_dir (the selected executable is outside a TALYS installation)." >&2
+    talys_dir=$local_talys_dir
+  else
+    echo "*** TALYS verify error: structure directory not found for selected TALYS:" >&2
+    echo "  $talys_dir/structure" >&2
+    echo "No structure directory was found beside the samples directory either:" >&2
+    echo "  $local_talys_dir/structure" >&2
+    exit 2
+  fi
+fi
+
+# ----------------------------------------------------------------------
+# Determine sample cases
+# ----------------------------------------------------------------------
+
+cases=()
+
+while IFS= read -r f; do
+  cases[${#cases[@]}]="$f"
+done < <(
+  find . -type f -path '*/new/talys.inp' -print | LC_ALL=C sort
+)
+
+nfiles=${#cases[@]}
+
+if [[ "$nfiles" -eq 0 ]]; then
+  echo "*** TALYS verify error: no sample cases found" >&2
+  exit 2
+fi
+
+# ----------------------------------------------------------------------
+# Normalize files before comparison
+#
+# Remove information that legitimately differs between machines or runs
+# before calling diff.
+#
+# The TALYS version/source is deliberately NOT removed: differences in
+# the version should remain visible in outputdiff.
+# ----------------------------------------------------------------------
+
+normalize_file()
+{
+  awk '
+    /^[[:space:]]*User:[[:space:]]/               { next }
+    /^[[:space:]]*Date:[[:space:]]/               { next }
+    /^[[:space:]]*Execution time:/                 { next }
+    /^[[:space:]]*#[[:space:]]*user:[[:space:]]/ { next }
+    /^[[:space:]]*#[[:space:]]*date:[[:space:]]/ { next }
+    /^[[:space:]]*user[[:space:]]+/               { next }
+    { print }
+  ' "$1"
+}
+
+# ----------------------------------------------------------------------
+# List ordinary files in one directory
+# ----------------------------------------------------------------------
+
+list_files()
+{
+  local directory=$1
+  local file
+
+  shopt -s nullglob
+
+  for file in \
+    "$directory"/* \
+    "$directory"/.[!.]* \
+    "$directory"/..?*
+  do
+    if [[ -f "$file" ]]; then
+      basename "$file"
     fi
   done
-#
-# Back to original directory for next sample case
-#
-  cd $homedir
-  if [ $ii -ge $iimax ] ; then 
-    break
+
+  shopt -u nullglob
+}
+
+# ----------------------------------------------------------------------
+# Temporary files and logs
+# ----------------------------------------------------------------------
+
+tmpdir=$(mktemp -d "${TMPDIR:-/tmp}/talys_verify.XXXXXX") || {
+  echo "*** TALYS verify error: unable to create temporary directory" >&2
+  exit 2
+}
+
+cleanup()
+{
+  rm -rf "$tmpdir"
+}
+
+interrupted()
+{
+  local status=$1
+
+  echo "*** TALYS verification interrupted; stopping after the current command." >&2
+  exit "$status"
+}
+
+# Cleanup must be separate from signal handling.  A trap that only removes
+# temporary files returns to the main loop, so Ctrl-C used to start the next
+# sample case instead of stopping verification.
+trap cleanup EXIT
+trap 'interrupted 130' INT
+trap 'interrupted 143' TERM HUP
+
+: > times.log
+: > files_dif.log
+
+start=$(date '+%F,%T')
+host=$(uname -n)
+
+echo
+echo "TALYS sample verification"
+echo
+echo "TALYS executable: $talys"
+echo "TALYS_DIR:        $talys_dir"
+echo "Host:             $host"
+echo "Sample cases:     $nfiles"
+echo
+
+{
+  echo "TALYS verify started on $host at $start"
+  echo "TALYS executable: $talys"
+  echo "TALYS_DIR: $talys_dir"
+  echo "Sample cases: $nfiles"
+  echo
+} >> times.log
+
+# ----------------------------------------------------------------------
+# Run sample cases
+# ----------------------------------------------------------------------
+
+total_start=$(date +%s)
+
+run_failures=0
+missing_files=0
+different_files=0
+different_cases=0
+
+ii=0
+
+for input in "${cases[@]}"; do
+
+  ii=$((ii + 1))
+
+  new_dir=$(dirname "$input")
+  case_dir=$(dirname "$new_dir")
+  org_dir="$case_dir/org"
+  case_name=${case_dir#./}
+
+  echo "$ii/$nfiles  *** Sample case $case_name"
+
+  if [[ ! -d "$org_dir" ]]; then
+    echo "*** Missing reference directory: $org_dir" >&2
+    missing_files=$((missing_files + 1))
+    continue
   fi
+
+  rm -f "$new_dir/outputdiff"
+
+  # --------------------------------------------------------------------
+  # Run TALYS
+  # --------------------------------------------------------------------
+
+  t0=$(date +%s)
+
+  if (
+    cd "$new_dir" &&
+    TALYS_DIR="$talys_dir" "$talys" < talys.inp > talys.out
+  ); then
+    err=0
+  else
+    err=$?
+    echo "*** TALYS failed for $case_name: exit status $err" >&2
+    run_failures=$((run_failures + 1))
+  fi
+
+  t1=$(date +%s)
+  dt=$((t1 - t0))
+  dtotal=$((t1 - total_start))
+
+  printf \
+    "%3d/%-3d %-35s %s  time:%6d s  total:%6d s  err:%d\n" \
+    "$ii" "$nfiles" "$case_name" "$(date '+%F,%T')" \
+    "$dt" "$dtotal" "$err" >> times.log
+
+  # --------------------------------------------------------------------
+  # Construct the union of files in new/ and org/
+  # --------------------------------------------------------------------
+
+  names="$tmpdir/names"
+
+  {
+    list_files "$new_dir"
+    list_files "$org_dir"
+  } | LC_ALL=C sort -u > "$names"
+
+  case_different=0
+  outputdiff="$new_dir/outputdiff"
+
+  # --------------------------------------------------------------------
+  # Compare each file
+  # --------------------------------------------------------------------
+
+  while IFS= read -r name; do
+
+    case "$name" in
+      outputdiff|.DS_Store)
+        continue
+        ;;
+    esac
+
+    new_file="$new_dir/$name"
+    org_file="$org_dir/$name"
+
+    # ------------------------------------------------------------------
+    # File expected from the reference calculation but missing in new/
+    # ------------------------------------------------------------------
+
+    if [[ ! -f "$new_file" ]]; then
+      {
+        echo
+        echo "===== $name ====="
+        echo "Missing file in new results"
+      } >> "$outputdiff"
+
+      echo "$case_name: missing new file $name" >> files_dif.log
+
+      missing_files=$((missing_files + 1))
+      different_files=$((different_files + 1))
+      case_different=1
+      continue
+    fi
+
+    # ------------------------------------------------------------------
+    # New file for which no reference exists
+    # ------------------------------------------------------------------
+
+    if [[ ! -f "$org_file" ]]; then
+      {
+        echo
+        echo "===== $name ====="
+        echo "No reference file in org/"
+      } >> "$outputdiff"
+
+      different_files=$((different_files + 1))
+      case_different=1
+      continue
+    fi
+
+    # ------------------------------------------------------------------
+    # Normalize and compare
+    # ------------------------------------------------------------------
+
+    normalized_new="$tmpdir/new"
+    normalized_org="$tmpdir/org"
+    diff_file="$tmpdir/diff"
+
+    normalize_file "$new_file" > "$normalized_new"
+    normalize_file "$org_file" > "$normalized_org"
+
+    diff -u "$normalized_org" "$normalized_new" > "$diff_file"
+    diff_status=$?
+
+    if [[ "$diff_status" -eq 1 ]]; then
+
+      {
+        echo
+        echo "===== $name ====="
+        cat "$diff_file"
+      } >> "$outputdiff"
+
+      different_files=$((different_files + 1))
+      case_different=1
+
+    elif [[ "$diff_status" -gt 1 ]]; then
+
+      echo "*** diff failed for $case_name/$name" >&2
+      run_failures=$((run_failures + 1))
+      case_different=1
+
+    fi
+
+    # ------------------------------------------------------------------
+    # Check differences in file length
+    # ------------------------------------------------------------------
+
+    lines_new=$(wc -l < "$new_file" | tr -d ' ')
+    lines_org=$(wc -l < "$org_file" | tr -d ' ')
+
+    if [[ "$lines_new" -ne "$lines_org" ]]; then
+      printf "%-35s %-30s new:%6d org:%6d\n" \
+        "$case_name" "$name" "$lines_new" "$lines_org" \
+        >> files_dif.log
+    fi
+
+  done < "$names"
+
+  # --------------------------------------------------------------------
+  # Per-case result
+  # --------------------------------------------------------------------
+
+  if [[ "$case_different" -eq 1 ]]; then
+    different_cases=$((different_cases + 1))
+    echo "          differences: $outputdiff"
+  else
+    rm -f "$outputdiff"
+    echo "          no differences"
+  fi
+
+  echo "          time: ${dt} s"
+  echo
+
 done
+
+# ----------------------------------------------------------------------
+# Summary
+# ----------------------------------------------------------------------
+
+total_end=$(date +%s)
+elapsed=$((total_end - total_start))
+end=$(date '+%F,%T')
+
+echo "------------------------------------------------------------"
+echo "TALYS sample verification completed"
+echo
+echo "TALYS executable:         $talys"
+echo "TALYS_DIR:                $talys_dir"
+echo "Cases run:                $ii"
+echo "Cases with differences:   $different_cases"
+echo "Files with differences:   $different_files"
+echo "Missing files:            $missing_files"
+echo "Execution errors:         $run_failures"
+echo "Elapsed time:             $elapsed s"
+echo
+
+{
+  echo
+  echo "Finished: $end"
+  echo "Elapsed time: $elapsed s"
+  echo "Cases with differences: $different_cases"
+  echo "Files with differences: $different_files"
+  echo "Missing files: $missing_files"
+  echo "Execution errors: $run_failures"
+} >> times.log
+
+# ----------------------------------------------------------------------
+# Exit status
 #
-# Output of total time
-#
-t11=`date +%s`; dt0=$(($t11-t00))
-echo "Script $0 `date +%F,%T` stop $ii cases ${dt0}sec">>times.log
-echo "Elapsed time[sec]:" ${dt0}
-end=`date +%F,%T`
-echo "*** All sample cases done " 
-echo "Start: " $start
-echo "End  : " $end
+# Numerical differences are informational.
+# Execution failures and missing expected files indicate a failed test.
+# ----------------------------------------------------------------------
+
+if [[ "$run_failures" -gt 0 || "$missing_files" -gt 0 ]]; then
+  exit 1
+fi
+
+exit 0
