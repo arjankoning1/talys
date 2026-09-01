@@ -22,6 +22,7 @@ The following are the prerequisites for compiling TALYS:
 
 To download TALYS, you can use one of the following options:
 #### 1. Download the entire tar file (frozen version TALYS-2.2):
+This is available at the the [TALYS page](https://nds.iaea.org/talys/), and can be downloaded by clicking on the link or
 ```
 curl -LO https://nds.iaea.org/talys/codes/talys.tar
 tar zxf talys.tar
