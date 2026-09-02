@@ -482,7 +482,16 @@ subroutine strucinitial
   Tcrit = 0.
   Ucrit = 0.
   sfactor = 0.
-  eqrpa = 0.
+!
+! Reset any QRPA components left from an earlier structure initialization.
+!
+  do Nix = 0, numN
+    do Zix = 0, numZ
+      if (allocated(qrpa(Zix,Nix)%e)) deallocate(qrpa(Zix,Nix)%e)
+      if (allocated(qrpa(Zix,Nix)%f)) deallocate(qrpa(Zix,Nix)%f)
+      if (allocated(qrpa(Zix,Nix)%fJP)) deallocate(qrpa(Zix,Nix)%fJP)
+    enddo
+  enddo
   qrpaexist = .false.
   Tqrpa = 0.
   ngr = 1
