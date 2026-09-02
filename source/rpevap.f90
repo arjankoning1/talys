@@ -231,6 +231,9 @@ subroutine rpevap
 ! Reset variables to those of original target.
 !
   flagrpruns = .false.
+! The residual-product loop also reuses talysinitial via evaptalys.  Its
+! last iteration leaves dynamic work arrays allocated.
+  call deallocate_arrays
   call talysinput
   flagmain = .false.
   call talysinitial
