@@ -2,7 +2,7 @@
 #   title: Cd116 level density
 #   source: TALYS-2.24
 #   user: Arjan Koning
-#   date: 2026-08-30
+#   date: 2026-09-02
 #   format: YANDF-0.4
 # residual: 
 #   Z: 48
