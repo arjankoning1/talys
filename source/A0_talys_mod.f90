@@ -1986,7 +1986,7 @@ module A0_talys_mod
   real(sgl), dimension(0:numex)                       :: Dmulti     ! depletion factor for multiple preequilibrium
   real(sgl), dimension(0:numZ,0:numN)                 :: Fcomp      ! compound population fraction per nucleus
   real(sgl), dimension(0:numZ,0:numN)                 :: Fdir       ! direct population fraction per nucleus
-  real(sgl), dimension (0:numZchan,0:numNchan,0:numpar,0:numex+1,0:numex+1) :: feedexcl   ! feeding terms from compound emission
+  real(sgl), allocatable                              :: feedexcl(:,:,:,:,:) ! feeding terms from compound emission
   real(sgl), dimension(0:numZ,0:numN,0:numex+1)       :: fisfeedex  ! fission contribution from excitation energy bin
   real(sgl), dimension(0:numZ,0:numN)                 :: Fpreeq     ! preequilibrium population fraction per nucleus
   real(sgl), dimension(0:numpar,0:numex+1,0:numex+1)  :: mcontrib   ! contribution to emission spectrum
