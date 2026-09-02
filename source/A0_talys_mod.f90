@@ -940,8 +940,8 @@ module A0_talys_mod
   integer, dimension(0:numZ,0:numN,0:1,numgam)                         :: ngr        ! number of GR
   integer                                                              :: nTqrpa     ! number of temperatures for QRPA
   real(sgl), dimension(0:numZ,0:numN,0:numgamqrpa,0:1,numgam)          :: eqrpa      ! energy grid for QRPA strength function
-  real(sgl), dimension(0:numZ,0:numN,0:numgamqrpa,numTqrpa,0:1,numgam) :: fqrpa      ! tabulated QRPA strength function
-  real(sgl), dimension(0:numZph,0:numNph,0:numgamqrpa,numTqrpa,0:1,0:9,0:1) :: fqrpaJP    ! tabulated QRPA strength function
+  real(sgl), allocatable                                               :: fqrpa(:,:,:,:,:,:) ! tabulated QRPA strength function
+  real(sgl), allocatable                                               :: fqrpaJP(:,:,:,:,:,:,:) ! tabulated QRPA strength function
   real(sgl), dimension(250)                                            :: gamkopecky ! rad. width in eV by spline fit of Kopecky
   real(sgl), dimension(numgam)                                         :: kgr        ! constant for gamma-ray strength function
   real(sgl), dimension(numTqrpa)                                       :: Tqrpa      ! temperature for QRPA
@@ -1285,8 +1285,8 @@ module A0_talys_mod
   integer, dimension(numconf)                                           :: ppitable   ! proton particle number from table
   integer, dimension(numconf)                                           :: pptable    ! particle number from table
   real(sgl)                                                             :: Ephdensmax ! maximum energy on p-h state denity table
-  real(sgl), dimension(0:1,0:1,0:numexc,0:numexc,0:numdens)                   :: phtable1   ! p-h state density
-  real(sgl), dimension(0:1,0:1,0:numexc,0:numexc,0:numexc,0:numexc,0:numdens) :: phtable2   ! p-h state density
+  real(sgl), allocatable                                     :: phtable1(:,:,:,:,:)   ! p-h state density
+  real(sgl), allocatable                                 :: phtable2(:,:,:,:,:,:,:)   ! p-h state density
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
 ! Variables for decay data
@@ -1319,9 +1319,9 @@ module A0_talys_mod
   real(sgl), dimension(0:numen)                 :: Ebottom    ! bottom of outgoing energy bin
   real(sgl), dimension(0:numen)                 :: egrid      ! outgoing energy grid
   real(sgl)                                     :: Einc       ! incident energy in MeV
-  real(sgl), dimension(nummt,-1:numisom,numen6) :: Erescue    ! energy grid for adjustment factors
+  real(sgl), allocatable                        :: Erescue(:,:,:) ! energy grid for adjustment factors
+  real(sgl), allocatable                        :: frescue(:,:,:) ! adjustment factor
   real(sgl), dimension(0:numen)                 :: Etop       ! top of outgoing energy bin
-  real(sgl), dimension(nummt,-1:numisom,numen6) :: frescue    ! adjustment factor
   real(sgl)                                     :: translimit ! limit for transmission coefficient
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -2019,7 +2019,7 @@ module A0_talys_mod
   real(sgl), dimension(0:numpar,0:numen2,0:2*numangcont+1)           :: areaejlab  ! total surface of LAB ddx bins
   real(sgl), dimension(0:numZ,0:numN,0:numenrec,0:2*numangrec+1)     :: areareclab ! total surface of LAB ddx bins
   real(sgl), dimension(0:numpar,0:numen2,0:numangcont)               :: ddxejlab   ! array with the ddx spectrum of light particle
-  real(sgl), dimension(0:numZ,0:numN,0:numex,0:numenrec,0:numangrec) :: ddxrec     ! array with the lab double diff. xs of the
+  real(sgl), allocatable                                             :: ddxrec(:,:,:,:,:) ! array with the lab double diff. xs of the
   real(sgl), dimension(0:numZ,0:numN,0:numex)                        :: ddxrectot  ! array with the total recoil flux in exc. bin
   real(sgl), dimension(0:numpar,0:numen2)                            :: dEejlab    ! width of ejectile lab bin
   real(sgl), dimension(0:numpar,0:numen2)                            :: Eejlab     ! center of ejectile lab bin
