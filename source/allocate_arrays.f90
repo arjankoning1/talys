@@ -14,7 +14,10 @@ subroutine allocate_arrays
     frescue = 0.
   endif
   if (flagrecoil) then
-    allocate(ddxrec(0:maxZ,0:maxN,0:numex,0:maxenrec,0:numangrec))
+! ddxrec is also filled for the residual reached after charged-particle
+! emission.  Zindex/Nindex can then be two indices beyond the parent
+! compound-nucleus range (alpha emission), so retain those boundary bins.
+    allocate(ddxrec(0:maxZ+2,0:maxN+2,0:numex,0:maxenrec,0:numangrec))
     ddxrec = 0.
   endif
   if (phmodel == 2) then
@@ -23,11 +26,9 @@ subroutine allocate_arrays
     phtable1 = 0.
     phtable2 = 0.
   endif
-! allocate(fqrpa(0:maxZ+2, 0:maxN+2, 0:numgamqrpa, numTqrpa, 0:1, numgam))
-! fqrpa = 0.
-! allocate(fqrpaJP(0:min(maxZ+2,numZph), 0:min(maxN+2,numNph), 0:numgamqrpa, &
-!&  numTqrpa, 0:1, 0:9, 0:1))
-! fqrpaJP = 0.
-!
+  if (flagchannels) then
+    allocate(feedexcl(0:min(maxZ,numZchan),0:min(maxN,numNchan),0:numpar,0:numex+1,0:numex+1))
+    feedexcl = 0.
+  endif
   return
 end subroutine allocate_arrays
