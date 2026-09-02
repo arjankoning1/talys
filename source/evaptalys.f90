@@ -38,6 +38,9 @@ subroutine evaptalys
 ! talysinput  : subroutine for user input and defaults
 ! talysinitial: subroutine for initialization of nuclear structure
 !
+! A fragment calculation re-enters talysinitial.  Release dynamic work
+! arrays from the preceding target/fragment before allocating them again.
+  call deallocate_arrays
   call talysinput
   call talysinitial
 !
