@@ -23,11 +23,11 @@ subroutine allocate_arrays
     phtable1 = 0.
     phtable2 = 0.
   endif
-  allocate(fqrpa(0:maxZ+2, 0:maxN+2, 0:numgamqrpa, numTqrpa, 0:1, numgam))
-  fqrpa = 0.
-  allocate(fqrpaJP(0:min(maxZ+2,numZph), 0:min(maxN+2,numNph), 0:numgamqrpa, &
- &  numTqrpa, 0:1, 0:9, 0:1))
-  fqrpaJP = 0.
+! allocate(fqrpa(0:maxZ+2, 0:maxN+2, 0:numgamqrpa, numTqrpa, 0:1, numgam))
+! fqrpa = 0.
+! allocate(fqrpaJP(0:min(maxZ+2,numZph), 0:min(maxN+2,numNph), 0:numgamqrpa, &
+!&  numTqrpa, 0:1, 0:9, 0:1))
+! fqrpaJP = 0.
 !
   return
 end subroutine allocate_arrays
