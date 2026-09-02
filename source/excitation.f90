@@ -263,7 +263,7 @@ subroutine excitation
         xspopnucP(Zcomp, Ncomp, parity) = xspopnucP(Zcomp, Ncomp, parity) + xspopexP(Zcomp, Ncomp, nex, parity)
       enddo
       xspopnuc(Zcomp, Ncomp) = xspopnuc(Zcomp, Ncomp) + xspopex(Zcomp, Ncomp, nex)
-      feedexcl(Zcomp, Ncomp, 0, nex0, nex) = xspopex(Zcomp, Ncomp, nex)
+      if (flagchannels) feedexcl(Zcomp, Ncomp, 0, nex0, nex) = xspopex(Zcomp, Ncomp, nex)
     endif
   enddo
   if ( .not. flagpopMeV .and. sumPex > 0.) then
@@ -288,7 +288,7 @@ subroutine excitation
         xspopnucP(Zcomp, Ncomp, parity) = xspopnucP(Zcomp, Ncomp, parity) + xspopexP(Zcomp, Ncomp, nex, parity)
       enddo
       xspopnuc(Zcomp, Ncomp) = xspopnuc(Zcomp, Ncomp) + xspopex(Zcomp, Ncomp, nex)
-      feedexcl(Zcomp, Ncomp, 0, nex0, nex) = xspopex(Zcomp, Ncomp, nex)
+      if (flagchannels) feedexcl(Zcomp, Ncomp, 0, nex0, nex) = xspopex(Zcomp, Ncomp, nex)
     enddo
   endif
 !
@@ -318,7 +318,7 @@ subroutine excitation
       xspopnucP(Zcomp, Ncomp, parity) = xspopnucP(Zcomp, Ncomp, parity) + xspopexP(Zcomp, Ncomp, nex, parity)
     enddo
     xspopnuc(Zcomp, Ncomp) = xspopnuc(Zcomp, Ncomp) + xspopex(Zcomp, Ncomp, nex)
-    feedexcl(Zcomp, Ncomp, 0, nex0, nex) = xspopex(Zcomp, Ncomp, nex)
+    if (flagchannels) feedexcl(Zcomp, Ncomp, 0, nex0, nex) = xspopex(Zcomp, Ncomp, nex)
   endif
   xsinitpop = xspopnuc(Zcomp, Ncomp)
   popexcl(Zcomp, Ncomp, nex0) = xsinitpop
