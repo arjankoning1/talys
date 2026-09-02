@@ -231,6 +231,7 @@ subroutine talysreaction
   endif
   if (flagprod) call isoprod
   if (flagmain) call timer
+  call deallocate_arrays
   return
 end subroutine talysreaction
 ! Copyright A.J. Koning 2021
