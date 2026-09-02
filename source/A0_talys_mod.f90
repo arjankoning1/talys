@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2025-12-30: Original code
-! 2026-08-17: Current version
+! 2026-09-02: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -935,13 +935,21 @@ module A0_talys_mod
 ! Variables for gamma-ray strength functions
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
+  type qrpa_type
+    real(sgl), allocatable :: e(:,:,:)       ! energy grid for QRPA strength function
+    real(sgl), allocatable :: f(:,:,:,:)     ! tabulated QRPA strength function
+    real(sgl), allocatable :: fjp(:,:,:,:,:) ! J,P-dependent tabulated QRPA strength function
+  end type qrpa_type
+
+  type(qrpa_type), dimension(0:numZ,0:numN) :: qrpa
+
   logical, dimension(0:numZ,0:numN,0:1,numgam)                         :: qrpaexist  ! flag for existence of tabulated QRPA PSF
   integer, dimension(0:numpar, 0:numen)                                :: lmax       ! maximal l-value for transmission coefficients
   integer, dimension(0:numZ,0:numN,0:1,numgam)                         :: ngr        ! number of GR
   integer                                                              :: nTqrpa     ! number of temperatures for QRPA
-  real(sgl), dimension(0:numZ,0:numN,0:numgamqrpa,0:1,numgam)          :: eqrpa      ! energy grid for QRPA strength function
-  real(sgl), allocatable                                               :: fqrpa(:,:,:,:,:,:) ! tabulated QRPA strength function
-  real(sgl), allocatable                                               :: fqrpaJP(:,:,:,:,:,:,:) ! tabulated QRPA strength function
+! real(sgl), dimension(0:numZ,0:numN,0:numgamqrpa,0:1,numgam)          :: eqrpa      ! energy grid for QRPA strength function
+! real(sgl), allocatable                                               :: fqrpa(:,:,:,:,:,:) ! tabulated QRPA strength function
+! real(sgl), allocatable                                               :: fqrpaJP(:,:,:,:,:,:,:) ! tabulated QRPA strength function
   real(sgl), dimension(250)                                            :: gamkopecky ! rad. width in eV by spline fit of Kopecky
   real(sgl), dimension(numgam)                                         :: kgr        ! constant for gamma-ray strength function
   real(sgl), dimension(numTqrpa)                                       :: Tqrpa      ! temperature for QRPA
