@@ -264,7 +264,7 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l, J, parity)
         nT = 1
       endif
       do nen = 0, numgamqrpa
-        Eq(nen) = eqrpa(Zcomp, Ncomp, nen, irad, 1)
+        Eq(nen) = qrpa(Zcomp,Ncomp)%e(nen,irad,1)
       enddo
       if (Egamma.le.Eq(numgamqrpa)) then
         call locate(Eq,0,numgamqrpa,Egamma,nen)
@@ -288,11 +288,11 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l, J, parity)
         call locate(Eq,0,numgamqrpa,Tnuc,nen)
         if (nen == numgamqrpa) nen = numgamqrpa - 1
         if (flagstrengthjp) then
-          gamb = fqrpaJP(Zcomp,Ncomp,nen,1,irad,J,iP)
-          game = fqrpaJP(Zcomp,Ncomp,nen+1,1,irad,J,iP)
+          gamb = qrpa(Zcomp,Ncomp)%fJP(nen,1,irad,J,iP)
+          game = qrpa(Zcomp,Ncomp)%fJP(nen+1,1,irad,J,iP)
         else
-          gamb = fqrpa(Zcomp,Ncomp,nen,1,irad,1)
-          game = fqrpa(Zcomp,Ncomp,nen+1,1,irad,1)
+          gamb = qrpa(Zcomp,Ncomp)%f(nen,1,irad,1)
+          game = qrpa(Zcomp,Ncomp)%f(nen+1,1,irad,1)
         endif
         if (gamb > 0. .and. game > 0.) then
           f1 = log10(gamb) + (Tnuc-Eq(nen)) / (Eq(nen+1) - Eq(nen)) * (log10(game) - log10(gamb))
@@ -324,11 +324,11 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l, J, parity)
           call locate(Eq,0,numgamqrpa,Ti,nen)
           if (nen == numgamqrpa) nen = numgamqrpa-1
           if (flagstrengthjp) then
-            gamb = fqrpaJP(Zcomp,Ncomp,nen,1,irad,J,iP)
-            game = fqrpaJP(Zcomp,Ncomp,nen+1,1,irad,J,iP)
+            gamb = qrpa(Zcomp,Ncomp)%fJP(nen,1,irad,J,iP)
+            game = qrpa(Zcomp,Ncomp)%fJP(nen+1,1,irad,J,iP)
           else
-            gamb = fqrpa(Zcomp,Ncomp,nen,1,irad,1)
-            game = fqrpa(Zcomp,Ncomp,nen+1,1,irad,1)
+            gamb = qrpa(Zcomp,Ncomp)%f(nen,1,irad,1)
+            game = qrpa(Zcomp,Ncomp)%f(nen+1,1,irad,1)
           endif
           if (gamb > 0. .and. game > 0.) then
             f2 = log10(gamb)+(Ti-Eq(nen)) / (Eq(nen+1)-Eq(nen)) * (log10(game)-log10(gamb))
@@ -342,11 +342,11 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l, J, parity)
           call locate(Eq,0,numgamqrpa,egeff,nen)
           if (nen == numgamqrpa) nen=numgamqrpa-1
           if (flagstrengthjp) then
-            gamb=fqrpaJP(Zcomp,Ncomp,nen,jt,irad,J,iP)
-            game=fqrpaJP(Zcomp,Ncomp,nen+1,jt,irad,J,iP)
+            gamb = qrpa(Zcomp,Ncomp)%fJP(nen,jt,irad,J,iP)
+            game = qrpa(Zcomp,Ncomp)%fJP(nen+1,jt,irad,J,iP)
           else
-            gamb=fqrpa(Zcomp,Ncomp,nen,jt,irad,1)
-            game=fqrpa(Zcomp,Ncomp,nen+1,jt,irad,1)
+            gamb = qrpa(Zcomp,Ncomp)%f(nen,jt,irad,1)
+            game = qrpa(Zcomp,Ncomp)%f(nen+1,jt,irad,1)
           endif
           if (gamb > 0. .and. game > 0.) then
             f0 = log10(gamb)+(egeff-Eq(nen))/(Eq(nen+1)-Eq(nen))*(log10(game)-log10(gamb))
@@ -388,14 +388,14 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l, J, parity)
 ! for Eg > U --> fstrength=0 --> for interpolation use is made of the photoabs PSF (jt=1)
 !
             if (eb <= et) then
-              gamb = fqrpa(Zcomp,Ncomp,nen,jt,irad,1)
+              gamb = qrpa(Zcomp,Ncomp)%f(nen,jt,irad,1)
             else
-              gamb = fqrpa(Zcomp,Ncomp,nen,1,irad,1)
+              gamb = qrpa(Zcomp,Ncomp)%f(nen,1,irad,1)
             endif
             if (ee <= et) then
-              game = fqrpa(Zcomp,Ncomp,nen+1,jt,irad,1)
+              game = qrpa(Zcomp,Ncomp)%f(nen+1,jt,irad,1)
             else
-              game = fqrpa(Zcomp,Ncomp,nen+1,1,irad,1)
+              game = qrpa(Zcomp,Ncomp)%f(nen+1,1,irad,1)
             endif
             if (gamb > 0. .and. game > 0.) then
               f1 = log10(gamb)+(Egamma-eb)/(ee-eb)*(log10(game)-log10(gamb))
@@ -406,8 +406,8 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l, J, parity)
           else
             eb = Eq(numgamqrpa - 1)
             ee = Eq(numgamqrpa)
-            gamb = fqrpa(Zcomp, Ncomp, numgamqrpa - 1, jt, irad, 1)
-            game = fqrpa(Zcomp, Ncomp, numgamqrpa, jt, irad, 1)
+            gamb = qrpa(Zcomp,Ncomp)%f(numgamqrpa-1,jt,irad,1)
+            game = qrpa(Zcomp,Ncomp)%f(numgamqrpa,jt,irad,1)
             if (gamb > 0. .and. game > 0.) then
               f1 = log10(gamb) + (Egamma - eb) / (ee - eb) * (log10(game) - log10(gamb))
               f2 = 10. **f1
