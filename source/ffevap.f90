@@ -499,6 +499,9 @@ subroutine ffevap
 ! Reset variables to those of original target.
 !
   flagffruns = .false.
+! The final fragment leaves its dynamic work arrays allocated.  Free them
+! before restoring and initializing the original target.
+  call deallocate_arrays
   call talysinput
   flagmain = .false.
   call talysinitial
