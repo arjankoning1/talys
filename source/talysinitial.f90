@@ -28,6 +28,7 @@ subroutine talysinitial
 ! grid        : subroutine for energy and angle grid
 ! mainout     : subroutine for main output
 !
+  call allocate_arrays
   call particles
   call nuclides
 ! if (flagreaction) call grid
