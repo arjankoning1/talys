@@ -610,7 +610,7 @@ subroutine reacinitial
   Dmulti = 0.
   Fcomp = 0.
   Fdir = 0.
-  feedexcl = 0.
+  if (allocated(feedexcl)) feedexcl = 0.
   fisfeedex = 0.
   Fpreeq = 0.
   mcontrib = 0.
