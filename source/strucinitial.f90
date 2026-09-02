@@ -40,9 +40,7 @@ subroutine strucinitial
 !   Ebottom      ! bottom of outgoing energy bin
 !   egrid        ! outgoing energy grid
 !   eendmax      ! last energy point of energy grid
-!   Erescue      ! energy grid for adjustment factors
 !   Etop         ! top of outgoing energy bin
-!   frescue      ! adjustment factor
 !   Nrescue      ! number of energies for adjustment factors
 ! Variables for URR
 !   flagurrendf     ! flag for URR info to ENDF
@@ -307,9 +305,7 @@ subroutine strucinitial
   Ebottom = 0.
   egrid = 0.
   eendmax = 0
-  Erescue = 0.
   Etop = 0.
-  frescue = 0.
   Nrescue = 0
   bassign = ' '
   branchlevel = 0
@@ -487,8 +483,6 @@ subroutine strucinitial
   Ucrit = 0.
   sfactor = 0.
   eqrpa = 0.
-  fqrpa = 0.
-  fqrpaJP = 0.
   qrpaexist = .false.
   Tqrpa = 0.
   ngr = 1
@@ -534,8 +528,6 @@ subroutine strucinitial
   Vwidth = 0.
   phexist2 = .false.
   phexist1 = .false.
-  phtable2 = 0.
-  phtable1 = 0.
   hhtable = 0
   hnutable = 0
   hpitable = 0
