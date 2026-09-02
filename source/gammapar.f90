@@ -5,7 +5,7 @@ subroutine gammapar(Zix, Nix)
 !
 ! Author    : Arjan Koning
 !
-! 2026-03-24: Original code
+! 2026-09-02: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -237,6 +237,18 @@ subroutine gammapar(Zix, Nix)
         read(2, *, iostat = istat)
         if (istat /= 0) exit
         if (ia == A) then
+          if (.not. allocated(qrpa(Zix,Nix)%e)) then
+            allocate(qrpa(Zix,Nix)%e(0:numgamqrpa,0:1,numgam))
+            qrpa(Zix,Nix)%e = 0.
+          endif 
+          if (.not. allocated(qrpa(Zix,Nix)%f)) then
+            allocate(qrpa(Zix,Nix)%f(0:numgamqrpa,numTqrpa,0:1,numgam))
+            qrpa(Zix,Nix)%f = 0.
+          endif
+          if (strength == 11 .and. Zix <= numZph .and. Nix <= numNph .and. .not. allocated(qrpa(Zix,Nix)%fJP)) then
+            allocate(qrpa(Zix,Nix)%fJP(0:numgamqrpa,numTqrpa,0:1,0:9,0:1))
+            qrpa(Zix,Nix)%fJP = 0.
+          endif
           do J = 0, Jend
             do parity = -1, Pend, 2
               iP = max(parity, 0)
@@ -254,11 +266,11 @@ subroutine gammapar(Zix, Nix)
                   et = etable(Zix, Nix, 1, 1) + etableadjust(Zix, Nix, 1, 1)
                   ft = ftable(Zix, Nix, 1, 1) * ftableadjust(Zix, Nix, 1, 1)
                 endif
-                eqrpa(Zix, Nix, nen, 1, 1) = ee + et
+                qrpa(Zix,Nix)%e(nen,1,1) = ee + et
                 do it = 1, nTqrpa
                   fq = onethird * pi2h2c2 * fe1(it) * ft
-                  fqrpa(Zix, Nix, nen, it, 1, 1) = fq
-                  if (Zix <= numZph .and. Nix <= numNph) fqrpaJP(Zix, Nix, nen, it, 1, J, iP) = fq
+                  qrpa(Zix,Nix)%f(nen,it,1,1) = fq
+                  if (allocated(qrpa(Zix,Nix)%fJP)) qrpa(Zix,Nix)%fJP(nen,it,1,J,iP) = fq
                 enddo
               enddo
               read(2, *, iostat = istat)
@@ -266,13 +278,13 @@ subroutine gammapar(Zix, Nix)
           enddo
           if (strength == 11 .and. .not. flagstrengthjp .and. Zix <= numZph .and. Nix <= numNph) then
             do nen = 1, numgamqrpa
-              fqrpa(Zix, Nix, nen, 1, 1, 1) = fqrpaJP(Zix, Nix, nen, 1, 1, 0, 0)
+              qrpa(Zix,Nix)%f(nen,1,1,1) = qrpa(Zix,Nix)%fJP(nen,1,1,0,0)
               do it = 2, nTqrpa
-                fqrpa(Zix, Nix, nen, it, 1, 1) = 0.
+                qrpa(Zix,Nix)%f(nen,it,1,1) = 0.
                 do J = 0, Jend
                   do parity = -1, Pend, 2
                     iP = max(parity, 0)
-                    fqrpa(Zix, Nix, nen, it, 1, 1) = fqrpa(Zix, Nix, nen, it, 1, 1) + fqrpaJP(Zix, Nix, nen, it, 1, J, iP)
+                    qrpa(Zix,Nix)%f(nen,it,1,1) = qrpa(Zix,Nix)%f(nen,it,1,1) + qrpa(Zix,Nix)%fJP(nen,it,1,J,iP)
                   enddo
                 enddo
               enddo
@@ -282,8 +294,8 @@ subroutine gammapar(Zix, Nix)
 ! Avoid having an increasing function for extrapolation purposes
 !
           do it = 1, nTqrpa
-            if (fqrpa(Zix, Nix, numgamqrpa, it, 1, 1) > fqrpa(Zix, Nix, numgamqrpa - 1, it, 1, 1)) &
- &            fqrpa(Zix, Nix, numgamqrpa, it, 1, 1) = fqrpa(Zix, Nix, numgamqrpa - 1, it, 1, 1) * 0.9
+            if (qrpa(Zix,Nix)%f(numgamqrpa,it,1,1) > qrpa(Zix,Nix)%f(numgamqrpa-1,it,1,1)) &
+ &            qrpa(Zix,Nix)%f(numgamqrpa,it,1,1) = qrpa(Zix,Nix)%f(numgamqrpa-1,it,1,1) * 0.9
           enddo
 !         if (strength == 11 .and. Zix <= numZph .and. Nix <= numNph) then
 !           do J = 0, Jend
@@ -401,6 +413,18 @@ subroutine gammapar(Zix, Nix)
         if (istat == -1) exit
         read(2, * )
         if (ia == A) then
+          if (.not. allocated(qrpa(Zix,Nix)%e)) then
+            allocate(qrpa(Zix,Nix)%e(0:numgamqrpa,0:1,numgam))
+            qrpa(Zix,Nix)%e = 0.
+          endif
+          if (.not. allocated(qrpa(Zix,Nix)%f)) then
+            allocate(qrpa(Zix,Nix)%f(0:numgamqrpa,numTqrpa,0:1,numgam))
+            qrpa(Zix,Nix)%f = 0.
+          endif
+          if (strengthM1 == 11 .and. Zix <= numZph .and. Nix <= numNph .and. .not. allocated(qrpa(Zix,Nix)%fJP)) then
+            allocate(qrpa(Zix,Nix)%fJP(0:numgamqrpa,numTqrpa,0:1,0:9,0:1))
+            qrpa(Zix,Nix)%fJP = 0.
+          endif
           do J = 0, Jend
             do parity = -1, Pend, 2
               iP = max(parity, 0)
@@ -418,11 +442,11 @@ subroutine gammapar(Zix, Nix)
                   et = etable(Zix, Nix, 0, 1) + etableadjust(Zix, Nix, 0, 1)
                   ft = ftable(Zix, Nix, 0, 1) * ftableadjust(Zix, Nix, 0, 1)
                 endif
-                eqrpa(Zix, Nix, nen, 0, 1) = ee + et
+                qrpa(Zix,Nix)%e(nen,0,1) = ee + et
                 do it = 1, nTqrpa
                   fq = onethird * pi2h2c2 * fm1(it) * ft
-                  fqrpa(Zix, Nix, nen, it, 0, 1) = fq
-                  if (Zix <= numZph .and. Nix <= numNph) fqrpaJP(Zix, Nix, nen, it, 0, J, iP) = fq
+                  qrpa(Zix,Nix)%f(nen,it,0,1) = fq
+                  if (allocated(qrpa(Zix,Nix)%fJP)) qrpa(Zix,Nix)%fJP(nen,it,0,J,iP) = fq
                 enddo
               enddo
               read(2, *, iostat = istat)
@@ -430,7 +454,7 @@ subroutine gammapar(Zix, Nix)
           enddo
 !         if (strengthM1 == 11 .and. .not. flagstrengthjp .and. Zix <= numZph .and. Nix <= numNph) then
 !           do nen = 1, numgamqrpa
-!             fqrpa(Zix, Nix, nen, 1, 0, 1) = fqrpaJP(Zix, Nix, nen, 1, 0, 0, 0)
+!             qrpa(Zix, Nix)%f(nen, 1, 0, 1) = qrpaJP(Zix, Nix)%f( nen, 1, 0, 0, 0)
 !             do it = 2, nTqrpa
 !               fqrpa(Zix, Nix, nen, it, 0, 1) = 0.
 !               do J = 0, Jend
@@ -446,16 +470,16 @@ subroutine gammapar(Zix, Nix)
 ! Avoid having an increasing function for extrapolation purposes
 !
           do it = 1, nTqrpa
-            if (fqrpa(Zix, Nix, numgamqrpa, it, 0, 1) > fqrpa(Zix, Nix, numgamqrpa -1, it, 0, 1)) &
- &            fqrpa(Zix, Nix, numgamqrpa, it, 0, 1) = fqrpa(Zix, Nix, numgamqrpa -1, it, 0, 1) * 0.9
+            if (qrpa(Zix,Nix)%f(numgamqrpa,it,0,1) > qrpa(Zix,Nix)%f(numgamqrpa-1,it,0,1)) &
+ &            qrpa(Zix,Nix)%f(numgamqrpa,it,0,1) = qrpa(Zix,Nix)%f(numgamqrpa-1,it,0,1) * 0.9
           enddo
           if (strengthM1 == 11 .and. Zix <= numZph .and. Nix <= numNph) then
             do J = 0, Jend
               do parity = -1, Pend, 2
                 iP = max(parity, 0)
                 do it = 1, nTqrpa
-                  if (fqrpaJP(Zix, Nix, numgamqrpa, it, 0, J, iP) > fqrpaJP(Zix, Nix, numgamqrpa - 1, it, 0, J, iP)) &
- &                  fqrpaJP(Zix, Nix, numgamqrpa, it, 0, J, iP) = fqrpaJP(Zix, Nix, numgamqrpa - 1, it, 0, J, iP) * 0.9
+                  if (qrpa(Zix,Nix)%fJP(numgamqrpa,it,0,J,iP) > qrpa(Zix,Nix)%fJP(numgamqrpa-1,it,0,J,iP)) &
+ &                  qrpa(Zix,Nix)%fJP(numgamqrpa,it,0,J,iP) = qrpa(Zix,Nix)%fJP(numgamqrpa-1,it,0,J,iP) * 0.9
                 enddo
               enddo
             enddo
@@ -495,6 +519,14 @@ subroutine gammapar(Zix, Nix)
   do irad = 0, 1
     do l = 1, gammax
       if (Exlfile(Zix, Nix, irad, l)(1:1) /= ' ') then
+        if (.not. allocated(qrpa(Zix,Nix)%e)) then
+          allocate(qrpa(Zix,Nix)%e(0:numgamqrpa,0:1,numgam))
+          qrpa(Zix,Nix)%e = 0.
+        endif
+        if (.not. allocated(qrpa(Zix,Nix)%f)) then
+          allocate(qrpa(Zix,Nix)%f(0:numgamqrpa,numTqrpa,0:1,numgam))
+          qrpa(Zix,Nix)%f = 0.
+        endif
         nen = 0
         open (unit = 2, file = Exlfile(Zix, Nix, irad, l), status = 'old')
         do
@@ -513,9 +545,9 @@ subroutine gammapar(Zix, Nix)
             ft = ftable(Zix, Nix, irad, l)
           endif
           nen = nen + 1
-          eqrpa(Zix, Nix, nen, irad, l) = ee + et
+          qrpa(Zix,Nix)%e(nen,irad,l) = ee + et
           do it = 1, nTqrpa
-            fqrpa(Zix, Nix, nen, it, irad, l) = onethird * pi2h2c2 * fe1t * ft
+            qrpa(Zix,Nix)%f(nen,it,irad,l) = onethird * pi2h2c2 * fe1t * ft
           enddo
           if (nen == numgamqrpa) exit
         enddo
@@ -528,22 +560,22 @@ subroutine gammapar(Zix, Nix)
 !
 ! Adjustment of width of tabulated PSF
 !
-  if (.not.flagpsfglobal) then
+  if (.not.flagpsfglobal .and. allocated(qrpa(Zix,Nix)%f)) then
     do irad = 0, 1
       do l = 1, gammax
         wt = wtable(Zix, Nix, irad, l) * wtableadjust(Zix, Nix, irad, l)
         Emid = 0.
         fmax = 0.
         do nen = 1, numgamqrpa
-          if (fqrpa(Zix, Nix, nen, 1, irad, l) > fmax) then
-            fmax = fqrpa(Zix, Nix, nen, 1, irad, l)
-            Emid = eqrpa(Zix, Nix ,nen, irad, l)
+          if (qrpa(Zix,Nix)%f(nen,1,irad,l) > fmax) then
+            fmax = qrpa(Zix,Nix)%f(nen,1,irad,l)
+            Emid = qrpa(Zix,Nix)%e(nen,irad,l)
           endif
         enddo
         do nen = 1, numgamqrpa
-          Eq = eqrpa(Zix, Nix, nen, irad, l)
+          Eq = qrpa(Zix,Nix)%e(nen,irad,l)
           dE = Eq - Emid
-          eqrpa(Zix, Nix, nen, irad, l) = Emid + dE * wt
+          qrpa(Zix,Nix)%e(nen,irad,l) = Emid + dE * wt
         enddo
       enddo
     enddo
