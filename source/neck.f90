@@ -381,8 +381,8 @@ subroutine neck(Z, A, fmass, fmasscor, fmz, fmzcor, ap, edefo, elt, crel)
         fmzcor(irn2, izf2) = fmzcor(irn2, izf2) + wgt(k) * zdis(k, i)
       endif
     enddo
-    fmass(int(af1(k) + 0.5)) = fmass(int(af1(k) + 0.5)) + wgt(k)
-    fmass(int(af2(k) + 0.5)) = fmass(int(af2(k) + 0.5)) + wgt(k)
+    fmass(max(int(af1(k) + 0.5), 1)) = fmass(max(int(af1(k) + 0.5), 1)) + wgt(k)
+    fmass(max(int(af2(k) + 0.5), 1)) = fmass(max(int(af2(k) + 0.5), 1)) + wgt(k)
   enddo
   do k = 1, nummass
     do i = 1, numelem
