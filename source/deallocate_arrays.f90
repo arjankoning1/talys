@@ -22,6 +22,7 @@ subroutine deallocate_arrays
     enddo
   enddo
   if (allocated(feedexcl)) deallocate(feedexcl)
+  if (allocated(phdensjp)) deallocate(phdensjp)
 !
   return
 end subroutine deallocate_arrays
