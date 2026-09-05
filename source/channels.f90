@@ -157,7 +157,7 @@ subroutine channels
   real(sgl)        :: emissum                                              ! integrated binary emission spectrum
   real(sgl)        :: fissum                                               ! help variable
   real(sgl)        :: frac                                                 ! help variable
-  real(sgl)        :: specexcl(0:numchantot, 0:numpar, 0:numex+1, 0:numen) ! exclusive spectra per excitation energy
+  real(sgl), allocatable  :: specexcl(:,:,:,:)                             ! exclusive spectra per excitation energy
   real(sgl)        :: term                                                 ! help variable
   real(sgl)        :: term1                                                ! help variable
   real(sgl)        :: term2                                                ! help variable
@@ -167,6 +167,10 @@ subroutine channels
 !
   channelsum = 0.
   xsabs = 0.
+  if (flagspec) then
+    allocate(specexcl(0:numchantot,0:numpar,0:numex+1,0:numen))
+    specexcl = 0.
+  endif
 !
 ! Initially, all the flux is in the initial compound state.
 !
@@ -656,6 +660,7 @@ subroutine channels
       exit
     endif
   enddo
+  if (allocated(specexcl)) deallocate(specexcl)
   return
 end subroutine channels
 ! Copyright A.J. Koning 2021
