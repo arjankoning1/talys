@@ -139,15 +139,6 @@ subroutine arraysize
   write(1, '(" Array",t27,"Elements",t44,"MiB")')
   write(1, '(" -------------------------------------------------------")')
 !
-! channels.f90:
-! real(sgl) :: specexcl(0:numchantot,0:numpar,0:numex+1,0:numen)
-!
-  localelems = int(numchantot+1,int64) * int(numpar+1,int64) * &
-    int(numex+2,int64) * int(numen+1,int64)
-  localbytes = localelems * int(storage_size(0.0_sgl),int64) / 8_int64
-  write(1, '(" specexcl (local)",t27,i14,t44,f12.3)') &
-    localelems, real(localbytes,dbl) / 1048576.d0
-!
   write(1, '()')
   close(1)
   call write_outfile('arrays.out',flagoutall)
