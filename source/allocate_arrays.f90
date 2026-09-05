@@ -30,5 +30,8 @@ subroutine allocate_arrays
     allocate(feedexcl(0:min(maxZ,numZchan),0:min(maxN,numNchan),0:numpar,0:numex+1,0:numex+1))
     feedexcl = 0.
   endif
+  if (flagracap) then
+    allocate(phdensjp(0:numZ,0:numN,0:numdens,0:numJph,-1:1))
+  endif
   return
 end subroutine allocate_arrays
