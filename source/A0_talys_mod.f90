@@ -1562,7 +1562,7 @@ module A0_talys_mod
   real(dbl), dimension(numdensracap,0:numJ)       :: chglposj     ! help variable
   real(sgl), dimension(0:numZ, 0:numN, 0:numdens) :: edensphjp    ! energy grid of ph spin- and parity-dependent level density
   real(sgl), dimension(numjlm)                    :: jlmracap2    ! JLM potential for direct capture
-  real(dbl), dimension(0:numZ,0:numN,0:numdens,0:numJph,-1:1) :: phdensjp ! ph spin- and parity-dependent level density from table
+  real(dbl), allocatable                          :: phdensjp(:,:,:,:,:) ! ph spin- and parity-dependent level density from table
   real(dbl), dimension(0:numZ,0:numN,0:numdens)   :: phdenstot    ! total ph level density from table
   real(sgl)                                       :: rvncap2      ! real volume radius for JLM
   real(sgl), dimension(0:numZ, 0:numN, 0:numex)   :: spectfac     ! spectroscopic factor
