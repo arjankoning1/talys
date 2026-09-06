@@ -2,7 +2,7 @@
 #   title: Tc100 level density
 #   source: TALYS-2.24
 #   user: Arjan Koning
-#   date: 2026-09-02
+#   date: 2026-09-06
 #   format: YANDF-0.4
 # residual: 
 #   Z: 43
