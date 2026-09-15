@@ -167,6 +167,7 @@ subroutine binary
   real(sgl) :: Eaveragesum ! help variable
   real(sgl) :: Eex         ! excitation energy
   real(sgl) :: factor      ! multiplication factor
+  real(sgl) :: sfactor     ! spin factor
   real(sgl) :: frac        ! help variable
   real(sgl) :: ignatyuk    ! function for energy dependent level density parameter a
   real(sgl) :: popepsA     ! limit for population cross sections per energy
@@ -228,10 +229,10 @@ subroutine binary
           sc = spincut(Zix, Nix, ald, Eex, 0, 0)
           do parity = - 1, 1, 2
             do J = 0, maxJph
-              if (xspopex(Zix, Nix, nex) > popepsA) sfactor(Zix, Nix, nex, J, parity) = &
-                  xspop(Zix, Nix, nex, J, parity) / xspopex(Zix, Nix, nex)
-              if (pespinmodel == 1 .and. sfactor(Zix, Nix, nex, J, parity) > 0.) then
-                preeqpop(Zix, Nix, nex, J, parity) = sfactor(Zix, Nix, nex, J, parity) * preeqpopex(Zix, Nix, nex)
+              sfactor = 0.
+              if (xspopex(Zix, Nix, nex) > popepsA) sfactor = xspop(Zix, Nix, nex, J, parity) / xspopex(Zix, Nix, nex)
+              if (pespinmodel == 1 .and. sfactor > 0.) then
+                preeqpop(Zix, Nix, nex, J, parity) = sfactor * preeqpopex(Zix, Nix, nex)
               else
                 factor = spindis(sc,real(J)) * pardis
                 preeqpop(Zix, Nix, nex, J, parity) = factor * preeqpopex(Zix, Nix, nex)
