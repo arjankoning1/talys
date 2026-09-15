@@ -394,6 +394,8 @@ Loop2:    do in = 0, numin
               exit
             endif
           enddo
+          fxschaniso(:, idc, :) = 0.
+          fexclbranch(:, idc, :) = 0.
 !
 ! C. Discrete gamma-rays
 !
