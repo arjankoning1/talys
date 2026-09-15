@@ -1933,7 +1933,6 @@ module A0_talys_mod
 !
   real(sgl), dimension(0:numpar)                          :: binemissum    ! integrated binary emission spectrum
   real(sgl), dimension(0:numpar,0:numex)                  :: feedbinary    ! feeding from first compound nucleus
-  real(sgl), dimension(0:numZ,0:numN,0:numex,0:numJ,-1:1) :: sfactor       ! spin factor
   real(sgl), dimension(0:numpar)                          :: Eaveragebin   ! average outgoing energy
   real(sgl), dimension(0:numpar, 0:numlev)                :: xscompdisc    ! compound cross section for discrete state
   real(sgl), dimension(0:numpar)                          :: xscompdisctot ! compound cross section summed over discrete states
@@ -2253,8 +2252,8 @@ module A0_talys_mod
   real(sgl), dimension(numenlow)                                :: fxselastot    ! total elastic cross section (neutrons only)
   real(sgl), dimension(numenlow,0:numpar)                       :: fxsexclcont   ! excl. single channel cross section for continuum
   real(sgl), dimension(numenlow,0:numpar)                       :: fxsexclusive  ! exclusive single channel cross section
-  real(sgl), dimension(numenlow,0:numchantot)                   :: fxsgamchannel ! gamma channel cross section
-  real(sgl), dimension(numenlow,0:numchantot,0:numlev,0:numlev) :: fxsgamdischan ! discrete gamma channel cross section
+  real(sgl), allocatable                                        :: fxsgamchannel(:,:) ! gamma channel cross section
+  real(sgl), allocatable                                        :: fxsgamdischan(:,:,:,:) ! discrete gamma channel cross section
   real(sgl), dimension(numenlow,-1:numpar)                      :: fxsngn        ! total (projectile,gamma-ejectile) cross section
   real(sgl), dimension(numenlow)                                :: fxsnonel      ! non-elastic cross section for incident channel
   real(sgl), dimension(numenlow,0:numZ,0:numN,0:numlev)         :: fxspopex      ! pop. cross section summed over spin and parity
