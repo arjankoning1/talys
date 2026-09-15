@@ -29,6 +29,10 @@ subroutine allocate_arrays
   if (flagchannels) then
     allocate(feedexcl(0:min(maxZ,numZchan),0:min(maxN,numNchan),0:numpar,0:numex+1,0:numex+1))
     feedexcl = 0.
+    allocate(fxsgamdischan(numenlow,0:numchantot,0:numlev,0:numlev))
+    fxsgamdischan = 0.
+    allocate(fxsgamchannel(numenlow,0:numchantot))
+    fxsgamchannel = 0.
   endif
   if (flagracap) then
     allocate(phdensjp(0:numZ,0:numN,0:numdens,0:numJph,-1:1))
