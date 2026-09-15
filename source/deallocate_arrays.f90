@@ -23,6 +23,8 @@ subroutine deallocate_arrays
   enddo
   if (allocated(feedexcl)) deallocate(feedexcl)
   if (allocated(phdensjp)) deallocate(phdensjp)
+  if (allocated(fxsgamdischan)) deallocate(fxsgamdischan)
+  if (allocated(fxsgamchannel)) deallocate(fxsgamchannel)
 !
   return
 end subroutine deallocate_arrays
