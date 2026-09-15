@@ -202,8 +202,6 @@ subroutine reacinitial
 !   fxselastot       ! total elastic cross section (neutrons only) for i
 !   fxsexclcont      ! exclusive single channel cross section for contin
 !   fxsexclusive     ! exclusive single channel cross section
-!   fxsgamchannel    ! gamma channel cross section
-!   fxsgamdischan    ! discrete gamma channel cross section
 !   fxsngn           ! total (n,gn) cross section
 !   fxsnonel         ! non-elastic cross section for incident channel
 !   fxspopex         ! population cross section summed over spin and par
@@ -534,8 +532,6 @@ subroutine reacinitial
     fxselastot = 0.
     fxsexclcont = 0.
     fxsexclusive = 0.
-    fxsgamchannel = 0.
-    fxsgamdischan = 0.
     fxsngn = 0.
     fxsnonel = 0.
     fxspopex = 0.
