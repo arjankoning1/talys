@@ -258,8 +258,9 @@
   character(len=*)   col(Nc)
   character(len=*)   un(Nc)
   character(len=15)  word
-  character(len=3000) obs
-  character(len=3000) units
+! Two prefix characters plus one 15-character field per column.
+  character(len=2+15*Nc) obs
+  character(len=2+15*Nc) units
 !
 ! ************* Write output block *************************************
 !
