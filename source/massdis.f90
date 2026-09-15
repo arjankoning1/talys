@@ -121,7 +121,8 @@ subroutine massdis
   logical            :: lexist                                      ! logical to determine existence
   real(sgl)          :: beldm1(136, 203)                            ! binding energy from liquid drop model
   real(sgl)          :: Ebin(0:numpop)                              ! energy of bin
-  real(sgl)          :: Etabtot(numZff, numNff, 1000)               ! tabulated energy
+  real(sgl), allocatable :: Etabtot(:,:,:)              ! tabulated energy
+  real(sgl), allocatable :: Jtabtot(:,:,:)             ! total spin from GEF
   real(sgl)          :: Exfis(1000)                                 ! excitation energy for fission
   real(sgl)          :: dEH                                         !
   real(sgl)          :: dEL                                         !
@@ -139,7 +140,6 @@ subroutine massdis
   real(sgl)          :: fisepsB                                     ! fission tolerance
   real(sgl)          :: Fmulti                                      ! factor for multi-chance fission
   real(sgl)          :: Jfis                                        ! spin of fissioning system
-  real(sgl)          :: Jtabtot(numZff, numNff, 100)                ! total spin from GEF
   real(sgl)          :: partfisJ(0:numJ)                            ! partial fission spin distribution
   real(sgl)          :: partfisxs                                   ! partial fission cross section
   real(sgl)          :: popffEx(numZff, numNff, 0:numpop)           ! energy population of FF
@@ -162,7 +162,6 @@ subroutine massdis
   real(sgl)          :: ushell1(136, 203)                           ! shell correction
   real(sgl)          :: xsfis(1000)                                 ! fission cross section
   real(sgl)          :: xsfisFF                                     ! fission cross section per FF
-  real(sgl)          :: xstabcomp(0:numZ, 0:numN, numZff, numNff)   ! Z, N cross section from GEF
   real(sgl)          :: xstabtot(numZff, numNff)                    ! total cross section from GEF
   real(sgl)          :: Ytabtot(numZff, numNff)                     ! yield from GEF
   integer            :: A                                           ! mass number of target nucleus
@@ -214,6 +213,12 @@ subroutine massdis
 !
 ! Initialization
 !
+  if (fymodel >= 3) then
+    allocate(Etabtot(numZff,numNff,1000))
+    allocate(Jtabtot(numZff,numNff,100))
+    Etabtot = 0.
+    Jtabtot = 0.
+  endif
   xsApre = 0.
   xsApost = 0.
   yieldApre = 0.
@@ -252,12 +257,9 @@ subroutine massdis
   nubar = 0.
   Eff = 0.
   xstabtot = 0.
-  Etabtot = 0.
-  Jtabtot = 0.
   Ytabtot = 0.
   popffEx = 0.
   popffJ = 0.
-  xstabcomp = 0.
   fpeps = Rfiseps * xsfistot
   if (fpeps == 0.) return
   if (fymodel == 2 .or. fymodel ==3) then
@@ -409,7 +411,6 @@ subroutine massdis
                 if (iz > numZff .or. in > numNff) cycle
                 term = Ytab(iza) * partfisJ(J)
                 xstabtot(iz, in) = xstabtot(iz, in) + term
-                xstabcomp(Zcomp, Ncomp, iz, in) = xstabcomp(Zcomp, Ncomp, iz, in) + term
                 do nexgef = 1, 1000
                   Etabtot(iz, in, nexgef) = Etabtot(iz, in, nexgef) + term * Etab(iza, nexgef)
                 enddo
