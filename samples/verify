@@ -233,6 +233,22 @@ trap 'interrupted 143' TERM HUP
 : > times.log
 : > files_dif.log
 
+# macOS time reports peak RSS in bytes; GNU time reports it in KiB.
+# Probe support so verification still works when measurement is unavailable.
+memory_mode=none
+if [[ -x /usr/bin/time ]]; then
+  if [[ $(uname -s) == Darwin ]]; then
+    if LC_ALL=C /usr/bin/time -l /usr/bin/true 2> "$tmpdir/memory_probe"; then
+      memory_mode=macos
+    fi
+  elif LC_ALL=C /usr/bin/time -f 'peak_rss_kib=%M' /usr/bin/true 2> "$tmpdir/memory_probe"; then
+    memory_mode=gnu
+  fi
+fi
+if [[ "$memory_mode" == none ]]; then
+  echo "*** Peak RAM measurement unavailable; reporting N/A." >&2
+fi
+
 start=$(date '+%F,%T')
 host=$(uname -n)
 
@@ -292,8 +308,22 @@ for input in "${cases[@]}"; do
   t0=$(date +%s)
 
   if (
-    cd "$new_dir" &&
-    TALYS_DIR="$talys_dir" "$talys" < talys.inp > talys.out
+    cd "$new_dir" || exit 1
+    export TALYS_DIR="$talys_dir"
+    if [[ "$memory_mode" == none ]]; then
+      "$talys" < talys.inp > talys.out
+    else
+      # Keep TALYS stderr on the terminal and time's statistics in a
+      # temporary file outside new/, so comparisons remain unaffected.
+      exec 3>&2
+      if [[ "$memory_mode" == macos ]]; then
+        LC_ALL=C /usr/bin/time -l /bin/sh -c 'exec "$1" 2>&3 3>&-' sh "$talys" \
+          < talys.inp > talys.out 2> "$tmpdir/memory"
+      else
+        LC_ALL=C /usr/bin/time -f 'peak_rss_kib=%M' /bin/sh -c 'exec "$1" 2>&3 3>&-' sh "$talys" \
+          < talys.inp > talys.out 2> "$tmpdir/memory"
+      fi
+    fi
   ); then
     err=0
   else
@@ -306,10 +336,24 @@ for input in "${cases[@]}"; do
   dt=$((t1 - t0))
   dtotal=$((t1 - total_start))
 
+  peak_ram="N/A"
+  if [[ "$memory_mode" != none ]]; then
+    peak_ram=$(LC_ALL=C awk '
+      /maximum resident set size/ && $1 ~ /^[0-9]+$/ {
+        printf "%.1f MiB", $1 / 1048576; found=1; exit
+      }
+      /^peak_rss_kib=[0-9]+$/ {
+        split($0, fields, "=")
+        printf "%.1f MiB", fields[2] / 1024; found=1; exit
+      }
+      END { if (!found) printf "N/A" }
+    ' "$tmpdir/memory")
+  fi
+
   printf \
-    "%3d/%-3d %-35s %s  time:%6d s  total:%6d s  err:%d\n" \
+    "%3d/%-3d %-35s %s  time:%6d s  total:%6d s  err:%d  peak RAM: %s\n" \
     "$ii" "$nfiles" "$case_name" "$(date '+%F,%T')" \
-    "$dt" "$dtotal" "$err" >> times.log
+    "$dt" "$dtotal" "$err" "$peak_ram" >> times.log
 
   # --------------------------------------------------------------------
   # Construct the union of files in new/ and org/
@@ -436,6 +480,7 @@ for input in "${cases[@]}"; do
   fi
 
   echo "          time: ${dt} s"
+  echo "          peak RAM: $peak_ram"
   echo
 
 done
