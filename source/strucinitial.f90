@@ -162,7 +162,6 @@ subroutine strucinitial
 !   Nlast           ! last discrete level
 !   Scrit           ! critical entropy
 !   scutoffdisc     ! spin cutoff factor for discrete level region
-!   sfactor         ! spin factor
 !   Tcrit           ! critical temperature
 !   temprho         ! temperature
 !   Ucrit           ! critical U
@@ -481,7 +480,6 @@ subroutine strucinitial
   scutoffdisc = 1.
   Tcrit = 0.
   Ucrit = 0.
-  sfactor = 0.
 !
 ! Reset any QRPA components left from an earlier structure initialization.
 !
