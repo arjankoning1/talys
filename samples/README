@@ -19,8 +19,16 @@ At the end of every 'talys.out' file in the org/ directories the computation tim
 is printed. This should give you an impression of the time it takes to 
 calculate the total test set, which will probably be 1-2 hours.
 The script will produce a further two files:
-times.log: computer time of each sample case, to be compared with times_org.log
+times.log: computer time and peak RAM of each sample case; times can be compared
+           with times_org.log
 files_dif.log: differences in file length for each output file (should be empty)
+
+Peak RAM is also printed after each case. It is the maximum resident set size
+(RSS), reported in MiB (1 MiB = 1048576 bytes), measured using /usr/bin/time on
+macOS or GNU time on Linux. If measurement is unavailable, it is shown as N/A.
+This measures resident memory, not the total size of allocated arrays: allocated
+memory that is never touched may not contribute to RSS. Compare the same cases
+and inputs before and after allocation changes to assess their effect.
 
 The calculated information of interest is in the output file (called 'talys.out') 
 or in the specific files per reaction channel that are created via the 
