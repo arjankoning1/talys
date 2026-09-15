@@ -61,7 +61,6 @@ subroutine arraysize
   call report_array('areaejlab',      size(areaejlab,kind=int64),      storage_size(areaejlab))
   call report_array('areareclab',     size(areareclab,kind=int64),     storage_size(areareclab))
   call report_array('xsastroex',      size(xsastroex,kind=int64),      storage_size(xsastroex))
-  call report_array('sfactor',        size(sfactor,kind=int64),        storage_size(sfactor))
   call report_array('phdensjp',       size(phdensjp,kind=int64),       storage_size(phdensjp))
 !
 ! Allocatable module arrays
