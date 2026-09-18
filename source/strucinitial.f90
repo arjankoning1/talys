@@ -154,9 +154,6 @@ subroutine strucinitial
 !   Ediscrete       ! energy of middle of discrete level region
 !   ldexist         ! flag for existence of level density table
 !   ldparexist      ! flag for existence of tabulated level density
-!   ldtable         ! level density from table
-!   ldtottable      ! total level density per parity from table
-!   ldtottableP     ! total level density per parity from table
 !   logrho          ! logarithm of level density
 !   nendens         ! number of energies for level density grid
 !   Nlast           ! last discrete level
@@ -470,11 +467,6 @@ subroutine strucinitial
   Ediscrete = 0.
   ldexist = .false.
   ldparexist = .false.
-  ldtable = 0.
-  ldtableT = 0.
-  ldtableN = 0.
-  ldtottable = 0.
-  ldtottableP = 0.
   Nlast = 0
   Scrit = 0.
   scutoffdisc = 1.
