@@ -170,7 +170,7 @@ subroutine ffevap
   real(sgl) :: gau(0:numpop)                         !
   real(sgl) :: gauss                                 ! Gaussian contribution
   real(sgl) :: maxwell                               ! Maxwell distribution
-  real(sgl) :: Pmultiff(numelem, numneu, 0:numpar, 0:numnu) !
+  real(sgl), allocatable  :: Pmultiff(:,:,:,:)
   real(sgl) :: spec                                  ! spectrum
   real(sgl) :: speccm                                ! spectrum in CM
   real(sgl) :: sqrtE                                 ! square root of energy
@@ -194,19 +194,20 @@ subroutine ffevap
 !
 ! Do a full TALYS calculation for each fission fragment and incident energy
 !
+  ZCN = Ztarget0 + parZ(k0)
+  ACN = Atarget0 + parA(k0)
+  allocate(Pmultiff(ZCN,ACN-ZCN,0:numpar,0:numin))
+  Pmultiff = 0.
   flagffruns = .true.
   Epfnsaverage = 0.
   pfns = 0.
   pfnscm = 0.
   maxpfns = 0.
   fiseps = Rfiseps * xsfistot
-  Pmultiff = 0.
   write(*, '(/" ########## Start of loop over fission fragments"/)')
 !
 ! Use Viola systematics for first order guess of kinetic energy of FF
 !
-  ZCN = Ztarget0 + parZ(k0)
-  ACN = Atarget0 + parA(k0)
   Ekintot = 0.1189 * Ztarget0 * Ztarget0 / ((Atarget0 + 1) **onethird) + 7.3
   do ia = 1, ACN
     do iz = 1, ZCN
@@ -393,7 +394,11 @@ subroutine ffevap
         do npar = 0, numin
           sum = sum + Pmultiff(iz, in, type, npar)
         enddo
-        Pmultiff(iz, in, type, npar) = Pmultiff(iz, in, type, npar) / sum
+        if (sum > 0.) then
+          do npar = 0, numin
+            Pmultiff(iz,in,type,npar) = Pmultiff(iz,in,type,npar) / sum
+          enddo
+        endif
         izH = ZCN - iz
         iaH = ACN - ia
         inH = iaH - izH
@@ -401,7 +406,11 @@ subroutine ffevap
         do npar = 0, numin
           sum = sum + Pmultiff(izH, inH, type, npar)
         enddo
-        Pmultiff(izH, inH, type, npar) = Pmultiff(izH, inH, type, npar) / sum
+        if (sum > 0.) then
+          do npar = 0, numin
+            Pmultiff(izH, inH, type, npar) = Pmultiff(izH, inH, type, npar) / sum
+          enddo
+        endif
         do npar = 0, numin
           do i = 0, npar
             Pdisnu(type, npar) = Pdisnu(type, npar) + yieldZApre(iz, in) * &
