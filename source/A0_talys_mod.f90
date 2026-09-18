@@ -1257,11 +1257,11 @@ module A0_talys_mod
   integer, dimension(0:numZ, 0:numN)                                 :: nendens     ! number of energies for level density grid
   real(sgl), dimension(0:numdens)                                    :: edens       ! energy grid for tabulated level density
   real(sgl), dimension(0:numZ, 0:numN)                               :: Edensmax    ! maximum energy on level density table
-  real(dbl), dimension(0:numZ,0:numN,0:numdens,-1:1,0:numbar)        :: ldtableT    ! level density temperature from table
-  real(dbl), dimension(0:numZ,0:numN,0:numdens,-1:1,0:numbar)        :: ldtableN    ! level density cumulative levels from table
-  real(dbl), dimension(0:numZ,0:numN,0:numdens,0:numJ,-1:1,0:numbar) :: ldtable     ! level density from table
-  real(dbl), dimension(0:numZ,0:numN,0:numdens,0:numbar)             :: ldtottable  ! total level density from table
-  real(dbl), dimension(0:numZ,0:numN,0:numdens,-1:1,0:numbar)        :: ldtottableP ! total level density per parity from table
+  real(dbl), allocatable                                             :: ldtableT(:,:,:,:,:) ! level density temperature from table
+  real(dbl), allocatable                                             :: ldtableN(:,:,:,:,:) ! level density cumulative levels from table
+  real(dbl), allocatable                                             :: ldtable(:,:,:,:,:,:) ! level density from table
+  real(dbl), allocatable                                             :: ldtottable(:,:,:,:) ! total level density from table
+  real(dbl), allocatable                                             :: ldtottableP(:,:,:,:,:) ! total level density per parity from table
 !
 ! densitycum
 !
