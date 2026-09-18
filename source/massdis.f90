@@ -213,7 +213,7 @@ subroutine massdis
 !
 ! Initialization
 !
-  if (fymodel >= 3) then
+  if (fymodel == 3) then
     allocate(Etabtot(numZff,numNff,1000))
     allocate(Jtabtot(numZff,numNff,100))
     Etabtot = 0.
@@ -469,39 +469,37 @@ subroutine massdis
 !
 ! GEF + TALYS evaporation (fymodel 3)
 !
-  if (fymodel >= 3) then
+  if (fymodel == 3) then
     Ebin(0) = 0.
     do i = 1, numpop
       Ebin(i) = 0.1 * i
     enddo
     sumxs = 0.
-    if (fymodel == 3) then
-      do iz = 1, numZff
-        do in = 1, numNff
-          if (iz > numelem .or. in > numneu) cycle
-          if (xstabtot(iz, in) == 0.) cycle
-          sumxs = sumxs + xstabtot(iz, in)
-          sumE = 0.
-          do nexgef = 1, 1000
-            sumE = sumE + Etabtot(iz, in, nexgef)
-          enddo
-          if (sumE > 0.) then
-            do nexgef = 1, 1000
-              Etabtot(iz, in, nexgef) = Etabtot(iz, in, nexgef) / sumE
-            enddo
-          endif
-          sumJ = 0.
-          do Jgef = 1, 100
-            sumJ = sumJ + Jtabtot(iz, in, Jgef)
-          enddo
-          if (sumJ > 0.) then
-            do Jgef = 1, 100
-              Jtabtot(iz, in, Jgef) = Jtabtot(iz, in, Jgef) / sumJ
-            enddo
-          endif
+    do iz = 1, numZff
+      do in = 1, numNff
+        if (iz > numelem .or. in > numneu) cycle
+        if (xstabtot(iz, in) == 0.) cycle
+        sumxs = sumxs + xstabtot(iz, in)
+        sumE = 0.
+        do nexgef = 1, 1000
+          sumE = sumE + Etabtot(iz, in, nexgef)
         enddo
+        if (sumE > 0.) then
+          do nexgef = 1, 1000
+            Etabtot(iz, in, nexgef) = Etabtot(iz, in, nexgef) / sumE
+          enddo
+        endif
+        sumJ = 0.
+        do Jgef = 1, 100
+          sumJ = sumJ + Jtabtot(iz, in, Jgef)
+        enddo
+        if (sumJ > 0.) then
+          do Jgef = 1, 100
+            Jtabtot(iz, in, Jgef) = Jtabtot(iz, in, Jgef) / sumJ
+          enddo
+        endif
       enddo
-    endif
+    enddo
     if (sumxs > 0.) then
       do iz = 1, numZff
         do in = 1, numNff
@@ -566,6 +564,7 @@ subroutine massdis
         close(1)
       enddo
     enddo
+  endif
 !
 ! fymodel 4: Okumura model - read in yields and excitation energies
 !
@@ -574,135 +573,134 @@ subroutine massdis
 !            3: SPY (Okumura) (Jean-Francois Lemaitre)
 !            4: Langevin-4D (Titech)
 !
-    if (fymodel == 4) then
-      if (yieldfile(1:1) == ' ') then
-        Effrel = Etotal
-        ffpath = trim(path)//'fission/ff/'
-        if (ffmodel == 0) ffname = 'user'
-        if (ffmodel == 1) ffname = 'gef'
-        if (ffmodel == 2) ffname = 'hf3d'
-        if (ffmodel == 3) ffname = 'spy'
-        if (ffmodel == 4) ffname = 'langevin4d'
-        ffpath = trim(ffpath)//trim(ffname)//'/'
-        massstring = '   '
-        Afile = Ainit
-        Sfile = nuc(Zinit)
-        write(massstring, '(i3.3)') Afile
-        nucstring = trim(Sfile) //massstring 
-        ffpath = trim(ffpath)//trim(nucstring)//'/'
-        Efile = trim(ffpath)//trim(nucstring)//'_'//trim(ffname)//'.E'
-        inquire (file=Efile,exist=lexist)
-        if (.not.lexist) then
-          write(*,'(" TALYS-error: Non-existent FF file ",a)') trim(Efile)
-          stop
-        endif
-        open (unit = 1, file = Efile, status = 'unknown')
-        i = 1
-        do
-          read(1, * , iostat = istat) Eff(i)
-          if (istat == -1) exit
-          i = i + 1
-        enddo
-        close (1)
-        Nff = i - 1
-        if (Effrel <= Eff(1)) then
-          Efftab(1) = Eff(1)
-          Nfftab = 1
-        else
-         Nfftab = 2
-         if (Effrel >= Eff(Nff)) then
-            Efftab(1) = Eff(Nff)
-            Efftab(2) = Emaxtalys
-            Extab(2) = Efftab(1)
-          else
-            call locate(Eff, 0, Nff, Effrel, nen)
-            Efftab(1) = Eff(nen)
-            Efftab(2) = Eff(nen + 1)
-            Extab(2) = Eff(nen + 1)
-          endif
-          Efac = (Effrel - Efftab(1)) / (Efftab(2) - Efftab(1))
-        endif
-        Extab(1)=Efftab(1)
-        do k = 1, Nfftab
-          Estring = '        '
-          write(Estring, '(es8.2)') Extab(k)
-          Estring(5:5) = 'e'
-          Yfile(k) = trim(ffpath)//trim(nucstring)//'_'//Estring// 'MeV_'//trim(ffname)//'.ff'
-        enddo
-      else
-        Nfftab = 1
-        Yfile(1) = trim(yieldfile)
+  if (fymodel == 4) then
+    if (yieldfile(1:1) == ' ') then
+      Effrel = Etotal
+      ffpath = trim(path)//'fission/ff/'
+      if (ffmodel == 0) ffname = 'user'
+      if (ffmodel == 1) ffname = 'gef'
+      if (ffmodel == 2) ffname = 'hf3d'
+      if (ffmodel == 3) ffname = 'spy'
+      if (ffmodel == 4) ffname = 'langevin4d'
+      ffpath = trim(ffpath)//trim(ffname)//'/'
+      massstring = '   '
+      Afile = Ainit
+      Sfile = nuc(Zinit)
+      write(massstring, '(i3.3)') Afile
+      nucstring = trim(Sfile) //massstring 
+      ffpath = trim(ffpath)//trim(nucstring)//'/'
+      Efile = trim(ffpath)//trim(nucstring)//'_'//trim(ffname)//'.E'
+      inquire (file=Efile,exist=lexist)
+      if (.not.lexist) then
+        write(*,'(" TALYS-error: Non-existent FF file ",a)') trim(Efile)
+        stop
       endif
+      open (unit = 1, file = Efile, status = 'unknown')
+      i = 1
+      do
+        read(1, * , iostat = istat) Eff(i)
+        if (istat == -1) exit
+        i = i + 1
+      enddo
+      close (1)
+      Nff = i - 1
+      if (Effrel <= Eff(1)) then
+        Efftab(1) = Eff(1)
+        Nfftab = 1
+      else
+       Nfftab = 2
+       if (Effrel >= Eff(Nff)) then
+          Efftab(1) = Eff(Nff)
+          Efftab(2) = Emaxtalys
+          Extab(2) = Efftab(1)
+        else
+          call locate(Eff, 0, Nff, Effrel, nen)
+          Efftab(1) = Eff(nen)
+          Efftab(2) = Eff(nen + 1)
+          Extab(2) = Eff(nen + 1)
+        endif
+        Efac = (Effrel - Efftab(1)) / (Efftab(2) - Efftab(1))
+      endif
+      Extab(1)=Efftab(1)
       do k = 1, Nfftab
-        write(*, '(/, " Fission fragment yields read from ", a)') trim(Yfile(k))
-        inquire (file=Yfile(k),exist=lexist)
-        if (.not.lexist) then
-          write(*,'(" TALYS-error: Non-existent FF file ",a)') trim(Yfile(k))
-          stop
-        endif
-        open (unit = 1, file = Yfile(k), status = 'unknown')
-        read(1, '(///13x, i6)') Ntotal(k)
-        read(1, '(a)') string
-        do i = 1, Ntotal(k)
-          read(1, '(a)', iostat = istat) string
-          if (istat == -1) exit
-          read(string, * ) Zlight(k, i), Alight(k, i), Zheavy(k, i), Aheavy(k, i), Y(k, i), &
- &            TKE0(k, i), TXE0(k, i), Elight(k, i), Wlight(k, i), Eheavy(k, i), Wheavy(k, i)
-        enddo
-        close (1)
+        Estring = '        '
+        write(Estring, '(es8.2)') Extab(k)
+        Estring(5:5) = 'e'
+        Yfile(k) = trim(ffpath)//trim(nucstring)//'_'//Estring// 'MeV_'//trim(ffname)//'.ff'
       enddo
-      write(*, '(/, "  Fission fragment pairs")')
-      write(*, '("  Zl  Al  Zh  Ah   Yield        TKE         TXE        ELight     dElight     Eheavy      dEheavy")')
-      do i = 1, Ntotal(Nfftab)
-        izL = Zlight(Nfftab, i)
-        iaL = Alight(Nfftab, i)
-        izH = Zheavy(Nfftab, i)
-        iaH = Aheavy(Nfftab, i)
-        inL = iaL - izL
-        inH = iaH - izH
-        ia = iaL + iaH
-        if (inL < 1 .or. inL > numneu) cycle
-        if (inH < 1 .or. inH > numneu) cycle
-        if (ia /= Ainit) cycle
-        ELL = Elight(Nfftab, i)
-        dEL = Wlight(Nfftab, i)
-        EH = Eheavy(Nfftab, i)
-        dEH = Wheavy(Nfftab, i)
-        Y0 = Y(Nfftab, i)
-        TK = TKE0(Nfftab, i)
-        TX = TXE0(Nfftab, i)
-        if (Nfftab == 2) then
-          do j = 1, Ntotal(1)
-            if (Zlight(1, j) == izL .and. Alight(1, j) == iaL) then
-              ELL = Elight(1, j) + Efac * (Elight(2, i) - Elight(1, j))
-              dEL = Wlight(1, j) + Efac * (Wlight(2, i) - Wlight(1, j))
-              Y0 = Y(1, j) + Efac * (Y(2, i) - Y(1, j))
-              TK = TKE0(1, j) + Efac * (TKE0(2, i) - TKE0(1, j))
-              TX = TXE0(1, j) + Efac * (TXE0(2, i) - TXE0(1, j))
-            endif
-            if (Zheavy(1, j) == izH .and. Aheavy(1, j) == iaH) then
-              EH = Eheavy(1, j) + Efac * (Eheavy(2, i) - Eheavy(1, j))
-              dEH = Wheavy(1, j) + Efac * (Wheavy(2, i) - Wheavy(1, j))
-              Y0 = Y(1, j) + Efac * (Y(2, i) - Y(1, j))
-              TK = TKE0(1, j) + Efac * (TKE0(2, i) - TKE0(1, j))
-              TX = TXE0(1, j) + Efac * (TXE0(2, i) - TXE0(1, j))
-            endif
-          enddo
-        endif
-        xsfisFF = xsfistot * Y0
-        xsApre(iaL) = xsApre(iaL) + xsfisFF
-        xsApre(iaH) = xsApre(iaH) + xsfisFF
-        xsZApre(izL, inL) = xsZApre(izL, inL) + xsfisFF
-        xsZApre(izH, inH) = xsZApre(izH, inH) + xsfisFF
-        Excff(izL, inL) = ELL
-        Excff(izH, inH) = EH
-        dExcff(izL, inL) = dEL
-        dExcff(izH, inH) = dEH
-        TKE(izL, inL) = TK
-        TKE(izH, inH) = TK
-        write(*, '(4i4, 7es12.5)') izL, iaL, izH, iaH, Y0, TK, TX, ELL, dEL, EH, dEH
-      enddo
+    else
+      Nfftab = 1
+      Yfile(1) = trim(yieldfile)
     endif
+    do k = 1, Nfftab
+      write(*, '(/, " Fission fragment yields read from ", a)') trim(Yfile(k))
+      inquire (file=Yfile(k),exist=lexist)
+      if (.not.lexist) then
+        write(*,'(" TALYS-error: Non-existent FF file ",a)') trim(Yfile(k))
+        stop
+      endif
+      open (unit = 1, file = Yfile(k), status = 'unknown')
+      read(1, '(///13x, i6)') Ntotal(k)
+      read(1, '(a)') string
+      do i = 1, Ntotal(k)
+        read(1, '(a)', iostat = istat) string
+        if (istat == -1) exit
+        read(string, * ) Zlight(k, i), Alight(k, i), Zheavy(k, i), Aheavy(k, i), Y(k, i), &
+ &          TKE0(k, i), TXE0(k, i), Elight(k, i), Wlight(k, i), Eheavy(k, i), Wheavy(k, i)
+      enddo
+      close (1)
+    enddo
+    write(*, '(/, "  Fission fragment pairs")')
+    write(*, '("  Zl  Al  Zh  Ah   Yield        TKE         TXE        ELight     dElight     Eheavy      dEheavy")')
+    do i = 1, Ntotal(Nfftab)
+      izL = Zlight(Nfftab, i)
+      iaL = Alight(Nfftab, i)
+      izH = Zheavy(Nfftab, i)
+      iaH = Aheavy(Nfftab, i)
+      inL = iaL - izL
+      inH = iaH - izH
+      ia = iaL + iaH
+      if (inL < 1 .or. inL > numneu) cycle
+      if (inH < 1 .or. inH > numneu) cycle
+      if (ia /= Ainit) cycle
+      ELL = Elight(Nfftab, i)
+      dEL = Wlight(Nfftab, i)
+      EH = Eheavy(Nfftab, i)
+      dEH = Wheavy(Nfftab, i)
+      Y0 = Y(Nfftab, i)
+      TK = TKE0(Nfftab, i)
+      TX = TXE0(Nfftab, i)
+      if (Nfftab == 2) then
+        do j = 1, Ntotal(1)
+          if (Zlight(1, j) == izL .and. Alight(1, j) == iaL) then
+            ELL = Elight(1, j) + Efac * (Elight(2, i) - Elight(1, j))
+            dEL = Wlight(1, j) + Efac * (Wlight(2, i) - Wlight(1, j))
+            Y0 = Y(1, j) + Efac * (Y(2, i) - Y(1, j))
+            TK = TKE0(1, j) + Efac * (TKE0(2, i) - TKE0(1, j))
+            TX = TXE0(1, j) + Efac * (TXE0(2, i) - TXE0(1, j))
+          endif
+          if (Zheavy(1, j) == izH .and. Aheavy(1, j) == iaH) then
+            EH = Eheavy(1, j) + Efac * (Eheavy(2, i) - Eheavy(1, j))
+            dEH = Wheavy(1, j) + Efac * (Wheavy(2, i) - Wheavy(1, j))
+            Y0 = Y(1, j) + Efac * (Y(2, i) - Y(1, j))
+            TK = TKE0(1, j) + Efac * (TKE0(2, i) - TKE0(1, j))
+            TX = TXE0(1, j) + Efac * (TXE0(2, i) - TXE0(1, j))
+          endif
+        enddo
+      endif
+      xsfisFF = xsfistot * Y0
+      xsApre(iaL) = xsApre(iaL) + xsfisFF
+      xsApre(iaH) = xsApre(iaH) + xsfisFF
+      xsZApre(izL, inL) = xsZApre(izL, inL) + xsfisFF
+      xsZApre(izH, inH) = xsZApre(izH, inH) + xsfisFF
+      Excff(izL, inL) = ELL
+      Excff(izH, inH) = EH
+      dExcff(izL, inL) = dEL
+      dExcff(izH, inH) = dEH
+      TKE(izL, inL) = TK
+      TKE(izH, inH) = TK
+      write(*, '(4i4, 7es12.5)') izL, iaL, izH, iaH, Y0, TK, TX, ELL, dEL, EH, dEH
+    enddo
   endif
 !
 ! fymodel 5: General model - read in full population per fission fragment
