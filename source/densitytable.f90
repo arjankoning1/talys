@@ -62,6 +62,7 @@ subroutine densitytable(Zix, Nix)
   integer           :: nloop            ! help variable
   integer           :: parity           ! parity
   integer           :: ploop            ! help variable
+  integer           :: nbarld
   integer           :: Z                ! charge number of target nucleus
   integer           :: Zix              ! charge number index for residual nucleus
   real(sgl)         :: ald              ! level density parameter
@@ -83,6 +84,23 @@ subroutine densitytable(Zix, Nix)
   real(dbl)         :: ld2j1(0:numJ)    ! spin dependent level density
   real(dbl)         :: ldtot            ! total level density
   real(dbl)         :: pardisloc        ! variable to account for parity distribution
+!
+! Allocate tabulated level-density arrays only when needed
+!
+  nbarld = 0
+  if (flagfission) nbarld = numbar
+  if (.not. allocated(ldtable)) then
+    allocate(ldtableT(0:numZ,0:numN,0:numdens,-1:1,0:nbarld))
+    allocate(ldtableN(0:numZ,0:numN,0:numdens,-1:1,0:nbarld))
+    allocate(ldtable(0:numZ,0:numN,0:numdens,0:numJ,-1:1,0:nbarld))
+    allocate(ldtottable(0:numZ,0:numN,0:numdens,0:nbarld))
+    allocate(ldtottableP(0:numZ,0:numN,0:numdens,-1:1,0:nbarld))
+    ldtableT(Zix,Nix,:,:,:) = 0.d0
+    ldtableN(Zix,Nix,:,:,:) = 0.d0
+    ldtable(Zix,Nix,:,:,:,:) = 0.d0
+    ldtottable(Zix,Nix,:,:) = 0.d0
+    ldtottableP(Zix,Nix,:,:,:) = 0.d0
+  endif
 !
 ! *********** Tabulated level densities from Goriely *******************
 !
