@@ -2176,7 +2176,7 @@ module A0_talys_mod
   real(sgl), dimension(numelem, numneu)           :: TKE          ! total kinetic energy
   real(sgl), dimension(nummass)                   :: xsApost      ! post-neutron emission corrected cross section
   real(sgl), dimension(nummass)                   :: xsApre       ! pre-neutron emission cross section
-  real(sgl), dimension(numelem, numneu, 0:numlev) :: xsfpex       ! excitation energy spectrum per fission fragment
+  real(sgl), dimension(numelem, numneu, 0:1)      :: xsfpex       ! excitation energy spectrum per fission fragment
   real(sgl)                                       :: xstotpost    ! post-neutron emission fission product cross section
   real(sgl)                                       :: xstotpre     ! pre-neutron emission fission product cross section
   real(sgl), dimension(numelem, numneu)           :: xsZApost     ! post-neutron emission corrected isotopic cross section
