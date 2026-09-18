@@ -9,7 +9,7 @@ c
         include "gef.cmb"
          real*4 JFraglight,JFragheavy,Irigidspher,IfragEff
          real*4 Irigid,Ieff,Jrms
-         real*4 JFRAGpre(200,150,0:300)
+cAK      real*4 JFRAGpre(200,150,0:300)
          real*4 Lymass
          real*8 WN(20:320),sq2pi,WNT(20:320),WN2P(30:320)
          real*8 WN0(20:320),WN1(20:320),WN2(20:320),WN3(20:320),
@@ -133,9 +133,9 @@ c   end 27.09.2013
            do j=1,150
             anzpre(i,j)=0.0
             anzpost(i,j)=0.0
-             do k=0,300
-              JFRAGpre(i,j,k)=0.0
-             end do
+cAK          do k=0,300
+cAK           JFRAGpre(i,j,k)=0.0
+cAK          end do
            end do
            do j=1,300
             AEkin(i,j)=0.0
@@ -688,9 +688,9 @@ c      write(*,*) 'test1'
            do j=1,150
             anzpre(i,j)=0.0
             anzpost(i,j)=0.0
-             do k=0,300
-              JFRAGpre(i,j,k)=0.0
-             end do
+cAK          do k=0,300
+cAK           JFRAGpre(i,j,k)=0.0
+cAK          end do
            end do
            do j=1,300
             AEkin(i,j)=0.0
@@ -1649,6 +1649,7 @@ c /' random choice of mass '/
         Else
           RAheavy = ACN - RAhelp
         End If
+        RAheavy = max(1.,min(RAheavy,ACN-1.,350.))
         RZpol = Zshift(0,2,nInt(RAheavy))
 c /' local polarization '/
         RZ = RAheavy * ZCN / ACN + RZpol
@@ -1660,6 +1661,7 @@ c /' random choice of Z '/
        If(IMode.eq. 1) then
 c      Case 1
         RAheavy = PGauss(ACMode1,SigAMode1)
+        RAheavy = max(1.,min(RAheavy,ACN-1.,350.))
         RZpol = Zshift(1,2,nInt(RAheavy))
         RZ = RAheavy * ZCN / ACN + RZpol
         RZheavy = PGauss(RZ,SigPolMode1)
@@ -1671,6 +1673,7 @@ c      Case 2
         RAheavy = PGauss(ACMode2,SigAMode2)
         RAheavy = PBox(ACMode2,SigAMOde2,PAWidthS2)
         RAheavy = max(RAheavy,1.)
+        RAheavy = max(1.,min(RAheavy,ACN-1.,350.))
         RZpol = Zshift(2,2,nInt(RAheavy))
         RZ = RAheavy * ZCN / ACN + RZpol
         Rtest = RNDM(-1.)
@@ -1688,6 +1691,7 @@ c        /' truncation below Z = 35 and below Z = 50 due to properties of deform
        If(IMode.eq. 3) then
 c      Case 3
         RAheavy = PGauss(ACMode3,SigAMode3)
+        RAheavy = max(1.,min(RAheavy,ACN-1.,350.))
         RZpol = Zshift(3,2,nInt(RAheavy))
         RZ = RAheavy * ZCN / ACN + RZpol
         RZheavy = PGauss(RZ,SigPolMode3)
@@ -1993,15 +1997,15 @@ c        write(*,*) ' Spin=',SpinRMSNZ(IMode,1,INLight,IZlight)
       If (JFraglight .lt. 0) Then
        JFraglight = 0.
       Endif
-      JFRAGpre(INlight,IZlight,nInt(JFraglight)) =
-     ;  JFRAGpre(INlight,IZlight,nInt(JFraglight)) + 1.
+cAK   JFRAGpre(INlight,IZlight,nInt(JFraglight)) =
+cAK  ;  JFRAGpre(INlight,IZlight,nInt(JFraglight)) + 1.
 
       If (JFragheavy .lt. 0) Then
        JFragheavy = 0
       Endif
 
-      JFRAGpre(INheavy,IZheavy,nInt(JFragheavy)) =
-     ; JFRAGpre(INheavy,IZheavy,nInt(JFragheavy)) + 1.
+cAK   JFRAGpre(INheavy,IZheavy,nInt(JFragheavy)) =
+cAK  ; JFRAGpre(INheavy,IZheavy,nInt(JFragheavy)) + 1.
 
 
       Irigidspher = 1.16E0**2 * IAlight**1.6667E0 / 103.8415E0
