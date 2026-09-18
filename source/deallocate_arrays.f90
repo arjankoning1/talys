@@ -14,6 +14,11 @@ subroutine deallocate_arrays
   if (allocated(ddxrec)) deallocate(ddxrec)
   if (allocated(phtable1)) deallocate(phtable1)
   if (allocated(phtable2)) deallocate(phtable2)
+  if (allocated(ldtable)) deallocate(ldtable)
+  if (allocated(ldtableT)) deallocate(ldtableT)
+  if (allocated(ldtableN)) deallocate(ldtableN)
+  if (allocated(ldtottable)) deallocate(ldtottable)
+  if (allocated(ldtottableP)) deallocate(ldtottableP)
   do Nix = 0, numN
     do Zix = 0, numZ
       if (allocated(qrpa(Zix,Nix)%e)) deallocate(qrpa(Zix,Nix)%e)
