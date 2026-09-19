@@ -31,6 +31,7 @@ function phdens2(Zix, Nix, ppi, hpi, pnu, hnu, gsp, gsn, Eex, Ewell, surfwell)
 !
   implicit none
   logical   :: surfwell   ! flag for surface effects in finite well
+  logical   :: useptable
   integer   :: h          ! help variable
   integer   :: hnu        ! neutron hole number
   integer   :: hpi        ! proton hole number
@@ -73,7 +74,9 @@ function phdens2(Zix, Nix, ppi, hpi, pnu, hnu, gsp, gsn, Eex, Ewell, surfwell)
   phdens2 = 0.
   if (ppi < 0 .or. hpi < 0 .or. pnu < 0 .or. hnu < 0) return
   if (ppi + hpi + pnu + hnu == 0) return
-  if (phmodel == 1 .or. .not. phexist2(Zix, Nix, ppi, hpi, pnu, hnu)) then
+  useptable = .false.
+  if (phmodel == 2) useptable = phexist2(Zix,Nix,ppi,hpi,pnu,hnu)
+  if (.not. useptable) then
     Ap = Apauli2(ppi, hpi, pnu, hnu)
     factorn = (pnu * pnu + hnu * hnu + pnu + hnu) / (4. * gsn)
     factorp = (ppi * ppi + hpi * hpi + ppi + hpi) / (4. * gsp)
