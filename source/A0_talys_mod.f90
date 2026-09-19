@@ -1281,8 +1281,8 @@ module A0_talys_mod
 ! Variables for particle-hole density tables
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
-  logical, dimension(0:numZ,0:numN,0:numexc,0:numexc)                   :: phexist1   ! flag for existence of p-h state den. table
-  logical, dimension(0:numZ,0:numN,0:numexc,0:numexc,0:numexc,0:numexc) :: phexist2   ! flag for existence of p-h state density
+  logical, allocatable                                                  :: phexist1(:,:,:,:) ! flag for existence of p-h state den. table
+  logical, allocatable                                                  :: phexist2(:,:,:,:,:,:) ! flag for existence of p-h state density
   integer, dimension(numconf)                                           :: hhtable    ! hole number from table
   integer, dimension(numconf)                                           :: hnutable   ! neutron hole number from table
   integer, dimension(numconf)                                           :: hpitable   ! proton hole number from table
