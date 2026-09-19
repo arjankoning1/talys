@@ -153,6 +153,7 @@ subroutine channels
   integer          :: Zend                                                 ! maximal charge number
   integer          :: Zix                                                  ! charge number index for residual nucleus
   integer          :: Ztot                                                 ! number of nucleon units in exit channel
+  integer          :: nexcl
   real(sgl)        :: Eaveragesum                                          ! help variable
   real(sgl)        :: emissum                                              ! integrated binary emission spectrum
   real(sgl)        :: fissum                                               ! help variable
@@ -165,10 +166,15 @@ subroutine channels
 !
 ! ************************ Initialization ******************************
 !
+  Zend = min(numZchan, maxZ)
+  Zend = min(Zend, Zinit)
+  Nend = min(numNchan, maxN)
+  Nend = min(Nend, Ninit)
   channelsum = 0.
   xsabs = 0.
   if (flagspec) then
-    allocate(specexcl(0:numchantot,0:numpar,0:numex+1,0:numen))
+    nexcl = maxval(maxex(0:Zend,0:Nend)) + 1
+    allocate(specexcl(0:numchantot,0:numpar,0:nexcl,0:eendhigh))
     specexcl = 0.
   endif
 !
@@ -188,10 +194,6 @@ subroutine channels
 ! Each idnum represents a different exclusive channel.
 !
   idnum = -1
-  Zend = min(numZchan, maxZ)
-  Zend = min(Zend, Zinit)
-  Nend = min(numNchan, maxN)
-  Nend = min(Nend, Ninit)
   do Zix = 0, Zend
     do Nix = 0, Nend
 !
@@ -271,9 +273,6 @@ subroutine channels
             do nen = 0, numen
               xschannelsp(idnum, type, nen) = 0.
               xsfischannelsp(idnum, type, nen) = 0.
-              do nexout = 0, numex + 1
-                specexcl(idnum, type, nexout, nen) = 0.
-              enddo
             enddo
           enddo
         endif
