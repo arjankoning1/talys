@@ -21,8 +21,12 @@ subroutine allocate_arrays
     ddxrec = 0.
   endif
   if (phmodel == 2) then
+    allocate(phexist1(0:numZ,0:numN,0:numexc,0:numexc))
+    allocate(phexist2(0:numZ,0:numN,0:numexc,0:numexc,0:numexc,0:numexc))
     allocate(phtable1(0:1, 0:1, 0:numexc, 0:numexc, 0:numdens))
     allocate(phtable2(0:1, 0:1, 0:numexc, 0:numexc, 0:numexc, 0:numexc, 0:numdens))
+    phexist1 = .false.
+    phexist2 = .false.
     phtable1 = 0.
     phtable2 = 0.
   endif
