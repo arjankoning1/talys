@@ -123,6 +123,8 @@ subroutine massdis
   real(sgl)          :: Ebin(0:numpop)                              ! energy of bin
   real(sgl), allocatable :: Etabtot(:,:,:)              ! tabulated energy
   real(sgl), allocatable :: Jtabtot(:,:,:)             ! total spin from GEF
+  real(sgl), allocatable :: popffEx(:,:,:)           ! energy population of FF
+  real(sgl), allocatable :: popffJ(:,:,:)              ! spin population of FF
   real(sgl)          :: Exfis(1000)                                 ! excitation energy for fission
   real(sgl)          :: dEH                                         !
   real(sgl)          :: dEL                                         !
@@ -142,8 +144,6 @@ subroutine massdis
   real(sgl)          :: Jfis                                        ! spin of fissioning system
   real(sgl)          :: partfisJ(0:numJ)                            ! partial fission spin distribution
   real(sgl)          :: partfisxs                                   ! partial fission cross section
-  real(sgl)          :: popffEx(numZff, numNff, 0:numpop)           ! energy population of FF
-  real(sgl)          :: popffJ(numZff, numNff, 0:numJ)              ! spin population of FF
   real(sgl)          :: sum                                         ! help variable
   real(sgl)          :: sumE                                        ! summed sensitivity x cross section
   real(sgl)          :: sumJ                                        ! sum over spin distribution
@@ -216,8 +216,12 @@ subroutine massdis
   if (fymodel == 3) then
     allocate(Etabtot(numZff,numNff,1000))
     allocate(Jtabtot(numZff,numNff,100))
+    allocate(popffEx(numZff, numNff, 0:numpop))
+    allocate(popffJ(numZff, numNff, 0:numJ))
     Etabtot = 0.
     Jtabtot = 0.
+    popffEx = 0.
+    popffJ = 0.
   endif
   xsApre = 0.
   xsApost = 0.
@@ -258,8 +262,6 @@ subroutine massdis
   Eff = 0.
   xstabtot = 0.
   Ytabtot = 0.
-  popffEx = 0.
-  popffJ = 0.
   fpeps = Rfiseps * xsfistot
   if (fpeps == 0.) return
   if (fymodel == 2 .or. fymodel ==3) then
