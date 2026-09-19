@@ -31,6 +31,7 @@ function phdens(Zix, Nix, p, h, gs, Eex, Ewell, surfwell)
 !
   implicit none
   logical   :: surfwell   ! flag for surface effects in finite well
+  logical   :: useptable
   integer   :: h          ! help variable
   integer   :: n1         ! number of coordinate grid points
   integer   :: nex2       ! counter
@@ -64,7 +65,11 @@ function phdens(Zix, Nix, p, h, gs, Eex, Ewell, surfwell)
   phdens = 0.
   if (p < 0 .or. h < 0) return
   if (p + h == 0) return
-  if (phmodel == 1 .or. .not. phexist1(Zix, Nix, p, h)) then
+  useptable = .false.
+  if (phmodel == 2) then
+    useptable = phexist1(Zix,Nix,p,h)
+  endif
+  if (.not. useptable) then
     Ap = Apauli(p, h)
     factor = (p * p + h * h + p + h) / (4. * gs)
     if (Ap + factor >= Eex) return
