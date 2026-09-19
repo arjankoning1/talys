@@ -67,7 +67,7 @@ function phdens(Zix, Nix, p, h, gs, Eex, Ewell, surfwell)
   if (p + h == 0) return
   useptable = .false.
   if (phmodel == 2) then
-    useptable = phexist1(Zix,Nix,p,h)
+    if (.not. flag2comp) useptable = phexist1(Zix,Nix,p,h)
   endif
   if (.not. useptable) then
     Ap = Apauli(p, h)
