@@ -167,7 +167,6 @@ subroutine reacinitial
 !   Ex           ! excitation energy
 !   Exmax        ! maximum excitation energy for residual nucleus
 !   Exmax0       ! maximum excitation energy for res. nucleus (incl. neg. en.)
-!   fisfeedJP    ! fission contribution from excitation energy bin per J,P
 !   maxex        ! maximum excitation energy bin for residual nucleus
 !   maxJ         ! maximal J-value
 !   nexmax       ! maximum excitation energy bin for residual nucleus
@@ -502,7 +501,6 @@ subroutine reacinitial
   Exmax0 = 0.
   Exmax(0, 0) = Etotal
   Exmax0(0, 0) = Etotal
-  fisfeedJP = 0.
   maxex = 0
   maxJ = numJ
   nexmax = -1
