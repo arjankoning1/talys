@@ -95,12 +95,12 @@ subroutine densitytable(Zix, Nix)
     allocate(ldtable(0:numZ,0:numN,0:numdens,0:numJ,-1:1,0:nbarld))
     allocate(ldtottable(0:numZ,0:numN,0:numdens,0:nbarld))
     allocate(ldtottableP(0:numZ,0:numN,0:numdens,-1:1,0:nbarld))
-    ldtableT(Zix,Nix,:,:,:) = 0.d0
-    ldtableN(Zix,Nix,:,:,:) = 0.d0
-    ldtable(Zix,Nix,:,:,:,:) = 0.d0
-    ldtottable(Zix,Nix,:,:) = 0.d0
-    ldtottableP(Zix,Nix,:,:,:) = 0.d0
   endif
+  ldtableT(Zix,Nix,:,:,:) = 0.d0
+  ldtableN(Zix,Nix,:,:,:) = 0.d0
+  ldtable(Zix,Nix,:,:,:,:) = 0.d0
+  ldtottable(Zix,Nix,:,:) = 0.d0
+  ldtottableP(Zix,Nix,:,:,:) = 0.d0
 !
 ! *********** Tabulated level densities from Goriely *******************
 !
