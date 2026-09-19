@@ -26,6 +26,8 @@ subroutine deallocate_arrays
       if (allocated(qrpa(Zix,Nix)%fJP)) deallocate(qrpa(Zix,Nix)%fJP)
     enddo
   enddo
+  if (allocated(phexist1)) deallocate(phexist1)
+  if (allocated(phexist2)) deallocate(phexist2)
   if (allocated(feedexcl)) deallocate(feedexcl)
   if (allocated(phdensjp)) deallocate(phdensjp)
   if (allocated(fxsgamdischan)) deallocate(fxsgamdischan)
