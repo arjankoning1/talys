@@ -150,10 +150,6 @@ subroutine thermal
   real(sgl) :: xspres        ! (n,p) cross section in resonance region
   real(sgl) :: xsres         ! cross section at start of resonance region
   real(sgl) :: xsreslog      ! cross section at start of resonance region
-  allocate(fxsgamdischan(Ninclow,0:numchantot,0:numlev,0:numlev))
-  fxsgamdischan = 0.
-  allocate(fxsgamchannel(Ninclow,0:numchantot))
-  fxsgamchannel = 0.
 !
 ! *********************** Extrapolate cross sections *******************
 !
