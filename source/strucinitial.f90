@@ -257,8 +257,6 @@ subroutine strucinitial
 !   nenphdens     ! number of energies for p - h state density gri
 !   Nphconf1      ! number of 1 - component p - h configurations
 !   Nphconf2      ! number of 2 - component p - h configurations
-!   phexist1      ! flag for existence of p-h state density tabl
-!   phexist2      ! flag for existence of p-h state density tabl
 !   phtable1      ! p-h state density from table
 !   phtable2      ! p-h state density from table
 !   ppitable      ! proton particle number from table
@@ -525,8 +523,6 @@ subroutine strucinitial
   Vpos = 0.
   Vheight = 0.
   Vwidth = 0.
-  phexist2 = .false.
-  phexist1 = .false.
   hhtable = 0
   hnutable = 0
   hpitable = 0
