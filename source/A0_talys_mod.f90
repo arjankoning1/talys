@@ -1507,7 +1507,7 @@ module A0_talys_mod
   real(sgl), dimension(0:numZ, 0:numN, 0:numex+1)           :: Ex        ! excitation energy
   real(sgl), dimension(0:numZ, 0:numN)                      :: Exmax     ! maximum excitation energy for excited nucleus
   real(sgl), dimension(0:numZ, 0:numN)                      :: Exmax0    ! maximum excitation energy (inc. negative energies)
-  real(sgl), dimension(0:numZ,0:numN,0:numex+1,0:numJ,-1:1) :: fisfeedJP ! fission contribution from excitation energy bin per J, P
+  real(sgl), allocatable                                    :: fisfeedJP(:,:,:,:,:) ! fission contribution from excitation energy bin per J, P
   real(dbl), dimension(0:numZ,0:numN,0:numex,0:numJ,-1:1)   :: rhogrid   ! integrated level density
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
