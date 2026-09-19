@@ -21,14 +21,21 @@ subroutine allocate_arrays
     ddxrec = 0.
   endif
   if (phmodel == 2) then
-    allocate(phexist1(0:numZ,0:numN,0:numexc,0:numexc))
-    allocate(phexist2(0:numZ,0:numN,0:numexc,0:numexc,0:numexc,0:numexc))
-    allocate(phtable1(0:1, 0:1, 0:numexc, 0:numexc, 0:numdens))
-    allocate(phtable2(0:1, 0:1, 0:numexc, 0:numexc, 0:numexc, 0:numexc, 0:numdens))
-    phexist1 = .false.
-    phexist2 = .false.
-    phtable1 = 0.
-    phtable2 = 0.
+    if (flag2comp) then
+      allocate(phexist2(0:numZ,0:numN,0:numexc,0:numexc,0:numexc,0:numexc))
+      allocate(phtable2(0:1, 0:1, 0:numexc, 0:numexc, 0:numexc, 0:numexc, 0:numdens))
+      phexist2 = .false.
+      phtable2 = 0.
+    else
+      allocate(phexist1(0:numZ,0:numN,0:numexc,0:numexc))
+      allocate(phtable1(0:1, 0:1, 0:numexc, 0:numexc, 0:numdens))
+      phexist1 = .false.
+      phtable1 = 0.
+    endif
+  endif
+  if (flagfission) then
+    allocate(fisfeedJP(0:maxZ,0:maxN,0:numex+1,0:numJ,-1:1))
+    fisfeedJP = 0.
   endif
   if (flagchannels) then
     allocate(feedexcl(0:min(maxZ,numZchan),0:min(maxN,numNchan),0:numpar,0:numex+1,0:numex+1))
