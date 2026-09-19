@@ -75,7 +75,9 @@ function phdens2(Zix, Nix, ppi, hpi, pnu, hnu, gsp, gsn, Eex, Ewell, surfwell)
   if (ppi < 0 .or. hpi < 0 .or. pnu < 0 .or. hnu < 0) return
   if (ppi + hpi + pnu + hnu == 0) return
   useptable = .false.
-  if (phmodel == 2) useptable = phexist2(Zix,Nix,ppi,hpi,pnu,hnu)
+  if (phmodel == 2) then
+    if (flag2comp) useptable = phexist2(Zix,Nix,ppi,hpi,pnu,hnu)
+  endif
   if (.not. useptable) then
     Ap = Apauli2(ppi, hpi, pnu, hnu)
     factorn = (pnu * pnu + hnu * hnu + pnu + hnu) / (4. * gsn)
