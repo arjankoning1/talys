@@ -251,6 +251,13 @@ Loop1:  do type = 2, 6
     if (eninc(nen) < eninclow) Ninclow = Ninclow + 1
   enddo
 !
+! Initialize low-energy gamma output even when the first reaction is skipped.
+!
+  allocate(fxsgamdischan(Ninclow,0:numchantot,0:numlev,0:numlev))
+  fxsgamdischan = 0.
+  allocate(fxsgamchannel(Ninclow,0:numchantot))
+  fxsgamchannel = 0.
+!
 ! ************** Set limit for transmission coefficients ***************
 !
   translimit = 1. / (10 **transpower)
