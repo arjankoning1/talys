@@ -1661,8 +1661,8 @@ module A0_talys_mod
 ! population
 !
   real(sgl)                                                               :: preeqnorm  ! preequilibriu
-  real(sgl), dimension(0:numZph, 0:numNph, 0:numex, 0:numparx, 0:numparx) :: xspopph    ! population cross section per particle-
-  real(sgl), dimension(0:numZph, 0:numNph, 0:numex, 0:numparx, 0:numparx, 0:numparx, 0:numparx) :: xspopph2   ! population cross sec
+  real(sgl), allocatable                                                  :: xspopph(:,:,:,:)   ! population cross section per particle-
+  real(sgl), allocatable                                                  :: xspopph2(:,:,:,:,:) ! population cross sec
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
 ! Variables for exciton model
