@@ -1607,11 +1607,11 @@ module A0_talys_mod
 !
 ! emissionrate
 !
-  real(sgl), dimension(0:numpar, 0:numparx, 0:numparx, 0:numen)  :: wemission ! emission rate per particle, exciton number
+  real(sgl), allocatable  :: wemission(:,:,:) ! emission rate per particle, exciton number
 !
 ! emissionrate2
 !
-  real(sgl), dimension(0:numpar, 0:numparx, 0:numparx, 0:numparx, 0:numparx, 0:numen) :: wemission2 ! two-component emission
+  real(sgl), allocatable :: wemission2(:,:,:,:) ! two-component emission
 !
 ! lifetime2
 !
