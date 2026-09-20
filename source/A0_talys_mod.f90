@@ -1639,7 +1639,7 @@ module A0_talys_mod
 !
   logical                                                    :: breakupexist ! logical for break up file
   real(sgl)                                                  :: ebubin       ! outgoing breakup nucleon energy bin for integration
-  real(sgl), dimension(0:numpar, 0:numZ, 0:numN, 0:numenout) :: ENHratio     ! breakup nucleons enhancing reaction cross section rat
+  real(sgl), allocatable                                     :: ENHratio(:,:,:,:)     ! breakup nucleons enhancing reaction cross section rat
   real(sgl), dimension(0:numpar)                             :: xsEB         ! elastic breakup cross section
   real(sgl), dimension(0:numpar)                             :: xsBF         ! nucleon inelastic breakup cross section
   real(sgl), dimension(0:numZ, 0:numN)                       :: xsBFnuc      ! inelastic breakup enhancement brought by break-up
@@ -2269,28 +2269,30 @@ module A0_talys_mod
 ! Variables for isotope production
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
-  integer, dimension(-1:numZ,-1:numN,-1:numisom)           :: Nenrp        ! number of incident energies for residual prod
+  integer, allocatable :: Nenrp(:,:,:)          ! number of incident energies for residual production
+  
+  integer                                                  :: Ntime        ! number of time points
+  integer, allocatable :: Tmaxactivity(:,:,:)   ! time of maximum activity
+  integer, allocatable :: Tp(:,:,:,:)           ! irradiation time with maximal yield
+  
+  real(sgl), allocatable :: prate(:,:,:)        ! production rate per isotope
+  real(sgl), allocatable :: Erp(:,:,:,:)        ! incident energy
+  real(sgl), allocatable :: xsrp(:,:,:,:)       ! residual production cross section in mb
+  real(sgl), allocatable :: Tgrid(:)            ! time
+  real(sgl), allocatable :: Niso(:,:,:,:)        ! number of isotopes produced
+  real(sgl), allocatable :: activity(:,:,:,:)    ! activity of produced isotope
+  real(sgl), allocatable :: yield(:,:,:,:)       ! isotope yield
+  real(sgl), allocatable :: Nisorel(:,:,:,:)     ! isotopic fraction
+  real(sgl), allocatable :: Nisotot(:,:)         ! total isotopes per element
+  real(sgl), allocatable :: Tmax(:,:,:)          ! irradiation time with maximal yield
   real(sgl)                                                :: targetdx     ! effective thickness of target
   real(sgl)                                                :: Vtar         ! active target volume
   real(sgl)                                                :: Mtar         ! active target mass
   real(sgl)                                                :: projnum      ! number of incident particles [s^-1]
   real(sgl)                                                :: heat         ! produced heat
-  real(sgl), dimension(-1:numZ, -1:numN, -1:numisom)       :: prate        ! production rate per isotope
-  real(sgl), dimension(-1:numZ,-1:numN,-1:numisom,numenrp) :: Erp          ! incident energy
-  real(sgl), dimension(-1:numZ,-1:numN,-1:numisom,numenrp) :: xsrp         ! residual production cross section in mb
-  integer                                                  :: Ntime        ! number of time points
-  integer, dimension(0:numZ,0:numN,-1:numisom)             :: Tmaxactivity ! time of maximum activity of produced isoto
-  integer, dimension(0:numZ,0:numN,-1:numisom,5)           :: Tp           ! irradiation time with maximal yield per time unit
   real(sgl)                                                :: Ntar0        ! number of original target atoms
-  real(sgl), dimension(0:numtime)                          :: Tgrid        ! time
   real(sgl)                                                :: Tir          ! irradiation time per unit
   real(sgl)                                                :: Tco          ! cooling time per unit
-  real(sgl), dimension(0:numZ,0:numN,-1:numisom,0:numtime) :: Niso         ! number of isotopes produced after irradiation
-  real(sgl), dimension(0:numZ,0:numN,-1:numisom,0:numtime) :: activity     ! activity of produced isotope in MBq
-  real(sgl), dimension(0:numZ,0:numN,-1:numisom,0:numtime) :: yield        ! yield of produced isotope in MBq/(mA.h)
-  real(sgl), dimension(0:numZ,0:numN,-1:numisom,0:numtime) :: Nisorel      ! fraction of number of produced isotopes per ele
-  real(sgl), dimension(0:numZ, 0:numtime)                  :: Nisotot      ! number of elemental isotopes produced after irr
-  real(sgl), dimension(0:numZ,0:numN,-1:numisom)           :: Tmax         ! irradiation time with maximal yield
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
 ! Variables for ENDF data
