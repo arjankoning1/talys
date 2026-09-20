@@ -101,6 +101,7 @@ subroutine multipreeq(Zcomp, Ncomp, nex)
   integer   :: Zcomp                         ! proton number index for compound nucleus
   integer   :: Zix                           ! charge number index for residual nucleus
   integer   :: ZNcomp                        ! help variable
+  integer :: pinit ! initial particle number
   real(sgl) :: dEx                           ! excitation energy bin for population arrays
   real(sgl) :: Eex                           ! excitation energy
   real(sgl) :: Eo                            ! outgoing energy grid based on excitation energy
@@ -129,6 +130,9 @@ subroutine multipreeq(Zcomp, Ncomp, nex)
 !
 ! Multiple preequilibrium emission model 2 is adopted from Chadwick and Young, Phys. Rev. C50 (1994) p. 996.
 !
+  pinit = parZ(k0) + parN(k0)
+  if (k0 == 0) pinit = 1
+!
 ! ************ Check presence of multiple pre-equilibrium **************
 !
 ! There must be excited particles and holes present for multiple pre-equilibrium emission to occur.
@@ -137,9 +141,7 @@ subroutine multipreeq(Zcomp, Ncomp, nex)
   sumfeed = 0.
   factor = 0.
   do ip = 1, maxpar
-    do ih = 1, maxpar
-      sumfeed = sumfeed + xspopph(Zcomp, Ncomp, nex, ip, ih)
-    enddo
+    sumfeed = sumfeed + xspopph(Zcomp, Ncomp, nex, ip)
   enddo
   if (sumfeed <= 1.e-10) return
 !
@@ -171,138 +173,138 @@ subroutine multipreeq(Zcomp, Ncomp, nex)
 ! lifetime    : subroutine for calculation of lifetime of exciton state
 !
   do ip = 1, maxpar
-    do ih = 1, maxpar
-      feedph = xspopph(Zcomp, Ncomp, nex, ip, ih)
-      if (feedph <= 1.e-10) cycle
-      sumph = 0.
-      if (mpreeqmode == 2) then
-        omegaph = phdens(Zcomp, Ncomp, ip, ih, gs, Exinc, Efermi, surfwell)
-        omegaph = max(omegaph, 1.)
-      else
-        p0 = ip
-        h0 = ih
-        do p = p0, maxpar
-          h = h0 + p - p0
-          if (h > maxpar) cycle
-          call emissionrate(Zcomp, Ncomp, p, h)
-          call lifetime(Zcomp, Ncomp, p, h)
-        enddo
-      endif
-      sumterm = 0.
-      do type = 1, 2
-        sumtype(type) = 0.
-        do nexout = 0, numex
-          term(type, nexout) = 0.
-        enddo
-        if (parskip(type)) cycle
-        Zix = Zindex(Zcomp, Ncomp, type)
-        Nix = Nindex(Zcomp, Ncomp, type)
-        if (Zix > numZph .or. Nix > numNph) cycle
-        if (ZNcomp == 1) Rfactor = Rblann(itype, type, ip)
+    ih = ip + Zcomp + Ncomp - pinit
+    if (ih < 1 .or. ih > maxpar) cycle
+    feedph = xspopph(Zcomp, Ncomp, nex, ip)
+    if (feedph <= 1.e-10) cycle
+    sumph = 0.
+    if (mpreeqmode == 2) then
+      omegaph = phdens(Zcomp, Ncomp, ip, ih, gs, Exinc, Efermi, surfwell)
+      omegaph = max(omegaph, 1.)
+    else
+      p0 = ip
+      h0 = ih
+      do p = p0, maxpar
+        h = h0 + p - p0
+        if (h > maxpar) cycle
+        call emissionrate(Zcomp, Ncomp, p, h)
+        call lifetime(Zcomp, Ncomp, p, h)
+      enddo
+    endif
+    sumterm = 0.
+    do type = 1, 2
+      sumtype(type) = 0.
+      do nexout = 0, numex
+        term(type, nexout) = 0.
+      enddo
+      if (parskip(type)) cycle
+      Zix = Zindex(Zcomp, Ncomp, type)
+      Nix = Nindex(Zcomp, Ncomp, type)
+      if (Zix > numZph .or. Nix > numNph) cycle
+      if (ZNcomp == 1) Rfactor = Rblann(itype, type, ip)
 !
 ! locate    : subroutine to find value in ordered table
 !
-        do nexout = Nlast(Zix, Nix, 0) + 1, nexmax(type)
-          dEx = deltaEx(Zix, Nix, nexout)
-          Eex = Ex(Zix, Nix, nexout)
-          Eo = Exinc - Eex - S(Zcomp, Ncomp, type)
-          call locate(egrid, ebegin(type), eend(type), Eo, nen)
-          if (mpreeqmode == 2) then
-            gs = g(Zix, Nix)
-            if (flaggshell) gs = g(Zix, Nix) * ignatyuk(Zix, Nix, Eex, 0) / alev(Zix, Nix)
-            omegap1h = phdens(Zix, Nix, ip - 1, ih, gs, Eex, Efermi, surfwell)
-            EoplusS = Exinc - Eex
-            omega1p = phdens(Zix, Nix, 1, 0, gs, EoplusS, Efermi, surfwell)
-            proba = omega1p * omegap1h / omegaph / ip * Rfactor
-            Tswave = Tjl(type, nen, 1, 0)
-            Pescape = proba * Tswave
-            if (nexout == nexmax(type)) then
-              Exm = Exinc + 0.5 * dExinc - S(Zcomp, Ncomp, type)
-              Exmin = Ex(Zix, Nix, nexout) - 0.5 * dEx
-              dEx = Exm - Exmin
-            endif
-            term(type, nexout) = feedph * Pescape * dEx
-            sumterm = sumterm + term(type, nexout)
-          else
-            do p = p0, maxpar
-              h = h0 + p - p0
-              if (h > maxpar) cycle
-              factor(type, nexout, p) = feedph * tauexc(p, h) * wemission(type, p, h, nen) * Rfactor * dEx
-              term(type, nexout) = term(type, nexout) + factor(type, nexout, p)
-            enddo
-            sumterm = sumterm + term(type, nexout)
+      do nexout = Nlast(Zix, Nix, 0) + 1, nexmax(type)
+        dEx = deltaEx(Zix, Nix, nexout)
+        Eex = Ex(Zix, Nix, nexout)
+        Eo = Exinc - Eex - S(Zcomp, Ncomp, type)
+        call locate(egrid, ebegin(type), eend(type), Eo, nen)
+        if (mpreeqmode == 2) then
+          gs = g(Zix, Nix)
+          if (flaggshell) gs = g(Zix, Nix) * ignatyuk(Zix, Nix, Eex, 0) / alev(Zix, Nix)
+          omegap1h = phdens(Zix, Nix, ip - 1, ih, gs, Eex, Efermi, surfwell)
+          EoplusS = Exinc - Eex
+          omega1p = phdens(Zix, Nix, 1, 0, gs, EoplusS, Efermi, surfwell)
+          proba = omega1p * omegap1h / omegaph / ip * Rfactor
+          Tswave = Tjl(type, nen, 1, 0)
+          Pescape = proba * Tswave
+          if (nexout == nexmax(type)) then
+            Exm = Exinc + 0.5 * dExinc - S(Zcomp, Ncomp, type)
+            Exmin = Ex(Zix, Nix, nexout) - 0.5 * dEx
+            dEx = Exm - Exmin
           endif
-          sumtype(type) = sumtype(type) + term(type, nexout)
-        enddo
+          term(type, nexout) = feedph * Pescape * dEx
+          sumterm = sumterm + term(type, nexout)
+        else
+          do p = p0, maxpar
+            h = h0 + p - p0
+            if (h > maxpar) cycle
+            factor(type, nexout, p) = feedph * tauexc(p, h) * wemission(type, p, h, nen) * Rfactor * dEx
+            term(type, nexout) = term(type, nexout) + factor(type, nexout, p)
+          enddo
+          sumterm = sumterm + term(type, nexout)
+        endif
+        sumtype(type) = sumtype(type) + term(type, nexout)
       enddo
+    enddo
 !
 ! Normalization
 !
-      if (sumterm > feedph) then
-        do type = 1, 2
-          do nexout = Nlast(Zix, Nix, 0) + 1, nexmax(type)
-            term(type, nexout) = term(type, nexout) * feedph / sumterm
-            if (mpreeqmode == 1) then
-              do p = p0, maxpar
-                factor(type, nexout, p) = factor(type, nexout, p) * feedph / sumterm
-              enddo
-            endif
-          enddo
-          sumtype(type) = sumtype(type) * feedph / sumterm
+    if (sumterm > feedph) then
+      do type = 1, 2
+        do nexout = Nlast(Zix, Nix, 0) + 1, nexmax(type)
+          term(type, nexout) = term(type, nexout) * feedph / sumterm
+          if (mpreeqmode == 1) then
+            do p = p0, maxpar
+              factor(type, nexout, p) = factor(type, nexout, p) * feedph / sumterm
+            enddo
+          endif
         enddo
-      endif
+        sumtype(type) = sumtype(type) * feedph / sumterm
+      enddo
+    endif
 !
 ! Feed new population bins
 !
-      do type = 1, 2
-        if (parskip(type)) cycle
-        Zix = Zindex(Zcomp, Ncomp, type)
-        Nix = Nindex(Zcomp, Ncomp, type)
-        if (Zix > numZph .or. Nix > numNph) cycle
-        do nexout = Nlast(Zix, Nix, 0) + 1, nexmax(type)
-          if (mpreeqmode == 2) then
-            xspopph(Zix, Nix, nexout, ip - 1, ih) = xspopph(Zix, Nix, nexout, ip - 1, ih) + term(type, nexout)
-          else
-            do p = p0, maxpar
-              h = h0 + p - p0
-              if (h > maxpar) cycle
-              xspopph(Zix, Nix, nexout, p - 1, h) = xspopph(Zix, Nix, nexout, p - 1, h) + factor(type, nexout, p)
-            enddo
-          endif
-          mcontrib(type, nex, nexout) = mcontrib(type, nex, nexout) + term(type, nexout)
-          mpecontrib(type, nex, nexout) = mpecontrib(type, nex, nexout) + term(type, nexout)
-          xspopex(Zix, Nix, nexout) = xspopex(Zix, Nix, nexout) + term(type, nexout)
-          preeqpopex(Zix, Nix, nexout) = preeqpopex(Zix, Nix, nexout) + term(type, nexout)
-          do parity = - 1, 1, 2
-            do J = 0, maxJ(Zix, Nix, nexout)
-              Jterm = 0.5 * (2 * J + 1) * RnJ(2, J) / RnJsum(2) * term(type, nexout)
-              xspop(Zix, Nix, nexout, J, parity) = xspop(Zix, Nix, nexout, J, parity) + Jterm
-              popdecay(type, nexout, J, parity) = popdecay(type, nexout, J, parity) + Jterm
-              preeqpop(Zix, Nix, nexout, J, parity) = preeqpop(Zix, Nix, nexout, J, parity) + Jterm
-            enddo
+    do type = 1, 2
+      if (parskip(type)) cycle
+      Zix = Zindex(Zcomp, Ncomp, type)
+      Nix = Nindex(Zcomp, Ncomp, type)
+      if (Zix > numZph .or. Nix > numNph) cycle
+      do nexout = Nlast(Zix, Nix, 0) + 1, nexmax(type)
+        if (mpreeqmode == 2) then
+          xspopph(Zix, Nix, nexout, ip - 1) = xspopph(Zix, Nix, nexout, ip - 1) + term(type, nexout)
+        else
+          do p = p0, maxpar
+            h = h0 + p - p0
+            if (h > maxpar) cycle
+            xspopph(Zix, Nix, nexout, p - 1) = xspopph(Zix, Nix, nexout, p - 1) + factor(type, nexout, p)
+          enddo
+        endif
+        mcontrib(type, nex, nexout) = mcontrib(type, nex, nexout) + term(type, nexout)
+        mpecontrib(type, nex, nexout) = mpecontrib(type, nex, nexout) + term(type, nexout)
+        xspopex(Zix, Nix, nexout) = xspopex(Zix, Nix, nexout) + term(type, nexout)
+        preeqpopex(Zix, Nix, nexout) = preeqpopex(Zix, Nix, nexout) + term(type, nexout)
+        do parity = - 1, 1, 2
+          do J = 0, maxJ(Zix, Nix, nexout)
+            Jterm = 0.5 * (2 * J + 1) * RnJ(2, J) / RnJsum(2) * term(type, nexout)
+            xspop(Zix, Nix, nexout, J, parity) = xspop(Zix, Nix, nexout, J, parity) + Jterm
+            popdecay(type, nexout, J, parity) = popdecay(type, nexout, J, parity) + Jterm
+            preeqpop(Zix, Nix, nexout, J, parity) = preeqpop(Zix, Nix, nexout, J, parity) + Jterm
           enddo
         enddo
+      enddo
 !
 ! Add total multiple pre-equilibrium contributions
 !
-        sumph = sumph + sumtype(type)
-        summpe = summpe + sumtype(type)
-        xspopnuc(Zix, Nix) = xspopnuc(Zix, Nix) + sumtype(type)
-        xspoppreeq(Zix, Nix) = xspoppreeq(Zix, Nix) + sumtype(type)
-        xspartial(type, nex) = xspartial(type, nex) + sumtype(type)
-        xsfeed(Zcomp, Ncomp, type) = xsfeed(Zcomp, Ncomp, type) + sumtype(type)
-        xsmpe(type, nex) = xsmpe(type, nex) + sumtype(type)
-        xsmpetot(type) = xsmpetot(type) + sumtype(type)
-        if (sumtype(type) /= 0.) mulpreZN(Zix, Nix) = .true.
-      enddo
+      sumph = sumph + sumtype(type)
+      summpe = summpe + sumtype(type)
+      xspopnuc(Zix, Nix) = xspopnuc(Zix, Nix) + sumtype(type)
+      xspoppreeq(Zix, Nix) = xspoppreeq(Zix, Nix) + sumtype(type)
+      xspartial(type, nex) = xspartial(type, nex) + sumtype(type)
+      xsfeed(Zcomp, Ncomp, type) = xsfeed(Zcomp, Ncomp, type) + sumtype(type)
+      xsmpe(type, nex) = xsmpe(type, nex) + sumtype(type)
+      xsmpetot(type) = xsmpetot(type) + sumtype(type)
+      if (sumtype(type) /= 0.) mulpreZN(Zix, Nix) = .true.
+    enddo
 !
 ! Flux that is not emitted during a particular stage, is always transferred to the next stage.
 !
-      if (mpreeqmode == 2) then
-        if (ip <= maxpar - 1 .and. ih <= maxpar - 1) xspopph(Zcomp, Ncomp, nex, ip + 1, ih + 1) = &
-          xspopph(Zcomp, Ncomp, nex, ip + 1, ih + 1) + feedph - sumph
-      endif
-    enddo
+    if (mpreeqmode == 2) then
+      if (ip <= maxpar - 1 .and. ih <= maxpar - 1) xspopph(Zcomp, Ncomp, nex, ip + 1) = &
+        xspopph(Zcomp, Ncomp, nex, ip + 1) + feedph - sumph
+    endif
   enddo
 !
 ! ************************ Normalization *******************************
