@@ -39,6 +39,21 @@ subroutine deallocate_arrays
   if (allocated(fisfeedJP)) deallocate(fisfeedJP)
   if (allocated(xspop)) deallocate(xspop)
   if (allocated(rhogrid)) deallocate(rhogrid)
+  if (allocated(rhofis)) deallocate(rhofis)
+  if (allocated(efistrrot)) deallocate(efistrrot)
+  if (allocated(jfistrrot)) deallocate(jfistrrot)
+  if (allocated(pfistrrot)) deallocate(pfistrrot)
+
+  if (allocated(efisc2rot)) deallocate(efisc2rot)
+  if (allocated(jfisc2rot)) deallocate(jfisc2rot)
+  if (allocated(pfisc2rot)) deallocate(pfisc2rot)
+  if (allocated(efistrhb)) deallocate(efistrhb)
+  if (allocated(jfistrhb)) deallocate(jfistrhb)
+  if (allocated(pfistrhb)) deallocate(pfistrhb)
+
+  if (allocated(efisc2hb)) deallocate(efisc2hb)
+  if (allocated(jfisc2hb)) deallocate(jfisc2hb)
+  if (allocated(pfisc2hb)) deallocate(pfisc2hb)
 !
   return
 end subroutine deallocate_arrays
