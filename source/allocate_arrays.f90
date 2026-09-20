@@ -34,16 +34,54 @@ subroutine allocate_arrays
       phtable1 = 0.
     endif
   endif
-  if (flagfission) then
-    allocate(fisfeedJP(0:maxZ,0:maxN,0:numex+1,0:numJ,-1:1))
-    fisfeedJP = 0.
-  endif
-  if (flagchannels) then
-    allocate(feedexcl(0:min(maxZ,numZchan),0:min(maxN,numNchan),0:numpar,0:numex+1,0:numex+1))
-    feedexcl = 0.
-  endif
   if (flagracap) then
     allocate(phdensjp(0:numZ,0:numN,0:numdens,0:numJph,-1:1))
+  endif
+  if (flagfission) then
+    allocate(rhofis(1:numbinfis,0:numJ,-1:1,1:numbar))
+    rhofis = 0.d0
+!
+! Head-band transition states
+!
+    if (flaghbstate) then
+      allocate(efistrhb(0:maxZ,0:maxN,1:numbar,0:numlev))
+      allocate(jfistrhb(0:maxZ,0:maxN,1:numbar,0:numlev))
+      allocate(pfistrhb(0:maxZ,0:maxN,1:numbar,0:numlev))
+
+      efistrhb = 0.
+      jfistrhb = 0.
+      pfistrhb = 1
+    endif
+!
+! Class-2 transition states
+!
+    if (flagclass2) then
+      allocate(efisc2hb(0:maxZ,0:maxN,1:numbar,0:numlev))
+      allocate(jfisc2hb(0:maxZ,0:maxN,1:numbar,0:numlev))
+      allocate(pfisc2hb(0:maxZ,0:maxN,1:numbar,0:numlev))
+
+      efisc2hb = 0.
+      jfisc2hb = 0.
+      pfisc2hb = 1
+    endif
+!
+    allocate(efistrrot(0:maxZ,0:maxN,1:numbar,1:numrot))
+    allocate(jfistrrot(0:maxZ,0:maxN,1:numbar,1:numrot))
+    allocate(pfistrrot(0:maxZ,0:maxN,1:numbar,1:numrot))
+
+    efistrrot = 0.
+    jfistrrot = 0.
+    pfistrrot = 1
+
+    if (flagclass2) then
+      allocate(efisc2rot(0:maxZ,0:maxN,1:numbar,1:numrot))
+      allocate(jfisc2rot(0:maxZ,0:maxN,1:numbar,1:numrot))
+      allocate(pfisc2rot(0:maxZ,0:maxN,1:numbar,1:numrot))
+
+      efisc2rot = 0.
+      jfisc2rot = 0.
+      pfisc2rot = 1
+    endif
   endif
   return
 end subroutine allocate_arrays
