@@ -53,8 +53,6 @@ subroutine reacinitial
 !   xsstep            ! preeq. cross section per particle type, stage and outgoing E
 !   xsstep2           ! two-component preequilibrium cross section
 !   xssteptot         ! preequilibrium cross section per particle type and stage
-!   wemission         ! emission rate per particle, exciton number and energy
-!   wemission2        ! two-component emission rate
 ! Variables for MSD
 !   Emsd            ! minimal outgoing energy for MSD calculation
 !   msdstep         ! continuum n - step direct cross section
@@ -387,6 +385,8 @@ subroutine reacinitial
   endif
   if (allocated(xspopph)) xspopph = 0.
   if (allocated(xspopph2)) xspopph2 = 0.
+  if (allocated(wemission)) wemission = 0.
+  if (allocated(wemission2)) wemission2 = 0.
   xspopnucT = 0.
   xspreeqad = 0.
   xspreeqbu = 0.
@@ -402,8 +402,6 @@ subroutine reacinitial
   xsstep2 = 0.
   xssteptot = 0.
   PP2 = 0.
-  wemission = 0.
-  wemission2 = 0.
   xspreeqdiscsum = 0.
   Esurf = 0.
   collcontad = 0.
