@@ -72,12 +72,12 @@ Loop2: do i = 1, nfistrhb(Zix, Nix, nbi)
         Erot = (rj * (rj + 1.) - jstart * (jstart + 1.)) / (2. * minertia(Zix, Nix, nbi))
         Eband = efistrhb(Zix, Nix, nbi, i) + Erot + Erk10
         if (Eband > fecont(Zix, Nix, nbi)) cycle Loop2
+        if (nfistrrot(Zix,Nix,nbi) >= numrot) cycle Loop1
         nfistrrot(Zix, Nix, nbi) = nfistrrot(Zix, Nix, nbi) + 1
         itstot = nfistrrot(Zix, Nix, nbi)
         efistrrot(Zix, Nix, nbi, itstot) = Eband
         jfistrrot(Zix, Nix, nbi, itstot) = rj
         pfistrrot(Zix, Nix, nbi, itstot) = pfistrhb(Zix, Nix, nbi, i)
-        if (itstot > numrot) cycle Loop1
       enddo
     enddo Loop2
   enddo Loop1
