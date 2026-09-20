@@ -37,6 +37,8 @@ subroutine deallocate_arrays
   if (allocated(fxsgamdischan)) deallocate(fxsgamdischan)
   if (allocated(fxsgamchannel)) deallocate(fxsgamchannel)
   if (allocated(fisfeedJP)) deallocate(fisfeedJP)
+  if (allocated(xspop)) deallocate(xspop)
+  if (allocated(rhogrid)) deallocate(rhogrid)
 !
   return
 end subroutine deallocate_arrays
