@@ -363,7 +363,7 @@ subroutine reacinitial
 ! ********************** Initialization of energies ********************
 !
   Exinc = Etotal
-  nexalloc = min(numex, maxval(Nlast(:,:,0)) + nbins)
+  nexalloc = min(numex, maxval(nlev) + nbins)
 ! Recreate the energy-dependent grids on each call, including repeated energies.
   if (allocated(xspop)) deallocate(xspop)
   if (allocated(rhogrid)) deallocate(rhogrid)
@@ -372,9 +372,10 @@ subroutine reacinitial
   xspop = 0.
   allocate(rhogrid(0:numZ,0:numN,0:nexalloc,  0:numJ,-1:1))
   rhogrid = 0.
-! Keep a zero boundary bin in both excitation dimensions for specemission interpolation.
-  allocate(feedexcl(0:min(maxZ,numZchan),0:min(maxN,numNchan),0:numpar,0:nexalloc+1,0:nexalloc+1))
-  feedexcl = 0.
+  if (flagchannels) then
+    allocate(feedexcl(0:min(maxZ,numZchan),0:min(maxN,numNchan),0:numpar,0:nexalloc+1,0:nexalloc+1))
+    feedexcl = 0.
+  endif
   if (flagpreeq) then
     if (allocated(preeqpop)) deallocate(preeqpop)
     allocate(preeqpop(0:numZ,0:numN,0:nexalloc,0:numJ,-1:1))
@@ -384,6 +385,11 @@ subroutine reacinitial
     if (allocated(ddxrec)) deallocate(ddxrec)
     allocate(ddxrec(0:maxZ+2,0:maxN+2,0:nexalloc,0:maxenrec,0:nanglerec))
     ddxrec = 0.
+  endif
+  if (flagfission) then
+    if (allocated(fisfeedJP)) deallocate(fisfeedJP)
+    allocate(fisfeedJP(0:maxZ,0:maxN,0:nexalloc+1,0:numJ,-1:1))
+    fisfeedJP = 0.
   endif
 !
 ! *************** Initialize pre-equilibrium arrays ********************
