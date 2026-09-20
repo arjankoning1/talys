@@ -44,9 +44,9 @@ subroutine allocate_arrays
 ! Head-band transition states
 !
     if (flaghbstate) then
-      allocate(efistrhb(0:maxZ,0:maxN,1:numbar,0:numlev))
-      allocate(jfistrhb(0:maxZ,0:maxN,1:numbar,0:numlev))
-      allocate(pfistrhb(0:maxZ,0:maxN,1:numbar,0:numlev))
+      allocate(efistrhb(0:min(numZ,maxZ+2),0:min(numN,maxN+2),1:numbar,0:numlev))
+      allocate(jfistrhb(0:min(numZ,maxZ+2),0:min(numN,maxN+2),1:numbar,0:numlev))
+      allocate(pfistrhb(0:min(numZ,maxZ+2),0:min(numN,maxN+2),1:numbar,0:numlev))
 
       efistrhb = 0.
       jfistrhb = 0.
@@ -56,27 +56,27 @@ subroutine allocate_arrays
 ! Class-2 transition states
 !
     if (flagclass2) then
-      allocate(efisc2hb(0:maxZ,0:maxN,1:numbar,0:numlev))
-      allocate(jfisc2hb(0:maxZ,0:maxN,1:numbar,0:numlev))
-      allocate(pfisc2hb(0:maxZ,0:maxN,1:numbar,0:numlev))
+      allocate(efisc2hb(0:min(numZ,maxZ+2),0:min(numN,maxN+2),1:numbar,0:numlev))
+      allocate(jfisc2hb(0:min(numZ,maxZ+2),0:min(numN,maxN+2),1:numbar,0:numlev))
+      allocate(pfisc2hb(0:min(numZ,maxZ+2),0:min(numN,maxN+2),1:numbar,0:numlev))
 
       efisc2hb = 0.
       jfisc2hb = 0.
       pfisc2hb = 1
     endif
 !
-    allocate(efistrrot(0:maxZ,0:maxN,1:numbar,1:numrot))
-    allocate(jfistrrot(0:maxZ,0:maxN,1:numbar,1:numrot))
-    allocate(pfistrrot(0:maxZ,0:maxN,1:numbar,1:numrot))
+    allocate(efistrrot(0:min(numZ,maxZ+2),0:min(numN,maxN+2),1:numbar,0:numrot))
+    allocate(jfistrrot(0:min(numZ,maxZ+2),0:min(numN,maxN+2),1:numbar,0:numrot))
+    allocate(pfistrrot(0:min(numZ,maxZ+2),0:min(numN,maxN+2),1:numbar,0:numrot))
 
     efistrrot = 0.
     jfistrrot = 0.
     pfistrrot = 1
 
     if (flagclass2) then
-      allocate(efisc2rot(0:maxZ,0:maxN,1:numbar,1:numrot))
-      allocate(jfisc2rot(0:maxZ,0:maxN,1:numbar,1:numrot))
-      allocate(pfisc2rot(0:maxZ,0:maxN,1:numbar,1:numrot))
+      allocate(efisc2rot(0:min(numZ,maxZ+2),0:min(numN,maxN+2),1:numbar,0:numrot))
+      allocate(jfisc2rot(0:min(numZ,maxZ+2),0:min(numN,maxN+2),1:numbar,0:numrot))
+      allocate(pfisc2rot(0:min(numZ,maxZ+2),0:min(numN,maxN+2),1:numbar,0:numrot))
 
       efisc2rot = 0.
       jfisc2rot = 0.
