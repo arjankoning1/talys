@@ -13,13 +13,6 @@ subroutine allocate_arrays
     Erescue = 0.
     frescue = 0.
   endif
-  if (flagrecoil) then
-! ddxrec is also filled for the residual reached after charged-particle
-! emission.  Zindex/Nindex can then be two indices beyond the parent
-! compound-nucleus range (alpha emission), so retain those boundary bins.
-    allocate(ddxrec(0:maxZ+2,0:maxN+2,0:numex,0:maxenrec,0:nanglerec))
-    ddxrec = 0.
-  endif
 ! Emission rates are required for both particle-hole state density models.
   if (flag2comp) then
     allocate(wemission2(0:numpar,0:numparx,0:numparx,0:numen))
