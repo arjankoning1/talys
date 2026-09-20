@@ -212,6 +212,8 @@ subroutine multiple
   integer            :: indent
   integer            :: id2
   integer            :: id4
+  integer :: ppi
+  integer :: pnu
   real(sgl)          :: ang                   ! angle
   real(sgl)          :: dEx                   ! excitation energy bin for population arrays
   real(sgl)          :: Eaveragesum           ! help variable
@@ -779,26 +781,23 @@ Loop1:  do type = 1, 6
           write(*, '(/" Multiple preequilibrium emission from ", "Z=", i3, " N=", i3, " (", i3, a2, "):"/)') Z, N, A, nuc(Z)
           write(*, '(61x, "Feeding terms from previous ", "particle-hole configuration"/)')
           if ( .not. flag2comp) then
-            write(*, '(" bin    Ex  Mpe ratio  neutron   proton", "  ", 10("  ", i1, "p", i1, "h    "))') &
- &            ((p, h, p = 1, h), h = 1, 4)
-            write(*, '("                      emission  emission"/)')
-            do nex = Nlast(Zcomp, Ncomp, 0) + 1, maxex(Zcomp, Ncomp)
-              write(*, '(1x, i3, f8.3, f8.5, 12es10.3)') nex, Ex(Zcomp, Ncomp, nex), Dmulti(nex), xsmpe(1, nex), &
- &              xsmpe(2, nex), ((xspopph(Zcomp, Ncomp, nex, p, h), p = 1, h), h = 1, 4)
+            write(*,'(" bin    Ex  Mpe ratio  neutron   proton")')
+            write(*,'("                      emission  emission")')
+            do nex = Nlast(Zcomp,Ncomp,0) + 1, maxex(Zcomp,Ncomp)
+              write(*,'(1x,i3,f8.3,f8.5,2es10.3)') nex, Ex(Zcomp,Ncomp,nex), Dmulti(nex), xsmpe(1,nex), xsmpe(2,nex)
+              write(*,'("     xspopph (p):")')
+              write(*,'("       ",7es10.3)') (xspopph(Zcomp,Ncomp,nex,p), p=0,min(4,maxpar))
               Dmulti(nex) = 0.
             enddo
           else
-            write(*, '(" bin    Ex  Mpe ratio  neutron   proton", 11(2x, 4i2))') 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, &
- &            0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 2, 1, 0, 0, 0, 0, 2, 1, 2, 2, 0, 0, 0, 0, 2, 2, 1, 1, 1, 1
-            write(*, '("                      emission  emission"/)')
-            do nex = Nlast(Zcomp, Ncomp, 0) + 1, maxex(Zcomp, Ncomp)
-              write(*, '(1x, i3, f8.3, f8.5, 13es10.3)') nex, Ex(Zcomp, Ncomp, nex), Dmulti(nex), xsmpe(1, nex), &
- &              xsmpe(2, nex), xspopph2(Zcomp, Ncomp, nex, 1, 1, 0, 0), &
- &              xspopph2(Zcomp, Ncomp, nex, 0, 0, 1, 1), xspopph2(Zcomp, Ncomp, nex, 1, 0, 0, 1), &
-                xspopph2(Zcomp, Ncomp, nex, 0, 1, 1, 0), xspopph2(Zcomp, Ncomp, nex, 1, 1, 1, 0), &
-                xspopph2(Zcomp, Ncomp, nex, 1, 0, 1, 1), xspopph2(Zcomp, Ncomp, nex, 2, 1, 0, 0), &
-                xspopph2(Zcomp, Ncomp, nex, 0, 0, 2, 1), xspopph2(Zcomp, Ncomp, nex, 2, 2, 0, 0), &
-                xspopph2(Zcomp, Ncomp, nex, 0, 0, 2, 2), xspopph2(Zcomp, Ncomp, nex, 1, 1, 1, 1)
+            write(*,'(" bin    Ex  Mpe ratio  neutron   proton")')
+            write(*,'("                      emission  emission")')
+            do nex = Nlast(Zcomp,Ncomp,0) + 1, maxex(Zcomp,Ncomp)
+              write(*,'(1x,i3,f8.3,f8.5,2es10.3)') nex, Ex(Zcomp,Ncomp,nex), Dmulti(nex), xsmpe(1,nex), xsmpe(2,nex)
+              write(*,'("     xspopph2 (ppi,pnu):")')
+              do pnu = 0, min(2,maxpar)
+                write(*,'("       pnu=",i1,7es10.3)') pnu, (xspopph2(Zcomp,Ncomp,nex,ppi,pnu), ppi=0,min(2,maxpar))
+              enddo
               Dmulti(nex) = 0.
             enddo
           endif
