@@ -129,7 +129,7 @@ subroutine emissionrate(Zcomp, Ncomp, p, h)
   do type = 0, 6
     wemispart(type, p, h) = 0.
     do nen = 0, numen
-      wemission(type, p, h, nen) = 0.
+      wemission(type, p, nen) = 0.
     enddo
     if (parskip(type)) cycle
     Zix = Zindex(Zcomp, Ncomp, type)
@@ -168,7 +168,7 @@ subroutine emissionrate(Zcomp, Ncomp, p, h)
         Eout = egrid(nen1)
         Emax = Ecomp - S(Zcomp, Ncomp, type)
         dE = Emax - (Eout + 0.5 * deltaE(nen1))
-        wemispart(type, p, h) = wemispart(type, p, h) + wemission(type, p, h, nen1) * dE
+        wemispart(type, p, h) = wemispart(type, p, h) + wemission(type, p, nen1) * dE
         exit
       endif
       if (flaggshell) gs = g(Zix, Nix) * ignatyuk(Zix, Nix, Eres, 0) / alev(Zix, Nix)
@@ -192,8 +192,8 @@ subroutine emissionrate(Zcomp, Ncomp, p, h)
           endif
           branchzero = gsg * n / (gsg * n + g2E)
           phratio = (branchplus * phres1 + branchzero * phres2) / phcompg
-          wemission(type, p, h, nen) = Rgamma * factor * phratio
-          wemissum(p, h, nen) = wemission(type, p, h, nen)
+          wemission(type, p, nen) = Rgamma * factor * phratio
+          wemissum(p, h, nen) = wemission(type, p, nen)
         endif
       else
 !
@@ -205,13 +205,13 @@ subroutine emissionrate(Zcomp, Ncomp, p, h)
         Ures = max(Eres - preeqpair(Zix, Nix, nres, Eres, pairmodel), preeqpair(Zix, Nix, nres, Eres, pairmodel))
         phres = phdens(Zix, Nix, pres, h, gs, Ures, Ewell, surfwell)
         phratio = phres / phcomp
-        wemission(type, p, h, nen) = factor * phratio * Qfac
-        wemissum(p, h, nen) = wemissum(p, h, nen) + wemission(type, p, h, nen)
+        wemission(type, p, nen) = factor * phratio * Qfac
+        wemissum(p, h, nen) = wemissum(p, h, nen) + wemission(type, p, nen)
       endif
 !
 ! *** Integration of emission rates over all energies and particles ****
 !
-      wemispart(type, p, h) = wemispart(type, p, h) + wemission(type, p, h, nen) * deltaE(nen)
+      wemispart(type, p, h) = wemispart(type, p, h) + wemission(type, p, nen) * deltaE(nen)
     enddo
     wemistot(p, h) = wemistot(p, h) + wemispart(type, p, h)
   enddo
@@ -221,9 +221,9 @@ subroutine emissionrate(Zcomp, Ncomp, p, h)
   if (n > 1) then
     if (wemistot(p, h) == wemispart(0, p, h)) wemispart(0, p, h) = 0.
     do nen = 0, numen
-      if (wemissum(p, h, nen) == wemission(0, p, h, nen)) then
+      if (wemissum(p, h, nen) == wemission(0, p, nen)) then
         wemissum(p, h, nen) = 0.
-        wemission(0, p, h, nen) = 0.
+        wemission(0, p, nen) = 0.
       endif
     enddo
   endif
