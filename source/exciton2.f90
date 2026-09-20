@@ -102,7 +102,7 @@ Loop1:  do ppi = ppi0, maxpar
         if (parskip(type)) cycle
         if (preeqmode == 4 .and. (type == 1 .or. type == 2)) cycle
         do nen = ebegin(type), eend(type)
-          xs = factor * wemission2(type, ppi, hpi, pnu, hnu, nen)
+          xs = factor * wemission2(type, ppi, pnu, nen)
           xsstep(type, p, nen) = xsstep(type, p, nen) + xs
           xsstep2(type, ppi, pnu, nen) = xs
           xspreeq(type, nen) = xspreeq(type, nen) + xs
