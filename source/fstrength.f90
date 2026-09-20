@@ -224,16 +224,16 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l, J, parity)
 !
     if ((strength == 3 .or. strength == 4 .or. strength >= 6 .or. Exlfile(Zcomp, Ncomp, 1, 1)(1:1) /= ' ') .and. &
  &    ((qrpaexist(Zcomp, Ncomp, 1, 1) .and. flagE1) .or. (qrpaexist(Zcomp, Ncomp, 0, 1) .and. strengthM1 >= 8 .and. flagM1))) then
-      nT0 = nTqrpa
-      if (irad /= 1 .or. l /= 1) nT0 = 1
+!     Use the current nucleus table; nTqrpa is shared between nuclei and models.
+      nT0 = size(qrpa(Zcomp,Ncomp)%f,2)
+      if (.not. model11 .and. (irad /= 1 .or. l /= 1)) nT0 = 1
       if (model11) then
         if (Zcomp == 0 .and. Ncomp == 0 .and. flagupbend) then
-          nTqrpa=31
+          nT0 = min(nT0,31)
         else
-          nTqrpa=1
+          nT0 = 1
         endif
-        if (abs(Efs) < 0.0001) nTqrpa=1
-        nT0=nTqrpa
+        if (abs(Efs) < 0.0001) nT0 = 1
         if (nT0 == 1) Tnuc = 30.
       endif
       if (nT0 > 1) then
@@ -276,7 +276,7 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l, J, parity)
 !
 ! Special case for the interpolation of strength=11 PSF
 !
-      if (model11 .and. nT0 > 1 .and. nT < nTqrpa .and. Egamma <= Eq(numgamqrpa)) then
+      if (model11 .and. nT0 > 1 .and. nT < nT0 .and. Egamma <= Eq(numgamqrpa)) then
         if (Egamma < Eq(0) .or. Egamma > Tnuc + 0.01) then
           fstrength=0.
           return
