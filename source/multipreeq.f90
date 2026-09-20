@@ -230,7 +230,7 @@ subroutine multipreeq(Zcomp, Ncomp, nex)
           do p = p0, maxpar
             h = h0 + p - p0
             if (h > maxpar) cycle
-            factor(type, nexout, p) = feedph * tauexc(p, h) * wemission(type, p, h, nen) * Rfactor * dEx
+            factor(type, nexout, p) = feedph * tauexc(p, h) * wemission(type, p, nen) * Rfactor * dEx
             term(type, nexout) = term(type, nexout) + factor(type, nexout, p)
           enddo
           sumterm = sumterm + term(type, nexout)
