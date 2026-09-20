@@ -30,6 +30,8 @@ subroutine deallocate_arrays
   if (allocated(phexist2)) deallocate(phexist2)
   if (allocated(xspopph)) deallocate(xspopph)
   if (allocated(xspopph2)) deallocate(xspopph2)
+  if (allocated(wemission)) deallocate(wemission)
+  if (allocated(wemission2)) deallocate(wemission2)
   if (allocated(feedexcl)) deallocate(feedexcl)
   if (allocated(phdensjp)) deallocate(phdensjp)
   if (allocated(fxsgamdischan)) deallocate(fxsgamdischan)
