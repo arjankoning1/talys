@@ -1158,34 +1158,34 @@ module A0_talys_mod
 ! Variables for fission parameters
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
-  real(sgl), dimension(0:numZ,0:numN,numbar,0:numlev) :: efisc2hb ! energy of class2 states
-  real(sgl), dimension(0:numZ,0:numN,numbar,0:numlev) :: efistrhb ! energy of head band transition states
+  real(sgl), allocatable                              :: efisc2hb(:,:,:,:) ! energy of class2 states
+  real(sgl), allocatable                              :: efistrhb(:,:,:,:) ! energy of head band transition states
   real(sgl), dimension(0:numZ, 0:numN, numbar)        :: fecont   ! start of continuum energy
-  real(sgl), dimension(0:numZ,0:numN,numbar,0:numlev) :: jfisc2hb ! spin of class2 states
-  real(sgl), dimension(0:numZ,0:numN,numbar,0:numlev) :: jfistrhb ! spin of head band transition states
+  real(sgl), allocatable                              :: jfisc2hb(:,:,:,:) ! spin of class2 states
+  real(sgl), allocatable                              :: jfistrhb(:,:,:,:) ! spin of head band transition states
   real(sgl), dimension(0:numZ, 0:numN, numbar)        :: minertia ! moment of inertia of fission barrier deformation
   real(sgl), dimension(0:numZ, 0:numN, numbar)        :: minertc2 ! moment of inertia for class2 states
   integer, dimension(0:numZ, 0:numN)                  :: nclass2  ! number of sets of class2 states
   integer, dimension(0:numZ, 0:numN, numbar)          :: nfisc2hb ! number of class2 states for barrier
   integer, dimension(0:numZ, 0:numN)                  :: nfisbar  ! number of fission barrier parameters
   integer, dimension(0:numZ, 0:numN, numbar)          :: nfistrhb ! number of head band transition states for barrier
-  integer, dimension(0:numZ,0:numN,numbar,0:numlev)   :: pfisc2hb ! parity of class2 states
-  integer, dimension(0:numZ,0:numN,numbar,0:numlev)   :: pfistrhb ! parity of head band transition states
+  integer, allocatable                                :: pfisc2hb(:,:,:,:) ! parity of class2 states
+  integer, allocatable                                :: pfistrhb(:,:,:,:) ! parity of head band transition states
 !
 ! rotband
 !
-  real(sgl), dimension(0:numZ, 0:numN, numbar, 0:numrot) :: efistrrot ! energy of rotational transition states for barrier
-  real(sgl), dimension(0:numZ, 0:numN, numbar, 0:numrot) :: jfistrrot ! spin of rotational transition states for barrier
+  real(sgl), allocatable                              :: efistrrot(:,:,:,:) ! energy of rotational transition states for barrier
+  real(sgl), allocatable                              :: jfistrrot(:,:,:,:) ! spin of rotational transition states for barrier
   integer, dimension(0:numZ, 0:numN, numbar)             :: nfistrrot ! number of rotational transition states for barrier
-  integer, dimension(0:numZ, 0:numN, numbar, 0:numrot)   :: pfistrrot ! parity of rotational transition states for barrier
+  integer, allocatable                                :: pfistrrot(:,:,:,:) ! parity of rotational transition states for barrier
 !
 ! rotclass2
 !
-  real(sgl), dimension(0:numZ, 0:numN, numbar, 0:numrot) :: efisc2rot  ! energy of class2 rotational transition states
+  real(sgl), allocatable                              :: efisc2rot(:,:,:,:)  ! energy of class2 rotational transition states
   real(sgl), dimension(0:numZ, 0:numN, numbar)           :: Emaxclass2 ! maximum energy for class2 states
-  real(sgl), dimension(0:numZ, 0:numN, numbar, 0:numrot) :: jfisc2rot  ! spin of class2 rotational transition states
+  real(sgl), allocatable                              :: jfisc2rot(:,:,:,:)  ! spin of class2 rotational transition states
   integer, dimension(0:numZ, 0:numN, numbar)             :: nfisc2rot  ! number of class2 rotational transition states
-  integer, dimension(0:numZ, 0:numN, numbar, 0:numrot)   :: pfisc2rot  ! parity of class2 rotational transition states
+  integer, allocatable                                :: pfisc2rot(:,:,:,:)  ! parity of class2 rotational transition states
 !
 ! fisdata
 !
@@ -1865,7 +1865,7 @@ module A0_talys_mod
   integer, dimension(numbar)                         :: nbintfis ! number of bins
   real(sgl), dimension(numbinfis,numbar)             :: eintfis  ! excitation energy for fission
   real(dbl), dimension(0:numJ,-1:1,0:numpar,0:numex) :: rho0     ! integrated level density
-  real(dbl), dimension(numbinfis,0:numJ,-1:1,numbar) :: rhofis   ! integrated level density corresponding to tfisA
+  real(dbl), allocatable                             :: rhofis(:,:,:,:)   ! integrated level density corresponding to tfisA
   real(sgl), dimension(0:numZ,0:numN)                :: discfactor! correction for discrete level weight for NL > NT
   real(sgl), dimension(0:numgam,0:numex,0:1,0:numJ,-1:1) :: Tgam ! gamma transmission coefficients
   real(sgl), dimension(0:numl,-1:1,0:numpar,0:numex) :: Tjlnex   ! transmission coefficients for particle, energy, spin and l
