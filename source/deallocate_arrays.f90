@@ -14,6 +14,7 @@ subroutine deallocate_arrays
   if (allocated(ddxrec)) deallocate(ddxrec)
   if (allocated(phtable1)) deallocate(phtable1)
   if (allocated(phtable2)) deallocate(phtable2)
+  if (allocated(ENHratio)) deallocate(ENHratio)
   if (allocated(ldtable)) deallocate(ldtable)
   if (allocated(ldtableT)) deallocate(ldtableT)
   if (allocated(ldtableN)) deallocate(ldtableN)
@@ -54,6 +55,24 @@ subroutine deallocate_arrays
   if (allocated(efisc2hb)) deallocate(efisc2hb)
   if (allocated(jfisc2hb)) deallocate(jfisc2hb)
   if (allocated(pfisc2hb)) deallocate(pfisc2hb)
+!
+! Medical isotope production
+!
+  if (allocated(Nenrp)) deallocate(Nenrp)
+  if (allocated(prate)) deallocate(prate)
+  if (allocated(Erp)) deallocate(Erp)
+  if (allocated(xsrp)) deallocate(xsrp)
+
+  if (allocated(Tmaxactivity)) deallocate(Tmaxactivity)
+  if (allocated(Tp)) deallocate(Tp)
+  if (allocated(Tgrid)) deallocate(Tgrid)
+
+  if (allocated(Niso)) deallocate(Niso)
+  if (allocated(activity)) deallocate(activity)
+  if (allocated(yield)) deallocate(yield)
+  if (allocated(Nisorel)) deallocate(Nisorel)
+  if (allocated(Nisotot)) deallocate(Nisotot)
+  if (allocated(Tmax)) deallocate(Tmax)
 !
   return
 end subroutine deallocate_arrays
