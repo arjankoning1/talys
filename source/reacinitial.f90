@@ -374,8 +374,19 @@ subroutine reacinitial
   xsBFnuc = 0.
   xsBUnuc = 0.
   xsEB = 0.
-  xspopph = 0.
-  xspopph2 = 0.
+! Allocate on first use: astrophysical grids can extend beyond the input
+! energy after allocate_arrays has run. energies sets these flags first.
+  if (flag2comp) then
+    if  (flagpreeq .and. flagmulpre) then
+      if (.not. allocated(xspopph2)) allocate(xspopph2(0:numZph,0:numNph,0:numex,0:numparx,0:numparx))
+    endif
+  else
+    if  (flagpreeq .and. flagmulpre) then
+      if (.not. allocated(xspopph)) allocate(xspopph(0:numZph,0:numNph,0:numex,0:numparx))
+    endif
+  endif
+  if (allocated(xspopph)) xspopph = 0.
+  if (allocated(xspopph2)) xspopph2 = 0.
   xspopnucT = 0.
   xspreeqad = 0.
   xspreeqbu = 0.
