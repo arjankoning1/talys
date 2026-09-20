@@ -28,6 +28,8 @@ subroutine deallocate_arrays
   enddo
   if (allocated(phexist1)) deallocate(phexist1)
   if (allocated(phexist2)) deallocate(phexist2)
+  if (allocated(xspopph)) deallocate(xspopph)
+  if (allocated(xspopph2)) deallocate(xspopph2)
   if (allocated(feedexcl)) deallocate(feedexcl)
   if (allocated(phdensjp)) deallocate(phdensjp)
   if (allocated(fxsgamdischan)) deallocate(fxsgamdischan)
