@@ -20,6 +20,14 @@ subroutine allocate_arrays
     allocate(ddxrec(0:maxZ+2,0:maxN+2,0:numex,0:maxenrec,0:nanglerec))
     ddxrec = 0.
   endif
+! Emission rates are required for both particle-hole state density models.
+  if (flag2comp) then
+    allocate(wemission2(0:numpar,0:numparx,0:numparx,0:numen))
+    wemission2 = 0.
+  else
+    allocate(wemission(0:numpar,0:numparx,0:numen))
+    wemission = 0.
+  endif
   if (phmodel == 2) then
     if (flag2comp) then
       allocate(phexist2(0:numZ,0:numN,0:numexc,0:numexc,0:numexc,0:numexc))
