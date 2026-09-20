@@ -51,7 +51,6 @@ subroutine arraysize
   call report_array('preeqpop',       size(preeqpop,kind=int64),       storage_size(preeqpop))
   call report_array('xspop',          size(xspop,kind=int64),          storage_size(xspop))
   call report_array('wemission2',     size(wemission2,kind=int64),     storage_size(wemission2))
-  call report_array('xsrp',           size(xsrp,kind=int64),           storage_size(xsrp))
   call report_array('Tjlnex',         size(Tjlnex,kind=int64),         storage_size(Tjlnex))
   call report_array('fxsgamdischan',  size(fxsgamdischan,kind=int64),  storage_size(fxsgamdischan))
   call report_array('areaejlab',      size(areaejlab,kind=int64),      storage_size(areaejlab))
@@ -60,6 +59,12 @@ subroutine arraysize
   call report_array('phdensjp',       size(phdensjp,kind=int64),       storage_size(phdensjp))
 !
 ! Allocatable module arrays
+!
+  if (allocated(xsrp)) then
+    call report_array('xsrp', size(xsrp,kind=int64), storage_size(xsrp))
+  else
+    call report_array('xsrp', 0_int64, storage_size(0.0_sgl))
+  endif
 !
   if (allocated(Erescue)) then
     call report_array('Erescue', size(Erescue,kind=int64), storage_size(Erescue))
