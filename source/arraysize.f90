@@ -48,7 +48,6 @@ subroutine arraysize
   call report_array('gamexist',       size(gamexist,kind=int64),       storage_size(gamexist))
   call report_array('chanisoexist',   size(chanisoexist,kind=int64),   storage_size(chanisoexist))
   call report_array('bassign',        size(bassign,kind=int64),        storage_size(bassign))
-  call report_array('xspopph2',       size(xspopph2,kind=int64),       storage_size(xspopph2))
   call report_array('preeqpop',       size(preeqpop,kind=int64),       storage_size(preeqpop))
   call report_array('xspop',          size(xspop,kind=int64),          storage_size(xspop))
   call report_array('wemission2',     size(wemission2,kind=int64),     storage_size(wemission2))
