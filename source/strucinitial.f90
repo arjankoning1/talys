@@ -494,7 +494,6 @@ subroutine strucinitial
   threshnorm = 1.
   lambda = 0.
   rtyp = 0
-  prate = 0.
   Td = 0
   Thalf = 1.e30
   nfistrhb = 0
