@@ -79,6 +79,9 @@ subroutine npxsratios
   write(8, *)' '
   write(8, *)' numZ numN numA numenout', numZ, NumN, numZ+numN, numenout
 !
+  if (.not. allocated(ENHratio)) then
+    allocate(ENHratio(0:numpar,0:numZ,0:numN,0:numenout))
+  endif
   ENHratio = 0.
 !
 !   Inquire whether breakup enhancing ratios file are presen
