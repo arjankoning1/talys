@@ -137,7 +137,7 @@ subroutine emissionrate2(Zcomp, Ncomp, ppi, hpi, pnu, hnu)
   do type = 0, 6
     wemispart2(type, ppi, hpi, pnu, hnu) = 0.
     do nen = 0, numen
-      wemission2(type, ppi, hpi, pnu, hnu, nen) = 0.
+      wemission2(type, ppi, pnu, nen) = 0.
     enddo
     if (parskip(type)) cycle
     Zix = Zindex(Zcomp, Ncomp, type)
@@ -173,7 +173,7 @@ subroutine emissionrate2(Zcomp, Ncomp, ppi, hpi, pnu, hnu)
         Emax = Ecomp - S(Zcomp, Ncomp, type)
         dE = Emax - (Eout + 0.5 * deltaE(nen1))
         wemispart2(type, ppi, hpi, pnu, hnu) = wemispart2(type, ppi, hpi, pnu, hnu) + &
- &        wemission2(type, ppi, hpi, pnu, hnu, nen1) * dE
+ &        wemission2(type, ppi, pnu, nen1) * dE
         exit
       endif
       if (flaggshell) then
@@ -203,8 +203,8 @@ subroutine emissionrate2(Zcomp, Ncomp, ppi, hpi, pnu, hnu)
           endif
           branchzero = gs * n / (gs * n + g2E)
           phratio = (branchplus * phres1 + branchzero * phres2) / phcomp
-          wemission2(type, ppi, hpi, pnu, hnu, nen) = Rgamma * factor * phratio
-          wemissum2(ppi, hpi, pnu, hnu, nen) = wemission2(type, ppi, hpi, pnu, hnu, nen)
+          wemission2(type, ppi, pnu, nen) = Rgamma * factor * phratio
+          wemissum2(ppi, hpi, pnu, hnu, nen) = wemission2(type, ppi, pnu, nen)
         endif
       else
 !
@@ -217,14 +217,14 @@ subroutine emissionrate2(Zcomp, Ncomp, ppi, hpi, pnu, hnu)
         Ures = max(Eres - preeqpair(Zix, Nix, nres, Eres, pairmodel), preeqpair(Zix, Nix, nres, Eres, pairmodel))
         phres = phdens2(Zix, Nix, ppires, hpi, pnures, hnu, gsp, gsn, Ures, Ewell, surfwell)
         phratio = phres / phcomp
-        wemission2(type, ppi, hpi, pnu, hnu, nen) = factor * phratio
-        wemissum2(ppi, hpi, pnu, hnu, nen) = wemissum2(ppi, hpi, pnu, hnu, nen) + wemission2(type, ppi, hpi, pnu, hnu, nen)
+        wemission2(type, ppi, pnu, nen) = factor * phratio
+        wemissum2(ppi, hpi, pnu, hnu, nen) = wemissum2(ppi, hpi, pnu, hnu, nen) + wemission2(type, ppi, pnu, nen)
       endif
 !
 ! *** Integration of emission rates over all energies and particles ****
 !
       wemispart2(type, ppi, hpi, pnu, hnu) = wemispart2(type, ppi, hpi, pnu, hnu) + &
- &      wemission2(type, ppi, hpi, pnu, hnu, nen) * deltaE(nen)
+ &      wemission2(type, ppi, pnu, nen) * deltaE(nen)
     enddo
     wemistot2(ppi, hpi, pnu, hnu) = wemistot2(ppi, hpi, pnu, hnu) + wemispart2(type, ppi, hpi, pnu, hnu)
   enddo
@@ -237,7 +237,7 @@ subroutine emissionrate2(Zcomp, Ncomp, ppi, hpi, pnu, hnu)
       wemispart2(0, ppi, hpi, pnu, hnu) = 0.
     endif
     do nen = 0, numen
-      if (wemissum2(ppi, hpi, pnu, hnu, nen) == wemission2(0, ppi, hpi, pnu, hnu, nen)) wemission2(0, ppi, hpi, pnu, hnu, nen) = 0.
+      if (wemissum2(ppi, hpi, pnu, hnu, nen) == wemission2(0, ppi, pnu, nen)) wemission2(0, ppi, pnu, nen) = 0.
     enddo
   endif
   return
