@@ -276,7 +276,7 @@ subroutine multipreeq2(Zcomp, Ncomp, nex)
                 h = hpi + hnu
                 if (h > maxpar) cycle
                 factor(type, nexout, ppi, pnu) = feedph * Spre(ppi, hpi, pnu, hnu) * &
-                  wemission2(type, ppi, hpi, pnu, hnu, nen) * dEx
+                  wemission2(type, ppi, pnu, nen) * dEx
                 term(type, nexout) = term(type, nexout) + factor(type, nexout, ppi, pnu)
               enddo
             enddo
