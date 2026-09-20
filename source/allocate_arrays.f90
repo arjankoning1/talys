@@ -83,5 +83,42 @@ subroutine allocate_arrays
       pfisc2rot = 1
     endif
   endif
+!
+! Medical isotope production
+!
+  if (flagprod) then
+    allocate(Nenrp(-1:numZ,-1:numN,-1:numisom))
+    allocate(prate(-1:numZ,-1:numN,-1:numisom))
+
+    allocate(Erp(-1:numZ,-1:numN,-1:numisom,1:numenrp))
+    allocate(xsrp(-1:numZ,-1:numN,-1:numisom,1:numenrp))
+
+    allocate(Tmaxactivity(0:numZ,0:numN,-1:numisom))
+    allocate(Tp(0:numZ,0:numN,-1:numisom,1:5))
+
+    allocate(Tgrid(0:numtime))
+
+    allocate(Niso(0:numZ,0:numN,-1:numisom,0:numtime))
+    allocate(activity(0:numZ,0:numN,-1:numisom,0:numtime))
+    allocate(yield(0:numZ,0:numN,-1:numisom,0:numtime))
+    allocate(Nisorel(0:numZ,0:numN,-1:numisom,0:numtime))
+
+    allocate(Nisotot(0:numZ,0:numtime))
+    allocate(Tmax(0:numZ,0:numN,-1:numisom))
+
+    Nenrp = 0
+    prate = 0.
+    Erp = 0.
+    xsrp = 0.
+    Tmaxactivity = 0
+    Tp = 0
+    Tgrid = 0.
+    Niso = 0.
+    activity = 0.
+    yield = 0.
+    Nisorel = 0.
+    Nisotot = 0.
+    Tmax = 0.
+  endif
   return
 end subroutine allocate_arrays
