@@ -30,7 +30,6 @@ subroutine reacinitial
 ! Variables for nuclides
 !   primary           ! flag to designate primary (binary) reaction
 ! Variables for preequilibrium
-!   ENHratio          !  breakup nucleons enhancing reaction cross
 !   Spre              ! time-integrated strength of two-component exciton state
 !   xsBF              ! nucleon inelastic breakup cross section
 !   xsBFnuc           ! inelastic breakup enhancement brought by breakup neutrons
@@ -311,7 +310,6 @@ subroutine reacinitial
 !   Turrljinc     ! incident channel (l,j) transmission coefficient for URR ca
 !   xsbinarylj    ! cross section from initial compound to residual nucleus
 ! Variables for isotope production
-!   Erp             ! incident energy
 !   Nenrp           ! number of incident energies for residual production cross
 !   Tgrid           ! time
 !   Tp              ! irradiation time with maximal yield per time unit
@@ -394,7 +392,6 @@ subroutine reacinitial
 !
 ! *************** Initialize pre-equilibrium arrays ********************
 !
-  ENHratio = 0.
   Spre = 0.
   xsBF = 0.
   xsBFnuc = 0.
@@ -669,11 +666,6 @@ subroutine reacinitial
   Turrlj = 0.
   Turrljinc = 0.
   xsbinarylj = 0.
-  Erp = 0.
-  Nenrp = 0
-  Tgrid = 0.
-  Tp = 0
-  xsrp = 0.
   xsexclcont = 0.
   xsexclusive = 0.
   exclbranch = 0.
