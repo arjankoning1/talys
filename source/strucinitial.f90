@@ -308,6 +308,7 @@ subroutine strucinitial
   eassign = ' '
   jassign = ' '
   passign = ' '
+  nexalloc = 0
   levnum = 0
   parlev = 1
   edis = 0.
