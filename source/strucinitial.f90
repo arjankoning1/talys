@@ -507,18 +507,6 @@ subroutine strucinitial
   nfistrrot = 0
   nfisc2rot = 0
   Emaxclass2 = 0.
-  pfistrhb = 1
-  pfisc2hb = 1
-  efistrhb = 0.
-  jfistrhb = 0.
-  efisc2hb = 0.
-  jfisc2hb = 0.
-  pfistrrot = 1
-  efistrrot = 0.
-  jfistrrot = 0.
-  pfisc2rot = 1
-  efisc2rot = 0.
-  jfisc2rot = 0.
   betafis = 0.
   vfis = 0.
   Vpos = 0.
@@ -554,7 +542,6 @@ subroutine strucinitial
     endif
   endif
   eintfis = 0.
-  rhofis = 0.
   ompglobal = .false.
   ef = 0.
   rc0 = 0.
