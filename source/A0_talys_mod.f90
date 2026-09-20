@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2025-12-30: Original code
-! 2026-09-03: Current version
+! 2026-09-20: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -251,6 +251,7 @@ module A0_talys_mod
   integer                               :: Lisoinp      ! user assignment of target isomer number
   real(sgl)                             :: eninclow     ! minimal incident energy for nuclear model calculation
   real(sgl)                             :: isomer       ! definition of isomer in seconds
+  integer                               :: nexalloc   ! maximum excitation-energy index required for allocated arrays
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
 ! Variables for input energies
@@ -1460,7 +1461,7 @@ module A0_talys_mod
   real(dbl), dimension(-1:numpar,-1:1)                    :: partdecay    ! total decay per particle and parity
   real(dbl), dimension(-1:numpar)                         :: partdecaytot ! total decay per particle
   real(dbl), dimension(-1:numpar,0:numex,0:numJ,-1:1)     :: popdecay     ! decay from population
-  real(sgl), dimension(0:numZ, 0:numN, 0:numex, 0:numJ, -1:1) :: preeqpop ! pre-equilibrium population cross section
+  real(sgl), allocatable                                  :: preeqpop(:,:,:,:,:) ! pre-equilibrium population cross section
   real(sgl), dimension(0:numZ, 0:numN, 0:numex)           :: preeqpopex   ! pre-equilibrium population c.s. summed over J and P
   real(sgl), dimension(0:numang)                          :: ruth         ! elastic/Rutherford ratio
   real(sgl), dimension(0:numang)                          :: elasni       ! nuclear+interference term
@@ -1484,7 +1485,7 @@ module A0_talys_mod
   real(sgl)                                               :: xsngnsum     ! sum over total (projectile,gamma-ejectile) cross section
   real(sgl)                                               :: xsoptinc     ! optical model reaction c.s. for incident channel
   real(sgl), dimension(0:numpar)                          :: xsparticle   ! total particle production cross section
-  real(dbl), dimension(0:numZ,0:numN,0:numex,0:numJ,-1:1) :: xspop        ! population cross section
+  real(dbl), allocatable                                  :: xspop(:,:,:,:,:)        ! population cross section
   real(dbl), dimension(0:numZ, 0:numN, 0:numex)           :: xspopex      ! population cross section summed over spin and parity
   real(dbl), dimension(0:numZ, 0:numN, 0:numex, -1:1)     :: xspopexP     ! population cross section per parity
   real(dbl), dimension(0:numZ, 0:numN)                    :: xspopnuc     ! population cross section per nucleus
@@ -1508,7 +1509,7 @@ module A0_talys_mod
   real(sgl), dimension(0:numZ, 0:numN)                      :: Exmax     ! maximum excitation energy for excited nucleus
   real(sgl), dimension(0:numZ, 0:numN)                      :: Exmax0    ! maximum excitation energy (inc. negative energies)
   real(sgl), allocatable                                    :: fisfeedJP(:,:,:,:,:) ! fission contribution from excitation energy bin per J, P
-  real(dbl), dimension(0:numZ,0:numN,0:numex,0:numJ,-1:1)   :: rhogrid   ! integrated level density
+  real(dbl), allocatable                                    :: rhogrid(:,:,:,:,:)   ! integrated level density
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
 ! Variables for recoil initialization
