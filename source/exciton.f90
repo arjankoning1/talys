@@ -89,7 +89,7 @@ subroutine exciton
 !
       if (preeqmode == 4 .and. (type == 1 .or. type == 2)) cycle
       do nen = ebegin(type), eend(type)
-        xs = factor * wemission(type, p, h, nen)
+        xs = factor * wemission(type, p, nen)
         xsstep(type, p, nen) = xs
         xspreeq(type, nen) = xspreeq(type, nen) + xs
 !
