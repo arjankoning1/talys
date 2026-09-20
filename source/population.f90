@@ -76,8 +76,6 @@ subroutine population
 !
   implicit none
   integer   :: h                 ! help variable
-  integer   :: hnu               ! neutron hole number
-  integer   :: hpi               ! proton hole number
   integer   :: J                 ! spin of level
   integer   :: na1               ! help variable
   integer   :: na2               ! help variable
@@ -214,8 +212,7 @@ subroutine population
         if ( .not. flag2comp) then
           do pc = p0, maxpar
             p = pc - parA(type)
-            h = pc - p0
-            if (p < 0 .or. h < 0) cycle
+            if (p < 0) cycle
             xsa = xsstep(type, pc, na1)
             xsb = xsstep(type, pc, nb1)
             call pol1(Ea1, Eb1, xsa, xsb, Elow, xslow)
@@ -224,7 +221,7 @@ subroutine population
             call pol1(Ea2, Eb2, xsa, xsb, Ehigh, xshigh)
             xs = 0.5 * (xslow + xshigh) * deltaEx(Zix, Nix, nexout)
             if (xs < 1.e-30) xs = 0.
-            xspopph(Zix, Nix, nexout, p, h) = xs
+            xspopph(Zix, Nix, nexout, p) = xs
           enddo
         else
 !
@@ -232,12 +229,10 @@ subroutine population
 !
           do pcpi = ppi0, maxpar
             ppi = pcpi - parZ(type)
-            hpi = pcpi - ppi0
-            if (ppi < 0 .or. hpi < 0) cycle
+            if (ppi < 0) cycle
             do pcnu = pnu0, maxpar
               pnu = pcnu - parN(type)
-              hnu = pcnu - pnu0
-              if (pnu < 0 .or. hnu < 0) cycle
+              if (pnu < 0) cycle
               xsa = xsstep2(type, pcpi, pcnu, na1)
               xsb = xsstep2(type, pcpi, pcnu, nb1)
               call pol1(Ea1, Eb1, xsa, xsb, Elow, xslow)
@@ -246,7 +241,7 @@ subroutine population
               call pol1(Ea2, Eb2, xsa, xsb, Ehigh, xshigh)
               xs = 0.5 * (xslow + xshigh) * deltaEx(Zix, Nix, nexout)
               if (xs < 1.e-30) xs = 0.
-              xspopph2(Zix, Nix, nexout, ppi, hpi, pnu, hnu) = xs
+              xspopph2(Zix, Nix, nexout, ppi, pnu) = xs
             enddo
           enddo
         endif
