@@ -34,21 +34,21 @@ subroutine dwbaint
 !
   do nen1 = 0, msdbins2, 2
     do J = 0, maxJmsd
-      xsdwin(nen1, nen1, J, 0) = xsdwin(nen1, nen1 + 2, J, 0)
-      xsdwin(nen1 + 1, nen1 + 1, J, 0) = xsdwin(nen1, nen1 + 2, J, 0)
+      xsdwin(nen1, nen1, J) = xsdwin(nen1, nen1 + 2, J)
+      xsdwin(nen1 + 1, nen1 + 1, J) = xsdwin(nen1, nen1 + 2, J)
       if (flagddx) then
         do iang = 0, nanglecont
-          xsdw(nen1 + 1, nen1 + 1, J, iang, 0) = xsdw(nen1, nen1 + 2, J, iang, 0)
+          xsdw(nen1 + 1, nen1 + 1, J, iang) = xsdw(nen1, nen1 + 2, J, iang)
         enddo
       endif
     enddo
     do nen2 = nen1 + 1, msdbins2 - 1, 2
       do J = 0, maxJmsd
-        xsdwin(nen1, nen2, J, 0) = 0.5 * (xsdwin(nen1, nen2 - 1, J, 0) + xsdwin(nen1, nen2 + 1, J, 0))
+        xsdwin(nen1, nen2, J) = 0.5 * (xsdwin(nen1, nen2 - 1, J) + xsdwin(nen1, nen2 + 1, J))
         if (flagddx) then
           do iang = 0, nanglecont
-            xsdw(nen1, nen2, J, iang, 0) = 0.5 * (xsdw(nen1, nen2 - 1, J, iang, 0) &
-              + xsdw(nen1, nen2 + 1, J, iang, 0))
+            xsdw(nen1, nen2, J, iang) = 0.5 * (xsdw(nen1, nen2 - 1, J, iang) &
+              + xsdw(nen1, nen2 + 1, J, iang))
           enddo
         endif
     enddo
@@ -57,11 +57,11 @@ subroutine dwbaint
   do nen1 = 1, msdbins2 - 1, 2
     do nen2 = nen1 + 1, msdbins2, 2
       do J = 0, maxJmsd
-        xsdwin(nen1, nen2, J, 0) = 0.5 * (xsdwin(nen1 - 1, nen2, J, 0) + xsdwin(nen1 + 1, nen2, J, 0))
+        xsdwin(nen1, nen2, J) = 0.5 * (xsdwin(nen1 - 1, nen2, J) + xsdwin(nen1 + 1, nen2, J))
         if (flagddx) then
           do iang = 0, nanglecont
-            xsdw(nen1, nen2, J, iang, 0) = 0.5 * (xsdw(nen1 - 1, nen2, J, iang, 0) &
-              + xsdw(nen1 + 1, nen2, J, iang, 0))
+            xsdw(nen1, nen2, J, iang) = 0.5 * (xsdw(nen1 - 1, nen2, J, iang) &
+              + xsdw(nen1 + 1, nen2, J, iang))
           enddo
         endif
       enddo
@@ -70,11 +70,11 @@ subroutine dwbaint
   do nen1 = 1, msdbins2 - 1, 2
     do nen2 = nen1 + 2, msdbins2 - 1, 2
       do J = 0, maxJmsd
-        xsdwin(nen1, nen2, J, 0) = 0.5 * (xsdwin(nen1 - 1, nen2 - 1, J, 0) + xsdwin(nen1 + 1, nen2 + 1, J, 0))
+        xsdwin(nen1, nen2, J) = 0.5 * (xsdwin(nen1 - 1, nen2 - 1, J) + xsdwin(nen1 + 1, nen2 + 1, J))
         if (flagddx) then
           do iang = 0, nanglecont
-            xsdw(nen1, nen2, J, iang, 0) = 0.5 * (xsdw(nen1 - 1, nen2 - 1, J, iang, 0) + &
-              xsdw(nen1 + 1, nen2 + 1, J, iang, 0))
+            xsdw(nen1, nen2, J, iang) = 0.5 * (xsdw(nen1 - 1, nen2 - 1, J, iang) + &
+              xsdw(nen1 + 1, nen2 + 1, J, iang))
           enddo
         endif
       enddo
