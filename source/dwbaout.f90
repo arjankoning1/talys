@@ -52,11 +52,11 @@ subroutine dwbaout(itype, type, nen1, nen2)
     write( * , fmt = ofor1) (J, J = 0, min(maxJmsd, 7))
     write(*, '()')
     do iang = 0, nanglecont
-      write(*, '(1x, f5.1, 8es13.5)') anglecont(iang), (xsdw(nen1, nen2, J, iang, 0), J = 0, min(maxJmsd, 7))
+      write(*, '(1x, f5.1, 8es13.5)') anglecont(iang), (xsdw(nen1, nen2, J, iang), J = 0, min(maxJmsd, 7))
     enddo
   endif
   write( * , fmt = ofor2) (J, J = 0, min(maxJmsd, 7))
-  write(*, '(/, " Angle", 8es13.5)') (xsdwin(nen1, nen2, J, 0), J = 0, min(maxJmsd, 7))
+  write(*, '(/, " Angle", 8es13.5)') (xsdwin(nen1, nen2, J), J = 0, min(maxJmsd, 7))
   write(*, '(" integr.")')
   return
 end subroutine dwbaout
