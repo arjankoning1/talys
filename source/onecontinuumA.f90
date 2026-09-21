@@ -87,7 +87,7 @@ subroutine onecontinuumA(itype, type)
       enddo
       total = 0.
       do J = 0, maxJmsd
-        xs = xsdwin(nen1, nen2, J, 0)
+        xs = xsdwin(nen1, nen2, J)
         total = total + omegaJ(J) * xs
       enddo
       xscont1(itype, type, nen1, nen2) = total
@@ -95,7 +95,7 @@ subroutine onecontinuumA(itype, type)
         do iang = 0, nanglecont
           total = 0.
           do J = 0, maxJmsd
-            xs = xsdw(nen1, nen2, J, iang, 0)
+            xs = xsdw(nen1, nen2, J, iang)
             total = total + omegaJ(J) * xs
           enddo
           xscontad1(itype, type, nen1, nen2, iang) = total
