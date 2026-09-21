@@ -52,28 +52,6 @@ subroutine reacinitial
 !   xsstep            ! preeq. cross section per particle type, stage and outgoing E
 !   xsstep2           ! two-component preequilibrium cross section
 !   xssteptot         ! preequilibrium cross section per particle type and stage
-! Variables for MSD
-!   Emsd            ! minimal outgoing energy for MSD calculation
-!   msdstep         ! continuum n - step direct cross section
-!   msdstep0        ! n - step cross section for MSD
-!   msdstep1        ! continuum one - step direct cross section (unnormalized)
-!   msdstepad       ! continuum n - step direct angular distribution
-!   msdstepad0      ! n - step angular distribution for MSD
-!   msdstepad1      ! continuum one - step direct angular distribution (unnormalized)
-!   msdstepint      ! n - step direct cross section integrated over energy
-!   msdstepintad    ! n - step direct angular distribution integrated over energy
-!   msdsum          ! multi - step direct cross section summed over steps and integrated over energy
-!   msdtot          ! multi - step direct cross section summed over steps
-!   msdtotad        ! multi - step direct angular distribution summed over steps
-!   msdtotintad     ! multi - step direct angular distribution summed over steps and integrated over energy
-!   nangleint       ! number of possibilities to link intermediate angle to final angle
-!   numJmsd         ! maximum spin for MSD
-!   xscont          ! continuum one - step direct cross section
-!   xscont1         ! continuum one - step direct cross section (unnormalized)
-!   xscontad        ! continuum one - step direct angular distribution for MSD
-!   xscontad1       ! continuum one - step direct angular distribution for MSD (unnormalized)
-!   xsdw            ! DWBA angular distribution as a function of incident energy, outgoing energy, ang. mom. and angle
-!   xsdwin          ! DWBA cross section as a function of incident energy, outgoing energy and angular momentum
 ! Variables for preequilibrium
 !   Esurf             ! well depth for surface interaction
 !   PP2           ! total strength
@@ -105,7 +83,6 @@ subroutine reacinitial
 !   xsgr            ! total smoothed giant resonance cross section
 !   multiplicity    ! particle multiplicity
 !   partdecay       ! total decay per particle
-!   popdecay        ! decay from population
 !   preeqpop        ! pre-equilibrium population
 !   preeqpopex      ! pre-equilibrium population
 !   ruth            ! elastic/Rutherford ratio
@@ -362,14 +339,42 @@ subroutine reacinitial
 !
   Exinc = Etotal
   nexalloc = min(numex, maxval(nlev) + nbins)
-! Recreate the energy-dependent grids on each call, including repeated energies.
-  if (allocated(xspop)) deallocate(xspop)
-  if (allocated(rhogrid)) deallocate(rhogrid)
+!
+! Recreate excitation-energy dependent arrays for this incident energy
+!
+  if (allocated(xspop))       deallocate(xspop)
+  if (allocated(xspopex))     deallocate(xspopex)
+  if (allocated(xspopexP))    deallocate(xspopexP)
+  if (allocated(popdecay))    deallocate(popdecay)
+  if (allocated(preeqpopex))  deallocate(preeqpopex)
+  if (allocated(maxJ))        deallocate(maxJ)
+  if (allocated(deltaEx))     deallocate(deltaEx)
+  if (allocated(Ex))          deallocate(Ex)
+  if (allocated(rhogrid))     deallocate(rhogrid)
+
+  allocate(xspop(0:numZ,0:numN,0:nexalloc,0:numJ,-1:1))
+  allocate(xspopex(0:numZ,0:numN,0:nexalloc))
+  allocate(xspopexP(0:numZ,0:numN,0:nexalloc,-1:1))
+
+  allocate(popdecay(-1:numpar,0:nexalloc,0:numJ,-1:1))
+  allocate(preeqpopex(0:numZ,0:numN,0:nexalloc))
+
+  allocate(maxJ(0:numZ,0:numN,0:nexalloc))
+  allocate(deltaEx(0:numZ,0:numN,0:nexalloc))
+  allocate(Ex(0:numZ,0:numN,0:nexalloc+1))
+
+  allocate(rhogrid(0:numZ,0:numN,0:nexalloc,0:numJ,-1:1))
+
+  xspop      = 0.d0
+  xspopex    = 0.d0
+  xspopexP   = 0.d0
+  popdecay   = 0.d0
+  preeqpopex = 0.
+  maxJ       = numJ
+  deltaEx    = 0.
+  Ex         = 0.
+  rhogrid    = 0.d0
   if (allocated(feedexcl)) deallocate(feedexcl)
-  allocate(xspop(0:numZ,0:numN,0:nexalloc,  0:numJ,-1:1))
-  xspop = 0.
-  allocate(rhogrid(0:numZ,0:numN,0:nexalloc,  0:numJ,-1:1))
-  rhogrid = 0.
   if (flagchannels) then
     allocate(feedexcl(0:min(maxZ,numZchan),0:min(maxN,numNchan),0:numpar,0:nexalloc+1,0:nexalloc+1))
     feedexcl = 0.
@@ -389,6 +394,36 @@ subroutine reacinitial
     allocate(fisfeedJP(0:maxZ,0:maxN,0:nexalloc+1,0:numJ,-1:1))
     fisfeedJP = 0.
   endif
+if (allocated(Dmulti))     deallocate(Dmulti)
+  if (allocated(fisfeedex))  deallocate(fisfeedex)
+  if (allocated(mcontrib))   deallocate(mcontrib)
+  if (allocated(mpecontrib)) deallocate(mpecontrib)
+  if (allocated(popexcl))    deallocate(popexcl)
+  if (allocated(xsbinspec))  deallocate(xsbinspec)
+  if (allocated(xsmpe))      deallocate(xsmpe)
+  if (allocated(xspartial))  deallocate(xspartial)
+
+  allocate(Dmulti(0:nexalloc))
+
+  allocate(fisfeedex(0:numZ,0:numN,0:nexalloc+1))
+
+  allocate(mcontrib(0:numpar,0:nexalloc+1,0:nexalloc+1))
+  allocate(mpecontrib(0:numpar,0:nexalloc+1,0:nexalloc+1))
+
+  allocate(popexcl(0:numZ,0:numN,0:nexalloc+1))
+
+  allocate(xsbinspec(0:numpar,0:nexalloc+1,0:numen))
+  allocate(xsmpe(0:numpar,0:nexalloc+1))
+  allocate(xspartial(0:numpar,0:nexalloc+1))
+
+  Dmulti     = 0.
+  fisfeedex  = 0.
+  mcontrib   = 0.
+  mpecontrib = 0.
+  popexcl    = 0.
+  xsbinspec  = 0.
+  xsmpe      = 0.
+  xspartial  = 0.
 !
 ! *************** Initialize pre-equilibrium arrays ********************
 !
@@ -436,26 +471,6 @@ subroutine reacinitial
   xsgrad = 0.
   xsgrcoll = 0.
   xsgrstate = 0.
-  Emsd = 0.
-  msdstep = 0.
-  msdstep0 = 0.
-  msdstep1 = 0.
-  msdstepad = 0.
-  msdstepad0 = 0.
-  msdstepad1 = 0.
-  msdstepint = 0.
-  msdstepintad = 0.
-  msdsum = 0.
-  msdtot = 0.
-  msdtotad = 0.
-  msdtotintad = 0.
-  nangleint = 0
-  xscont = 0.
-  xscont1 = 0.
-  xscontad = 0.
-  xscontad1 = 0.
-  xsdw = 0.
-  xsdwin = 0.
   buratio = 0.
   compspect = 0.
   Eaverage = 0
@@ -494,9 +509,6 @@ subroutine reacinitial
   dorigin = '      '
   multiplicity = 0.
   partdecay = 0
-  popdecay = 0
-  if (allocated(preeqpop)) preeqpop = 0.
-  preeqpopex = 0.
   ruth = 0.
   elasni = 0.
   Tjlinc = 0.
@@ -520,25 +532,18 @@ subroutine reacinitial
   xsparticle = 0.
   xselasinc = 0.
   xsngnsum = 0.
-  xspop = 0.
-  xspopex = 0.
-  xspopexP = 0.
   xspopnuc = 0.
   xspopnucP = 0.
   xspreeq = 0.
   xspreeqtot = 0.
   xspreeqsum = 0.
   xsresprod = 0.
-  deltaEx = 0.
-  Ex = 0.
   Exmax = 0.
   Exmax0 = 0.
   Exmax(0, 0) = Etotal
   Exmax0(0, 0) = Etotal
   maxex = 0
-  maxJ = numJ
   nexmax = -1
-  rhogrid = 0.
   enumhf = 0.
   transjl = 0.
   xsracape=0.
