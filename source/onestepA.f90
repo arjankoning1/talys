@@ -110,9 +110,9 @@ subroutine onestepA(type)
     Ec = Emsd(nc)
     total = 0.
     do J = 0, maxJmsd
-      xsa = log(max(xsdwin(0, na, J, 0), 1.e-30))
-      xsb = log(max(xsdwin(0, nb, J, 0), 1.e-30))
-      xsc = log(max(xsdwin(0, nc, J, 0), 1.e-30))
+      xsa = log(max(xsdwin(0, na, J), 1.e-30))
+      xsb = log(max(xsdwin(0, nb, J), 1.e-30))
+      xsc = log(max(xsdwin(0, nc, J), 1.e-30))
       call pol2(Ea, Eb, Ec, xsa, xsb, xsc, Eout, xsi)
       xs = exp(xsi)
       if (xs < 1.e-30) xs = 0.
@@ -123,9 +123,9 @@ subroutine onestepA(type)
       do iang = 0, nanglecont
         total = 0.
         do J = 0, maxJmsd
-          xsa = log(max(xsdw(0, na, J, iang, 0), 1.e-30))
-          xsb = log(max(xsdw(0, nb, J, iang, 0), 1.e-30))
-          xsc = log(max(xsdw(0, nc, J, iang, 0), 1.e-30))
+          xsa = log(max(xsdw(0, na, J, iang), 1.e-30))
+          xsb = log(max(xsdw(0, nb, J, iang), 1.e-30))
+          xsc = log(max(xsdw(0, nc, J, iang), 1.e-30))
           call pol2(Ea, Eb, Ec, xsa, xsb, xsc, Eout, xsi)
           xs = exp(xsi)
           if (xs < 1.e-30) xs = 0.
