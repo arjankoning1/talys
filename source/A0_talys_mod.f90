@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2025-12-30: Original code
-! 2026-09-20: Current version
+! 2026-09-21: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -1460,9 +1460,9 @@ module A0_talys_mod
   real(sgl), dimension(0:numpar)                          :: multiplicity ! particle multiplicity
   real(dbl), dimension(-1:numpar,-1:1)                    :: partdecay    ! total decay per particle and parity
   real(dbl), dimension(-1:numpar)                         :: partdecaytot ! total decay per particle
-  real(dbl), dimension(-1:numpar,0:numex,0:numJ,-1:1)     :: popdecay     ! decay from population
+  real(dbl), allocatable :: popdecay(:,:,:,:)             ! decay from population
   real(sgl), allocatable                                  :: preeqpop(:,:,:,:,:) ! pre-equilibrium population cross section
-  real(sgl), dimension(0:numZ, 0:numN, 0:numex)           :: preeqpopex   ! pre-equilibrium population c.s. summed over J and P
+  real(sgl), allocatable :: preeqpopex(:,:,:)       ! pre-equilibrium population c.s. summed over J and P
   real(sgl), dimension(0:numang)                          :: ruth         ! elastic/Rutherford ratio
   real(sgl), dimension(0:numang)                          :: elasni       ! nuclear+interference term
   real(sgl), dimension(-1:1,0:numl)                       :: Tjlinc       ! transm. coeff. of spin and l for incident channel
@@ -1486,9 +1486,9 @@ module A0_talys_mod
   real(sgl)                                               :: xsoptinc     ! optical model reaction c.s. for incident channel
   real(sgl), dimension(0:numpar)                          :: xsparticle   ! total particle production cross section
   real(dbl), allocatable                                  :: xspop(:,:,:,:,:)        ! population cross section
-  real(dbl), dimension(0:numZ, 0:numN, 0:numex)           :: xspopex      ! population cross section summed over spin and parity
-  real(dbl), dimension(0:numZ, 0:numN, 0:numex, -1:1)     :: xspopexP     ! population cross section per parity
-  real(dbl), dimension(0:numZ, 0:numN)                    :: xspopnuc     ! population cross section per nucleus
+  real(dbl), allocatable :: xspopex(:,:,:)           ! population cross section summed over spin and parity
+  real(dbl), allocatable :: xspopexP(:,:,:,:)        ! population cross section per parity
+  real(dbl), dimension(0:numZ,0:numN)       :: xspopnuc
   real(dbl), dimension(0:numZ, 0:numN, -1:1)              :: xspopnucP    ! population cross section per nucleus per parity
   real(sgl), dimension(0:numpar, 0:numen)                 :: xspreeq      ! preeq. c.s. per particle typ and outgoing energy
   real(sgl)                                               :: xspreeqsum   ! total preequilibrium cross section summed over particles
@@ -1502,10 +1502,10 @@ module A0_talys_mod
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
   integer, dimension(0:numZ, 0:numN)                        :: maxex     ! maximum excitation energy bin for excited nucleus
-  integer, dimension(0:numZ, 0:numN, 0:numex)               :: maxJ      ! maximal J-value
+  integer, allocatable   :: maxJ(:,:,:)              ! maximal J-value
   integer, dimension(0:numpar)                              :: nexmax    ! maximum excitation energy bin for excited nucleus
-  real(sgl), dimension(0:numZ, 0:numN, 0:numex)             :: deltaEx   ! excitation energy bin for population arrays
-  real(sgl), dimension(0:numZ, 0:numN, 0:numex+1)           :: Ex        ! excitation energy
+  real(sgl), allocatable :: deltaEx(:,:,:)           ! excitation energy bin for population arrays
+  real(sgl), allocatable :: Ex(:,:,:)                ! excitation energy
   real(sgl), dimension(0:numZ, 0:numN)                      :: Exmax     ! maximum excitation energy for excited nucleus
   real(sgl), dimension(0:numZ, 0:numN)                      :: Exmax0    ! maximum excitation energy (inc. negative energies)
   real(sgl), allocatable                                    :: fisfeedJP(:,:,:,:,:) ! fission contribution from excitation energy bin per J, P
@@ -1712,60 +1712,60 @@ module A0_talys_mod
 !
 ! msdinit
 !
-  integer, parameter               :: numJmsd=8 ! maximum spin for MSD
-  real(sgl)                        :: dEmsd     ! energy bin for MSD
-  real(sgl), dimension(0:numenmsd) :: Emsd      ! minimal outgoing energy for MSD calculation
-  integer                          :: maxJmsd   ! maximal spin for MSD calculation
-  integer                          :: maxmsd    ! number of MSD steps
-  integer                          :: msdbins2  ! number of energy points for MSD calculation
+  integer, parameter               :: numJmsd=8          ! maximum spin for MSD
+  real(sgl)                        :: dEmsd               ! energy bin for MSD
+  real(sgl), allocatable           :: Emsd(:)             ! outgoing energy grid for MSD calculation
+  integer                          :: maxJmsd             ! maximal spin for MSD calculation
+  integer                          :: maxmsd              ! number of MSD steps
+  integer                          :: msdbins2            ! number of energy points for MSD calculation
 !
 ! interangle
 !
-  integer, dimension(0:numangcont, 0:numangcont, 0:numangcont) :: nangleint ! number of possibilities to link intermedi
+  integer, allocatable             :: nangleint(:,:,:)    ! number of possibilities to link intermediate angle to final angle
 !
 ! dwbaecis
 !
-  real(sgl) :: betamsd ! deformation parameter
-  real(sgl) :: Emsdin  ! incident MSD energy
-  real(sgl) :: Emsdout ! outgoing MSD energy
-  real(sgl) :: Exmsd   ! excitation energy for MSD energy grid
+  real(sgl)                        :: betamsd             ! deformation parameter
+  real(sgl)                        :: Emsdin              ! incident MSD energy
+  real(sgl)                        :: Emsdout             ! outgoing MSD energy
+  real(sgl)                        :: Exmsd               ! excitation energy for MSD energy grid
 !
 ! dwbaread
 !
-  real(sgl), dimension(0:numenmsd, 0:numenmsd, 0:numJmsd, 0:numangcont, 0:2) :: xsdw   ! DWBA angular distribution per angle, incide
-  real(sgl), dimension(0:numenmsd, 0:numenmsd, 0:numJmsd, 0:2)               :: xsdwin ! DWBA c.s. per incident E, outgoing E, and J
+  real(sgl), allocatable           :: xsdw(:,:,:,:)       ! DWBA angular distribution per incident energy, outgoing energy, J and angle
+  real(sgl), allocatable           :: xsdwin(:,:,:)       ! DWBA cross section per incident energy, outgoing energy and J
 !
 ! onecontinuumA
 !
-  real(sgl), dimension(0:numpar, 0:numpar, 0:numenmsd, 0:numenmsd)               :: xscont1   ! continuum one-step direct c.s.
-  real(sgl), dimension(0:numpar, 0:numpar, 0:numenmsd, 0:numenmsd, 0:numangcont) :: xscontad1 ! continuum one-step direct angular di
+  real(sgl), allocatable           :: xscont1(:,:,:,:)    ! continuum one-step direct cross section
+  real(sgl), allocatable           :: xscontad1(:,:,:,:,:) ! continuum one-step direct angular distribution
 !
 ! onestepA
 !
-  real(sgl), dimension (0:numpar, 0:numen)              :: msdstep1   ! continuum one-step direct cross section (unnormalized)
-  real(sgl), dimension(0:numpar, 0:numen, 0:numangcont) :: msdstepad1 ! continuum one-step direct angular distribution
+  real(sgl), allocatable           :: msdstep1(:,:)       ! continuum one-step direct cross section (unnormalized)
+  real(sgl), allocatable           :: msdstepad1(:,:,:)   ! continuum one-step direct angular distribution (unnormalized)
 !
 ! onestepB
 !
-  real(sgl), dimension(0:numpar, nummsd, 0:numen)               :: msdstep   ! continuum n-step direct cross section
-  real(sgl), dimension(0:numpar, nummsd, 0:numen, 0:numangcont) :: msdstepad ! continuum n-step direct angular distribution
+  real(sgl), allocatable           :: msdstep(:,:,:)      ! continuum n-step direct cross section
+  real(sgl), allocatable           :: msdstepad(:,:,:,:)  ! continuum n-step direct angular distribution
 !
 ! onecontinuumB
 !
-  real(sgl), dimension(0:numpar, 0:numpar, 0:numenmsd, 0:numenmsd)               :: xscont     ! cont. one-step direct c.s. for MSD
-  real(sgl), dimension(0:numpar, 0:numpar, 0:numenmsd, 0:numenmsd, 0:numangcont) :: xscontad   ! continuum one-step direct angular d
-  real(sgl), dimension(0:numpar, nummsd, 0:numenmsd)                             :: msdstep0   ! n-step cross section for MSD
-  real(sgl), dimension(0:numpar, nummsd, 0:numenmsd, 0:numangcont)               :: msdstepad0 ! n-step angular distribution for MSD
+  real(sgl), allocatable           :: xscont(:,:,:,:)     ! continuum one-step direct cross section for MSD
+  real(sgl), allocatable           :: xscontad(:,:,:,:,:) ! continuum one-step direct angular distribution for MSD
+  real(sgl), allocatable           :: msdstep0(:,:,:)     ! n-step cross section for MSD
+  real(sgl), allocatable           :: msdstepad0(:,:,:,:) ! n-step angular distribution for MSD
 !
 ! msdtotal
 !
-  real(sgl)                                             :: msdall       ! total multi-step direct cross section
-  real(sgl), dimension(0:numpar, nummsd)                :: msdstepint   ! n-step direct cross section integrated over energy
-  real(sgl), dimension(0:numpar, nummsd, 0:numangcont)  :: msdstepintad ! n-step direct angular distribution integrated over ener
-  real(sgl), dimension(0:numpar)                        :: msdsum       ! multi-step direct c.s. summed over steps, E-integrated
-  real(sgl), dimension(0:numpar, 0:numen)               :: msdtot       ! multi-step direct cross section summed over steps
-  real(sgl), dimension(0:numpar, 0:numen, 0:numangcont) :: msdtotad     ! multi-step direct angular dist. summed over steps
-  real(sgl), dimension(0:numpar, 0:numangcont)          :: msdtotintad  ! multi-step direct ang. dist. summed over steps, E-integrat
+  real(sgl)                        :: msdall               ! total multi-step direct cross section
+  real(sgl), allocatable           :: msdstepint(:,:)     ! n-step direct cross section integrated over energy
+  real(sgl), allocatable           :: msdstepintad(:,:,:) ! n-step direct angular distribution integrated over energy
+  real(sgl), allocatable           :: msdsum(:)           ! multi-step direct cross section summed over steps and integrated over energy
+  real(sgl), allocatable           :: msdtot(:,:)         ! multi-step direct cross section summed over steps
+  real(sgl), allocatable           :: msdtotad(:,:,:)     ! multi-step direct angular distribution summed over steps
+  real(sgl), allocatable           :: msdtotintad(:,:)    ! multi-step direct angular distribution summed over steps and integrated
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
 ! Variables to prepare information for initial compound nucleus
@@ -1983,25 +1983,25 @@ module A0_talys_mod
 !
 ! multiple
 !
-  real(sgl), dimension(0:numex)                       :: Dmulti     ! depletion factor for multiple preequilibrium
+  real(sgl), allocatable :: Dmulti(:)                ! depletion factor for multiple preequilibrium
   real(sgl), dimension(0:numZ,0:numN)                 :: Fcomp      ! compound population fraction per nucleus
   real(sgl), dimension(0:numZ,0:numN)                 :: Fdir       ! direct population fraction per nucleus
   real(sgl), allocatable                              :: feedexcl(:,:,:,:,:) ! feeding terms from compound emission
-  real(sgl), dimension(0:numZ,0:numN,0:numex+1)       :: fisfeedex  ! fission contribution from excitation energy bin
+  real(sgl), allocatable :: fisfeedex(:,:,:)         ! fission contribution from excitation energy bin
   real(sgl), dimension(0:numZ,0:numN)                 :: Fpreeq     ! preequilibrium population fraction per nucleus
-  real(sgl), dimension(0:numpar,0:numex+1,0:numex+1)  :: mcontrib   ! contribution to emission spectrum
-  real(sgl), dimension(0:numpar,0:numex+1,0:numex+1)  :: mpecontrib ! contribution to multiple pre-equilibrium emission
-  real(sgl), dimension(0:numZ,0:numN,0:numex+1)       :: popexcl    ! population cross section of bin just before decay
-  real(sgl), dimension(0:numpar, 0:numex+1, 0:numen)  :: xsbinspec  ! emission spectrum from compound nucleus per bin
+  real(sgl), allocatable :: mcontrib(:,:,:)          ! contribution to emission spectrum
+  real(sgl), allocatable :: mpecontrib(:,:,:)        ! contribution to multiple pre-equilibrium emission spectrum
+  real(sgl), allocatable :: popexcl(:,:,:)           ! population cross section of bin just before decay
+  real(sgl), allocatable :: xsbinspec(:,:,:)         ! emission spectrum from compound nucleus per bin
   real(sgl), dimension(0:numZ-2,0:numN-2,-1:numpar)   :: xsfeed     ! cross section from compound to residual nucleus
-  real(sgl), dimension(0:numpar,0:numex+1)            :: xsmpe      ! multiple-preequilibrium cross section per energy bin
+  real(sgl), allocatable :: xsmpe(:,:)                ! multiple-preequilibrium cross section per energy bin
   real(sgl), dimension(0:numpar, 0:numen)             :: xsmpeemis  ! multiple-preequilibrium emission spectrum from comp. nucleus
   real(sgl), dimension(0:numpar)                      :: xsmpetot   ! total multiple-preequilibrium cross section
   real(sgl), dimension(0:numpar,0:numen)              :: xsmpreeq   ! multiple pre-equilibrium emission spectrum
   real(sgl), dimension(0:numpar,0:numen,0:numangcont) :: xsmpreeqad ! multiple preequilibrium angular distribution
   real(sgl), dimension(-1:numpar)                     :: xsngn      ! total (projectile,gamma-ejectile) cross section
   real(sgl), dimension(0:numpar,0:numen)              :: xsngnspec  ! total (projectile,gamma-ejectile) spectrum
-  real(sgl), dimension(0:numpar, 0:numex+1)           :: xspartial  ! emitted cross section flux per energy bin
+  real(sgl), allocatable :: xspartial(:,:)            ! emitted cross section flux per energy bin
   real(sgl), dimension(0:numZ,0:numN)                 :: xspopcomp  ! compound population cross section per nucleus
   real(sgl), dimension(0:numZ,0:numN)                 :: xspoppreeq ! preequilibrium population cross section per nucleus
   real(dbl), dimension(numelem,nummass)               :: xspopnuc0  ! population cross section per nucleus
