@@ -73,6 +73,50 @@ subroutine deallocate_arrays
   if (allocated(Nisorel)) deallocate(Nisorel)
   if (allocated(Nisotot)) deallocate(Nisotot)
   if (allocated(Tmax)) deallocate(Tmax)
+  if (allocated(popdecay)) deallocate(popdecay)
+  if (allocated(preeqpopex)) deallocate(preeqpopex)
+
+  if (allocated(xspopex)) deallocate(xspopex)
+  if (allocated(xspopexP)) deallocate(xspopexP)
+
+  if (allocated(maxJ)) deallocate(maxJ)
+  if (allocated(deltaEx)) deallocate(deltaEx)
+  if (allocated(Ex)) deallocate(Ex)
+
+  if (allocated(Dmulti)) deallocate(Dmulti)
+  if (allocated(fisfeedex)) deallocate(fisfeedex)
+  if (allocated(mcontrib)) deallocate(mcontrib)
+  if (allocated(mpecontrib)) deallocate(mpecontrib)
+  if (allocated(popexcl)) deallocate(popexcl)
+  if (allocated(xsbinspec)) deallocate(xsbinspec)
+  if (allocated(xsmpe)) deallocate(xsmpe)
+  if (allocated(xspartial)) deallocate(xspartial)
+  if (allocated(Emsd)) deallocate(Emsd)
+  if (allocated(nangleint)) deallocate(nangleint)
+
+  if (allocated(xsdw)) deallocate(xsdw)
+  if (allocated(xsdwin)) deallocate(xsdwin)
+
+  if (allocated(xscont1)) deallocate(xscont1)
+  if (allocated(xscontad1)) deallocate(xscontad1)
+
+  if (allocated(msdstep1)) deallocate(msdstep1)
+  if (allocated(msdstepad1)) deallocate(msdstepad1)
+
+  if (allocated(msdstep)) deallocate(msdstep)
+  if (allocated(msdstepad)) deallocate(msdstepad)
+
+  if (allocated(xscont)) deallocate(xscont)
+  if (allocated(xscontad)) deallocate(xscontad)
+  if (allocated(msdstep0)) deallocate(msdstep0)
+  if (allocated(msdstepad0)) deallocate(msdstepad0)
+
+  if (allocated(msdstepint)) deallocate(msdstepint)
+  if (allocated(msdstepintad)) deallocate(msdstepintad)
+  if (allocated(msdsum)) deallocate(msdsum)
+  if (allocated(msdtot)) deallocate(msdtot)
+  if (allocated(msdtotad)) deallocate(msdtotad)
+  if (allocated(msdtotintad)) deallocate(msdtotintad)
 !
   return
 end subroutine deallocate_arrays
