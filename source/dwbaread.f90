@@ -41,7 +41,7 @@ subroutine dwbaread(nen1, nen2)
   read(10, '()')
   do J = 0, maxJmsd
     read(10, * ) xs
-    xsdwin(nen1, nen2, J, 0) = real(xs)
+    xsdwin(nen1, nen2, J) = real(xs)
   enddo
   if (flagddx) then
     read(8, '()')
@@ -58,7 +58,7 @@ subroutine dwbaread(nen1, nen2)
         do k = 1, nS
           read(8, '(i3, 12x, e12.5)', iostat = istat) itype, xs
           if (istat /= 0) cycle
-          if (itype == 0) xsdw(nen1, nen2, J, iang, 0) = real(xs)
+          if (itype == 0) xsdw(nen1, nen2, J, iang) = real(xs)
         enddo
       enddo
     enddo
