@@ -161,7 +161,7 @@ subroutine exgrid(Zcomp, Ncomp)
     Nix = Nindex(Zcomp, Ncomp, type)
     NL = Nlast(Zix, Nix, 0)
     if (maxex(Zix, Nix) /= 0) cycle
-    do nex = 0, numex
+    do nex = 0, nexalloc
       deltaEx(Zix, Nix, nex) = 0.
     enddo
     if (Qres(Zix, Nix, 0) == 0.) then
