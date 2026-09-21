@@ -289,15 +289,15 @@ subroutine multiple
           do nen = 0, numen
             xsemis(type, nen) = 0.
             xsmpeemis(type, nen) = 0.
-            do nex = 0, numex + 1
+            do nex = 0, nexalloc + 1
               xsbinspec(type, nex, nen) = 0.
             enddo
           enddo
         endif
-        do nex = 0, numex + 1
+        do nex = 0, nexalloc + 1
           xspartial(type, nex) = 0.
           xsmpe(type, nex) = 0.
-          do nexout = 0, numex + 1
+          do nexout = 0, nexalloc + 1
             mcontrib(type, nex, nexout) = 0.
             mpecontrib(type, nex, nexout) = 0.
           enddo
@@ -311,7 +311,7 @@ subroutine multiple
           strucexist(Zix, Nix) = .true.
         endif
       enddo
-      do nex = 0, numex
+      do nex = 0, nexalloc
         xspopsave(nex) = 0.
         Dmulti(nex) = 0.
       enddo
