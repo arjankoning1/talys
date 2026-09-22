@@ -36,7 +36,6 @@ subroutine input_basicreac
 !   flagrel          ! flag for relativistic kinematics
 !   flagrpevap       ! flag for evaporation of residual products at high incident energies
 !   flaglegacy       ! flag to run legacy models
-!   flagrpruns       ! flag to designate that run is for residual product
 !   ompenergyfile    ! file with energies for OMP calculation (ENDF files only)
 ! Variables for reading input lines
 !   inline            ! input line
@@ -62,7 +61,6 @@ subroutine input_basicreac
 !
 ! ************** Defaults *************
 !
-  flagrpruns = .false.
   flagbasic = .false.
   flagoutall = .false.
   flagEchannel = .false.
