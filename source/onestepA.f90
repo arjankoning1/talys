@@ -96,6 +96,8 @@ subroutine onestepA(type)
       omegaJ(J) = omega(Zix, Nix, p, h, gs, Exmsd, rJ)
     enddo
     call locate(Emsd, 0, msdbins2, Eout, nen2)
+    ! Keep the three-point interpolation window inside the MSD grid.
+    nen2 = max(0, min(nen2, msdbins2 - 1))
     if (nen2 > 1) then
       na = nen2 - 1
       nb = nen2
