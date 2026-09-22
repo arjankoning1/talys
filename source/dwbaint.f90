@@ -32,7 +32,8 @@ subroutine dwbaint
 !
 ! ******************* Interpolate DWBA cross sections ******************
 !
-  do nen1 = 0, msdbins2, 2
+  ! Each interval needs the next even grid point at nen1 + 2.
+  do nen1 = 0, msdbins2 - 2, 2
     do J = 0, maxJmsd
       xsdwin(nen1, nen1, J) = xsdwin(nen1, nen1 + 2, J)
       xsdwin(nen1 + 1, nen1 + 1, J) = xsdwin(nen1, nen1 + 2, J)
