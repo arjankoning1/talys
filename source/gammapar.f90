@@ -242,11 +242,11 @@ subroutine gammapar(Zix, Nix)
             qrpa(Zix,Nix)%e = 0.
           endif 
           if (.not. allocated(qrpa(Zix,Nix)%f)) then
-            allocate(qrpa(Zix,Nix)%f(0:numgamqrpa,nTqrpa,0:1,gammax))
+            allocate(qrpa(Zix,Nix)%f(0:numgamqrpa,numTqrpa,0:1,gammax))
             qrpa(Zix,Nix)%f = 0.
           endif
           if (strength == 11 .and. Zix <= numZph .and. Nix <= numNph .and. .not. allocated(qrpa(Zix,Nix)%fJP)) then
-            allocate(qrpa(Zix,Nix)%fJP(0:numgamqrpa,nTqrpa,0:1,0:9,0:1))
+            allocate(qrpa(Zix,Nix)%fJP(0:numgamqrpa,numTqrpa,0:1,0:9,0:1))
             qrpa(Zix,Nix)%fJP = 0.
           endif
           do J = 0, Jend
@@ -418,11 +418,11 @@ subroutine gammapar(Zix, Nix)
             qrpa(Zix,Nix)%e = 0.
           endif
           if (.not. allocated(qrpa(Zix,Nix)%f)) then
-            allocate(qrpa(Zix,Nix)%f(0:numgamqrpa,nTqrpa,0:1,gammax))
+            allocate(qrpa(Zix,Nix)%f(0:numgamqrpa,numTqrpa,0:1,gammax))
             qrpa(Zix,Nix)%f = 0.
           endif
           if (strengthM1 == 11 .and. Zix <= numZph .and. Nix <= numNph .and. .not. allocated(qrpa(Zix,Nix)%fJP)) then
-            allocate(qrpa(Zix,Nix)%fJP(0:numgamqrpa,nTqrpa,0:1,0:9,0:1))
+            allocate(qrpa(Zix,Nix)%fJP(0:numgamqrpa,numTqrpa,0:1,0:9,0:1))
             qrpa(Zix,Nix)%fJP = 0.
           endif
           do J = 0, Jend
@@ -524,7 +524,7 @@ subroutine gammapar(Zix, Nix)
           qrpa(Zix,Nix)%e = 0.
         endif
         if (.not. allocated(qrpa(Zix,Nix)%f)) then
-          allocate(qrpa(Zix,Nix)%f(0:numgamqrpa,nTqrpa,0:1,gammax))
+          allocate(qrpa(Zix,Nix)%f(0:numgamqrpa,numTqrpa,0:1,gammax))
           qrpa(Zix,Nix)%f = 0.
         endif
         nen = 0
