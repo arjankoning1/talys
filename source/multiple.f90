@@ -214,6 +214,7 @@ subroutine multiple
   integer            :: id4
   integer :: ppi
   integer :: pnu
+  integer :: Jmaxsave
   real(sgl)          :: ang                   ! angle
   real(sgl)          :: dEx                   ! excitation energy bin for population arrays
   real(sgl)          :: Eaveragesum           ! help variable
@@ -269,16 +270,18 @@ subroutine multiple
       Z = ZZ(Zcomp, Ncomp, 0)
       N = NN(Zcomp, Ncomp, 0)
       A = AA(Zcomp, Ncomp, 0)
-      if (flagrpevap .and. (Zcomp == maxZrp .or. Ncomp == maxNrp)) then
+      if (flagrpevap .and. (Zcomp >= maxZrp .or. Ncomp >= maxNrp)) then
         xspopnuc0(Z, A) = xspopnuc(Zcomp, Ncomp)
         rpfile = 'rp000000.ex'
         write(rpfile(3:5), '(i3.3)') Z
         write(rpfile(6:8), '(i3.3)') A
+        Jmaxsave = maxval(maxJ(Zcomp,Ncomp,0:maxex(Zcomp,Ncomp)))
+        Jmaxsave = min(Jmaxsave,numJ)
         open (unit = 2, file = rpfile, status = 'replace')
-        write(2, * ) maxex(Zcomp, Ncomp) + 1, 30, 1, " xs= ", xspopnuc(Zcomp, Ncomp)
+        write(2, * ) maxex(Zcomp, Ncomp) + 1, Jmaxsave + 1, 2, " xs= ", xspopnuc(Zcomp, Ncomp)
         do nex = 0, maxex(Zcomp, Ncomp)
           do parity = - 1, 1, 2
-            write(2, '(f10.5, 31es12.5)') Ex(Zcomp, Ncomp, nex), (xspop(Zcomp, Ncomp, nex, J, parity), J = 0, 30)
+            write(2, '(f10.5, 41es12.5)') Ex(Zcomp, Ncomp, nex), (xspop(Zcomp, Ncomp, nex, J, parity), J = 0, Jmaxsave)
           enddo
         enddo
         close(unit=2)
