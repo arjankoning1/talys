@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2025-12-30: Original code
-! 2026-09-21: Current version
+! 2026-10-01: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -1632,8 +1632,8 @@ module A0_talys_mod
 !
   real(sgl) :: Ca        ! effective Coulomb barrier
   real(sgl) :: Deff      ! effective target-projectile separation
-  real(sgl) :: Ecent     ! centroid energy for emission spectrum
-  real(sgl) :: Sab       ! separation energy for projectile
+  real(sgl) :: Ecent(0:numpar) ! centroid energy for emission spectrum
+  real(sgl) :: Sab(0:numpar)   ! separation energy for projectile
 !
 ! breakupAVR
 !
