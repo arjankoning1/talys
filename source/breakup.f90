@@ -171,7 +171,7 @@ subroutine breakup
     Deff = r0 * (Atarget **onethird) + 1.2
     Ca = 1.44 * parZ(k0) * Ztarget / Deff
     Cb = 1.44 * parZ(type) * ZZ(0, 0, type) / Deff
-    Ecent = parA(type) / real(parA(k0)) * (Einc - Ca) + Cb
+    Ecent(type) = parA(type) / real(parA(k0)) * (Einc - Ca) + Cb
 !
 ! Full width at half maximum
 !
@@ -183,22 +183,22 @@ subroutine breakup
     else
       step = 1.
     endif
-    Sab = (parmass(type) + parmass(type2) - parmass(k0)) * amu
-    F = 62. * (1. - 1. / exp(Einc / 173.)) * (1. - Atarget / (155. * Sab * Sab)) - 3. * step
+    Sab(type) = (parmass(type) + parmass(type2) - parmass(k0)) * amu
+    F = 62. * (1. - 1. / exp(Einc / 173.)) * (1. - Atarget / (155. * Sab(type) * Sab(type))) - 3. * step
 !
 ! Effective full width at half maximum (asymmetric peaks)
 !
     H = 0.5 * F
     Emax = eninccm + Q(type)
-    Feff = H + min(H, 0.6 * (Emax - Ecent))
+    Feff = H + min(H, 0.6 * (Emax - Ecent(type)))
     width = max(Feff / 2.35, 0.1 * Einc)
     fac1 = 1. / (width * sqrttwopi)
-    wplus = max(0., min(H, 0.6 * (Emax - Ecent))) / 2.35
-    wmin = max(0., H - max(0., 0.6 * (Ecent - Emax))) / 2.35
-    if (Emax >= Ecent - 1.67 * H .and. Emax <= Ecent) then
+    wplus = max(0., min(H, 0.6 * (Emax - Ecent(type)))) / 2.35
+    wmin = max(0., H - max(0., 0.6 * (Ecent(type) - Emax))) / 2.35
+    if (Emax >= Ecent(type) - 1.67 * H .and. Emax <= Ecent(type)) then
       Epk = Emax
     else
-      Epk = Ecent
+      Epk = Ecent(type)
     endif
 !
 ! Breakup cross section
