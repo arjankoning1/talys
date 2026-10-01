@@ -5,7 +5,7 @@ function kalbachBU(type, Ein, ang)
 !
 ! Author    : Arjan Koning
 !
-! 2021-12-30: Original code
+! 2026-10-01: Original code
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -63,9 +63,9 @@ function kalbachBU(type, Ein, ang)
   Zb = parZ(type)
   abu = 4.7 + Ab
   if (Ab == Ap - 1) then
-    if (Sab > 0.) then
-      term = 1. + exp((12. * Sab - Ecent) / (0.84 * Sab))
-      abu = 4. * Ab + Zb - 2. + 0.029 * Ecent + 7.6 / Ap / term
+    if (Sab(type) > 0.) then
+      term = 1. + exp((12. * Sab(type) - Ecent(type)) / (0.84 * Sab(type)))
+      abu = 4. * Ab + Zb - 2. + 0.029 * Ecent(type) + 7.6 / Ap / term
     endif
   endif
   K1 = 1.8
@@ -77,8 +77,8 @@ function kalbachBU(type, Ein, ang)
     wang = min(0.09, ang0 / 3.)
     term = 1. + exp((ang0 - ang) / wang)
     Tc = 1. / term
-    kalbachBU = (abu * abu + 1.) / twopi * exp( - abu * cos(ang)) * Tc
+    kalbachBU = (abu * abu + 1.) / twopi * exp( - abu * ang) * Tc
   endif
   return
 end function kalbachBU
-! Copyright A.J. Koning 2021
+! Copyright A.J. Koning 2026
