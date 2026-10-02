@@ -132,7 +132,7 @@ subroutine tfission(Zcomp, Ncomp, nex, J2, parity)
 ! J and parity are in loops outside this subroutine
 !
   J = J2 / 2
-  dExinc = deltaEx(Zcomp, Ncomp, nex)
+  dExinc = deltaEx(nex, Ncomp, Zcomp)
   do iloop = 1, 3
     tf = 0.
     if (iloop == 1) then
