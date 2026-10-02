@@ -205,17 +205,17 @@ subroutine compound(Zcomp, Ncomp, nex, J2, parity)
 !
 ! Photon and particle channels
 !
-    if (iloop == 1) then
-      do type = 0, 6
-        do nexout = 0, nexmax(type)
-          do Pprime = - 1, 1, 2
-            do Ir = 0, numJ
-              enumhf(Ir, Pprime, type, nexout) = 0.
-            enddo
-          enddo
-        enddo
-      enddo
-    endif
+!   if (iloop == 1) then
+!     do type = 0, 6
+!       do nexout = 0, nexmax(type)
+!         do Pprime = - 1, 1, 2
+!           do Ir = 0, numJ
+!             enumhf(Ir, Pprime, type, nexout) = 0.
+!           enddo
+!         enddo
+!       enddo
+!     enddo
+!   endif
     do type = 0, 6
       if (parskip(type)) cycle
       if (iloop == 1 .and. type == 6 .and. denomhf == 0.) cycle
@@ -253,7 +253,7 @@ subroutine compound(Zcomp, Ncomp, nex, J2, parity)
           Pprimeend = 1
           J2res = J2 + parspin2
           Irspin2beg = mod(J2res, 2)
-          Irspin2end = 2 * maxJ(Zix, Nix, nexout)
+          Irspin2end = 2 * maxJ(nexout, Nix, Zix)
         endif
         l2maxhf = 2 * lmaxhf(type, nexout)
         if (iloop == 1) then
@@ -295,7 +295,10 @@ subroutine compound(Zcomp, Ncomp, nex, J2, parity)
             do Irspin2 = Irspin2beg, Irspin2end, 2
               Ir = Irspin2 / 2
               rho = rho0(Ir, Pprime, type, nexout)
-              if (rho < 1.e-20) cycle
+              if (rho < 1.e-20) then
+                enumhf(Ir, Pprime, type, nexout) = 0.
+                cycle
+              endif
 !
 ! The Hauser-Feshbach formula contains the following triangular relations:
 ! |J-I| < j < J+I
@@ -369,19 +372,19 @@ subroutine compound(Zcomp, Ncomp, nex, J2, parity)
             do Irspin2 = Irspin2beg, Irspin2end, 2
               Ir = Irspin2 / 2
               factor = real(feed * enumhf(Ir, Pprime, type, nexout))
-              xspop(Zix, Nix, nexout, Ir, Pprime) = xspop(Zix, Nix, nexout, Ir, Pprime) + factor
+              xspop(Ir, Pprime, nexout, Nix, Zix) = xspop(Ir, Pprime, nexout, Nix, Zix) + factor
               if (flagpop) then
-                xspopnucP(Zix, Nix, Pprime) = xspopnucP(Zix, Nix, Pprime) + factor
-                xspopexP(Zix, Nix, nexout, Pprime) = xspopexP(Zix, Nix, nexout, Pprime) + factor
-                popdecay(type, nexout, Ir, Pprime) = popdecay(type, nexout, Ir, Pprime) + factor
-                partdecay(type, Pprime) = partdecay(type, Pprime) + factor
+                xspopnucP(Pprime, Nix, Zix) = xspopnucP(Pprime, Nix, Zix) + factor
+                xspopexP(nexout, Pprime, Nix, Zix) = xspopexP(nexout, Pprime, Nix, Zix) + factor
+                popdecay(Ir, Pprime, nexout, type) = popdecay(Ir, Pprime, nexout, type) + factor
+                partdecay(Pprime, type) = partdecay(Pprime, type) + factor
                 partdecaytot(type) = partdecaytot(type) + factor
               endif
               sumIP = sumIP + factor
             enddo
           enddo
-          xspopex(Zix, Nix, nexout) = xspopex(Zix, Nix, nexout) + sumIP
-          xspopex(Zcomp, Ncomp, nex) = xspopex(Zcomp, Ncomp, nex) - sumIP
+          xspopex(nexout, Nix, Zix) = xspopex(nexout, Nix, Zix) + sumIP
+          xspopex(nex, Ncomp, Zcomp) = xspopex(nex, Ncomp, Zcomp) - sumIP
           mcontrib(type, nex, nexout) = mcontrib(type, nex, nexout) + sumIP
           sumIPE = sumIPE + sumIP
         endif
@@ -393,13 +396,13 @@ subroutine compound(Zcomp, Ncomp, nex, J2, parity)
       endif
     enddo
     if (flagfission .and. nfisbar(Zcomp, Ncomp) /= 0 .and. iloop == 2) &
-  &   xspopex(Zcomp, Ncomp, nex) = xspopex(Zcomp, Ncomp, nex) - fisfeed
+  &   xspopex(nex, Ncomp, Zcomp) = xspopex(nex, Ncomp, Zcomp) - fisfeed
 !
 ! ** Create feeding term for compound nucleus decay in the second loop *
 !
     if (iloop == 1) then
       if (denomhf /= 0.) then
-        feed = (1. - Dmulti(nex)) * xspop(Zcomp, Ncomp, nex, J, parity) / denomhf
+        feed = (1. - Dmulti(nex)) * xspop(J, parity, nex, Ncomp, Zcomp) / denomhf
       else
 !
 ! Prevent trapping of cross section in the continuum.
@@ -407,14 +410,14 @@ subroutine compound(Zcomp, Ncomp, nex, J2, parity)
 !
         NL = Nlast(Zcomp, Ncomp, 0)
         feed = 0.
-        leftover = xspop(Zcomp, Ncomp, nex, J, parity) / (NL + 1.)
-        xspartial(0, nex) = xspartial(0, nex) + xspop(Zcomp, Ncomp, nex, J, parity)
+        leftover = xspop(J, parity, nex, Ncomp, Zcomp) / (NL + 1.)
+        xspartial(0, nex) = xspartial(0, nex) + xspop(J, parity, nex, Ncomp, Zcomp)
         do nexout = 0, NL
-          xspopex(Zcomp, Ncomp, nexout) = xspopex(Zcomp, Ncomp, nexout) + leftover
+          xspopex(nexout, Ncomp, Zcomp) = xspopex(nexout, Ncomp, Zcomp) + leftover
           Ir = int(jdis(Zcomp, Ncomp, nexout))
           Pprime = parlev(Zcomp, Ncomp, nexout)
-          xspop(Zcomp, Ncomp, nexout, Ir, Pprime) = xspop(Zcomp, Ncomp, nexout, Ir, Pprime) + leftover
-          popdecay(0, nexout, Ir, Pprime) = popdecay(0, nexout, Ir, Pprime) + leftover
+          xspop(Ir, Pprime, nexout, Ncomp, Zcomp) = xspop(Ir, Pprime, nexout, Ncomp, Zcomp) + leftover
+          popdecay(Ir, Pprime, nexout, 0) = popdecay(Ir, Pprime, nexout, 0) + leftover
           mcontrib(0, nex, nexout) = mcontrib(0, nex, nexout) + leftover
         enddo
       endif
