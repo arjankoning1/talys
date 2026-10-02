@@ -121,7 +121,7 @@ subroutine rpevap
 !   do 130 nex=0,Nlast(Zix,Nix,0)
 !   if (nex.eq.0.or.tau(Zix,Nix,nex).ne.0.)
 !    +            xsfpex(iz,in,nex)=xsfpex(iz,in,nex)+
-!    +            xspopex(Zix,Nix,nex)
+!    +            xspopex(nex, Nix, Zix)
 ! 130         continue
 ! 120       continue
 ! 110     continue
