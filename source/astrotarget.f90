@@ -158,7 +158,7 @@ subroutine astrotarget
       Pbeg = - 1
       Pend = 1
       spin2beg = mod(int(2 * jdis(Zixtarget, Nixtarget, 0)), 2)
-      spin2end = 2 * maxJ(Zixtarget, Nixtarget, nexastro)
+      spin2end = 2 * maxJ(nexastro, Nixtarget, Zixtarget)
     endif
 !
 ! Loop over target parity
@@ -249,7 +249,7 @@ subroutine astrotarget
                   J2res = J2 + parspin2o
                   Irspin2beg = mod(J2res, 2)
                   Irspin2end = J2res + l2maxhf
-                  Irspin2end = min(Irspin2end, 2 * maxJ(Zix, Nix, nexout))
+                  Irspin2end = min(Irspin2end, 2 * maxJ(nexout, Nix, Zix))
                 endif
                 sumIP = 0.
                 sumIPas = 0.
@@ -298,11 +298,11 @@ subroutine astrotarget
                       endif
                     endif
                     compterm = CNfactor * (J2 + 1.) * factor1
-                    xspop(Zix, Nix, nexout, Ir, Pprime) = xspop(Zix, Nix, nexout, Ir, Pprime) + compterm
+                    xspop(Ir, Pprime, nexout, Nix, Zix) = xspop(Ir, Pprime, nexout, Nix, Zix) + compterm
                     sumIP = sumIP + compterm
                   enddo
                 enddo
-                xspopex(Zix, Nix, nexout) = xspopex(Zix, Nix, nexout) + sumIP
+                xspopex(nexout, Nix, Zix) = xspopex(nexout, Nix, Zix) + sumIP
                 if (nexout > NL) then
                   xscompcont(type) = xscompcont(type) + sumIP
                   contrib(type, nexout) = contrib(type, nexout) + sumIP
