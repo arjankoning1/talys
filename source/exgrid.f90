@@ -162,7 +162,7 @@ subroutine exgrid(Zcomp, Ncomp)
     NL = Nlast(Zix, Nix, 0)
     if (maxex(Zix, Nix) /= 0) cycle
     do nex = 0, nexalloc
-      deltaEx(Zix, Nix, nex) = 0.
+      deltaEx(nex, Nix, Zix) = 0.
     enddo
     if (Qres(Zix, Nix, 0) == 0.) then
       Edif = Exmax0(Zix, Nix) - Etotal
@@ -184,11 +184,11 @@ subroutine exgrid(Zcomp, Ncomp)
         maxex(Zix, Nix) = nex - 1
         goto 180
       endif
-      Ex(Zix, Nix, nex) = edis(Zix, Nix, nex)
+      Ex(nex, Nix, Zix) = edis(Zix, Nix, nex)
       if (nex > 0) then
-        deltaEx(Zix, Nix, nex) = 0.5 * (edis(Zix, Nix, min(NL, nex + 1)) - edis(Zix, Nix, nex - 1))
+        deltaEx(nex, Nix, Zix) = 0.5 * (edis(Zix, Nix, min(NL, nex + 1)) - edis(Zix, Nix, nex - 1))
       else
-        deltaEx(Zix, Nix, nex) = 0.5 * edis(Zix, Nix, 1)
+        deltaEx(nex, Nix, Zix) = 0.5 * edis(Zix, Nix, 1)
       endif
     enddo
 !
@@ -205,7 +205,7 @@ subroutine exgrid(Zcomp, Ncomp)
       endif
     endif
     nexbins = max(nexbins, 2)
-    eb = Ex(Zix, Nix, NL)
+    eb = Ex(NL, Nix, Zix)
     ee = max(Exmax(Zix, Nix), eb + 0.001)
     if (flagequi .or. eb == 0.) then
       do i = 0, nexbins
@@ -220,11 +220,11 @@ subroutine exgrid(Zcomp, Ncomp)
     endif
     do i = 1, nexbins
       nex = NL + i
-      Ex(Zix, Nix, nex) = 0.5 * (Eup(i - 1) + Eup(i))
-      deltaEx(Zix, Nix, nex) = Eup(i) - Eup(i - 1)
+      Ex(nex, Nix, Zix) = 0.5 * (Eup(i - 1) + Eup(i))
+      deltaEx(nex, Nix, Zix) = Eup(i) - Eup(i - 1)
     enddo
     maxex(Zix, Nix) = NL + nexbins
-    if (Zix == 0 .and. Nix == 0) Ex(0, 0, maxex(0, 0) + 1) = Etotal
+    if (Zix == 0 .and. Nix == 0) Ex(maxex(0, 0) + 1, 0, 0) = Etotal
   180   nexmax(type) = maxex(Zix, Nix)
 !
 ! ****** Determine level densities on basic excitation energy grid *****
@@ -239,8 +239,8 @@ subroutine exgrid(Zcomp, Ncomp)
     ald = real(A) / 8.
     ldmod = ldmodel(Zix, Nix)
     do nex = NL + 1, maxex(Zix, Nix)
-      dEx = deltaEx(Zix, Nix, nex)
-      Exout = Ex(Zix, Nix, nex)
+      dEx = deltaEx(nex, Nix, Zix)
+      Exout = Ex(nex, Nix, Zix)
       Ex1min = Exout - 0.5 * dEx
       Ex1plus = Exout + 0.5 * dEx
 !
@@ -252,8 +252,8 @@ subroutine exgrid(Zcomp, Ncomp)
       else
         ipop=0
       endif
-      maxJ(Zix, Nix, nex) = int(4.+ 3. * sqrt(spincut(Zix, Nix, ald, Exout, 0, ipop)))
-      maxJ(Zix, Nix, nex) = min(maxJ(Zix, Nix, nex), numJ)
+      maxJ(nex, Nix, Zix) = int(4.+ 3. * sqrt(spincut(Zix, Nix, ald, Exout, 0, ipop)))
+      maxJ(nex, Nix, Zix) = min(maxJ(nex, Nix, Zix), numJ)
 !
 ! In the compound nucleus subroutines, the particle widths are determined by means of products of level densities and transmission
 ! coefficients.
@@ -269,7 +269,7 @@ subroutine exgrid(Zcomp, Ncomp)
         Pbeg = 1
       endif
       do Pprime = Pbeg, 1, 2
-        do Ir = 0, maxJ(Zix, Nix, nex)
+        do Ir = 0, maxJ(nex, Nix, Zix)
           Rspin = real(Ir) + Rodd
           rho1 = density(Zix, Nix, Ex1min, Rspin, Pprime, 0, ldmod) * (1. + 1.d-10)
           rho2 = density(Zix, Nix, Exout, Rspin, Pprime, 0, ldmod)
@@ -278,11 +278,11 @@ subroutine exgrid(Zcomp, Ncomp)
           r2log = log(rho2)
           r3log = log(rho3)
           if (r2log /= r1log .and. r2log /= r3log) then
-            rhogrid(Zix, Nix, nex, Ir, Pprime) = 0.5 * dEx * ((rho1 - rho2) / (r1log - r2log) + (rho2 - rho3) / (r2log - r3log))
+            rhogrid(Ir, Pprime, nex, Nix, Zix) = 0.5 * dEx * ((rho1 - rho2) / (r1log - r2log) + (rho2 - rho3) / (r2log - r3log))
           else
-            rhogrid(Zix, Nix, nex, Ir, Pprime) = dEx * rho2
+            rhogrid(Ir, Pprime, nex, Nix, Zix) = dEx * rho2
           endif
-          if ( .not. flagparity) rhogrid(Zix, Nix, nex, Ir, - 1) = rhogrid(Zix, Nix, nex, Ir, 1)
+          if ( .not. flagparity) rhogrid(Ir, - 1, nex, Nix, Zix) = rhogrid(Ir, 1, nex, Nix, Zix)
         enddo
       enddo
     enddo
