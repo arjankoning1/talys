@@ -227,8 +227,8 @@ subroutine binaryrecoil
         iex1 = 0
         iex2 = 0
         do iex = 0, maxex(Zix, Nix)
-          if (Exrec1 >= Ex(Zix, Nix, iex)) iex1 = iex
-          if (Exrec2 >= Ex(Zix, Nix, iex)) iex2 = iex
+          if (Exrec1 >= Ex(iex, Nix, Zix)) iex1 = iex
+          if (Exrec2 >= Ex(iex, Nix, Zix)) iex2 = iex
         enddo
         iexmin = min(iex1, iex2)
         iexmax = max(iex1, iex2)
