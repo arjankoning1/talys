@@ -117,8 +117,8 @@ subroutine compemission(Zcomp, Ncomp)
 ! The bin in which this Exm falls is denoted by nexmax.
 !
   do nex = maxex(Zcomp, Ncomp), Nlast(Zcomp, Ncomp, 0) + 1, - 1
-    Exinc = Ex(Zcomp, Ncomp, nex)
-    dExinc = deltaEx(Zcomp, Ncomp, nex)
+    Exinc = Ex(nex, Ncomp, Zcomp)
+    dExinc = deltaEx(nex, Ncomp, Zcomp)
     Ex0plus = Exinc + 0.5 * dExinc
     Ex0min = Exinc - 0.5 * dExinc
 Loop1:    do type = 0, 6
@@ -128,8 +128,8 @@ Loop1:    do type = 0, 6
       Exm = Ex0plus - S(Zcomp, Ncomp, type)
       if (type > 1) Exm = Exm - egrid(ebegin(type))
       do nexout = maxex(Zix, Nix), 0, - 1
-        dEx = deltaEx(Zix, Nix, nexout)
-        Exmin = Ex(Zix, Nix, nexout) - 0.5 * dEx
+        dEx = deltaEx(nexout, Nix, Zix)
+        Exmin = Ex(nexout, Nix, Zix) - 0.5 * dEx
         if (Exmin < Exm) then
           nexmax(type) = nexout
           cycle Loop1
@@ -158,8 +158,8 @@ Loop1:    do type = 0, 6
       do nexout = 0, nexmax(type)
         if (nexout == 0 .and. NL == 0) cycle
         if (mcontrib(type, nex, nexout) <= speceps) cycle
-        Exout = Ex(Zix, Nix, nexout)
-        dEx = deltaEx(Zix, Nix, nexout)
+        Exout = Ex(nexout, Nix, Zix)
+        dEx = deltaEx(nexout, Nix, Zix)
 !
 ! Decay from continuum to continuum.
 ! For most residual continuum bins, no special care needs to be taken and the emission energy Eout that characterizes
