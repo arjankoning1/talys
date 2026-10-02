@@ -193,9 +193,9 @@ subroutine densprepare(Zcomp, Ncomp, idfis)
 ! The end points need to be taken care of by a proper normalization.
 !
     do nexout = 0, nexmax(type)
-      dEx = deltaEx(Zix, Nix, nexout)
+      dEx = deltaEx(nexout, Nix, Zix)
       dExhalf = 0.5 * dEx
-      Exout = Ex(Zix, Nix, nexout)
+      Exout = Ex(nexout, Nix, Zix)
       Rboundary = 1.
 !
 ! Types 1 and 2. Decay from the primary compound nucleus.
@@ -279,8 +279,8 @@ subroutine densprepare(Zcomp, Ncomp, idfis)
 ! For decay to the continuum we use a spin and parity dependent level density.
 !
         do Pprime = - 1, 1, 2
-          do Ir = 0, maxJ(Zix, Nix, nexout)
-            rho0(Ir, Pprime, type, nexout) = Rboundary * rhogrid(Zix, Nix, nexout, Ir, Pprime)
+          do Ir = 0, maxJ(nexout, Nix, Zix)
+            rho0(Ir, Pprime, type, nexout) = Rboundary * rhogrid(Ir, Pprime, nexout, Nix, Zix)
           enddo
         enddo
       endif
@@ -298,7 +298,7 @@ subroutine densprepare(Zcomp, Ncomp, idfis)
         do l = 0, gammax
           do irad = 0, 1
             do Pprime = - 1, 1, 2
-              do Ir = 0, maxJ(Zix, Nix, nexout)
+              do Ir = 0, maxJ(nexout, Nix, Zix)
                 Tgam(l, nexout, irad, Ir, Pprime) = 0.
               enddo
             enddo
@@ -309,7 +309,7 @@ subroutine densprepare(Zcomp, Ncomp, idfis)
           do irad = 0, 1
             x = twopi * (Egamma **(2 * l + 1)) * fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l, 0, 0) * Fnorm(0)
             do Pprime = - 1, 1, 2
-              do Ir = 0, maxJ(Zix, Nix, nexout)
+              do Ir = 0, maxJ(nexout, Nix, Zix)
                 Tgam(l, nexout, irad, Ir, Pprime) = x
               enddo
             enddo
@@ -408,7 +408,7 @@ subroutine densprepare(Zcomp, Ncomp, idfis)
         if (primary) then
           exfis = Exinc - fecont(Zcomp, Ncomp, ibar)
         else
-          exfis = Ex(Zcomp, Ncomp, maxex(Zcomp, Ncomp)) - fecont(Zcomp, Ncomp, ibar)
+          exfis = Ex(maxex(Zcomp, Ncomp), Ncomp, Zcomp) - fecont(Zcomp, Ncomp, ibar)
         endif
         nbintfis(ibar) = numbinfis / 2
         if (exfis <= 0.) cycle
