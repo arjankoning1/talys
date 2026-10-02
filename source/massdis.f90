@@ -338,7 +338,7 @@ subroutine massdis
             cycle
           endif
           if (nex - istep + 1 < 0) cycle
-          if (Ex(Zcomp, Ncomp, nex - istep + 1) >= 30.) then
+          if (Ex(nex - istep + 1, Ncomp, Zcomp) >= 30.) then
             partfisxs = 0.
             do J = 0, numJ
               partfisJ(J) = 0.
@@ -354,13 +354,13 @@ subroutine massdis
             if (partfisxs /= 0) then
               excfis = 0.
               do i = 0, istep - 1
-                excfis = excfis + fisfeedex(Zcomp, Ncomp, nex - i) * Ex(Zcomp, Ncomp, nex - i)
+                excfis = excfis + fisfeedex(Zcomp, Ncomp, nex - i) * Ex(nex - i, Ncomp, Zcomp)
               enddo
               excfis = excfis / partfisxs
             endif
             iskip = 1
           else
-            excfis = Ex(Zcomp, Ncomp, nex)
+            excfis = Ex(nex, Ncomp, Zcomp)
             partfisxs = fisfeedex(Zcomp, Ncomp, nex)
             do J = 0, numJ
               partfisJ(J) = 0.
@@ -400,8 +400,8 @@ subroutine massdis
 ! GEF + TALYS evaporation
 !
           if (fymodel == 3 .and. A <= 350) then
-            fisepsB = fisepsA / (5 * maxJ(Zcomp, Ncomp, nex)) * 0.5
-            do J = 0, maxJ(Zcomp, Ncomp, nex)
+            fisepsB = fisepsA / (5 * maxJ(nex, Ncomp, Zcomp)) * 0.5
+            do J = 0, maxJ(nex, Ncomp, Zcomp)
               if (partfisJ(J) < fisepsB) cycle
               Jfis = real(J) + 0.5 * odd
               call gefsub(Z, A, excfis, Jfis)
