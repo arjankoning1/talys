@@ -548,7 +548,7 @@ subroutine comptarget
                 J2res = J2 + parspin2o
                 Irspin2beg = mod(J2res, 2)
                 Irspin2end = J2res + l2maxhf
-                Irspin2end = min(Irspin2end, 2 * maxJ(Zix, Nix, nexout))
+                Irspin2end = min(Irspin2end, 2 * maxJ(nexout, Nix, Zix))
               endif
               sumIP = 0.
               if (flagastro) sumIPas = 0.
@@ -695,18 +695,18 @@ subroutine comptarget
 !
                     enddo
                   enddo
-                  xspop(Zix, Nix, nexout, Ir, Pprime) = xspop(Zix, Nix, nexout, Ir, Pprime) + sumjl
+                  xspop(Ir, Pprime, nexout, Nix, Zix) = xspop(Ir, Pprime, nexout, Nix, Zix) + sumjl
                   sumIP = sumIP + sumjl
                   if (flagpop) then
-                    xspopnucP(Zix, Nix, Pprime) = xspopnucP(Zix, Nix, Pprime) + sumjl
-                    xspopexP(Zix, Nix, nexout, Pprime) = xspopexP(Zix, Nix, nexout, Pprime) + sumjl
-                    popdecay(type, nexout, Ir, Pprime) = popdecay(type, nexout, Ir, Pprime) + sumjl
-                    partdecay(type, Pprime) = partdecay(type, Pprime) + sumjl
+                    xspopnucP(Pprime, Nix, Zix) = xspopnucP(Pprime, Nix, Zix) + sumjl
+                    xspopexP(nexout, Pprime, Nix, Zix) = xspopexP(nexout, Pprime, Nix, Zix) + sumjl
+                    popdecay(Ir, Pprime, nexout, type) = popdecay(Ir, Pprime, nexout, type) + sumjl
+                    partdecay(Pprime, type) = partdecay(Pprime, type) + sumjl
                     partdecaytot(type) = partdecaytot(type) + sumjl
                   endif
                 enddo
               enddo
-              xspopex(Zix, Nix, nexout) = xspopex(Zix, Nix, nexout) + sumIP
+              xspopex(nexout, Nix, Zix) = xspopex(nexout, Nix, Zix) + sumIP
               if (nexout > NL) then
                 xscompcont(type) = xscompcont(type) + sumIP
                 contrib(type, nexout) = contrib(type, nexout) + sumIP
@@ -769,10 +769,10 @@ subroutine comptarget
             Ares = AA(Zcomp, Ncomp, type)
             oddres = mod(Ares, 2)
             do Pprime = - 1, 1, 2
-              write(*,'(/" Total Pprime=",i2,":",es10.3," via ",a8," emission"/)') Pprime,partdecay(type,Pprime),parname(type)
+              write(*,'(/" Total Pprime=",i2,":",es10.3," via ",a8," emission"/)') Pprime,partdecay(Pprime, type),parname(type)
               write(*, '(" bin    Ex", 10("    J=", f4.1)/)') (Ir + 0.5 * oddres, Ir = 0, 9)
               do nexout = 0, maxex(Zix, Nix)
-                write(*, '(1x, i3, f8.3, 10es10.3)') nexout, Ex(Zix, Nix, nexout), (popdecay(type, nexout, Ir, Pprime), Ir = 0, 9)
+                write(*, '(1x, i3, f8.3, 10es10.3)') nexout, Ex(nexout, Nix, Zix), (popdecay(Ir, Pprime, nexout, type), Ir = 0, 9)
               enddo
             enddo
           enddo
