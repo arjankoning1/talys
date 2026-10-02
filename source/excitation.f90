@@ -167,15 +167,15 @@ subroutine excitation
 !
   NL = Nlast(Zcomp, Ncomp, 0)
   do nex = 0, maxex(Zcomp, Ncomp)
-    Eex = Ex(Zcomp, Ncomp, nex)
+    Eex = Ex(nex, Ncomp, Zcomp)
     if (nex <= NL) then
-      Eexmin = Ex(Zcomp, Ncomp, max(nex - 1, 0))
+      Eexmin = Ex(max(nex - 1, 0), Ncomp, Zcomp)
       Eexlow(nex) = 0.5 * (Eex + Eexmin)
-      Eexmax = Ex(Zcomp, Ncomp, min(nex + 1, maxex(Zcomp, Ncomp)))
+      Eexmax = Ex(min(nex + 1, maxex(Zcomp, Ncomp)), Ncomp, Zcomp)
       Eexup(nex) = 0.5 * (Eex + Eexmax)
     else
-      Eexlow(nex) = Eex - 0.5 * deltaEx(Zcomp, Ncomp, nex)
-      Eexup(nex) = Eex + 0.5 * deltaEx(Zcomp, Ncomp, nex)
+      Eexlow(nex) = Eex - 0.5 * deltaEx(nex, Ncomp, Zcomp)
+      Eexup(nex) = Eex + 0.5 * deltaEx(nex, Ncomp, Zcomp)
     endif
   enddo
 !
@@ -186,12 +186,12 @@ subroutine excitation
   nex0 = maxex(Zcomp, Ncomp) + 1
   sumPex = 0.
   do nex = 0, maxex(Zcomp, Ncomp)
-    Eex = Ex(Zcomp, Ncomp, nex)
-    dEx = deltaEx(Zcomp, Ncomp, nex)
+    Eex = Ex(nex, Ncomp, Zcomp)
+    dEx = deltaEx(nex, Ncomp, Zcomp)
     if ( .not. flagpopMeV) then
       Pex(nex) = 0.
       do parity = - 1, 1, 2
-        do J = 0, maxJ(Zcomp, Ncomp, nex)
+        do J = 0, maxJ(nex, Ncomp, Zcomp)
           PexJP(nex, J, parity) = 0.
         enddo
       enddo
@@ -209,7 +209,7 @@ subroutine excitation
         Pex(nex) = Pex(nex) + frac * PdistE(nen)
         if (npopJ > 0 .and. nex > NL) then
           do parity = - 1, 1, 2
-            do J = 0, maxJ(Zcomp, Ncomp, nex)
+            do J = 0, maxJ(nex, Ncomp, Zcomp)
               PexJP(nex, J, parity) = PexJP(nex, J, parity) + frac * PdistJP(nen, J, parity)
             enddo
           enddo
@@ -223,11 +223,11 @@ subroutine excitation
         if (npopJ == 0) then
           do parity = - 1, 1, 2
             normJ = 0.
-            do J = 0, maxJ(Zcomp,Ncomp,nex)
+            do J = 0, maxJ(nex, Ncomp, Zcomp)
               Rspin = real(J) + 0.5 * odd
               normJ = normJ + spindis(sc, Rspin)
             enddo
-            do J = 0, maxJ(Zcomp, Ncomp, nex)
+            do J = 0, maxJ(nex, Ncomp, Zcomp)
               Rspin = real(J) + 0.5 * odd
               PexJP(nex, J, parity) = Pex(nex) * pardis * spindis(sc, Rspin) / normJ
             enddo
@@ -246,7 +246,7 @@ subroutine excitation
         call pol1(Ea, Eb, Pa, Pb, Eex, Probex)
       endif
       do parity = - 1, 1, 2
-        do J = 0, maxJ(Zcomp, Ncomp, nex)
+        do J = 0, maxJ(nex, Ncomp, Zcomp)
           Rspin = real(J) + 0.5 * odd
           if (nex <= NL .and. (jdis(Zcomp, Ncomp, nex) /= J .or. parlev(Zcomp, Ncomp, nex) /= parity)) cycle
           if (npopJ == 0) then
@@ -256,14 +256,14 @@ subroutine excitation
             Pb = PdistJP(nen + 1, J, parity)
             call pol1(Ea, Eb, Pa, Pb, Eex, Prob)
           endif
-          xspop(Zcomp, Ncomp, nex, J, parity) = Prob * dEx
-          xspopex(Zcomp, Ncomp, nex) = xspopex(Zcomp, Ncomp, nex) + xspop(Zcomp, Ncomp, nex, J, parity)
-          xspopexP(Zcomp, Ncomp, nex, parity) = xspopexP(Zcomp, Ncomp, nex, parity) + xspop(Zcomp, Ncomp, nex, J, parity)
+          xspop(J, parity, nex, Ncomp, Zcomp) = Prob * dEx
+          xspopex(nex, Ncomp, Zcomp) = xspopex(nex, Ncomp, Zcomp) + xspop(J, parity, nex, Ncomp, Zcomp)
+          xspopexP(nex, parity, Ncomp, Zcomp) = xspopexP(nex, parity, Ncomp, Zcomp) + xspop(J, parity, nex, Ncomp, Zcomp)
         enddo
-        xspopnucP(Zcomp, Ncomp, parity) = xspopnucP(Zcomp, Ncomp, parity) + xspopexP(Zcomp, Ncomp, nex, parity)
+        xspopnucP(parity, Ncomp, Zcomp) = xspopnucP(parity, Ncomp, Zcomp) + xspopexP(nex, parity, Ncomp, Zcomp)
       enddo
-      xspopnuc(Zcomp, Ncomp) = xspopnuc(Zcomp, Ncomp) + xspopex(Zcomp, Ncomp, nex)
-      if (flagchannels) feedexcl(Zcomp, Ncomp, 0, nex0, nex) = xspopex(Zcomp, Ncomp, nex)
+      xspopnuc(Zcomp, Ncomp) = xspopnuc(Zcomp, Ncomp) + xspopex(nex, Ncomp, Zcomp)
+      if (flagchannels) feedexcl(Zcomp, Ncomp, 0, nex0, nex) = xspopex(nex, Ncomp, Zcomp)
     endif
   enddo
   if ( .not. flagpopMeV .and. sumPex > 0.) then
@@ -271,24 +271,24 @@ subroutine excitation
     sumJP = 0.
     do nex = 0, maxex(Zcomp, Ncomp)
       do parity = - 1, 1, 2
-        do J = 0, maxJ(Zcomp, Ncomp, nex)
-          xspop(Zcomp, Ncomp, nex, J, parity) = PexJP(nex, J, parity) / factor
-          sumJP = sumJP + xspop(Zcomp, Ncomp, nex, J, parity)
+        do J = 0, maxJ(nex, Ncomp, Zcomp)
+          xspop(J, parity, nex, Ncomp, Zcomp) = PexJP(nex, J, parity) / factor
+          sumJP = sumJP + xspop(J, parity, nex, Ncomp, Zcomp)
         enddo
       enddo
     enddo
     do nex = 0, maxex(Zcomp, Ncomp)
       factor = sumJP / xsinputpop
       do parity = - 1, 1, 2
-        do J = 0, maxJ(Zcomp, Ncomp, nex)
-          xspopex(Zcomp, Ncomp, nex) = xspopex(Zcomp, Ncomp, nex) + xspop(Zcomp, Ncomp, nex, J, parity) / factor
-          xspopexP(Zcomp, Ncomp, nex, parity) = xspopexP(Zcomp, Ncomp, nex, parity) + &
-            xspop(Zcomp, Ncomp, nex, J, parity) / factor
+        do J = 0, maxJ(nex, Ncomp, Zcomp)
+          xspopex(nex, Ncomp, Zcomp) = xspopex(nex, Ncomp, Zcomp) + xspop(J, parity, nex, Ncomp, Zcomp) / factor
+          xspopexP(nex, parity, Ncomp, Zcomp) = xspopexP(nex, parity, Ncomp, Zcomp) + &
+            xspop(J, parity, nex, Ncomp, Zcomp) / factor
         enddo
-        xspopnucP(Zcomp, Ncomp, parity) = xspopnucP(Zcomp, Ncomp, parity) + xspopexP(Zcomp, Ncomp, nex, parity)
+        xspopnucP(parity, Ncomp, Zcomp) = xspopnucP(parity, Ncomp, Zcomp) + xspopexP(nex, parity, Ncomp, Zcomp)
       enddo
-      xspopnuc(Zcomp, Ncomp) = xspopnuc(Zcomp, Ncomp) + xspopex(Zcomp, Ncomp, nex)
-      if (flagchannels) feedexcl(Zcomp, Ncomp, 0, nex0, nex) = xspopex(Zcomp, Ncomp, nex)
+      xspopnuc(Zcomp, Ncomp) = xspopnuc(Zcomp, Ncomp) + xspopex(nex, Ncomp, Zcomp)
+      if (flagchannels) feedexcl(Zcomp, Ncomp, 0, nex0, nex) = xspopex(nex, Ncomp, Zcomp)
     enddo
   endif
 !
@@ -300,25 +300,25 @@ subroutine excitation
     do parity = - 1, 1, 2
       if (npopJ == 0) then
         normJ = 0.
-        do J = 0, maxJ(Zcomp,Ncomp,nex)
+        do J = 0, maxJ(nex, Ncomp, Zcomp)
           Rspin = real(J) + 0.5 * odd
           normJ = normJ + spindis(sc, Rspin)
         enddo
       endif
-      do J = 0, maxJ(Zcomp, Ncomp, nex)
+      do J = 0, maxJ(nex, Ncomp, Zcomp)
         if (npopJ == 0) then
           Rspin = real(J) + 0.5 * odd
-          xspop(Zcomp, Ncomp, nex, J, parity) = PdistE(1) * spindis(sc, Rspin) * pardis / normJ
+          xspop(J, parity, nex, Ncomp, Zcomp) = PdistE(1) * spindis(sc, Rspin) * pardis / normJ
         else
-          xspop(Zcomp, Ncomp, nex, J, parity) = PdistJP(1, J, parity)
+          xspop(J, parity, nex, Ncomp, Zcomp) = PdistJP(1, J, parity)
         endif
-        xspopex(Zcomp, Ncomp, nex) = xspopex(Zcomp, Ncomp, nex) + xspop(Zcomp, Ncomp, nex, J, parity)
-        xspopexP(Zcomp, Ncomp, nex, parity) = xspopexP(Zcomp, Ncomp, nex, parity) + xspop(Zcomp, Ncomp, nex, J, parity)
+        xspopex(nex, Ncomp, Zcomp) = xspopex(nex, Ncomp, Zcomp) + xspop(J, parity, nex, Ncomp, Zcomp)
+        xspopexP(nex, parity, Ncomp, Zcomp) = xspopexP(nex, parity, Ncomp, Zcomp) + xspop(J, parity, nex, Ncomp, Zcomp)
       enddo
-      xspopnucP(Zcomp, Ncomp, parity) = xspopnucP(Zcomp, Ncomp, parity) + xspopexP(Zcomp, Ncomp, nex, parity)
+      xspopnucP(parity, Ncomp, Zcomp) = xspopnucP(parity, Ncomp, Zcomp) + xspopexP(nex, parity, Ncomp, Zcomp)
     enddo
-    xspopnuc(Zcomp, Ncomp) = xspopnuc(Zcomp, Ncomp) + xspopex(Zcomp, Ncomp, nex)
-    if (flagchannels) feedexcl(Zcomp, Ncomp, 0, nex0, nex) = xspopex(Zcomp, Ncomp, nex)
+    xspopnuc(Zcomp, Ncomp) = xspopnuc(Zcomp, Ncomp) + xspopex(nex, Ncomp, Zcomp)
+    if (flagchannels) feedexcl(Zcomp, Ncomp, 0, nex0, nex) = xspopex(nex, Ncomp, Zcomp)
   endif
   xsinitpop = xspopnuc(Zcomp, Ncomp)
   popexcl(Zcomp, Ncomp, nex0) = xsinitpop
