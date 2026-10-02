@@ -196,8 +196,8 @@ subroutine racap
       xsracapecont = xsracapecont + xspex(i) * 1000.0
       do nex = nlevexpracap, maxex(0, 0)
 !   spectfac(0,0,nex)=spfacst(i)
-        if (exfin(i) < Ex(0, 0, nex) + deltaEx(0, 0, nex) / 2..and. &
-          exfin(i) >= Ex(0, 0, nex) - deltaEx(0, 0, nex) / 2.) then
+        if (exfin(i) < Ex(nex, 0, 0) + deltaEx(nex, 0, 0) / 2..and. &
+          exfin(i) >= Ex(nex, 0, 0) - deltaEx(nex, 0, 0) / 2.) then
           xsracappopex(nex) = xsracappopex(nex) + xspex(i) * 1000.0
           do J = 0, numJph
           do parity = - 1, 1, 2
