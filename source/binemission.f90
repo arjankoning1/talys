@@ -103,8 +103,8 @@ subroutine binemission
     SS = S(0, 0, type)
     if (maxex(Zix, Nix) <= NL) cycle
     do nexout = NL + 1, maxex(Zix, Nix)
-      dEx = deltaEx(Zix, Nix, nexout)
-      Exout = Ex(Zix, Nix, nexout)
+      dEx = deltaEx(nexout, Nix, Zix)
+      Exout = Ex(nexout, Nix, Zix)
       Eo(nexout) = Exinc - SS - Exout
       xsMeV(nexout) = contrib(type, nexout) / dEx
     enddo
@@ -112,7 +112,7 @@ subroutine binemission
 ! To avoid unphysical interpolations, the contribution for the last discrete level is temporarily set to that of the first
 ! continuum bin.
 !
-    Eo(NL) = Exinc - SS - Ex(Zix, Nix, NL)
+    Eo(NL) = Exinc - SS - Ex(NL, Nix, Zix)
     xsMeV(NL) = xsMeV(NL + 1)
     xsMeV(maxex(Zix, Nix) + 1) = 0.
     do nen = ebegin(type), eend(type)
@@ -176,7 +176,7 @@ subroutine binemission
 !
     if (flagchannels) then
       do nexout = NL + 1, maxex(Zix, Nix)
-        dEx = deltaEx(Zix, Nix, nexout)
+        dEx = deltaEx(nexout, Nix, Zix)
         emin = Eo(nexout) - 0.5 * dEx
         emax = Eo(nexout) + 0.5 * dEx
         call locate(Ebottom, ebegin(type), eend(type), emin, nenbeg)
