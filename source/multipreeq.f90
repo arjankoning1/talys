@@ -206,8 +206,8 @@ subroutine multipreeq(Zcomp, Ncomp, nex)
 ! locate    : subroutine to find value in ordered table
 !
       do nexout = Nlast(Zix, Nix, 0) + 1, nexmax(type)
-        dEx = deltaEx(Zix, Nix, nexout)
-        Eex = Ex(Zix, Nix, nexout)
+        dEx = deltaEx(nexout, Nix, Zix)
+        Eex = Ex(nexout, Nix, Zix)
         Eo = Exinc - Eex - S(Zcomp, Ncomp, type)
         call locate(egrid, ebegin(type), eend(type), Eo, nen)
         if (mpreeqmode == 2) then
@@ -221,7 +221,7 @@ subroutine multipreeq(Zcomp, Ncomp, nex)
           Pescape = proba * Tswave
           if (nexout == nexmax(type)) then
             Exm = Exinc + 0.5 * dExinc - S(Zcomp, Ncomp, type)
-            Exmin = Ex(Zix, Nix, nexout) - 0.5 * dEx
+            Exmin = Ex(nexout, Nix, Zix) - 0.5 * dEx
             dEx = Exm - Exmin
           endif
           term(type, nexout) = feedph * Pescape * dEx
@@ -274,14 +274,14 @@ subroutine multipreeq(Zcomp, Ncomp, nex)
         endif
         mcontrib(type, nex, nexout) = mcontrib(type, nex, nexout) + term(type, nexout)
         mpecontrib(type, nex, nexout) = mpecontrib(type, nex, nexout) + term(type, nexout)
-        xspopex(Zix, Nix, nexout) = xspopex(Zix, Nix, nexout) + term(type, nexout)
-        preeqpopex(Zix, Nix, nexout) = preeqpopex(Zix, Nix, nexout) + term(type, nexout)
+        xspopex(nexout, Nix, Zix) = xspopex(nexout, Nix, Zix) + term(type, nexout)
+        preeqpopex(nexout, Nix, Zix) = preeqpopex(nexout, Nix, Zix) + term(type, nexout)
         do parity = - 1, 1, 2
-          do J = 0, maxJ(Zix, Nix, nexout)
+          do J = 0, maxJ(nexout, Nix, Zix)
             Jterm = 0.5 * (2 * J + 1) * RnJ(2, J) / RnJsum(2) * term(type, nexout)
-            xspop(Zix, Nix, nexout, J, parity) = xspop(Zix, Nix, nexout, J, parity) + Jterm
-            popdecay(type, nexout, J, parity) = popdecay(type, nexout, J, parity) + Jterm
-            preeqpop(Zix, Nix, nexout, J, parity) = preeqpop(Zix, Nix, nexout, J, parity) + Jterm
+            xspop(J, parity, nexout, Nix, Zix) = xspop(J, parity, nexout, Nix, Zix) + Jterm
+            popdecay(J, parity, nexout, type) = popdecay(J, parity, nexout, type) + Jterm
+            preeqpop(J, parity, nexout, Nix, Zix) = preeqpop(J, parity, nexout, Nix, Zix) + Jterm
           enddo
         enddo
       enddo
@@ -309,9 +309,9 @@ subroutine multipreeq(Zcomp, Ncomp, nex)
 !
 ! ************************ Normalization *******************************
 !
-  Dmulti(nex) = summpe / xspopex(Zcomp, Ncomp, nex)
-  xspopex(Zcomp, Ncomp, nex) = xspopex(Zcomp, Ncomp, nex) - summpe
-  preeqpopex(Zcomp, Ncomp, nex) = preeqpopex(Zcomp, Ncomp, nex) - summpe
+  Dmulti(nex) = summpe / xspopex(nex, Ncomp, Zcomp)
+  xspopex(nex, Ncomp, Zcomp) = xspopex(nex, Ncomp, Zcomp) - summpe
+  preeqpopex(nex, Ncomp, Zcomp) = preeqpopex(nex, Ncomp, Zcomp) - summpe
   return
 end subroutine multipreeq
 ! Copyright A.J. Koning 2021
