@@ -64,7 +64,7 @@ subroutine residual
         xsmassprod(Acomp) = xsmassprod(Acomp) + xspopnuc(Zcomp, Ncomp)
         do nex = 0, Nlast(Zcomp, Ncomp, 0)
           if (nex == 0 .or. tau(Zcomp, Ncomp, nex) /= 0.) &
- &          xsbranch(Zcomp, Ncomp, nex) = xspopex(Zcomp, Ncomp, nex) / xspopnuc(Zcomp, Ncomp)
+ &          xsbranch(Zcomp, Ncomp, nex) = xspopex(nex, Ncomp, Zcomp) / xspopnuc(Zcomp, Ncomp)
         enddo
       endif
 !
@@ -77,7 +77,7 @@ subroutine residual
          xsastro(Zcomp, Ncomp, nin) = xspopnuc(Zcomp, Ncomp)
          do nex = 0, Nlast(Zcomp, Ncomp, 0)
            if (nex == 0 .or. tau(Zcomp, Ncomp, nex) /= 0.) &
-             xsastroex(Zcomp, Ncomp, nin, nex) = xspopex(Zcomp, Ncomp, nex)
+             xsastroex(Zcomp, Ncomp, nin, nex) = xspopex(nex, Ncomp, Zcomp)
          enddo
        endif
     enddo
