@@ -135,13 +135,13 @@ subroutine residualout
       Z = ZZ(Zcomp, Ncomp, 0)
       A = AA(Zcomp, Ncomp, 0)
       write(*, '(1x, 2i4, " (", i3, a2, ")", es12.5, "    0   ", es12.5, f9.5)') Z, A, A, nuc(Z), xspopnuc(Zcomp, Ncomp), &
- &      xspopex(Zcomp, Ncomp, 0), xsbranch(Zcomp, Ncomp, 0)
+ &      xspopex(0, Ncomp, Zcomp), xsbranch(Zcomp, Ncomp, 0)
 !
 ! B. Per isomer
 !
       do nex = 1, Nlast(Zcomp, Ncomp, 0)
         if (tau(Zcomp, Ncomp, nex) /= 0.) then
-          write(*, '(31x, i3, 3x, es12.5, f9.5, 2x, es12.5, " sec. ")')  levnum(Zcomp, Ncomp, nex), xspopex(Zcomp, Ncomp, nex), &
+          write(*, '(31x, i3, 3x, es12.5, f9.5, 2x, es12.5, " sec. ")')  levnum(Zcomp, Ncomp, nex), xspopex(nex, Ncomp, Zcomp), &
  &          xsbranch(Zcomp, Ncomp, nex), tau(Zcomp, Ncomp, nex)
         endif
       enddo
@@ -281,7 +281,7 @@ subroutine residualout
               else
                 open (unit = 1, file = isofile, status = 'old', position = 'append')
               endif
-              write(1, '(3es15.6)') Einc, xspopex(Zcomp, Ncomp, nex), xsbranch(Zcomp, Ncomp, nex)
+              write(1, '(3es15.6)') Einc, xspopex(nex, Ncomp, Zcomp), xsbranch(Zcomp, Ncomp, nex)
               close (unit = 1)
             endif
           enddo
