@@ -1458,7 +1458,7 @@ module A0_talys_mod
   integer                                                 :: lmaxinc      ! maximal l-value for transm. coeff. for incident channel
   integer                                                 :: maxA         ! maximal number of nucleons away from initial CN
   real(sgl), dimension(0:numpar)                          :: multiplicity ! particle multiplicity
-  real(dbl), dimension(-1:numpar,-1:1)                    :: partdecay    ! total decay per particle and parity
+  real(dbl), dimension(-1:1,-1:numpar)                    :: partdecay    ! total decay per particle and parity
   real(dbl), dimension(-1:numpar)                         :: partdecaytot ! total decay per particle
   real(dbl), allocatable :: popdecay(:,:,:,:)             ! decay from population
   real(sgl), allocatable                                  :: preeqpop(:,:,:,:,:) ! pre-equilibrium population cross section
@@ -1489,7 +1489,7 @@ module A0_talys_mod
   real(dbl), allocatable :: xspopex(:,:,:)           ! population cross section summed over spin and parity
   real(dbl), allocatable :: xspopexP(:,:,:,:)        ! population cross section per parity
   real(dbl), dimension(0:numZ,0:numN)       :: xspopnuc
-  real(dbl), dimension(0:numZ, 0:numN, -1:1)              :: xspopnucP    ! population cross section per nucleus per parity
+  real(dbl), dimension(-1:1, 0:numN, 0:numZ)               :: xspopnucP    ! population cross section per nucleus per parity
   real(sgl), dimension(0:numpar, 0:numen)                 :: xspreeq      ! preeq. c.s. per particle typ and outgoing energy
   real(sgl)                                               :: xspreeqsum   ! total preequilibrium cross section summed over particles
   real(sgl), dimension(0:numpar)                          :: xspreeqtot   ! preequilibrium cross section per particle type
