@@ -95,11 +95,11 @@ subroutine tfissionout(Zcomp, Ncomp, nex)
   Ncol = 9
   call write_quantity(id2,quantity)
   call write_real(id4,'Excitation energy [MeV]',Exinc)
-  call write_datablock(id2,Ncol,maxJ(Zcomp, Ncomp, nex) + 1,col,un)
+  call write_datablock(id2,Ncol,maxJ(nex, Ncomp, Zcomp) + 1,col,un)
   write(*, '(/" Fission transmission coefficients for Z=", i3, &
  &  " N=", i3, " (",a,") and an excitation energy of ", f8.3, " MeV"/)') Z, N, trim(finalnuclide), Exinc
   odd = mod(A, 2)
-  do J = 0, maxJ(Zcomp, Ncomp, nex)
+  do J = 0, maxJ(nex, Ncomp, Zcomp)
     J2 = 2 * J + odd
     write(1, '(2x, f4.1, 9x, 8es15.6)') 0.5*J2, tfis(J, -1), tfis(J, 1), gamfis(J, -1), gamfis(J, 1), taufis(J, -1), &
  &  taufis(J, 1), denfis(J, -1), denfis(J, 1)
