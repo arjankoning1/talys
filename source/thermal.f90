@@ -404,7 +404,7 @@ subroutine thermal
         do nex = 0, Nlast(Zcomp, Ncomp, 0)
           fxspopex(nen, Zcomp, Ncomp, nex) = 0.
           if (eninc(nen) <= Ethresh(Zcomp, Ncomp, nex)) cycle
-          xsa = xspopex(Zcomp, Ncomp, nex)
+          xsa = xspopex(nex, Ncomp, Zcomp)
           if (xsa < xseps) cycle
           if (eninc(nen) > E1v) then
             xsres = xsa * Rres
