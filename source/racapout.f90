@@ -158,7 +158,7 @@ subroutine racapout
        if (i <= nlevexpracap - 1) then
         write(2, 1225) i, edis(0, 0, i), jdis(0, 0, i), parlev(0, 0, i), spectfac(0, 0, i), xsracappopex(i)
       else
-        write(2, 1226) i, Ex(0, 0, i), spectfac(0, 0, i), xsracappopex(i), (xsracappop(i, JJJ, 1), JJJ = 0, 10), &
+        write(2, 1226) i, Ex(i, 0, 0), spectfac(0, 0, i), xsracappopex(i), (xsracappop(i, JJJ, 1), JJJ = 0, 10), &
  &        (xsracappop(i, JJJ, - 1), JJJ = 0, 10)
       endif
   enddo
