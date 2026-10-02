@@ -203,7 +203,7 @@ Loop1:  do type = 1, 6
     Zix = Zindex(0, 0, type)
     Nix = Nindex(0, 0, type)
     ethrcm = eninccm + Q(type)
-    econt = edis(Zix, Nix, NLmax) + 0.5 * deltaEx(Zix, Nix, NLmax + 1)
+    econt = edis(Zix, Nix, NLmax) + 0.5 * deltaEx(NLmax + 1, Nix, Zix)
     if (econt < ethrcm) then
       ilevel = ilevel + 1
       typecomp(ilevel) = type
