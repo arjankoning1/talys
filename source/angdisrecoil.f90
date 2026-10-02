@@ -220,17 +220,17 @@ subroutine angdisrecoil
 !
       do
         if (nex == 0) then
-          Exrec1 = Ex(Zix, Nix, 0)
-          Exrec2 = 0.5 * (Ex(Zix, Nix, 1) + Ex(Zix, Nix, 0))
+          Exrec1 = Ex(0, Nix, Zix)
+          Exrec2 = 0.5 * (Ex(1, Nix, Zix) + Ex(0, Nix, Zix))
           exit
         endif
         if (nex == nexmax(type)) then
           Exrec2 = Exmax(Zix, Nix)
-          Exrec1 = 0.5 * (Exmax(Zix, Nix) + Ex(Zix, Nix, nex - 1))
+          Exrec1 = 0.5 * (Exmax(Zix, Nix) + Ex(nex - 1, Nix, Zix))
           exit
         endif
-        Exrec1 = 0.5 * (Ex(Zix, Nix, nex) + Ex(Zix, Nix, nex - 1))
-        Exrec2 = 0.5 * (Ex(Zix, Nix, nex) + Ex(Zix, Nix, nex + 1))
+        Exrec1 = 0.5 * (Ex(nex, Nix, Zix) + Ex(nex - 1, Nix, Zix))
+        Exrec2 = 0.5 * (Ex(nex, Nix, Zix) + Ex(nex + 1, Nix, Zix))
         exit
       enddo
 !
