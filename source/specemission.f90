@@ -115,8 +115,8 @@ subroutine specemission(Zcomp, Ncomp, nex, idorg, type, nexout)
     specemis(nen) = 0.
   enddo
   if (popexcl(Zcomp, Ncomp, nex) <= speceps) return
-  Exinc = Ex(Zcomp, Ncomp, nex)
-  dExinc = deltaEx(Zcomp, Ncomp, nex)
+  Exinc = Ex(nex, Ncomp, Zcomp)
+  dExinc = deltaEx(nex, Ncomp, Zcomp)
   Ex0plus = Exinc + 0.5 * dExinc
   Ex0min = Exinc - 0.5 * dExinc
   SS = S(Zcomp, Ncomp, type)
@@ -125,15 +125,15 @@ subroutine specemission(Zcomp, Ncomp, nex, idorg, type, nexout)
   Zix = Zindex(Zcomp, Ncomp, type)
   Nix = Nindex(Zcomp, Ncomp, type)
   do nexout2 = maxex(Zix, Nix), 0, - 1
-    dEx = deltaEx(Zix, Nix, nexout2)
-    Exmin = Ex(Zix, Nix, nexout2) - 0.5 * dEx
+    dEx = deltaEx(nexout2, Nix, Zix)
+    Exmin = Ex(nexout2, Nix, Zix) - 0.5 * dEx
     if (Exmin < Exm) then
       nexmax(type) = nexout2
 !
 ! 2. Determine the widths over which the decay must be spread.
 !
-      Exout = Ex(Zix, Nix, nexout)
-      dEx = deltaEx(Zix, Nix, nexout)
+      Exout = Ex(nexout, Nix, Zix)
+      dEx = deltaEx(nexout, Nix, Zix)
       NL = Nlast(Zix, Nix, 0)
 !
 ! Decay from continuum to continuum.
