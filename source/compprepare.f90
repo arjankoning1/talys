@@ -280,7 +280,7 @@ subroutine compprepare(Zcomp, Ncomp, J2, parity)
         J2res = J2 + parspin2o
         Irspin2beg = mod(J2res, 2)
         Irspin2end = J2res + l2maxhf
-        Irspin2end = min(Irspin2end, 2 * maxJ(Zix, Nix, nexout))
+        Irspin2end = min(Irspin2end, 2 * maxJ(nexout, Nix, Zix))
       endif
 !
 ! The variable pardif2 is used as an indicator of parity conservation for the outgoing channel.
