@@ -201,16 +201,16 @@ subroutine binary
         J = int(jdis(Zix, Nix, nex))
         parity = parlev(Zix, Nix, nex)
         term = xsdirdisc(type,nex)
-        xspop(Zix, Nix, nex, J, parity) = xspop(Zix, Nix, nex, J, parity) + term
-        xspopex(Zix, Nix, nex) = xspopex(Zix, Nix, nex) + term
+        xspop(J, parity, nex, Nix, Zix) = xspop(J, parity, nex, Nix, Zix) + term
+        xspopex(nex, Nix, Zix) = xspopex(nex, Nix, Zix) + term
         if (flagpop) then
-          xspopnucP(Zix, Nix, parity) = xspopnucP(Zix, Nix, parity) + term
-          xspopexP(Zix, Nix, nex, parity) = xspopexP(Zix, Nix, nex, parity) + term
-          popdecay(type, nex, J, parity) = popdecay(type, nex, J, parity) + term
-          partdecay(type, parity) = partdecay(type, parity) + term
+          xspopnucP(parity, Nix, Zix) = xspopnucP(parity, Nix, Zix) + term
+          xspopexP(nex, parity, Nix, Zix) = xspopexP(nex, parity, Nix, Zix) + term
+          popdecay(J, parity, nex, type) = popdecay(J, parity, nex, type) + term
+          partdecay(parity, type) = partdecay(parity, type) + term
         endif
       endif
-      xspopex0(type, nex) = xspopex(Zix, Nix, nex)
+      xspopex0(type, nex) = xspopex(nex, Nix, Zix)
     enddo
     xspopdir(Zix, Nix) = xsdirdisctot(type)
     xsbinary(type) = xsbinary(type) + xsdirdisctot(type)
@@ -224,34 +224,34 @@ subroutine binary
       if (pespinmodel <= 2) then
         popepsA = popeps / max(5 * maxex(Zix, Nix), 1)
         do nex = NL + 1, maxex(Zix, Nix)
-          Eex = Ex(Zix, Nix, nex)
+          Eex = Ex(nex, Nix, Zix)
           ald = ignatyuk(Zix, Nix, Eex, 0)
           sc = spincut(Zix, Nix, ald, Eex, 0, 0)
           do parity = - 1, 1, 2
             do J = 0, maxJph
               sfactor = 0.
-              if (xspopex(Zix, Nix, nex) > popepsA) sfactor = xspop(Zix, Nix, nex, J, parity) / xspopex(Zix, Nix, nex)
+              if (xspopex(nex, Nix, Zix) > popepsA) sfactor = xspop(J, parity, nex, Nix, Zix) / xspopex(nex, Nix, Zix)
               if (pespinmodel == 1 .and. sfactor > 0.) then
-                preeqpop(Zix, Nix, nex, J, parity) = sfactor * preeqpopex(Zix, Nix, nex)
+                preeqpop(J, parity, nex, Nix, Zix) = sfactor * preeqpopex(nex, Nix, Zix)
               else
                 factor = spindis(sc,real(J)) * pardis
-                preeqpop(Zix, Nix, nex, J, parity) = factor * preeqpopex(Zix, Nix, nex)
+                preeqpop(J, parity, nex, Nix, Zix) = factor * preeqpopex(nex, Nix, Zix)
               endif
             enddo
           enddo
         enddo
       endif
       do nex = NL + 1, maxex(Zix, Nix)
-        xspopex(Zix, Nix, nex) = xspopex(Zix, Nix, nex) + preeqpopex(Zix, Nix, nex)
+        xspopex(nex, Nix, Zix) = xspopex(nex, Nix, Zix) + preeqpopex(nex, Nix, Zix)
         do parity = - 1, 1, 2
           do J = 0, maxJph
-            term = preeqpop(Zix, Nix, nex, J, parity)
-            xspop(Zix, Nix, nex, J, parity) = xspop(Zix, Nix, nex, J, parity) + term
+            term = preeqpop(J, parity, nex, Nix, Zix)
+            xspop(J, parity, nex, Nix, Zix) = xspop(J, parity, nex, Nix, Zix) + term
             if (flagpop) then
-              xspopnucP(Zix, Nix, parity) = xspopnucP(Zix, Nix, parity) + term
-              xspopexP(Zix, Nix, nex, parity) = xspopexP(Zix, Nix, nex, parity) + term
-              popdecay(type, nex, J, parity) = popdecay(type, nex, J, parity) + term
-              partdecay(type, parity) = partdecay(type, parity) + term
+              xspopnucP(parity, Nix, Zix) = xspopnucP(parity, Nix, Zix) + term
+              xspopexP(nex, parity, Nix, Zix) = xspopexP(nex, parity, Nix, Zix) + term
+              popdecay(J, parity, nex, type) = popdecay(J, parity, nex, type) + term
+              partdecay(parity, type) = partdecay(parity, type) + term
             endif
           enddo
         enddo
@@ -281,28 +281,28 @@ subroutine binary
           J = int(jdis(Zix, Nix, nex))
           parity = parlev(Zix, Nix, nex)
           term=xsracappopex(nex)
-          xspop(Zix, Nix, nex, J, parity) = xspop(Zix, Nix, nex, J, parity) + term
-          xspopex(Zix, Nix, nex) = xspopex(Zix, Nix, nex) + term
+          xspop(J, parity, nex, Nix, Zix) = xspop(J, parity, nex, Nix, Zix) + term
+          xspopex(nex, Nix, Zix) = xspopex(nex, Nix, Zix) + term
           xspopex0(type, nex) = xspopex0(type, nex) + term
           if (flagpop) then
-            xspopnucP(Zix, Nix, parity) = xspopnucP(Zix, Nix, parity) + term
-            xspopexP(Zix, Nix, nex, parity) = xspopexP(Zix, Nix, nex, parity) + term
-            popdecay(type, nex, J, parity) = popdecay(type, nex, J, parity) + term
-            partdecay(type, parity) = partdecay(type, parity) + term
+            xspopnucP(parity, Nix, Zix) = xspopnucP(parity, Nix, Zix) + term
+            xspopexP(nex, parity, Nix, Zix) = xspopexP(nex, parity, Nix, Zix) + term
+            popdecay(J, parity, nex, type) = popdecay(J, parity, nex, type) + term
+            partdecay(parity, type) = partdecay(parity, type) + term
           endif
         endif
       enddo
       do nex = NL + 1, maxex(Zix, Nix)
-        xspopex(Zix, Nix, nex) = xspopex(Zix, Nix, nex) + xsracappopex(nex)
+        xspopex(nex, Nix, Zix) = xspopex(nex, Nix, Zix) + xsracappopex(nex)
         do parity = - 1, 1, 2
           do J = 0, numJ
             term = xsracappop(nex, J, parity)
-            xspop(Zix, Nix, nex, J, parity) = xspop(Zix, Nix, nex, J, parity) + term
+            xspop(J, parity, nex, Nix, Zix) = xspop(J, parity, nex, Nix, Zix) + term
             if (flagpop) then
-              xspopnucP(Zix, Nix, parity) = xspopnucP(Zix, Nix, parity) + term
-              xspopexP(Zix, Nix, nex, parity) = xspopexP(Zix, Nix, nex, parity) + term
-              popdecay(type, nex, J, parity) = popdecay(type, nex, J, parity) + term
-              partdecay(type, parity) = partdecay(type, parity) + term
+              xspopnucP(parity, Nix, Zix) = xspopnucP(parity, Nix, Zix) + term
+              xspopexP(nex, parity, Nix, Zix) = xspopexP(nex, parity, Nix, Zix) + term
+              popdecay(J, parity, nex, type) = popdecay(J, parity, nex, type) + term
+              partdecay(parity, type) = partdecay(parity, type) + term
             endif
           enddo
         enddo
@@ -333,7 +333,7 @@ subroutine binary
       Zix = Zindex(0, 0, type)
       Nix = Nindex(0, 0, type)
       do nex = 0, maxex(Zix, Nix)
-        feedbinary(type, nex) = xspopex(Zix, Nix, nex)
+        feedbinary(type, nex) = xspopex(nex, Nix, Zix)
       enddo
     enddo
     feedbinary(k0, Ltarget) = 0.
@@ -474,7 +474,7 @@ subroutine binary
       if (maxex(Zix, Nix) > NL) then
         call write_integer(id4,'number of discrete levels',NL)
         call write_integer(id4,'number of continuum bins',maxex(Zix, Nix) - NL)
-        call write_real(id4,'continuum bin size [MeV]',deltaEx(Zix, Nix, maxex(Zix, Nix)))
+        call write_real(id4,'continuum bin size [MeV]',deltaEx(maxex(Zix, Nix), Nix, Zix))
       endif
       un = 'mb'
       col(1)='bin'
@@ -492,8 +492,8 @@ subroutine binary
       call write_quantity(id2,quantity)
       call write_datablock(id2,Ncol,Nk,col,un)
       do nex = 0, maxex(Zix, Nix)
-        write(1, '(3x, i6, 6x, 200es15.6)') nex, Ex(Zix, Nix, nex), &
- &        xspopex(Zix, Nix, nex), ((xspop(Zix, Nix, nex, J, parity), parity = - 1, 1, 2), J = 0, numJ)
+        write(1, '(3x, i6, 6x, 200es15.6)') nex, Ex(nex, Nix, Zix), &
+ &        xspopex(nex, Nix, Zix), ((xspop(J, parity, nex, Nix, Zix), parity = - 1, 1, 2), J = 0, numJ)
       enddo
     enddo
     close (unit = 1)
@@ -502,9 +502,9 @@ subroutine binary
 !
 ! Remove compound elastic scattering from population of target state.
 !
-  xspopex(parZ(k0), parN(k0), Ltarget) = 0.
-  xspop(parZ(k0), parN(k0), Ltarget, int(targetspin), targetP) = 0.
-  preeqpopex(parZ(k0), parN(k0), Ltarget) = 0.
+  xspopex(Ltarget, parN(k0), parZ(k0)) = 0.
+  xspop(int(targetspin), targetP, Ltarget, parN(k0), parZ(k0)) = 0.
+  preeqpopex(Ltarget, parN(k0), parZ(k0)) = 0.
   Einc0 = Einc
   nin0 = nin
 !
