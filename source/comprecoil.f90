@@ -159,7 +159,7 @@ subroutine comprecoil(Zcomp, Ncomp, nex, type, nexout, nenbeg, nenend)
 !
 ! We are decaying from a compound nucleus bin with index nex and excitation energies characteristics with a given ejectile
 ! (i.e. we are still within the type loop) in a residual nucleus bin nexout characterised by an excitation energy
-! Exout=Ex(Zix,Nix,nexout) and the bin limits Ex1min (lower boundary of residual bin) and Ex1plus (upper boundary of residual bin).
+! Exout=Ex(nexout, Nix, Zix) and the bin limits Ex1min (lower boundary of residual bin) and Ex1plus (upper boundary of residual bin).
 ! The corresponding ejectile emission energies have been deduced and are given by the egrid(ieject) values were ieject is between
 ! nenbeg and nenend emax (maximal emission energy) and emin (minimal emission energy) and Eout (emission energy)
 !
