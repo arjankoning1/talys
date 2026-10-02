@@ -137,15 +137,15 @@ subroutine population
 ! Determine the emission energy that corresponds with the excitation energy.
 !
     do nexout = NL + 1, maxex(Zix, Nix)
-      Eout = Etotal - SS - Ex(Zix, Nix, nexout)
+      Eout = Etotal - SS - Ex(nexout, Nix, Zix)
       if (Eout < egrid(ebegin(type))) cycle
-      Elow = Eout - 0.5 * deltaEx(Zix, Nix, nexout)
+      Elow = Eout - 0.5 * deltaEx(nexout, Nix, Zix)
       call locate(egrid, ebegin(type), eend(type), Elow, nen1)
       na1 = max(nen1, 0)
       nb1 = nen1 + 1
       Ea1 = egrid(na1)
       Eb1 = min(egrid(nb1), Etotal - SS)
-      Ehigh = Eout + 0.5 * deltaEx(Zix, Nix, nexout)
+      Ehigh = Eout + 0.5 * deltaEx(nexout, Nix, Zix)
       call locate(egrid, ebegin(type), eend(type), Ehigh, nen2)
       na2 = nen2
       nb2 = nen2 + 1
@@ -173,9 +173,9 @@ subroutine population
 ! Determine interpolated value.
 !
       call pol1(Ea2, Eb2, xsa, xsb, Ehigh, xshigh)
-      xs = 0.5 * (xslow + xshigh) * deltaEx(Zix, Nix, nexout)
+      xs = 0.5 * (xslow + xshigh) * deltaEx(nexout, Nix, Zix)
       if (xs < 1.e-30) xs = 0.
-      preeqpopex(Zix, Nix, nexout) = xs
+      preeqpopex(nexout, Nix, Zix) = xs
 !
 ! If the pre-equilibrium spin distribution is chosen, the spectrum is interpolated on the spin/parity dependent population.
 !
@@ -196,9 +196,9 @@ subroutine population
               xsb = xsb + xsgrstate(type, J, 1, nb2) + xsgrstate(type, J, 2, nb2)
             endif
             call pol1(Ea2, Eb2, xsa, xsb, Ehigh, xshigh)
-            xs = 0.5 * (xslow + xshigh) * deltaEx(Zix, Nix, nexout)
+            xs = 0.5 * (xslow + xshigh) * deltaEx(nexout, Nix, Zix)
             if (xs < 1.e-30) xs = 0.
-            preeqpop(Zix, Nix, nexout, J, parity) = xs
+            preeqpop(J, parity, nexout, Nix, Zix) = xs
           enddo
         enddo
       endif
@@ -219,7 +219,7 @@ subroutine population
             xsa = xsstep(type, pc, na2)
             xsb = xsstep(type, pc, nb2)
             call pol1(Ea2, Eb2, xsa, xsb, Ehigh, xshigh)
-            xs = 0.5 * (xslow + xshigh) * deltaEx(Zix, Nix, nexout)
+            xs = 0.5 * (xslow + xshigh) * deltaEx(nexout, Nix, Zix)
             if (xs < 1.e-30) xs = 0.
             xspopph(Zix, Nix, nexout, p) = xs
           enddo
@@ -239,7 +239,7 @@ subroutine population
               xsa = xsstep2(type, pcpi, pcnu, na2)
               xsb = xsstep2(type, pcpi, pcnu, nb2)
               call pol1(Ea2, Eb2, xsa, xsb, Ehigh, xshigh)
-              xs = 0.5 * (xslow + xshigh) * deltaEx(Zix, Nix, nexout)
+              xs = 0.5 * (xslow + xshigh) * deltaEx(nexout, Nix, Zix)
               if (xs < 1.e-30) xs = 0.
               xspopph2(Zix, Nix, nexout, ppi, pnu) = xs
             enddo
@@ -263,16 +263,16 @@ subroutine population
     NL = Nlast(Zix, Nix, 0)
     xscheck(type) = 0.
     do nex = NL + 1, maxex(Zix, Nix)
-      xscheck(type) = xscheck(type) + preeqpopex(Zix, Nix, nex)
+      xscheck(type) = xscheck(type) + preeqpopex(nex, Nix, Zix)
     enddo
     norm = 1.
     if (xscheck(type) /= 0.) norm = (xspreeqtot(type) + xsgrtot(type)) / xscheck(type)
     do nex = NL + 1, maxex(Zix, Nix)
-      preeqpopex(Zix, Nix, nex) = preeqpopex(Zix, Nix, nex) * norm
+      preeqpopex(nex, Nix, Zix) = preeqpopex(nex, Nix, Zix) * norm
       if (pespinmodel >= 3) then
         do parity = - 1, 1, 2
           do J = 0, maxJph
-            preeqpop(Zix, Nix, nex, J, parity) = preeqpop(Zix, Nix, nex, J, parity) * norm
+            preeqpop(J, parity, nex, Nix, Zix) = preeqpop(J, parity, nex, Nix, Zix) * norm
           enddo
         enddo
       endif
