@@ -352,18 +352,18 @@ subroutine reacinitial
   if (allocated(Ex))          deallocate(Ex)
   if (allocated(rhogrid))     deallocate(rhogrid)
 
-  allocate(xspop(0:numZ,0:numN,0:nexalloc,0:numJ,-1:1))
-  allocate(xspopex(0:numZ,0:numN,0:nexalloc))
-  allocate(xspopexP(0:numZ,0:numN,0:nexalloc,-1:1))
+  allocate(xspop(0:numJ,-1:1,0:nexalloc,0:numN,0:numZ))
+  allocate(xspopex(0:nexalloc,0:numN,0:numZ))
+  allocate(xspopexP(0:nexalloc,-1:1,0:numN,0:numZ))
 
-  allocate(popdecay(-1:numpar,0:nexalloc,0:numJ,-1:1))
-  allocate(preeqpopex(0:numZ,0:numN,0:nexalloc))
+  allocate(popdecay(0:numJ,-1:1,0:nexalloc,-1:numpar))
+  allocate(preeqpopex(0:nexalloc,0:numN,0:numZ))
 
-  allocate(maxJ(0:numZ,0:numN,0:nexalloc))
-  allocate(deltaEx(0:numZ,0:numN,0:nexalloc))
-  allocate(Ex(0:numZ,0:numN,0:nexalloc+1))
+  allocate(maxJ(0:nexalloc,0:numN,0:numZ))
+  allocate(deltaEx(0:nexalloc,0:numN,0:numZ))
+  allocate(Ex(0:nexalloc+1,0:numN,0:numZ))
 
-  allocate(rhogrid(0:numZ,0:numN,0:nexalloc,0:numJ,-1:1))
+  allocate(rhogrid(0:numJ,-1:1,0:nexalloc,0:numN,0:numZ))
 
   xspop      = 0.d0
   xspopex    = 0.d0
@@ -381,7 +381,7 @@ subroutine reacinitial
   endif
   if (flagpreeq) then
     if (allocated(preeqpop)) deallocate(preeqpop)
-    allocate(preeqpop(0:numZ,0:numN,0:nexalloc,0:numJ,-1:1))
+    allocate(preeqpop(0:numJ,-1:1,0:nexalloc,0:numN,0:numZ))
     preeqpop = 0.
   endif
   if (flagrecoil) then
