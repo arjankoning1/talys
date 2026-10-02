@@ -266,7 +266,7 @@ subroutine ffevap
           do nex = 0, Nlast(Zix, Nix, 0)
             if (nex == 0 .or. tau(Zix, Nix, nex) /= 0.) then
               nex0 = min(nex, 1)
-              xsfpex(izp, inp, nex0) = xsfpex(izp, inp, nex0) + xspopex(Zix, Nix, nex)
+              xsfpex(izp, inp, nex0) = xsfpex(izp, inp, nex0) + xspopex(nex, Nix, Zix)
             endif
           enddo
         enddo
