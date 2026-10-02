@@ -99,7 +99,7 @@ subroutine partfunc
 ! level spin/parity.
 !
       if (nexout == nonthermlev) cycle
-      dex = deltaEx(Zix, Nix, nexout) / real(numdiv)
+      dex = deltaEx(nexout, Nix, Zix) / real(numdiv)
       Elev = edis(Zix, Nix, nexout) - edis(Zix, Nix, Ltarget)
       if (nexout <= NL) then
         spindeg = 2. * jdis(Zix, Nix, nexout) + 1
@@ -116,7 +116,7 @@ subroutine partfunc
 ! partf      : integrated partition function
 !
         do idiv = 1, numdiv
-          Elev = Ex(Zix, Nix, nexout) - Ex(Zix, Nix, Ltarget) + (real(idiv) - 0.5 * numdiv) * dex
+          Elev = Ex(nexout, Nix, Zix) - Ex(Ltarget, Nix, Zix) + (real(idiv) - 0.5 * numdiv) * dex
           fex = MeVkT * Elev / T9(i)
           if (fex > 80.) cycle
           nex = nex + 1
