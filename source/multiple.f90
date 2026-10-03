@@ -233,12 +233,16 @@ subroutine multiple
   real(sgl)          :: xsmax                 ! maximum cross sections
   real(sgl)          :: rJ                    ! help variable
   real(sgl)          :: xspopsave(0:numex)    ! help variable for diagnosis
+  real(sgl)          :: xspopE
   real(dbl)          :: xsp                   ! help variable
-! real(sgl)          :: popmax
-! real(sgl)          :: budget
-! real(sgl)          :: cut
-! real(sgl)          :: losttry
-! real(sgl)          :: cutgood
+  real(sgl)          :: popmax
+  real(sgl)          :: budget
+  real(sgl)          :: cut
+  real(sgl)          :: poprelE
+  real(sgl)          :: poprelJP
+  real(sgl)          :: losttry
+  real(sgl)          :: cutgoodE
+  real(sgl)          :: cutgoodJP
 !
 ! ******************** Loop over nuclei ********************************
 !
@@ -496,34 +500,38 @@ subroutine multiple
 !
 ! Continue for a (Zcomp,Ncomp,nex) only when there is sufficient reaction flux in the excitation energy bin.
 !
-!     popmax = 0.d0
-!     do nex = 0,maxex(Zcomp, Ncomp)
-!       popmax = max(popmax, xspopex(nex, Ncomp, Zcomp))
-!     enddo
-!     budget = 1.e-3 * popeps
-!     cut = popmax * 1.e-12
-!     do
-!       losttry = 0.d0
-!       do nex = 0,maxex(Zcomp, Ncomp)
-!         if (xspopex(nex, Ncomp, Zcomp) < cut) losttry = losttry + xspop(Zcomp, Ncomp, nex)
-!       enddo
-!       if (losttry > budget) exit
-!       cutgood = cut
-!       cut = 10.d0 * cut
-!     enddo
+      poprelE = 1.e-3
+      budget = poprelE * popeps
+      popmax = 0.
+      do nex = 0,maxex(Zcomp, Ncomp)
+        popmax = max(popmax, xspopex(nex, Ncomp, Zcomp))
+      enddo
+      cut = popmax * 1.e-12
+      cutgoodE = cut
+      do
+        losttry = 0.
+        do nex = 0,maxex(Zcomp, Ncomp)
+          if (xspopex(nex, Ncomp, Zcomp) < cut) losttry = losttry + xspopex(nex, Ncomp, Zcomp)
+        enddo
+        if (losttry > budget) exit
+        if (cut <= 0. .or. cut >= popmax) exit
+        cutgoodE = cut
+        cut = 10. * cut
+      enddo
       do nex = maxex(Zcomp, Ncomp), 1, - 1
         dExinc = deltaEx(nex, Ncomp, Zcomp)
+        xspopE = xspopex(nex, Ncomp, Zcomp)
         if (flagpop) then
-          xspopsave(nex) = xspopex(nex, Ncomp, Zcomp)
+          xspopsave(nex) = xspopE
           do parity = - 1, 1, 2
-            write(1, '(2(i6, 9x), 46es15.6)') nex, parity, Ex(nex, Ncomp, Zcomp), xspopex(nex, Ncomp, Zcomp), &
+            write(1, '(2(i6, 9x), 46es15.6)') nex, parity, Ex(nex, Ncomp, Zcomp), xspopE, &
  &            xspopexP(nex, parity, Ncomp, Zcomp), (xspop(J, parity, nex, Ncomp, Zcomp), J = 0, numJ)
           enddo
         endif
 !
 ! For exclusive channel cross section calculations, some variables need to be stored in extra arrays.
 !
-        if (flagchannels) popexcl(Zcomp, Ncomp, nex) = xspopex(nex, Ncomp, Zcomp)
+        if (flagchannels) popexcl(Zcomp, Ncomp, nex) = xspopE
 !
 ! Discrete levels decay by gamma cascade. Isomers are excluded from gamma cascade.
 ! Note that we assume that discrete levels cannot particle decay.
@@ -536,8 +544,8 @@ subroutine multiple
           if (tau(Zcomp, Ncomp, nex) == 0.) call cascade(Zcomp, Ncomp, nex)
           cycle
         endif
-        if (xspopex(nex, Ncomp, Zcomp) < popepsA) cycle
-!       if (xspopex(nex, Ncomp, Zcomp) < cutgood) cycle
+!       if (xspopE < popepsA) cycle
+        if (xspopE < cutgoodE) cycle
 !
 ! For each mother excitation energy bin, determine the highest possible excitation energy bin nexmax for the residual nuclei.
 ! As reference, we take the top of the mother bin.
@@ -590,25 +598,28 @@ Loop1:  do type = 1, 6
 !
 ! Continue for a (Zcomp,Ncomp,nex,J,P) only when there is sufficient reaction flux in the excitation energy bin.
 !
-!         popmax = 0.d0
-!         do parity = -1,1,2
-!           do J = 0,maxJ(...)
-!             popmax = max(popmax, xspop(J, parity, nex, Ncomp, Zcomp))
-!           enddo
-!         enddo
-!         budget = 1.e-3 * popepsA
-!         cut = popmax * 1.e-12
-!         do
-!           losttry = 0.d0
-!           do parity = -1,1,2
-!             do J = 0,maxJ
-!               if (xspop(J, parity, nex, Ncomp, Zcomp) < cut) losttry = losttry + xspop(J, parity, nex, Ncomp, Zcomp)
-!             enddo
-!           enddo
-!           if (losttry > budget) exit
-!           cutgood = cut
-!           cut = 10.d0 * cut
-!         enddo
+          poprelJP = 1.e-5
+          budget = poprelJP * popepsA
+          popmax = 0.d0
+          do parity = -1,1,2
+            do J = 0,maxJ(nex, Ncomp, Zcomp)
+              popmax = max(popmax, xspop(J, parity, nex, Ncomp, Zcomp))
+            enddo
+          enddo
+          cut = popmax * 1.e-12
+          cutgoodJP = cut
+          do
+            losttry = 0.d0
+            do parity = -1,1,2
+              do J = 0,maxJ(nex, Ncomp, Zcomp)
+                if (xspop(J, parity, nex, Ncomp, Zcomp) < cut) losttry = losttry + xspop(J, parity, nex, Ncomp, Zcomp)
+              enddo
+            enddo
+            if (losttry > budget) exit
+            if (cut <= 0. .or. cut >= popmax) exit
+            cutgoodJP = cut
+            cut = 10.d0 * cut
+          enddo
           do parity = - 1, 1, 2
             do J = 0, maxJ(nex, Ncomp, Zcomp)
 !
@@ -618,8 +629,8 @@ Loop1:  do type = 1, 6
 ! compound   : subroutine for Hauser-Feshbach model for multiple emission
 ! tfissionout: subroutine for output of fission transmission coefficients
 !
-              if (xspop(J, parity, nex, Ncomp, Zcomp) < popepsB) cycle
-!             if (xspop(J, parity, nex, Ncomp, Zcomp) < cutgood) cycle
+!             if (xspop(J, parity, nex, Ncomp, Zcomp) < popepsB) cycle
+              if (xspop(J, parity, nex, Ncomp, Zcomp) < cutgoodJP) cycle
               popdecay = 0.
               partdecay = 0.
               partdecaytot = 0.
