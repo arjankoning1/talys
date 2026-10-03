@@ -504,10 +504,8 @@ subroutine multiple
 !     cut = popmax * 1.e-12
 !     do
 !       losttry = 0.d0
-!       do parity = -1,1,2
-!         do J = 0,maxJ
-!           if (xspopex(nex, Ncomp, Zcomp) < cut) losttry = losttry + xspop(Zcomp, Ncomp, nex)
-!         enddo
+!       do nex = 0,maxex(Zcomp, Ncomp)
+!         if (xspopex(nex, Ncomp, Zcomp) < cut) losttry = losttry + xspop(Zcomp, Ncomp, nex)
 !       enddo
 !       if (losttry > budget) exit
 !       cutgood = cut
