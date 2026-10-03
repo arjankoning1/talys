@@ -511,7 +511,7 @@ subroutine multiple
       poprelE = 1.e-4
       budget = max(popabs, poprelE * xspopnuc(Zcomp,Ncomp))
       popmax = 0.
-      do nex = 0,maxex(Zcomp, Ncomp)
+      do nex = 1, maxex(Zcomp, Ncomp)
         popmax = max(popmax, xspopex(nex, Ncomp, Zcomp))
       enddo
       cut = popmax * 1.e-12
@@ -522,7 +522,7 @@ subroutine multiple
       endif
       do
         losttry = 0.
-        do nex = 0,maxex(Zcomp, Ncomp)
+        do nex = 1, maxex(Zcomp, Ncomp)
           if (xspopex(nex, Ncomp, Zcomp) < cut) losttry = losttry + xspopex(nex, Ncomp, Zcomp)
         enddo
         if (losttry > budget) exit
@@ -622,7 +622,6 @@ Loop1:  do type = 1, 6
           else
             cutgoodJP = 0.
           endif
-          cutgoodJP = cut
           do
             losttry = 0.
             do parity = -1,1,2
