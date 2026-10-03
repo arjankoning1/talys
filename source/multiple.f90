@@ -238,11 +238,14 @@ subroutine multiple
   real(sgl)          :: popmax
   real(sgl)          :: budget
   real(sgl)          :: cut
+  real(sgl)          :: cutnuc
+  real(sgl)          :: poprelnuc
   real(sgl)          :: poprelE
   real(sgl)          :: poprelJP
   real(sgl)          :: losttry
   real(sgl)          :: cutgoodE
   real(sgl)          :: cutgoodJP
+  real(sgl)          :: xspopnorm
 !
 ! ******************** Loop over nuclei ********************************
 !
@@ -251,10 +254,16 @@ subroutine multiple
 !
 ! excitation : subroutine for excitation energy population
 !
+  if (flaginitpop) then
+    xspopnorm = xsinitpop
+  else
+    xspopnorm = xsreacinc
+  endif
   indent = 0
   id2 = indent + 2
   id4 = indent + 4
   primary = .false.
+  poprelnuc = 1.e-6
   if (flagomponly) return
   if (flaginitpop) call excitation
   if (flagpop) write(*, '(/" ########## MULTIPLE EMISSION ##########")')
@@ -269,10 +278,15 @@ subroutine multiple
 ! structure : subroutine for nuclear structure parameters
 ! exgrid    : subroutine to set excitation energy grid
 !
+      if (xspopnorm > 0.) then
+        cutnuc = poprelnuc * xspopnorm
+      else
+        cutnuc = 0.
+      endif
       col = ''
       un = ''
       if (skipCN(Zcomp, Ncomp) == 1) cycle
-      if (xspopnuc(Zcomp, Ncomp) < popeps) then
+      if (xspopnuc(Zcomp, Ncomp) < cutnuc) then
         xspopnuc(Zcomp, Ncomp) = 0.
         goto 500
       endif
@@ -500,8 +514,8 @@ subroutine multiple
 !
 ! Continue for a (Zcomp,Ncomp,nex) only when there is sufficient reaction flux in the excitation energy bin.
 !
-      poprelE = 1.e-3
-      budget = poprelE * popeps
+      poprelE = 1.e-5
+      budget = poprelE * xspopnuc(Zcomp,Ncomp)
       popmax = 0.
       do nex = 0,maxex(Zcomp, Ncomp)
         popmax = max(popmax, xspopex(nex, Ncomp, Zcomp))
@@ -516,7 +530,7 @@ subroutine multiple
         if (losttry > budget) exit
         if (cut <= 0. .or. cut >= popmax) exit
         cutgoodE = cut
-        cut = 10. * cut
+        cut = 2. * cut
       enddo
       do nex = maxex(Zcomp, Ncomp), 1, - 1
         dExinc = deltaEx(nex, Ncomp, Zcomp)
@@ -599,8 +613,8 @@ Loop1:  do type = 1, 6
 ! Continue for a (Zcomp,Ncomp,nex,J,P) only when there is sufficient reaction flux in the excitation energy bin.
 !
           poprelJP = 1.e-5
-          budget = poprelJP * popepsA
-          popmax = 0.d0
+          budget = poprelJP * xspopE
+          popmax = 0.
           do parity = -1,1,2
             do J = 0,maxJ(nex, Ncomp, Zcomp)
               popmax = max(popmax, xspop(J, parity, nex, Ncomp, Zcomp))
@@ -609,7 +623,7 @@ Loop1:  do type = 1, 6
           cut = popmax * 1.e-12
           cutgoodJP = cut
           do
-            losttry = 0.d0
+            losttry = 0.
             do parity = -1,1,2
               do J = 0,maxJ(nex, Ncomp, Zcomp)
                 if (xspop(J, parity, nex, Ncomp, Zcomp) < cut) losttry = losttry + xspop(J, parity, nex, Ncomp, Zcomp)
@@ -618,7 +632,7 @@ Loop1:  do type = 1, 6
             if (losttry > budget) exit
             if (cut <= 0. .or. cut >= popmax) exit
             cutgoodJP = cut
-            cut = 10.d0 * cut
+            cut = 2. * cut
           enddo
           do parity = - 1, 1, 2
             do J = 0, maxJ(nex, Ncomp, Zcomp)
