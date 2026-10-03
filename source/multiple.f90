@@ -254,7 +254,7 @@ subroutine multiple
 !
 ! excitation : subroutine for excitation energy population
 !
-
+  if (flagomponly) return
   if (flaginitpop) then
     call excitation
     xspopnorm = xsinitpop
@@ -265,6 +265,8 @@ subroutine multiple
   id2 = indent + 2
   id4 = indent + 4
   primary = .false.
+! Retain the absolute population limits used by the reference calculation.
+! Relative budgets below are calibrated for samples/a-Ho165-omp1.
   poprelnuc = 1.e-6
   if (xspopnorm > 0.) then
     cutnuc = poprelnuc * xspopnorm
@@ -286,7 +288,7 @@ subroutine multiple
       col = ''
       un = ''
       if (skipCN(Zcomp, Ncomp) == 1) cycle
-      if (xspopnuc(Zcomp, Ncomp) < cutnuc) then
+      if (xspopnuc(Zcomp, Ncomp) < max(popeps, cutnuc)) then
         xspopnuc(Zcomp, Ncomp) = 0.
         goto 500
       endif
@@ -514,14 +516,18 @@ subroutine multiple
 !
 ! Continue for a (Zcomp,Ncomp,nex) only when there is sufficient reaction flux in the excitation energy bin.
 !
-      poprelE = 1.e-5
+      poprelE = 1.e-4
       budget = poprelE * xspopnuc(Zcomp,Ncomp)
       popmax = 0.
       do nex = 0,maxex(Zcomp, Ncomp)
         popmax = max(popmax, xspopex(nex, Ncomp, Zcomp))
       enddo
       cut = popmax * 1.e-12
-      cutgoodE = cut
+      if (poprelE > 0. .and. popmax > 0.) then
+        cutgoodE = cut
+      else
+        cutgoodE = 0.
+      endif
       do
         losttry = 0.
         do nex = 0,maxex(Zcomp, Ncomp)
@@ -559,7 +565,7 @@ subroutine multiple
           cycle
         endif
 !       if (xspopE < popepsA) cycle
-        if (xspopE < cutgoodE) cycle
+        if (xspopE < max(popepsA, cutgoodE)) cycle
 !
 ! For each mother excitation energy bin, determine the highest possible excitation energy bin nexmax for the residual nuclei.
 ! As reference, we take the top of the mother bin.
@@ -612,7 +618,7 @@ Loop1:  do type = 1, 6
 !
 ! Continue for a (Zcomp,Ncomp,nex,J,P) only when there is sufficient reaction flux in the excitation energy bin.
 !
-          poprelJP = 1.e-5
+          poprelJP = 1.e-3
           budget = poprelJP * xspopE
           popmax = 0.
           do parity = -1,1,2
@@ -621,6 +627,11 @@ Loop1:  do type = 1, 6
             enddo
           enddo
           cut = popmax * 1.e-12
+          if (poprelJP > 0. .and. popmax > 0.) then
+            cutgoodJP = cut
+          else
+            cutgoodJP = 0.
+          endif
           cutgoodJP = cut
           do
             losttry = 0.
@@ -644,7 +655,7 @@ Loop1:  do type = 1, 6
 ! tfissionout: subroutine for output of fission transmission coefficients
 !
 !             if (xspop(J, parity, nex, Ncomp, Zcomp) < popepsB) cycle
-              if (xspop(J, parity, nex, Ncomp, Zcomp) < cutgoodJP) cycle
+              if (xspop(J, parity, nex, Ncomp, Zcomp) < max(popepsB, cutgoodJP)) cycle
               popdecay = 0.
               partdecay = 0.
               partdecaytot = 0.
