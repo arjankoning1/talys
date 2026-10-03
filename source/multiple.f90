@@ -254,7 +254,9 @@ subroutine multiple
 !
 ! excitation : subroutine for excitation energy population
 !
+
   if (flaginitpop) then
+    call excitation
     xspopnorm = xsinitpop
   else
     xspopnorm = xsreacinc
@@ -264,8 +266,11 @@ subroutine multiple
   id4 = indent + 4
   primary = .false.
   poprelnuc = 1.e-6
-  if (flagomponly) return
-  if (flaginitpop) call excitation
+  if (xspopnorm > 0.) then
+    cutnuc = poprelnuc * xspopnorm
+  else
+    cutnuc = 0.
+  endif
   if (flagpop) write(*, '(/" ########## MULTIPLE EMISSION ##########")')
   do Zcomp = 0, maxZ
     do Ncomp = 0, maxN
@@ -278,11 +283,6 @@ subroutine multiple
 ! structure : subroutine for nuclear structure parameters
 ! exgrid    : subroutine to set excitation energy grid
 !
-      if (xspopnorm > 0.) then
-        cutnuc = poprelnuc * xspopnorm
-      else
-        cutnuc = 0.
-      endif
       col = ''
       un = ''
       if (skipCN(Zcomp, Ncomp) == 1) cycle
