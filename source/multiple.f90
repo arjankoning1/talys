@@ -224,8 +224,6 @@ subroutine multiple
   real(sgl)          :: Exmin                 ! help variable
   real(sgl)          :: factor                ! help variable
   real(sgl)          :: kalbach               ! Kalbach function
-  real(sgl)          :: popepsA               ! limit for population cross sections per energy
-  real(sgl)          :: popepsB               ! limit for population cross sections per spin and parity
   real(sgl)          :: Smax                  ! separation energy
   real(sgl)          :: Smin                  ! minimal separation energy
   real(sgl)          :: sumxs                 ! sum over emission channels
@@ -236,6 +234,7 @@ subroutine multiple
   real(sgl)          :: xspopE
   real(dbl)          :: xsp                   ! help variable
   real(sgl)          :: popmax
+  real(sgl)          :: popabs
   real(sgl)          :: budget
   real(sgl)          :: cut
   real(sgl)          :: cutnuc
@@ -268,8 +267,9 @@ subroutine multiple
 ! Retain the absolute population limits used by the reference calculation.
 ! Relative budgets below are calibrated for samples/a-Ho165-omp1.
   poprelnuc = 1.e-6
+  popabs = poprelnuc * xspopnorm
   if (xspopnorm > 0.) then
-    cutnuc = poprelnuc * xspopnorm
+    cutnuc = popabs
   else
     cutnuc = 0.
   endif
@@ -288,7 +288,7 @@ subroutine multiple
       col = ''
       un = ''
       if (skipCN(Zcomp, Ncomp) == 1) cycle
-      if (xspopnuc(Zcomp, Ncomp) < max(popeps, cutnuc)) then
+      if (xspopnuc(Zcomp, Ncomp) < cutnuc) then
         xspopnuc(Zcomp, Ncomp) = 0.
         goto 500
       endif
@@ -477,13 +477,6 @@ subroutine multiple
         do type = 0, 6
           write(1, '(3x, a8, 4x, es15.6)') parname(type), fisom(type)
         enddo
-!       close(1)
-!       call write_outfile(popfile,flagoutall)
-!       write(*, '(/" Isospin factors to reduce emission for multiple emission for Z=", i3, " N=", i3, " (", i3, a2, ")", /)') &
-!&        Z, N, A, nuc(Z)
-!       do type = 0, 6
-!         write(*,'(1x, a8, 1x, f8.5)') parname(type), fisom(type)
-!       enddo
       endif
       do type = 0, 6
         fisom(type) = fisominit(type)
@@ -494,7 +487,6 @@ subroutine multiple
 ! Continue for this (Zcomp,Ncomp,nex) only when there is sufficient reaction flux in the excitation energy bin.
 ! The fission transmission coefficients and level densities only need to be calculated once, at the highest excitation energy.
 !
-      popepsA = popeps / max(5 * maxex(Zcomp, Ncomp), 1)
       idensfis = 1
       if (flagpop) then
         quantity='population per bin before decay'
@@ -517,7 +509,7 @@ subroutine multiple
 ! Continue for a (Zcomp,Ncomp,nex) only when there is sufficient reaction flux in the excitation energy bin.
 !
       poprelE = 1.e-4
-      budget = poprelE * xspopnuc(Zcomp,Ncomp)
+      budget = max(popabs, poprelE * xspopnuc(Zcomp,Ncomp))
       popmax = 0.
       do nex = 0,maxex(Zcomp, Ncomp)
         popmax = max(popmax, xspopex(nex, Ncomp, Zcomp))
@@ -564,8 +556,7 @@ subroutine multiple
           if (tau(Zcomp, Ncomp, nex) == 0.) call cascade(Zcomp, Ncomp, nex)
           cycle
         endif
-!       if (xspopE < popepsA) cycle
-        if (xspopE < max(popepsA, cutgoodE)) cycle
+        if (xspopE < cutgoodE) cycle
 !
 ! For each mother excitation energy bin, determine the highest possible excitation energy bin nexmax for the residual nuclei.
 ! As reference, we take the top of the mother bin.
@@ -614,12 +605,11 @@ Loop1:  do type = 1, 6
 ! Compound nucleus decay of mother excitation energy/spin/parity bin.
 !
         if (flagcomp) then
-          popepsB = popepsA / (5 * maxJ(nex, Ncomp, Zcomp)) * 0.5
 !
 ! Continue for a (Zcomp,Ncomp,nex,J,P) only when there is sufficient reaction flux in the excitation energy bin.
 !
           poprelJP = 1.e-3
-          budget = poprelJP * xspopE
+          budget = max(popabs, poprelJP * xspopE)
           popmax = 0.
           do parity = -1,1,2
             do J = 0,maxJ(nex, Ncomp, Zcomp)
@@ -654,8 +644,7 @@ Loop1:  do type = 1, 6
 ! compound   : subroutine for Hauser-Feshbach model for multiple emission
 ! tfissionout: subroutine for output of fission transmission coefficients
 !
-!             if (xspop(J, parity, nex, Ncomp, Zcomp) < popepsB) cycle
-              if (xspop(J, parity, nex, Ncomp, Zcomp) < max(popepsB, cutgoodJP)) cycle
+              if (xspop(J, parity, nex, Ncomp, Zcomp) < cutgoodJP) cycle
               popdecay = 0.
               partdecay = 0.
               partdecaytot = 0.
