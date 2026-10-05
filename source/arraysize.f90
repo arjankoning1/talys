@@ -48,17 +48,47 @@ subroutine arraysize
   call report_array('gamexist',       size(gamexist,kind=int64),       storage_size(gamexist))
   call report_array('chanisoexist',   size(chanisoexist,kind=int64),   storage_size(chanisoexist))
   call report_array('bassign',        size(bassign,kind=int64),        storage_size(bassign))
-  call report_array('preeqpop',       size(preeqpop,kind=int64),       storage_size(preeqpop))
-  call report_array('xspop',          size(xspop,kind=int64),          storage_size(xspop))
-  call report_array('wemission2',     size(wemission2,kind=int64),     storage_size(wemission2))
   call report_array('Tjlnex',         size(Tjlnex,kind=int64),         storage_size(Tjlnex))
-  call report_array('fxsgamdischan',  size(fxsgamdischan,kind=int64),  storage_size(fxsgamdischan))
   call report_array('areaejlab',      size(areaejlab,kind=int64),      storage_size(areaejlab))
   call report_array('areareclab',     size(areareclab,kind=int64),     storage_size(areareclab))
-  call report_array('xsastroex',      size(xsastroex,kind=int64),      storage_size(xsastroex))
-  call report_array('phdensjp',       size(phdensjp,kind=int64),       storage_size(phdensjp))
 !
 ! Allocatable module arrays
+!
+  if (allocated(preeqpop)) then
+    call report_array('preeqpop', size(preeqpop,kind=int64), storage_size(preeqpop))
+  else
+    call report_array('preeqpop', 0_int64, storage_size(0.0_sgl))
+  endif
+!
+  if (allocated(xspop)) then
+    call report_array('xspop', size(xspop,kind=int64), storage_size(xspop))
+  else
+    call report_array('xspop', 0_int64, storage_size(0.0_dbl))
+  endif
+!
+  if (allocated(wemission2)) then
+    call report_array('wemission2', size(wemission2,kind=int64), storage_size(wemission2))
+  else
+    call report_array('wemission2', 0_int64, storage_size(0.0_sgl))
+  endif
+!
+  if (allocated(fxsgamdischan)) then
+    call report_array('fxsgamdischan', size(fxsgamdischan,kind=int64), storage_size(fxsgamdischan))
+  else
+    call report_array('fxsgamdischan', 0_int64, storage_size(0.0_sgl))
+  endif
+!
+  if (allocated(xsastroex)) then
+    call report_array('xsastroex', size(xsastroex,kind=int64), storage_size(xsastroex))
+  else
+    call report_array('xsastroex', 0_int64, storage_size(0.0_dbl))
+  endif
+!
+  if (allocated(phdensjp)) then
+    call report_array('phdensjp', size(phdensjp,kind=int64), storage_size(phdensjp))
+  else
+    call report_array('phdensjp', 0_int64, storage_size(0.0_dbl))
+  endif
 !
   if (allocated(xsrp)) then
     call report_array('xsrp', size(xsrp,kind=int64), storage_size(xsrp))
@@ -95,8 +125,6 @@ subroutine arraysize
   else
     call report_array('ddxrec', 0_int64, storage_size(0.0_sgl))
   endif
-!
-! feedexcl is assumed to be allocatable after the memory-reduction change.
 !
   if (allocated(feedexcl)) then
     call report_array('feedexcl', size(feedexcl,kind=int64), storage_size(feedexcl))
