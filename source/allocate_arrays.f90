@@ -120,5 +120,22 @@ subroutine allocate_arrays
     Nisotot = 0.
     Tmax = 0.
   endif
+!
+! Astro
+!
+  if (flagastro) then
+    allocate(macsastro(0:numZastro, 0:numNastro, numT))
+    allocate(macsastroex(0:numZastro, 0:numNastro, numT, 0:numlev))
+    allocate(rateastro(0:numZastro, 0:numNastro, numT))
+    allocate(rateastroex(0:numZastro, 0:numNastro, numT, 0:numlev))
+    allocate(xsastro(0:numZastro, 0:numNastro, 0:numenin))
+    allocate(xsastroex(0:numZastro, 0:numNastro, 0:numenin, 0:numlev))
+    macsastro = 0.
+    macsastroex = 0.
+    rateastro = 0.
+    rateastroex = 0.
+    xsastro = 0.
+    xsastroex = 0.
+  endif
   return
 end subroutine allocate_arrays
