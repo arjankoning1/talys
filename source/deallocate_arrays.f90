@@ -117,6 +117,13 @@ subroutine deallocate_arrays
   if (allocated(msdtot)) deallocate(msdtot)
   if (allocated(msdtotad)) deallocate(msdtotad)
   if (allocated(msdtotintad)) deallocate(msdtotintad)
+
+  if (allocated(macsastro)) deallocate(macsastro)
+  if (allocated(macsastroex)) deallocate(macsastroex)
+  if (allocated(rateastro)) deallocate(rateastro)
+  if (allocated(rateastroex)) deallocate(rateastroex)
+  if (allocated(xsastro)) deallocate(xsastro)
+  if (allocated(xsastroex)) deallocate(xsastroex)
 !
   return
 end subroutine deallocate_arrays
