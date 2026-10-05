@@ -6,7 +6,7 @@ subroutine checkkeyword
 ! Author    : Arjan Koning
 !
 ! 2021-12-30: Original code
-! 2026-05-06: Latest version
+! 2026-10-04: Latest version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
@@ -20,7 +20,7 @@ subroutine checkkeyword
 ! *** Declaration of local data
 !
   implicit none
-  integer, parameter :: numkey=447        ! number of keywords
+  integer, parameter :: numkey=450        ! number of keywords
   integer            :: i                 ! counter
   integer            :: j                 ! counter
   character(len=132) :: key               ! keyword
@@ -70,9 +70,9 @@ subroutine checkkeyword
  &  'outfission', 'outfy', 'outgamdis', 'outgamma', 'outinverse', 'outkd', 'outlegendre', 'outlevels', 'outmain', 'outomp', &
  &  'outpopulation', 'outpreequilibrium', 'outspectra', 'outtransenergy', 'pair', &
  &  'pairconstant', 'pairmodel', 'parity', 'partable', 'pfnsmodel', 'pglobal', 'phmodel', 'pnfit', 'popeps', 'popmev', &
- &  'preeqcomplex', 'preeqmode', 'preeqspin', 'preeqsurface', 'preequilibrium', 'production', 'projectile', 'pruitt', 'pruittset', &
- &  'pseudoresfade', 'pseudoresonances', 'pseudoreswidth', 'psfglobal', 'pshift', 'pshiftadjust', 'pshiftconstant', 'ptable', &
- &  'ptableadjust', 'racap', & 
+ &  'poprele', 'popreljp', 'poprelnuc', 'preeqcomplex', 'preeqmode', 'preeqspin', 'preeqsurface', 'preequilibrium', 'production', &
+ &  'projectile', 'pruitt', 'pruittset', 'pseudoresfade', 'pseudoresonances', 'pseudoreswidth', 'psfglobal', 'pshift', &
+ &  'pshiftadjust', 'pshiftconstant', 'ptable', 'ptableadjust', 'racap', & 
  &  'radialfile', 'radialmodel', 'radiounit', 'rcadjust', 'rclass2mom', 'reaction', 'recoil', 'recoilaverage', 'relativistic', &
  &  'rescuefile', 'reslib', 'resonance', 'rfiseps', 'rgamma', 'rho', 'riplomp', 'riplrisk', 'risomer', 'rmiufiscor', &
  &  'rmiufiscoradjust', 'rnunu', 'rnupi', 'rotational', 'rpevap', 'rpinu', 'rpipi', 'rprime', 'rspincut', 'rspincutff', &
