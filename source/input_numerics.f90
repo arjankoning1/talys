@@ -80,6 +80,9 @@ subroutine input_numerics
   transeps = 1.e-8
   xseps = 1.e-7
   popeps = 1.e-3
+  poprelnuc = 1.e-6
+  poprelE = 1.e-4
+  poprelJP = 1.e-3
   if (flagmassdis) then
     transpower = 10
     transeps = 1.e-12
@@ -189,6 +192,21 @@ subroutine input_numerics
     endif
     if (key == 'popeps') then
       read(value, * , iostat = istat) popeps
+      if (istat /= 0) call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'poprelnuc') then
+      read(value, * , iostat = istat) poprelnuc
+      if (istat /= 0) call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'poprele') then
+      read(value, * , iostat = istat) poprelE
+      if (istat /= 0) call read_error(line, istat)
+      cycle
+    endif
+    if (key == 'popreljp') then
+      read(value, * , iostat = istat) popreljp
       if (istat /= 0) call read_error(line, istat)
       cycle
     endif
