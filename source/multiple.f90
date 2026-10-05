@@ -238,9 +238,6 @@ subroutine multiple
   real(sgl)          :: budget
   real(sgl)          :: cut
   real(sgl)          :: cutnuc
-  real(sgl)          :: poprelnuc
-  real(sgl)          :: poprelE
-  real(sgl)          :: poprelJP
   real(sgl)          :: losttry
   real(sgl)          :: cutgoodE
   real(sgl)          :: cutgoodJP
@@ -266,7 +263,6 @@ subroutine multiple
   primary = .false.
 ! Retain the absolute population limits used by the reference calculation.
 ! Relative budgets below are calibrated for samples/a-Ho165-omp1.
-  poprelnuc = 1.e-6
   popabs = poprelnuc * xspopnorm
   if (xspopnorm > 0.) then
     cutnuc = popabs
@@ -508,7 +504,6 @@ subroutine multiple
 !
 ! Continue for a (Zcomp,Ncomp,nex) only when there is sufficient reaction flux in the excitation energy bin.
 !
-      poprelE = 1.e-4
       budget = max(popabs, poprelE * xspopnuc(Zcomp,Ncomp))
       popmax = 0.
       do nex = 1, maxex(Zcomp, Ncomp)
@@ -608,7 +603,6 @@ Loop1:  do type = 1, 6
 !
 ! Continue for a (Zcomp,Ncomp,nex,J,P) only when there is sufficient reaction flux in the excitation energy bin.
 !
-          poprelJP = 1.e-3
           budget = max(popabs, poprelJP * xspopE)
           popmax = 0.
           do parity = -1,1,2
