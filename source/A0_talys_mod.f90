@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2025-12-30: Original code
-! 2026-10-01: Current version
+! 2026-10-04: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -293,6 +293,9 @@ module A0_talys_mod
   integer   :: nanglerec  ! number of recoil angles
   integer   :: transpower ! power for transmission coefficient limit
   real(sgl) :: popeps     ! limit for population cross sections
+  real(sgl) :: poprelnuc  ! relative limit for population cross sections
+  real(sgl) :: poprelE    ! relative limit for population energy bin compared to largest
+  real(sgl) :: poprelJP   ! relative limit for population energy-J-P bin compared to largest
   real(dbl) :: transeps   ! absolute limit for transmission coefficient
   real(sgl) :: xseps      ! limit for cross sections
 !
@@ -1890,20 +1893,20 @@ module A0_talys_mod
 !
 ! astro
 !
-  integer                                                             :: maxNastro      ! max number of protons from CN for astro
-  integer                                                             :: maxZastro      ! max number of protons from CN for astro
-  real(dbl), dimension(0:numZastro, 0:numNastro, numT)                :: macsastro      ! thermonuclear cross section
-  real(dbl), dimension(0:numZastro, 0:numNastro, numT, 0:numlev)      :: macsastroex    ! thermonuclear reaction cross section
-  real(dbl), dimension(numT)                                          :: macsastrofis   ! thermonuclear reaction cross for fission
-  real(dbl), dimension(numT)                                          :: macsastroracap ! thermonuclear cross section for dir cap
-  real(dbl), dimension(numT)                                          :: partf          ! integrated partition function
-  real(dbl), dimension(0:numZastro, 0:numNastro, numT)                :: rateastro      ! thermonuclear reaction rate factor
-  real(dbl), dimension(0:numZastro, 0:numNastro, numT, 0:numlev)      :: rateastroex    ! thermonuclear reaction rate to a given Ex
-  real(dbl), dimension(numT)                                          :: rateastrofis   ! thermonuclear reaction rate for fission
-  real(dbl), dimension(numT)                                          :: rateastroracap ! thermonuclear reaction rate for dir cap
-  real(dbl), dimension(0:numZastro, 0:numNastro, 0:numenin)           :: xsastro        ! astrophysical cross section
-  real(dbl), dimension(0:numZastro, 0:numNastro, 0:numenin, 0:numlev) :: xsastroex      ! astrophysical cross section to a given Ex
-  real(dbl), dimension(0:numenin)                                     :: xsastrofis     ! astrophysical fission cross section
+  integer                               :: maxNastro      ! max number of protons from CN for astro
+  integer                               :: maxZastro      ! max number of protons from CN for astro
+  real(dbl), allocatable                :: macsastro(:,:,:)      ! thermonuclear cross section
+  real(dbl), allocatable                :: macsastroex(:,:,:,:)    ! thermonuclear reaction cross section
+  real(dbl), dimension(numT)            :: macsastrofis   ! thermonuclear reaction cross for fission
+  real(dbl), dimension(numT)            :: macsastroracap ! thermonuclear cross section for dir cap
+  real(dbl), dimension(numT)            :: partf          ! integrated partition function
+  real(dbl), allocatable                :: rateastro(:,:,:)      ! thermonuclear reaction rate factor
+  real(dbl), allocatable                :: rateastroex(:,:,:,:)    ! thermonuclear reaction rate to a given Ex
+  real(dbl), dimension(numT)            :: rateastrofis   ! thermonuclear reaction rate for fission
+  real(dbl), dimension(numT)            :: rateastroracap ! thermonuclear reaction rate for dir cap
+  real(dbl), allocatable                :: xsastro(:,:,:)        ! astrophysical cross section
+  real(dbl), allocatable                :: xsastroex(:,:,:,:)      ! astrophysical cross section to a given Ex
+  real(dbl), dimension(0:numenin)       :: xsastrofis     ! astrophysical fission cross section
 !
 ! astroprepare
 !
