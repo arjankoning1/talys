@@ -132,7 +132,7 @@ subroutine endfenergies
     degrid = 0.001
     do
       Ein = Ein + degrid
-      if (Ein > e6(1)) then
+      if (Ein - e6(1) > 1.e-7_dbl * max(abs(Ein), abs(e6(1)))) then
         nen = nen + 1
         e6(nen) = Ein
       endif
