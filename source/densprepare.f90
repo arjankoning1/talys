@@ -295,10 +295,14 @@ subroutine densprepare(Zcomp, Ncomp, idfis)
       if (type == 0) then
         lmaxhf(0, nexout) = gammax
         Egamma = Exinc - Exout
+!
+! Tgam is indexed by the spin and parity of the decaying (compound) state, which can exceed the maximal spin of the
+! residual bin. All spins are therefore set, so that no values from a previous bin or nucleus are used.
+!
         do l = 0, gammax
           do irad = 0, 1
             do Pprime = - 1, 1, 2
-              do Ir = 0, maxJ(nexout, Nix, Zix)
+              do Ir = 0, numJ
                 Tgam(l, nexout, irad, Ir, Pprime) = 0.
               enddo
             enddo
@@ -309,7 +313,7 @@ subroutine densprepare(Zcomp, Ncomp, idfis)
           do irad = 0, 1
             x = twopi * (Egamma **(2 * l + 1)) * fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l, 0, 0) * Fnorm(0)
             do Pprime = - 1, 1, 2
-              do Ir = 0, maxJ(nexout, Nix, Zix)
+              do Ir = 0, numJ
                 Tgam(l, nexout, irad, Ir, Pprime) = x
               enddo
             enddo
