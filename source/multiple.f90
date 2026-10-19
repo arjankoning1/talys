@@ -240,6 +240,8 @@ subroutine multiple
   real(sgl)          :: cutnuc
   real(sgl)          :: losttry
   real(sgl)          :: cutgoodE
+  real(sgl)          :: budgetE               ! population budget for skipped energy bins
+  real(sgl)          :: lostE                 ! population of skipped energy bins
   real(sgl)          :: cutgoodJP
   real(sgl)          :: xspopnorm
 !
@@ -504,7 +506,7 @@ subroutine multiple
 !
 ! Continue for a (Zcomp,Ncomp,nex) only when there is sufficient reaction flux in the excitation energy bin.
 !
-      budget = max(popabs, poprelE * xspopnuc(Zcomp,Ncomp))
+      budgetE = max(popabs, poprelE * xspopnuc(Zcomp,Ncomp))
       popmax = 0.
       do nex = 1, maxex(Zcomp, Ncomp)
         popmax = max(popmax, xspopex(nex, Ncomp, Zcomp))
@@ -520,11 +522,12 @@ subroutine multiple
         do nex = 1, maxex(Zcomp, Ncomp)
           if (xspopex(nex, Ncomp, Zcomp) < cut) losttry = losttry + xspopex(nex, Ncomp, Zcomp)
         enddo
-        if (losttry > budget) exit
+        if (losttry > budgetE) exit
         if (cut <= 0. .or. cut >= popmax) exit
         cutgoodE = cut
         cut = 2. * cut
       enddo
+      lostE = 0.
       do nex = maxex(Zcomp, Ncomp), 1, - 1
         dExinc = deltaEx(nex, Ncomp, Zcomp)
         xspopE = xspopex(nex, Ncomp, Zcomp)
@@ -551,7 +554,14 @@ subroutine multiple
           if (tau(Zcomp, Ncomp, nex) == 0.) call cascade(Zcomp, Ncomp, nex)
           cycle
         endif
-        if (xspopE < cutgoodE) cycle
+!
+! The cut is based on the population before decay, but bins are also fed by the decay of higher bins.
+! A bin is only skipped as long as the total skipped population stays within the budget.
+!
+        if (xspopE < cutgoodE .and. lostE + xspopE <= budgetE) then
+          lostE = lostE + xspopE
+          cycle
+        endif
 !
 ! For each mother excitation energy bin, determine the highest possible excitation energy bin nexmax for the residual nuclei.
 ! As reference, we take the top of the mother bin.
