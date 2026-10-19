@@ -198,6 +198,7 @@ subroutine excitation
       Exlow = Eexlow(nex)
       Exup = Eexup(nex)
       do nen = 0, npopE
+        if (npopE == 1) exit          ! a single population energy is handled below
         Edlow = Edistlow(nen)
         Edup = Edistup(nen)
         if (Edlow >= Exup) cycle
