@@ -147,7 +147,7 @@ subroutine excitation
     npopE = npopE - 1
   endif
   if (npopJ > 0) then
-    do nen = 1, npopE
+    do nen = 0, npopE
       PdistE(nen) = 0.
       do parity = - 1, 1, 2
         do J = 0, npopJ - 1
@@ -197,7 +197,8 @@ subroutine excitation
       enddo
       Exlow = Eexlow(nex)
       Exup = Eexup(nex)
-      do nen = 0, npopE - 1
+      do nen = 0, npopE
+        if (npopE == 1) exit          ! a single population energy is handled below
         Edlow = Edistlow(nen)
         Edup = Edistup(nen)
         if (Edlow >= Exup) cycle
