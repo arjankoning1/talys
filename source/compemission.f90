@@ -307,6 +307,16 @@ Loop1:    do type = 0, 6
         do nen = nenbeg, nenend
           sumweight = sumweight + weight(nen)
         enddo
+!
+! If the emission energy grid is coarser than the bin, all interpolated weights can vanish.
+! The flux is then distributed according to the overlap of [emin,emax] with the emission bins.
+!
+        if (sumweight == 0.) then
+          do nen = nenbeg, nenend
+            weight(nen) = max(min(emax, Etop(nen)) - max(emin, Ebottom(nen)), 0.)
+            sumweight = sumweight + weight(nen)
+          enddo
+        endif
         if (sumweight == 0.) cycle
 !
 ! The contribution for mother bin --> residual bin is added to the spectrum.
