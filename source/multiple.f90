@@ -240,6 +240,9 @@ subroutine multiple
   real(sgl)          :: cutnuc
   real(sgl)          :: losttry
   real(sgl)          :: cutgoodE
+  real(sgl)          :: budgetE               ! population budget for skipped energy bins
+  real(sgl)          :: lostE                 ! population of skipped energy bins
+  real(sgl)          :: popnuc                ! population of nucleus before decay
   real(sgl)          :: cutgoodJP
   real(sgl)          :: xspopnorm
 !
@@ -504,7 +507,8 @@ subroutine multiple
 !
 ! Continue for a (Zcomp,Ncomp,nex) only when there is sufficient reaction flux in the excitation energy bin.
 !
-      budget = max(popabs, poprelE * xspopnuc(Zcomp,Ncomp))
+      popnuc = xspopnuc(Zcomp,Ncomp)
+      budgetE = max(popabs, poprelE * popnuc)
       popmax = 0.
       do nex = 1, maxex(Zcomp, Ncomp)
         popmax = max(popmax, xspopex(nex, Ncomp, Zcomp))
@@ -520,11 +524,12 @@ subroutine multiple
         do nex = 1, maxex(Zcomp, Ncomp)
           if (xspopex(nex, Ncomp, Zcomp) < cut) losttry = losttry + xspopex(nex, Ncomp, Zcomp)
         enddo
-        if (losttry > budget) exit
+        if (losttry > budgetE) exit
         if (cut <= 0. .or. cut >= popmax) exit
         cutgoodE = cut
         cut = 2. * cut
       enddo
+      lostE = 0.
       do nex = maxex(Zcomp, Ncomp), 1, - 1
         dExinc = deltaEx(nex, Ncomp, Zcomp)
         xspopE = xspopex(nex, Ncomp, Zcomp)
@@ -551,7 +556,21 @@ subroutine multiple
           if (tau(Zcomp, Ncomp, nex) == 0.) call cascade(Zcomp, Ncomp, nex)
           cycle
         endif
-        if (xspopE < cutgoodE) cycle
+!
+! The cut is based on the population before decay, but bins are also fed by the decay of higher bins.
+! A bin is only skipped as long as the total skipped population stays within the budget.
+! Bins below the neutron separation energy decay (practically) only by gamma emission to this nucleus, as is also
+! assumed for the discrete levels above. Skipping them would remove their population from the residual production,
+! so they are always decayed.
+! The continuum of the initial compound nucleus only holds the gamma decay of the entrance channel. Its population is
+! small compared with the absolute limit popabs, while the capture cross section is a small part of it, so this nucleus
+! is never cut.
+!
+        if (xspopE < cutgoodE .and. lostE + xspopE <= budgetE .and. Exinc + 0.5 * dExinc > Smin .and. &
+          (Zcomp > 0 .or. Ncomp > 0)) then
+          lostE = lostE + xspopE
+          cycle
+        endif
 !
 ! For each mother excitation energy bin, determine the highest possible excitation energy bin nexmax for the residual nuclei.
 ! As reference, we take the top of the mother bin.
@@ -602,8 +621,11 @@ Loop1:  do type = 1, 6
         if (flagcomp) then
 !
 ! Continue for a (Zcomp,Ncomp,nex,J,P) only when there is sufficient reaction flux in the excitation energy bin.
+! The absolute limit popabs applies to the nucleus as a whole. It is shared over the bins according to their population,
+! so that the population skipped in all bins together stays within popabs plus the relative limit.
 !
-          budget = max(popabs, poprelJP * xspopE)
+          budget = poprelJP * xspopE
+          if (popnuc > 0.) budget = max(budget, popabs * xspopE / popnuc)
           popmax = 0.
           do parity = -1,1,2
             do J = 0,maxJ(nex, Ncomp, Zcomp)
@@ -615,6 +637,14 @@ Loop1:  do type = 1, 6
             cutgoodJP = cut
           else
             cutgoodJP = 0.
+          endif
+!
+! Spin-parity bins of a bin below the neutron separation energy, or of the initial compound nucleus, are always decayed
+! (see above).
+!
+          if (Exinc + 0.5 * dExinc <= Smin .or. (Zcomp == 0 .and. Ncomp == 0)) then
+            cutgoodJP = 0.
+            cut = 0.
           endif
           do
             losttry = 0.
