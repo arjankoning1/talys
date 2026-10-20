@@ -1,12 +1,12 @@
 
-    TALYS-2.25 (Version: September 20, 2026)
+    TALYS-2.25 (Version: October 20, 2026)
 
  Copyright (C) 2026  A.J. Koning, S. Hilaire and S. Goriely
 
  Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees
 
  User: Arjan Koning
- Date: 2026-09-22
+ Date: 2026-10-20
 
  ########## USER INPUT ##########
 
@@ -64,6 +64,9 @@
  xseps            1.00E-07 xseps        limit for cross sections
  popeps           1.00E-03 popeps       limit for population cross section per nucleus
  Rfiseps          1.00E-03 Rfiseps      ratio for limit for fission cross section per nucleus
+ poprelnuc        1.00E-06 poprelnuc    relative limit for population cross sections
+ poprelE          1.00E-04 poprelE      relative limit for population energy bin compared to largest bin
+ poprelJP         1.00E-03 poprelJP     relative limit for population energy-J-P bin compared to largest bin
  elow             1.00E-06 elow         minimal incident energy for nuclear model calculations
  angles             90     nangle       number of angles
  anglescont         18     nanglecont   number of angles for continuum
@@ -680,7 +683,7 @@
                  cross section       cross section  ratio
 
    39  90 ( 90Y ) 2.09529E+02    0    2.09068E+02  0.99780
-                                 2    4.60956E-01  0.00220   1.14800E+04 sec. 
+                                 2    4.60957E-01  0.00220   1.14800E+04 sec. 
    37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
                                  2    0.00000E+00  0.00000   6.10200E+01 sec. 
 
@@ -733,7 +736,7 @@
  3. Total particle production cross sections
 
  gamma   = 2.07377E+02    Multiplicity= 1.51804E+00
- neutron = 7.14954E-05    Multiplicity= 5.23360E-07
+ neutron = 7.14954E-05    Multiplicity= 5.23359E-07
  proton  = 0.00000E+00    Multiplicity= 0.00000E+00
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
  triton  = 0.00000E+00    Multiplicity= 0.00000E+00
@@ -816,7 +819,7 @@
                  cross section       cross section  ratio
 
    39  90 ( 90Y ) 9.10593E+01    0    9.08089E+01  0.99725
-                                 2    2.50436E-01  0.00275   1.14800E+04 sec. 
+                                 2    2.50437E-01  0.00275   1.14800E+04 sec. 
    37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
                                  2    0.00000E+00  0.00000   6.10200E+01 sec. 
 
@@ -1088,7 +1091,7 @@
                  cross section       cross section  ratio
 
    39  90 ( 90Y ) 1.60427E+01    0    1.58561E+01  0.98837
-                                 2    1.86580E-01  0.01163   1.14800E+04 sec. 
+                                 2    1.86581E-01  0.01163   1.14800E+04 sec. 
    37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
                                  2    0.00000E+00  0.00000   6.10200E+01 sec. 
 
@@ -1166,7 +1169,7 @@
 
    90 1.33891E+01
 
- Total residual production cross section:    13.3891115
+ Total residual production cross section:    13.3891125
  Non-elastic cross section              :    13.8088379
 
  ########## RESULTS FOR E=   0.20000 ##########
@@ -1293,8 +1296,6 @@
 
    39  90 ( 90Y ) 9.84740E+00    0    9.26740E+00  0.94110
                                  2    5.80003E-01  0.05890   1.14800E+04 sec. 
-   39  89 ( 89Y ) 1.71430E-03    0    1.71430E-03  1.00000
-                                 1    0.00000E+00  0.00000   1.56600E+01 sec. 
    37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
                                  2    0.00000E+00  0.00000   6.10200E+01 sec. 
 
@@ -1303,9 +1304,8 @@
    A  cross section
 
    90 9.84740E+00
-   89 1.71430E-03
 
- Total residual production cross section:     9.8491154
+ Total residual production cross section:     9.8474016
  Non-elastic cross section              :    10.1362305
 
  ########## RESULTS FOR E=   0.40000 ##########
@@ -1434,7 +1434,7 @@
                  cross section       cross section  ratio
 
    39  90 ( 90Y ) 9.04427E+00    0    8.34115E+00  0.92226
-                                 2    7.03117E-01  0.07774   1.14800E+04 sec. 
+                                 2    7.03118E-01  0.07774   1.14800E+04 sec. 
    39  89 ( 89Y ) 7.51434E-03    0    7.51434E-03  1.00000
                                  1    0.00000E+00  0.00000   1.56600E+01 sec. 
    37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
@@ -1447,7 +1447,7 @@
    90 9.04427E+00
    89 7.51434E-03
 
- Total residual production cross section:     9.0517845
+ Total residual production cross section:     9.0517855
  Non-elastic cross section              :     9.2194824
 
  ########## RESULTS FOR E=   0.60000 ##########
@@ -1660,7 +1660,7 @@
    90 9.03117E+00
    89 3.80702E-02
 
- Total residual production cross section:     9.0692425
+ Total residual production cross section:     9.0692434
  Non-elastic cross section              :     9.1564941
 
  ########## RESULTS FOR E=   0.90000 ##########
@@ -1860,7 +1860,7 @@
                  cross section       cross section  ratio
 
    39  90 ( 90Y ) 6.91904E+00    0    6.42862E+00  0.92912
-                                 2    4.90417E-01  0.07088   1.14800E+04 sec. 
+                                 2    4.90418E-01  0.07088   1.14800E+04 sec. 
    39  89 ( 89Y ) 1.10484E+02    0    1.03158E-01  0.00093
                                  1    1.10381E+02  0.99907   1.56600E+01 sec. 
    37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
@@ -1931,7 +1931,7 @@
                  cross section       cross section  ratio
 
    39  90 ( 90Y ) 7.09200E+00    0    6.56696E+00  0.92597
-                                 2    5.25045E-01  0.07403   1.14800E+04 sec. 
+                                 2    5.25046E-01  0.07403   1.14800E+04 sec. 
    39  89 ( 89Y ) 1.59587E+02    0    1.55621E-01  0.00098
                                  1    1.59431E+02  0.99902   1.56600E+01 sec. 
    37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
@@ -2144,7 +2144,7 @@
                  cross section       cross section  ratio
 
    39  90 ( 90Y ) 4.41091E+00    0    3.95113E+00  0.89576
-                                 2    4.59782E-01  0.10424   1.14800E+04 sec. 
+                                 2    4.59783E-01  0.10424   1.14800E+04 sec. 
    39  89 ( 89Y ) 1.14599E+03    0    9.28735E+02  0.81042
                                  1    2.17259E+02  0.18958   1.56600E+01 sec. 
    37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
@@ -2270,7 +2270,7 @@
 
  3. Total particle production cross sections
 
- gamma   = 8.68637E+00    Multiplicity= 6.31084E-03
+ gamma   = 8.68637E+00    Multiplicity= 6.31085E-03
  neutron = 1.37218E+03    Multiplicity= 9.96919E-01
  proton  = 2.04520E-03    Multiplicity= 1.48588E-06
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
@@ -2286,10 +2286,9 @@
                  cross section       cross section  ratio
 
    39  90 ( 90Y ) 4.23817E+00    0    3.72652E+00  0.87928
-                                 2    5.11652E-01  0.12072   1.14800E+04 sec. 
+                                 2    5.11653E-01  0.12072   1.14800E+04 sec. 
    39  89 ( 89Y ) 1.37218E+03    0    1.06722E+03  0.77775
                                  1    3.04961E+02  0.22225   1.56600E+01 sec. 
-   38  89 ( 89Sr) 2.04520E-03    0    2.04520E-03  1.00000
    37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
                                  2    0.00000E+00  0.00000   6.10200E+01 sec. 
 
@@ -2300,7 +2299,7 @@
    90 4.23817E+00
    89 1.37218E+03
 
- Total residual production cross section:  1376.4180908
+ Total residual production cross section:  1376.4160156
  Non-elastic cross section              :  1376.4189453
 
  ########## RESULTS FOR E=   2.60000 ##########
@@ -2430,7 +2429,7 @@
                  cross section       cross section  ratio
 
    39  90 ( 90Y ) 4.26304E+00    0    3.74640E+00  0.87881
-                                 2    5.16642E-01  0.12119   1.14800E+04 sec. 
+                                 2    5.16643E-01  0.12119   1.14800E+04 sec. 
    39  89 ( 89Y ) 1.46669E+03    0    1.02593E+03  0.69949
                                  1    4.40754E+02  0.30051   1.56600E+01 sec. 
    38  89 ( 89Sr) 2.38633E-02    0    2.38633E-02  1.00000
@@ -2558,7 +2557,7 @@
 
  3. Total particle production cross sections
 
- gamma   = 8.90431E+00    Multiplicity= 5.61888E-03
+ gamma   = 8.90432E+00    Multiplicity= 5.61888E-03
  neutron = 1.58057E+03    Multiplicity= 9.97383E-01
  proton  = 1.15411E-01    Multiplicity= 7.28276E-05
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
@@ -2862,7 +2861,7 @@
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   39  90 ( 90Y ) 2.17728E+00    0    1.85538E+00  0.85215
+   39  90 ( 90Y ) 2.17729E+00    0    1.85538E+00  0.85215
                                  2    3.21908E-01  0.14785   1.14800E+04 sec. 
    39  89 ( 89Y ) 1.76787E+03    0    1.16248E+03  0.65756
                                  1    6.05392E+02  0.34244   1.56600E+01 sec. 
@@ -3008,8 +3007,8 @@
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   39  90 ( 90Y ) 1.63628E+00    0    1.36618E+00  0.83493
-                                 2    2.70094E-01  0.16507   1.14800E+04 sec. 
+   39  90 ( 90Y ) 1.63628E+00    0    1.36619E+00  0.83493
+                                 2    2.70093E-01  0.16507   1.14800E+04 sec. 
    39  89 ( 89Y ) 1.76580E+03    0    1.06352E+03  0.60229
                                  1    7.02277E+02  0.39771   1.56600E+01 sec. 
    38  89 ( 89Sr) 6.79845E-01    0    6.79845E-01  1.00000
@@ -3082,7 +3081,7 @@
                  cross section       cross section  ratio
 
    39  90 ( 90Y ) 1.44571E+00    0    1.20164E+00  0.83118
-                                 2    2.44065E-01  0.16882   1.14800E+04 sec. 
+                                 2    2.44064E-01  0.16882   1.14800E+04 sec. 
    39  89 ( 89Y ) 1.75786E+03    0    1.03159E+03  0.58684
                                  1    7.26273E+02  0.41316   1.56600E+01 sec. 
    38  89 ( 89Sr) 7.93619E-01    0    7.93619E-01  1.00000
@@ -3096,7 +3095,7 @@
    90 1.44571E+00
    89 1.75866E+03
 
- Total residual production cross section:  1760.1035156
+ Total residual production cross section:  1760.1036377
  Non-elastic cross section              :  1760.0986328
 
  ########## RESULTS FOR E=   4.80000 ##########
@@ -3155,7 +3154,7 @@
                  cross section       cross section  ratio
 
    39  90 ( 90Y ) 1.29393E+00    0    1.06637E+00  0.82413
-                                 2    2.27564E-01  0.17587   1.14800E+04 sec. 
+                                 2    2.27562E-01  0.17587   1.14800E+04 sec. 
    39  89 ( 89Y ) 1.75020E+03    0    1.00272E+03  0.57292
                                  1    7.47484E+02  0.42708   1.56600E+01 sec. 
    38  89 ( 89Sr) 9.06193E-01    0    9.06193E-01  1.00000
@@ -3227,8 +3226,8 @@
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   39  90 ( 90Y ) 1.16764E+00    0    9.49151E-01  0.81288
-                                 2    2.18485E-01  0.18712   1.14800E+04 sec. 
+   39  90 ( 90Y ) 1.16764E+00    0    9.49153E-01  0.81288
+                                 2    2.18483E-01  0.18712   1.14800E+04 sec. 
    39  89 ( 89Y ) 1.74402E+03    0    9.75298E+02  0.55923
                                  1    7.68719E+02  0.44077   1.56600E+01 sec. 
    38  89 ( 89Sr) 1.00806E+00    0    1.00806E+00  1.00000
@@ -3282,6 +3281,6 @@ file: rp037086.tot
 file: rp037086.L00
 file: rp037086.L02
 
- Execution time:  0 hours  0 minutes  1.74 seconds 
+ Execution time:  0 hours  0 minutes  1.93 seconds 
 
  The TALYS team congratulates you with this successful calculation.

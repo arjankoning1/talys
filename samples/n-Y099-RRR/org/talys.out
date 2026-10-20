@@ -1,12 +1,12 @@
 
-    TALYS-2.25 (Version: September 20, 2026)
+    TALYS-2.25 (Version: October 20, 2026)
 
  Copyright (C) 2026  A.J. Koning, S. Hilaire and S. Goriely
 
  Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees
 
  User: Arjan Koning
- Date: 2026-09-22
+ Date: 2026-10-20
 
  ########## USER INPUT ##########
 
@@ -69,6 +69,9 @@
  xseps            1.00E-07 xseps        limit for cross sections
  popeps           1.00E-03 popeps       limit for population cross section per nucleus
  Rfiseps          1.00E-03 Rfiseps      ratio for limit for fission cross section per nucleus
+ poprelnuc        1.00E-06 poprelnuc    relative limit for population cross sections
+ poprelE          1.00E-04 poprelE      relative limit for population energy bin compared to largest bin
+ poprelJP         1.00E-03 poprelJP     relative limit for population energy-J-P bin compared to largest bin
  elow             1.00E-06 elow         minimal incident energy for nuclear model calculations
  angles             90     nangle       number of angles
  anglescont         18     nanglecont   number of angles for continuum
@@ -969,11 +972,11 @@
     n   p   d   t   h   a                                        cross section   ratio
     0   0   0   0   0   0    1.37548E+02  (n,g)                                                     1.00000E+00
 
- Absorption cross section                 :   137.54797
+ Absorption cross section                 :   137.54796
 
- Sum over exclusive channel cross sections:   137.54797
+ Sum over exclusive channel cross sections:   137.54796
  (n,gn) + (n,gp) +...(n,ga) cross sections:     0.00011
- Total                                    :   137.54808
+ Total                                    :   137.54807
  Non-elastic cross section                :   137.59644
 
  ########## RESULTS FOR E=   0.02000 ##########
@@ -1052,7 +1055,7 @@
 
  Sum over exclusive channel cross sections:    77.08717
  (n,gn) + (n,gp) +...(n,ga) cross sections:     0.00009
- Total                                    :    77.08726
+ Total                                    :    77.08725
  Non-elastic cross section                :    77.15820
 
  ########## RESULTS FOR E=   0.04000 ##########
@@ -1116,7 +1119,7 @@
 
   100 4.37991E+01
 
- Total residual production cross section:    43.7990952
+ Total residual production cross section:    43.7990990
  Non-elastic cross section              :    43.9721680
 
  6. Exclusive cross sections
@@ -1658,7 +1661,7 @@
 
  3. Total particle production cross sections
 
- gamma   = 1.21321E+01    Multiplicity= 7.38590E-03
+ gamma   = 1.21321E+01    Multiplicity= 7.38591E-03
  neutron = 1.63704E+03    Multiplicity= 9.96615E-01
  proton  = 0.00000E+00    Multiplicity= 0.00000E+00
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
@@ -1945,7 +1948,7 @@
 
  Sum over exclusive channel cross sections:  1822.80774
  (n,gn) + (n,gp) +...(n,ga) cross sections:     0.03827
- Total                                    :  1822.84595
+ Total                                    :  1822.84607
  Non-elastic cross section                :  1822.84619
 
  ########## RESULTS FOR E=   0.90000 ##########
@@ -2232,7 +2235,7 @@
 
  3. Total particle production cross sections
 
- gamma   = 6.37448E+00    Multiplicity= 3.14517E-03
+ gamma   = 6.37449E+00    Multiplicity= 3.14517E-03
  neutron = 2.02422E+03    Multiplicity= 9.98750E-01
  proton  = 0.00000E+00    Multiplicity= 0.00000E+00
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
@@ -2815,6 +2818,6 @@ file: xs100000.tot
                                              Tape Totals    78153    16475
  -------------------------------------------------------------------------------
 
- Execution time:  0 hours  0 minutes  1.43 seconds 
+ Execution time:  0 hours  0 minutes  1.45 seconds 
 
  The TALYS team congratulates you with this successful calculation.

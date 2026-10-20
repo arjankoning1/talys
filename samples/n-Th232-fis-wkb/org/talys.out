@@ -3,14 +3,14 @@
  OMP retrieval flag=  0  RIPL OMP retrieval succeeded                                      
  ******************************************************************************************
 
-    TALYS-2.25 (Version: September 20, 2026)
+    TALYS-2.25 (Version: October 20, 2026)
 
  Copyright (C) 2026  A.J. Koning, S. Hilaire and S. Goriely
 
  Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees
 
  User: Arjan Koning
- Date: 2026-09-22
+ Date: 2026-10-20
 
  ########## USER INPUT ##########
 
@@ -94,6 +94,9 @@
  xseps            1.00E-07 xseps        limit for cross sections
  popeps           1.00E-03 popeps       limit for population cross section per nucleus
  Rfiseps          1.00E-03 Rfiseps      ratio for limit for fission cross section per nucleus
+ poprelnuc        1.00E-06 poprelnuc    relative limit for population cross sections
+ poprelE          1.00E-04 poprelE      relative limit for population energy bin compared to largest bin
+ poprelJP         1.00E-03 poprelJP     relative limit for population energy-J-P bin compared to largest bin
  elow             1.00E-06 elow         minimal incident energy for nuclear model calculations
  angles             90     nangle       number of angles
  anglescont         18     nanglecont   number of angles for continuum
@@ -1575,18 +1578,18 @@ file: pfns0003.000.fis
     n   p   d   t   h   a                                        cross section   ratio
     0   0   0   0   0   0    1.92976E+01  (n,g)                                                     5.40986E-03
     1   0   0   0   0   0    3.42079E+03  (n,n')                                                    9.58980E-01
-    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     2.80338E-11
-    1   0   0   0   0   1    1.00000E-07  (n,na)                                                    2.80338E-11
-    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    2.80338E-11
-    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    2.80338E-11
-    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   2.80338E-11
-    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   2.80338E-11
-    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   2.80338E-11
-    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   2.80338E-11
-    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   2.80338E-11
-    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    2.80338E-11
-    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  2.80338E-11
-    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   2.80338E-11
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     2.80339E-11
+    1   0   0   0   0   1    1.00000E-07  (n,na)                                                    2.80339E-11
+    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    2.80339E-11
+    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    2.80339E-11
+    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   2.80339E-11
+    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   2.80339E-11
+    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   2.80339E-11
+    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   2.80339E-11
+    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   2.80339E-11
+    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    2.80339E-11
+    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  2.80339E-11
+    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   2.80339E-11
 
  6a2. Exclusive fission cross sections 
 
@@ -1596,9 +1599,9 @@ file: pfns0003.000.fis
 
  Absorption cross section                 :   146.32179
 
- Sum over exclusive channel cross sections:  3567.11621
+ Sum over exclusive channel cross sections:  3567.11572
  (n,gn) + (n,gp) +...(n,ga) cross sections:    20.93295
- Total                                    :  3588.04907
+ Total                                    :  3588.04858
  Non-elastic cross section                :  3584.42798
 
  ########## RESULTS FOR E=   4.00000 ##########
@@ -2889,14 +2892,14 @@ file: pfns0006.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 5.76559E+03    Multiplicity= 1.77814E+00
+ gamma   = 5.76362E+03    Multiplicity= 1.77753E+00
  neutron = 3.41028E+03    Multiplicity= 1.05175E+00
  proton  = 8.46998E-09    Multiplicity= 2.61219E-12
  deuteron= 2.46561E-27    Multiplicity= 7.60408E-31
  triton  = 2.36963E-32    Multiplicity= 7.30809E-36
  helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
  alpha   = 1.45879E-06    Multiplicity= 4.49899E-10
- fission = 3.78574E+02
+ fission = 3.78443E+02
 
  4. Residual production cross sections
 
@@ -2906,8 +2909,8 @@ file: pfns0006.000.fis
                  cross section       cross section  ratio
 
    90 233 (233Th) 1.20486E+00    0    1.20486E+00  1.00000
-   90 232 (232Th) 2.57551E+03    0    2.57551E+03  1.00000
-   90 231 (231Th) 2.96634E+02    0    2.96634E+02  1.00000
+   90 232 (232Th) 2.57526E+03    0    2.57526E+03  1.00000
+   90 231 (231Th) 2.96633E+02    0    2.96633E+02  1.00000
    88 229 (229Ra) 1.00000E-07    0    4.41396E-08  0.00000
    88 228 (228Ra) 1.00000E-07    0    0.00000E+00  0.00000
 
@@ -2916,18 +2919,18 @@ file: pfns0006.000.fis
    A  cross section
 
   233 1.20486E+00
-  232 2.57551E+03
-  231 2.96634E+02
+  232 2.57526E+03
+  231 2.96633E+02
 
- Total residual production cross section:  2873.3530273
- Total fission cross section            :   378.5736694
- Fission + res. production cross section:  3251.9267578
+ Total residual production cross section:  2873.1027832
+ Total fission cross section            :   378.4425354
+ Fission + res. production cross section:  3251.5454102
  Non-elastic cross section              :  3242.4792480
 
  4b. Fission cross section per fissioning nuclide
 
    90 233 (233Th) 1.27630E+02
-   90 232 (232Th) 2.50943E+02
+   90 232 (232Th) 2.50812E+02
 file: rp090233.fis
 file: rp090232.fis
 
@@ -3239,34 +3242,34 @@ file: pfns0007.000.fis
 
      Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
     n   p   d   t   h   a                                        cross section   ratio
-    0   0   0   0   0   0    1.20486E+00  (n,g)                                                     3.71308E-04
-    1   0   0   0   0   0    2.56849E+03  (n,n')                                                    7.91547E-01
-    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     3.08176E-11
-    2   0   0   0   0   0    2.96633E+02  (n,2n)                                                    9.14152E-02
-    1   0   0   0   0   1    1.00000E-07  (n,na)                                                    3.08176E-11
-    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.08176E-11
-    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.08176E-11
-    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.08176E-11
-    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.08176E-11
-    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.08176E-11
-    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.08176E-11
-    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.08176E-11
-    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.08176E-11
-    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.08176E-11
-    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.08176E-11
+    0   0   0   0   0   0    1.20486E+00  (n,g)                                                     3.71351E-04
+    1   0   0   0   0   0    2.56824E+03  (n,n')                                                    7.91563E-01
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     3.08212E-11
+    2   0   0   0   0   0    2.96633E+02  (n,2n)                                                    9.14258E-02
+    1   0   0   0   0   1    1.00000E-07  (n,na)                                                    3.08212E-11
+    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.08212E-11
+    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.08212E-11
+    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.08212E-11
+    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.08212E-11
+    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.08212E-11
+    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.08212E-11
+    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.08212E-11
+    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.08212E-11
+    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.08212E-11
+    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.08212E-11
 
  6a2. Exclusive fission cross sections 
 
      Emitted particles     cross section reaction
     n   p   d   t   h   a
     0   0   0   0   0   0    1.27630E+02  (n,gf)           
-    1   0   0   0   0   0    2.50941E+02  (n,n'f)          
+    1   0   0   0   0   0    2.50810E+02  (n,n'f)          
 
- Absorption cross section                 :   379.77649
+ Absorption cross section                 :   379.64532
 
- Sum over exclusive channel cross sections:  3244.90186
+ Sum over exclusive channel cross sections:  3244.52051
  (n,gn) + (n,gp) +...(n,ga) cross sections:     7.29561
- Total                                    :  3252.19751
+ Total                                    :  3251.81616
  Non-elastic cross section                :  3242.47925
 
  ########## RESULTS FOR E=   8.00000 ##########
@@ -3309,14 +3312,14 @@ file: pfns0007.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 3.32305E+03    Multiplicity= 1.02360E+00
- neutron = 4.57756E+03    Multiplicity= 1.41002E+00
+ gamma   = 3.31840E+03    Multiplicity= 1.02216E+00
+ neutron = 4.57745E+03    Multiplicity= 1.40999E+00
  proton  = 2.55450E-06    Multiplicity= 7.86859E-10
  deuteron= 3.01850E-18    Multiplicity= 9.29785E-22
  triton  = 2.96131E-21    Multiplicity= 9.12168E-25
  helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
  alpha   = 1.26216E-05    Multiplicity= 3.88780E-09
- fission = 3.76045E+02
+ fission = 3.75268E+02
 
  4. Residual production cross sections
 
@@ -3326,8 +3329,8 @@ file: pfns0007.000.fis
                  cross section       cross section  ratio
 
    90 233 (233Th) 1.29532E+00    0    1.29532E+00  1.00000
-   90 232 (232Th) 1.44363E+03    0    1.44363E+03  1.00000
-   90 231 (231Th) 1.43658E+03    0    1.43658E+03  1.00000
+   90 232 (232Th) 1.44308E+03    0    1.44308E+03  1.00000
+   90 231 (231Th) 1.43647E+03    0    1.43647E+03  1.00000
    88 229 (229Ra) 1.00000E-07    0    6.68397E-08  0.00000
    88 228 (228Ra) 1.00000E-07    0    0.00000E+00  0.00000
 
@@ -3336,18 +3339,18 @@ file: pfns0007.000.fis
    A  cross section
 
   233 1.29532E+00
-  232 1.44363E+03
-  231 1.43658E+03
+  232 1.44308E+03
+  231 1.43647E+03
 
- Total residual production cross section:  2881.5026855
- Total fission cross section            :   376.0453491
- Fission + res. production cross section:  3257.5480957
+ Total residual production cross section:  2880.8464355
+ Total fission cross section            :   375.2680359
+ Fission + res. production cross section:  3256.1145020
  Non-elastic cross section              :  3246.4499512
 
  4b. Fission cross section per fissioning nuclide
 
    90 233 (233Th) 1.04183E+02
-   90 232 (232Th) 2.71862E+02
+   90 232 (232Th) 2.71085E+02
 file: rp090233.fis
 file: rp090232.fis
 
@@ -3659,34 +3662,34 @@ file: pfns0008.000.fis
 
      Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
     n   p   d   t   h   a                                        cross section   ratio
-    0   0   0   0   0   0    1.29532E+00  (n,g)                                                     3.98232E-04
-    1   0   0   0   0   0    1.43877E+03  (n,n')                                                    4.42336E-01
-    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     3.07440E-11
-    2   0   0   0   0   0    1.43657E+03  (n,2n)                                                    4.41658E-01
-    1   0   0   0   0   1    1.00000E-07  (n,na)                                                    3.07440E-11
-    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.07440E-11
-    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.07440E-11
-    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.07440E-11
-    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.07440E-11
-    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.07440E-11
-    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.07440E-11
-    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.07440E-11
-    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.07440E-11
-    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.07440E-11
-    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.07440E-11
+    0   0   0   0   0   0    1.29532E+00  (n,g)                                                     3.98407E-04
+    1   0   0   0   0   0    1.43822E+03  (n,n')                                                    4.42362E-01
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     3.07575E-11
+    2   0   0   0   0   0    1.43646E+03  (n,2n)                                                    4.41820E-01
+    1   0   0   0   0   1    1.00000E-07  (n,na)                                                    3.07575E-11
+    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.07575E-11
+    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.07575E-11
+    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.07575E-11
+    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.07575E-11
+    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.07575E-11
+    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.07575E-11
+    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.07575E-11
+    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.07575E-11
+    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.07575E-11
+    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.07575E-11
 
  6a2. Exclusive fission cross sections 
 
      Emitted particles     cross section reaction
     n   p   d   t   h   a
     0   0   0   0   0   0    1.04183E+02  (n,gf)           
-    1   0   0   0   0   0    2.71850E+02  (n,n'f)          
+    1   0   0   0   0   0    2.71072E+02  (n,n'f)          
 
- Absorption cross section                 :   377.32843
+ Absorption cross section                 :   376.55103
 
- Sum over exclusive channel cross sections:  3252.66943
+ Sum over exclusive channel cross sections:  3251.23560
  (n,gn) + (n,gp) +...(n,ga) cross sections:     5.07438
- Total                                    :  3257.74390
+ Total                                    :  3256.31006
  Non-elastic cross section                :  3246.44995
 
  ########## RESULTS FOR E=   9.00000 ##########
@@ -3729,14 +3732,14 @@ file: pfns0008.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 3.04195E+03    Multiplicity= 9.40464E-01
- neutron = 5.25721E+03    Multiplicity= 1.62534E+00
+ gamma   = 3.03924E+03    Multiplicity= 9.39626E-01
+ neutron = 5.25701E+03    Multiplicity= 1.62528E+00
  proton  = 8.36975E-05    Multiplicity= 2.58763E-08
  deuteron= 5.18225E-13    Multiplicity= 1.60217E-16
  triton  = 4.16934E-15    Multiplicity= 1.28901E-18
  helium-3= 1.25136E-42    Multiplicity= 0.00000E+00
  alpha   = 9.92472E-05    Multiplicity= 3.06837E-08
- fission = 3.03530E+02
+ fission = 3.02396E+02
 
  4. Residual production cross sections
 
@@ -3746,8 +3749,8 @@ file: pfns0008.000.fis
                  cross section       cross section  ratio
 
    90 233 (233Th) 1.57407E+00    0    1.57407E+00  1.00000
-   90 232 (232Th) 8.38480E+02    0    8.38480E+02  1.00000
-   90 231 (231Th) 2.10546E+03    0    2.10546E+03  1.00000
+   90 232 (232Th) 8.38182E+02    0    8.38182E+02  1.00000
+   90 231 (231Th) 2.10526E+03    0    2.10526E+03  1.00000
    88 229 (229Ra) 1.00000E-07    0    9.17770E-08  0.00000
    88 228 (228Ra) 1.00000E-07    0    0.00000E+00  0.00000
 
@@ -3756,18 +3759,18 @@ file: pfns0008.000.fis
    A  cross section
 
   233 1.57407E+00
-  232 8.38480E+02
-  231 2.10546E+03
+  232 8.38182E+02
+  231 2.10526E+03
 
- Total residual production cross section:  2945.5119629
- Total fission cross section            :   303.5304871
- Fission + res. production cross section:  3249.0424805
+ Total residual production cross section:  2945.0180664
+ Total fission cross section            :   302.3961182
+ Fission + res. production cross section:  3247.4140625
  Non-elastic cross section              :  3234.5200195
 
  4b. Fission cross section per fissioning nuclide
 
    90 233 (233Th) 8.12407E+01
-   90 232 (232Th) 2.22290E+02
+   90 232 (232Th) 2.21155E+02
 file: rp090233.fis
 file: rp090232.fis
 
@@ -4079,34 +4082,34 @@ file: pfns0009.000.fis
 
      Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
     n   p   d   t   h   a                                        cross section   ratio
-    0   0   0   0   0   0    1.57407E+00  (n,g)                                                     4.85007E-04
-    1   0   0   0   0   0    8.34977E+02  (n,n')                                                    2.57275E-01
-    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     3.08123E-11
-    2   0   0   0   0   0    2.10541E+03  (n,2n)                                                    6.48726E-01
-    1   0   0   0   0   1    1.00000E-07  (n,na)                                                    3.08123E-11
-    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.08123E-11
-    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.08123E-11
-    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.08123E-11
-    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.08123E-11
-    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.08123E-11
-    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.08123E-11
-    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.08123E-11
-    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.08123E-11
-    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.08123E-11
-    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.08123E-11
+    0   0   0   0   0   0    1.57407E+00  (n,g)                                                     4.85251E-04
+    1   0   0   0   0   0    8.34678E+02  (n,n')                                                    2.57312E-01
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     3.08277E-11
+    2   0   0   0   0   0    2.10522E+03  (n,2n)                                                    6.48991E-01
+    1   0   0   0   0   1    1.00000E-07  (n,na)                                                    3.08277E-11
+    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.08277E-11
+    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.08277E-11
+    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.08277E-11
+    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.08277E-11
+    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.08277E-11
+    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.08277E-11
+    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.08277E-11
+    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.08277E-11
+    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.08277E-11
+    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.08277E-11
 
  6a2. Exclusive fission cross sections 
 
      Emitted particles     cross section reaction
     n   p   d   t   h   a
     0   0   0   0   0   0    8.12407E+01  (n,gf)           
-    1   0   0   0   0   0    2.22255E+02  (n,n'f)          
+    1   0   0   0   0   0    2.21120E+02  (n,n'f)          
 
- Absorption cross section                 :   305.06940
+ Absorption cross section                 :   303.93512
 
- Sum over exclusive channel cross sections:  3245.46045
+ Sum over exclusive channel cross sections:  3243.83252
  (n,gn) + (n,gp) +...(n,ga) cross sections:     3.72180
- Total                                    :  3249.18213
+ Total                                    :  3247.55420
  Non-elastic cross section                :  3234.52002
 
  ########## RESULTS FOR E=  10.00000 ##########
@@ -4149,14 +4152,14 @@ file: pfns0009.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 3.94581E+03    Multiplicity= 1.22972E+00
- neutron = 5.46605E+03    Multiplicity= 1.70351E+00
+ gamma   = 3.94443E+03    Multiplicity= 1.22929E+00
+ neutron = 5.46580E+03    Multiplicity= 1.70343E+00
  proton  = 1.06150E-03    Multiplicity= 3.30818E-07
  deuteron= 8.60469E-10    Multiplicity= 2.68167E-13
  triton  = 3.18015E-11    Multiplicity= 9.91102E-15
  helium-3= 3.96000E-33    Multiplicity= 1.23415E-36
  alpha   = 5.91606E-04    Multiplicity= 1.84376E-07
- fission = 2.69906E+02
+ fission = 2.68702E+02
 
  4. Residual production cross sections
 
@@ -4166,30 +4169,28 @@ file: pfns0009.000.fis
                  cross section       cross section  ratio
 
    90 233 (233Th) 1.76594E+00    0    1.76594E+00  1.00000
-   90 232 (232Th) 6.30138E+02    0    6.30138E+02  1.00000
-   89 232 (232Ac) 1.05557E-03    0    1.05557E-03  1.00000
-   90 231 (231Th) 2.32126E+03    0    2.32126E+03  1.00000
+   90 232 (232Th) 6.30029E+02    0    6.30029E+02  1.00000
+   90 231 (231Th) 2.32101E+03    0    2.32101E+03  1.00000
    88 229 (229Ra) 1.00000E-07    0    1.17105E-07  0.00000
    88 228 (228Ra) 1.00000E-07    0    3.41280E-09  0.00000
-   87 228 (228Fr) 1.00000E-07    0    0.00000E+00  0.00000
 
    b. Per mass
 
    A  cross section
 
   233 1.76594E+00
-  232 6.30139E+02
-  231 2.32126E+03
+  232 6.30029E+02
+  231 2.32101E+03
 
- Total residual production cross section:  2953.1611328
- Total fission cross section            :   269.9055786
- Fission + res. production cross section:  3223.0666504
+ Total residual production cross section:  2952.8002930
+ Total fission cross section            :   268.7019348
+ Fission + res. production cross section:  3221.5021973
  Non-elastic cross section              :  3208.6999512
 
  4b. Fission cross section per fissioning nuclide
 
    90 233 (233Th) 6.22036E+01
-   90 232 (232Th) 2.07702E+02
+   90 232 (232Th) 2.06498E+02
 file: rp090233.fis
 file: rp090232.fis
 
@@ -4501,35 +4502,34 @@ file: pfns0010.000.fis
 
      Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
     n   p   d   t   h   a                                        cross section   ratio
-    0   0   0   0   0   0    1.76594E+00  (n,g)                                                     5.48401E-04
-    1   0   0   0   0   0    6.27424E+02  (n,n')                                                    1.94842E-01
-    0   1   0   0   0   0    1.05557E-03  (n,p)                                                     3.27800E-07
-    0   0   0   0   0   1    1.17096E-07  (n,a)                                                     3.63633E-11
-    2   0   0   0   0   0    2.32113E+03  (n,2n)                                                    7.20810E-01
-    1   0   0   0   0   1    1.00000E-07  (n,na)                                                    3.10543E-11
-    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.10543E-11
-    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.10543E-11
-    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.10543E-11
-    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.10543E-11
-    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.10543E-11
-    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.10543E-11
-    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.10543E-11
-    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.10543E-11
-    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.10543E-11
-    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.10543E-11
+    0   0   0   0   0   0    1.76594E+00  (n,g)                                                     5.48667E-04
+    1   0   0   0   0   0    6.27315E+02  (n,n')                                                    1.94903E-01
+    0   0   0   0   0   1    1.17096E-07  (n,a)                                                     3.63809E-11
+    2   0   0   0   0   0    2.32088E+03  (n,2n)                                                    7.21083E-01
+    1   0   0   0   0   1    1.00000E-07  (n,na)                                                    3.10694E-11
+    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.10694E-11
+    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.10694E-11
+    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.10694E-11
+    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.10694E-11
+    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.10694E-11
+    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.10694E-11
+    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.10694E-11
+    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.10694E-11
+    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.10694E-11
+    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.10694E-11
 
  6a2. Exclusive fission cross sections 
 
      Emitted particles     cross section reaction
     n   p   d   t   h   a
     0   0   0   0   0   0    6.22036E+01  (n,gf)           
-    1   0   0   0   0   0    2.07642E+02  (n,n'f)          
+    1   0   0   0   0   0    2.06438E+02  (n,n'f)          
 
- Absorption cross section                 :   271.61295
+ Absorption cross section                 :   270.40808
 
- Sum over exclusive channel cross sections:  3220.16650
+ Sum over exclusive channel cross sections:  3218.60156
  (n,gn) + (n,gp) +...(n,ga) cross sections:     3.00854
- Total                                    :  3223.17505
+ Total                                    :  3221.61011
  Non-elastic cross section                :  3208.69995
 
  ########## RESULTS FOR E=  11.00000 ##########
@@ -4572,14 +4572,14 @@ file: pfns0010.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 4.96472E+03    Multiplicity= 1.56288E+00
- neutron = 5.51753E+03    Multiplicity= 1.73690E+00
+ gamma   = 4.96385E+03    Multiplicity= 1.56260E+00
+ neutron = 5.51724E+03    Multiplicity= 1.73681E+00
  proton  = 7.37046E-03    Multiplicity= 2.32019E-06
  deuteron= 1.63269E-07    Multiplicity= 5.13963E-11
  triton  = 1.33786E-08    Multiplicity= 4.21154E-12
  helium-3= 2.63865E-27    Multiplicity= 8.30636E-31
  alpha   = 2.25940E-03    Multiplicity= 7.11250E-07
- fission = 2.59540E+02
+ fission = 2.58628E+02
 
  4. Residual production cross sections
 
@@ -4589,32 +4589,30 @@ file: pfns0010.000.fis
                  cross section       cross section  ratio
 
    90 233 (233Th) 1.79776E+00    0    1.79776E+00  1.00000
-   90 232 (232Th) 5.42647E+02    0    5.42647E+02  1.00000
-   89 232 (232Ac) 7.36956E-03    0    7.36956E-03  1.00000
-   90 231 (231Th) 2.39028E+03    0    2.39028E+03  1.00000
-   88 229 (229Ra) 2.26633E-03    0    2.26633E-03  1.00000
-   88 228 (228Ra) 1.00000E-07    0    1.55348E-06  0.00000
+   90 232 (232Th) 5.42630E+02    0    5.42630E+02  1.00000
+   89 232 (232Ac) 7.37304E-03    0    7.37304E-03  1.00000
+   90 231 (231Th) 2.38999E+03    0    2.38999E+03  1.00000
+   88 229 (229Ra) 1.00000E-07    0    1.35454E-07  0.00000
+   88 228 (228Ra) 1.00000E-07    0    9.53168E-09  0.00000
    87 228 (228Fr) 1.00000E-07    0    0.00000E+00  0.00000
-   86 225 (225Rn) 1.00000E-07    0    0.00000E+00  0.00000
 
    b. Per mass
 
    A  cross section
 
   233 1.79776E+00
-  232 5.42654E+02
-  231 2.39028E+03
-  229 2.26633E-03
+  232 5.42637E+02
+  231 2.38999E+03
 
- Total residual production cross section:  2934.7302246
- Total fission cross section            :   259.5397644
- Fission + res. production cross section:  3194.2700195
+ Total residual production cross section:  2934.4238281
+ Total fission cross section            :   258.6282959
+ Fission + res. production cross section:  3193.0522461
  Non-elastic cross section              :  3176.6599121
 
  4b. Fission cross section per fissioning nuclide
 
    90 233 (233Th) 4.76998E+01
-   90 232 (232Th) 2.11840E+02
+   90 232 (232Th) 2.10928E+02
 file: rp090233.fis
 file: rp090232.fis
 
@@ -4926,35 +4924,35 @@ file: pfns0011.000.fis
 
      Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
     n   p   d   t   h   a                                        cross section   ratio
-    0   0   0   0   0   0    1.79776E+00  (n,g)                                                     5.63276E-04
-    1   0   0   0   0   0    5.40315E+02  (n,n')                                                    1.69292E-01
-    0   1   0   0   0   0    7.36956E-03  (n,p)                                                     2.30903E-06
-    0   0   0   0   0   1    2.26633E-03  (n,a)                                                     7.10087E-07
-    2   0   0   0   0   0    2.39004E+03  (n,2n)                                                    7.48847E-01
-    1   0   0   0   0   1    1.55348E-06  (n,na)                                                    4.86737E-10
-    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.13320E-11
-    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.13320E-11
-    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.13320E-11
-    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.13320E-11
-    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.13320E-11
-    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.13320E-11
-    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.13320E-11
-    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.13320E-11
-    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.13320E-11
-    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.13320E-11
+    0   0   0   0   0   0    1.79776E+00  (n,g)                                                     5.63491E-04
+    1   0   0   0   0   0    5.40298E+02  (n,n')                                                    1.69351E-01
+    0   1   0   0   0   0    7.37304E-03  (n,p)                                                     2.31101E-06
+    0   0   0   0   0   1    1.35442E-07  (n,a)                                                     4.24531E-11
+    2   0   0   0   0   0    2.38975E+03  (n,2n)                                                    7.49043E-01
+    1   0   0   0   0   1    1.00000E-07  (n,na)                                                    3.13440E-11
+    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.13440E-11
+    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.13440E-11
+    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.13440E-11
+    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.13440E-11
+    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.13440E-11
+    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.13440E-11
+    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.13440E-11
+    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.13440E-11
+    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.13440E-11
+    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.13440E-11
 
  6a2. Exclusive fission cross sections 
 
      Emitted particles     cross section reaction
     n   p   d   t   h   a
     0   0   0   0   0   0    4.76998E+01  (n,gf)           
-    1   0   0   0   0   0    2.11762E+02  (n,n'f)          
+    1   0   0   0   0   0    2.10851E+02  (n,n'f)          
 
- Absorption cross section                 :   261.26947
+ Absorption cross section                 :   260.35568
 
- Sum over exclusive channel cross sections:  3191.62158
+ Sum over exclusive channel cross sections:  3190.40381
  (n,gn) + (n,gp) +...(n,ga) cross sections:     2.74652
- Total                                    :  3194.36816
+ Total                                    :  3193.15039
  Non-elastic cross section                :  3176.65991
 
  ########## RESULTS FOR E=  12.00000 ##########
@@ -4997,14 +4995,14 @@ file: pfns0011.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 5.93552E+03    Multiplicity= 1.88589E+00
- neutron = 5.53214E+03    Multiplicity= 1.75773E+00
+ gamma   = 5.93443E+03    Multiplicity= 1.88554E+00
+ neutron = 5.53186E+03    Multiplicity= 1.75764E+00
  proton  = 3.41591E-02    Multiplicity= 1.08534E-05
  deuteron= 9.47999E-06    Multiplicity= 3.01207E-09
  triton  = 1.29119E-06    Multiplicity= 4.10249E-10
  helium-3= 4.95672E-23    Multiplicity= 1.57490E-26
  alpha   = 6.43039E-03    Multiplicity= 2.04313E-06
- fission = 2.47698E+02
+ fission = 2.46873E+02
 
  4. Residual production cross sections
 
@@ -5014,12 +5012,12 @@ file: pfns0011.000.fis
                  cross section       cross section  ratio
 
    90 233 (233Th) 1.68879E+00    0    1.68879E+00  1.00000
-   90 232 (232Th) 4.91760E+02    0    4.91760E+02  1.00000
-   89 232 (232Ac) 3.43044E-02    0    3.43044E-02  1.00000
-   90 231 (231Th) 2.42109E+03    0    2.42109E+03  1.00000
-   90 230 (230Th) 1.26849E+00    0    1.26849E+00  1.00000
-   88 229 (229Ra) 6.39279E-03    0    6.39279E-03  1.00000
-   88 228 (228Ra) 1.00000E-07    0    5.76046E-06  0.00000
+   90 232 (232Th) 4.91733E+02    0    4.91733E+02  1.00000
+   89 232 (232Ac) 3.43045E-02    0    3.43045E-02  1.00000
+   90 231 (231Th) 2.42080E+03    0    2.42080E+03  1.00000
+   90 230 (230Th) 1.26833E+00    0    1.26833E+00  1.00000
+   88 229 (229Ra) 6.36706E-03    0    6.36706E-03  1.00000
+   88 228 (228Ra) 1.00000E-07    0    1.59987E-08  0.00000
    87 228 (228Fr) 1.00000E-07    0    0.00000E+00  0.00000
    86 225 (225Rn) 1.00000E-07    0    0.00000E+00  0.00000
 
@@ -5028,26 +5026,24 @@ file: pfns0011.000.fis
    A  cross section
 
   233 1.68879E+00
-  232 4.91794E+02
-  231 2.42109E+03
-  230 1.26849E+00
-  229 6.39279E-03
+  232 4.91767E+02
+  231 2.42080E+03
+  230 1.26833E+00
+  229 6.36706E-03
 
- Total residual production cross section:  2915.8486328
- Total fission cross section            :   247.6977386
- Fission + res. production cross section:  3163.5463867
+ Total residual production cross section:  2915.5292969
+ Total fission cross section            :   246.8730621
+ Fission + res. production cross section:  3162.4023438
  Non-elastic cross section              :  3147.3300781
 
  4b. Fission cross section per fissioning nuclide
 
    90 233 (233Th) 3.72124E+01
-   90 232 (232Th) 2.10481E+02
-   90 231 (231Th) 4.33921E-03
-   88 229 (229Ra) 3.82714E-13
+   90 232 (232Th) 2.09656E+02
+   90 231 (231Th) 4.31626E-03
 file: rp090233.fis
 file: rp090232.fis
 file: rp090231.fis
-file: rp088229.fis
 
  +++ Prompt fission neutron  spectrum +++
 
@@ -5357,37 +5353,37 @@ file: pfns0012.000.fis
 
      Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
     n   p   d   t   h   a                                        cross section   ratio
-    0   0   0   0   0   0    1.68879E+00  (n,g)                                                     5.34281E-04
-    1   0   0   0   0   0    4.89529E+02  (n,n')                                                    1.54872E-01
-    0   1   0   0   0   0    3.43044E-02  (n,p)                                                     1.08529E-05
-    0   0   0   0   0   1    6.39279E-03  (n,a)                                                     2.02249E-06
-    2   0   0   0   0   0    2.42073E+03  (n,2n)                                                    7.65845E-01
-    1   0   0   0   0   1    5.76045E-06  (n,na)                                                    1.82243E-09
-    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.16370E-11
-    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.16370E-11
-    3   0   0   0   0   0    1.26849E+00  (n,3n)                                                    4.01311E-04
-    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.16370E-11
-    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.16370E-11
-    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.16370E-11
-    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.16370E-11
-    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.16370E-11
-    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.16370E-11
-    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.16370E-11
-    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.16370E-11
+    0   0   0   0   0   0    1.68879E+00  (n,g)                                                     5.34474E-04
+    1   0   0   0   0   0    4.89502E+02  (n,n')                                                    1.54920E-01
+    0   1   0   0   0   0    3.43045E-02  (n,p)                                                     1.08568E-05
+    0   0   0   0   0   1    6.36706E-03  (n,a)                                                     2.01508E-06
+    2   0   0   0   0   0    2.42044E+03  (n,2n)                                                    7.66030E-01
+    1   0   0   0   0   1    1.00000E-07  (n,na)                                                    3.16484E-11
+    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.16484E-11
+    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.16484E-11
+    3   0   0   0   0   0    1.26833E+00  (n,3n)                                                    4.01406E-04
+    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.16484E-11
+    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.16484E-11
+    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.16484E-11
+    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.16484E-11
+    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.16484E-11
+    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.16484E-11
+    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.16484E-11
+    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.16484E-11
 
  6a2. Exclusive fission cross sections 
 
      Emitted particles     cross section reaction
     n   p   d   t   h   a
     0   0   0   0   0   0    3.72124E+01  (n,gf)           
-    1   0   0   0   0   0    2.10386E+02  (n,n'f)          
-    2   0   0   0   0   0    4.33921E-03  (n,2nf)          
+    1   0   0   0   0   0    2.09561E+02  (n,n'f)          
+    2   0   0   0   0   0    4.31626E-03  (n,2nf)          
 
- Absorption cross section                 :   249.33203
+ Absorption cross section                 :   248.50716
 
- Sum over exclusive channel cross sections:  3160.85693
+ Sum over exclusive channel cross sections:  3159.71313
  (n,gn) + (n,gp) +...(n,ga) cross sections:     2.79458
- Total                                    :  3163.65161
+ Total                                    :  3162.50781
  Non-elastic cross section                :  3147.33008
 
  ########## RESULTS FOR E=  13.00000 ##########
@@ -5430,14 +5426,14 @@ file: pfns0012.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 6.50985E+03    Multiplicity= 2.08583E+00
- neutron = 5.64144E+03    Multiplicity= 1.80758E+00
+ gamma   = 6.50679E+03    Multiplicity= 2.08485E+00
+ neutron = 5.64089E+03    Multiplicity= 1.80740E+00
  proton  = 1.18791E-01    Multiplicity= 3.80618E-05
  deuteron= 2.14866E-04    Multiplicity= 6.88453E-08
  triton  = 4.36245E-05    Multiplicity= 1.39778E-08
  helium-3= 8.98150E-20    Multiplicity= 2.87777E-23
  alpha   = 2.25314E-02    Multiplicity= 7.21932E-06
- fission = 2.38767E+02
+ fission = 2.37854E+02
 
  4. Residual production cross sections
 
@@ -5447,12 +5443,12 @@ file: pfns0012.000.fis
                  cross section       cross section  ratio
 
    90 233 (233Th) 1.52304E+00    0    1.52304E+00  1.00000
-   90 232 (232Th) 4.53287E+02    0    4.53287E+02  1.00000
-   89 232 (232Ac) 1.19858E-01    0    1.19858E-01  1.00000
-   90 231 (231Th) 2.34460E+03    0    2.34460E+03  1.00000
-   90 230 (230Th) 1.01142E+02    0    1.01142E+02  1.00000
-   88 229 (229Ra) 2.21233E-02    0    2.21233E-02  1.00000
-   88 228 (228Ra) 1.00000E-07    0    4.71457E-05  0.00000
+   90 232 (232Th) 4.53259E+02    0    4.53259E+02  1.00000
+   89 232 (232Ac) 1.19791E-01    0    1.19791E-01  1.00000
+   90 231 (231Th) 2.34389E+03    0    2.34389E+03  1.00000
+   90 230 (230Th) 1.01137E+02    0    1.01137E+02  1.00000
+   88 229 (229Ra) 2.20428E-02    0    2.20428E-02  1.00000
+   88 228 (228Ra) 1.00000E-07    0    2.50774E-05  0.00000
    87 228 (228Fr) 1.00000E-07    0    0.00000E+00  0.00000
    86 225 (225Rn) 1.00000E-07    0    0.00000E+00  0.00000
 
@@ -5461,28 +5457,24 @@ file: pfns0012.000.fis
    A  cross section
 
   233 1.52304E+00
-  232 4.53406E+02
-  231 2.34460E+03
-  230 1.01142E+02
-  229 2.21233E-02
+  232 4.53379E+02
+  231 2.34389E+03
+  230 1.01137E+02
+  229 2.20428E-02
 
- Total residual production cross section:  2900.6955566
- Total fission cross section            :   238.7666473
- Fission + res. production cross section:  3139.4621582
+ Total residual production cross section:  2899.9487305
+ Total fission cross section            :   237.8541107
+ Fission + res. production cross section:  3137.8027344
  Non-elastic cross section              :  3120.9899902
 
  4b. Fission cross section per fissioning nuclide
 
    90 233 (233Th) 2.98387E+01
-   90 232 (232Th) 2.04040E+02
-   89 232 (232Ac) 5.53741E-11
-   90 231 (231Th) 4.88790E+00
-   88 229 (229Ra) 2.66784E-08
+   90 232 (232Th) 2.03141E+02
+   90 231 (231Th) 4.87475E+00
 file: rp090233.fis
 file: rp090232.fis
-file: rp089232.fis
 file: rp090231.fis
-file: rp088229.fis
 
  +++ Prompt fission neutron  spectrum +++
 
@@ -5792,40 +5784,39 @@ file: pfns0013.000.fis
 
      Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
     n   p   d   t   h   a                                        cross section   ratio
-    0   0   0   0   0   0    1.52304E+00  (n,g)                                                     4.85580E-04
-    1   0   0   0   0   0    4.50985E+02  (n,n')                                                    1.43784E-01
-    0   1   0   0   0   0    1.19858E-01  (n,p)                                                     3.82135E-05
-    0   0   1   0   0   0    1.05778E-06  (n,d)                                                     3.37246E-10
-    0   0   0   1   0   0    2.09500E-07  (n,t)                                                     6.67933E-11
-    0   0   0   0   0   1    2.21233E-02  (n,a)                                                     7.05340E-06
-    2   0   0   0   0   0    2.34409E+03  (n,2n)                                                    7.47351E-01
-    1   1   0   0   0   0    1.86654E-06  (n,np)                                                    5.95097E-10
-    1   0   0   0   0   1    4.71457E-05  (n,na)                                                    1.50311E-08
-    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.18823E-11
-    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.18823E-11
-    3   0   0   0   0   0    1.01142E+02  (n,3n)                                                    3.22464E-02
-    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.18823E-11
-    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.18823E-11
-    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.18823E-11
-    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.18823E-11
-    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.18823E-11
-    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.18823E-11
-    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.18823E-11
-    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.18823E-11
+    0   0   0   0   0   0    1.52304E+00  (n,g)                                                     4.85837E-04
+    1   0   0   0   0   0    4.50958E+02  (n,n')                                                    1.43852E-01
+    0   1   0   0   0   0    1.19791E-01  (n,p)                                                     3.82123E-05
+    0   0   1   0   0   0    1.05778E-06  (n,d)                                                     3.37424E-10
+    0   0   0   1   0   0    2.09500E-07  (n,t)                                                     6.68286E-11
+    0   0   0   0   0   1    2.20428E-02  (n,a)                                                     7.03147E-06
+    2   0   0   0   0   0    2.34338E+03  (n,2n)                                                    7.47519E-01
+    1   0   0   0   0   1    2.50774E-05  (n,na)                                                    7.99947E-09
+    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.18992E-11
+    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.18992E-11
+    3   0   0   0   0   0    1.01137E+02  (n,3n)                                                    3.22619E-02
+    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.18992E-11
+    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.18992E-11
+    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.18992E-11
+    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.18992E-11
+    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.18992E-11
+    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.18992E-11
+    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.18992E-11
+    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.18992E-11
 
  6a2. Exclusive fission cross sections 
 
      Emitted particles     cross section reaction
     n   p   d   t   h   a
     0   0   0   0   0   0    2.98387E+01  (n,gf)           
-    1   0   0   0   0   0    2.03925E+02  (n,n'f)          
-    2   0   0   0   0   0    4.88790E+00  (n,2nf)          
+    1   0   0   0   0   0    2.03025E+02  (n,n'f)          
+    2   0   0   0   0   0    4.87475E+00  (n,2nf)          
 
- Absorption cross section                 :   240.31668
+ Absorption cross section                 :   239.40379
 
- Sum over exclusive channel cross sections:  3136.53784
+ Sum over exclusive channel cross sections:  3134.87866
  (n,gn) + (n,gp) +...(n,ga) cross sections:     3.05968
- Total                                    :  3139.59741
+ Total                                    :  3137.93823
  Non-elastic cross section                :  3120.98999
 
  ########## RESULTS FOR E=  14.00000 ##########
@@ -5868,14 +5859,14 @@ file: pfns0013.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 5.93963E+03    Multiplicity= 1.91822E+00
- neutron = 6.01250E+03    Multiplicity= 1.94175E+00
+ gamma   = 5.93630E+03    Multiplicity= 1.91714E+00
+ neutron = 6.01199E+03    Multiplicity= 1.94159E+00
  proton  = 3.31837E-01    Multiplicity= 1.07168E-04
  deuteron= 2.50050E-03    Multiplicity= 8.07543E-07
  triton  = 7.17898E-04    Multiplicity= 2.31847E-07
  helium-3= 3.09925E-17    Multiplicity= 1.00091E-20
  alpha   = 5.68293E-02    Multiplicity= 1.83532E-05
- fission = 2.64406E+02
+ fission = 2.63844E+02
 
  4. Residual production cross sections
 
@@ -5885,13 +5876,13 @@ file: pfns0013.000.fis
                  cross section       cross section  ratio
 
    90 233 (233Th) 1.26094E+00    0    1.26094E+00  1.00000
-   90 232 (232Th) 4.18169E+02    0    4.18169E+02  1.00000
-   89 232 (232Ac) 3.34420E-01    0    3.34420E-01  1.00000
-   90 231 (231Th) 1.96783E+03    0    1.96783E+03  1.00000
-   89 231 (231Ac) 3.64376E-03    0    3.64376E-03  1.00000
-   90 230 (230Th) 4.60604E+02    0    4.60604E+02  1.00000
-   88 229 (229Ra) 5.38994E-02    0    5.38994E-02  1.00000
-   88 228 (228Ra) 4.16404E-03    0    4.16404E-03  1.00000
+   90 232 (232Th) 4.18151E+02    0    4.18151E+02  1.00000
+   89 232 (232Ac) 3.34384E-01    0    3.34384E-01  1.00000
+   90 231 (231Th) 1.96713E+03    0    1.96713E+03  1.00000
+   89 231 (231Ac) 3.29792E-03    0    3.29792E-03  1.00000
+   90 230 (230Th) 4.60581E+02    0    4.60581E+02  1.00000
+   88 229 (229Ra) 5.37581E-02    0    5.37581E-02  1.00000
+   88 228 (228Ra) 3.74273E-03    0    3.74273E-03  1.00000
    87 228 (228Fr) 1.00000E-07    0    0.00000E+00  0.00000
    86 225 (225Rn) 1.00000E-07    0    0.00000E+00  0.00000
    86 224 (224Rn) 1.00000E-07    0    0.00000E+00  0.00000
@@ -5901,29 +5892,27 @@ file: pfns0013.000.fis
    A  cross section
 
   233 1.26094E+00
-  232 4.18503E+02
-  231 1.96783E+03
-  230 4.60604E+02
-  229 5.38994E-02
-  228 4.16404E-03
+  232 4.18485E+02
+  231 1.96714E+03
+  230 4.60581E+02
+  229 5.37581E-02
+  228 3.74273E-03
 
- Total residual production cross section:  2848.2604980
- Total fission cross section            :   264.4062500
- Fission + res. production cross section:  3112.6667480
+ Total residual production cross section:  2847.5209961
+ Total fission cross section            :   263.8436279
+ Fission + res. production cross section:  3111.3647461
  Non-elastic cross section              :  3096.4299316
 
  4b. Fission cross section per fissioning nuclide
 
    90 233 (233Th) 2.48760E+01
-   90 232 (232Th) 1.86154E+02
-   89 232 (232Ac) 1.61163E-07
-   90 231 (231Th) 5.33765E+01
-   88 229 (229Ra) 2.87836E-07
+   90 232 (232Th) 1.85741E+02
+   90 231 (231Th) 5.32268E+01
+   89 231 (231Ac) 3.44379E-19
 file: rp090233.fis
 file: rp090232.fis
-file: rp089232.fis
 file: rp090231.fis
-file: rp088229.fis
+file: rp089231.fis
 
  +++ Prompt fission neutron  spectrum +++
 
@@ -6233,42 +6222,40 @@ file: pfns0014.000.fis
 
      Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
     n   p   d   t   h   a                                        cross section   ratio
-    0   0   0   0   0   0    1.26094E+00  (n,g)                                                     4.05531E-04
-    1   0   0   0   0   0    4.15693E+02  (n,n')                                                    1.33691E-01
-    0   1   0   0   0   0    3.34420E-01  (n,p)                                                     1.07552E-04
-    0   0   1   0   0   0    2.49711E-03  (n,d)                                                     8.03095E-07
-    0   0   0   1   0   0    2.40967E-06  (n,t)                                                     7.74971E-10
-    0   0   0   0   0   1    5.38994E-02  (n,a)                                                     1.73346E-05
-    2   0   0   0   0   0    1.96714E+03  (n,2n)                                                    6.32650E-01
-    1   1   0   0   0   0    1.14664E-03  (n,np)                                                    3.68771E-07
-    1   0   0   0   0   1    4.16404E-03  (n,na)                                                    1.33919E-06
-    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.21609E-11
-    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.21609E-11
-    3   0   0   0   0   0    4.60603E+02  (n,3n)                                                    1.48134E-01
-    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.21609E-11
-    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.21609E-11
-    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.21609E-11
-    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.21609E-11
-    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.21609E-11
-    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.21609E-11
-    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.21609E-11
-    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.21609E-11
+    0   0   0   0   0   0    1.26094E+00  (n,g)                                                     4.05701E-04
+    1   0   0   0   0   0    4.15674E+02  (n,n')                                                    1.33741E-01
+    0   1   0   0   0   0    3.34384E-01  (n,p)                                                     1.07586E-04
+    0   0   1   0   0   0    2.50269E-03  (n,d)                                                     8.05224E-07
+    0   0   0   1   0   0    2.40967E-06  (n,t)                                                     7.75296E-10
+    0   0   0   0   0   1    5.37581E-02  (n,a)                                                     1.72963E-05
+    2   0   0   0   0   0    1.96644E+03  (n,2n)                                                    6.32691E-01
+    1   1   0   0   0   0    7.95234E-04  (n,np)                                                    2.55862E-07
+    1   0   0   0   0   1    3.74273E-03  (n,na)                                                    1.20420E-06
+    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.21744E-11
+    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.21744E-11
+    3   0   0   0   0   0    4.60581E+02  (n,3n)                                                    1.48189E-01
+    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.21744E-11
+    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.21744E-11
+    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.21744E-11
+    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.21744E-11
+    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.21744E-11
+    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.21744E-11
+    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.21744E-11
+    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.21744E-11
 
  6a2. Exclusive fission cross sections 
 
      Emitted particles     cross section reaction
     n   p   d   t   h   a
     0   0   0   0   0   0    2.48760E+01  (n,gf)           
-    1   0   0   0   0   0    1.86018E+02  (n,n'f)          
-    0   1   0   0   0   0    1.61163E-07  (n,pf)           
-    0   0   0   0   0   1    2.87836E-07  (n,af)           
-    2   0   0   0   0   0    5.33764E+01  (n,2nf)          
+    1   0   0   0   0   0    1.85605E+02  (n,n'f)          
+    2   0   0   0   0   0    5.32267E+01  (n,2nf)          
 
- Absorption cross section                 :   265.92200
+ Absorption cross section                 :   265.35901
 
- Sum over exclusive channel cross sections:  3109.36255
+ Sum over exclusive channel cross sections:  3108.06006
  (n,gn) + (n,gp) +...(n,ga) cross sections:     3.47536
- Total                                    :  3112.83789
+ Total                                    :  3111.53540
  Non-elastic cross section                :  3096.42993
 
  ########## RESULTS FOR E=  15.00000 ##########
@@ -6311,14 +6298,14 @@ file: pfns0014.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 4.78929E+03    Multiplicity= 1.55829E+00
- neutron = 6.46616E+03    Multiplicity= 2.10390E+00
+ gamma   = 4.78406E+03    Multiplicity= 1.55659E+00
+ neutron = 6.46567E+03    Multiplicity= 2.10374E+00
  proton  = 7.76096E-01    Multiplicity= 2.52519E-04
  deuteron= 1.71068E-02    Multiplicity= 5.56605E-06
  triton  = 6.30944E-03    Multiplicity= 2.05290E-06
  helium-3= 3.15392E-15    Multiplicity= 1.02619E-18
  alpha   = 1.36960E-01    Multiplicity= 4.45627E-05
- fission = 3.49109E+02
+ fission = 3.48232E+02
 
  4. Residual production cross sections
 
@@ -6328,16 +6315,16 @@ file: pfns0014.000.fis
                  cross section       cross section  ratio
 
    90 233 (233Th) 1.02819E+00    0    1.02819E+00  1.00000
-   90 232 (232Th) 3.86595E+02    0    3.86595E+02  1.00000
-   89 232 (232Ac) 7.76490E-01    0    7.76490E-01  1.00000
-   90 231 (231Th) 1.44948E+03    0    1.44948E+03  1.00000
-   89 231 (231Ac) 2.65113E-02    0    2.65113E-02  1.00000
-   90 230 (230Th) 9.04355E+02    0    9.04355E+02  1.00000
-   89 230 (230Ac) 6.30681E-03    0    6.30681E-03  1.00000
-   88 229 (229Ra) 1.24784E-01    0    1.24784E-01  1.00000
-   88 228 (228Ra) 1.54624E-02    0    1.54624E-02  1.00000
+   90 232 (232Th) 3.86571E+02    0    3.86571E+02  1.00000
+   89 232 (232Ac) 7.76446E-01    0    7.76446E-01  1.00000
+   90 231 (231Th) 1.44844E+03    0    1.44844E+03  1.00000
+   89 231 (231Ac) 2.60948E-02    0    2.60948E-02  1.00000
+   90 230 (230Th) 9.04315E+02    0    9.04315E+02  1.00000
+   89 230 (230Ac) 6.31162E-03    0    6.31162E-03  1.00000
+   88 229 (229Ra) 1.24600E-01    0    1.24600E-01  1.00000
+   88 228 (228Ra) 1.50823E-02    0    1.50823E-02  1.00000
    87 228 (228Fr) 1.00000E-07    0    0.00000E+00  0.00000
-   86 225 (225Rn) 1.00000E-07    0    7.15702E-18  0.00000
+   86 225 (225Rn) 1.00000E-07    0    0.00000E+00  0.00000
    86 224 (224Rn) 1.00000E-07    0    0.00000E+00  0.00000
 
    b. Per mass
@@ -6345,28 +6332,30 @@ file: pfns0014.000.fis
    A  cross section
 
   233 1.02819E+00
-  232 3.87371E+02
-  231 1.44951E+03
-  230 9.04361E+02
-  229 1.24784E-01
-  228 1.54624E-02
+  232 3.87348E+02
+  231 1.44847E+03
+  230 9.04321E+02
+  229 1.24600E-01
+  228 1.50823E-02
 
- Total residual production cross section:  2742.4094238
- Total fission cross section            :   349.1087341
- Fission + res. production cross section:  3091.5180664
+ Total residual production cross section:  2741.3032227
+ Total fission cross section            :   348.2322083
+ Fission + res. production cross section:  3089.5354004
  Non-elastic cross section              :  3073.4199219
 
  4b. Fission cross section per fissioning nuclide
 
    90 233 (233Th) 2.17881E+01
-   90 232 (232Th) 1.69263E+02
-   89 232 (232Ac) 5.94654E-06
-   90 231 (231Th) 1.58058E+02
-   88 229 (229Ra) 1.09330E-06
+   90 232 (232Th) 1.68980E+02
+   89 232 (232Ac) 4.07417E-07
+   90 231 (231Th) 1.57464E+02
+   89 231 (231Ac) 7.18151E-15
+   88 229 (229Ra) 7.19664E-08
 file: rp090233.fis
 file: rp090232.fis
 file: rp089232.fis
 file: rp090231.fis
+file: rp089231.fis
 file: rp088229.fis
 
  +++ Prompt fission neutron  spectrum +++
@@ -6677,42 +6666,41 @@ file: pfns0015.000.fis
 
      Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
     n   p   d   t   h   a                                        cross section   ratio
-    0   0   0   0   0   0    1.02819E+00  (n,g)                                                     3.32987E-04
-    1   0   0   0   0   0    3.83943E+02  (n,n')                                                    1.24343E-01
-    0   1   0   0   0   0    7.76490E-01  (n,p)                                                     2.51472E-04
-    0   0   1   0   0   0    1.71195E-02  (n,d)                                                     5.54427E-06
-    0   0   0   1   0   0    6.30681E-03  (n,t)                                                     2.04251E-06
-    0   0   0   0   0   1    1.24784E-01  (n,a)                                                     4.04121E-05
-    2   0   0   0   0   0    1.44856E+03  (n,2n)                                                    4.69128E-01
-    1   1   0   0   0   0    9.39176E-03  (n,np)                                                    3.04159E-06
-    1   0   0   0   0   1    1.54624E-02  (n,na)                                                    5.00761E-06
-    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.23857E-11
-    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.23857E-11
-    3   0   0   0   0   0    9.04352E+02  (n,3n)                                                    2.92881E-01
-    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.23857E-11
-    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.23857E-11
-    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.23857E-11
-    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.23857E-11
-    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.23857E-11
-    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.23857E-11
-    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.23857E-11
-    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.23857E-11
+    0   0   0   0   0   0    1.02819E+00  (n,g)                                                     3.33201E-04
+    1   0   0   0   0   0    3.83919E+02  (n,n')                                                    1.24415E-01
+    0   1   0   0   0   0    7.76446E-01  (n,p)                                                     2.51619E-04
+    0   0   1   0   0   0    1.71231E-02  (n,d)                                                     5.54899E-06
+    0   0   0   1   0   0    6.31162E-03  (n,t)                                                     2.04538E-06
+    0   0   0   0   0   1    1.24600E-01  (n,a)                                                     4.03786E-05
+    2   0   0   0   0   0    1.44752E+03  (n,2n)                                                    4.69092E-01
+    1   1   0   0   0   0    8.97171E-03  (n,np)                                                    2.90742E-06
+    1   0   0   0   0   1    1.50822E-02  (n,na)                                                    4.88763E-06
+    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.24065E-11
+    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.24065E-11
+    3   0   0   0   0   0    9.04312E+02  (n,3n)                                                    2.93056E-01
+    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.24065E-11
+    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.24065E-11
+    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.24065E-11
+    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.24065E-11
+    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.24065E-11
+    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.24065E-11
+    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.24065E-11
+    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.24065E-11
 
  6a2. Exclusive fission cross sections 
 
      Emitted particles     cross section reaction
     n   p   d   t   h   a
     0   0   0   0   0   0    2.17881E+01  (n,gf)           
-    1   0   0   0   0   0    1.69099E+02  (n,n'f)          
-    0   1   0   0   0   0    5.94654E-06  (n,pf)           
-    0   0   0   0   0   1    1.09330E-06  (n,af)           
-    2   0   0   0   0   0    1.58057E+02  (n,2nf)          
+    1   0   0   0   0   0    1.68816E+02  (n,n'f)          
+    0   1   0   0   0   0    4.07417E-07  (n,pf)           
+    2   0   0   0   0   0    1.57464E+02  (n,2nf)          
 
- Absorption cross section                 :   350.89737
+ Absorption cross section                 :   350.02078
 
- Sum over exclusive channel cross sections:  3087.78052
+ Sum over exclusive channel cross sections:  3085.79834
  (n,gn) + (n,gp) +...(n,ga) cross sections:     3.96384
- Total                                    :  3091.74438
+ Total                                    :  3089.76221
  Non-elastic cross section                :  3073.41992
 
  ########## RESULTS FOR E=  16.00000 ##########
@@ -6755,14 +6743,14 @@ file: pfns0015.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 3.98929E+03    Multiplicity= 1.30697E+00
- neutron = 6.83151E+03    Multiplicity= 2.23814E+00
+ gamma   = 3.98626E+03    Multiplicity= 1.30598E+00
+ neutron = 6.83075E+03    Multiplicity= 2.23790E+00
  proton  = 1.56233E+00    Multiplicity= 5.11853E-04
  deuteron= 7.81744E-02    Multiplicity= 2.56116E-05
  triton  = 3.45973E-02    Multiplicity= 1.13348E-05
  helium-3= 1.11589E-13    Multiplicity= 3.65589E-17
  alpha   = 1.03152E+00    Multiplicity= 3.37946E-04
- fission = 4.22771E+02
+ fission = 4.21677E+02
 
  4. Residual production cross sections
 
@@ -6772,16 +6760,16 @@ file: pfns0015.000.fis
                  cross section       cross section  ratio
 
    90 233 (233Th) 7.45817E-01    0    7.45817E-01  1.00000
-   90 232 (232Th) 3.57117E+02    0    3.57117E+02  1.00000
-   89 232 (232Ac) 1.53239E+00    0    1.53239E+00  1.00000
-   90 231 (231Th) 1.01935E+03    0    1.01935E+03  1.00000
-   89 231 (231Ac) 1.27877E-01    0    1.27877E-01  1.00000
-   90 230 (230Th) 1.26386E+03    0    1.26386E+03  1.00000
-   89 230 (230Ac) 3.46045E-02    0    3.46045E-02  1.00000
-   88 229 (229Ra) 9.35893E-01    0    9.35893E-01  1.00000
-   88 228 (228Ra) 1.22397E-01    0    1.22397E-01  1.00000
+   90 232 (232Th) 3.57100E+02    0    3.57100E+02  1.00000
+   89 232 (232Ac) 1.53232E+00    0    1.53232E+00  1.00000
+   90 231 (231Th) 1.01875E+03    0    1.01875E+03  1.00000
+   89 231 (231Ac) 1.27508E-01    0    1.27508E-01  1.00000
+   90 230 (230Th) 1.26378E+03    0    1.26378E+03  1.00000
+   89 230 (230Ac) 3.46088E-02    0    3.46088E-02  1.00000
+   88 229 (229Ra) 9.35536E-01    0    9.35536E-01  1.00000
+   88 228 (228Ra) 1.21798E-01    0    1.21798E-01  1.00000
    87 228 (228Fr) 1.00000E-07    0    0.00000E+00  0.00000
-   86 225 (225Rn) 1.00000E-07    0    4.89596E-17  0.00000
+   86 225 (225Rn) 1.00000E-07    0    0.00000E+00  0.00000
    86 224 (224Rn) 1.00000E-07    0    0.00000E+00  0.00000
 
    b. Per mass
@@ -6789,28 +6777,30 @@ file: pfns0015.000.fis
    A  cross section
 
   233 7.45817E-01
-  232 3.58649E+02
-  231 1.01948E+03
-  230 1.26389E+03
-  229 9.35893E-01
-  228 1.22397E-01
+  232 3.58632E+02
+  231 1.01888E+03
+  230 1.26382E+03
+  229 9.35536E-01
+  228 1.21798E-01
 
- Total residual production cross section:  2643.8251953
- Total fission cross section            :   422.7709656
- Fission + res. production cross section:  3066.5961914
+ Total residual production cross section:  2643.1264648
+ Total fission cross section            :   421.6773682
+ Fission + res. production cross section:  3064.8037109
  Non-elastic cross section              :  3052.3100586
 
  4b. Fission cross section per fissioning nuclide
 
    90 233 (233Th) 2.01298E+01
-   90 232 (232Th) 1.47310E+02
-   89 232 (232Ac) 4.51931E-05
-   90 231 (231Th) 2.55331E+02
-   88 229 (229Ra) 3.19823E-06
+   90 232 (232Th) 1.46882E+02
+   89 232 (232Ac) 2.91408E-05
+   90 231 (231Th) 2.54666E+02
+   89 231 (231Ac) 1.59575E-11
+   88 229 (229Ra) 1.28898E-06
 file: rp090233.fis
 file: rp090232.fis
 file: rp089232.fis
 file: rp090231.fis
+file: rp089231.fis
 file: rp088229.fis
 
  +++ Prompt fission neutron  spectrum +++
@@ -7121,43 +7111,42 @@ file: pfns0016.000.fis
 
      Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
     n   p   d   t   h   a                                        cross section   ratio
-    0   0   0   0   0   0    7.45817E-01  (n,g)                                                     2.43536E-04
-    1   0   0   0   0   0    3.54382E+02  (n,n')                                                    1.15718E-01
-    0   1   0   0   0   0    1.53239E+00  (n,p)                                                     5.00379E-04
-    0   0   1   0   0   0    7.82402E-02  (n,d)                                                     2.55482E-05
-    0   0   0   1   0   0    3.46045E-02  (n,t)                                                     1.12996E-05
-    0   0   0   0   0   1    9.35893E-01  (n,a)                                                     3.05603E-04
-    2   0   0   0   0   0    1.01816E+03  (n,2n)                                                    3.32464E-01
-    1   1   0   0   0   0    4.96371E-02  (n,np)                                                    1.62083E-05
-    1   0   0   0   0   1    1.22397E-01  (n,na)                                                    3.99670E-05
-    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.26536E-11
-    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.26536E-11
-    3   0   0   0   0   0    1.26385E+03  (n,3n)                                                    4.12691E-01
-    2   0   0   0   0   1    2.25590E-07  (n,2na)                                                   7.36632E-11
-    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.26536E-11
-    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.26536E-11
-    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.26536E-11
-    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.26536E-11
-    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.26536E-11
-    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.26536E-11
-    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.26536E-11
-    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.26536E-11
+    0   0   0   0   0   0    7.45817E-01  (n,g)                                                     2.43679E-04
+    1   0   0   0   0   0    3.54365E+02  (n,n')                                                    1.15781E-01
+    0   1   0   0   0   0    1.53232E+00  (n,p)                                                     5.00651E-04
+    0   0   1   0   0   0    7.82452E-02  (n,d)                                                     2.55648E-05
+    0   0   0   1   0   0    3.46088E-02  (n,t)                                                     1.13076E-05
+    0   0   0   0   0   1    9.35536E-01  (n,a)                                                     3.05665E-04
+    2   0   0   0   0   0    1.01755E+03  (n,2n)                                                    3.32462E-01
+    1   1   0   0   0   0    4.92624E-02  (n,np)                                                    1.60954E-05
+    1   0   0   0   0   1    1.21798E-01  (n,na)                                                    3.97947E-05
+    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.26727E-11
+    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.26727E-11
+    3   0   0   0   0   0    1.26377E+03  (n,3n)                                                    4.12907E-01
+    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.26727E-11
+    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.26727E-11
+    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.26727E-11
+    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.26727E-11
+    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.26727E-11
+    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.26727E-11
+    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.26727E-11
+    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.26727E-11
 
  6a2. Exclusive fission cross sections 
 
      Emitted particles     cross section reaction
     n   p   d   t   h   a
     0   0   0   0   0   0    2.01298E+01  (n,gf)           
-    1   0   0   0   0   0    1.47110E+02  (n,n'f)          
-    0   1   0   0   0   0    4.51931E-05  (n,pf)           
-    0   0   0   0   0   1    3.19822E-06  (n,af)           
-    2   0   0   0   0   0    2.55330E+02  (n,2nf)          
+    1   0   0   0   0   0    1.46682E+02  (n,n'f)          
+    0   1   0   0   0   0    2.91408E-05  (n,pf)           
+    0   0   0   0   0   1    1.28898E-06  (n,af)           
+    2   0   0   0   0   0    2.54664E+02  (n,2nf)          
 
- Absorption cross section                 :   425.89636
+ Absorption cross section                 :   424.80237
 
- Sum over exclusive channel cross sections:  3062.45190
+ Sum over exclusive channel cross sections:  3060.65991
  (n,gn) + (n,gp) +...(n,ga) cross sections:     4.40889
- Total                                    :  3066.86084
+ Total                                    :  3065.06885
  Non-elastic cross section                :  3052.31006
 
  ########## RESULTS FOR E=  17.00000 ##########
@@ -7200,14 +7189,14 @@ file: pfns0016.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 3.79453E+03    Multiplicity= 1.25094E+00
- neutron = 7.07473E+03    Multiplicity= 2.33232E+00
+ gamma   = 3.79152E+03    Multiplicity= 1.24995E+00
+ neutron = 7.07376E+03    Multiplicity= 2.33200E+00
  proton  = 2.87502E+00    Multiplicity= 9.47806E-04
  deuteron= 2.65325E-01    Multiplicity= 8.74696E-05
  triton  = 1.21311E-01    Multiplicity= 3.99926E-05
  helium-3= 3.15371E-12    Multiplicity= 1.03968E-15
  alpha   = 5.75872E-01    Multiplicity= 1.89847E-04
- fission = 4.56092E+02
+ fission = 4.54286E+02
 
  4. Residual production cross sections
 
@@ -7217,16 +7206,16 @@ file: pfns0016.000.fis
                  cross section       cross section  ratio
 
    90 233 (233Th) 5.96496E-01    0    5.96496E-01  1.00000
-   90 232 (232Th) 3.36273E+02    0    3.36273E+02  1.00000
-   89 232 (232Ac) 2.72021E+00    0    2.72021E+00  1.00000
-   90 231 (231Th) 7.43231E+02    0    7.43231E+02  1.00000
-   89 231 (231Ac) 4.57554E-01    0    4.57554E-01  1.00000
-   90 230 (230Th) 1.50829E+03    0    1.50829E+03  1.00000
-   89 230 (230Ac) 1.21346E-01    0    1.21346E-01  1.00000
-   88 229 (229Ra) 4.28278E-01    0    4.28278E-01  1.00000
-   88 228 (228Ra) 1.60698E-01    0    1.60698E-01  1.00000
-   87 228 (228Fr) 1.00000E-07    0    3.28149E-19  0.00000
-   86 225 (225Rn) 1.00000E-07    0    4.72461E-16  0.00000
+   90 232 (232Th) 3.36264E+02    0    3.36264E+02  1.00000
+   89 232 (232Ac) 2.72008E+00    0    2.72008E+00  1.00000
+   90 231 (231Th) 7.42690E+02    0    7.42690E+02  1.00000
+   89 231 (231Ac) 4.56961E-01    0    4.56961E-01  1.00000
+   90 230 (230Th) 1.50814E+03    0    1.50814E+03  1.00000
+   89 230 (230Ac) 1.21334E-01    0    1.21334E-01  1.00000
+   88 229 (229Ra) 4.27784E-01    0    4.27784E-01  1.00000
+   88 228 (228Ra) 1.60341E-01    0    1.60341E-01  1.00000
+   87 228 (228Fr) 1.00000E-07    0    0.00000E+00  0.00000
+   86 225 (225Rn) 1.00000E-07    0    3.06718E-16  0.00000
    86 224 (224Rn) 1.00000E-07    0    0.00000E+00  0.00000
 
    b. Per mass
@@ -7234,27 +7223,26 @@ file: pfns0016.000.fis
    A  cross section
 
   233 5.96496E-01
-  232 3.38994E+02
-  231 7.43689E+02
-  230 1.50841E+03
-  229 4.28278E-01
-  228 1.60698E-01
+  232 3.38984E+02
+  231 7.43147E+02
+  230 1.50826E+03
+  229 4.27784E-01
+  228 1.60341E-01
 
- Total residual production cross section:  2592.2785645
- Total fission cross section            :   456.0921326
- Fission + res. production cross section:  3048.3706055
+ Total residual production cross section:  2591.5749512
+ Total fission cross section            :   454.2856445
+ Fission + res. production cross section:  3045.8605957
  Non-elastic cross section              :  3033.3400879
 
  4b. Fission cross section per fissioning nuclide
 
    90 233 (233Th) 1.95334E+01
-   90 232 (232Th) 1.31612E+02
-   89 232 (232Ac) 2.37258E-04
-   90 231 (231Th) 3.04946E+02
-   89 231 (231Ac) 2.06542E-11
-   90 230 (230Th) 3.87594E-05
-   88 229 (229Ra) 7.78453E-06
-   88 228 (228Ra) 1.36098E-09
+   90 232 (232Th) 1.31197E+02
+   89 232 (232Ac) 2.11239E-04
+   90 231 (231Th) 3.03555E+02
+   89 231 (231Ac) 1.40375E-09
+   90 230 (230Th) 3.86634E-05
+   88 229 (229Ra) 6.02100E-06
 file: rp090233.fis
 file: rp090232.fis
 file: rp089232.fis
@@ -7262,7 +7250,6 @@ file: rp090231.fis
 file: rp089231.fis
 file: rp090230.fis
 file: rp088229.fis
-file: rp088228.fis
 
  +++ Prompt fission neutron  spectrum +++
 
@@ -7572,45 +7559,43 @@ file: pfns0017.000.fis
 
      Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
     n   p   d   t   h   a                                        cross section   ratio
-    0   0   0   0   0   0    5.96496E-01  (n,g)                                                     1.95967E-04
-    1   0   0   0   0   0    3.33588E+02  (n,n')                                                    1.09594E-01
-    0   1   0   0   0   0    2.72021E+00  (n,p)                                                     8.93673E-04
-    0   0   1   0   0   0    2.65528E-01  (n,d)                                                     8.72344E-05
-    0   0   0   1   0   0    1.21346E-01  (n,t)                                                     3.98660E-05
-    0   0   0   0   0   1    4.28278E-01  (n,a)                                                     1.40703E-04
-    2   0   0   0   0   0    7.41695E+02  (n,2n)                                                    2.43670E-01
-    1   1   0   0   0   0    1.92025E-01  (n,np)                                                    6.30863E-05
-    1   0   0   1   0   0    4.32069E-07  (n,nt)                                                    1.41948E-10
-    1   0   0   0   0   1    1.60698E-01  (n,na)                                                    5.27943E-05
-    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.28531E-11
-    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.28531E-11
-    3   0   0   0   0   0    1.50825E+03  (n,3n)                                                    4.95507E-01
-    2   0   0   0   0   1    1.26085E-06  (n,2na)                                                   4.14227E-10
-    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.28531E-11
-    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.28531E-11
-    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.28531E-11
-    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.28531E-11
-    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.28531E-11
-    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.28531E-11
-    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.28531E-11
-    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.28531E-11
+    0   0   0   0   0   0    5.96496E-01  (n,g)                                                     1.96129E-04
+    1   0   0   0   0   0    3.33579E+02  (n,n')                                                    1.09682E-01
+    0   1   0   0   0   0    2.72008E+00  (n,p)                                                     8.94370E-04
+    0   0   1   0   0   0    2.65530E-01  (n,d)                                                     8.73070E-05
+    0   0   0   1   0   0    1.21334E-01  (n,t)                                                     3.98949E-05
+    0   0   0   0   0   1    4.27784E-01  (n,a)                                                     1.40657E-04
+    2   0   0   0   0   0    7.41154E+02  (n,2n)                                                    2.43693E-01
+    1   1   0   0   0   0    1.91431E-01  (n,np)                                                    6.29430E-05
+    1   0   0   0   0   1    1.60340E-01  (n,na)                                                    5.27203E-05
+    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.28803E-11
+    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.28803E-11
+    3   0   0   0   0   0    1.50810E+03  (n,3n)                                                    4.95866E-01
+    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.28803E-11
+    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.28803E-11
+    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.28803E-11
+    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.28803E-11
+    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.28803E-11
+    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.28803E-11
+    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.28803E-11
+    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.28803E-11
 
  6a2. Exclusive fission cross sections 
 
      Emitted particles     cross section reaction
     n   p   d   t   h   a
     0   0   0   0   0   0    1.95334E+01  (n,gf)           
-    1   0   0   0   0   0    1.31361E+02  (n,n'f)          
-    0   1   0   0   0   0    2.37257E-04  (n,pf)           
-    0   0   0   0   0   1    7.78452E-06  (n,af)           
-    2   0   0   0   0   0    3.04940E+02  (n,2nf)          
-    3   0   0   0   0   0    3.87594E-05  (n,3nf)          
+    1   0   0   0   0   0    1.30946E+02  (n,n'f)          
+    0   1   0   0   0   0    2.11239E-04  (n,pf)           
+    0   0   0   0   0   1    6.02099E-06  (n,af)           
+    2   0   0   0   0   0    3.03548E+02  (n,2nf)          
+    3   0   0   0   0   0    3.86634E-05  (n,3nf)          
 
- Absorption cross section                 :   459.96576
+ Absorption cross section                 :   458.15884
 
- Sum over exclusive channel cross sections:  3043.84937
+ Sum over exclusive channel cross sections:  3041.33936
  (n,gn) + (n,gp) +...(n,ga) cross sections:     4.84588
- Total                                    :  3048.69531
+ Total                                    :  3046.18530
  Non-elastic cross section                :  3033.34009
 
  ########## RESULTS FOR E=  18.00000 ##########
@@ -7653,14 +7638,14 @@ file: pfns0017.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 4.00521E+03    Multiplicity= 1.32774E+00
- neutron = 7.24650E+03    Multiplicity= 2.40223E+00
+ gamma   = 4.00156E+03    Multiplicity= 1.32653E+00
+ neutron = 7.24521E+03    Multiplicity= 2.40180E+00
  proton  = 4.63810E+00    Multiplicity= 1.53754E-03
  deuteron= 6.54561E-01    Multiplicity= 2.16989E-04
  triton  = 3.01962E-01    Multiplicity= 1.00101E-04
  helium-3= 7.71337E-11    Multiplicity= 2.55700E-14
  alpha   = 1.18933E+00    Multiplicity= 3.94267E-04
- fission = 4.50979E+02
+ fission = 4.48520E+02
 
  4. Residual production cross sections
 
@@ -7670,16 +7655,16 @@ file: pfns0017.000.fis
                  cross section       cross section  ratio
 
    90 233 (233Th) 4.88893E-01    0    4.88893E-01  1.00000
-   90 232 (232Th) 3.15051E+02    0    3.15051E+02  1.00000
-   89 232 (232Ac) 4.13377E+00    0    4.13377E+00  1.00000
-   90 231 (231Th) 5.70990E+02    0    5.70990E+02  1.00000
-   89 231 (231Ac) 1.21560E+00    0    1.21560E+00  1.00000
-   90 230 (230Th) 1.68353E+03    0    1.68353E+03  1.00000
-   89 230 (230Ac) 3.04469E-01    0    3.04469E-01  1.00000
-   88 229 (229Ra) 7.85289E-01    0    7.85289E-01  1.00000
-   88 228 (228Ra) 4.26965E-01    0    4.26965E-01  1.00000
-   87 228 (228Fr) 1.00000E-07    0    1.84745E-17  0.00000
-   86 225 (225Rn) 1.00000E-07    0    2.26903E-15  0.00000
+   90 232 (232Th) 3.15037E+02    0    3.15037E+02  1.00000
+   89 232 (232Ac) 4.13341E+00    0    4.13341E+00  1.00000
+   90 231 (231Th) 5.70445E+02    0    5.70445E+02  1.00000
+   89 231 (231Ac) 1.21519E+00    0    1.21519E+00  1.00000
+   90 230 (230Th) 1.68319E+03    0    1.68319E+03  1.00000
+   89 230 (230Ac) 3.04390E-01    0    3.04390E-01  1.00000
+   88 229 (229Ra) 7.84986E-01    0    7.84986E-01  1.00000
+   88 228 (228Ra) 4.24732E-01    0    4.24732E-01  1.00000
+   87 228 (228Fr) 1.00000E-07    0    0.00000E+00  0.00000
+   86 225 (225Rn) 1.00000E-07    0    7.65779E-16  0.00000
    86 224 (224Rn) 1.00000E-07    0    0.00000E+00  0.00000
 
    b. Per mass
@@ -7687,37 +7672,33 @@ file: pfns0017.000.fis
    A  cross section
 
   233 4.88893E-01
-  232 3.19185E+02
-  231 5.72205E+02
-  230 1.68383E+03
-  229 7.85289E-01
-  228 4.26965E-01
+  232 3.19171E+02
+  231 5.71660E+02
+  230 1.68349E+03
+  229 7.84986E-01
+  228 4.24732E-01
 
- Total residual production cross section:  2576.9218750
- Total fission cross section            :   450.9794312
- Fission + res. production cross section:  3027.9013672
+ Total residual production cross section:  2576.0236816
+ Total fission cross section            :   448.5197754
+ Fission + res. production cross section:  3024.5434570
  Non-elastic cross section              :  3016.5700684
 
  4b. Fission cross section per fissioning nuclide
 
    90 233 (233Th) 1.97472E+01
-   90 232 (232Th) 1.13955E+02
-   89 232 (232Ac) 7.77593E-04
-   90 231 (231Th) 3.16861E+02
-   89 231 (231Ac) 7.18964E-07
-   90 230 (230Th) 4.15287E-01
-   89 230 (230Ac) 9.24510E-13
-   88 229 (229Ra) 2.63474E-05
-   88 228 (228Ra) 1.79273E-07
+   90 232 (232Th) 1.13532E+02
+   89 232 (232Ac) 7.60353E-04
+   90 231 (231Th) 3.14825E+02
+   89 231 (231Ac) 1.44308E-09
+   90 230 (230Th) 4.14872E-01
+   88 229 (229Ra) 2.20005E-05
 file: rp090233.fis
 file: rp090232.fis
 file: rp089232.fis
 file: rp090231.fis
 file: rp089231.fis
 file: rp090230.fis
-file: rp089230.fis
 file: rp088229.fis
-file: rp088228.fis
 
  +++ Prompt fission neutron  spectrum +++
 
@@ -8027,48 +8008,43 @@ file: pfns0018.000.fis
 
      Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
     n   p   d   t   h   a                                        cross section   ratio
-    0   0   0   0   0   0    4.88893E-01  (n,g)                                                     1.61719E-04
-    1   0   0   0   0   0    3.12604E+02  (n,n')                                                    1.03405E-01
-    0   1   0   0   0   0    4.13377E+00  (n,p)                                                     1.36739E-03
-    0   0   1   0   0   0    6.55904E-01  (n,d)                                                     2.16963E-04
-    0   0   0   1   0   0    3.04466E-01  (n,t)                                                     1.00713E-04
-    0   0   0   0   0   1    7.85289E-01  (n,a)                                                     2.59762E-04
-    2   0   0   0   0   0    5.69059E+02  (n,2n)                                                    1.88236E-01
-    1   1   0   0   0   0    5.59697E-01  (n,np)                                                    1.85140E-04
-    1   0   1   0   0   0    3.40166E-06  (n,nd)                                                    1.12522E-09
-    1   0   0   1   0   0    1.21599E-05  (n,nt)                                                    4.02230E-09
-    1   0   0   0   0   1    4.26965E-01  (n,na)                                                    1.41234E-04
-    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.30786E-11
-    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.30786E-11
-    3   0   0   0   0   0    1.68343E+03  (n,3n)                                                    5.56855E-01
-    2   0   0   0   0   1    2.03521E-05  (n,2na)                                                   6.73217E-09
-    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.30786E-11
-    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.30786E-11
-    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.30786E-11
-    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.30786E-11
-    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.30786E-11
-    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.30786E-11
-    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.30786E-11
-    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.30786E-11
+    0   0   0   0   0   0    4.88893E-01  (n,g)                                                     1.61899E-04
+    1   0   0   0   0   0    3.12591E+02  (n,n')                                                    1.03516E-01
+    0   1   0   0   0   0    4.13341E+00  (n,p)                                                     1.36879E-03
+    0   0   1   0   0   0    6.55877E-01  (n,d)                                                     2.17196E-04
+    0   0   0   1   0   0    3.04390E-01  (n,t)                                                     1.00800E-04
+    0   0   0   0   0   1    7.84985E-01  (n,a)                                                     2.59950E-04
+    2   0   0   0   0   0    5.68514E+02  (n,2n)                                                    1.88265E-01
+    1   1   0   0   0   0    5.59315E-01  (n,np)                                                    1.85219E-04
+    1   0   0   0   0   1    4.24732E-01  (n,na)                                                    1.40651E-04
+    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.31153E-11
+    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.31153E-11
+    3   0   0   0   0   0    1.68309E+03  (n,3n)                                                    5.57362E-01
+    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.31153E-11
+    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.31153E-11
+    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.31153E-11
+    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.31153E-11
+    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.31153E-11
+    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.31153E-11
+    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.31153E-11
+    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.31153E-11
 
  6a2. Exclusive fission cross sections 
 
      Emitted particles     cross section reaction
     n   p   d   t   h   a
     0   0   0   0   0   0    1.97472E+01  (n,gf)           
-    1   0   0   0   0   0    1.13651E+02  (n,n'f)          
-    0   1   0   0   0   0    7.77594E-04  (n,pf)           
-    0   0   1   0   0   0    7.16700E-07  (n,df)           
-    0   0   0   0   0   1    2.63473E-05  (n,af)           
-    2   0   0   0   0   0    3.16844E+02  (n,2nf)          
-    1   0   0   0   0   1    1.79273E-07  (n,naf)          
-    3   0   0   0   0   0    4.15287E-01  (n,3nf)          
+    1   0   0   0   0   0    1.13228E+02  (n,n'f)          
+    0   1   0   0   0   0    7.60353E-04  (n,pf)           
+    0   0   0   0   0   1    2.20004E-05  (n,af)           
+    2   0   0   0   0   0    3.14808E+02  (n,2nf)          
+    3   0   0   0   0   0    4.14872E-01  (n,3nf)          
 
- Absorption cross section                 :   457.02609
+ Absorption cross section                 :   454.56644
 
- Sum over exclusive channel cross sections:  3023.10718
+ Sum over exclusive channel cross sections:  3019.75024
  (n,gn) + (n,gp) +...(n,ga) cross sections:     5.12739
- Total                                    :  3028.23462
+ Total                                    :  3024.87769
  Non-elastic cross section                :  3016.57007
 
  ########## RESULTS FOR E=  19.00000 ##########
@@ -8111,14 +8087,14 @@ file: pfns0018.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 4.39127E+03    Multiplicity= 1.46287E+00
- neutron = 7.36955E+03    Multiplicity= 2.45503E+00
+ gamma   = 4.38915E+03    Multiplicity= 1.46216E+00
+ neutron = 7.36839E+03    Multiplicity= 2.45464E+00
  proton  = 6.92035E+00    Multiplicity= 2.30539E-03
  deuteron= 1.28457E+00    Multiplicity= 4.27931E-04
  triton  = 5.93098E-01    Multiplicity= 1.97579E-04
  helium-3= 1.27842E-09    Multiplicity= 4.25883E-13
  alpha   = 2.07512E+00    Multiplicity= 6.91288E-04
- fission = 4.48958E+02
+ fission = 4.47124E+02
 
  4. Residual production cross sections
 
@@ -8128,57 +8104,51 @@ file: pfns0018.000.fis
                  cross section       cross section  ratio
 
    90 233 (233Th) 4.13623E-01    0    4.13623E-01  1.00000
-   90 232 (232Th) 2.96521E+02    0    2.96521E+02  1.00000
-   89 232 (232Ac) 5.66570E+00    0    5.66570E+00  1.00000
-   90 231 (231Th) 4.60372E+02    0    4.60372E+02  1.00000
-   89 231 (231Ac) 2.61003E+00    0    2.61003E+00  1.00000
-   90 230 (230Th) 1.79600E+03    0    1.79600E+03  1.00000
-   89 230 (230Ac) 6.00826E-01    0    6.00826E-01  1.00000
-   90 229 (229Th) 2.02005E-02    0    2.02005E-02  1.00000
-   89 229 (229Ac) 2.95096E-03    0    2.95096E-03  1.00000
-   88 229 (229Ra) 1.08258E+00    0    1.08258E+00  1.00000
-   88 228 (228Ra) 1.01907E+00    0    1.01907E+00  1.00000
-   87 228 (228Fr) 1.00000E-07    0    2.23945E-16  0.00000
-   88 227 (227Ra) 2.60453E-03    0    2.60453E-03  1.00000
-   86 225 (225Rn) 1.00000E-07    0    1.00165E-14  0.00000
-   86 224 (224Rn) 1.00000E-07    0    5.97645E-18  0.00000
-   86 223 (223Rn) 1.00000E-07    0    0.00000E+00  0.00000
+   90 232 (232Th) 2.96501E+02    0    2.96501E+02  1.00000
+   89 232 (232Ac) 5.66492E+00    0    5.66492E+00  1.00000
+   90 231 (231Th) 4.60152E+02    0    4.60152E+02  1.00000
+   89 231 (231Ac) 2.60862E+00    0    2.60862E+00  1.00000
+   90 230 (230Th) 1.79571E+03    0    1.79571E+03  1.00000
+   89 230 (230Ac) 6.00629E-01    0    6.00629E-01  1.00000
+   90 229 (229Th) 1.09009E-02    0    1.09009E-02  1.00000
+   88 229 (229Ra) 1.08230E+00    0    1.08230E+00  1.00000
+   88 228 (228Ra) 1.01840E+00    0    1.01840E+00  1.00000
+   87 228 (228Fr) 1.00000E-07    0    7.13752E-17  0.00000
+   86 225 (225Rn) 1.00000E-07    0    8.62364E-15  0.00000
+   86 224 (224Rn) 1.00000E-07    0    0.00000E+00  0.00000
 
    b. Per mass
 
    A  cross section
 
   233 4.13623E-01
-  232 3.02187E+02
-  231 4.62982E+02
-  230 1.79660E+03
-  229 1.10573E+00
-  228 1.01907E+00
-  227 2.60453E-03
+  232 3.02165E+02
+  231 4.62761E+02
+  230 1.79631E+03
+  229 1.09320E+00
+  228 1.01840E+00
 
- Total residual production cross section:  2564.3122559
- Total fission cross section            :   448.9579163
- Fission + res. production cross section:  3013.2702637
+ Total residual production cross section:  2563.7646484
+ Total fission cross section            :   447.1235657
+ Fission + res. production cross section:  3010.8881836
  Non-elastic cross section              :  3001.8200684
 
  4b. Fission cross section per fissioning nuclide
 
    90 233 (233Th) 2.03375E+01
-   90 232 (232Th) 1.01970E+02
-   89 232 (232Ac) 2.30930E-03
-   90 231 (231Th) 3.08979E+02
-   89 231 (231Ac) 7.01368E-06
-   90 230 (230Th) 1.76698E+01
-   89 230 (230Ac) 4.31564E-07
-   88 229 (229Ra) 9.18202E-05
-   88 228 (228Ra) 1.83360E-06
+   90 232 (232Th) 1.01746E+02
+   89 232 (232Ac) 2.25744E-03
+   90 231 (231Th) 3.07425E+02
+   89 231 (231Ac) 3.33103E-08
+   90 230 (230Th) 1.76124E+01
+   88 229 (229Ra) 8.45923E-05
+   88 228 (228Ra) 2.58181E-10
 file: rp090233.fis
 file: rp090232.fis
 file: rp089232.fis
 file: rp090231.fis
 file: rp089231.fis
 file: rp090230.fis
-file: rp089230.fis
 file: rp088229.fis
 file: rp088228.fis
 
@@ -8490,52 +8460,46 @@ file: pfns0019.000.fis
 
      Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
     n   p   d   t   h   a                                        cross section   ratio
-    0   0   0   0   0   0    4.13623E-01  (n,g)                                                     1.37495E-04
-    1   0   0   0   0   0    2.94417E+02  (n,n')                                                    9.78694E-02
-    0   1   0   0   0   0    5.66570E+00  (n,p)                                                     1.88338E-03
-    0   0   1   0   0   0    1.28871E+00  (n,d)                                                     4.28391E-04
-    0   0   0   1   0   0    6.00642E-01  (n,t)                                                     1.99664E-04
-    0   0   0   0   0   1    1.08258E+00  (n,a)                                                     3.59868E-04
-    2   0   0   0   0   0    4.58051E+02  (n,2n)                                                    1.52264E-01
-    1   1   0   0   0   0    1.32131E+00  (n,np)                                                    4.39227E-04
-    1   0   1   0   0   0    1.74081E-04  (n,nd)                                                    5.78677E-08
-    1   0   0   1   0   0    2.95096E-03  (n,nt)                                                    9.80949E-07
-    1   0   0   0   0   1    1.01907E+00  (n,na)                                                    3.38757E-04
-    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.32417E-11
-    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.32417E-11
-    3   0   0   0   0   0    1.79581E+03  (n,3n)                                                    5.96957E-01
-    2   1   0   0   0   0    9.20510E-06  (n,2np)                                                   3.05993E-09
-    2   0   0   0   0   1    2.60453E-03  (n,2na)                                                   8.65790E-07
-    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.32417E-11
-    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.32417E-11
-    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.32417E-11
-    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.32417E-11
-    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.32417E-11
-    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.32417E-11
-    4   0   0   0   0   0    2.00102E-02  (n,4n)                                                    6.65175E-06
-    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.32417E-11
-    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.32417E-11
+    0   0   0   0   0   0    4.13623E-01  (n,g)                                                     1.37604E-04
+    1   0   0   0   0   0    2.94397E+02  (n,n')                                                    9.79402E-02
+    0   1   0   0   0   0    5.66492E+00  (n,p)                                                     1.88461E-03
+    0   0   1   0   0   0    1.28848E+00  (n,d)                                                     4.28652E-04
+    0   0   0   1   0   0    6.00629E-01  (n,t)                                                     1.99817E-04
+    0   0   0   0   0   1    1.08230E+00  (n,a)                                                     3.60061E-04
+    2   0   0   0   0   0    4.57831E+02  (n,2n)                                                    1.52312E-01
+    1   1   0   0   0   0    1.32014E+00  (n,np)                                                    4.39184E-04
+    1   0   0   1   0   0    1.11028E-04  (n,nt)                                                    3.69369E-08
+    1   0   0   0   0   1    1.01839E+00  (n,na)                                                    3.38800E-04
+    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.32681E-11
+    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.32681E-11
+    3   0   0   0   0   0    1.79552E+03  (n,3n)                                                    5.97334E-01
+    2   0   0   0   0   1    3.89248E-05  (n,2na)                                                   1.29495E-08
+    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.32681E-11
+    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.32681E-11
+    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.32681E-11
+    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.32681E-11
+    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.32681E-11
+    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.32681E-11
+    4   0   0   0   0   0    1.08250E-02  (n,4n)                                                    3.60125E-06
+    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.32681E-11
+    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.32681E-11
 
  6a2. Exclusive fission cross sections 
 
      Emitted particles     cross section reaction
     n   p   d   t   h   a
     0   0   0   0   0   0    2.03375E+01  (n,gf)           
-    1   0   0   0   0   0    1.01625E+02  (n,n'f)          
-    0   1   0   0   0   0    2.30930E-03  (n,pf)           
-    0   0   1   0   0   0    6.88246E-06  (n,df)           
-    0   0   0   1   0   0    4.31564E-07  (n,tf)           
-    0   0   0   0   0   1    9.18199E-05  (n,af)           
-    2   0   0   0   0   0    3.08940E+02  (n,2nf)          
-    1   1   0   0   0   0    1.31216E-07  (n,npf)          
-    1   0   0   0   0   1    1.83360E-06  (n,naf)          
-    3   0   0   0   0   0    1.76698E+01  (n,3nf)          
+    1   0   0   0   0   0    1.01403E+02  (n,n'f)          
+    0   1   0   0   0   0    2.25744E-03  (n,pf)           
+    0   0   0   0   0   1    8.45921E-05  (n,af)           
+    2   0   0   0   0   0    3.07386E+02  (n,2nf)          
+    3   0   0   0   0   0    1.76124E+01  (n,3nf)          
 
- Absorption cross section                 :   457.62613
+ Absorption cross section                 :   455.79156
 
- Sum over exclusive channel cross sections:  3008.26636
+ Sum over exclusive channel cross sections:  3005.88647
  (n,gn) + (n,gp) +...(n,ga) cross sections:     5.36258
- Total                                    :  3013.62891
+ Total                                    :  3011.24902
  Non-elastic cross section                :  3001.82007
 
  ########## RESULTS FOR E=  20.00000 ##########
@@ -8578,14 +8542,14 @@ file: pfns0019.000.fis
 
  3. Total particle production cross sections
 
- gamma   = 4.64835E+03    Multiplicity= 1.55528E+00
- neutron = 7.44305E+03    Multiplicity= 2.49036E+00
+ gamma   = 4.64568E+03    Multiplicity= 1.55439E+00
+ neutron = 7.44165E+03    Multiplicity= 2.48989E+00
  proton  = 9.77746E+00    Multiplicity= 3.27142E-03
  deuteron= 2.12336E+00    Multiplicity= 7.10450E-04
  triton  = 9.94670E-01    Multiplicity= 3.32805E-04
  helium-3= 1.48862E-08    Multiplicity= 4.98075E-12
  alpha   = 3.22495E+00    Multiplicity= 1.07903E-03
- fission = 5.10587E+02
+ fission = 5.08351E+02
 
  4. Residual production cross sections
 
@@ -8595,20 +8559,20 @@ file: pfns0019.000.fis
                  cross section       cross section  ratio
 
    90 233 (233Th) 3.58926E-01    0    3.58926E-01  1.00000
-   90 232 (232Th) 2.79143E+02    0    2.79143E+02  1.00000
-   89 232 (232Ac) 7.08261E+00    0    7.08261E+00  1.00000
-   90 231 (231Th) 4.11390E+02    0    4.11390E+02  1.00000
-   89 231 (231Ac) 4.90569E+00    0    4.90569E+00  1.00000
-   90 230 (230Th) 1.77609E+03    0    1.77609E+03  1.00000
-   89 230 (230Ac) 9.94459E-01    0    9.94459E-01  1.00000
-   90 229 (229Th) 2.24189E+00    0    2.24189E+00  1.00000
-   89 229 (229Ac) 2.14010E-02    0    2.14010E-02  1.00000
-   88 229 (229Ra) 1.04853E+00    0    1.04853E+00  1.00000
-   88 228 (228Ra) 2.19420E+00    0    2.19420E+00  1.00000
-   87 228 (228Fr) 1.00000E-07    0    1.98634E-15  0.00000
-   88 227 (227Ra) 9.68315E-03    0    9.68315E-03  1.00000
-   86 225 (225Rn) 1.00000E-07    0    3.46566E-14  0.00000
-   86 224 (224Rn) 1.00000E-07    0    1.44980E-16  0.00000
+   90 232 (232Th) 2.79128E+02    0    2.79128E+02  1.00000
+   89 232 (232Ac) 7.08200E+00    0    7.08200E+00  1.00000
+   90 231 (231Th) 4.11182E+02    0    4.11182E+02  1.00000
+   89 231 (231Ac) 4.90482E+00    0    4.90482E+00  1.00000
+   90 230 (230Th) 1.77568E+03    0    1.77568E+03  1.00000
+   89 230 (230Ac) 9.93068E-01    0    9.93068E-01  1.00000
+   90 229 (229Th) 2.21341E+00    0    2.21341E+00  1.00000
+   89 229 (229Ac) 2.10842E-02    0    2.10842E-02  1.00000
+   88 229 (229Ra) 1.04795E+00    0    1.04795E+00  1.00000
+   88 228 (228Ra) 2.19316E+00    0    2.19316E+00  1.00000
+   87 228 (228Fr) 1.00000E-07    0    1.73975E-15  0.00000
+   88 227 (227Ra) 7.05840E-03    0    7.05840E-03  1.00000
+   86 225 (225Rn) 1.00000E-07    0    2.98282E-14  0.00000
+   86 224 (224Rn) 1.00000E-07    0    0.00000E+00  0.00000
    86 223 (223Rn) 1.00000E-07    0    0.00000E+00  0.00000
 
    b. Per mass
@@ -8616,29 +8580,29 @@ file: pfns0019.000.fis
    A  cross section
 
   233 3.58926E-01
-  232 2.86226E+02
-  231 4.16295E+02
-  230 1.77708E+03
-  229 3.31182E+00
-  228 2.19420E+00
-  227 9.68315E-03
+  232 2.86210E+02
+  231 4.16087E+02
+  230 1.77668E+03
+  229 3.28244E+00
+  228 2.19316E+00
+  227 7.05840E-03
 
- Total residual production cross section:  2485.4780273
- Total fission cross section            :   510.5868530
- Fission + res. production cross section:  2996.0649414
+ Total residual production cross section:  2484.8154297
+ Total fission cross section            :   508.3505554
+ Fission + res. production cross section:  2993.1660156
  Non-elastic cross section              :  2988.7500000
 
  4b. Fission cross section per fissioning nuclide
 
    90 233 (233Th) 2.10905E+01
-   90 232 (232Th) 8.67834E+01
-   89 232 (232Ac) 3.94000E-03
-   90 231 (231Th) 2.89082E+02
-   89 231 (231Ac) 7.47941E-05
-   90 230 (230Th) 1.13626E+02
-   89 230 (230Ac) 1.94672E-06
-   88 229 (229Ra) 3.03082E-04
-   88 228 (228Ra) 1.14590E-05
+   90 232 (232Th) 8.64783E+01
+   89 232 (232Ac) 3.90344E-03
+   90 231 (231Th) 2.87255E+02
+   89 231 (231Ac) 2.35334E-06
+   90 230 (230Th) 1.13522E+02
+   89 230 (230Ac) 8.99321E-08
+   88 229 (229Ra) 2.77786E-04
+   88 228 (228Ra) 1.45091E-06
 file: rp090233.fis
 file: rp090232.fis
 file: rp089232.fis
@@ -8957,52 +8921,51 @@ file: pfns0020.000.fis
 
      Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
     n   p   d   t   h   a                                        cross section   ratio
-    0   0   0   0   0   0    3.58926E-01  (n,g)                                                     1.20007E-04
-    1   0   0   0   0   0    2.77437E+02  (n,n')                                                    9.27608E-02
-    0   1   0   0   0   0    7.08261E+00  (n,p)                                                     2.36806E-03
-    0   0   1   0   0   0    2.13132E+00  (n,d)                                                     7.12606E-04
-    0   0   0   1   0   0    9.92442E-01  (n,t)                                                     3.31822E-04
-    0   0   0   0   0   1    1.04853E+00  (n,a)                                                     3.50575E-04
-    2   0   0   0   0   0    4.08720E+02  (n,2n)                                                    1.36655E-01
-    1   1   0   0   0   0    2.77437E+00  (n,np)                                                    9.27606E-04
-    1   0   1   0   0   0    1.82191E-03  (n,nd)                                                    6.09154E-07
-    1   0   0   1   0   0    2.14010E-02  (n,nt)                                                    7.15539E-06
-    1   0   0   0   0   1    2.19419E+00  (n,na)                                                    7.33626E-04
-    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.34349E-11
-    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.34349E-11
-    3   0   0   0   0   0    1.77574E+03  (n,3n)                                                    5.93718E-01
-    2   1   0   0   0   0    1.94313E-04  (n,2np)                                                   6.49684E-08
-    2   0   0   0   0   1    9.68313E-03  (n,2na)                                                   3.23754E-06
-    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.34349E-11
-    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.34349E-11
-    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.34349E-11
-    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.34349E-11
-    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.34349E-11
-    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.34349E-11
-    4   0   0   0   0   0    2.21510E+00  (n,4n)                                                    7.40618E-04
-    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.34349E-11
-    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.34349E-11
+    0   0   0   0   0   0    3.58926E-01  (n,g)                                                     1.20123E-04
+    1   0   0   0   0   0    2.77421E+02  (n,n')                                                    9.28455E-02
+    0   1   0   0   0   0    7.08200E+00  (n,p)                                                     2.37016E-03
+    0   0   1   0   0   0    2.13099E+00  (n,d)                                                     7.13185E-04
+    0   0   0   1   0   0    9.92410E-01  (n,t)                                                     3.32133E-04
+    0   0   0   0   0   1    1.04795E+00  (n,a)                                                     3.50721E-04
+    2   0   0   0   0   0    4.08513E+02  (n,2n)                                                    1.36718E-01
+    1   1   0   0   0   0    2.77383E+00  (n,np)                                                    9.28325E-04
+    1   0   1   0   0   0    5.87623E-04  (n,nd)                                                    1.96662E-07
+    1   0   0   1   0   0    2.10842E-02  (n,nt)                                                    7.05633E-06
+    1   0   0   0   0   1    2.19316E+00  (n,na)                                                    7.33991E-04
+    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.34673E-11
+    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.34673E-11
+    3   0   0   0   0   0    1.77534E+03  (n,3n)                                                    5.94159E-01
+    2   1   0   0   0   0    7.06784E-05  (n,2np)                                                   2.36542E-08
+    2   0   0   0   0   1    7.05837E-03  (n,2na)                                                   2.36225E-06
+    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.34673E-11
+    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.34673E-11
+    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.34673E-11
+    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.34673E-11
+    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.34673E-11
+    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.34673E-11
+    4   0   0   0   0   0    2.18699E+00  (n,4n)                                                    7.31926E-04
+    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.34673E-11
+    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.34673E-11
 
  6a2. Exclusive fission cross sections 
 
      Emitted particles     cross section reaction
     n   p   d   t   h   a
     0   0   0   0   0   0    2.10905E+01  (n,gf)           
-    1   0   0   0   0   0    8.64246E+01  (n,n'f)          
-    0   1   0   0   0   0    3.94000E-03  (n,pf)           
-    0   0   1   0   0   0    6.97603E-05  (n,df)           
-    0   0   0   1   0   0    1.94672E-06  (n,tf)           
-    0   0   0   0   0   1    3.03080E-04  (n,af)           
-    2   0   0   0   0   0    2.89010E+02  (n,2nf)          
-    1   1   0   0   0   0    5.03382E-06  (n,npf)          
-    1   0   0   0   0   1    1.14590E-05  (n,naf)          
-    3   0   0   0   0   0    1.13626E+02  (n,3nf)          
+    1   0   0   0   0   0    8.61205E+01  (n,n'f)          
+    0   1   0   0   0   0    3.90344E-03  (n,pf)           
+    0   0   1   0   0   0    2.08898E-06  (n,df)           
+    0   0   0   0   0   1    2.77785E-04  (n,af)           
+    2   0   0   0   0   0    2.87183E+02  (n,2nf)          
+    1   1   0   0   0   0    2.64358E-07  (n,npf)          
+    1   0   0   0   0   1    1.45091E-06  (n,naf)          
+    3   0   0   0   0   0    1.13522E+02  (n,3nf)          
 
- Absorption cross section                 :   521.76892
+ Absorption cross section                 :   519.53210
 
- Sum over exclusive channel cross sections:  2990.88647
+ Sum over exclusive channel cross sections:  2987.99023
  (n,gn) + (n,gp) +...(n,ga) cross sections:     5.48844
- Total                                    :  2996.37500
+ Total                                    :  2993.47876
  Non-elastic cross section                :  2988.75000
 
  ########## EXCITATION FUNCTIONS ###########
@@ -9120,6 +9083,6 @@ file: xs400000.fis
 file: xs200002.fis
 file: xs100003.fis
 
- Execution time:  0 hours  0 minutes 40.35 seconds 
+ Execution time:  0 hours  0 minutes 40.34 seconds 
 
  The TALYS team congratulates you with this successful calculation.

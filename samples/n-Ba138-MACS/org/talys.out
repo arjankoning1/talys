@@ -1,12 +1,12 @@
 
-    TALYS-2.25 (Version: September 20, 2026)
+    TALYS-2.25 (Version: October 20, 2026)
 
  Copyright (C) 2026  A.J. Koning, S. Hilaire and S. Goriely
 
  Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees
 
  User: Arjan Koning
- Date: 2026-09-22
+ Date: 2026-10-20
 
  ########## USER INPUT ##########
 
@@ -64,6 +64,9 @@
  xseps            1.00E-17 xseps        limit for cross sections
  popeps           1.00E-13 popeps       limit for population cross section per nucleus
  Rfiseps          1.00E-06 Rfiseps      ratio for limit for fission cross section per nucleus
+ poprelnuc        1.00E-06 poprelnuc    relative limit for population cross sections
+ poprelE          1.00E-04 poprelE      relative limit for population energy bin compared to largest bin
+ poprelJP         1.00E-03 poprelJP     relative limit for population energy-J-P bin compared to largest bin
  elow             1.00E-06 elow         minimal incident energy for nuclear model calculations
  angles             90     nangle       number of angles
  anglescont         18     nanglecont   number of angles for continuum
@@ -1139,12 +1142,11 @@
 file: astrorate056139.tot
 file: astrorate056138.tot
 file: astrorate054135.tot
-file: astrorate052131.tot
 file: astrorate.g
 file: astrorate.p
 file: astrorate.a
 file: astrorate.tot
 
- Execution time:  0 hours  0 minutes  1.26 seconds 
+ Execution time:  0 hours  0 minutes  1.33 seconds 
 
  The TALYS team congratulates you with this successful calculation.

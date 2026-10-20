@@ -1,12 +1,12 @@
 
-    TALYS-2.25 (Version: September 20, 2026)
+    TALYS-2.25 (Version: October 20, 2026)
 
  Copyright (C) 2026  A.J. Koning, S. Hilaire and S. Goriely
 
  Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees
 
  User: Arjan Koning
- Date: 2026-09-22
+ Date: 2026-10-20
 
  ########## USER INPUT ##########
 
@@ -61,6 +61,9 @@
  xseps            1.00E-07 xseps        limit for cross sections
  popeps           1.00E-03 popeps       limit for population cross section per nucleus
  Rfiseps          1.00E-03 Rfiseps      ratio for limit for fission cross section per nucleus
+ poprelnuc        1.00E-06 poprelnuc    relative limit for population cross sections
+ poprelE          1.00E-04 poprelE      relative limit for population energy bin compared to largest bin
+ poprelJP         1.00E-03 poprelJP     relative limit for population energy-J-P bin compared to largest bin
  elow             1.00E-06 elow         minimal incident energy for nuclear model calculations
  angles             90     nangle       number of angles
  anglescont         18     nanglecont   number of angles for continuum
@@ -805,7 +808,7 @@ file: populationE0000.020.out
  Discrete    (n,g)  :               0.00000    30.53030    30.53030
  Continuum   (n,g)  :               0.00000    45.38008    45.38008
                                   ---------   ---------   ---------
- Total       (n,g)  :               0.00000    75.91038    75.91039
+ Total       (n,g)  :               0.00000    75.91039    75.91039
 
 
  ########## RESULTS FOR E=   0.05000 ##########
@@ -963,7 +966,7 @@ file: populationE0000.050.out
 
   121 4.11516E+01
 
- Total residual production cross section:    41.1516113
+ Total residual production cross section:    41.1516151
  Non-elastic cross section              :    41.3742676
 
  5. Binary reactions to discrete levels and continuum
@@ -1310,15 +1313,6 @@ file: binE0000.200.out
 
 file: populationE0000.200.out
 
- Population of Z= 50 N= 70 (120Sn) before decay: 2.25708E-03
-
- Final production cross section of Z= 50 N= 70 (120Sn):
-
- Total       : 2.25708E-03
- Ground state: 2.25708E-03
-
-file: populationE0000.200.out
-
  ########### REACTION SUMMARY FOR E=   0.20000 ###########
 
  Center-of-mass energy:    0.198
@@ -1364,7 +1358,7 @@ file: populationE0000.200.out
 
    50 121 (121Sn) 2.65354E+01    0    2.29286E+01  0.86408
                                  1    3.60681E+00  0.13592   1.38500E+09 sec. 
-   50 120 (120Sn) 2.25708E-03    0    2.25708E-03  1.00000
+   50 120 (120Sn) 1.00000E-07    0    2.25708E-03  0.00000
    48 117 (117Cd) 1.00000E-07    0    0.00000E+00  0.00000
                                  2    0.00000E+00  0.00000   1.21000E+04 sec. 
 
@@ -1373,9 +1367,8 @@ file: populationE0000.200.out
    A  cross section
 
   121 2.65354E+01
-  120 2.25708E-03
 
- Total residual production cross section:    26.5376587
+ Total residual production cross section:    26.5354023
  Non-elastic cross section              :    26.8132324
 
  5. Binary reactions to discrete levels and continuum
@@ -2213,7 +2206,7 @@ file: populationE0000.750.out
   121 2.98902E+01
   120 2.18514E-01
 
- Total residual production cross section:    30.1087227
+ Total residual production cross section:    30.1087246
  Non-elastic cross section              :    30.2352295
 
  5. Binary reactions to discrete levels and continuum
@@ -3675,7 +3668,7 @@ file: binE0003.500.out
  Final production cross section of Z= 50 N= 71 (121Sn):
 
  Total       : 1.10213E+01
- Ground state: 6.89129E+00
+ Ground state: 6.89130E+00
  Level  1    : 4.13002E+00
 
 file: populationE0003.500.out
@@ -3733,7 +3726,7 @@ file: populationE0003.500.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   50 121 (121Sn) 1.10213E+01    0    6.89129E+00  0.62527
+   50 121 (121Sn) 1.10213E+01    0    6.89130E+00  0.62527
                                  1    4.13002E+00  0.37473   1.38500E+09 sec. 
    50 120 (120Sn) 1.88392E+03    0    1.88392E+03  1.00000
    48 117 (117Cd) 1.00000E-07    0    0.00000E+00  0.00000
@@ -3832,7 +3825,7 @@ file: populationE0003.500.out
  29   2.90222   0.56853   10.0+     0.00000     0.00051     0.00051    Direct
  30   2.93053   0.54022    2.0+     0.56734    39.42337    39.99070    Direct
                                   ---------   ---------   ---------
- Discrete  Inelastic:              90.81370  1187.79895  1278.61267
+ Discrete  Inelastic:              90.81370  1187.79907  1278.61279
  Continuum Inelastic:               7.26428   592.67413   599.93842
                                   ---------   ---------   ---------
  Total     Inelastic:              98.07798  1780.47314  1878.55334
@@ -4152,7 +4145,7 @@ file: populationE0004.000.out
  30   2.93053   1.03603    2.0+     0.85591    29.79454    30.65045    Direct
                                   ---------   ---------   ---------
  Discrete  Inelastic:             100.26015   792.07965   892.33978
- Continuum Inelastic:              18.18070  1138.99377  1157.17444
+ Continuum Inelastic:              18.18070  1138.99390  1157.17456
                                   ---------   ---------   ---------
  Total     Inelastic:             118.44085  1931.07349  2049.51343
 
@@ -4287,7 +4280,7 @@ file: directE0004.500.out
  Parity=+  J= 3.5  j= 3.5  l= 4  T(j,l)= 4.25982E-01  Sum over outgoing channels= 4.25982E-01  Ratio= 1.00000
  Parity=+  J= 4.5  j= 4.5  l= 4  T(j,l)= 7.37087E-01  Sum over outgoing channels= 7.37086E-01  Ratio= 1.00000
  Parity=+  J= 5.5  j= 5.5  l= 6  T(j,l)= 5.72835E-03  Sum over outgoing channels= 5.72834E-03  Ratio= 1.00000
- Parity=+  J= 6.5  j= 6.5  l= 6  T(j,l)= 8.20860E-03  Sum over outgoing channels= 8.20860E-03  Ratio= 1.00000
+ Parity=+  J= 6.5  j= 6.5  l= 6  T(j,l)= 8.20860E-03  Sum over outgoing channels= 8.20861E-03  Ratio= 1.00000
  Parity=+  J= 7.5  j= 7.5  l= 8  T(j,l)= 1.18334E-05  Sum over outgoing channels= 1.18334E-05  Ratio= 1.00000
  Parity=+  J= 8.5  j= 8.5  l= 8  T(j,l)= 1.31117E-05  Sum over outgoing channels= 1.31117E-05  Ratio= 1.00000
 file: initial_population.out
@@ -4358,7 +4351,7 @@ file: populationE0004.500.out
 
  3. Total particle production cross sections
 
- gamma   = 1.74175E+03    Multiplicity= 8.04336E-01
+ gamma   = 1.74175E+03    Multiplicity= 8.04335E-01
  neutron = 2.15844E+03    Multiplicity= 9.96763E-01
  proton  = 0.00000E+00    Multiplicity= 0.00000E+00
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
@@ -4448,7 +4441,7 @@ file: populationE0004.500.out
   5   2.17300   2.28937    3.0+     0.00000    31.32155    31.32155    Preeq 
   6   2.19430   2.26807    4.0+     1.72694    27.13378    28.86072    Direct
   7   2.28427   2.17810    5.0-     0.31148    18.36318    18.67466    Direct
-  8   2.29700   2.16537    1.0+     0.00000    20.32621    20.32621    Preeq 
+  8   2.29700   2.16537    1.0+     0.00000    20.32620    20.32620    Preeq 
   9   2.35538   2.10699    2.0+     1.54817    28.16017    29.70834    Direct
  10   2.40030   2.06207    3.0-    24.54330    28.14783    52.69114    Direct
  11   2.42090   2.04147    2.0+     1.49851    27.33498    28.83349    Direct
@@ -4679,7 +4672,7 @@ file: populationE0005.000.out
 
  3. Total particle production cross sections
 
- gamma   = 2.15739E+03    Multiplicity= 9.78449E-01
+ gamma   = 2.15738E+03    Multiplicity= 9.78447E-01
  neutron = 2.19930E+03    Multiplicity= 9.97456E-01
  proton  = 0.00000E+00    Multiplicity= 0.00000E+00
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
@@ -4918,7 +4911,7 @@ file: directE0005.500.out
  Parity=-  J= 2.5  j= 2.5  l= 3  T(j,l)= 5.08529E-01  Sum over outgoing channels= 5.08528E-01  Ratio= 1.00000
  Parity=-  J= 3.5  j= 3.5  l= 3  T(j,l)= 4.04373E-01  Sum over outgoing channels= 4.04372E-01  Ratio= 1.00000
  Parity=-  J= 4.5  j= 4.5  l= 5  T(j,l)= 7.77890E-02  Sum over outgoing channels= 7.77887E-02  Ratio= 1.00000
- Parity=-  J= 5.5  j= 5.5  l= 5  T(j,l)= 8.09810E-02  Sum over outgoing channels= 8.09808E-02  Ratio= 1.00000
+ Parity=-  J= 5.5  j= 5.5  l= 5  T(j,l)= 8.09810E-02  Sum over outgoing channels= 8.09809E-02  Ratio= 1.00000
  Parity=-  J= 6.5  j= 6.5  l= 7  T(j,l)= 8.78722E-04  Sum over outgoing channels= 8.78721E-04  Ratio= 1.00000
  Parity=-  J= 7.5  j= 7.5  l= 7  T(j,l)= 1.40307E-03  Sum over outgoing channels= 1.40307E-03  Ratio= 1.00000
  Parity=-  J= 8.5  j= 8.5  l= 9  T(j,l)= 3.79821E-06  Sum over outgoing channels= 3.79821E-06  Ratio= 1.00000
@@ -5000,7 +4993,7 @@ file: populationE0005.500.out
 
  3. Total particle production cross sections
 
- gamma   = 2.49152E+03    Multiplicity= 1.13278E+00
+ gamma   = 2.49151E+03    Multiplicity= 1.13277E+00
  neutron = 2.19504E+03    Multiplicity= 9.97982E-01
  proton  = 5.70955E-40    Multiplicity= 2.59240E-43
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
@@ -5104,7 +5097,7 @@ file: populationE0005.500.out
  19   2.69594   2.75805    4.0-     0.00000     7.51852     7.51852    Preeq 
  20   2.72812   2.72587    2.0+     1.46975     7.82647     9.29622    Direct
  21   2.74971   2.70428    6.0-     0.00000     3.09764     3.09764    Preeq 
- 22   2.75100   2.70299    4.0+     0.75382     7.58986     8.34369    Direct
+ 22   2.75100   2.70299    4.0+     0.75382     7.58986     8.34368    Direct
  23   2.80005   2.65394    5.0-     0.35558     5.24335     5.59892    Direct
  24   2.80200   2.65199    7.0-     0.10688     1.38826     1.49513    Direct
  25   2.83539   2.61860    1.0+     0.00000     5.20696     5.20696    Preeq 
@@ -5114,10 +5107,10 @@ file: populationE0005.500.out
  29   2.90222   2.55177   10.0+     0.00095     0.01918     0.02013    Direct
  30   2.93053   2.52346    2.0+     1.34800     7.27020     8.61820    Direct
                                   ---------   ---------   ---------
- Discrete  Inelastic:             111.90018   173.23898   285.13916
- Continuum Inelastic:              58.02637  1845.18213  1903.20850
+ Discrete  Inelastic:             111.90018   173.23897   285.13916
+ Continuum Inelastic:              58.02637  1845.18201  1903.20837
                                   ---------   ---------   ---------
- Total     Inelastic:             169.92654  2018.42114  2188.34839
+ Total     Inelastic:             169.92654  2018.42102  2188.34814
 
  (n,gn) cross section:     6.68969
 
@@ -5368,7 +5361,7 @@ file: populationE0006.000.out
 
  3. Total particle production cross sections
 
- gamma   = 2.77078E+03    Multiplicity= 1.27707E+00
+ gamma   = 2.77077E+03    Multiplicity= 1.27706E+00
  neutron = 2.16617E+03    Multiplicity= 9.98398E-01
  proton  = 1.07126E-17    Multiplicity= 4.93747E-21
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
@@ -5480,7 +5473,7 @@ file: populationE0006.000.out
  27   2.84434   3.10545    6.0-     0.00000     1.84839     1.84839    Preeq 
  28   2.85761   3.09218    0.0+     0.00000     1.12927     1.12927    Preeq 
  29   2.90222   3.04757   10.0+     0.00258     0.02505     0.02764    Direct
- 30   2.93053   3.01926    2.0+     1.40121     4.14700     5.54821    Direct
+ 30   2.93053   3.01926    2.0+     1.40121     4.14701     5.54821    Direct
                                   ---------   ---------   ---------
  Discrete  Inelastic:             110.53304    99.67376   210.20680
  Continuum Inelastic:              71.79136  1877.55127  1949.34265
@@ -5656,7 +5649,7 @@ file: directE0007.000.out
  Parity=-  J= 6.5  j= 6.5  l= 7  T(j,l)= 4.49426E-03  Sum over outgoing channels= 4.49428E-03  Ratio= 1.00000
  Parity=-  J= 7.5  j= 7.5  l= 7  T(j,l)= 7.98748E-03  Sum over outgoing channels= 7.98746E-03  Ratio= 1.00000
  Parity=-  J= 8.5  j= 8.5  l= 9  T(j,l)= 2.86279E-05  Sum over outgoing channels= 2.86277E-05  Ratio= 1.00001
- Parity=-  J= 9.5  j= 9.5  l= 9  T(j,l)= 3.00221E-05  Sum over outgoing channels= 3.00222E-05  Ratio= 1.00000
+ Parity=-  J= 9.5  j= 9.5  l= 9  T(j,l)= 3.00221E-05  Sum over outgoing channels= 3.00222E-05  Ratio= 0.99999
  Parity=+  J= 0.5  j= 0.5  l= 0  T(j,l)= 7.59255E-01  Sum over outgoing channels= 7.59255E-01  Ratio= 1.00000
  Parity=+  J= 1.5  j= 1.5  l= 2  T(j,l)= 8.22487E-01  Sum over outgoing channels= 8.22501E-01  Ratio= 0.99998
  Parity=+  J= 2.5  j= 2.5  l= 2  T(j,l)= 8.74795E-01  Sum over outgoing channels= 8.74781E-01  Ratio= 1.00002
@@ -5736,7 +5729,7 @@ file: populationE0007.000.out
 
  3. Total particle production cross sections
 
- gamma   = 3.25654E+03    Multiplicity= 1.55332E+00
+ gamma   = 3.25650E+03    Multiplicity= 1.55330E+00
  neutron = 2.09433E+03    Multiplicity= 9.98960E-01
  proton  = 2.92471E-06    Multiplicity= 1.39504E-09
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
@@ -6106,7 +6099,7 @@ file: populationE0008.000.out
 
  3. Total particle production cross sections
 
- gamma   = 3.72458E+03    Multiplicity= 1.81518E+00
+ gamma   = 3.72453E+03    Multiplicity= 1.81516E+00
  neutron = 2.05040E+03    Multiplicity= 9.99264E-01
  proton  = 1.15234E-04    Multiplicity= 5.61596E-08
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
@@ -6433,7 +6426,7 @@ file: binE0009.000.out
  Final production cross section of Z= 50 N= 71 (121Sn):
 
  Total       : 1.30983E+00
- Ground state: 6.27650E-01
+ Ground state: 6.27651E-01
  Level  1    : 6.82182E-01
 
 file: populationE0009.000.out
@@ -6444,28 +6437,6 @@ file: populationE0009.000.out
 
  Total       : 2.03949E+03
  Ground state: 2.03949E+03
-
-file: populationE0009.000.out
-
- Level densities for Z= 49 N= 71 (In120) 
-
- Total level density
-
- Level density per spin and parity
-
-
- Level density spin distribution
-
-file: ld049120.gs
-
- Population of Z= 49 N= 71 (120In) before decay: 1.60158E-03
-
- Final production cross section of Z= 49 N= 71 (120In):
-
- Total       : 1.59443E-03
- Ground state: 7.36454E-04
- Level  1    : 4.79954E-04
- Level  2    : 3.78022E-04
 
 file: populationE0009.000.out
 
@@ -6498,7 +6469,7 @@ file: populationE0009.000.out
 
  3. Total particle production cross sections
 
- gamma   = 4.20407E+03    Multiplicity= 2.06011E+00
+ gamma   = 4.20397E+03    Multiplicity= 2.06006E+00
  neutron = 2.03941E+03    Multiplicity= 9.99367E-01
  proton  = 1.60158E-03    Multiplicity= 7.84816E-07
  deuteron= 9.45128E-37    Multiplicity= 4.63139E-40
@@ -6513,12 +6484,9 @@ file: populationE0009.000.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   50 121 (121Sn) 1.30983E+00    0    6.27650E-01  0.47918
+   50 121 (121Sn) 1.30983E+00    0    6.27651E-01  0.47918
                                  1    6.82182E-01  0.52082   1.38500E+09 sec. 
    50 120 (120Sn) 2.03949E+03    0    2.03949E+03  1.00000
-   49 120 (120In) 1.59443E-03    0    7.36454E-04  0.46189
-                                 1    4.79954E-04  0.30102   4.62000E+01 sec. 
-                                 2    3.78022E-04  0.23709   4.73000E+01 sec. 
    48 117 (117Cd) 1.00000E-07    0    2.14269E-05  0.00000
                                  2    2.38779E-05  0.00000   1.21000E+04 sec. 
 
@@ -6529,7 +6497,7 @@ file: populationE0009.000.out
   121 1.30983E+00
   120 2.03949E+03
 
- Total residual production cross section:  2040.7985840
+ Total residual production cross section:  2040.7969971
  Non-elastic cross section              :  2040.7028809
 
  5. Binary reactions to discrete levels and continuum
@@ -6575,7 +6543,7 @@ file: populationE0009.000.out
  Discrete    (n,g)  :               0.45769     0.00796     0.46566
  Continuum   (n,g)  :               0.25406     4.87917     5.13323
                                   ---------   ---------   ---------
- Total       (n,g)  :               0.71175     4.88714     5.59889
+ Total       (n,g)  :               0.71175     4.88713     5.59889
 
 
  Inelastic cross sections:
@@ -6618,7 +6586,7 @@ file: populationE0009.000.out
  Discrete  Inelastic:              88.43593     2.55949    90.99542
  Continuum Inelastic:             190.48376  1753.64185  1944.12561
                                   ---------   ---------   ---------
- Total     Inelastic:             278.91968  1756.20129  2035.12085
+ Total     Inelastic:             278.91968  1756.20129  2035.12073
 
  (n,gn) cross section:     4.29102
 
@@ -6855,8 +6823,8 @@ file: populationE0010.000.out
 
  Final production cross section of Z= 50 N= 70 (120Sn):
 
- Total       : 1.62788E+03
- Ground state: 1.62788E+03
+ Total       : 1.62753E+03
+ Ground state: 1.62753E+03
 
 file: populationE0010.000.out
 
@@ -6871,28 +6839,17 @@ file: populationE0010.000.out
 
 file: ld050119.gs
 
- Population of Z= 50 N= 69 (119Sn) before decay: 4.13903E+02
+ Population of Z= 50 N= 69 (119Sn) before decay: 4.13902E+02
 
  Final production cross section of Z= 50 N= 69 (119Sn):
 
- Total       : 4.13903E+02
+ Total       : 4.13902E+02
  Ground state: 1.91740E+02
- Level  2    : 2.22163E+02
+ Level  2    : 2.22162E+02
 
 file: populationE0010.000.out
 
- Population of Z= 49 N= 71 (120In) before decay: 1.56603E-02
-
- Final production cross section of Z= 49 N= 71 (120In):
-
- Total       : 1.56558E-02
- Ground state: 7.58018E-03
- Level  1    : 3.54025E-03
- Level  2    : 4.53541E-03
-
-file: populationE0010.000.out
-
- Level densities for Z= 48 N= 69 (Cd117) 
+ Level densities for Z= 49 N= 71 (In120) 
 
  Total level density
 
@@ -6901,15 +6858,16 @@ file: populationE0010.000.out
 
  Level density spin distribution
 
-file: ld048117.gs
+file: ld049120.gs
 
- Population of Z= 48 N= 69 (117Cd) before decay: 1.19050E-03
+ Population of Z= 49 N= 71 (120In) before decay: 1.56603E-02
 
- Final production cross section of Z= 48 N= 69 (117Cd):
+ Final production cross section of Z= 49 N= 71 (120In):
 
- Total       : 1.18785E-03
- Ground state: 6.62479E-04
- Level  2    : 5.25369E-04
+ Total       : 1.56603E-02
+ Ground state: 7.58192E-03
+ Level  1    : 3.54229E-03
+ Level  2    : 4.53610E-03
 
 file: populationE0010.000.out
 
@@ -6942,7 +6900,7 @@ file: populationE0010.000.out
 
  3. Total particle production cross sections
 
- gamma   = 3.56135E+03    Multiplicity= 1.74310E+00
+ gamma   = 3.55989E+03    Multiplicity= 1.74239E+00
  neutron = 2.45563E+03    Multiplicity= 1.20191E+00
  proton  = 1.56603E-02    Multiplicity= 7.66493E-06
  deuteron= 1.23528E-14    Multiplicity= 6.04608E-18
@@ -6959,25 +6917,24 @@ file: populationE0010.000.out
 
    50 121 (121Sn) 1.36583E+00    0    6.89911E-01  0.50512
                                  1    6.75919E-01  0.49488   1.38500E+09 sec. 
-   50 120 (120Sn) 1.62788E+03    0    1.62788E+03  1.00000
-   49 120 (120In) 1.56558E-02    0    7.58018E-03  0.48418
-                                 1    3.54025E-03  0.22613   4.62000E+01 sec. 
-                                 2    4.53541E-03  0.28969   4.73000E+01 sec. 
-   50 119 (119Sn) 4.13903E+02    0    1.91740E+02  0.46325
-                                 2    2.22163E+02  0.53675   2.53200E+07 sec. 
-   48 117 (117Cd) 1.18785E-03    0    6.62479E-04  0.55771
-                                 2    5.25369E-04  0.44229   1.21000E+04 sec. 
+   50 120 (120Sn) 1.62753E+03    0    1.62753E+03  1.00000
+   49 120 (120In) 1.56603E-02    0    7.58192E-03  0.48415
+                                 1    3.54229E-03  0.22620   4.62000E+01 sec. 
+                                 2    4.53610E-03  0.28966   4.73000E+01 sec. 
+   50 119 (119Sn) 4.13902E+02    0    1.91740E+02  0.46325
+                                 2    2.22162E+02  0.53675   2.53200E+07 sec. 
+   48 117 (117Cd) 1.00000E-07    0    7.34398E-05  0.00000
+                                 2    1.02975E-04  0.00000   1.21000E+04 sec. 
 
    b. Per mass
 
    A  cross section
 
   121 1.36583E+00
-  120 1.62790E+03
-  119 4.13903E+02
-  117 1.18785E-03
+  120 1.62755E+03
+  119 4.13902E+02
 
- Total residual production cross section:  2043.1699219
+ Total residual production cross section:  2042.8149414
  Non-elastic cross section              :  2043.1113281
 
  5. Binary reactions to discrete levels and continuum
@@ -7294,7 +7251,7 @@ file: binE0011.000.out
  Final production cross section of Z= 50 N= 71 (121Sn):
 
  Total       : 1.48339E+00
- Ground state: 7.69008E-01
+ Ground state: 7.69009E-01
  Level  1    : 7.14385E-01
 
 file: populationE0011.000.out
@@ -7303,18 +7260,18 @@ file: populationE0011.000.out
 
  Final production cross section of Z= 50 N= 70 (120Sn):
 
- Total       : 1.02473E+03
- Ground state: 1.02473E+03
+ Total       : 1.02407E+03
+ Ground state: 1.02407E+03
 
 file: populationE0011.000.out
 
- Population of Z= 50 N= 69 (119Sn) before decay: 1.01730E+03
+ Population of Z= 50 N= 69 (119Sn) before decay: 1.01727E+03
 
  Final production cross section of Z= 50 N= 69 (119Sn):
 
- Total       : 1.01730E+03
+ Total       : 1.01727E+03
  Ground state: 4.49949E+02
- Level  2    : 5.67351E+02
+ Level  2    : 5.67317E+02
 
 file: populationE0011.000.out
 
@@ -7322,20 +7279,31 @@ file: populationE0011.000.out
 
  Final production cross section of Z= 49 N= 71 (120In):
 
- Total       : 1.03101E-01
- Ground state: 4.72103E-02
- Level  1    : 2.85777E-02
- Level  2    : 2.73125E-02
+ Total       : 1.03103E-01
+ Ground state: 4.72110E-02
+ Level  1    : 2.85786E-02
+ Level  2    : 2.73131E-02
 
 file: populationE0011.000.out
+
+ Level densities for Z= 48 N= 69 (Cd117) 
+
+ Total level density
+
+ Level density per spin and parity
+
+
+ Level density spin distribution
+
+file: ld048117.gs
 
  Population of Z= 48 N= 69 (117Cd) before decay: 3.43316E-03
 
  Final production cross section of Z= 48 N= 69 (117Cd):
 
- Total       : 3.42924E-03
- Ground state: 1.81720E-03
- Level  2    : 1.61204E-03
+ Total       : 3.43319E-03
+ Ground state: 1.81866E-03
+ Level  2    : 1.61453E-03
 
 file: populationE0011.000.out
 
@@ -7368,8 +7336,8 @@ file: populationE0011.000.out
 
  3. Total particle production cross sections
 
- gamma   = 2.21300E+03    Multiplicity= 1.08294E+00
- neutron = 3.05923E+03    Multiplicity= 1.49704E+00
+ gamma   = 2.21008E+03    Multiplicity= 1.08151E+00
+ neutron = 3.05920E+03    Multiplicity= 1.49703E+00
  proton  = 1.03103E-01    Multiplicity= 5.04535E-05
  deuteron= 7.83755E-09    Multiplicity= 3.83533E-12
  triton  = 0.00000E+00    Multiplicity= 0.00000E+00
@@ -7383,27 +7351,27 @@ file: populationE0011.000.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   50 121 (121Sn) 1.48339E+00    0    7.69008E-01  0.51841
+   50 121 (121Sn) 1.48339E+00    0    7.69009E-01  0.51841
                                  1    7.14385E-01  0.48159   1.38500E+09 sec. 
-   50 120 (120Sn) 1.02473E+03    0    1.02473E+03  1.00000
-   49 120 (120In) 1.03101E-01    0    4.72103E-02  0.45791
-                                 1    2.85777E-02  0.27718   4.62000E+01 sec. 
-                                 2    2.73125E-02  0.26491   4.73000E+01 sec. 
-   50 119 (119Sn) 1.01730E+03    0    4.49949E+02  0.44230
-                                 2    5.67351E+02  0.55770   2.53200E+07 sec. 
-   48 117 (117Cd) 3.42924E-03    0    1.81720E-03  0.52991
-                                 2    1.61204E-03  0.47009   1.21000E+04 sec. 
+   50 120 (120Sn) 1.02407E+03    0    1.02407E+03  1.00000
+   49 120 (120In) 1.03103E-01    0    4.72110E-02  0.45790
+                                 1    2.85786E-02  0.27719   4.62000E+01 sec. 
+                                 2    2.73131E-02  0.26491   4.73000E+01 sec. 
+   50 119 (119Sn) 1.01727E+03    0    4.49949E+02  0.44231
+                                 2    5.67317E+02  0.55769   2.53200E+07 sec. 
+   48 117 (117Cd) 3.43319E-03    0    1.81866E-03  0.52973
+                                 2    1.61453E-03  0.47027   1.21000E+04 sec. 
 
    b. Per mass
 
    A  cross section
 
   121 1.48339E+00
-  120 1.02483E+03
-  119 1.01730E+03
-  117 3.42924E-03
+  120 1.02417E+03
+  119 1.01727E+03
+  117 3.43319E-03
 
- Total residual production cross section:  2043.6174316
+ Total residual production cross section:  2042.9274902
  Non-elastic cross section              :  2043.5174561
 
  5. Binary reactions to discrete levels and continuum
@@ -7729,18 +7697,18 @@ file: populationE0012.000.out
 
  Final production cross section of Z= 50 N= 70 (120Sn):
 
- Total       : 6.67752E+02
- Ground state: 6.67752E+02
+ Total       : 6.67048E+02
+ Ground state: 6.67048E+02
 
 file: populationE0012.000.out
 
- Population of Z= 50 N= 69 (119Sn) before decay: 1.36848E+03
+ Population of Z= 50 N= 69 (119Sn) before decay: 1.36828E+03
 
  Final production cross section of Z= 50 N= 69 (119Sn):
 
- Total       : 1.36848E+03
- Ground state: 6.28989E+02
- Level  2    : 7.39492E+02
+ Total       : 1.36828E+03
+ Ground state: 6.28967E+02
+ Level  2    : 7.39312E+02
 
 file: populationE0012.000.out
 
@@ -7748,10 +7716,10 @@ file: populationE0012.000.out
 
  Final production cross section of Z= 49 N= 71 (120In):
 
- Total       : 4.02233E-01
- Ground state: 1.75274E-01
- Level  1    : 1.35192E-01
- Level  2    : 9.17665E-02
+ Total       : 4.02236E-01
+ Ground state: 1.75275E-01
+ Level  1    : 1.35193E-01
+ Level  2    : 9.17672E-02
 
 file: populationE0012.000.out
 
@@ -7759,9 +7727,9 @@ file: populationE0012.000.out
 
  Final production cross section of Z= 48 N= 69 (117Cd):
 
- Total       : 9.50419E-03
- Ground state: 5.00919E-03
- Level  2    : 4.49500E-03
+ Total       : 9.50731E-03
+ Ground state: 5.01028E-03
+ Level  2    : 4.49703E-03
 
 file: populationE0012.000.out
 
@@ -7794,8 +7762,8 @@ file: populationE0012.000.out
 
  3. Total particle production cross sections
 
- gamma   = 1.49219E+03    Multiplicity= 7.32135E-01
- neutron = 3.40464E+03    Multiplicity= 1.67047E+00
+ gamma   = 1.48878E+03    Multiplicity= 7.30463E-01
+ neutron = 3.40444E+03    Multiplicity= 1.67038E+00
  proton  = 4.02236E-01    Multiplicity= 1.97355E-04
  deuteron= 5.72345E-06    Multiplicity= 2.80819E-09
  triton  = 4.06877E-25    Multiplicity= 1.99633E-28
@@ -7811,25 +7779,25 @@ file: populationE0012.000.out
 
    50 121 (121Sn) 1.55622E+00    0    7.93569E-01  0.50993
                                  1    7.62648E-01  0.49007   1.38500E+09 sec. 
-   50 120 (120Sn) 6.67752E+02    0    6.67752E+02  1.00000
-   49 120 (120In) 4.02233E-01    0    1.75274E-01  0.43575
-                                 1    1.35192E-01  0.33610   4.62000E+01 sec. 
-                                 2    9.17665E-02  0.22814   4.73000E+01 sec. 
-   50 119 (119Sn) 1.36848E+03    0    6.28989E+02  0.45963
-                                 2    7.39492E+02  0.54037   2.53200E+07 sec. 
-   48 117 (117Cd) 9.50419E-03    0    5.00919E-03  0.52705
-                                 2    4.49500E-03  0.47295   1.21000E+04 sec. 
+   50 120 (120Sn) 6.67048E+02    0    6.67048E+02  1.00000
+   49 120 (120In) 4.02236E-01    0    1.75275E-01  0.43575
+                                 1    1.35193E-01  0.33610   4.62000E+01 sec. 
+                                 2    9.17672E-02  0.22814   4.73000E+01 sec. 
+   50 119 (119Sn) 1.36828E+03    0    6.28967E+02  0.45968
+                                 2    7.39312E+02  0.54032   2.53200E+07 sec. 
+   48 117 (117Cd) 9.50731E-03    0    5.01028E-03  0.52699
+                                 2    4.49703E-03  0.47301   1.21000E+04 sec. 
 
    b. Per mass
 
    A  cross section
 
   121 1.55622E+00
-  120 6.68154E+02
-  119 1.36848E+03
-  117 9.50420E-03
+  120 6.67450E+02
+  119 1.36828E+03
+  117 9.50731E-03
 
- Total residual production cross section:  2038.2008057
+ Total residual production cross section:  2037.2949219
  Non-elastic cross section              :  2038.1292725
 
  5. Binary reactions to discrete levels and continuum
@@ -8191,7 +8159,7 @@ file: binE0013.000.out
  Final production cross section of Z= 50 N= 71 (121Sn):
 
  Total       : 1.56913E+00
- Ground state: 7.64176E-01
+ Ground state: 7.64177E-01
  Level  1    : 8.04950E-01
 
 file: populationE0013.000.out
@@ -8200,18 +8168,18 @@ file: populationE0013.000.out
 
  Final production cross section of Z= 50 N= 70 (120Sn):
 
- Total       : 4.81950E+02
- Ground state: 4.81950E+02
+ Total       : 4.81399E+02
+ Ground state: 4.81399E+02
 
 file: populationE0013.000.out
 
- Population of Z= 50 N= 69 (119Sn) before decay: 1.54283E+03
+ Population of Z= 50 N= 69 (119Sn) before decay: 1.54239E+03
 
  Final production cross section of Z= 50 N= 69 (119Sn):
 
- Total       : 1.54283E+03
- Ground state: 6.96331E+02
- Level  2    : 8.46495E+02
+ Total       : 1.54239E+03
+ Ground state: 6.96229E+02
+ Level  2    : 8.46156E+02
 
 file: populationE0013.000.out
 
@@ -8219,10 +8187,10 @@ file: populationE0013.000.out
 
  Final production cross section of Z= 49 N= 71 (120In):
 
- Total       : 1.06314E+00
- Ground state: 4.38905E-01
- Level  1    : 4.06824E-01
- Level  2    : 2.17412E-01
+ Total       : 1.06312E+00
+ Ground state: 4.38896E-01
+ Level  1    : 4.06813E-01
+ Level  2    : 2.17408E-01
 
 file: populationE0013.000.out
 
@@ -8230,9 +8198,9 @@ file: populationE0013.000.out
 
  Final production cross section of Z= 48 N= 69 (117Cd):
 
- Total       : 2.76519E-02
- Ground state: 1.44568E-02
- Level  2    : 1.31950E-02
+ Total       : 2.76261E-02
+ Ground state: 1.44507E-02
+ Level  2    : 1.31754E-02
 
 file: populationE0013.000.out
 
@@ -8265,8 +8233,8 @@ file: populationE0013.000.out
 
  3. Total particle production cross sections
 
- gamma   = 1.47877E+03    Multiplicity= 7.29419E-01
- neutron = 3.56750E+03    Multiplicity= 1.75970E+00
+ gamma   = 1.47507E+03    Multiplicity= 7.27591E-01
+ neutron = 3.56706E+03    Multiplicity= 1.75949E+00
  proton  = 1.06316E+00    Multiplicity= 5.24413E-04
  deuteron= 1.75468E-04    Multiplicity= 8.65515E-08
  triton  = 1.23207E-13    Multiplicity= 6.07730E-17
@@ -8280,27 +8248,27 @@ file: populationE0013.000.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   50 121 (121Sn) 1.56913E+00    0    7.64176E-01  0.48701
+   50 121 (121Sn) 1.56913E+00    0    7.64177E-01  0.48701
                                  1    8.04950E-01  0.51299   1.38500E+09 sec. 
-   50 120 (120Sn) 4.81950E+02    0    4.81950E+02  1.00000
-   49 120 (120In) 1.06314E+00    0    4.38905E-01  0.41284
-                                 1    4.06824E-01  0.38266   4.62000E+01 sec. 
-                                 2    2.17412E-01  0.20450   4.73000E+01 sec. 
-   50 119 (119Sn) 1.54283E+03    0    6.96331E+02  0.45133
-                                 2    8.46495E+02  0.54867   2.53200E+07 sec. 
-   48 117 (117Cd) 2.76519E-02    0    1.44568E-02  0.52282
-                                 2    1.31950E-02  0.47718   1.21000E+04 sec. 
+   50 120 (120Sn) 4.81399E+02    0    4.81399E+02  1.00000
+   49 120 (120In) 1.06312E+00    0    4.38896E-01  0.41284
+                                 1    4.06813E-01  0.38266   4.62000E+01 sec. 
+                                 2    2.17408E-01  0.20450   4.73000E+01 sec. 
+   50 119 (119Sn) 1.54239E+03    0    6.96229E+02  0.45140
+                                 2    8.46156E+02  0.54860   2.53200E+07 sec. 
+   48 117 (117Cd) 2.76261E-02    0    1.44507E-02  0.52308
+                                 2    1.31754E-02  0.47692   1.21000E+04 sec. 
 
    b. Per mass
 
    A  cross section
 
   121 1.56913E+00
-  120 4.83013E+02
-  119 1.54283E+03
-  117 2.76519E-02
+  120 4.82462E+02
+  119 1.54239E+03
+  117 2.76261E-02
 
- Total residual production cross section:  2027.4353027
+ Total residual production cross section:  2026.4440918
  Non-elastic cross section              :  2027.3297119
 
  5. Binary reactions to discrete levels and continuum
@@ -8706,9 +8674,9 @@ file: binE0014.000.out
 
  Final production cross section of Z= 50 N= 71 (121Sn):
 
- Total       : 1.52960E+00
- Ground state: 7.00711E-01
- Level  1    : 8.28892E-01
+ Total       : 1.52961E+00
+ Ground state: 7.00712E-01
+ Level  1    : 8.28893E-01
 
 file: populationE0014.000.out
 
@@ -8716,18 +8684,18 @@ file: populationE0014.000.out
 
  Final production cross section of Z= 50 N= 70 (120Sn):
 
- Total       : 3.79852E+02
- Ground state: 3.79852E+02
+ Total       : 3.79439E+02
+ Ground state: 3.79439E+02
 
 file: populationE0014.000.out
 
- Population of Z= 50 N= 69 (119Sn) before decay: 1.62880E+03
+ Population of Z= 50 N= 69 (119Sn) before decay: 1.62814E+03
 
  Final production cross section of Z= 50 N= 69 (119Sn):
 
- Total       : 1.62880E+03
- Ground state: 7.07073E+02
- Level  2    : 9.21727E+02
+ Total       : 1.62814E+03
+ Ground state: 7.06888E+02
+ Level  2    : 9.21255E+02
 
 file: populationE0014.000.out
 
@@ -8735,10 +8703,10 @@ file: populationE0014.000.out
 
  Final production cross section of Z= 49 N= 71 (120In):
 
- Total       : 2.21504E+00
- Ground state: 8.65761E-01
- Level  1    : 9.20618E-01
- Level  2    : 4.28660E-01
+ Total       : 2.21460E+00
+ Ground state: 8.65615E-01
+ Level  1    : 9.20449E-01
+ Level  2    : 4.28535E-01
 
 file: populationE0014.000.out
 
@@ -8753,13 +8721,13 @@ file: populationE0014.000.out
 
 file: ld049119.gs
 
- Population of Z= 49 N= 70 (119In) before decay: 5.58435E-03
+ Population of Z= 49 N= 70 (119In) before decay: 4.33359E-03
 
  Final production cross section of Z= 49 N= 70 (119In):
 
- Total       : 5.57745E-03
- Ground state: 3.59105E-03
- Level  1    : 1.98640E-03
+ Total       : 4.33361E-03
+ Ground state: 2.45651E-03
+ Level  1    : 1.87710E-03
 
 file: populationE0014.000.out
 
@@ -8767,9 +8735,9 @@ file: populationE0014.000.out
 
  Final production cross section of Z= 48 N= 69 (117Cd):
 
- Total       : 7.78638E-02
- Ground state: 3.91497E-02
- Level  2    : 3.87141E-02
+ Total       : 7.77414E-02
+ Ground state: 3.91319E-02
+ Level  2    : 3.86095E-02
 
 file: populationE0014.000.out
 
@@ -8802,8 +8770,8 @@ file: populationE0014.000.out
 
  3. Total particle production cross sections
 
- gamma   = 1.79191E+03    Multiplicity= 8.90424E-01
- neutron = 3.63740E+03    Multiplicity= 1.80747E+00
+ gamma   = 1.78833E+03    Multiplicity= 8.88647E-01
+ neutron = 3.63674E+03    Multiplicity= 1.80715E+00
  proton  = 2.21713E+00    Multiplicity= 1.10173E-03
  deuteron= 3.49012E-03    Multiplicity= 1.73429E-06
  triton  = 6.68385E-09    Multiplicity= 3.32130E-12
@@ -8817,29 +8785,29 @@ file: populationE0014.000.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   50 121 (121Sn) 1.52960E+00    0    7.00711E-01  0.45810
-                                 1    8.28892E-01  0.54190   1.38500E+09 sec. 
-   50 120 (120Sn) 3.79852E+02    0    3.79852E+02  1.00000
-   49 120 (120In) 2.21504E+00    0    8.65761E-01  0.39086
-                                 1    9.20618E-01  0.41562   4.62000E+01 sec. 
-                                 2    4.28660E-01  0.19352   4.73000E+01 sec. 
-   50 119 (119Sn) 1.62880E+03    0    7.07073E+02  0.43411
-                                 2    9.21727E+02  0.56589   2.53200E+07 sec. 
-   49 119 (119In) 5.57745E-03    0    3.59105E-03  0.64385
-                                 1    1.98640E-03  0.35615   1.08000E+03 sec. 
-   48 117 (117Cd) 7.78638E-02    0    3.91497E-02  0.50280
-                                 2    3.87141E-02  0.49720   1.21000E+04 sec. 
+   50 121 (121Sn) 1.52961E+00    0    7.00712E-01  0.45810
+                                 1    8.28893E-01  0.54190   1.38500E+09 sec. 
+   50 120 (120Sn) 3.79439E+02    0    3.79439E+02  1.00000
+   49 120 (120In) 2.21460E+00    0    8.65615E-01  0.39087
+                                 1    9.20449E-01  0.41563   4.62000E+01 sec. 
+                                 2    4.28535E-01  0.19350   4.73000E+01 sec. 
+   50 119 (119Sn) 1.62814E+03    0    7.06888E+02  0.43417
+                                 2    9.21255E+02  0.56583   2.53200E+07 sec. 
+   49 119 (119In) 4.33361E-03    0    2.45651E-03  0.56685
+                                 1    1.87710E-03  0.43315   1.08000E+03 sec. 
+   48 117 (117Cd) 7.77414E-02    0    3.91319E-02  0.50336
+                                 2    3.86095E-02  0.49664   1.21000E+04 sec. 
 
    b. Per mass
 
    A  cross section
 
-  121 1.52960E+00
-  120 3.82067E+02
-  119 1.62881E+03
-  117 7.78638E-02
+  121 1.52961E+00
+  120 3.81654E+02
+  119 1.62815E+03
+  117 7.77414E-02
 
- Total residual production cross section:  2012.4804688
+ Total residual production cross section:  2011.4089355
  Non-elastic cross section              :  2012.4199219
 
  5. Binary reactions to discrete levels and continuum
@@ -9245,9 +9213,9 @@ file: binE0015.000.out
 
  Final production cross section of Z= 50 N= 71 (121Sn):
 
- Total       : 1.44073E+00
- Ground state: 6.13718E-01
- Level  1    : 8.27017E-01
+ Total       : 1.44074E+00
+ Ground state: 6.13720E-01
+ Level  1    : 8.27018E-01
 
 file: populationE0015.000.out
 
@@ -9255,18 +9223,18 @@ file: populationE0015.000.out
 
  Final production cross section of Z= 50 N= 70 (120Sn):
 
- Total       : 3.24387E+02
- Ground state: 3.24387E+02
+ Total       : 3.24111E+02
+ Ground state: 3.24111E+02
 
 file: populationE0015.000.out
 
- Population of Z= 50 N= 69 (119Sn) before decay: 1.66616E+03
+ Population of Z= 50 N= 69 (119Sn) before decay: 1.66531E+03
 
  Final production cross section of Z= 50 N= 69 (119Sn):
 
- Total       : 1.66616E+03
- Ground state: 6.92262E+02
- Level  2    : 9.73897E+02
+ Total       : 1.66531E+03
+ Ground state: 6.91986E+02
+ Level  2    : 9.73324E+02
 
 file: populationE0015.000.out
 
@@ -9274,20 +9242,20 @@ file: populationE0015.000.out
 
  Final production cross section of Z= 49 N= 71 (120In):
 
- Total       : 3.93004E+00
- Ground state: 1.45618E+00
- Level  1    : 1.72426E+00
- Level  2    : 7.49598E-01
+ Total       : 3.92987E+00
+ Ground state: 1.45617E+00
+ Level  1    : 1.72420E+00
+ Level  2    : 7.49497E-01
 
 file: populationE0015.000.out
 
- Population of Z= 49 N= 70 (119In) before decay: 7.93129E-02
+ Population of Z= 49 N= 70 (119In) before decay: 7.76185E-02
 
  Final production cross section of Z= 49 N= 70 (119In):
 
- Total       : 7.93087E-02
- Ground state: 5.81083E-02
- Level  1    : 2.12004E-02
+ Total       : 7.76198E-02
+ Ground state: 5.68018E-02
+ Level  1    : 2.08180E-02
 
 file: populationE0015.000.out
 
@@ -9295,9 +9263,9 @@ file: populationE0015.000.out
 
  Final production cross section of Z= 48 N= 69 (117Cd):
 
- Total       : 1.87571E-01
- Ground state: 8.67010E-02
- Level  2    : 1.00870E-01
+ Total       : 1.87391E-01
+ Ground state: 8.66900E-02
+ Level  2    : 1.00701E-01
 
 file: populationE0015.000.out
 
@@ -9330,8 +9298,8 @@ file: populationE0015.000.out
 
  3. Total particle production cross sections
 
- gamma   = 2.21639E+03    Multiplicity= 1.11037E+00
- neutron = 3.65666E+03    Multiplicity= 1.83191E+00
+ gamma   = 2.21251E+03    Multiplicity= 1.10842E+00
+ neutron = 3.65581E+03    Multiplicity= 1.83148E+00
  proton  = 3.97141E+00    Multiplicity= 1.98960E-03
  deuteron= 3.79408E-02    Multiplicity= 1.90076E-05
  triton  = 3.79079E-06    Multiplicity= 1.89911E-09
@@ -9345,29 +9313,29 @@ file: populationE0015.000.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   50 121 (121Sn) 1.44073E+00    0    6.13718E-01  0.42598
-                                 1    8.27017E-01  0.57402   1.38500E+09 sec. 
-   50 120 (120Sn) 3.24387E+02    0    3.24387E+02  1.00000
-   49 120 (120In) 3.93004E+00    0    1.45618E+00  0.37053
-                                 1    1.72426E+00  0.43874   4.62000E+01 sec. 
-                                 2    7.49598E-01  0.19074   4.73000E+01 sec. 
-   50 119 (119Sn) 1.66616E+03    0    6.92262E+02  0.41548
-                                 2    9.73897E+02  0.58452   2.53200E+07 sec. 
-   49 119 (119In) 7.93087E-02    0    5.81083E-02  0.73269
-                                 1    2.12004E-02  0.26731   1.08000E+03 sec. 
-   48 117 (117Cd) 1.87571E-01    0    8.67010E-02  0.46223
-                                 2    1.00870E-01  0.53777   1.21000E+04 sec. 
+   50 121 (121Sn) 1.44074E+00    0    6.13720E-01  0.42598
+                                 1    8.27018E-01  0.57402   1.38500E+09 sec. 
+   50 120 (120Sn) 3.24111E+02    0    3.24111E+02  1.00000
+   49 120 (120In) 3.92987E+00    0    1.45617E+00  0.37054
+                                 1    1.72420E+00  0.43874   4.62000E+01 sec. 
+                                 2    7.49497E-01  0.19072   4.73000E+01 sec. 
+   50 119 (119Sn) 1.66531E+03    0    6.91986E+02  0.41553
+                                 2    9.73324E+02  0.58447   2.53200E+07 sec. 
+   49 119 (119In) 7.76198E-02    0    5.68018E-02  0.73179
+                                 1    2.08180E-02  0.26821   1.08000E+03 sec. 
+   48 117 (117Cd) 1.87391E-01    0    8.66900E-02  0.46262
+                                 2    1.00701E-01  0.53738   1.21000E+04 sec. 
 
    b. Per mass
 
    A  cross section
 
-  121 1.44073E+00
-  120 3.28317E+02
-  119 1.66624E+03
-  117 1.87571E-01
+  121 1.44074E+00
+  120 3.28040E+02
+  119 1.66539E+03
+  117 1.87391E-01
 
- Total residual production cross section:  1996.1837158
+ Total residual production cross section:  1995.0556641
  Non-elastic cross section              :  1996.0899658
 
  5. Binary reactions to discrete levels and continuum
@@ -9774,8 +9742,8 @@ file: binE0016.000.out
  Final production cross section of Z= 50 N= 71 (121Sn):
 
  Total       : 1.32374E+00
- Ground state: 5.40433E-01
- Level  1    : 7.83302E-01
+ Ground state: 5.40437E-01
+ Level  1    : 7.83304E-01
 
 file: populationE0016.000.out
 
@@ -9783,18 +9751,18 @@ file: populationE0016.000.out
 
  Final production cross section of Z= 50 N= 70 (120Sn):
 
- Total       : 2.88388E+02
- Ground state: 2.88388E+02
+ Total       : 2.88201E+02
+ Ground state: 2.88201E+02
 
 file: populationE0016.000.out
 
- Population of Z= 50 N= 69 (119Sn) before decay: 1.68466E+03
+ Population of Z= 50 N= 69 (119Sn) before decay: 1.68376E+03
 
  Final production cross section of Z= 50 N= 69 (119Sn):
 
- Total       : 1.68430E+03
- Ground state: 6.67730E+02
- Level  2    : 1.01657E+03
+ Total       : 1.68340E+03
+ Ground state: 6.67410E+02
+ Level  2    : 1.01599E+03
 
 file: populationE0016.000.out
 
@@ -9822,20 +9790,20 @@ file: populationE0016.000.out
 
  Final production cross section of Z= 49 N= 71 (120In):
 
- Total       : 6.13201E+00
+ Total       : 6.13191E+00
  Ground state: 2.15721E+00
- Level  1    : 2.78473E+00
- Level  2    : 1.19007E+00
+ Level  1    : 2.78471E+00
+ Level  2    : 1.19000E+00
 
 file: populationE0016.000.out
 
- Population of Z= 49 N= 70 (119In) before decay: 4.50566E-01
+ Population of Z= 49 N= 70 (119In) before decay: 4.49384E-01
 
  Final production cross section of Z= 49 N= 70 (119In):
 
- Total       : 4.50564E-01
- Ground state: 3.31736E-01
- Level  1    : 1.18828E-01
+ Total       : 4.49387E-01
+ Ground state: 3.30846E-01
+ Level  1    : 1.18541E-01
 
 file: populationE0016.000.out
 
@@ -9843,9 +9811,9 @@ file: populationE0016.000.out
 
  Final production cross section of Z= 48 N= 69 (117Cd):
 
- Total       : 3.79052E-01
- Ground state: 1.56478E-01
- Level  2    : 2.22574E-01
+ Total       : 3.78932E-01
+ Ground state: 1.56467E-01
+ Level  2    : 2.22465E-01
 
 file: populationE0016.000.out
 
@@ -9860,12 +9828,12 @@ file: populationE0016.000.out
 
 file: ld048116.gs
 
- Population of Z= 48 N= 68 (116Cd) before decay: 6.64443E-03
+ Population of Z= 48 N= 68 (116Cd) before decay: 6.14260E-03
 
  Final production cross section of Z= 48 N= 68 (116Cd):
 
- Total       : 6.64191E-03
- Ground state: 6.64191E-03
+ Total       : 6.14260E-03
+ Ground state: 6.14260E-03
 
 file: populationE0016.000.out
 
@@ -9898,8 +9866,8 @@ file: populationE0016.000.out
 
  3. Total particle production cross sections
 
- gamma   = 2.65679E+03    Multiplicity= 1.34094E+00
- neutron = 3.65828E+03    Multiplicity= 1.84641E+00
+ gamma   = 2.65313E+03    Multiplicity= 1.33909E+00
+ neutron = 3.65738E+03    Multiplicity= 1.84596E+00
  proton  = 6.39213E+00    Multiplicity= 3.22625E-03
  deuteron= 1.90446E-01    Multiplicity= 9.61223E-05
  triton  = 1.88056E-04    Multiplicity= 9.49159E-08
@@ -9913,33 +9881,33 @@ file: populationE0016.000.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   50 121 (121Sn) 1.32374E+00    0    5.40433E-01  0.40826
-                                 1    7.83302E-01  0.59174   1.38500E+09 sec. 
-   50 120 (120Sn) 2.88388E+02    0    2.88388E+02  1.00000
-   49 120 (120In) 6.13201E+00    0    2.15721E+00  0.35180
-                                 1    2.78473E+00  0.45413   4.62000E+01 sec. 
-                                 2    1.19007E+00  0.19407   4.73000E+01 sec. 
-   50 119 (119Sn) 1.68430E+03    0    6.67730E+02  0.39644
-                                 2    1.01657E+03  0.60356   2.53200E+07 sec. 
-   49 119 (119In) 4.50564E-01    0    3.31736E-01  0.73627
-                                 1    1.18828E-01  0.26373   1.08000E+03 sec. 
+   50 121 (121Sn) 1.32374E+00    0    5.40437E-01  0.40826
+                                 1    7.83304E-01  0.59174   1.38500E+09 sec. 
+   50 120 (120Sn) 2.88201E+02    0    2.88201E+02  1.00000
+   49 120 (120In) 6.13191E+00    0    2.15721E+00  0.35180
+                                 1    2.78471E+00  0.45413   4.62000E+01 sec. 
+                                 2    1.19000E+00  0.19407   4.73000E+01 sec. 
+   50 119 (119Sn) 1.68340E+03    0    6.67410E+02  0.39647
+                                 2    1.01599E+03  0.60353   2.53200E+07 sec. 
+   49 119 (119In) 4.49387E-01    0    3.30846E-01  0.73622
+                                 1    1.18541E-01  0.26378   1.08000E+03 sec. 
    50 118 (118Sn) 3.55267E-01    0    3.55267E-01  1.00000
-   48 117 (117Cd) 3.79052E-01    0    1.56478E-01  0.41281
-                                 2    2.22574E-01  0.58719   1.21000E+04 sec. 
-   48 116 (116Cd) 6.64191E-03    0    6.64191E-03  1.00000
+   48 117 (117Cd) 3.78932E-01    0    1.56467E-01  0.41292
+                                 2    2.22465E-01  0.58708   1.21000E+04 sec. 
+   48 116 (116Cd) 6.14260E-03    0    6.14260E-03  1.00000
 
    b. Per mass
 
    A  cross section
 
-  121 1.32373E+00
-  120 2.94520E+02
-  119 1.68475E+03
+  121 1.32374E+00
+  120 2.94333E+02
+  119 1.68384E+03
   118 3.55267E-01
-  117 3.79052E-01
-  116 6.64191E-03
+  117 3.78932E-01
+  116 6.14260E-03
 
- Total residual production cross section:  1981.3369141
+ Total residual production cross section:  1980.2414551
  Non-elastic cross section              :  1981.2900391
 
  5. Binary reactions to discrete levels and continuum
@@ -10345,9 +10313,9 @@ file: binE0017.000.out
 
  Final production cross section of Z= 50 N= 71 (121Sn):
 
- Total       : 1.11937E+00
- Ground state: 4.30141E-01
- Level  1    : 6.89228E-01
+ Total       : 1.11938E+00
+ Ground state: 4.30147E-01
+ Level  1    : 6.89231E-01
 
 file: populationE0017.000.out
 
@@ -10355,18 +10323,18 @@ file: populationE0017.000.out
 
  Final production cross section of Z= 50 N= 70 (120Sn):
 
- Total       : 2.67619E+02
- Ground state: 2.67619E+02
+ Total       : 2.67488E+02
+ Ground state: 2.67488E+02
 
 file: populationE0017.000.out
 
- Population of Z= 50 N= 69 (119Sn) before decay: 1.69011E+03
+ Population of Z= 50 N= 69 (119Sn) before decay: 1.68913E+03
 
  Final production cross section of Z= 50 N= 69 (119Sn):
 
- Total       : 1.66984E+03
- Ground state: 6.27195E+02
- Level  2    : 1.04264E+03
+ Total       : 1.66880E+03
+ Ground state: 6.26762E+02
+ Level  2    : 1.04204E+03
 
 file: populationE0017.000.out
 
@@ -10383,20 +10351,20 @@ file: populationE0017.000.out
 
  Final production cross section of Z= 49 N= 71 (120In):
 
- Total       : 8.61451E+00
- Ground state: 2.88502E+00
- Level  1    : 3.99154E+00
- Level  2    : 1.73795E+00
+ Total       : 8.61397E+00
+ Ground state: 2.88500E+00
+ Level  1    : 3.99144E+00
+ Level  2    : 1.73753E+00
 
 file: populationE0017.000.out
 
- Population of Z= 49 N= 70 (119In) before decay: 1.58823E+00
+ Population of Z= 49 N= 70 (119In) before decay: 1.58666E+00
 
  Final production cross section of Z= 49 N= 70 (119In):
 
- Total       : 1.58825E+00
- Ground state: 1.19048E+00
- Level  1    : 3.97768E-01
+ Total       : 1.58668E+00
+ Ground state: 1.18925E+00
+ Level  1    : 3.97435E-01
 
 file: populationE0017.000.out
 
@@ -10415,10 +10383,10 @@ file: ld049118.gs
 
  Final production cross section of Z= 49 N= 69 (118In):
 
- Total       : 3.88947E-03
- Ground state: 2.15317E-03
- Level  1    : 1.40630E-03
- Level  3    : 3.29997E-04
+ Total       : 3.89384E-03
+ Ground state: 2.15487E-03
+ Level  1    : 1.40794E-03
+ Level  3    : 3.31022E-04
 
 file: populationE0017.000.out
 
@@ -10426,18 +10394,18 @@ file: populationE0017.000.out
 
  Final production cross section of Z= 48 N= 69 (117Cd):
 
- Total       : 6.60276E-01
- Ground state: 2.42842E-01
- Level  2    : 4.17435E-01
+ Total       : 6.59962E-01
+ Ground state: 2.42785E-01
+ Level  2    : 4.17178E-01
 
 file: populationE0017.000.out
 
- Population of Z= 48 N= 68 (116Cd) before decay: 3.25989E-02
+ Population of Z= 48 N= 68 (116Cd) before decay: 3.21447E-02
 
  Final production cross section of Z= 48 N= 68 (116Cd):
 
- Total       : 3.25971E-02
- Ground state: 3.25971E-02
+ Total       : 3.21447E-02
+ Ground state: 3.21447E-02
 
 file: populationE0017.000.out
 
@@ -10470,8 +10438,8 @@ file: populationE0017.000.out
 
  3. Total particle production cross sections
 
- gamma   = 3.06361E+03    Multiplicity= 1.55539E+00
- neutron = 3.66895E+03    Multiplicity= 1.86272E+00
+ gamma   = 3.05951E+03    Multiplicity= 1.55331E+00
+ neutron = 3.66797E+03    Multiplicity= 1.86223E+00
  proton  = 9.50364E+00    Multiplicity= 4.82499E-03
  deuteron= 6.99099E-01    Multiplicity= 3.54932E-04
  triton  = 3.89320E-03    Multiplicity= 1.97657E-06
@@ -10485,36 +10453,36 @@ file: populationE0017.000.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   50 121 (121Sn) 1.11937E+00    0    4.30141E-01  0.38427
-                                 1    6.89228E-01  0.61573   1.38500E+09 sec. 
-   50 120 (120Sn) 2.67619E+02    0    2.67619E+02  1.00000
-   49 120 (120In) 8.61451E+00    0    2.88502E+00  0.33490
-                                 1    3.99154E+00  0.46335   4.62000E+01 sec. 
-                                 2    1.73795E+00  0.20175   4.73000E+01 sec. 
-   50 119 (119Sn) 1.66984E+03    0    6.27195E+02  0.37560
-                                 2    1.04264E+03  0.62440   2.53200E+07 sec. 
-   49 119 (119In) 1.58825E+00    0    1.19048E+00  0.74956
-                                 1    3.97768E-01  0.25044   1.08000E+03 sec. 
+   50 121 (121Sn) 1.11938E+00    0    4.30147E-01  0.38427
+                                 1    6.89231E-01  0.61573   1.38500E+09 sec. 
+   50 120 (120Sn) 2.67488E+02    0    2.67488E+02  1.00000
+   49 120 (120In) 8.61397E+00    0    2.88500E+00  0.33492
+                                 1    3.99144E+00  0.46337   4.62000E+01 sec. 
+                                 2    1.73753E+00  0.20171   4.73000E+01 sec. 
+   50 119 (119Sn) 1.66880E+03    0    6.26762E+02  0.37558
+                                 2    1.04204E+03  0.62442   2.53200E+07 sec. 
+   49 119 (119In) 1.58668E+00    0    1.18925E+00  0.74952
+                                 1    3.97435E-01  0.25048   1.08000E+03 sec. 
    50 118 (118Sn) 2.02666E+01    0    2.02666E+01  1.00000
-   49 118 (118In) 3.88947E-03    0    2.15317E-03  0.55359
-                                 1    1.40630E-03  0.36157   2.67000E+02 sec. 
-                                 3    3.29997E-04  0.08484   8.50000E+00 sec. 
-   48 117 (117Cd) 6.60276E-01    0    2.42842E-01  0.36779
-                                 2    4.17435E-01  0.63221   1.21000E+04 sec. 
-   48 116 (116Cd) 3.25971E-02    0    3.25971E-02  1.00000
+   49 118 (118In) 3.89384E-03    0    2.15487E-03  0.55341
+                                 1    1.40794E-03  0.36158   2.67000E+02 sec. 
+                                 3    3.31022E-04  0.08501   8.50000E+00 sec. 
+   48 117 (117Cd) 6.59962E-01    0    2.42785E-01  0.36788
+                                 2    4.17178E-01  0.63212   1.21000E+04 sec. 
+   48 116 (116Cd) 3.21447E-02    0    3.21447E-02  1.00000
 
    b. Per mass
 
    A  cross section
 
-  121 1.11937E+00
-  120 2.76234E+02
-  119 1.67143E+03
+  121 1.11938E+00
+  120 2.76102E+02
+  119 1.67039E+03
   118 2.02705E+01
-  117 6.60276E-01
-  116 3.25971E-02
+  117 6.59962E-01
+  116 3.21447E-02
 
- Total residual production cross section:  1969.7442627
+ Total residual production cross section:  1968.5700684
  Non-elastic cross section              :  1969.6700439
 
  5. Binary reactions to discrete levels and continuum
@@ -10920,9 +10888,9 @@ file: binE0018.000.out
 
  Final production cross section of Z= 50 N= 71 (121Sn):
 
- Total       : 9.36462E-01
- Ground state: 3.45826E-01
- Level  1    : 5.90637E-01
+ Total       : 9.36479E-01
+ Ground state: 3.45837E-01
+ Level  1    : 5.90642E-01
 
 file: populationE0018.000.out
 
@@ -10930,18 +10898,18 @@ file: populationE0018.000.out
 
  Final production cross section of Z= 50 N= 70 (120Sn):
 
- Total       : 2.49059E+02
- Ground state: 2.49059E+02
+ Total       : 2.48944E+02
+ Ground state: 2.48944E+02
 
 file: populationE0018.000.out
 
- Population of Z= 50 N= 69 (119Sn) before decay: 1.69554E+03
+ Population of Z= 50 N= 69 (119Sn) before decay: 1.69457E+03
 
  Final production cross section of Z= 50 N= 69 (119Sn):
 
- Total       : 1.61007E+03
- Ground state: 5.53830E+02
- Level  2    : 1.05624E+03
+ Total       : 1.60885E+03
+ Ground state: 5.53270E+02
+ Level  2    : 1.05558E+03
 
 file: populationE0018.000.out
 
@@ -10958,20 +10926,20 @@ file: populationE0018.000.out
 
  Final production cross section of Z= 49 N= 71 (120In):
 
- Total       : 1.11874E+01
- Ground state: 3.55744E+00
- Level  1    : 5.25240E+00
- Level  2    : 2.37755E+00
+ Total       : 1.11858E+01
+ Ground state: 3.55736E+00
+ Level  1    : 5.25211E+00
+ Level  2    : 2.37631E+00
 
 file: populationE0018.000.out
 
- Population of Z= 49 N= 70 (119In) before decay: 3.84206E+00
+ Population of Z= 49 N= 70 (119In) before decay: 3.84032E+00
 
  Final production cross section of Z= 49 N= 70 (119In):
 
- Total       : 3.84218E+00
- Ground state: 2.89368E+00
- Level  1    : 9.48497E-01
+ Total       : 3.84044E+00
+ Ground state: 2.89231E+00
+ Level  1    : 9.48134E-01
 
 file: populationE0018.000.out
 
@@ -10979,10 +10947,10 @@ file: populationE0018.000.out
 
  Final production cross section of Z= 49 N= 69 (118In):
 
- Total       : 3.24920E-02
- Ground state: 1.83773E-02
- Level  1    : 1.10716E-02
- Level  3    : 3.04300E-03
+ Total       : 3.24951E-02
+ Ground state: 1.83785E-02
+ Level  1    : 1.10728E-02
+ Level  3    : 3.04379E-03
 
 file: populationE0018.000.out
 
@@ -10990,18 +10958,18 @@ file: populationE0018.000.out
 
  Final production cross section of Z= 48 N= 69 (117Cd):
 
- Total       : 1.00707E+00
- Ground state: 3.26125E-01
- Level  2    : 6.80946E-01
+ Total       : 1.00665E+00
+ Ground state: 3.25976E-01
+ Level  2    : 6.80676E-01
 
 file: populationE0018.000.out
 
- Population of Z= 48 N= 68 (116Cd) before decay: 1.19141E-01
+ Population of Z= 48 N= 68 (116Cd) before decay: 1.18436E-01
 
  Final production cross section of Z= 48 N= 68 (116Cd):
 
- Total       : 1.19137E-01
- Ground state: 1.19137E-01
+ Total       : 1.18436E-01
+ Ground state: 1.18436E-01
 
 file: populationE0018.000.out
 
@@ -11034,8 +11002,8 @@ file: populationE0018.000.out
 
  3. Total particle production cross sections
 
- gamma   = 3.33290E+03    Multiplicity= 1.69906E+00
- neutron = 3.72776E+03    Multiplicity= 1.90035E+00
+ gamma   = 3.32776E+03    Multiplicity= 1.69644E+00
+ neutron = 3.72679E+03    Multiplicity= 1.89985E+00
  proton  = 1.33145E+01    Multiplicity= 6.78749E-03
  deuteron= 1.71498E+00    Multiplicity= 8.74266E-04
  triton  = 3.24917E-02    Multiplicity= 1.65637E-05
@@ -11049,36 +11017,36 @@ file: populationE0018.000.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   50 121 (121Sn) 9.36462E-01    0    3.45826E-01  0.36929
-                                 1    5.90637E-01  0.63071   1.38500E+09 sec. 
-   50 120 (120Sn) 2.49059E+02    0    2.49059E+02  1.00000
-   49 120 (120In) 1.11874E+01    0    3.55744E+00  0.31799
-                                 1    5.25240E+00  0.46949   4.62000E+01 sec. 
-                                 2    2.37755E+00  0.21252   4.73000E+01 sec. 
-   50 119 (119Sn) 1.61007E+03    0    5.53830E+02  0.34398
-                                 2    1.05624E+03  0.65602   2.53200E+07 sec. 
-   49 119 (119In) 3.84218E+00    0    2.89368E+00  0.75314
-                                 1    9.48497E-01  0.24686   1.08000E+03 sec. 
+   50 121 (121Sn) 9.36479E-01    0    3.45837E-01  0.36929
+                                 1    5.90642E-01  0.63071   1.38500E+09 sec. 
+   50 120 (120Sn) 2.48944E+02    0    2.48944E+02  1.00000
+   49 120 (120In) 1.11858E+01    0    3.55736E+00  0.31803
+                                 1    5.25211E+00  0.46953   4.62000E+01 sec. 
+                                 2    2.37631E+00  0.21244   4.73000E+01 sec. 
+   50 119 (119Sn) 1.60885E+03    0    5.53270E+02  0.34389
+                                 2    1.05558E+03  0.65611   2.53200E+07 sec. 
+   49 119 (119In) 3.84044E+00    0    2.89231E+00  0.75312
+                                 1    9.48134E-01  0.24688   1.08000E+03 sec. 
    50 118 (118Sn) 8.54709E+01    0    8.54709E+01  1.00000
-   49 118 (118In) 3.24920E-02    0    1.83773E-02  0.56560
-                                 1    1.10716E-02  0.34075   2.67000E+02 sec. 
-                                 3    3.04300E-03  0.09365   8.50000E+00 sec. 
-   48 117 (117Cd) 1.00707E+00    0    3.26125E-01  0.32384
-                                 2    6.80946E-01  0.67616   1.21000E+04 sec. 
-   48 116 (116Cd) 1.19137E-01    0    1.19137E-01  1.00000
+   49 118 (118In) 3.24951E-02    0    1.83785E-02  0.56558
+                                 1    1.10728E-02  0.34075   2.67000E+02 sec. 
+                                 3    3.04379E-03  0.09367   8.50000E+00 sec. 
+   48 117 (117Cd) 1.00665E+00    0    3.25976E-01  0.32382
+                                 2    6.80676E-01  0.67618   1.21000E+04 sec. 
+   48 116 (116Cd) 1.18436E-01    0    1.18436E-01  1.00000
 
    b. Per mass
 
    A  cross section
 
-  121 9.36462E-01
-  120 2.60246E+02
-  119 1.61391E+03
+  121 9.36479E-01
+  120 2.60129E+02
+  119 1.61269E+03
   118 8.55034E+01
-  117 1.00707E+00
-  116 1.19137E-01
+  117 1.00665E+00
+  116 1.18436E-01
 
- Total residual production cross section:  1961.7250977
+ Total residual production cross section:  1960.3803711
  Non-elastic cross section              :  1961.6199951
 
  5. Binary reactions to discrete levels and continuum
@@ -11169,7 +11137,7 @@ file: populationE0018.000.out
                                   ---------   ---------   ---------
  Total     Inelastic:             584.09540  1357.84595  1941.94275
 
- (n,gn) cross section:     2.57519
+ (n,gn) cross section:     2.57518
 
    (n,p)   cross sections:
 
@@ -11484,9 +11452,9 @@ file: binE0019.000.out
 
  Final production cross section of Z= 50 N= 71 (121Sn):
 
- Total       : 7.61905E-01
- Ground state: 2.82381E-01
- Level  1    : 4.79525E-01
+ Total       : 7.61946E-01
+ Ground state: 2.82407E-01
+ Level  1    : 4.79539E-01
 
 file: populationE0019.000.out
 
@@ -11494,27 +11462,27 @@ file: populationE0019.000.out
 
  Final production cross section of Z= 50 N= 70 (120Sn):
 
- Total       : 2.36199E+02
- Ground state: 2.36199E+02
+ Total       : 2.36106E+02
+ Ground state: 2.36106E+02
 
 file: populationE0019.000.out
 
- Population of Z= 50 N= 69 (119Sn) before decay: 1.69776E+03
+ Population of Z= 50 N= 69 (119Sn) before decay: 1.69672E+03
 
  Final production cross section of Z= 50 N= 69 (119Sn):
 
- Total       : 1.49835E+03
- Ground state: 4.64533E+02
- Level  2    : 1.03382E+03
+ Total       : 1.49701E+03
+ Ground state: 4.63896E+02
+ Level  2    : 1.03311E+03
 
 file: populationE0019.000.out
 
- Population of Z= 50 N= 68 (118Sn) before decay: 1.99411E+02
+ Population of Z= 50 N= 68 (118Sn) before decay: 1.99410E+02
 
  Final production cross section of Z= 50 N= 68 (118Sn):
 
- Total       : 1.99411E+02
- Ground state: 1.99411E+02
+ Total       : 1.99410E+02
+ Ground state: 1.99410E+02
 
 file: populationE0019.000.out
 
@@ -11522,20 +11490,20 @@ file: populationE0019.000.out
 
  Final production cross section of Z= 49 N= 71 (120In):
 
- Total       : 1.36865E+01
- Ground state: 4.15090E+00
- Level  1    : 6.47280E+00
- Level  2    : 3.06281E+00
+ Total       : 1.36848E+01
+ Ground state: 4.15078E+00
+ Level  1    : 6.47249E+00
+ Level  2    : 3.06153E+00
 
 file: populationE0019.000.out
 
- Population of Z= 49 N= 70 (119In) before decay: 6.23522E+00
+ Population of Z= 49 N= 70 (119In) before decay: 6.23316E+00
 
  Final production cross section of Z= 49 N= 70 (119In):
 
- Total       : 6.23556E+00
- Ground state: 4.55083E+00
- Level  1    : 1.68473E+00
+ Total       : 6.23350E+00
+ Ground state: 4.54928E+00
+ Level  1    : 1.68422E+00
 
 file: populationE0019.000.out
 
@@ -11543,10 +11511,10 @@ file: populationE0019.000.out
 
  Final production cross section of Z= 49 N= 69 (118In):
 
- Total       : 1.34658E-01
- Ground state: 7.50503E-02
- Level  1    : 4.60578E-02
- Level  3    : 1.35503E-02
+ Total       : 1.34661E-01
+ Ground state: 7.50513E-02
+ Level  1    : 4.60588E-02
+ Level  3    : 1.35511E-02
 
 file: populationE0019.000.out
 
@@ -11554,18 +11522,18 @@ file: populationE0019.000.out
 
  Final production cross section of Z= 48 N= 69 (117Cd):
 
- Total       : 1.39496E+00
- Ground state: 4.02145E-01
- Level  2    : 9.92819E-01
+ Total       : 1.39452E+00
+ Ground state: 4.01952E-01
+ Level  2    : 9.92564E-01
 
 file: populationE0019.000.out
 
- Population of Z= 48 N= 68 (116Cd) before decay: 3.31032E-01
+ Population of Z= 48 N= 68 (116Cd) before decay: 3.30077E-01
 
  Final production cross section of Z= 48 N= 68 (116Cd):
 
- Total       : 3.31032E-01
- Ground state: 3.31032E-01
+ Total       : 3.30077E-01
+ Ground state: 3.30077E-01
 
 file: populationE0019.000.out
 
@@ -11598,8 +11566,8 @@ file: populationE0019.000.out
 
  3. Total particle production cross sections
 
- gamma   = 3.43683E+03    Multiplicity= 1.75667E+00
- neutron = 3.83550E+03    Multiplicity= 1.96044E+00
+ gamma   = 3.43122E+03    Multiplicity= 1.75380E+00
+ neutron = 3.83445E+03    Multiplicity= 1.95990E+00
  proton  = 1.77657E+01    Multiplicity= 9.08057E-03
  deuteron= 2.15605E+00    Multiplicity= 1.10202E-03
  triton  = 1.34661E-01    Multiplicity= 6.88293E-05
@@ -11613,36 +11581,36 @@ file: populationE0019.000.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   50 121 (121Sn) 7.61905E-01    0    2.82381E-01  0.37062
-                                 1    4.79525E-01  0.62938   1.38500E+09 sec. 
-   50 120 (120Sn) 2.36199E+02    0    2.36199E+02  1.00000
-   49 120 (120In) 1.36865E+01    0    4.15090E+00  0.30328
-                                 1    6.47280E+00  0.47293   4.62000E+01 sec. 
-                                 2    3.06281E+00  0.22378   4.73000E+01 sec. 
-   50 119 (119Sn) 1.49835E+03    0    4.64533E+02  0.31003
-                                 2    1.03382E+03  0.68997   2.53200E+07 sec. 
-   49 119 (119In) 6.23556E+00    0    4.55083E+00  0.72982
-                                 1    1.68473E+00  0.27018   1.08000E+03 sec. 
-   50 118 (118Sn) 1.99411E+02    0    1.99411E+02  1.00000
-   49 118 (118In) 1.34658E-01    0    7.50503E-02  0.55734
-                                 1    4.60578E-02  0.34203   2.67000E+02 sec. 
-                                 3    1.35503E-02  0.10063   8.50000E+00 sec. 
-   48 117 (117Cd) 1.39496E+00    0    4.02145E-01  0.28828
-                                 2    9.92819E-01  0.71172   1.21000E+04 sec. 
-   48 116 (116Cd) 3.31032E-01    0    3.31032E-01  1.00000
+   50 121 (121Sn) 7.61946E-01    0    2.82407E-01  0.37064
+                                 1    4.79539E-01  0.62936   1.38500E+09 sec. 
+   50 120 (120Sn) 2.36106E+02    0    2.36106E+02  1.00000
+   49 120 (120In) 1.36848E+01    0    4.15078E+00  0.30331
+                                 1    6.47249E+00  0.47297   4.62000E+01 sec. 
+                                 2    3.06153E+00  0.22372   4.73000E+01 sec. 
+   50 119 (119Sn) 1.49701E+03    0    4.63896E+02  0.30988
+                                 2    1.03311E+03  0.69012   2.53200E+07 sec. 
+   49 119 (119In) 6.23350E+00    0    4.54928E+00  0.72981
+                                 1    1.68422E+00  0.27019   1.08000E+03 sec. 
+   50 118 (118Sn) 1.99410E+02    0    1.99410E+02  1.00000
+   49 118 (118In) 1.34661E-01    0    7.50513E-02  0.55733
+                                 1    4.60588E-02  0.34203   2.67000E+02 sec. 
+                                 3    1.35511E-02  0.10063   8.50000E+00 sec. 
+   48 117 (117Cd) 1.39452E+00    0    4.01952E-01  0.28824
+                                 2    9.92564E-01  0.71176   1.21000E+04 sec. 
+   48 116 (116Cd) 3.30077E-01    0    3.30077E-01  1.00000
 
    b. Per mass
 
    A  cross section
 
-  121 7.61905E-01
-  120 2.49886E+02
-  119 1.50459E+03
+  121 7.61946E-01
+  120 2.49790E+02
+  119 1.50324E+03
   118 1.99545E+02
-  117 1.39496E+00
-  116 3.31032E-01
+  117 1.39452E+00
+  116 3.30077E-01
 
- Total residual production cross section:  1956.5070801
+ Total residual production cross section:  1955.0634766
  Non-elastic cross section              :  1956.4499512
 
  5. Binary reactions to discrete levels and continuum
@@ -11733,7 +11701,7 @@ file: populationE0019.000.out
                                   ---------   ---------   ---------
  Total     Inelastic:             614.42334  1316.81372  1931.23975
 
- (n,gn) cross section:     2.69933
+ (n,gn) cross section:     2.69929
 
    (n,p)   cross sections:
 
@@ -12048,9 +12016,9 @@ file: binE0020.000.out
 
  Final production cross section of Z= 50 N= 71 (121Sn):
 
- Total       : 6.47972E-01
- Ground state: 2.40517E-01
- Level  1    : 4.07455E-01
+ Total       : 6.48047E-01
+ Ground state: 2.40566E-01
+ Level  1    : 4.07481E-01
 
 file: populationE0020.000.out
 
@@ -12267,12 +12235,12 @@ file: populationE0020.000.out
 
  Final production cross section of Z= 50 N= 70 (120Sn):
 
- Total       : 2.29287E+02
- Ground state: 2.29287E+02
+ Total       : 2.29220E+02
+ Ground state: 2.29220E+02
 
 file: populationE0020.000.out
 
- Population of Z= 50 N= 69 (119Sn) before decay: 1.69301E+03
+ Population of Z= 50 N= 69 (119Sn) before decay: 1.69198E+03
 
  Multiple preequilibrium emission from Z= 50 N= 69 (119Sn):
 
@@ -12485,13 +12453,13 @@ file: populationE0020.000.out
 
  Final production cross section of Z= 50 N= 69 (119Sn):
 
- Total       : 1.31608E+03
- Ground state: 3.73483E+02
- Level  2    : 9.42595E+02
+ Total       : 1.31441E+03
+ Ground state: 3.72610E+02
+ Level  2    : 9.41801E+02
 
 file: populationE0020.000.out
 
- Population of Z= 50 N= 68 (118Sn) before decay: 3.76926E+02
+ Population of Z= 50 N= 68 (118Sn) before decay: 3.76894E+02
 
  Multiple preequilibrium emission from Z= 50 N= 68 (118Sn):
 
@@ -12704,8 +12672,8 @@ file: populationE0020.000.out
 
  Final production cross section of Z= 50 N= 68 (118Sn):
 
- Total       : 3.76926E+02
- Ground state: 3.76926E+02
+ Total       : 3.76894E+02
+ Ground state: 3.76894E+02
 
 file: populationE0020.000.out
 
@@ -12877,21 +12845,21 @@ file: populationE0020.000.out
        pnu=0 0.000E+00 0.000E+00 0.000E+00
        pnu=1 1.261E-04 7.795E-05 4.088E-05
        pnu=2 1.020E-04 1.029E-04 7.397E-05
-  63  12.692 0.00873 5.957E-06 4.555E-30
+  63  12.692 0.00000 0.000E+00 0.000E+00
      xspopph2 (ppi,pnu):
        pnu=0 0.000E+00 0.000E+00 0.000E+00
-       pnu=1 2.452E-05 1.532E-05 8.080E-06
-       pnu=2 2.028E-05 2.065E-05 1.485E-05
-  64  13.033 0.00848 8.569E-07 9.258E-24
+       pnu=1 2.452E-05 5.083E-06 5.967E-07
+       pnu=2 1.005E-05 3.587E-06 5.748E-07
+  64  13.033 0.00000 0.000E+00 0.000E+00
      xspopph2 (ppi,pnu):
        pnu=0 0.000E+00 0.000E+00 0.000E+00
-       pnu=1 3.161E-06 2.000E-06 1.062E-06
-       pnu=2 2.686E-06 2.761E-06 1.989E-06
-  65  13.373 0.01217 8.965E-08 9.010E-22
+       pnu=1 3.161E-06 7.028E-07 8.829E-08
+       pnu=2 1.388E-06 5.278E-07 9.103E-08
+  65  13.373 0.00000 0.000E+00 0.000E+00
      xspopph2 (ppi,pnu):
        pnu=0 0.000E+00 0.000E+00 0.000E+00
-       pnu=1 3.034E-07 1.939E-07 1.036E-07
-       pnu=2 2.634E-07 2.731E-07 1.971E-07
+       pnu=1 3.034E-07 7.133E-08 9.434E-09
+       pnu=2 1.408E-07 5.615E-08 1.024E-08
   66  13.713 0.00000 0.000E+00 0.000E+00
      xspopph2 (ppi,pnu):
        pnu=0 0.000E+00 0.000E+00 0.000E+00
@@ -12918,18 +12886,18 @@ file: populationE0020.000.out
        pnu=1 0.000E+00 0.000E+00 0.000E+00
        pnu=2 0.000E+00 0.000E+00 0.000E+00
 
-  Total              2.902E-02 9.103E-22
+  Total              2.901E-02 0.000E+00
 
  Final production cross section of Z= 49 N= 71 (120In):
 
- Total       : 1.62729E+01
- Ground state: 4.71560E+00
- Level  1    : 7.71610E+00
- Level  2    : 3.84124E+00
+ Total       : 1.62699E+01
+ Ground state: 4.71531E+00
+ Level  1    : 7.71557E+00
+ Level  2    : 3.83904E+00
 
 file: populationE0020.000.out
 
- Population of Z= 49 N= 70 (119In) before decay: 1.06175E+01
+ Population of Z= 49 N= 70 (119In) before decay: 1.06158E+01
 
  Multiple preequilibrium emission from Z= 49 N= 70 (119In):
 
@@ -12945,108 +12913,108 @@ file: populationE0020.000.out
   32   2.473 0.00000 0.000E+00 0.000E+00
      xspopph2 (ppi,pnu):
        pnu=0 6.418E-03 2.487E-04 1.244E-04
-       pnu=1 8.474E-04 5.801E-04 3.522E-04
-       pnu=2 4.683E-04 5.257E-04 4.390E-04
+       pnu=1 8.474E-04 5.800E-04 3.522E-04
+       pnu=2 4.683E-04 5.257E-04 4.389E-04
   33   2.704 0.00000 0.000E+00 0.000E+00
      xspopph2 (ppi,pnu):
        pnu=0 4.526E-03 2.180E-04 1.090E-04
-       pnu=1 7.176E-04 5.025E-04 3.057E-04
-       pnu=2 4.050E-04 4.559E-04 3.808E-04
+       pnu=1 7.176E-04 5.024E-04 3.057E-04
+       pnu=2 4.050E-04 4.558E-04 3.808E-04
   34   2.936 0.00000 0.000E+00 0.000E+00
      xspopph2 (ppi,pnu):
-       pnu=0 3.177E-03 1.793E-04 9.162E-05
-       pnu=1 5.733E-04 4.094E-04 2.505E-04
+       pnu=0 3.176E-03 1.793E-04 9.162E-05
+       pnu=1 5.732E-04 4.093E-04 2.505E-04
        pnu=2 3.291E-04 3.717E-04 3.111E-04
   35   3.167 0.00000 0.000E+00 0.000E+00
      xspopph2 (ppi,pnu):
-       pnu=0 2.190E-03 1.485E-04 7.657E-05
-       pnu=1 4.655E-04 3.400E-04 2.088E-04
-       pnu=2 2.739E-04 3.101E-04 2.594E-04
+       pnu=0 2.190E-03 1.485E-04 7.656E-05
+       pnu=1 4.654E-04 3.400E-04 2.088E-04
+       pnu=2 2.739E-04 3.100E-04 2.594E-04
   36   3.398 0.00000 0.000E+00 0.000E+00
      xspopph2 (ppi,pnu):
-       pnu=0 1.583E-03 1.215E-04 6.315E-05
+       pnu=0 1.583E-03 1.215E-04 6.314E-05
        pnu=1 3.725E-04 2.773E-04 1.708E-04
-       pnu=2 2.231E-04 2.535E-04 2.122E-04
+       pnu=2 2.230E-04 2.535E-04 2.121E-04
   37   3.629 0.00000 0.000E+00 0.000E+00
      xspopph2 (ppi,pnu):
-       pnu=0 9.325E-04 8.193E-05 4.302E-05
-       pnu=1 2.490E-04 1.889E-04 1.166E-04
-       pnu=2 1.525E-04 1.736E-04 1.452E-04
+       pnu=0 9.322E-04 8.191E-05 4.301E-05
+       pnu=1 2.489E-04 1.889E-04 1.165E-04
+       pnu=2 1.524E-04 1.736E-04 1.451E-04
   38   3.860 0.00000 0.000E+00 0.000E+00
      xspopph2 (ppi,pnu):
-       pnu=0 6.253E-04 6.105E-05 3.236E-05
-       pnu=1 1.825E-04 1.411E-04 8.733E-05
+       pnu=0 6.250E-04 6.103E-05 3.235E-05
+       pnu=1 1.825E-04 1.410E-04 8.730E-05
        pnu=2 1.138E-04 1.302E-04 1.088E-04
   39   4.091 0.00000 0.000E+00 0.000E+00
      xspopph2 (ppi,pnu):
-       pnu=0 3.850E-04 4.294E-05 2.307E-05
-       pnu=1 1.280E-04 1.012E-04 6.275E-05
-       pnu=2 8.211E-05 9.423E-05 7.858E-05
+       pnu=0 3.848E-04 4.292E-05 2.306E-05
+       pnu=1 1.279E-04 1.011E-04 6.271E-05
+       pnu=2 8.206E-05 9.418E-05 7.854E-05
   40   4.322 0.00000 0.000E+00 0.000E+00
      xspopph2 (ppi,pnu):
-       pnu=0 2.192E-04 2.634E-05 1.427E-05
-       pnu=1 7.771E-05 6.228E-05 3.876E-05
-       pnu=2 5.055E-05 5.826E-05 4.859E-05
+       pnu=0 2.189E-04 2.632E-05 1.426E-05
+       pnu=1 7.763E-05 6.222E-05 3.872E-05
+       pnu=2 5.050E-05 5.820E-05 4.854E-05
   41   4.553 0.00000 0.000E+00 0.000E+00
      xspopph2 (ppi,pnu):
-       pnu=0 1.019E-04 1.327E-05 7.264E-06
-       pnu=1 3.906E-05 3.177E-05 1.982E-05
-       pnu=2 2.587E-05 2.991E-05 2.492E-05
+       pnu=0 1.016E-04 1.324E-05 7.249E-06
+       pnu=1 3.898E-05 3.170E-05 1.977E-05
+       pnu=2 2.581E-05 2.985E-05 2.487E-05
   42   4.784 0.00000 0.000E+00 0.000E+00
      xspopph2 (ppi,pnu):
-       pnu=0 7.190E-05 1.044E-05 5.799E-06
-       pnu=1 3.049E-05 2.540E-05 1.591E-05
-       pnu=2 2.076E-05 2.417E-05 2.011E-05
+       pnu=0 7.166E-05 1.041E-05 5.783E-06
+       pnu=1 3.040E-05 2.532E-05 1.587E-05
+       pnu=2 2.070E-05 2.410E-05 2.005E-05
   43   5.015 0.00000 0.000E+00 0.000E+00
      xspopph2 (ppi,pnu):
-       pnu=0 3.267E-05 5.060E-06 2.838E-06
-       pnu=1 1.473E-05 1.243E-05 7.814E-06
-       pnu=2 1.018E-05 1.190E-05 9.901E-06
+       pnu=0 3.244E-05 5.031E-06 2.821E-06
+       pnu=1 1.464E-05 1.235E-05 7.767E-06
+       pnu=2 1.012E-05 1.183E-05 9.842E-06
   44   5.246 0.00000 0.000E+00 0.000E+00
      xspopph2 (ppi,pnu):
-       pnu=0 1.242E-05 2.032E-06 1.148E-06
-       pnu=1 5.884E-06 5.015E-06 3.162E-06
-       pnu=2 4.109E-06 4.822E-06 4.013E-06
+       pnu=0 1.221E-05 2.001E-06 1.130E-06
+       pnu=1 5.789E-06 4.936E-06 3.113E-06
+       pnu=2 4.043E-06 4.746E-06 3.950E-06
   45   5.477 0.00000 0.000E+00 0.000E+00
      xspopph2 (ppi,pnu):
-       pnu=0 6.902E-06 1.237E-06 7.108E-07
-       pnu=1 3.581E-06 3.124E-06 1.981E-06
-       pnu=2 2.574E-06 3.045E-06 2.532E-06
+       pnu=0 6.707E-06 1.205E-06 6.926E-07
+       pnu=1 3.484E-06 3.042E-06 1.929E-06
+       pnu=2 2.506E-06 2.965E-06 2.465E-06
   46   5.708 0.00000 0.000E+00 0.000E+00
      xspopph2 (ppi,pnu):
-       pnu=0 2.822E-06 5.369E-07 3.124E-07
-       pnu=1 1.553E-06 1.375E-06 8.758E-07
-       pnu=2 1.136E-06 1.351E-06 1.123E-06
+       pnu=0 2.651E-06 5.066E-07 2.946E-07
+       pnu=1 1.461E-06 1.295E-06 8.249E-07
+       pnu=2 1.069E-06 1.272E-06 1.058E-06
   47   5.939 0.00000 0.000E+00 0.000E+00
      xspopph2 (ppi,pnu):
-       pnu=0 7.114E-07 1.430E-07 8.513E-08
-       pnu=1 4.191E-07 3.779E-07 2.420E-07
-       pnu=2 3.137E-07 3.750E-07 3.120E-07
+       pnu=0 5.618E-07 1.139E-07 6.784E-08
+       pnu=1 3.314E-07 2.995E-07 1.921E-07
+       pnu=2 2.481E-07 2.971E-07 2.474E-07
   48   6.170 0.00000 0.000E+00 0.000E+00
      xspopph2 (ppi,pnu):
-       pnu=0 3.585E-07 7.807E-08 4.742E-08
-       pnu=1 2.292E-07 2.118E-07 1.368E-07
-       pnu=2 1.769E-07 2.137E-07 1.779E-07
+       pnu=0 2.332E-07 5.159E-08 3.137E-08
+       pnu=1 1.497E-07 1.390E-07 8.999E-08
+       pnu=2 1.158E-07 1.403E-07 1.169E-07
   49   6.401 0.00000 0.000E+00 0.000E+00
      xspopph2 (ppi,pnu):
-       pnu=0 7.858E-08 1.788E-08 1.095E-08
-       pnu=1 5.247E-08 4.900E-08 3.176E-08
-       pnu=2 4.103E-08 4.978E-08 4.146E-08
+       pnu=0 6.961E-09 1.522E-09 8.490E-10
+       pnu=1 3.641E-09 3.148E-09 2.028E-09
+       pnu=2 2.360E-09 2.835E-09 2.435E-09
   50   6.632 0.00000 0.000E+00 0.000E+00
      xspopph2 (ppi,pnu):
-       pnu=0 1.488E-08 3.534E-09 2.179E-09
-       pnu=1 1.037E-08 9.768E-09 6.354E-09
-       pnu=2 8.196E-09 9.984E-09 8.322E-09
+       pnu=0 1.748E-09 4.126E-10 2.325E-10
+       pnu=1 9.818E-10 8.628E-10 5.572E-10
+       pnu=2 6.479E-10 7.813E-10 6.706E-10
   51   6.863 0.00000 0.000E+00 0.000E+00
      xspopph2 (ppi,pnu):
-       pnu=0 6.568E-09 1.676E-09 1.059E-09
-       pnu=1 4.961E-09 4.804E-09 3.158E-09
-       pnu=2 4.067E-09 5.018E-09 4.189E-09
+       pnu=0 3.623E-10 9.209E-11 6.442E-12
+       pnu=1 2.181E-10 1.489E-10 7.698E-11
+       pnu=2 1.466E-10 1.545E-10 7.764E-11
   52   7.094 0.00000 0.000E+00 0.000E+00
      xspopph2 (ppi,pnu):
-       pnu=0 7.055E-10 1.872E-10 1.191E-10
-       pnu=1 5.530E-10 5.404E-10 3.567E-10
-       pnu=2 4.581E-10 5.680E-10 4.748E-10
+       pnu=0 5.877E-11 1.605E-11 1.229E-12
+       pnu=1 3.783E-11 7.455E-12 5.268E-13
+       pnu=2 6.992E-12 1.373E-12 8.740E-14
   53   7.325 0.00000 0.000E+00 0.000E+00
      xspopph2 (ppi,pnu):
        pnu=0 6.841E-12 2.001E-12 1.672E-13
@@ -13142,9 +13110,9 @@ file: populationE0020.000.out
 
  Final production cross section of Z= 49 N= 70 (119In):
 
- Total       : 1.06183E+01
- Ground state: 7.93729E+00
- Level  1    : 2.68102E+00
+ Total       : 1.06166E+01
+ Ground state: 7.93607E+00
+ Level  1    : 2.68056E+00
 
 file: populationE0020.000.out
 
@@ -13152,10 +13120,10 @@ file: populationE0020.000.out
 
  Final production cross section of Z= 49 N= 69 (118In):
 
- Total       : 3.45679E-01
- Ground state: 1.81920E-01
- Level  1    : 1.23937E-01
- Level  3    : 3.98217E-02
+ Total       : 3.45681E-01
+ Ground state: 1.81921E-01
+ Level  1    : 1.23938E-01
+ Level  3    : 3.98225E-02
 
 file: populationE0020.000.out
 
@@ -13163,18 +13131,18 @@ file: populationE0020.000.out
 
  Final production cross section of Z= 48 N= 69 (117Cd):
 
- Total       : 1.73992E+00
- Ground state: 4.49895E-01
- Level  2    : 1.29002E+00
+ Total       : 1.73910E+00
+ Ground state: 4.49465E-01
+ Level  2    : 1.28964E+00
 
 file: populationE0020.000.out
 
- Population of Z= 48 N= 68 (116Cd) before decay: 7.31447E-01
+ Population of Z= 48 N= 68 (116Cd) before decay: 7.30266E-01
 
  Final production cross section of Z= 48 N= 68 (116Cd):
 
- Total       : 7.31446E-01
- Ground state: 7.31446E-01
+ Total       : 7.30266E-01
+ Ground state: 7.30266E-01
 
 file: populationE0020.000.out
 
@@ -13207,8 +13175,8 @@ file: populationE0020.000.out
 
  3. Total particle production cross sections
 
- gamma   = 3.27797E+03    Multiplicity= 1.67879E+00
- neutron = 3.99993E+03    Multiplicity= 2.04854E+00
+ gamma   = 3.27081E+03    Multiplicity= 1.67512E+00
+ neutron = 3.99888E+03    Multiplicity= 2.04800E+00
  proton  = 2.33095E+01    Multiplicity= 1.19378E-02
  deuteron= 3.58091E+00    Multiplicity= 1.83394E-03
  triton  = 3.45681E-01    Multiplicity= 1.77038E-04
@@ -13222,36 +13190,36 @@ file: populationE0020.000.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   50 121 (121Sn) 6.47972E-01    0    2.40517E-01  0.37118
-                                 1    4.07455E-01  0.62882   1.38500E+09 sec. 
-   50 120 (120Sn) 2.29287E+02    0    2.29287E+02  1.00000
-   49 120 (120In) 1.62729E+01    0    4.71560E+00  0.28978
-                                 1    7.71610E+00  0.47417   4.62000E+01 sec. 
-                                 2    3.84124E+00  0.23605   4.73000E+01 sec. 
-   50 119 (119Sn) 1.31608E+03    0    3.73483E+02  0.28378
-                                 2    9.42595E+02  0.71622   2.53200E+07 sec. 
-   49 119 (119In) 1.06183E+01    0    7.93729E+00  0.74751
-                                 1    2.68102E+00  0.25249   1.08000E+03 sec. 
-   50 118 (118Sn) 3.76926E+02    0    3.76926E+02  1.00000
-   49 118 (118In) 3.45679E-01    0    1.81920E-01  0.52627
-                                 1    1.23937E-01  0.35853   2.67000E+02 sec. 
-                                 3    3.98217E-02  0.11520   8.50000E+00 sec. 
-   48 117 (117Cd) 1.73992E+00    0    4.49895E-01  0.25857
-                                 2    1.29002E+00  0.74143   1.21000E+04 sec. 
-   48 116 (116Cd) 7.31446E-01    0    7.31446E-01  1.00000
+   50 121 (121Sn) 6.48047E-01    0    2.40566E-01  0.37122
+                                 1    4.07481E-01  0.62878   1.38500E+09 sec. 
+   50 120 (120Sn) 2.29220E+02    0    2.29220E+02  1.00000
+   49 120 (120In) 1.62699E+01    0    4.71531E+00  0.28982
+                                 1    7.71557E+00  0.47422   4.62000E+01 sec. 
+                                 2    3.83904E+00  0.23596   4.73000E+01 sec. 
+   50 119 (119Sn) 1.31441E+03    0    3.72610E+02  0.28348
+                                 2    9.41801E+02  0.71652   2.53200E+07 sec. 
+   49 119 (119In) 1.06166E+01    0    7.93607E+00  0.74751
+                                 1    2.68056E+00  0.25249   1.08000E+03 sec. 
+   50 118 (118Sn) 3.76894E+02    0    3.76894E+02  1.00000
+   49 118 (118In) 3.45681E-01    0    1.81921E-01  0.52627
+                                 1    1.23938E-01  0.35853   2.67000E+02 sec. 
+                                 3    3.98225E-02  0.11520   8.50000E+00 sec. 
+   48 117 (117Cd) 1.73910E+00    0    4.49465E-01  0.25845
+                                 2    1.28964E+00  0.74155   1.21000E+04 sec. 
+   48 116 (116Cd) 7.30266E-01    0    7.30266E-01  1.00000
 
    b. Per mass
 
    A  cross section
 
-  121 6.47972E-01
-  120 2.45560E+02
-  119 1.32670E+03
-  118 3.77272E+02
-  117 1.73992E+00
-  116 7.31446E-01
+  121 6.48047E-01
+  120 2.45490E+02
+  119 1.32503E+03
+  118 3.77240E+02
+  117 1.73910E+00
+  116 7.30266E-01
 
- Total residual production cross section:  1952.6480713
+ Total residual production cross section:  1950.8750000
  Non-elastic cross section              :  1952.5799561
 
  5. Binary reactions to discrete levels and continuum
@@ -13342,7 +13310,7 @@ file: populationE0020.000.out
                                   ---------   ---------   ---------
  Total     Inelastic:             651.03851  1268.46497  1919.50476
 
- (n,gn) cross section:     2.78807
+ (n,gn) cross section:     2.78800
 
    (n,p)   cross sections:
 
@@ -13838,6 +13806,6 @@ file: na.L28
 file: na.L29
 file: na.L30
 
- Execution time:  0 hours  0 minutes  3.91 seconds 
+ Execution time:  0 hours  0 minutes  4.03 seconds 
 
  The TALYS team congratulates you with this successful calculation.

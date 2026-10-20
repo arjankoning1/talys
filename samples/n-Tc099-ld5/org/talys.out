@@ -1,12 +1,12 @@
 
-    TALYS-2.25 (Version: September 20, 2026)
+    TALYS-2.25 (Version: October 20, 2026)
 
  Copyright (C) 2026  A.J. Koning, S. Hilaire and S. Goriely
 
  Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees
 
  User: Arjan Koning
- Date: 2026-09-22
+ Date: 2026-10-20
 
  ########## USER INPUT ##########
 
@@ -66,6 +66,9 @@
  xseps            1.00E-07 xseps        limit for cross sections
  popeps           1.00E-03 popeps       limit for population cross section per nucleus
  Rfiseps          1.00E-03 Rfiseps      ratio for limit for fission cross section per nucleus
+ poprelnuc        1.00E-06 poprelnuc    relative limit for population cross sections
+ poprelE          1.00E-04 poprelE      relative limit for population energy bin compared to largest bin
+ poprelJP         1.00E-03 poprelJP     relative limit for population energy-J-P bin compared to largest bin
  elow             1.00E-06 elow         minimal incident energy for nuclear model calculations
  angles             90     nangle       number of angles
  anglescont         18     nanglecont   number of angles for continuum
@@ -421,8 +424,6 @@ file: ld043100.gs
                  cross section       cross section  ratio
 
    43 100 (100Tc) 1.38497E+03    0    1.38497E+03  1.00000
-   43  99 ( 99Tc) 1.44979E-03    0    1.44979E-03  1.00000
-                                 2    0.00000E+00  0.00000   2.16300E+04 sec. 
    41  96 ( 96Nb) 1.00000E-07    0    0.00000E+00  0.00000
 
    b. Per mass
@@ -430,9 +431,8 @@ file: ld043100.gs
    A  cross section
 
   100 1.38497E+03
-   99 1.44979E-03
 
- Total residual production cross section:  1384.9708252
+ Total residual production cross section:  1384.9693604
  Non-elastic cross section              :  1384.9724121
 
  ########## RESULTS FOR E=   0.02000 ##########
@@ -489,8 +489,6 @@ file: ld043100.gs
                  cross section       cross section  ratio
 
    43 100 (100Tc) 9.54574E+02    0    9.54574E+02  1.00000
-   43  99 ( 99Tc) 2.64452E-03    0    2.64452E-03  1.00000
-                                 2    0.00000E+00  0.00000   2.16300E+04 sec. 
    41  96 ( 96Nb) 1.00000E-07    0    0.00000E+00  0.00000
 
    b. Per mass
@@ -498,9 +496,8 @@ file: ld043100.gs
    A  cross section
 
   100 9.54574E+02
-   99 2.64452E-03
 
- Total residual production cross section:   954.5769043
+ Total residual production cross section:   954.5742798
  Non-elastic cross section              :   954.5793457
 
  ########## RESULTS FOR E=   0.05000 ##########
@@ -557,8 +554,6 @@ file: ld043100.gs
                  cross section       cross section  ratio
 
    43 100 (100Tc) 5.23832E+02    0    5.23832E+02  1.00000
-   43  99 ( 99Tc) 4.47951E-03    0    4.47951E-03  1.00000
-                                 2    0.00000E+00  0.00000   2.16300E+04 sec. 
    41  96 ( 96Nb) 1.00000E-07    0    0.00000E+00  0.00000
 
    b. Per mass
@@ -566,9 +561,8 @@ file: ld043100.gs
    A  cross section
 
   100 5.23832E+02
-   99 4.47951E-03
 
- Total residual production cross section:   523.8360596
+ Total residual production cross section:   523.8316040
  Non-elastic cross section              :   523.8417969
 
  ########## RESULTS FOR E=   0.10000 ##########
@@ -625,8 +619,6 @@ file: ld043100.gs
                  cross section       cross section  ratio
 
    43 100 (100Tc) 3.25632E+02    0    3.25632E+02  1.00000
-   43  99 ( 99Tc) 4.00547E-03    0    4.00547E-03  1.00000
-                                 2    0.00000E+00  0.00000   2.16300E+04 sec. 
    41  96 ( 96Nb) 1.00000E-07    0    0.00000E+00  0.00000
 
    b. Per mass
@@ -634,9 +626,8 @@ file: ld043100.gs
    A  cross section
 
   100 3.25632E+02
-   99 4.00547E-03
 
- Total residual production cross section:   325.6363831
+ Total residual production cross section:   325.6323853
  Non-elastic cross section              :   325.6425781
 
  ########## RESULTS FOR E=   0.20000 ##########
@@ -1295,7 +1286,7 @@ file: ld043100.gs
 
  gamma   = 2.27486E+03    Multiplicity= 1.08605E+00
  neutron = 2.08550E+03    Multiplicity= 9.95648E-01
- proton  = 3.07576E-04    Multiplicity= 1.46841E-07
+ proton  = 3.07575E-04    Multiplicity= 1.46841E-07
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
  triton  = 0.00000E+00    Multiplicity= 0.00000E+00
  helium-3= 0.00000E+00    Multiplicity= 0.00000E+00
@@ -1380,7 +1371,7 @@ file: ld043100.gs
    43 100 (100Tc) 6.82824E+00    0    6.82824E+00  1.00000
    43  99 ( 99Tc) 2.04223E+03    0    1.79794E+03  0.88038
                                  2    2.44288E+02  0.11962   2.16300E+04 sec. 
-   42  99 ( 99Mo) 2.37272E-03    0    2.37272E-03  1.00000
+   42  99 ( 99Mo) 2.37670E-03    0    2.37670E-03  1.00000
    41  96 ( 96Nb) 1.00000E-07    0    1.96435E-04  0.00000
 
    b. Per mass
@@ -1450,9 +1441,8 @@ file: ld043100.gs
    43 100 (100Tc) 5.37691E+00    0    5.37691E+00  1.00000
    43  99 ( 99Tc) 2.02081E+03    0    1.77587E+03  0.87879
                                  2    2.44947E+02  0.12121   2.16300E+04 sec. 
-   42  99 ( 99Mo) 1.12673E-02    0    1.12673E-02  1.00000
-   41  96 ( 96Nb) 1.64200E-03    0    1.64200E-03  1.00000
-   39  92 ( 92Y ) 1.00000E-07    0    0.00000E+00  0.00000
+   42  99 ( 99Mo) 1.12736E-02    0    1.12736E-02  1.00000
+   41  96 ( 96Nb) 1.00000E-07    0    4.24372E-04  0.00000
 
    b. Per mass
 
@@ -1460,9 +1450,8 @@ file: ld043100.gs
 
   100 5.37691E+00
    99 2.02083E+03
-   96 1.64200E-03
 
- Total residual production cross section:  2026.2043457
+ Total residual production cross section:  2026.2027588
  Non-elastic cross section              :  2026.1870117
 
  ########## RESULTS FOR E=   4.50000 ##########
@@ -1522,8 +1511,8 @@ file: ld043100.gs
    43 100 (100Tc) 4.30455E+00    0    4.30455E+00  1.00000
    43  99 ( 99Tc) 2.02169E+03    0    1.77364E+03  0.87731
                                  2    2.48046E+02  0.12269   2.16300E+04 sec. 
-   42  99 ( 99Mo) 3.77677E-02    0    3.77677E-02  1.00000
-   41  96 ( 96Nb) 3.50315E-03    0    3.50315E-03  1.00000
+   42  99 ( 99Mo) 3.77706E-02    0    3.77706E-02  1.00000
+   41  96 ( 96Nb) 3.50544E-03    0    3.50544E-03  1.00000
    39  92 ( 92Y ) 1.00000E-07    0    0.00000E+00  0.00000
 
    b. Per mass
@@ -1532,7 +1521,7 @@ file: ld043100.gs
 
   100 4.30455E+00
    99 2.02172E+03
-   96 3.50315E-03
+   96 3.50544E-03
 
  Total residual production cross section:  2026.0329590
  Non-elastic cross section              :  2026.0146484
@@ -1594,8 +1583,8 @@ file: ld043100.gs
    43 100 (100Tc) 3.47346E+00    0    3.47346E+00  1.00000
    43  99 ( 99Tc) 2.03504E+03    0    1.78474E+03  0.87700
                                  2    2.50307E+02  0.12300   2.16300E+04 sec. 
-   42  99 ( 99Mo) 1.00312E-01    0    1.00312E-01  1.00000
-   41  96 ( 96Nb) 8.16106E-03    0    8.16106E-03  1.00000
+   42  99 ( 99Mo) 1.00317E-01    0    1.00317E-01  1.00000
+   41  96 ( 96Nb) 8.16489E-03    0    8.16489E-03  1.00000
    39  92 ( 92Y ) 1.00000E-07    0    0.00000E+00  0.00000
 
    b. Per mass
@@ -1604,9 +1593,9 @@ file: ld043100.gs
 
   100 3.47346E+00
    99 2.03514E+03
-   96 8.16106E-03
+   96 8.16489E-03
 
- Total residual production cross section:  2038.6264648
+ Total residual production cross section:  2038.6265869
  Non-elastic cross section              :  2038.6070557
 
  ########## RESULTS FOR E=   5.50000 ##########
@@ -1666,8 +1655,8 @@ file: ld043100.gs
    43 100 (100Tc) 2.82474E+00    0    2.82474E+00  1.00000
    43  99 ( 99Tc) 2.04949E+03    0    1.79847E+03  0.87752
                                  2    2.51019E+02  0.12248   2.16300E+04 sec. 
-   42  99 ( 99Mo) 2.17762E-01    0    2.17762E-01  1.00000
-   41  96 ( 96Nb) 1.81925E-02    0    1.81925E-02  1.00000
+   42  99 ( 99Mo) 2.17764E-01    0    2.17764E-01  1.00000
+   41  96 ( 96Nb) 1.81953E-02    0    1.81953E-02  1.00000
    39  92 ( 92Y ) 1.00000E-07    0    0.00000E+00  0.00000
 
    b. Per mass
@@ -1676,7 +1665,7 @@ file: ld043100.gs
 
   100 2.82474E+00
    99 2.04971E+03
-   96 1.81925E-02
+   96 1.81953E-02
 
  Total residual production cross section:  2052.5522461
  Non-elastic cross section              :  2052.5048828
@@ -1720,7 +1709,7 @@ file: ld043100.gs
 
  3. Total particle production cross sections
 
- gamma   = 4.16257E+03    Multiplicity= 2.02067E+00
+ gamma   = 4.16257E+03    Multiplicity= 2.02066E+00
  neutron = 2.05726E+03    Multiplicity= 9.98671E-01
  proton  = 4.32559E-01    Multiplicity= 2.09980E-04
  deuteron= 5.21993E-10    Multiplicity= 2.53395E-13
@@ -1738,8 +1727,8 @@ file: ld043100.gs
    43 100 (100Tc) 2.30569E+00    0    2.30569E+00  1.00000
    43  99 ( 99Tc) 2.05730E+03    0    1.80699E+03  0.87833
                                  2    2.50312E+02  0.12167   2.16300E+04 sec. 
-   42  99 ( 99Mo) 4.32564E-01    0    4.32564E-01  1.00000
-   41  96 ( 96Nb) 3.66773E-02    0    3.66773E-02  1.00000
+   42  99 ( 99Mo) 4.32566E-01    0    4.32566E-01  1.00000
+   41  96 ( 96Nb) 3.66806E-02    0    3.66806E-02  1.00000
    39  92 ( 92Y ) 1.00000E-07    0    0.00000E+00  0.00000
 
    b. Per mass
@@ -1748,7 +1737,7 @@ file: ld043100.gs
 
   100 2.30569E+00
    99 2.05773E+03
-   96 3.66773E-02
+   96 3.66806E-02
 
  Total residual production cross section:  2060.0725098
  Non-elastic cross section              :  2060.0012207
@@ -1792,7 +1781,7 @@ file: ld043100.gs
 
  3. Total particle production cross sections
 
- gamma   = 4.63135E+03    Multiplicity= 2.26045E+00
+ gamma   = 4.63135E+03    Multiplicity= 2.26044E+00
  neutron = 2.04584E+03    Multiplicity= 9.98524E-01
  proton  = 1.28758E+00    Multiplicity= 6.28436E-04
  deuteron= 5.37646E-06    Multiplicity= 2.62412E-09
@@ -1811,7 +1800,7 @@ file: ld043100.gs
    43  99 ( 99Tc) 2.04589E+03    0    1.79973E+03  0.87968
                                  2    2.46167E+02  0.12032   2.16300E+04 sec. 
    42  99 ( 99Mo) 1.28763E+00    0    1.28763E+00  1.00000
-   41  96 ( 96Nb) 1.25336E-01    0    1.25336E-01  1.00000
+   41  96 ( 96Nb) 1.25338E-01    0    1.25338E-01  1.00000
    39  92 ( 92Y ) 1.00000E-07    0    0.00000E+00  0.00000
 
    b. Per mass
@@ -1820,7 +1809,7 @@ file: ld043100.gs
 
   100 1.61008E+00
    99 2.04718E+03
-   96 1.25336E-01
+   96 1.25338E-01
 
  Total residual production cross section:  2048.9155273
  Non-elastic cross section              :  2048.8666992
@@ -1855,7 +1844,7 @@ file: ld043100.gs
  2. Binary non-elastic cross sections (non-exclusive)
 
  gamma   = 3.18534E+00
- neutron = 2.00991E+03
+ neutron = 2.00990E+03
  proton  = 2.74637E+00
  deuteron= 7.17363E-04
  triton  = 1.20683E-17
@@ -1864,7 +1853,7 @@ file: ld043100.gs
 
  3. Total particle production cross sections
 
- gamma   = 4.99602E+03    Multiplicity= 2.47788E+00
+ gamma   = 4.99601E+03    Multiplicity= 2.47788E+00
  neutron = 2.01185E+03    Multiplicity= 9.97821E-01
  proton  = 2.74638E+00    Multiplicity= 1.36213E-03
  deuteron= 7.17363E-04    Multiplicity= 3.55792E-07
@@ -1883,7 +1872,7 @@ file: ld043100.gs
    43  99 ( 99Tc) 2.01192E+03    0    1.77184E+03  0.88067
                                  2    2.40082E+02  0.11933   2.16300E+04 sec. 
    42  99 ( 99Mo) 2.74657E+00    0    2.74657E+00  1.00000
-   41  96 ( 96Nb) 4.31080E-01    0    4.31080E-01  1.00000
+   41  96 ( 96Nb) 4.31081E-01    0    4.31081E-01  1.00000
    39  92 ( 92Y ) 1.00000E-07    0    0.00000E+00  0.00000
 
    b. Per mass
@@ -1892,7 +1881,7 @@ file: ld043100.gs
 
   100 1.23964E+00
    99 2.01467E+03
-   96 4.31080E-01
+   96 4.31081E-01
 
  Total residual production cross section:  2016.3410645
  Non-elastic cross section              :  2016.2437744
@@ -1936,7 +1925,7 @@ file: ld043100.gs
 
  3. Total particle production cross sections
 
- gamma   = 5.30089E+03    Multiplicity= 2.67544E+00
+ gamma   = 5.30088E+03    Multiplicity= 2.67544E+00
  neutron = 1.97421E+03    Multiplicity= 9.96416E-01
  proton  = 4.74003E+00    Multiplicity= 2.39237E-03
  deuteron= 1.13217E-02    Multiplicity= 5.71425E-06
@@ -1954,8 +1943,8 @@ file: ld043100.gs
    43 100 (100Tc) 1.11661E+00    0    1.11661E+00  1.00000
    43  99 ( 99Tc) 1.97429E+03    0    1.73862E+03  0.88063
                                  2    2.35676E+02  0.11937   2.16300E+04 sec. 
-   42  99 ( 99Mo) 4.72871E+00    0    4.72871E+00  1.00000
-   42  98 ( 98Mo) 2.31539E-02    0    2.31539E-02  1.00000
+   42  99 ( 99Mo) 4.72781E+00    0    4.72781E+00  1.00000
+   42  98 ( 98Mo) 2.30346E-02    0    2.30346E-02  1.00000
    41  96 ( 96Nb) 1.24450E+00    0    1.24450E+00  1.00000
    39  92 ( 92Y ) 1.00000E-07    0    0.00000E+00  0.00000
 
@@ -1965,10 +1954,10 @@ file: ld043100.gs
 
   100 1.11661E+00
    99 1.97902E+03
-   98 2.31539E-02
+   98 2.30346E-02
    96 1.24450E+00
 
- Total residual production cross section:  1981.4074707
+ Total residual production cross section:  1981.4063721
  Non-elastic cross section              :  1981.3121338
 
  ########## RESULTS FOR E=  10.00000 ##########
@@ -2010,8 +1999,8 @@ file: ld043100.gs
 
  3. Total particle production cross sections
 
- gamma   = 4.00449E+03    Multiplicity= 2.04961E+00
- neutron = 2.43319E+03    Multiplicity= 1.24537E+00
+ gamma   = 4.00330E+03    Multiplicity= 2.04900E+00
+ neutron = 2.43314E+03    Multiplicity= 1.24535E+00
  proton  = 7.35858E+00    Multiplicity= 3.76632E-03
  deuteron= 9.01992E-02    Multiplicity= 4.61664E-05
  triton  = 4.70166E-07    Multiplicity= 2.40644E-10
@@ -2026,14 +2015,12 @@ file: ld043100.gs
                  cross section       cross section  ratio
 
    43 100 (100Tc) 1.14705E+00    0    1.14705E+00  1.00000
-   43  99 ( 99Tc) 1.45174E+03    0    1.27332E+03  0.87710
-                                 2    1.78416E+02  0.12290   2.16300E+04 sec. 
-   42  99 ( 99Mo) 7.30150E+00    0    7.30150E+00  1.00000
-   43  98 ( 98Tc) 4.90760E+02    0    4.90760E+02  1.00000
-   42  98 ( 98Mo) 1.48166E-01    0    1.48166E-01  1.00000
-   41  96 ( 96Nb) 2.81336E+00    0    2.81336E+00  1.00000
-   41  95 ( 95Nb) 1.03542E-03    0    9.71899E-04  0.93865
-                                 1    6.35193E-05  0.06135   3.11900E+05 sec. 
+   43  99 ( 99Tc) 1.45151E+03    0    1.27317E+03  0.87713
+                                 2    1.78342E+02  0.12287   2.16300E+04 sec. 
+   42  99 ( 99Mo) 7.30101E+00    0    7.30101E+00  1.00000
+   43  98 ( 98Tc) 4.90711E+02    0    4.90711E+02  1.00000
+   42  98 ( 98Mo) 1.47871E-01    0    1.47871E-01  1.00000
+   41  96 ( 96Nb) 2.81275E+00    0    2.81275E+00  1.00000
    39  92 ( 92Y ) 1.00000E-07    0    0.00000E+00  0.00000
 
    b. Per mass
@@ -2041,12 +2028,11 @@ file: ld043100.gs
    A  cross section
 
   100 1.14705E+00
-   99 1.45904E+03
-   98 4.90908E+02
-   96 2.81336E+00
-   95 1.03542E-03
+   99 1.45881E+03
+   98 4.90859E+02
+   96 2.81275E+00
 
- Total residual production cross section:  1953.9086914
+ Total residual production cross section:  1953.6287842
  Non-elastic cross section              :  1953.7834473
 
  ########## RESULTS FOR E=  11.00000 ##########
@@ -2088,8 +2074,8 @@ file: ld043100.gs
 
  3. Total particle production cross sections
 
- gamma   = 2.99515E+03    Multiplicity= 1.54787E+00
- neutron = 2.87633E+03    Multiplicity= 1.48646E+00
+ gamma   = 2.99262E+03    Multiplicity= 1.54656E+00
+ neutron = 2.87604E+03    Multiplicity= 1.48631E+00
  proton  = 1.08156E+01    Multiplicity= 5.58941E-03
  deuteron= 3.69155E-01    Multiplicity= 1.90776E-04
  triton  = 2.69856E-05    Multiplicity= 1.39459E-08
@@ -2104,27 +2090,27 @@ file: ld043100.gs
                  cross section       cross section  ratio
 
    43 100 (100Tc) 1.23589E+00    0    1.23589E+00  1.00000
-   43  99 ( 99Tc) 9.58960E+02    0    8.38256E+02  0.87413
-                                 2    1.20704E+02  0.12587   2.16300E+04 sec. 
-   42  99 ( 99Mo) 1.06674E+01    0    1.06674E+01  1.00000
-   43  98 ( 98Tc) 9.58693E+02    0    9.58693E+02  1.00000
-   42  98 ( 98Mo) 5.19032E-01    0    5.19032E-01  1.00000
-   41  96 ( 96Nb) 5.10492E+00    0    5.10492E+00  1.00000
-   41  95 ( 95Nb) 8.62957E-03    0    8.23162E-03  0.95389
-                                 1    3.97948E-04  0.04611   3.11900E+05 sec. 
-   39  92 ( 92Y ) 1.00000E-07    0    5.78801E-16  0.00000
+   43  99 ( 99Tc) 9.58578E+02    0    8.38000E+02  0.87421
+                                 2    1.20577E+02  0.12579   2.16300E+04 sec. 
+   42  99 ( 99Mo) 1.06667E+01    0    1.06667E+01  1.00000
+   43  98 ( 98Tc) 9.58398E+02    0    9.58398E+02  1.00000
+   42  98 ( 98Mo) 5.18316E-01    0    5.18316E-01  1.00000
+   41  96 ( 96Nb) 5.10473E+00    0    5.10473E+00  1.00000
+   41  95 ( 95Nb) 7.36398E-03    0    7.01556E-03  0.95269
+                                 1    3.48414E-04  0.04731   3.11900E+05 sec. 
+   39  92 ( 92Y ) 1.00000E-07    0    0.00000E+00  0.00000
 
    b. Per mass
 
    A  cross section
 
   100 1.23589E+00
-   99 9.69627E+02
-   98 9.59212E+02
-   96 5.10492E+00
-   95 8.62957E-03
+   99 9.69244E+02
+   98 9.58916E+02
+   96 5.10473E+00
+   95 7.36398E-03
 
- Total residual production cross section:  1935.1885986
+ Total residual production cross section:  1934.5085449
  Non-elastic cross section              :  1935.0173340
 
  ########## RESULTS FOR E=  12.00000 ##########
@@ -2166,8 +2152,8 @@ file: ld043100.gs
 
  3. Total particle production cross sections
 
- gamma   = 2.70450E+03    Multiplicity= 1.40698E+00
- neutron = 3.13242E+03    Multiplicity= 1.62960E+00
+ gamma   = 2.70188E+03    Multiplicity= 1.40562E+00
+ neutron = 3.13201E+03    Multiplicity= 1.62939E+00
  proton  = 1.54104E+01    Multiplicity= 8.01709E-03
  deuteron= 8.83574E-01    Multiplicity= 4.59668E-04
  triton  = 4.51748E-04    Multiplicity= 2.35017E-07
@@ -2182,27 +2168,27 @@ file: ld043100.gs
                  cross section       cross section  ratio
 
    43 100 (100Tc) 1.30086E+00    0    1.30086E+00  1.00000
-   43  99 ( 99Tc) 6.61419E+02    0    5.75321E+02  0.86983
-                                 2    8.60988E+01  0.13017   2.16300E+04 sec. 
-   42  99 ( 99Mo) 1.47524E+01    0    1.47524E+01  1.00000
-   43  98 ( 98Tc) 1.23524E+03    0    1.23524E+03  1.00000
-   42  98 ( 98Mo) 1.54453E+00    0    1.54453E+00  1.00000
-   41  96 ( 96Nb) 8.08153E+00    0    8.08153E+00  1.00000
-   41  95 ( 95Nb) 6.48742E-02    0    6.07821E-02  0.93692
-                                 1    4.09206E-03  0.06308   3.11900E+05 sec. 
-   39  92 ( 92Y ) 1.00000E-07    0    8.22838E-13  0.00000
+   43  99 ( 99Tc) 6.61195E+02    0    5.75173E+02  0.86990
+                                 2    8.60220E+01  0.13010   2.16300E+04 sec. 
+   42  99 ( 99Mo) 1.47503E+01    0    1.47503E+01  1.00000
+   43  98 ( 98Tc) 1.23483E+03    0    1.23483E+03  1.00000
+   42  98 ( 98Mo) 1.54347E+00    0    1.54347E+00  1.00000
+   41  96 ( 96Nb) 8.08146E+00    0    8.08146E+00  1.00000
+   41  95 ( 95Nb) 6.36922E-02    0    5.96747E-02  0.93692
+                                 1    4.01752E-03  0.06308   3.11900E+05 sec. 
+   39  92 ( 92Y ) 1.00000E-07    0    2.78800E-14  0.00000
 
    b. Per mass
 
    A  cross section
 
   100 1.30086E+00
-   99 6.76172E+02
-   98 1.23678E+03
-   96 8.08153E+00
-   95 6.48742E-02
+   99 6.75945E+02
+   98 1.23637E+03
+   96 8.08146E+00
+   95 6.36922E-02
 
- Total residual production cross section:  1922.4028320
+ Total residual production cross section:  1921.7658691
  Non-elastic cross section              :  1922.1988525
 
  ########## RESULTS FOR E=  13.00000 ##########
@@ -2244,13 +2230,13 @@ file: ld043100.gs
 
  3. Total particle production cross sections
 
- gamma   = 2.80285E+03    Multiplicity= 1.46566E+00
- neutron = 3.25265E+03    Multiplicity= 1.70088E+00
+ gamma   = 2.79925E+03    Multiplicity= 1.46378E+00
+ neutron = 3.25203E+03    Multiplicity= 1.70055E+00
  proton  = 2.13443E+01    Multiplicity= 1.11614E-02
  deuteron= 1.84719E+00    Multiplicity= 9.65931E-04
  triton  = 5.43356E-03    Multiplicity= 2.84132E-06
  helium-3= 7.44643E-19    Multiplicity= 3.89389E-22
- alpha   = 1.20845E+01    Multiplicity= 6.31920E-03
+ alpha   = 1.20844E+01    Multiplicity= 6.31920E-03
 
  4. Residual production cross sections
 
@@ -2260,29 +2246,29 @@ file: ld043100.gs
                  cross section       cross section  ratio
 
    43 100 (100Tc) 1.32294E+00    0    1.32294E+00  1.00000
-   43  99 ( 99Tc) 5.01821E+02    0    4.33952E+02  0.86475
-                                 2    6.78689E+01  0.13525   2.16300E+04 sec. 
-   42  99 ( 99Mo) 1.90435E+01    0    1.90435E+01  1.00000
-   43  98 ( 98Tc) 1.37416E+03    0    1.37416E+03  1.00000
-   42  98 ( 98Mo) 4.15304E+00    0    4.15304E+00  1.00000
-   42  97 ( 97Mo) 5.43080E-03    0    5.43080E-03  1.00000
-   41  96 ( 96Nb) 1.16303E+01    0    1.16303E+01  1.00000
-   41  95 ( 95Nb) 4.54188E-01    0    4.25258E-01  0.93630
-                                 1    2.89307E-02  0.06370   3.11900E+05 sec. 
-   39  92 ( 92Y ) 1.00000E-07    0    2.08811E-11  0.00000
+   43  99 ( 99Tc) 5.01529E+02    0    4.33761E+02  0.86488
+                                 2    6.77688E+01  0.13512   2.16300E+04 sec. 
+   42  99 ( 99Mo) 1.90384E+01    0    1.90384E+01  1.00000
+   43  98 ( 98Tc) 1.37353E+03    0    1.37353E+03  1.00000
+   42  98 ( 98Mo) 4.15223E+00    0    4.15223E+00  1.00000
+   42  97 ( 97Mo) 5.43461E-03    0    5.43461E-03  1.00000
+   41  96 ( 96Nb) 1.16300E+01    0    1.16300E+01  1.00000
+   41  95 ( 95Nb) 4.52263E-01    0    4.23545E-01  0.93650
+                                 1    2.87181E-02  0.06350   3.11900E+05 sec. 
+   39  92 ( 92Y ) 1.00000E-07    0    8.23044E-12  0.00000
 
    b. Per mass
 
    A  cross section
 
   100 1.32294E+00
-   99 5.20865E+02
-   98 1.37831E+03
-   97 5.43080E-03
-   96 1.16303E+01
-   95 4.54188E-01
+   99 5.20568E+02
+   98 1.37769E+03
+   97 5.43461E-03
+   96 1.16300E+01
+   95 4.52263E-01
 
- Total residual production cross section:  1912.5863037
+ Total residual production cross section:  1911.6650391
  Non-elastic cross section              :  1912.3394775
 
  ########## RESULTS FOR E=  14.00000 ##########
@@ -2324,13 +2310,13 @@ file: ld043100.gs
 
  3. Total particle production cross sections
 
- gamma   = 3.03315E+03    Multiplicity= 1.59290E+00
- neutron = 3.30335E+03    Multiplicity= 1.73480E+00
+ gamma   = 3.02853E+03    Multiplicity= 1.59047E+00
+ neutron = 3.30255E+03    Multiplicity= 1.73438E+00
  proton  = 2.88944E+01    Multiplicity= 1.51743E-02
  deuteron= 3.30727E+00    Multiplicity= 1.73686E-03
  triton  = 4.42493E-02    Multiplicity= 2.32381E-05
  helium-3= 5.55758E-12    Multiplicity= 2.91864E-15
- alpha   = 1.72208E+01    Multiplicity= 9.04372E-03
+ alpha   = 1.72207E+01    Multiplicity= 9.04370E-03
 
  4. Residual production cross sections
 
@@ -2340,29 +2326,29 @@ file: ld043100.gs
                  cross section       cross section  ratio
 
    43 100 (100Tc) 1.29212E+00    0    1.29212E+00  1.00000
-   43  99 ( 99Tc) 4.11846E+02    0    3.55302E+02  0.86270
-                                 2    5.65446E+01  0.13730   2.16300E+04 sec. 
-   42  99 ( 99Mo) 2.28244E+01    0    2.28244E+01  1.00000
-   43  98 ( 98Tc) 1.44186E+03    0    1.44186E+03  1.00000
-   42  98 ( 98Mo) 9.38517E+00    0    9.38517E+00  1.00000
-   42  97 ( 97Mo) 4.42545E-02    0    4.42545E-02  1.00000
-   41  96 ( 96Nb) 1.52166E+01    0    1.52166E+01  1.00000
-   41  95 ( 95Nb) 2.00421E+00    0    1.90918E+00  0.95258
-                                 1    9.50307E-02  0.04742   3.11900E+05 sec. 
-   39  92 ( 92Y ) 1.00000E-07    0    3.00986E-10  0.00000
+   43  99 ( 99Tc) 4.11614E+02    0    3.55149E+02  0.86282
+                                 2    5.64647E+01  0.13718   2.16300E+04 sec. 
+   42  99 ( 99Mo) 2.28165E+01    0    2.28165E+01  1.00000
+   43  98 ( 98Tc) 1.44106E+03    0    1.44106E+03  1.00000
+   42  98 ( 98Mo) 9.38184E+00    0    9.38184E+00  1.00000
+   42  97 ( 97Mo) 4.42588E-02    0    4.42588E-02  1.00000
+   41  96 ( 96Nb) 1.52155E+01    0    1.52155E+01  1.00000
+   41  95 ( 95Nb) 2.00310E+00    0    1.90846E+00  0.95275
+                                 1    9.46376E-02  0.04725   3.11900E+05 sec. 
+   39  92 ( 92Y ) 1.00000E-07    0    2.74558E-10  0.00000
 
    b. Per mass
 
    A  cross section
 
   100 1.29212E+00
-   99 4.34671E+02
-   98 1.45124E+03
-   97 4.42545E-02
-   96 1.52166E+01
-   95 2.00421E+00
+   99 4.34431E+02
+   98 1.45044E+03
+   97 4.42588E-02
+   96 1.52155E+01
+   95 2.00310E+00
 
- Total residual production cross section:  1904.4727783
+ Total residual production cross section:  1903.4294434
  Non-elastic cross section              :  1904.1697998
 
  ########## RESULTS FOR E=  15.00000 ##########
@@ -2404,13 +2390,13 @@ file: ld043100.gs
 
  3. Total particle production cross sections
 
- gamma   = 3.31296E+03    Multiplicity= 1.74628E+00
- neutron = 3.31357E+03    Multiplicity= 1.74660E+00
+ gamma   = 3.30761E+03    Multiplicity= 1.74346E+00
+ neutron = 3.31304E+03    Multiplicity= 1.74633E+00
  proton  = 3.81833E+01    Multiplicity= 2.01266E-02
  deuteron= 5.21009E+00    Multiplicity= 2.74627E-03
  triton  = 1.97107E-01    Multiplicity= 1.03896E-04
  helium-3= 3.12386E-10    Multiplicity= 1.64661E-13
- alpha   = 2.39758E+01    Multiplicity= 1.26378E-02
+ alpha   = 2.39756E+01    Multiplicity= 1.26377E-02
 
  4. Residual production cross sections
 
@@ -2420,29 +2406,29 @@ file: ld043100.gs
                  cross section       cross section  ratio
 
    43 100 (100Tc) 1.16614E+00    0    1.16614E+00  1.00000
-   43  99 ( 99Tc) 3.62597E+02    0    3.12150E+02  0.86087
-                                 2    5.04476E+01  0.13913   2.16300E+04 sec. 
-   42  99 ( 99Mo) 2.54140E+01    0    2.54140E+01  1.00000
-   43  98 ( 98Tc) 1.46616E+03    0    1.46616E+03  1.00000
-   42  98 ( 98Mo) 1.79925E+01    0    1.79925E+01  1.00000
-   42  97 ( 97Mo) 1.97142E-01    0    1.97142E-01  1.00000
-   41  96 ( 96Nb) 1.77628E+01    0    1.77628E+01  1.00000
-   41  95 ( 95Nb) 6.21304E+00    0    5.89991E+00  0.94960
-                                 1    3.13124E-01  0.05040   3.11900E+05 sec. 
-   39  92 ( 92Y ) 1.00000E-07    0    2.97949E-09  0.00000
+   43  99 ( 99Tc) 3.62363E+02    0    3.11996E+02  0.86100
+                                 2    5.03669E+01  0.13900   2.16300E+04 sec. 
+   42  99 ( 99Mo) 2.54027E+01    0    2.54027E+01  1.00000
+   43  98 ( 98Tc) 1.46564E+03    0    1.46564E+03  1.00000
+   42  98 ( 98Mo) 1.79904E+01    0    1.79904E+01  1.00000
+   42  97 ( 97Mo) 1.97146E-01    0    1.97146E-01  1.00000
+   41  96 ( 96Nb) 1.77586E+01    0    1.77586E+01  1.00000
+   41  95 ( 95Nb) 6.21063E+00    0    5.89872E+00  0.94978
+                                 1    3.11907E-01  0.05022   3.11900E+05 sec. 
+   39  92 ( 92Y ) 1.00000E-07    0    2.87065E-09  0.00000
 
    b. Per mass
 
    A  cross section
 
   100 1.16614E+00
-   99 3.88011E+02
-   98 1.48415E+03
-   97 1.97142E-01
-   96 1.77628E+01
-   95 6.21304E+00
+   99 3.87766E+02
+   98 1.48363E+03
+   97 1.97146E-01
+   96 1.77586E+01
+   95 6.21063E+00
 
- Total residual production cross section:  1897.4979248
+ Total residual production cross section:  1896.7254639
  Non-elastic cross section              :  1897.1499023
 
  ########## RESULTS FOR E=  16.00000 ##########
@@ -2484,13 +2470,13 @@ file: ld043100.gs
 
  3. Total particle production cross sections
 
- gamma   = 3.56306E+03    Multiplicity= 1.88520E+00
- neutron = 3.31064E+03    Multiplicity= 1.75164E+00
+ gamma   = 3.55599E+03    Multiplicity= 1.88146E+00
+ neutron = 3.30995E+03    Multiplicity= 1.75128E+00
  proton  = 4.92749E+01    Multiplicity= 2.60711E-02
  deuteron= 7.46648E+00    Multiplicity= 3.95048E-03
  triton  = 5.52008E-01    Multiplicity= 2.92065E-04
  helium-3= 1.82300E-08    Multiplicity= 9.64540E-12
- alpha   = 3.28936E+01    Multiplicity= 1.74038E-02
+ alpha   = 3.28932E+01    Multiplicity= 1.74036E-02
 
  4. Residual production cross sections
 
@@ -2500,29 +2486,29 @@ file: ld043100.gs
                  cross section       cross section  ratio
 
    43 100 (100Tc) 1.02847E+00    0    1.02847E+00  1.00000
-   43  99 ( 99Tc) 3.23229E+02    0    2.78102E+02  0.86039
-                                 2    4.51273E+01  0.13961   2.16300E+04 sec. 
-   42  99 ( 99Mo) 2.68022E+01    0    2.68022E+01  1.00000
-   43  98 ( 98Tc) 1.47596E+03    0    1.47596E+03  1.00000
-   42  98 ( 98Mo) 2.99569E+01    0    2.99569E+01  1.00000
-   42  97 ( 97Mo) 5.52148E-01    0    5.52148E-01  1.00000
-   41  96 ( 96Nb) 1.95038E+01    0    1.95038E+01  1.00000
-   41  95 ( 95Nb) 1.33898E+01    0    1.26544E+01  0.94508
-                                 1    7.35342E-01  0.05492   3.11900E+05 sec. 
-   39  92 ( 92Y ) 1.00000E-07    0    2.22586E-08  0.00000
+   43  99 ( 99Tc) 3.23001E+02    0    2.77953E+02  0.86053
+                                 2    4.50487E+01  0.13947   2.16300E+04 sec. 
+   42  99 ( 99Mo) 2.67921E+01    0    2.67921E+01  1.00000
+   43  98 ( 98Tc) 1.47528E+03    0    1.47528E+03  1.00000
+   42  98 ( 98Mo) 2.99496E+01    0    2.99496E+01  1.00000
+   42  97 ( 97Mo) 5.52129E-01    0    5.52129E-01  1.00000
+   41  96 ( 96Nb) 1.94950E+01    0    1.94950E+01  1.00000
+   41  95 ( 95Nb) 1.33817E+01    0    1.26493E+01  0.94527
+                                 1    7.32401E-01  0.05473   3.11900E+05 sec. 
+   39  92 ( 92Y ) 1.00000E-07    0    2.14769E-08  0.00000
 
    b. Per mass
 
    A  cross section
 
   100 1.02847E+00
-   99 3.50031E+02
-   98 1.50591E+03
-   97 5.52148E-01
-   96 1.95038E+01
-   95 1.33898E+01
+   99 3.49793E+02
+   98 1.50522E+03
+   97 5.52129E-01
+   96 1.94950E+01
+   95 1.33817E+01
 
- Total residual production cross section:  1890.4177246
+ Total residual production cross section:  1889.4757080
  Non-elastic cross section              :  1890.0198975
 
  ########## RESULTS FOR E=  17.00000 ##########
@@ -2564,13 +2550,13 @@ file: ld043100.gs
 
  3. Total particle production cross sections
 
- gamma   = 3.79315E+03    Multiplicity= 2.01659E+00
- neutron = 3.28940E+03    Multiplicity= 1.74878E+00
+ gamma   = 3.78449E+03    Multiplicity= 2.01199E+00
+ neutron = 3.28852E+03    Multiplicity= 1.74831E+00
  proton  = 6.20182E+01    Multiplicity= 3.29714E-02
  deuteron= 9.92453E+00    Multiplicity= 5.27628E-03
  triton  = 1.11531E+00    Multiplicity= 5.92942E-04
  helium-3= 7.43791E-07    Multiplicity= 3.95429E-10
- alpha   = 4.47780E+01    Multiplicity= 2.38058E-02
+ alpha   = 4.47774E+01    Multiplicity= 2.38055E-02
 
  4. Residual production cross sections
 
@@ -2580,31 +2566,31 @@ file: ld043100.gs
                  cross section       cross section  ratio
 
    43 100 (100Tc) 8.70403E-01    0    8.70403E-01  1.00000
-   43  99 ( 99Tc) 3.00873E+02    0    2.58561E+02  0.85937
-                                 2    4.23123E+01  0.14063   2.16300E+04 sec. 
-   42  99 ( 99Mo) 2.74627E+01    0    2.74627E+01  1.00000
-   43  98 ( 98Tc) 1.45671E+03    0    1.45671E+03  1.00000
-   42  98 ( 98Mo) 4.45013E+01    0    4.45013E+01  1.00000
-   43  97 ( 97Tc) 5.10313E+00    0    4.81472E+00  0.94348
-                                 1    2.88411E-01  0.05652   7.86200E+06 sec. 
-   42  97 ( 97Mo) 1.11754E+00    0    1.11754E+00  1.00000
-   41  96 ( 96Nb) 1.91459E+01    0    1.91459E+01  1.00000
-   41  95 ( 95Nb) 2.56321E+01    0    2.43896E+01  0.95152
-                                 1    1.24253E+00  0.04848   3.11900E+05 sec. 
-   39  92 ( 92Y ) 1.00000E-07    0    1.24600E-07  0.00000
+   43  99 ( 99Tc) 3.00722E+02    0    2.58462E+02  0.85947
+                                 2    4.22600E+01  0.14053   2.16300E+04 sec. 
+   42  99 ( 99Mo) 2.74455E+01    0    2.74455E+01  1.00000
+   43  98 ( 98Tc) 1.45584E+03    0    1.45584E+03  1.00000
+   42  98 ( 98Mo) 4.44924E+01    0    4.44924E+01  1.00000
+   43  97 ( 97Tc) 5.10154E+00    0    4.81472E+00  0.94378
+                                 1    2.86823E-01  0.05622   7.86200E+06 sec. 
+   42  97 ( 97Mo) 1.11611E+00    0    1.11611E+00  1.00000
+   41  96 ( 96Nb) 1.91394E+01    0    1.91394E+01  1.00000
+   41  95 ( 95Nb) 2.56225E+01    0    2.43842E+01  0.95167
+                                 1    1.23832E+00  0.04833   3.11900E+05 sec. 
+   39  92 ( 92Y ) 1.00000E-07    0    1.23395E-07  0.00000
 
    b. Per mass
 
    A  cross section
 
   100 8.70403E-01
-   99 3.28336E+02
-   98 1.50121E+03
-   97 6.22067E+00
-   96 1.91459E+01
-   95 2.56321E+01
+   99 3.28167E+02
+   98 1.50033E+03
+   97 6.21765E+00
+   96 1.91394E+01
+   95 2.56225E+01
 
- Total residual production cross section:  1881.4185791
+ Total residual production cross section:  1880.3521729
  Non-elastic cross section              :  1880.9699707
 
  ########## RESULTS FOR E=  18.00000 ##########
@@ -2646,13 +2632,13 @@ file: ld043100.gs
 
  3. Total particle production cross sections
 
- gamma   = 3.85284E+03    Multiplicity= 2.06148E+00
- neutron = 3.30073E+03    Multiplicity= 1.76607E+00
- proton  = 7.60364E+01    Multiplicity= 4.06836E-02
+ gamma   = 3.84431E+03    Multiplicity= 2.05691E+00
+ neutron = 3.29981E+03    Multiplicity= 1.76558E+00
+ proton  = 7.60363E+01    Multiplicity= 4.06835E-02
  deuteron= 1.25453E+01    Multiplicity= 6.71243E-03
  triton  = 1.87706E+00    Multiplicity= 1.00433E-03
  helium-3= 1.46887E-05    Multiplicity= 7.85924E-09
- alpha   = 5.99926E+01    Multiplicity= 3.20993E-02
+ alpha   = 5.99915E+01    Multiplicity= 3.20987E-02
 
  4. Residual production cross sections
 
@@ -2662,31 +2648,31 @@ file: ld043100.gs
                  cross section       cross section  ratio
 
    43 100 (100Tc) 7.13717E-01    0    7.13717E-01  1.00000
-   43  99 ( 99Tc) 2.76538E+02    0    2.37267E+02  0.85799
-                                 2    3.92717E+01  0.14201   2.16300E+04 sec. 
-   42  99 ( 99Mo) 2.78437E+01    0    2.78437E+01  1.00000
-   43  98 ( 98Tc) 1.39066E+03    0    1.39066E+03  1.00000
-   42  98 ( 98Mo) 6.07349E+01    0    6.07349E+01  1.00000
-   43  97 ( 97Tc) 5.10641E+01    0    4.74111E+01  0.92846
-                                 1    3.65293E+00  0.07154   7.86200E+06 sec. 
-   42  97 ( 97Mo) 1.90991E+00    0    1.90991E+00  1.00000
-   41  96 ( 96Nb) 1.81112E+01    0    1.81112E+01  1.00000
-   41  95 ( 95Nb) 4.18813E+01    0    3.98825E+01  0.95228
-                                 1    1.99876E+00  0.04772   3.11900E+05 sec. 
-   39  92 ( 92Y ) 1.00000E-07    0    5.69879E-07  0.00000
+   43  99 ( 99Tc) 2.76385E+02    0    2.37166E+02  0.85810
+                                 2    3.92187E+01  0.14190   2.16300E+04 sec. 
+   42  99 ( 99Mo) 2.78216E+01    0    2.78216E+01  1.00000
+   43  98 ( 98Tc) 1.38976E+03    0    1.38976E+03  1.00000
+   42  98 ( 98Mo) 6.07260E+01    0    6.07260E+01  1.00000
+   43  97 ( 97Tc) 5.10442E+01    0    4.74093E+01  0.92879
+                                 1    3.63493E+00  0.07121   7.86200E+06 sec. 
+   42  97 ( 97Mo) 1.90600E+00    0    1.90600E+00  1.00000
+   41  96 ( 96Nb) 1.80986E+01    0    1.80986E+01  1.00000
+   41  95 ( 95Nb) 4.18646E+01    0    3.98720E+01  0.95241
+                                 1    1.99253E+00  0.04759   3.11900E+05 sec. 
+   39  92 ( 92Y ) 1.00000E-07    0    5.68539E-07  0.00000
 
    b. Per mass
 
    A  cross section
 
   100 7.13717E-01
-   99 3.04382E+02
-   98 1.45139E+03
-   97 5.29740E+01
-   96 1.81112E+01
-   95 4.18813E+01
+   99 3.04206E+02
+   98 1.45049E+03
+   97 5.29502E+01
+   96 1.80986E+01
+   95 4.18646E+01
 
- Total residual production cross section:  1869.4567871
+ Total residual production cross section:  1868.3227539
  Non-elastic cross section              :  1868.9699707
 
  ########## RESULTS FOR E=  19.00000 ##########
@@ -2728,13 +2714,13 @@ file: ld043100.gs
 
  3. Total particle production cross sections
 
- gamma   = 3.76555E+03    Multiplicity= 2.03060E+00
- neutron = 3.34596E+03    Multiplicity= 1.80434E+00
- proton  = 9.07877E+01    Multiplicity= 4.89580E-02
+ gamma   = 3.75581E+03    Multiplicity= 2.02535E+00
+ neutron = 3.34512E+03    Multiplicity= 1.80388E+00
+ proton  = 9.07875E+01    Multiplicity= 4.89579E-02
  deuteron= 1.52546E+01    Multiplicity= 8.22616E-03
  triton  = 2.80624E+00    Multiplicity= 1.51329E-03
  helium-3= 1.65702E-04    Multiplicity= 8.93560E-08
- alpha   = 7.82926E+01    Multiplicity= 4.22199E-02
+ alpha   = 7.82909E+01    Multiplicity= 4.22190E-02
 
  4. Residual production cross sections
 
@@ -2744,35 +2730,32 @@ file: ld043100.gs
                  cross section       cross section  ratio
 
    43 100 (100Tc) 5.93856E-01    0    5.93856E-01  1.00000
-   43  99 ( 99Tc) 2.58888E+02    0    2.22041E+02  0.85767
-                                 2    3.68477E+01  0.14233   2.16300E+04 sec. 
-   42  99 ( 99Mo) 2.79877E+01    0    2.79877E+01  1.00000
-   43  98 ( 98Tc) 1.26224E+03    0    1.26224E+03  1.00000
-   42  98 ( 98Mo) 7.78448E+01    0    7.78448E+01  1.00000
-   43  97 ( 97Tc) 1.46038E+02    0    1.34283E+02  0.91950
-                                 1    1.17555E+01  0.08050   7.86200E+06 sec. 
-   42  97 ( 97Mo) 3.04581E+00    0    3.04581E+00  1.00000
-   42  96 ( 96Mo) 7.40673E-03    0    7.40673E-03  1.00000
-   41  96 ( 96Nb) 1.64038E+01    0    1.64038E+01  1.00000
-   41  95 ( 95Nb) 6.18876E+01    0    5.90169E+01  0.95361
-                                 1    2.87066E+00  0.04639   3.11900E+05 sec. 
-   41  94 ( 94Nb) 1.01008E-03    0    6.73413E-04  0.66669
-                                 1    3.36665E-04  0.33331   3.75800E+02 sec. 
-   39  92 ( 92Y ) 1.00000E-07    0    2.11525E-06  0.00000
+   43  99 ( 99Tc) 2.58737E+02    0    2.21941E+02  0.85779
+                                 2    3.67955E+01  0.14221   2.16300E+04 sec. 
+   42  99 ( 99Mo) 2.79618E+01    0    2.79618E+01  1.00000
+   43  98 ( 98Tc) 1.26142E+03    0    1.26142E+03  1.00000
+   42  98 ( 98Mo) 7.78257E+01    0    7.78257E+01  1.00000
+   43  97 ( 97Tc) 1.45984E+02    0    1.34265E+02  0.91972
+                                 1    1.17191E+01  0.08028   7.86200E+06 sec. 
+   42  97 ( 97Mo) 3.03825E+00    0    3.03825E+00  1.00000
+   42  96 ( 96Mo) 7.15200E-03    0    7.15200E-03  1.00000
+   41  96 ( 96Nb) 1.63868E+01    0    1.63868E+01  1.00000
+   41  95 ( 95Nb) 6.18525E+01    0    5.89919E+01  0.95375
+                                 1    2.86053E+00  0.04625   3.11900E+05 sec. 
+   39  92 ( 92Y ) 1.00000E-07    0    2.11180E-06  0.00000
 
    b. Per mass
 
    A  cross section
 
   100 5.93856E-01
-   99 2.86876E+02
-   98 1.34008E+03
-   97 1.49084E+02
-   96 1.64113E+01
-   95 6.18876E+01
-   94 1.01008E-03
+   99 2.86699E+02
+   98 1.33924E+03
+   97 1.49022E+02
+   96 1.63939E+01
+   95 6.18525E+01
 
- Total residual production cross section:  1854.9381104
+ Total residual production cross section:  1853.8039551
  Non-elastic cross section              :  1854.4000244
 
  ########## RESULTS FOR E=  20.00000 ##########
@@ -2814,13 +2797,13 @@ file: ld043100.gs
 
  3. Total particle production cross sections
 
- gamma   = 3.62286E+03    Multiplicity= 1.97045E+00
- neutron = 3.40243E+03    Multiplicity= 1.85056E+00
- proton  = 1.06447E+02    Multiplicity= 5.78957E-02
+ gamma   = 3.61227E+03    Multiplicity= 1.96469E+00
+ neutron = 3.40147E+03    Multiplicity= 1.85003E+00
+ proton  = 1.06447E+02    Multiplicity= 5.78956E-02
  deuteron= 1.79979E+01    Multiplicity= 9.78893E-03
  triton  = 3.86924E+00    Multiplicity= 2.10445E-03
  helium-3= 1.21543E-03    Multiplicity= 6.61065E-07
- alpha   = 9.99488E+01    Multiplicity= 5.43614E-02
+ alpha   = 9.99466E+01    Multiplicity= 5.43601E-02
 
  4. Residual production cross sections
 
@@ -2830,37 +2813,35 @@ file: ld043100.gs
                  cross section       cross section  ratio
 
    43 100 (100Tc) 4.75704E-01    0    4.75704E-01  1.00000
-   43  99 ( 99Tc) 2.45718E+02    0    2.10647E+02  0.85727
-                                 2    3.50703E+01  0.14273   2.16300E+04 sec. 
-   42  99 ( 99Mo) 2.77601E+01    0    2.77601E+01  1.00000
-   43  98 ( 98Tc) 1.10138E+03    0    1.10138E+03  1.00000
-   42  98 ( 98Mo) 9.55942E+01    0    9.55942E+01  1.00000
-   43  97 ( 97Tc) 2.63276E+02    0    2.40252E+02  0.91255
-                                 1    2.30241E+01  0.08745   7.86200E+06 sec. 
-   42  97 ( 97Mo) 4.94783E+00    0    4.94783E+00  1.00000
-   41  97 ( 97Nb) 1.21111E-03    0    6.48787E-04  0.53570
-                                 1    5.62325E-04  0.46430   5.87000E+01 sec. 
-   42  96 ( 96Mo) 5.34601E-02    0    5.34601E-02  1.00000
-   41  96 ( 96Nb) 1.52355E+01    0    1.52355E+01  1.00000
-   41  95 ( 95Nb) 8.46988E+01    0    8.09091E+01  0.95526
-                                 1    3.78969E+00  0.04474   3.11900E+05 sec. 
-   41  94 ( 94Nb) 1.40469E-02    0    9.24105E-03  0.65787
-                                 1    4.80585E-03  0.34213   3.75800E+02 sec. 
-   39  92 ( 92Y ) 1.00000E-07    0    6.21949E-06  0.00000
+   43  99 ( 99Tc) 2.45652E+02    0    2.10604E+02  0.85733
+                                 2    3.50476E+01  0.14267   2.16300E+04 sec. 
+   42  99 ( 99Mo) 2.77443E+01    0    2.77443E+01  1.00000
+   43  98 ( 98Tc) 1.10050E+03    0    1.10050E+03  1.00000
+   42  98 ( 98Mo) 9.55611E+01    0    9.55611E+01  1.00000
+   43  97 ( 97Tc) 2.63172E+02    0    2.40208E+02  0.91274
+                                 1    2.29641E+01  0.08726   7.86200E+06 sec. 
+   42  97 ( 97Mo) 4.93563E+00    0    4.93563E+00  1.00000
+   42  96 ( 96Mo) 5.28773E-02    0    5.28773E-02  1.00000
+   41  96 ( 96Nb) 1.52263E+01    0    1.52263E+01  1.00000
+   41  95 ( 95Nb) 8.46437E+01    0    8.08679E+01  0.95539
+                                 1    3.77580E+00  0.04461   3.11900E+05 sec. 
+   41  94 ( 94Nb) 8.44649E-03    0    5.62136E-03  0.66553
+                                 1    2.82512E-03  0.33447   3.75800E+02 sec. 
+   39  92 ( 92Y ) 1.00000E-07    0    6.21375E-06  0.00000
 
    b. Per mass
 
    A  cross section
 
   100 4.75704E-01
-   99 2.73478E+02
-   98 1.19697E+03
-   97 2.68225E+02
-   96 1.52890E+01
-   95 8.46988E+01
-   94 1.40469E-02
+   99 2.73396E+02
+   98 1.19606E+03
+   97 2.68108E+02
+   96 1.52791E+01
+   95 8.46437E+01
+   94 8.44649E-03
 
- Total residual production cross section:  1839.1540527
+ Total residual production cross section:  1837.9708252
  Non-elastic cross section              :  1838.5999756
 
  ########## EXCITATION FUNCTIONS ###########
@@ -2900,9 +2881,6 @@ file: rp043097.tot
 file: rp043097.L00
 file: rp043097.L01
 file: rp042097.tot
-file: rp041097.tot
-file: rp041097.L00
-file: rp041097.L01
 file: rp042096.tot
 file: rp041096.tot
 file: rp041095.tot
@@ -2913,6 +2891,6 @@ file: rp041094.L00
 file: rp041094.L01
 file: rp039092.tot
 
- Execution time:  0 hours  0 minutes  4.83 seconds 
+ Execution time:  0 hours  0 minutes  4.95 seconds 
 
  The TALYS team congratulates you with this successful calculation.

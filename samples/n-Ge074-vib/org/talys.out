@@ -1,12 +1,12 @@
 
-    TALYS-2.25 (Version: September 20, 2026)
+    TALYS-2.25 (Version: October 20, 2026)
 
  Copyright (C) 2026  A.J. Koning, S. Hilaire and S. Goriely
 
  Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees
 
  User: Arjan Koning
- Date: 2026-09-22
+ Date: 2026-10-20
 
  ########## USER INPUT ##########
 
@@ -65,6 +65,9 @@
  xseps            1.00E-07 xseps        limit for cross sections
  popeps           1.00E-03 popeps       limit for population cross section per nucleus
  Rfiseps          1.00E-03 Rfiseps      ratio for limit for fission cross section per nucleus
+ poprelnuc        1.00E-06 poprelnuc    relative limit for population cross sections
+ poprelE          1.00E-04 poprelE      relative limit for population energy bin compared to largest bin
+ poprelJP         1.00E-03 poprelJP     relative limit for population energy-J-P bin compared to largest bin
  elow             1.00E-06 elow         minimal incident energy for nuclear model calculations
  angles             90     nangle       number of angles
  anglescont         18     nanglecont   number of angles for continuum
@@ -2097,7 +2100,7 @@
                  cross section       cross section  ratio
 
    32  75 ( 75Ge) 6.42490E+00    0    3.42024E+00  0.53234
-                                 2    3.00465E+00  0.46766   4.77000E+01 sec. 
+                                 2    3.00466E+00  0.46766   4.77000E+01 sec. 
    32  74 ( 74Ge) 1.03739E+03    0    1.03739E+03  1.00000
 
    b. Per mass
@@ -3085,7 +3088,7 @@
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   32  75 ( 75Ge) 3.23638E+00    0    1.56921E+00  0.48487
+   32  75 ( 75Ge) 3.23639E+00    0    1.56921E+00  0.48487
                                  2    1.66717E+00  0.51513   4.77000E+01 sec. 
    32  74 ( 74Ge) 2.02087E+03    0    2.02087E+03  1.00000
 
@@ -3093,7 +3096,7 @@
 
    A  cross section
 
-   75 3.23638E+00
+   75 3.23639E+00
    74 2.02087E+03
 
  Total residual production cross section:  2024.1035156
@@ -3154,7 +3157,7 @@
   1   0.59585   2.85695    2.0+   151.43300   173.79741   325.23041    Direct
   2   1.20421   2.24859    2.0+    46.82670   134.69055   181.51726    Direct
   3   1.46376   1.98904    4.0+    25.43610    86.11240   111.54849    Direct
-  4   1.48281   1.96999    0.0+    34.33430    35.65868    69.99298    Direct
+  4   1.48281   1.96999    0.0+    34.33430    35.65867    69.99297    Direct
   5   1.69714   1.75566    3.0+     0.00000   102.69099   102.69099    Preeq 
   6   1.72495   1.72785    0.0+     0.00000    31.29860    31.29860    Preeq 
   7   1.91300   1.53980    0.0+     0.00000    28.22097    28.22097    Preeq 
@@ -3182,10 +3185,10 @@
  29   2.85604   0.59676    0.0+     0.00000     7.77274     7.77274    Preeq 
  30   2.87814   0.57466    5.0-     0.04406     4.59817     4.64223    Direct
                                   ---------   ---------   ---------
- Discrete  Inelastic:             268.59457  1404.00842  1672.60303
- Continuum Inelastic:              13.74399   333.75061   347.49460
+ Discrete  Inelastic:             268.59457  1404.00818  1672.60278
+ Continuum Inelastic:              13.74399   333.75058   347.49457
                                   ---------   ---------   ---------
- Total     Inelastic:             282.33856  1737.75903  2020.09741
+ Total     Inelastic:             282.33856  1737.75879  2020.09741
 
  (n,gn) cross section:     0.76917
 
@@ -3491,7 +3494,7 @@
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   32  75 ( 75Ge) 2.13909E+00    0    9.88761E-01  0.46223
+   32  75 ( 75Ge) 2.13909E+00    0    9.88762E-01  0.46223
                                  2    1.15033E+00  0.53777   4.77000E+01 sec. 
    32  74 ( 74Ge) 2.04518E+03    0    2.04518E+03  1.00000
 
@@ -3589,7 +3592,7 @@
  30   2.87814   1.56114    5.0-     0.13527     5.74319     5.87846    Direct
                                   ---------   ---------   ---------
  Discrete  Inelastic:             279.64713   696.33960   975.98669
- Continuum Inelastic:              51.95744  1016.17902  1068.13647
+ Continuum Inelastic:              51.95744  1016.17896  1068.13635
                                   ---------   ---------   ---------
  Total     Inelastic:             331.60455  1712.51855  2044.12329
 
@@ -3883,7 +3886,7 @@
  3. Total particle production cross sections
 
  gamma   = 1.52926E+03    Multiplicity= 7.80647E-01
- neutron = 1.95750E+03    Multiplicity= 9.99250E-01
+ neutron = 1.95750E+03    Multiplicity= 9.99251E-01
  proton  = 1.09603E-07    Multiplicity= 5.59494E-11
  deuteron= 0.00000E+00    Multiplicity= 0.00000E+00
  triton  = 0.00000E+00    Multiplicity= 0.00000E+00
@@ -3997,7 +4000,7 @@
  Discrete  Inelastic:             275.79965   306.44443   582.24408
  Continuum Inelastic:              84.64378  1289.39661  1374.04041
                                   ---------   ---------   ---------
- Total     Inelastic:             360.44342  1595.84106  1956.28564
+ Total     Inelastic:             360.44342  1595.84106  1956.28577
 
  (n,gn) cross section:     1.21212
 
@@ -4498,7 +4501,7 @@
  Discrete  Inelastic:             268.35873   120.69938   389.05811
  Continuum Inelastic:             116.48848  1371.98438  1488.47290
                                   ---------   ---------   ---------
- Total     Inelastic:             384.84723  1492.68372  1877.53076
+ Total     Inelastic:             384.84723  1492.68372  1877.53101
 
  (n,gn) cross section:     1.28303
 
@@ -4652,7 +4655,7 @@
    31  74 ( 74Ga) 2.19883E-02    0    1.67102E-02  0.75996
                                  2    5.27811E-03  0.24004   9.50000E+00 sec. 
    30  71 ( 71Zn) 9.97959E-03    0    3.33313E-03  0.33400
-                                 1    6.64646E-03  0.66600   1.42600E+04 sec. 
+                                 1    6.64645E-03  0.66600   1.42600E+04 sec. 
 
    b. Per mass
 
@@ -4899,11 +4902,11 @@
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   32  75 ( 75Ge) 7.05419E-01    0    2.99906E-01  0.42515
+   32  75 ( 75Ge) 7.05419E-01    0    2.99907E-01  0.42515
                                  2    4.05513E-01  0.57485   4.77000E+01 sec. 
    32  74 ( 74Ge) 1.81067E+03    0    1.81067E+03  1.00000
-   31  74 ( 74Ga) 1.30003E-01    0    9.27257E-02  0.71326
-                                 2    3.72774E-02  0.28674   9.50000E+00 sec. 
+   31  74 ( 74Ga) 1.30009E-01    0    9.27303E-02  0.71326
+                                 2    3.72789E-02  0.28674   9.50000E+00 sec. 
    30  71 ( 71Zn) 5.19898E-02    0    1.73842E-02  0.33438
                                  1    3.46057E-02  0.66562   1.42600E+04 sec. 
 
@@ -5002,9 +5005,9 @@
  30   2.87814   5.01372    5.0-     0.30517     0.54950     0.85468    Direct
                                   ---------   ---------   ---------
  Discrete  Inelastic:             258.12674    25.34313   283.46988
- Continuum Inelastic:             174.55008  1351.39685  1525.94690
+ Continuum Inelastic:             174.55008  1351.39673  1525.94678
                                   ---------   ---------   ---------
- Total     Inelastic:             432.67682  1376.73999  1809.41785
+ Total     Inelastic:             432.67682  1376.73987  1809.41785
 
  (n,gn) cross section:     1.25129
 
@@ -5155,10 +5158,10 @@
    32  75 ( 75Ge) 6.57074E-01    0    2.95575E-01  0.44983
                                  2    3.61500E-01  0.55017   4.77000E+01 sec. 
    32  74 ( 74Ge) 1.78412E+03    0    1.78412E+03  1.00000
-   31  74 ( 74Ga) 2.77884E-01    0    1.90841E-01  0.68676
-                                 2    8.70430E-02  0.31324   9.50000E+00 sec. 
-   30  71 ( 71Zn) 1.37554E-01    0    4.68760E-02  0.34078
-                                 1    9.06780E-02  0.65922   1.42600E+04 sec. 
+   31  74 ( 74Ga) 2.77888E-01    0    1.90844E-01  0.68677
+                                 2    8.70439E-02  0.31323   9.50000E+00 sec. 
+   30  71 ( 71Zn) 1.37558E-01    0    4.68773E-02  0.34078
+                                 1    9.06810E-02  0.65922   1.42600E+04 sec. 
 
    b. Per mass
 
@@ -5166,7 +5169,7 @@
 
    75 6.57074E-01
    74 1.78440E+03
-   71 1.37554E-01
+   71 1.37558E-01
 
  Total residual production cross section:  1785.1961670
  Non-elastic cross section              :  1785.1806641
@@ -5408,10 +5411,10 @@
    32  75 ( 75Ge) 7.41595E-01    0    3.56768E-01  0.48108
                                  2    3.84828E-01  0.51892   4.77000E+01 sec. 
    32  74 ( 74Ge) 1.75955E+03    0    1.75955E+03  1.00000
-   31  74 ( 74Ga) 6.85890E-01    0    4.82713E-01  0.70377
-                                 2    2.03178E-01  0.29623   9.50000E+00 sec. 
-   30  71 ( 71Zn) 2.15669E-01    0    7.86002E-02  0.36445
-                                 1    1.37069E-01  0.63555   1.42600E+04 sec. 
+   31  74 ( 74Ga) 6.85894E-01    0    4.82715E-01  0.70378
+                                 2    2.03179E-01  0.29622   9.50000E+00 sec. 
+   30  71 ( 71Zn) 2.15673E-01    0    7.86012E-02  0.36445
+                                 1    1.37072E-01  0.63555   1.42600E+04 sec. 
 
    b. Per mass
 
@@ -5419,7 +5422,7 @@
 
    75 7.41595E-01
    74 1.76023E+03
-   71 2.15669E-01
+   71 2.15673E-01
 
  Total residual production cross section:  1761.1883545
  Non-elastic cross section              :  1761.1634521
@@ -5905,6 +5908,6 @@ file: na.L28
 file: na.L29
 file: na.L30
 
- Execution time:  0 hours  0 minutes  3.83 seconds 
+ Execution time:  0 hours  0 minutes  3.93 seconds 
 
  The TALYS team congratulates you with this successful calculation.

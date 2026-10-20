@@ -1,12 +1,12 @@
 
-    TALYS-2.25 (Version: September 20, 2026)
+    TALYS-2.25 (Version: October 20, 2026)
 
  Copyright (C) 2026  A.J. Koning, S. Hilaire and S. Goriely
 
  Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees
 
  User: Arjan Koning
- Date: 2026-09-22
+ Date: 2026-10-20
 
  ########## USER INPUT ##########
 
@@ -71,6 +71,9 @@
  xseps            1.00E-07 xseps        limit for cross sections
  popeps           1.00E-03 popeps       limit for population cross section per nucleus
  Rfiseps          1.00E-03 Rfiseps      ratio for limit for fission cross section per nucleus
+ poprelnuc        1.00E-06 poprelnuc    relative limit for population cross sections
+ poprelE          1.00E-04 poprelE      relative limit for population energy bin compared to largest bin
+ poprelJP         1.00E-03 poprelJP     relative limit for population energy-J-P bin compared to largest bin
  elow             1.00E-06 elow         minimal incident energy for nuclear model calculations
  angles             90     nangle       number of angles
  anglescont         18     nanglecont   number of angles for continuum
@@ -513,11 +516,11 @@
                                                              0     5.00000E-08  0.50000
                                                              2     5.00000E-08  0.50000   6.10200E+01 sec. 
 
- Absorption cross section                 :  5217.42236
+ Absorption cross section                 :  5217.42285
 
- Sum over exclusive channel cross sections:  5217.42236
+ Sum over exclusive channel cross sections:  5217.42285
  (n,gn) + (n,gp) +...(n,ga) cross sections:     0.00000
- Total                                    :  5217.42236
+ Total                                    :  5217.42285
  Non-elastic cross section                :  5217.86328
 
  ########## RESULTS FOR E= 1.00000E-04 ##########
@@ -922,7 +925,7 @@
                  cross section       cross section  ratio
 
    39  90 ( 90Y ) 3.83818E+01    0    3.80961E+01  0.99256
-                                 2    2.85673E-01  0.00744   1.14800E+04 sec. 
+                                 2    2.85674E-01  0.00744   1.14800E+04 sec. 
    37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
                                  2    0.00000E+00  0.00000   6.10200E+01 sec. 
 
@@ -1106,7 +1109,7 @@
 
    90 1.57584E+01
 
- Total residual production cross section:    15.7583733
+ Total residual production cross section:    15.7583742
  Non-elastic cross section              :    16.1135254
 
  6. Exclusive cross sections
@@ -1182,7 +1185,7 @@
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   39  90 ( 90Y ) 9.63640E+00    0    9.52149E+00  0.98808
+   39  90 ( 90Y ) 9.63641E+00    0    9.52149E+00  0.98808
                                  2    1.14912E-01  0.01192   1.14800E+04 sec. 
    37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
                                  2    0.00000E+00  0.00000   6.10200E+01 sec. 
@@ -1532,8 +1535,6 @@
 
    39  90 ( 90Y ) 4.59372E+00    0    4.16182E+00  0.90598
                                  2    4.31900E-01  0.09402   1.14800E+04 sec. 
-   39  89 ( 89Y ) 1.71208E-03    0    1.71208E-03  1.00000
-                                 1    0.00000E+00  0.00000   1.56600E+01 sec. 
    37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
                                  2    0.00000E+00  0.00000   6.10200E+01 sec. 
 
@@ -1542,9 +1543,8 @@
    A  cross section
 
    90 4.59372E+00
-   89 1.71208E-03
 
- Total residual production cross section:     4.5954361
+ Total residual production cross section:     4.5937247
  Non-elastic cross section              :     4.9091797
 
  6. Exclusive cross sections
@@ -1622,8 +1622,6 @@
 
    39  90 ( 90Y ) 4.55162E+00    0    4.11758E+00  0.90464
                                  2    4.34036E-01  0.09536   1.14800E+04 sec. 
-   39  89 ( 89Y ) 1.77101E-03    0    1.77101E-03  1.00000
-                                 1    0.00000E+00  0.00000   1.56600E+01 sec. 
    37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
                                  2    0.00000E+00  0.00000   6.10200E+01 sec. 
 
@@ -1632,9 +1630,8 @@
    A  cross section
 
    90 4.55162E+00
-   89 1.77101E-03
 
- Total residual production cross section:     4.5533900
+ Total residual production cross section:     4.5516191
  Non-elastic cross section              :     4.8569336
 
  6. Exclusive cross sections
@@ -1904,7 +1901,7 @@
    90 3.96487E+00
    89 1.32433E-02
 
- Total residual production cross section:     3.9781144
+ Total residual production cross section:     3.9781146
  Non-elastic cross section              :     4.1242676
 
  6. Exclusive cross sections
@@ -1924,7 +1921,7 @@
 
  Sum over exclusive channel cross sections:     3.96487
  (n,gn) + (n,gp) +...(n,ga) cross sections:     0.01324
- Total                                    :     3.97811
+ Total                                    :     3.97812
  Non-elastic cross section                :     4.12427
 
  ########## RESULTS FOR E=   0.70000 ##########
@@ -1994,7 +1991,7 @@
    90 3.96763E+00
    89 2.33582E-02
 
- Total residual production cross section:     3.9909840
+ Total residual production cross section:     3.9909842
  Non-elastic cross section              :     4.1108398
 
  6. Exclusive cross sections
@@ -2161,7 +2158,7 @@
                  cross section       cross section  ratio
 
    39  90 ( 90Y ) 4.15838E+00    0    3.56896E+00  0.85826
-                                 2    5.89419E-01  0.14174   1.14800E+04 sec. 
+                                 2    5.89420E-01  0.14174   1.14800E+04 sec. 
    39  89 ( 89Y ) 4.85887E-02    0    4.85887E-02  1.00000
                                  1    0.00000E+00  0.00000   1.56600E+01 sec. 
    37  86 ( 86Rb) 1.00000E-07    0    0.00000E+00  0.00000
@@ -2185,7 +2182,7 @@
     n   p   d   t   h   a                                        cross section   ratio
     0   0   0   0   0   0    4.15838E+00  (n,g)                                                     1.00000E+00
                                                              0     3.56896E+00  0.85826
-                                                             2     5.89419E-01  0.14174   1.14800E+04 sec. 
+                                                             2     5.89420E-01  0.14174   1.14800E+04 sec. 
     0   0   0   0   0   1    1.00000E-07  (n,a)                                                     2.40478E-08
                                                              0     5.00000E-08  0.50000
                                                              2     5.00000E-08  0.50000   6.10200E+01 sec. 
@@ -2974,7 +2971,7 @@ file: xs000001.tot
  No Unresolved Region                         MAT Totals   153477    32188
  -------------------------------------------------------------------------------
  ===============================================================================
-      MAT Total Execution Time                0.33 Seconds
+      MAT Total Execution Time                0.32 Seconds
  ===============================================================================
  ------------------------------------------------------------------------------
  All Cross Sections Read. Maximum Tabulated Energy =  100000.000 eV
@@ -2983,6 +2980,6 @@ file: xs000001.tot
                                              Tape Totals   153477    32188
  -------------------------------------------------------------------------------
 
- Execution time:  0 hours  0 minutes  2.11 seconds 
+ Execution time:  0 hours  0 minutes  2.17 seconds 
 
  The TALYS team congratulates you with this successful calculation.

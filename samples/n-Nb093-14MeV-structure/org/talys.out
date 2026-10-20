@@ -1,12 +1,12 @@
 
-    TALYS-2.25 (Version: September 20, 2026)
+    TALYS-2.25 (Version: October 20, 2026)
 
  Copyright (C) 2026  A.J. Koning, S. Hilaire and S. Goriely
 
  Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees
 
  User: Arjan Koning
- Date: 2026-09-22
+ Date: 2026-10-20
 
  ########## USER INPUT ##########
 
@@ -67,6 +67,9 @@
  xseps            1.00E-07 xseps        limit for cross sections
  popeps           1.00E-03 popeps       limit for population cross section per nucleus
  Rfiseps          1.00E-03 Rfiseps      ratio for limit for fission cross section per nucleus
+ poprelnuc        1.00E-06 poprelnuc    relative limit for population cross sections
+ poprelE          1.00E-04 poprelE      relative limit for population energy bin compared to largest bin
+ poprelJP         1.00E-03 poprelJP     relative limit for population energy-J-P bin compared to largest bin
  elow             1.00E-06 elow         minimal incident energy for nuclear model calculations
  angles             90     nangle       number of angles
  anglescont         18     nanglecont   number of angles for continuum
@@ -390,13 +393,13 @@ file: cross_g.tot
 
  3. Total particle production cross sections
 
- gamma   = 1.87466E+03    Multiplicity= 1.05876E+00
- neutron = 3.10692E+03    Multiplicity= 1.75470E+00
+ gamma   = 1.87167E+03    Multiplicity= 1.05706E+00
+ neutron = 3.10644E+03    Multiplicity= 1.75443E+00
  proton  = 4.12504E+01    Multiplicity= 2.32970E-02
  deuteron= 5.22710E+00    Multiplicity= 2.95211E-03
  triton  = 1.74284E-01    Multiplicity= 9.84304E-05
  helium-3= 6.72389E-10    Multiplicity= 3.79746E-13
- alpha   = 2.97038E+01    Multiplicity= 1.67759E-02
+ alpha   = 2.97038E+01    Multiplicity= 1.67758E-02
 
  4. Residual production cross sections
 
@@ -405,32 +408,32 @@ file: cross_g.tot
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   41  94 ( 94Nb) 1.29823E+00    0    5.85461E-01  0.45097
-                                 1    7.12770E-01  0.54903   3.75800E+02 sec. 
-   41  93 ( 93Nb) 2.92279E+02    0    2.51423E+02  0.86022
-                                 1    4.08558E+01  0.13978   5.08700E+08 sec. 
-   40  93 ( 93Zr) 3.08795E+01    0    3.08795E+01  1.00000
-   41  92 ( 92Nb) 1.40090E+03    0    8.33645E+02  0.59508
-                                 1    5.67260E+02  0.40492   8.77000E+05 sec. 
-   40  92 ( 92Zr) 1.56070E+01    0    1.56070E+01  1.00000
-   40  91 ( 91Zr) 1.74284E-01    0    1.74284E-01  1.00000
-   39  90 ( 90Y ) 2.70419E+01    0    1.15791E+01  0.42819
-                                 2    1.54629E+01  0.57181   1.14800E+04 sec. 
-   39  89 ( 89Y ) 2.66189E+00    0    1.24345E+00  0.46713
-                                 1    1.41844E+00  0.53287   1.56600E+01 sec. 
+   41  94 ( 94Nb) 1.29823E+00    0    5.85390E-01  0.45091
+                                 1    7.12841E-01  0.54909   3.75800E+02 sec. 
+   41  93 ( 93Nb) 2.91987E+02    0    2.51208E+02  0.86034
+                                 1    4.07795E+01  0.13966   5.08700E+08 sec. 
+   40  93 ( 93Zr) 3.08724E+01    0    3.08724E+01  1.00000
+   41  92 ( 92Nb) 1.40043E+03    0    8.33505E+02  0.59518
+                                 1    5.66920E+02  0.40482   8.77000E+05 sec. 
+   40  92 ( 92Zr) 1.56061E+01    0    1.56061E+01  1.00000
+   40  91 ( 91Zr) 1.74287E-01    0    1.74287E-01  1.00000
+   39  90 ( 90Y ) 2.70404E+01    0    1.15783E+01  0.42818
+                                 2    1.54621E+01  0.57182   1.14800E+04 sec. 
+   39  89 ( 89Y ) 2.66011E+00    0    1.24308E+00  0.46731
+                                 1    1.41702E+00  0.53269   1.56600E+01 sec. 
 
    b. Per mass
 
    A  cross section
 
    94 1.29823E+00
-   93 3.23158E+02
-   92 1.41651E+03
-   91 1.74284E-01
-   90 2.70419E+01
-   89 2.66189E+00
+   93 3.22859E+02
+   92 1.41603E+03
+   91 1.74287E-01
+   90 2.70404E+01
+   89 2.66011E+00
 
- Total residual production cross section:  1770.8465576
+ Total residual production cross section:  1770.0639648
  Non-elastic cross section              :  1770.6293945
 
  Execution time:  0 hours  0 minutes  0.48 seconds 

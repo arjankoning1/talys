@@ -1,12 +1,12 @@
 
-    TALYS-2.25 (Version: September 20, 2026)
+    TALYS-2.25 (Version: October 20, 2026)
 
  Copyright (C) 2026  A.J. Koning, S. Hilaire and S. Goriely
 
  Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees
 
  User: Arjan Koning
- Date: 2026-09-22
+ Date: 2026-10-20
 
  ########## USER INPUT ##########
 
@@ -68,6 +68,9 @@
  xseps            1.00E-07 xseps        limit for cross sections
  popeps           1.00E-03 popeps       limit for population cross section per nucleus
  Rfiseps          1.00E-03 Rfiseps      ratio for limit for fission cross section per nucleus
+ poprelnuc        1.00E-06 poprelnuc    relative limit for population cross sections
+ poprelE          1.00E-04 poprelE      relative limit for population energy bin compared to largest bin
+ poprelJP         1.00E-03 poprelJP     relative limit for population energy-J-P bin compared to largest bin
  elow             1.00E-06 elow         minimal incident energy for nuclear model calculations
  angles             90     nangle       number of angles
  anglescont         18     nanglecont   number of angles for continuum
@@ -388,20 +391,16 @@
                  cross section       cross section  ratio
 
    76 188 (188Os) 2.49782E+03    0    2.49782E+03  1.00000
-   76 187 (187Os) 1.17136E-02    0    1.17136E-02  1.00000
    75 187 (187Re) 1.00000E-07    0    0.00000E+00  0.00000
    74 184 (184W ) 1.00000E-07    0    0.00000E+00  0.00000
-   74 183 (183W ) 1.00000E-07    0    0.00000E+00  0.00000
-                                 7    0.00000E+00  0.00000   5.30000E+00 sec. 
 
    b. Per mass
 
    A  cross section
 
   188 2.49782E+03
-  187 1.17136E-02
 
- Total residual production cross section:  2497.8332520
+ Total residual production cross section:  2497.8215332
  Non-elastic cross section              :  2498.1132812
 
  6. Exclusive cross sections
@@ -414,8 +413,6 @@
     0   1   0   0   0   0    1.00000E-07  (n,p)                                                     4.00349E-11
     0   0   0   0   0   1    1.00000E-07  (n,a)                                                     4.00349E-11
     1   0   0   0   0   1    1.00000E-07  (n,na)                                                    4.00349E-11
-                                                             0     5.00000E-08  0.50000
-                                                             7     5.00000E-08  0.50000   5.30000E+00 sec. 
     0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    4.00349E-11
     0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    4.00349E-11
     1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   4.00349E-11
@@ -603,7 +600,7 @@
 
      Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
     n   p   d   t   h   a                                        cross section   ratio
-    0   0   0   0   0   0    9.55710E+02  (n,g)                                                     4.32846E-01
+    0   0   0   0   0   0    9.55710E+02  (n,g)                                                     4.32847E-01
     1   0   0   0   0   0    1.25225E+03  (n,n')                                                    5.67153E-01
     0   1   0   0   0   0    1.00000E-07  (n,p)                                                     4.52906E-11
     0   0   0   0   0   1    1.00000E-07  (n,a)                                                     4.52906E-11
@@ -617,7 +614,7 @@
     0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    4.52906E-11
     1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   4.52906E-11
 
- Absorption cross section                 :   955.70984
+ Absorption cross section                 :   955.70996
 
  Sum over exclusive channel cross sections:  2207.96484
  (n,gn) + (n,gp) +...(n,ga) cross sections:     0.01538
@@ -714,7 +711,7 @@
     0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    5.23875E-11
     1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   5.23875E-11
 
- Absorption cross section                 :   759.30328
+ Absorption cross section                 :   759.30334
 
  Sum over exclusive channel cross sections:  1908.85132
  (n,gn) + (n,gp) +...(n,ga) cross sections:     0.01549
@@ -908,11 +905,11 @@
     0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    6.28583E-11
     1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   6.28583E-11
 
- Absorption cross section                 :   577.18024
+ Absorption cross section                 :   577.18018
 
- Sum over exclusive channel cross sections:  1590.87903
+ Sum over exclusive channel cross sections:  1590.87891
  (n,gn) + (n,gp) +...(n,ga) cross sections:     0.01459
- Total                                    :  1590.89368
+ Total                                    :  1590.89355
  Non-elastic cross section                :  1590.97900
 
  ########## RESULTS FOR E=   0.06000 ##########
@@ -1575,23 +1572,23 @@
     n   p   d   t   h   a                                        cross section   ratio
     0   0   0   0   0   0    2.64604E+02  (n,g)                                                     1.51987E-01
     1   0   0   0   0   0    1.47636E+03  (n,n')                                                    8.48013E-01
-    0   1   0   0   0   0    1.00000E-07  (n,p)                                                     5.74393E-11
-    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     5.74393E-11
-    1   0   0   0   0   1    1.00000E-07  (n,na)                                                    5.74393E-11
+    0   1   0   0   0   0    1.00000E-07  (n,p)                                                     5.74394E-11
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     5.74394E-11
+    1   0   0   0   0   1    1.00000E-07  (n,na)                                                    5.74394E-11
                                                              0     5.00000E-08  0.50000
                                                              7     5.00000E-08  0.50000   5.30000E+00 sec. 
-    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    5.74393E-11
-    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    5.74393E-11
-    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   5.74393E-11
-    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   5.74393E-11
-    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    5.74393E-11
-    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   5.74393E-11
+    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    5.74394E-11
+    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    5.74394E-11
+    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   5.74394E-11
+    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   5.74394E-11
+    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    5.74394E-11
+    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   5.74394E-11
 
- Absorption cross section                 :   264.60370
+ Absorption cross section                 :   264.60367
 
- Sum over exclusive channel cross sections:  1740.96680
+ Sum over exclusive channel cross sections:  1740.96667
  (n,gn) + (n,gp) +...(n,ga) cross sections:     0.01417
- Total                                    :  1740.98096
+ Total                                    :  1740.98083
  Non-elastic cross section                :  1741.01221
 
  ########## RESULTS FOR E=   0.16000 ##########
@@ -1878,7 +1875,7 @@
     0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    5.15504E-11
     1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   5.15504E-11
 
- Absorption cross section                 :   197.58447
+ Absorption cross section                 :   197.58444
 
  Sum over exclusive channel cross sections:  1939.84827
  (n,gn) + (n,gp) +...(n,ga) cross sections:     0.08585
@@ -2169,7 +2166,7 @@
     0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    4.06571E-11
     1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   4.06571E-11
 
- Absorption cross section                 :   134.23062
+ Absorption cross section                 :   134.23064
 
  Sum over exclusive channel cross sections:  2459.59424
  (n,gn) + (n,gp) +...(n,ga) cross sections:     0.27430
@@ -2363,7 +2360,7 @@
     0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.58663E-11
     1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.58663E-11
 
- Absorption cross section                 :   109.73638
+ Absorption cross section                 :   109.73637
 
  Sum over exclusive channel cross sections:  2788.13574
  (n,gn) + (n,gp) +...(n,ga) cross sections:     0.63345
@@ -2418,6 +2415,6 @@ file: xs010002.tot
 file: xs000003.tot
 file: xs100003.tot
 
- Execution time:  0 hours  0 minutes  2.78 seconds 
+ Execution time:  0 hours  0 minutes  2.99 seconds 
 
  The TALYS team congratulates you with this successful calculation.
