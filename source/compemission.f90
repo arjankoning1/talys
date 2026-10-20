@@ -308,6 +308,7 @@ Loop1:    do type = 0, 6
           sumweight = sumweight + weight(nen)
         enddo
 !
+! Correction by GuySten.
 ! If the emission energy grid is coarser than the bin, all interpolated weights can vanish.
 ! The flux is then distributed according to the overlap of [emin,emax] with the emission bins.
 !

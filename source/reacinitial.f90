@@ -352,6 +352,8 @@ subroutine reacinitial
   if (allocated(Ex))          deallocate(Ex)
   if (allocated(rhogrid))     deallocate(rhogrid)
 
+! allocate(pop(Zix,Nix)%xspop(0:numJ,-1:1,0:nexalloc))
+! allocate(pop(Zix,Nix)%xspopex(0:nexalloc))
   allocate(xspop(0:numJ,-1:1,0:nexalloc,0:numN,0:numZ))
   allocate(xspopex(0:nexalloc,0:numN,0:numZ))
   allocate(xspopexP(0:nexalloc,-1:1,0:numN,0:numZ))

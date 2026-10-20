@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2025-12-30: Original code
-! 2026-10-04: Current version
+! 2026-10-20: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -1499,6 +1499,15 @@ module A0_talys_mod
   real(sgl)                                               :: xsreacinc    ! reaction cross section for incident channel
   real(sgl)                                               :: xsresprod    ! total residual production (= reaction) cross section
   real(sgl)                                               :: xstotinc     ! total cross section (neutrons only) for incident channel
+! type nucleus_population_type
+!   real(dbl), allocatable :: xspop(:,:,:)
+!   real(dbl), allocatable :: xspopex(:)
+!   real(dbl), allocatable :: xspopexP(:,:)
+!   real(sgl), allocatable :: preeqpop(:,:,:)
+!   real(sgl), allocatable :: preeqpopex(:)
+!   real(sgl), allocatable :: fisfeedJP(:,:,:)
+! end type
+! type(nucleus_population_type), allocatable :: pop(:,:)
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
 ! Variables for excitation energy grid
@@ -1512,7 +1521,7 @@ module A0_talys_mod
   real(sgl), dimension(0:numZ, 0:numN)                      :: Exmax     ! maximum excitation energy for excited nucleus
   real(sgl), dimension(0:numZ, 0:numN)                      :: Exmax0    ! maximum excitation energy (inc. negative energies)
   real(sgl), allocatable                                    :: fisfeedJP(:,:,:,:,:) ! fission contribution from excitation energy bin per J, P
-  real(dbl), allocatable                                    :: rhogrid(:,:,:,:,:)   ! integrated level density
+  real(sgl), allocatable                                    :: rhogrid(:,:,:,:,:)   ! integrated level density
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
 ! Variables for recoil initialization
