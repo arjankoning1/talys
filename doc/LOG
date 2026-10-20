@@ -88,3 +88,11 @@ the total RAM that TALYS takes.
 - October 1 2026
 
 Corrected a bug found by Andrew Ratkiewicz in Kalbach breakup model
+
+- October 7 2026
+
+Introduced keywords poprelnuc, poprelE, poprelJP to discard 
+Hauser-Feshbach contributions from insignificant bins.
+Changed multiple.f90 for this, before we go into Ex,J,Pi loops
+we first determine the insignificant contributions. Later corrected
+by GuySten and Claude.
