@@ -311,6 +311,10 @@ subroutine inputout
   write(*, '(" xseps           ", es9.2, " xseps        limit for cross sections")') xseps
   write(*, '(" popeps          ", es9.2, " popeps       limit for population cross section per nucleus")') popeps
   write(*, '(" Rfiseps         ", es9.2, " Rfiseps      ratio for limit for fission cross section per nucleus")') Rfiseps
+  write(*, '(" poprelnuc       ", es9.2, " poprelnuc    relative limit for population cross sections")') poprelnuc
+  write(*, '(" poprelE         ", es9.2, " poprelE      relative limit for population energy bin compared to largest bin")') poprelE
+  write(*, '(" poprelJP        ", es9.2, " poprelJP     relative limit for population energy-J-P bin compared to largest bin")') &
+ &  poprelJP
   write(*, '(" elow            ", es9.2, " elow         minimal incident energy for nuclear model calculations")') eninclow
   write(*, '(" angles            ", i3, "     nangle       number of angles")') nangle
   write(*, '(" anglescont        ", i3, "     nanglecont   number of angles for continuum")') nanglecont
