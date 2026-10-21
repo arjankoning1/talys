@@ -349,13 +349,14 @@ subroutine reacinitial
   if (allocated(maxJ))        deallocate(maxJ)
   if (allocated(deltaEx))     deallocate(deltaEx)
   if (allocated(Ex))          deallocate(Ex)
-  if (allocated(rhogrid))     deallocate(rhogrid)
 
   allocate(pop(0:numZ,0:numN))
   do Nix = 0, numN
     do Zix = 0, numZ
       allocate(pop(Zix,Nix)%xspop(0:numJ,-1:1,0:nexalloc))
       pop(Zix,Nix)%xspop = 0.d0
+      allocate(pop(Zix,Nix)%rhogrid(0:numJ,-1:1,0:nexalloc))
+      pop(Zix,Nix)%rhogrid = 0.d0
       allocate(pop(Zix,Nix)%xspopex(0:nexalloc))
       allocate(pop(Zix,Nix)%xspopexP(0:nexalloc,-1:1))
       allocate(pop(Zix,Nix)%preeqpopex(0:nexalloc))
@@ -379,13 +380,11 @@ subroutine reacinitial
   allocate(deltaEx(0:nexalloc,0:numN,0:numZ))
   allocate(Ex(0:nexalloc+1,0:numN,0:numZ))
 
-  allocate(rhogrid(0:numJ,-1:1,0:nexalloc,0:numN,0:numZ))
 
   popdecay   = 0.d0
   maxJ       = numJ
   deltaEx    = 0.
   Ex         = 0.
-  rhogrid    = 0.d0
   if (allocated(feedexcl)) deallocate(feedexcl)
   if (flagchannels) then
     allocate(feedexcl(0:min(maxZ,numZchan),0:min(maxN,numNchan),0:numpar,0:nexalloc+1,0:nexalloc+1))
