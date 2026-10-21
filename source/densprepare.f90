@@ -280,7 +280,7 @@ subroutine densprepare(Zcomp, Ncomp, idfis)
 !
         do Pprime = - 1, 1, 2
           do Ir = 0, maxJ(nexout, Nix, Zix)
-            rho0(Ir, Pprime, type, nexout) = Rboundary * rhogrid(Ir, Pprime, nexout, Nix, Zix)
+            rho0(Ir, Pprime, type, nexout) = Rboundary * pop(Zix,Nix)%rhogrid(Ir, Pprime, nexout)
           enddo
         enddo
       endif
