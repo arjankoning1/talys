@@ -175,6 +175,7 @@ subroutine massdis
   integer            :: in                                          ! counter for neutrons
   integer            :: iskip                                       ! help variable
   integer            :: istep                                       ! help variable
+  integer            :: Jend ! maximum spin for fission population
   integer            :: iz                                          ! charge number of residual nucleus
   integer            :: inH                                         !
   integer            :: inL                                         !
@@ -400,8 +401,11 @@ subroutine massdis
 ! GEF + TALYS evaporation
 !
           if (fymodel == 3 .and. A <= 350) then
-            fisepsB = fisepsA / (5 * maxJ(nex, Ncomp, Zcomp)) * 0.5
-            do J = 0, maxJ(nex, Ncomp, Zcomp)
+! The entrance-channel population occupies an extra bin absent from maxJ.
+            Jend = numJ
+            if (nex <= maxex(Zcomp, Ncomp)) Jend = maxJ(nex, Ncomp, Zcomp)
+            fisepsB = fisepsA / (5 * max(Jend, 1)) * 0.5
+            do J = 0, Jend
               if (partfisJ(J) < fisepsB) cycle
               Jfis = real(J) + 0.5 * odd
               call gefsub(Z, A, excfis, Jfis)
