@@ -278,11 +278,11 @@ subroutine exgrid(Zcomp, Ncomp)
           r2log = log(rho2)
           r3log = log(rho3)
           if (r2log /= r1log .and. r2log /= r3log) then
-            rhogrid(Ir, Pprime, nex, Nix, Zix) = 0.5 * dEx * ((rho1 - rho2) / (r1log - r2log) + (rho2 - rho3) / (r2log - r3log))
+            pop(Zix,Nix)%rhogrid(Ir, Pprime, nex) = 0.5 * dEx * ((rho1 - rho2) / (r1log - r2log) + (rho2 - rho3) / (r2log - r3log))
           else
-            rhogrid(Ir, Pprime, nex, Nix, Zix) = dEx * rho2
+            pop(Zix,Nix)%rhogrid(Ir, Pprime, nex) = dEx * rho2
           endif
-          if ( .not. flagparity) rhogrid(Ir, - 1, nex, Nix, Zix) = rhogrid(Ir, 1, nex, Nix, Zix)
+          if ( .not. flagparity) pop(Zix,Nix)%rhogrid(Ir, - 1, nex) = pop(Zix,Nix)%rhogrid(Ir, 1, nex)
         enddo
       enddo
     enddo
