@@ -49,13 +49,13 @@ subroutine residualBU
       do nex = 0, Nlast(Zcomp, Ncomp, 0)
         branch(nex) = 0.
         if (nex == 0 .or. tau(Zcomp, Ncomp, nex) /= 0.) then
-          branch(nex) = xspopex(nex, Ncomp, Zcomp) / xspopnuc(Zcomp, Ncomp)
+          branch(nex) = pop(Zcomp,Ncomp)%xspopex(nex) / xspopnuc(Zcomp, Ncomp)
         endif
       enddo
       xspopnuc(Zcomp, Ncomp) = xspopnuc(Zcomp, Ncomp) + xsBFnuc(Zcomp, Ncomp)
       do nex = 0, Nlast(Zcomp, Ncomp, 0)
         if (nex == 0 .or. tau(Zcomp, Ncomp, nex) /= 0.) then
-          xspopex(nex, Ncomp, Zcomp) = branch(nex) * xspopnuc(Zcomp, Ncomp)
+          pop(Zcomp,Ncomp)%xspopex(nex) = branch(nex) * xspopnuc(Zcomp, Ncomp)
         endif
       enddo
     enddo

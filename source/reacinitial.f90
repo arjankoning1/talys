@@ -326,6 +326,8 @@ subroutine reacinitial
 ! *** Declaration of local data
 !
   implicit none
+  integer :: Nix
+  integer :: Zix
 !
 ! *************** Initialization of primary reaction *******************
 !
@@ -342,24 +344,36 @@ subroutine reacinitial
 !
 ! Recreate excitation-energy dependent arrays for this incident energy
 !
-  if (allocated(xspop))       deallocate(xspop)
-  if (allocated(xspopex))     deallocate(xspopex)
-  if (allocated(xspopexP))    deallocate(xspopexP)
+  if (allocated(pop))         deallocate(pop)
   if (allocated(popdecay))    deallocate(popdecay)
-  if (allocated(preeqpopex))  deallocate(preeqpopex)
   if (allocated(maxJ))        deallocate(maxJ)
   if (allocated(deltaEx))     deallocate(deltaEx)
   if (allocated(Ex))          deallocate(Ex)
   if (allocated(rhogrid))     deallocate(rhogrid)
 
-! allocate(pop(Zix,Nix)%xspop(0:numJ,-1:1,0:nexalloc))
-! allocate(pop(Zix,Nix)%xspopex(0:nexalloc))
-  allocate(xspop(0:numJ,-1:1,0:nexalloc,0:numN,0:numZ))
-  allocate(xspopex(0:nexalloc,0:numN,0:numZ))
-  allocate(xspopexP(0:nexalloc,-1:1,0:numN,0:numZ))
+  allocate(pop(0:numZ,0:numN))
+  do Nix = 0, numN
+    do Zix = 0, numZ
+      allocate(pop(Zix,Nix)%xspop(0:numJ,-1:1,0:nexalloc))
+      pop(Zix,Nix)%xspop = 0.d0
+      allocate(pop(Zix,Nix)%xspopex(0:nexalloc))
+      allocate(pop(Zix,Nix)%xspopexP(0:nexalloc,-1:1))
+      allocate(pop(Zix,Nix)%preeqpopex(0:nexalloc))
+      pop(Zix,Nix)%xspopex = 0.d0
+      pop(Zix,Nix)%xspopexP = 0.d0
+      pop(Zix,Nix)%preeqpopex = 0.
+      if (flagpreeq .and. Zix <= numZph .and. Nix <= numNph) then
+        allocate(pop(Zix,Nix)%preeqpop(0:numJ,-1:1,0:nexalloc))
+        pop(Zix,Nix)%preeqpop = 0.
+      endif
+      if (flagfission .and. Zix <= maxZ .and. Nix <= maxN) then
+        allocate(pop(Zix,Nix)%fisfeedJP(0:nexalloc+1,0:numJ,-1:1))
+        pop(Zix,Nix)%fisfeedJP = 0.
+      endif
+    enddo
+  enddo
 
   allocate(popdecay(0:numJ,-1:1,0:nexalloc,-1:numpar))
-  allocate(preeqpopex(0:nexalloc,0:numN,0:numZ))
 
   allocate(maxJ(0:nexalloc,0:numN,0:numZ))
   allocate(deltaEx(0:nexalloc,0:numN,0:numZ))
@@ -367,11 +381,7 @@ subroutine reacinitial
 
   allocate(rhogrid(0:numJ,-1:1,0:nexalloc,0:numN,0:numZ))
 
-  xspop      = 0.d0
-  xspopex    = 0.d0
-  xspopexP   = 0.d0
   popdecay   = 0.d0
-  preeqpopex = 0.
   maxJ       = numJ
   deltaEx    = 0.
   Ex         = 0.
@@ -381,22 +391,12 @@ subroutine reacinitial
     allocate(feedexcl(0:min(maxZ,numZchan),0:min(maxN,numNchan),0:numpar,0:nexalloc+1,0:nexalloc+1))
     feedexcl = 0.
   endif
-  if (flagpreeq) then
-    if (allocated(preeqpop)) deallocate(preeqpop)
-    allocate(preeqpop(0:numJ,-1:1,0:nexalloc,0:numN,0:numZ))
-    preeqpop = 0.
-  endif
   if (flagrecoil) then
     if (allocated(ddxrec)) deallocate(ddxrec)
     allocate(ddxrec(0:maxZ+2,0:maxN+2,0:nexalloc,0:maxenrec,0:nanglerec))
     ddxrec = 0.
   endif
-  if (flagfission) then
-    if (allocated(fisfeedJP)) deallocate(fisfeedJP)
-    allocate(fisfeedJP(0:maxZ,0:maxN,0:nexalloc+1,0:numJ,-1:1))
-    fisfeedJP = 0.
-  endif
-if (allocated(Dmulti))     deallocate(Dmulti)
+  if (allocated(Dmulti))     deallocate(Dmulti)
   if (allocated(fisfeedex))  deallocate(fisfeedex)
   if (allocated(mcontrib))   deallocate(mcontrib)
   if (allocated(mpecontrib)) deallocate(mpecontrib)

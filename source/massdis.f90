@@ -330,7 +330,7 @@ subroutine massdis
           do J = 0, numJ
             partfisJ(J) = 0.
             do parity = - 1, 1, 2
-              partfisJ(J) = partfisJ(J) + fisfeedJP(Zcomp, Ncomp, nex, J, parity)
+              partfisJ(J) = partfisJ(J) + pop(Zcomp,Ncomp)%fisfeedJP(nex, J, parity)
             enddo
           enddo
         else
@@ -348,7 +348,7 @@ subroutine massdis
               partfisxs = partfisxs + fisfeedex(Zcomp, Ncomp, nex - i)
               do J = 0, numJ
                 do parity = - 1, 1, 2
-                  partfisJ(J) = partfisJ(J) + fisfeedJP(Zcomp, Ncomp, nex - i, J, parity)
+                  partfisJ(J) = partfisJ(J) + pop(Zcomp,Ncomp)%fisfeedJP(nex - i, J, parity)
                 enddo
               enddo
             enddo
@@ -366,7 +366,7 @@ subroutine massdis
             do J = 0, numJ
               partfisJ(J) = 0.
               do parity = - 1, 1, 2
-                partfisJ(J) = partfisJ(J) + fisfeedJP(Zcomp, Ncomp, nex, J, parity)
+                partfisJ(J) = partfisJ(J) + pop(Zcomp,Ncomp)%fisfeedJP(nex, J, parity)
               enddo
             enddo
           endif

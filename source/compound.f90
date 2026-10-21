@@ -372,10 +372,10 @@ subroutine compound(Zcomp, Ncomp, nex, J2, parity)
             do Irspin2 = Irspin2beg, Irspin2end, 2
               Ir = Irspin2 / 2
               factor = real(feed * enumhf(Ir, Pprime, type, nexout))
-              xspop(Ir, Pprime, nexout, Nix, Zix) = xspop(Ir, Pprime, nexout, Nix, Zix) + factor
+              pop(Zix,Nix)%xspop(Ir, Pprime, nexout) = pop(Zix,Nix)%xspop(Ir, Pprime, nexout) + factor
               if (flagpop) then
                 xspopnucP(Pprime, Nix, Zix) = xspopnucP(Pprime, Nix, Zix) + factor
-                xspopexP(nexout, Pprime, Nix, Zix) = xspopexP(nexout, Pprime, Nix, Zix) + factor
+                pop(Zix,Nix)%xspopexP(nexout, Pprime) = pop(Zix,Nix)%xspopexP(nexout, Pprime) + factor
                 popdecay(Ir, Pprime, nexout, type) = popdecay(Ir, Pprime, nexout, type) + factor
                 partdecay(Pprime, type) = partdecay(Pprime, type) + factor
                 partdecaytot(type) = partdecaytot(type) + factor
@@ -383,8 +383,8 @@ subroutine compound(Zcomp, Ncomp, nex, J2, parity)
               sumIP = sumIP + factor
             enddo
           enddo
-          xspopex(nexout, Nix, Zix) = xspopex(nexout, Nix, Zix) + sumIP
-          xspopex(nex, Ncomp, Zcomp) = xspopex(nex, Ncomp, Zcomp) - sumIP
+          pop(Zix,Nix)%xspopex(nexout) = pop(Zix,Nix)%xspopex(nexout) + sumIP
+          pop(Zcomp,Ncomp)%xspopex(nex) = pop(Zcomp,Ncomp)%xspopex(nex) - sumIP
           mcontrib(type, nex, nexout) = mcontrib(type, nex, nexout) + sumIP
           sumIPE = sumIPE + sumIP
         endif
@@ -396,13 +396,13 @@ subroutine compound(Zcomp, Ncomp, nex, J2, parity)
       endif
     enddo
     if (flagfission .and. nfisbar(Zcomp, Ncomp) /= 0 .and. iloop == 2) &
-  &   xspopex(nex, Ncomp, Zcomp) = xspopex(nex, Ncomp, Zcomp) - fisfeed
+  &   pop(Zcomp,Ncomp)%xspopex(nex) = pop(Zcomp,Ncomp)%xspopex(nex) - fisfeed
 !
 ! ** Create feeding term for compound nucleus decay in the second loop *
 !
     if (iloop == 1) then
       if (denomhf /= 0.) then
-        feed = (1. - Dmulti(nex)) * xspop(J, parity, nex, Ncomp, Zcomp) / denomhf
+        feed = (1. - Dmulti(nex)) * pop(Zcomp,Ncomp)%xspop(J, parity, nex) / denomhf
       else
 !
 ! Prevent trapping of cross section in the continuum.
@@ -410,13 +410,13 @@ subroutine compound(Zcomp, Ncomp, nex, J2, parity)
 !
         NL = Nlast(Zcomp, Ncomp, 0)
         feed = 0.
-        leftover = xspop(J, parity, nex, Ncomp, Zcomp) / (NL + 1.)
-        xspartial(0, nex) = xspartial(0, nex) + xspop(J, parity, nex, Ncomp, Zcomp)
+        leftover = pop(Zcomp,Ncomp)%xspop(J, parity, nex) / (NL + 1.)
+        xspartial(0, nex) = xspartial(0, nex) + pop(Zcomp,Ncomp)%xspop(J, parity, nex)
         do nexout = 0, NL
-          xspopex(nexout, Ncomp, Zcomp) = xspopex(nexout, Ncomp, Zcomp) + leftover
+          pop(Zcomp,Ncomp)%xspopex(nexout) = pop(Zcomp,Ncomp)%xspopex(nexout) + leftover
           Ir = int(jdis(Zcomp, Ncomp, nexout))
           Pprime = parlev(Zcomp, Ncomp, nexout)
-          xspop(Ir, Pprime, nexout, Ncomp, Zcomp) = xspop(Ir, Pprime, nexout, Ncomp, Zcomp) + leftover
+          pop(Zcomp,Ncomp)%xspop(Ir, Pprime, nexout) = pop(Zcomp,Ncomp)%xspop(Ir, Pprime, nexout) + leftover
           popdecay(Ir, Pprime, nexout, 0) = popdecay(Ir, Pprime, nexout, 0) + leftover
           mcontrib(0, nex, nexout) = mcontrib(0, nex, nexout) + leftover
         enddo

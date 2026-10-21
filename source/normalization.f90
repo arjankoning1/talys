@@ -315,7 +315,7 @@ subroutine normalization
           xsdifgs = xschaniso(idc, 0) * (ratiogs - 1.)
           xschaniso(idc, 0) = xschaniso(idc, 0) * ratiogs
           R = 1. + (ratioiso - 1.) * xsfrac
-          xspopex(0, Nix, Zix) = xspopex(0, Nix, Zix) * R
+          pop(Zix,Nix)%xspopex(0) = pop(Zix,Nix)%xspopex(0) * R
         endif
 !
 ! Normalize isomer
@@ -328,7 +328,7 @@ subroutine normalization
                 xsdifiso = xschaniso(idc, i1) * (ratioiso - 1.)
                 xschaniso(idc, i1) = xschaniso(idc, i1) * ratioiso
                 R = 1. + (ratioiso - 1.) * xsfrac
-                xspopex(i1, Nix, Zix) = xspopex(i1, Nix, Zix) * R
+                pop(Zix,Nix)%xspopex(i1) = pop(Zix,Nix)%xspopex(i1) * R
               endif
               iiso = i1
               exit
@@ -343,7 +343,7 @@ subroutine normalization
           if (Crescue(mt, 1) == 1.) then
             if (Crescue(mt, 0) /= 1.) then
               xschaniso(idc, iiso) = max(xschannel(idc) - xschaniso(idc, 0), 0.)
-              xspopex(iiso, Nix, Zix) = max(xspopnuc(Zix, Nix) - xspopex(0, Nix, Zix), 0.d0)
+              pop(Zix,Nix)%xspopex(iiso) = max(xspopnuc(Zix, Nix) - pop(Zix,Nix)%xspopex(0), 0.d0)
             else
               if (Crescue(mt, - 1) /= 1.) then
                 xsdif = xschannel(idc) * (ratio - 1.)
@@ -351,7 +351,7 @@ subroutine normalization
                 xspopnuc(Zix, Nix) = xspopnuc(Zix, Nix) * R
                 do i1 = 0, numlev
                   xschaniso(idc, i1) = xschaniso(idc, i1) * ratio
-                  xspopex(i1, Nix, Zix) = xspopex(i1, Nix, Zix) * R
+                  pop(Zix,Nix)%xspopex(i1) = pop(Zix,Nix)%xspopex(i1) * R
                 enddo
                 if (flagcompo) then
                   xspopdir(Zix, Nix) = xspopdir(Zix, Nix) * R
@@ -383,7 +383,7 @@ subroutine normalization
                 endif
               endif
               xschaniso(idc, 0) = max(xschannel(idc) - xschaniso(idc, iiso), 0.)
-              xspopex(0, Nix, Zix) = xspopex(0, Nix, Zix) * R
+              pop(Zix,Nix)%xspopex(0) = pop(Zix,Nix)%xspopex(0) * R
             endif
           endif
         endif

@@ -201,16 +201,16 @@ subroutine binary
         J = int(jdis(Zix, Nix, nex))
         parity = parlev(Zix, Nix, nex)
         term = xsdirdisc(type,nex)
-        xspop(J, parity, nex, Nix, Zix) = xspop(J, parity, nex, Nix, Zix) + term
-        xspopex(nex, Nix, Zix) = xspopex(nex, Nix, Zix) + term
+        pop(Zix,Nix)%xspop(J, parity, nex) = pop(Zix,Nix)%xspop(J, parity, nex) + term
+        pop(Zix,Nix)%xspopex(nex) = pop(Zix,Nix)%xspopex(nex) + term
         if (flagpop) then
           xspopnucP(parity, Nix, Zix) = xspopnucP(parity, Nix, Zix) + term
-          xspopexP(nex, parity, Nix, Zix) = xspopexP(nex, parity, Nix, Zix) + term
+          pop(Zix,Nix)%xspopexP(nex, parity) = pop(Zix,Nix)%xspopexP(nex, parity) + term
           popdecay(J, parity, nex, type) = popdecay(J, parity, nex, type) + term
           partdecay(parity, type) = partdecay(parity, type) + term
         endif
       endif
-      xspopex0(type, nex) = xspopex(nex, Nix, Zix)
+      xspopex0(type, nex) = pop(Zix,Nix)%xspopex(nex)
     enddo
     xspopdir(Zix, Nix) = xsdirdisctot(type)
     xsbinary(type) = xsbinary(type) + xsdirdisctot(type)
@@ -230,26 +230,26 @@ subroutine binary
           do parity = - 1, 1, 2
             do J = 0, maxJph
               sfactor = 0.
-              if (xspopex(nex, Nix, Zix) > popepsA) sfactor = xspop(J, parity, nex, Nix, Zix) / xspopex(nex, Nix, Zix)
+              if (pop(Zix,Nix)%xspopex(nex) > popepsA) sfactor = pop(Zix,Nix)%xspop(J, parity, nex) / pop(Zix,Nix)%xspopex(nex)
               if (pespinmodel == 1 .and. sfactor > 0.) then
-                preeqpop(J, parity, nex, Nix, Zix) = sfactor * preeqpopex(nex, Nix, Zix)
+                pop(Zix,Nix)%preeqpop(J, parity, nex) = sfactor * pop(Zix,Nix)%preeqpopex(nex)
               else
                 factor = spindis(sc,real(J)) * pardis
-                preeqpop(J, parity, nex, Nix, Zix) = factor * preeqpopex(nex, Nix, Zix)
+                pop(Zix,Nix)%preeqpop(J, parity, nex) = factor * pop(Zix,Nix)%preeqpopex(nex)
               endif
             enddo
           enddo
         enddo
       endif
       do nex = NL + 1, maxex(Zix, Nix)
-        xspopex(nex, Nix, Zix) = xspopex(nex, Nix, Zix) + preeqpopex(nex, Nix, Zix)
+        pop(Zix,Nix)%xspopex(nex) = pop(Zix,Nix)%xspopex(nex) + pop(Zix,Nix)%preeqpopex(nex)
         do parity = - 1, 1, 2
           do J = 0, maxJph
-            term = preeqpop(J, parity, nex, Nix, Zix)
-            xspop(J, parity, nex, Nix, Zix) = xspop(J, parity, nex, Nix, Zix) + term
+            term = pop(Zix,Nix)%preeqpop(J, parity, nex)
+            pop(Zix,Nix)%xspop(J, parity, nex) = pop(Zix,Nix)%xspop(J, parity, nex) + term
             if (flagpop) then
               xspopnucP(parity, Nix, Zix) = xspopnucP(parity, Nix, Zix) + term
-              xspopexP(nex, parity, Nix, Zix) = xspopexP(nex, parity, Nix, Zix) + term
+              pop(Zix,Nix)%xspopexP(nex, parity) = pop(Zix,Nix)%xspopexP(nex, parity) + term
               popdecay(J, parity, nex, type) = popdecay(J, parity, nex, type) + term
               partdecay(parity, type) = partdecay(parity, type) + term
             endif
@@ -281,26 +281,26 @@ subroutine binary
           J = int(jdis(Zix, Nix, nex))
           parity = parlev(Zix, Nix, nex)
           term=xsracappopex(nex)
-          xspop(J, parity, nex, Nix, Zix) = xspop(J, parity, nex, Nix, Zix) + term
-          xspopex(nex, Nix, Zix) = xspopex(nex, Nix, Zix) + term
+          pop(Zix,Nix)%xspop(J, parity, nex) = pop(Zix,Nix)%xspop(J, parity, nex) + term
+          pop(Zix,Nix)%xspopex(nex) = pop(Zix,Nix)%xspopex(nex) + term
           xspopex0(type, nex) = xspopex0(type, nex) + term
           if (flagpop) then
             xspopnucP(parity, Nix, Zix) = xspopnucP(parity, Nix, Zix) + term
-            xspopexP(nex, parity, Nix, Zix) = xspopexP(nex, parity, Nix, Zix) + term
+            pop(Zix,Nix)%xspopexP(nex, parity) = pop(Zix,Nix)%xspopexP(nex, parity) + term
             popdecay(J, parity, nex, type) = popdecay(J, parity, nex, type) + term
             partdecay(parity, type) = partdecay(parity, type) + term
           endif
         endif
       enddo
       do nex = NL + 1, maxex(Zix, Nix)
-        xspopex(nex, Nix, Zix) = xspopex(nex, Nix, Zix) + xsracappopex(nex)
+        pop(Zix,Nix)%xspopex(nex) = pop(Zix,Nix)%xspopex(nex) + xsracappopex(nex)
         do parity = - 1, 1, 2
           do J = 0, numJ
             term = xsracappop(nex, J, parity)
-            xspop(J, parity, nex, Nix, Zix) = xspop(J, parity, nex, Nix, Zix) + term
+            pop(Zix,Nix)%xspop(J, parity, nex) = pop(Zix,Nix)%xspop(J, parity, nex) + term
             if (flagpop) then
               xspopnucP(parity, Nix, Zix) = xspopnucP(parity, Nix, Zix) + term
-              xspopexP(nex, parity, Nix, Zix) = xspopexP(nex, parity, Nix, Zix) + term
+              pop(Zix,Nix)%xspopexP(nex, parity) = pop(Zix,Nix)%xspopexP(nex, parity) + term
               popdecay(J, parity, nex, type) = popdecay(J, parity, nex, type) + term
               partdecay(parity, type) = partdecay(parity, type) + term
             endif
@@ -333,7 +333,7 @@ subroutine binary
       Zix = Zindex(0, 0, type)
       Nix = Nindex(0, 0, type)
       do nex = 0, maxex(Zix, Nix)
-        feedbinary(type, nex) = xspopex(nex, Nix, Zix)
+        feedbinary(type, nex) = pop(Zix,Nix)%xspopex(nex)
       enddo
     enddo
     feedbinary(k0, Ltarget) = 0.
@@ -493,7 +493,7 @@ subroutine binary
       call write_datablock(id2,Ncol,Nk,col,un)
       do nex = 0, maxex(Zix, Nix)
         write(1, '(3x, i6, 6x, 200es15.6)') nex, Ex(nex, Nix, Zix), &
- &        xspopex(nex, Nix, Zix), ((xspop(J, parity, nex, Nix, Zix), parity = - 1, 1, 2), J = 0, numJ)
+ &        pop(Zix,Nix)%xspopex(nex), ((pop(Zix,Nix)%xspop(J, parity, nex), parity = - 1, 1, 2), J = 0, numJ)
       enddo
     enddo
     close (unit = 1)
@@ -502,9 +502,9 @@ subroutine binary
 !
 ! Remove compound elastic scattering from population of target state.
 !
-  xspopex(Ltarget, parN(k0), parZ(k0)) = 0.
-  xspop(int(targetspin), targetP, Ltarget, parN(k0), parZ(k0)) = 0.
-  preeqpopex(Ltarget, parN(k0), parZ(k0)) = 0.
+  pop(parZ(k0),parN(k0))%xspopex(Ltarget) = 0.
+  pop(parZ(k0),parN(k0))%xspop(int(targetspin), targetP, Ltarget) = 0.
+  pop(parZ(k0),parN(k0))%preeqpopex(Ltarget) = 0.
   Einc0 = Einc
   nin0 = nin
 !

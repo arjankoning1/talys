@@ -305,7 +305,7 @@ subroutine multiple
         write(2, * ) maxex(Zcomp, Ncomp) + 1, Jmaxsave + 1, 2, " xs= ", xspopnuc(Zcomp, Ncomp)
         do nex = 0, maxex(Zcomp, Ncomp)
           do parity = - 1, 1, 2
-            write(2, '(f10.5, 41es12.5)') Ex(nex, Ncomp, Zcomp), (xspop(J, parity, nex, Ncomp, Zcomp), J = 0, Jmaxsave)
+            write(2, '(f10.5, 41es12.5)') Ex(nex, Ncomp, Zcomp), (pop(Zcomp,Ncomp)%xspop(J, parity, nex), J = 0, Jmaxsave)
           enddo
         enddo
         close(unit=2)
@@ -445,8 +445,8 @@ subroutine multiple
           call write_double(id4,'population [mb]',xspopnucP(parity, Ncomp, Zcomp))
           call write_datablock(id2,Ncol,maxex(Zcomp, Ncomp)+1,col,un)
           do nex = 0, maxex(Zcomp, Ncomp)
-            write(1, '(i6, 9x, 44es15.6)') nex, Ex(nex, Ncomp, Zcomp), xspopex(nex, Ncomp, Zcomp), &
- &            xspopexP(nex, parity, Ncomp, Zcomp), (xspop(J, parity, nex, Ncomp, Zcomp), J = 0, numJ)
+            write(1, '(i6, 9x, 44es15.6)') nex, Ex(nex, Ncomp, Zcomp), pop(Zcomp,Ncomp)%xspopex(nex), &
+ &            pop(Zcomp,Ncomp)%xspopexP(nex, parity), (pop(Zcomp,Ncomp)%xspop(J, parity, nex), J = 0, numJ)
           enddo
         enddo
         write(*, '(/" Population of Z=", i3, " N=", i3, " (", i3, a2, ") before decay:", es12.5)') Z, N, A, nuc(Z), &
@@ -511,7 +511,7 @@ subroutine multiple
       budgetE = max(popabs, poprelE * popnuc)
       popmax = 0.
       do nex = 1, maxex(Zcomp, Ncomp)
-        popmax = max(popmax, xspopex(nex, Ncomp, Zcomp))
+        popmax = max(popmax, pop(Zcomp,Ncomp)%xspopex(nex))
       enddo
       cut = popmax * 1.e-12
       if (poprelE > 0. .and. popmax > 0.) then
@@ -522,7 +522,7 @@ subroutine multiple
       do
         losttry = 0.
         do nex = 1, maxex(Zcomp, Ncomp)
-          if (xspopex(nex, Ncomp, Zcomp) < cut) losttry = losttry + xspopex(nex, Ncomp, Zcomp)
+          if (pop(Zcomp,Ncomp)%xspopex(nex) < cut) losttry = losttry + pop(Zcomp,Ncomp)%xspopex(nex)
         enddo
         if (losttry > budgetE) exit
         if (cut <= 0. .or. cut >= popmax) exit
@@ -532,12 +532,12 @@ subroutine multiple
       lostE = 0.
       do nex = maxex(Zcomp, Ncomp), 1, - 1
         dExinc = deltaEx(nex, Ncomp, Zcomp)
-        xspopE = xspopex(nex, Ncomp, Zcomp)
+        xspopE = pop(Zcomp,Ncomp)%xspopex(nex)
         if (flagpop) then
           xspopsave(nex) = xspopE
           do parity = - 1, 1, 2
             write(1, '(2(i6, 9x), 46es15.6)') nex, parity, Ex(nex, Ncomp, Zcomp), xspopE, &
- &            xspopexP(nex, parity, Ncomp, Zcomp), (xspop(J, parity, nex, Ncomp, Zcomp), J = 0, numJ)
+ &            pop(Zcomp,Ncomp)%xspopexP(nex, parity), (pop(Zcomp,Ncomp)%xspop(J, parity, nex), J = 0, numJ)
           enddo
         endif
 !
@@ -629,7 +629,7 @@ Loop1:  do type = 1, 6
           popmax = 0.
           do parity = -1,1,2
             do J = 0,maxJ(nex, Ncomp, Zcomp)
-              popmax = max(popmax, xspop(J, parity, nex, Ncomp, Zcomp))
+              popmax = max(popmax, pop(Zcomp,Ncomp)%xspop(J, parity, nex))
             enddo
           enddo
           cut = popmax * 1.e-12
@@ -650,7 +650,7 @@ Loop1:  do type = 1, 6
             losttry = 0.
             do parity = -1,1,2
               do J = 0,maxJ(nex, Ncomp, Zcomp)
-                if (xspop(J, parity, nex, Ncomp, Zcomp) < cut) losttry = losttry + xspop(J, parity, nex, Ncomp, Zcomp)
+                if (pop(Zcomp,Ncomp)%xspop(J, parity, nex) < cut) losttry = losttry + pop(Zcomp,Ncomp)%xspop(J, parity, nex)
               enddo
             enddo
             if (losttry > budget) exit
@@ -667,11 +667,11 @@ Loop1:  do type = 1, 6
 ! compound   : subroutine for Hauser-Feshbach model for multiple emission
 ! tfissionout: subroutine for output of fission transmission coefficients
 !
-              if (xspop(J, parity, nex, Ncomp, Zcomp) < cutgoodJP) cycle
+              if (pop(Zcomp,Ncomp)%xspop(J, parity, nex) < cutgoodJP) cycle
               popdecay = 0.
               partdecay = 0.
               partdecaytot = 0.
-              xsp = xspop(J, parity, nex, Ncomp, Zcomp)
+              xsp = pop(Zcomp,Ncomp)%xspop(J, parity, nex)
               J2 = 2 * J + odd
               if (flagfission .and. nfisbar(Zcomp, Ncomp) /= 0) call tfission(Zcomp, Ncomp, nex, J2, parity)
               call compound(Zcomp, Ncomp, nex, J2, parity)
@@ -741,9 +741,9 @@ Loop1:  do type = 1, 6
 !
 ! Make new population cross section per nucleus
 !
-      xspopnuc(Zcomp, Ncomp) = xspopex(0, Ncomp, Zcomp)
+      xspopnuc(Zcomp, Ncomp) = pop(Zcomp,Ncomp)%xspopex(0)
       do nex = 1, Nlast(Zcomp, Ncomp, 0)
-        if (tau(Zcomp, Ncomp, nex) /= 0.) xspopnuc(Zcomp, Ncomp) = xspopnuc(Zcomp, Ncomp) + xspopex(nex, Ncomp, Zcomp)
+        if (tau(Zcomp, Ncomp, nex) /= 0.) xspopnuc(Zcomp, Ncomp) = xspopnuc(Zcomp, Ncomp) + pop(Zcomp,Ncomp)%xspopex(nex)
       enddo
       if (flagcompo) then
         xsmax = 0.
@@ -754,10 +754,12 @@ Loop1:  do type = 1, 6
             Smax = S(Zcomp, Ncomp, type)
           endif
         enddo
-        do nex = 0, maxex(Zcomp, Ncomp)
-          if (Ex(nex, Ncomp, Zcomp) > Smax) exit
-          xspoppreeq(Zcomp, Ncomp) = xspoppreeq(Zcomp, Ncomp) + preeqpopex(nex, Ncomp, Zcomp)
-        enddo
+        if (Zcomp <= numZph .and. Ncomp <= numNph) then
+          do nex = 0, maxex(Zcomp, Ncomp)
+            if (Ex(nex, Ncomp, Zcomp) > Smax) exit
+            xspoppreeq(Zcomp, Ncomp) = xspoppreeq(Zcomp, Ncomp) + pop(Zcomp,Ncomp)%preeqpopex(nex)
+          enddo
+        endif
         xspoppreeq(Zcomp, Ncomp) = min(dble(xspoppreeq(Zcomp, Ncomp)), xspopnuc(Zcomp, Ncomp) - dble(xspopdir(Zcomp, Ncomp)))
         xspopcomp(Zcomp, Ncomp) = max(xspopnuc(Zcomp, Ncomp) - dble(xspoppreeq(Zcomp, Ncomp) - xspopdir(Zcomp, Ncomp)), 0.d0)
         if (xspopnuc(Zcomp, Ncomp) > 0.) then
@@ -963,10 +965,10 @@ Loop1:  do type = 1, 6
 !
         write(*, '(/" Final production cross section of Z=", i3, " N=", i3, " (", i3, a2, "):"/)') Z, N, A, nuc(Z)
         write(*, '(" Total       :", es12.5)') xspopnuc(Zcomp, Ncomp)
-        write(*, '(" Ground state:", es12.5)') xspopex(0, Ncomp, Zcomp)
+        write(*, '(" Ground state:", es12.5)') pop(Zcomp,Ncomp)%xspopex(0)
         do nex = 1, Nlast(Zcomp, Ncomp, 0)
           if (tau(Zcomp, Ncomp, nex) /= 0.) write(*, '(" Level", i3, "    :", es12.5)') levnum(Zcomp, Ncomp, nex), &
- &          xspopex(nex, Ncomp, Zcomp)
+ &          pop(Zcomp,Ncomp)%xspopex(nex)
         enddo
       endif
       if (flagpop) then
@@ -1007,7 +1009,7 @@ Loop1:  do type = 1, 6
         do nex = 0, nen
           do parity = - 1, 1, 2
             do J = 0, numJ
-              if (fisfeedJP(Zcomp, Ncomp, nex, J, parity) > 0.) Jfis = max(Jfis, J)
+              if (pop(Zcomp,Ncomp)%fisfeedJP(nex, J, parity) > 0.) Jfis = max(Jfis, J)
             enddo
           enddo
         enddo
@@ -1028,7 +1030,7 @@ Loop1:  do type = 1, 6
         write(form2(2:4), '(i3.3)') 2+2*(Jfis+1)
         do nex = 0, nen
           write(1, fmt = form2) Ex(nex, Ncomp, Zcomp), fisfeedex(Zcomp, Ncomp, nex), &
- &          ((fisfeedJP(Zcomp, Ncomp, nex, J, parity), parity = - 1, 1, 2), J = 0, Jfis)
+ &          ((pop(Zcomp,Ncomp)%fisfeedJP(nex, J, parity), parity = - 1, 1, 2), J = 0, Jfis)
         enddo
         close (unit = 1)
       endif

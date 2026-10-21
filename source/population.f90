@@ -175,7 +175,7 @@ subroutine population
       call pol1(Ea2, Eb2, xsa, xsb, Ehigh, xshigh)
       xs = 0.5 * (xslow + xshigh) * deltaEx(nexout, Nix, Zix)
       if (xs < 1.e-30) xs = 0.
-      preeqpopex(nexout, Nix, Zix) = xs
+      pop(Zix,Nix)%preeqpopex(nexout) = xs
 !
 ! If the pre-equilibrium spin distribution is chosen, the spectrum is interpolated on the spin/parity dependent population.
 !
@@ -198,7 +198,7 @@ subroutine population
             call pol1(Ea2, Eb2, xsa, xsb, Ehigh, xshigh)
             xs = 0.5 * (xslow + xshigh) * deltaEx(nexout, Nix, Zix)
             if (xs < 1.e-30) xs = 0.
-            preeqpop(J, parity, nexout, Nix, Zix) = xs
+            pop(Zix,Nix)%preeqpop(J, parity, nexout) = xs
           enddo
         enddo
       endif
@@ -263,16 +263,16 @@ subroutine population
     NL = Nlast(Zix, Nix, 0)
     xscheck(type) = 0.
     do nex = NL + 1, maxex(Zix, Nix)
-      xscheck(type) = xscheck(type) + preeqpopex(nex, Nix, Zix)
+      xscheck(type) = xscheck(type) + pop(Zix,Nix)%preeqpopex(nex)
     enddo
     norm = 1.
     if (xscheck(type) /= 0.) norm = (xspreeqtot(type) + xsgrtot(type)) / xscheck(type)
     do nex = NL + 1, maxex(Zix, Nix)
-      preeqpopex(nex, Nix, Zix) = preeqpopex(nex, Nix, Zix) * norm
+      pop(Zix,Nix)%preeqpopex(nex) = pop(Zix,Nix)%preeqpopex(nex) * norm
       if (pespinmodel >= 3) then
         do parity = - 1, 1, 2
           do J = 0, maxJph
-            preeqpop(J, parity, nex, Nix, Zix) = preeqpop(J, parity, nex, Nix, Zix) * norm
+            pop(Zix,Nix)%preeqpop(J, parity, nex) = pop(Zix,Nix)%preeqpop(J, parity, nex) * norm
           enddo
         enddo
       endif

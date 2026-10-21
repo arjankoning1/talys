@@ -494,7 +494,7 @@ subroutine comptarget
             endif
             fisterm = CNfactor * (J2 + 1.) * factor1
             xsbinary( - 1) = xsbinary( - 1) + fisterm
-            fisfeedJP(0, 0, maxex(0, 0) + 1, J, parity) = fisfeedJP(0, 0, maxex(0, 0) + 1, J, parity) + fisterm
+            pop(0,0)%fisfeedJP(maxex(0, 0) + 1, J, parity) = pop(0,0)%fisfeedJP(maxex(0, 0) + 1, J, parity) + fisterm
 !
 ! Extract (L,J) dependent parameters for URR (Gilles Noguere)
 !
@@ -695,18 +695,18 @@ subroutine comptarget
 !
                     enddo
                   enddo
-                  xspop(Ir, Pprime, nexout, Nix, Zix) = xspop(Ir, Pprime, nexout, Nix, Zix) + sumjl
+                  pop(Zix,Nix)%xspop(Ir, Pprime, nexout) = pop(Zix,Nix)%xspop(Ir, Pprime, nexout) + sumjl
                   sumIP = sumIP + sumjl
                   if (flagpop) then
                     xspopnucP(Pprime, Nix, Zix) = xspopnucP(Pprime, Nix, Zix) + sumjl
-                    xspopexP(nexout, Pprime, Nix, Zix) = xspopexP(nexout, Pprime, Nix, Zix) + sumjl
+                    pop(Zix,Nix)%xspopexP(nexout, Pprime) = pop(Zix,Nix)%xspopexP(nexout, Pprime) + sumjl
                     popdecay(Ir, Pprime, nexout, type) = popdecay(Ir, Pprime, nexout, type) + sumjl
                     partdecay(Pprime, type) = partdecay(Pprime, type) + sumjl
                     partdecaytot(type) = partdecaytot(type) + sumjl
                   endif
                 enddo
               enddo
-              xspopex(nexout, Nix, Zix) = xspopex(nexout, Nix, Zix) + sumIP
+              pop(Zix,Nix)%xspopex(nexout) = pop(Zix,Nix)%xspopex(nexout) + sumIP
               if (nexout > NL) then
                 xscompcont(type) = xscompcont(type) + sumIP
                 contrib(type, nexout) = contrib(type, nexout) + sumIP

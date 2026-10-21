@@ -337,14 +337,14 @@ subroutine multipreeq2(Zcomp, Ncomp, nex)
           endif
           mcontrib(type, nex, nexout) = mcontrib(type, nex, nexout) + term(type, nexout)
           mpecontrib(type, nex, nexout) = mpecontrib(type, nex, nexout) + term(type, nexout)
-          xspopex(nexout, Nix, Zix) = xspopex(nexout, Nix, Zix) + term(type, nexout)
-          preeqpopex(nexout, Nix, Zix) = preeqpopex(nexout, Nix, Zix) + term(type, nexout)
+          pop(Zix,Nix)%xspopex(nexout) = pop(Zix,Nix)%xspopex(nexout) + term(type, nexout)
+          pop(Zix,Nix)%preeqpopex(nexout) = pop(Zix,Nix)%preeqpopex(nexout) + term(type, nexout)
           do parity = - 1, 1, 2
             do J = 0, maxJ(nexout, Nix, Zix)
               Jterm = 0.5 * (2 * J + 1) * RnJ(2, J) / RnJsum(2) * term(type, nexout)
-              xspop(J, parity, nexout, Nix, Zix) = xspop(J, parity, nexout, Nix, Zix) + Jterm
+              pop(Zix,Nix)%xspop(J, parity, nexout) = pop(Zix,Nix)%xspop(J, parity, nexout) + Jterm
               popdecay(J, parity, nexout, type) = popdecay(J, parity, nexout, type) + Jterm
-              preeqpop(J, parity, nexout, Nix, Zix) = preeqpop(J, parity, nexout, Nix, Zix) + Jterm
+              pop(Zix,Nix)%preeqpop(J, parity, nexout) = pop(Zix,Nix)%preeqpop(J, parity, nexout) + Jterm
             enddo
           enddo
         enddo
@@ -377,9 +377,9 @@ subroutine multipreeq2(Zcomp, Ncomp, nex)
 !
 ! ************************ Normalization *******************************
 !
-  Dmulti(nex) = summpe / xspopex(nex, Ncomp, Zcomp)
-  xspopex(nex, Ncomp, Zcomp) = xspopex(nex, Ncomp, Zcomp) - summpe
-  preeqpopex(nex, Ncomp, Zcomp) = preeqpopex(nex, Ncomp, Zcomp) - summpe
+  Dmulti(nex) = summpe / pop(Zcomp,Ncomp)%xspopex(nex)
+  pop(Zcomp,Ncomp)%xspopex(nex) = pop(Zcomp,Ncomp)%xspopex(nex) - summpe
+  pop(Zcomp,Ncomp)%preeqpopex(nex) = pop(Zcomp,Ncomp)%preeqpopex(nex) - summpe
   return
 end subroutine multipreeq2
 ! Copyright A.J. Koning 2021

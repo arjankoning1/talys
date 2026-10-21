@@ -54,17 +54,25 @@ subroutine arraysize
 !
 ! Allocatable module arrays
 !
-  if (allocated(preeqpop)) then
-    call report_array('preeqpop', size(preeqpop,kind=int64), storage_size(preeqpop))
-  else
-    call report_array('preeqpop', 0_int64, storage_size(0.0_sgl))
+  localelems = 0_int64
+  if (allocated(pop)) then
+    do Nix = lbound(pop,2), ubound(pop,2)
+      do Zix = lbound(pop,1), ubound(pop,1)
+        if (allocated(pop(Zix,Nix)%preeqpop)) localelems = localelems + size(pop(Zix,Nix)%preeqpop,kind=int64)
+      enddo
+    enddo
   endif
+  call report_array('preeqpop', localelems, storage_size(0.0_sgl))
 !
-  if (allocated(xspop)) then
-    call report_array('xspop', size(xspop,kind=int64), storage_size(xspop))
-  else
-    call report_array('xspop', 0_int64, storage_size(0.0_dbl))
+  localelems = 0_int64
+  if (allocated(pop)) then
+    do Nix = lbound(pop,2), ubound(pop,2)
+      do Zix = lbound(pop,1), ubound(pop,1)
+        if (allocated(pop(Zix,Nix)%xspop)) localelems = localelems + size(pop(Zix,Nix)%xspop,kind=int64)
+      enddo
+    enddo
   endif
+  call report_array('xspop', localelems, storage_size(0.0_dbl))
 !
   if (allocated(wemission2)) then
     call report_array('wemission2', size(wemission2,kind=int64), storage_size(wemission2))

@@ -58,16 +58,16 @@ subroutine cascade(Zcomp, Ncomp, nex)
 !
   J = int(jdis(Zcomp, Ncomp, nex))
   parity = parlev(Zcomp, Ncomp, nex)
-  xsJP = xspop(J, parity, nex, Ncomp, Zcomp)
+  xsJP = pop(Zcomp,Ncomp)%xspop(J, parity, nex)
   do i = 1, nbranch(Zcomp, Ncomp, nex)
     k = branchlevel(Zcomp, Ncomp, nex, i)
     Jres = int(jdis(Zcomp, Ncomp, k))
     Pres = parlev(Zcomp, Ncomp, k)
     intens = xsJP * branchratio(Zcomp, Ncomp, nex, i)
-    xspop(Jres, Pres, k, Ncomp, Zcomp) = xspop(Jres, Pres, k, Ncomp, Zcomp) + intens
+    pop(Zcomp,Ncomp)%xspop(Jres, Pres, k) = pop(Zcomp,Ncomp)%xspop(Jres, Pres, k) + intens
     popdecay(Jres, Pres, k, 0) = popdecay(Jres, Pres, k, 0) + intens
-    xspopex(k, Ncomp, Zcomp) = xspopex(k, Ncomp, Zcomp) + intens
-    xspopex(nex, Ncomp, Zcomp) = xspopex(nex, Ncomp, Zcomp) - intens
+    pop(Zcomp,Ncomp)%xspopex(k) = pop(Zcomp,Ncomp)%xspopex(k) + intens
+    pop(Zcomp,Ncomp)%xspopex(nex) = pop(Zcomp,Ncomp)%xspopex(nex) - intens
     xspartial(0, nex) = xspartial(0, nex) + intens
     if (Zcomp <= numZchan .and. Ncomp <= numNchan) mcontrib(0, nex, k) = intens
 !

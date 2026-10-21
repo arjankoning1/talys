@@ -37,8 +37,7 @@ subroutine deallocate_arrays
   if (allocated(phdensjp)) deallocate(phdensjp)
   if (allocated(fxsgamdischan)) deallocate(fxsgamdischan)
   if (allocated(fxsgamchannel)) deallocate(fxsgamchannel)
-  if (allocated(fisfeedJP)) deallocate(fisfeedJP)
-  if (allocated(xspop)) deallocate(xspop)
+  if (allocated(pop)) deallocate(pop)
   if (allocated(rhogrid)) deallocate(rhogrid)
   if (allocated(rhofis)) deallocate(rhofis)
   if (allocated(efistrrot)) deallocate(efistrrot)
@@ -74,10 +73,7 @@ subroutine deallocate_arrays
   if (allocated(Nisotot)) deallocate(Nisotot)
   if (allocated(Tmax)) deallocate(Tmax)
   if (allocated(popdecay)) deallocate(popdecay)
-  if (allocated(preeqpopex)) deallocate(preeqpopex)
 
-  if (allocated(xspopex)) deallocate(xspopex)
-  if (allocated(xspopexP)) deallocate(xspopexP)
 
   if (allocated(maxJ)) deallocate(maxJ)
   if (allocated(deltaEx)) deallocate(deltaEx)

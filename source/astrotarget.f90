@@ -298,11 +298,11 @@ subroutine astrotarget
                       endif
                     endif
                     compterm = CNfactor * (J2 + 1.) * factor1
-                    xspop(Ir, Pprime, nexout, Nix, Zix) = xspop(Ir, Pprime, nexout, Nix, Zix) + compterm
+                    pop(Zix,Nix)%xspop(Ir, Pprime, nexout) = pop(Zix,Nix)%xspop(Ir, Pprime, nexout) + compterm
                     sumIP = sumIP + compterm
                   enddo
                 enddo
-                xspopex(nexout, Nix, Zix) = xspopex(nexout, Nix, Zix) + sumIP
+                pop(Zix,Nix)%xspopex(nexout) = pop(Zix,Nix)%xspopex(nexout) + sumIP
                 if (nexout > NL) then
                   xscompcont(type) = xscompcont(type) + sumIP
                   contrib(type, nexout) = contrib(type, nexout) + sumIP
