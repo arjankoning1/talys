@@ -1464,8 +1464,8 @@ module A0_talys_mod
   real(dbl), dimension(-1:1,-1:numpar)                    :: partdecay    ! total decay per particle and parity
   real(dbl), dimension(-1:numpar)                         :: partdecaytot ! total decay per particle
   real(dbl), allocatable :: popdecay(:,:,:,:)             ! decay from population
-  real(sgl), allocatable                                  :: preeqpop(:,:,:,:,:) ! pre-equilibrium population cross section
-  real(sgl), allocatable :: preeqpopex(:,:,:)       ! pre-equilibrium population c.s. summed over J and P
+! real(sgl), allocatable                                  :: preeqpop(:,:,:,:,:) ! pre-equilibrium population cross section
+! real(sgl), allocatable :: preeqpopex(:,:,:)       ! pre-equilibrium population c.s. summed over J and P
   real(sgl), dimension(0:numang)                          :: ruth         ! elastic/Rutherford ratio
   real(sgl), dimension(0:numang)                          :: elasni       ! nuclear+interference term
   real(sgl), dimension(-1:1,0:numl)                       :: Tjlinc       ! transm. coeff. of spin and l for incident channel
@@ -1488,9 +1488,9 @@ module A0_talys_mod
   real(sgl)                                               :: xsngnsum     ! sum over total (projectile,gamma-ejectile) cross section
   real(sgl)                                               :: xsoptinc     ! optical model reaction c.s. for incident channel
   real(sgl), dimension(0:numpar)                          :: xsparticle   ! total particle production cross section
-  real(dbl), allocatable                                  :: xspop(:,:,:,:,:)        ! population cross section
-  real(dbl), allocatable :: xspopex(:,:,:)           ! population cross section summed over spin and parity
-  real(dbl), allocatable :: xspopexP(:,:,:,:)        ! population cross section per parity
+! real(dbl), allocatable                                  :: xspop(:,:,:,:,:)        ! population cross section
+! real(dbl), allocatable :: xspopex(:,:,:)           ! population cross section summed over spin and parity
+! real(dbl), allocatable :: xspopexP(:,:,:,:)        ! population cross section per parity
   real(dbl), dimension(0:numZ,0:numN)       :: xspopnuc
   real(dbl), dimension(-1:1, 0:numN, 0:numZ)               :: xspopnucP    ! population cross section per nucleus per parity
   real(sgl), dimension(0:numpar, 0:numen)                 :: xspreeq      ! preeq. c.s. per particle typ and outgoing energy
@@ -1499,15 +1499,15 @@ module A0_talys_mod
   real(sgl)                                               :: xsreacinc    ! reaction cross section for incident channel
   real(sgl)                                               :: xsresprod    ! total residual production (= reaction) cross section
   real(sgl)                                               :: xstotinc     ! total cross section (neutrons only) for incident channel
-! type nucleus_population_type
-!   real(dbl), allocatable :: xspop(:,:,:)
-!   real(dbl), allocatable :: xspopex(:)
-!   real(dbl), allocatable :: xspopexP(:,:)
-!   real(sgl), allocatable :: preeqpop(:,:,:)
-!   real(sgl), allocatable :: preeqpopex(:)
-!   real(sgl), allocatable :: fisfeedJP(:,:,:)
-! end type
-! type(nucleus_population_type), allocatable :: pop(:,:)
+  type nucleus_population_type
+    real(dbl), allocatable :: xspop(:,:,:)
+    real(dbl), allocatable :: xspopex(:)
+    real(dbl), allocatable :: xspopexP(:,:)
+    real(sgl), allocatable :: preeqpop(:,:,:)
+    real(sgl), allocatable :: preeqpopex(:)
+    real(sgl), allocatable :: fisfeedJP(:,:,:)
+  end type
+  type(nucleus_population_type), allocatable :: pop(:,:)
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
 ! Variables for excitation energy grid
@@ -1520,8 +1520,8 @@ module A0_talys_mod
   real(sgl), allocatable :: Ex(:,:,:)                ! excitation energy
   real(sgl), dimension(0:numZ, 0:numN)                      :: Exmax     ! maximum excitation energy for excited nucleus
   real(sgl), dimension(0:numZ, 0:numN)                      :: Exmax0    ! maximum excitation energy (inc. negative energies)
-  real(sgl), allocatable                                    :: fisfeedJP(:,:,:,:,:) ! fission contribution from excitation energy bin per J, P
-  real(sgl), allocatable                                    :: rhogrid(:,:,:,:,:)   ! integrated level density
+! real(sgl), allocatable                                    :: fisfeedJP(:,:,:,:,:) ! fission contribution from excitation energy bin per J, P
+  real(dbl), allocatable                                    :: rhogrid(:,:,:,:,:)   ! integrated level density
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
 ! Variables for recoil initialization
