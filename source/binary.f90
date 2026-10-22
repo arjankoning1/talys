@@ -195,7 +195,7 @@ subroutine binary
     if (parskip(type)) cycle
     Zix = Zindex(0, 0, type)
     Nix = Nindex(0, 0, type)
-    NL = Nlast(Zix, Nix, 0)
+    NL = min(Nlast(Zix, Nix, 0), maxex(Zix, Nix))
     do nex = 0, NL
       if (xsdirdisc(type, nex) /= 0.) then
         J = int(jdis(Zix, Nix, nex))
@@ -358,7 +358,7 @@ subroutine binary
       enddo
       Zix = Zindex(0, 0, type)
       Nix = Nindex(0, 0, type)
-      NL = Nlast(Zix, Nix, 0)
+      NL = min(Nlast(Zix, Nix, 0), maxex(Zix, Nix))
       if (eoutdis(type, NL) > 0.) then
         frac = Etop(nendisc(type)) - eoutdis(type, NL)
         binemissum(type) = binemissum(type) - xsbinemis(type, nendisc(type)) * frac
@@ -461,7 +461,7 @@ subroutine binary
       if (parskip(type)) cycle
       Zix = Zindex(0, 0, type)
       Nix = Nindex(0, 0, type)
-      NL = Nlast(Zix, Nix, 0)
+      NL = min(Nlast(Zix, Nix, 0), maxex(Zix, Nix))
       Z = ZZ(0, 0, type)
       N = NN(0, 0, type)
       A = AA(0, 0, type)
