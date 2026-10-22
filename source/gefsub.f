@@ -296,6 +296,7 @@ CAK   End
 C     '
 C     '
       SUBROUTINE GEFSUB(P_Z_CN,P_A_CN,P_E_EXC,P_J_CN)
+      USE A1_gef_mod
       IMPLICIT NONE
 CAK
       include "gef.cmb"
@@ -1901,6 +1902,7 @@ C     ' Atomic number of fragment
 C     ' Print "N_cases  ",N_cases
 CAK   WRITE (*,*) "N_cases ",N_cases
 C     '
+      CALL gef_allocate(N_cases)
       DO K = 1 , N_cases
       M_index = NZMkey(K,1)
 C     ' fission mode
