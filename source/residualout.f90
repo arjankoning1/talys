@@ -104,6 +104,7 @@ subroutine residualout
   integer           :: indent
   integer           :: id2
   integer           :: id4
+  real(dbl) :: xslevel   ! current isomer population (zero if unallocated)
 !
 ! *************** Residual production cross sections *******************
 !
@@ -281,7 +282,13 @@ subroutine residualout
               else
                 open (unit = 1, file = isofile, status = 'old', position = 'append')
               endif
-              write(1, '(3es15.6)') Einc, pop(Zcomp,Ncomp)%xspopex(nex), xsbranch(Zcomp, Ncomp, nex)
+              xslevel = 0._dbl
+              if (allocated(pop(Zcomp,Ncomp)%xspopex)) then
+                if (nex >= lbound(pop(Zcomp,Ncomp)%xspopex, 1) .and. nex <= ubound(pop(Zcomp,Ncomp)%xspopex, 1)) then
+                  xslevel = pop(Zcomp,Ncomp)%xspopex(nex)
+                endif
+              endif
+              write(1, '(3es15.6)') Einc, xslevel, xsbranch(Zcomp, Ncomp, nex)
               close (unit = 1)
             endif
           enddo
