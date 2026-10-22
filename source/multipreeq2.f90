@@ -344,7 +344,6 @@ subroutine multipreeq2(Zcomp, Ncomp, nex)
               Jterm = 0.5 * (2 * J + 1) * RnJ(2, J) / RnJsum(2) * term(type, nexout)
               pop(Zix,Nix)%xspop(J, parity, nexout) = pop(Zix,Nix)%xspop(J, parity, nexout) + Jterm
               popdecay(J, parity, nexout, type) = popdecay(J, parity, nexout, type) + Jterm
-              pop(Zix,Nix)%preeqpop(J, parity, nexout) = pop(Zix,Nix)%preeqpop(J, parity, nexout) + Jterm
             enddo
           enddo
         enddo
