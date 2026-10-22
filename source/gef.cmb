@@ -1,5 +1,5 @@
 !
-!                      GEF.CMB for TALYS-1.951
+!                      GEF.CMB for TALYS-2.251
 !
 ! +---------------------------------------------------------------------
 ! | Author: Vasily Simutkin, Michail Onegin and Arjan Koning
@@ -14,7 +14,4 @@
       common /outgef3/ ann_sum(0:50),anMean_sum
       real ysum,ysump,yAZ,yAZp,anpre_sum,anpost_sum,ann_sum,anMean_sum
       common /gefsubi/ NZMkey(10000,3),N_cases
-      common /gefsubr/ Etab(10000,0:1000),Jtab(10000,100),Ytab(10000)
-      common /gefsubr2/ Emean(10000),dEmean(10000)
       integer NZMkey,N_cases
-      real Etab,Jtab,Ytab,Emean,dEmean
