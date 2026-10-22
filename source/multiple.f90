@@ -742,7 +742,7 @@ Loop1:  do type = 1, 6
 ! Make new population cross section per nucleus
 !
       xspopnuc(Zcomp, Ncomp) = pop(Zcomp,Ncomp)%xspopex(0)
-      do nex = 1, Nlast(Zcomp, Ncomp, 0)
+      do nex = 1, min(Nlast(Zcomp, Ncomp, 0), ubound(pop(Zcomp,Ncomp)%xspopex, 1))
         if (tau(Zcomp, Ncomp, nex) /= 0.) xspopnuc(Zcomp, Ncomp) = xspopnuc(Zcomp, Ncomp) + pop(Zcomp,Ncomp)%xspopex(nex)
       enddo
       if (flagcompo) then
@@ -966,7 +966,7 @@ Loop1:  do type = 1, 6
         write(*, '(/" Final production cross section of Z=", i3, " N=", i3, " (", i3, a2, "):"/)') Z, N, A, nuc(Z)
         write(*, '(" Total       :", es12.5)') xspopnuc(Zcomp, Ncomp)
         write(*, '(" Ground state:", es12.5)') pop(Zcomp,Ncomp)%xspopex(0)
-        do nex = 1, Nlast(Zcomp, Ncomp, 0)
+        do nex = 1, min(Nlast(Zcomp, Ncomp, 0), ubound(pop(Zcomp,Ncomp)%xspopex, 1))
           if (tau(Zcomp, Ncomp, nex) /= 0.) write(*, '(" Level", i3, "    :", es12.5)') levnum(Zcomp, Ncomp, nex), &
  &          pop(Zcomp,Ncomp)%xspopex(nex)
         enddo
