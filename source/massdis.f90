@@ -779,6 +779,17 @@ subroutine massdis
       endif
     enddo
   enddo
+!
+! Deallocate spin-dependent fission feeding arrays
+!
+  if (allocated(pop)) then
+    do Nix = 0, maxN
+      do Zix = 0, maxZ
+        if (allocated(pop(Zix,Nix)%fisfeedJP)) &
+          deallocate(pop(Zix,Nix)%fisfeedJP)
+      enddo
+    enddo
+  endif
   return
 end subroutine massdis
 ! Copyright A.J. Koning 2021
