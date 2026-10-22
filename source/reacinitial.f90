@@ -351,28 +351,28 @@ subroutine reacinitial
   if (allocated(Ex))          deallocate(Ex)
 
   allocate(pop(0:numZ,0:numN))
-  do Nix = 0, numN
-    do Zix = 0, numZ
-      allocate(pop(Zix,Nix)%xspop(0:numJ,-1:1,0:nexalloc))
-      pop(Zix,Nix)%xspop = 0.d0
-      allocate(pop(Zix,Nix)%rhogrid(0:numJ,-1:1,0:nexalloc))
-      pop(Zix,Nix)%rhogrid = 0.d0
-      allocate(pop(Zix,Nix)%xspopex(0:nexalloc))
-      allocate(pop(Zix,Nix)%xspopexP(0:nexalloc,-1:1))
-      allocate(pop(Zix,Nix)%preeqpopex(0:nexalloc))
-      pop(Zix,Nix)%xspopex = 0.d0
-      pop(Zix,Nix)%xspopexP = 0.d0
-      pop(Zix,Nix)%preeqpopex = 0.
-      if (flagpreeq .and. Zix <= numZph .and. Nix <= numNph) then
-        allocate(pop(Zix,Nix)%preeqpop(0:numJ,-1:1,0:nexalloc))
-        pop(Zix,Nix)%preeqpop = 0.
-      endif
-      if (flagfission .and. Zix <= maxZ .and. Nix <= maxN) then
-        allocate(pop(Zix,Nix)%fisfeedJP(0:nexalloc+1,0:numJ,-1:1))
-        pop(Zix,Nix)%fisfeedJP = 0.
-      endif
-    enddo
-  enddo
+! do Nix = 0, numN
+!   do Zix = 0, numZ
+!     allocate(pop(Zix,Nix)%xspop(0:numJ,-1:1,0:nexalloc))
+!     pop(Zix,Nix)%xspop = 0.d0
+!     allocate(pop(Zix,Nix)%rhogrid(0:numJ,-1:1,0:nexalloc))
+!     pop(Zix,Nix)%rhogrid = 0.d0
+!     allocate(pop(Zix,Nix)%xspopex(0:nexalloc))
+!     allocate(pop(Zix,Nix)%xspopexP(0:nexalloc,-1:1))
+!     allocate(pop(Zix,Nix)%preeqpopex(0:nexalloc))
+!     pop(Zix,Nix)%xspopex = 0.d0
+!     pop(Zix,Nix)%xspopexP = 0.d0
+!     pop(Zix,Nix)%preeqpopex = 0.
+!     if (flagpreeq .and. Zix <= numZph .and. Nix <= numNph) then
+!       allocate(pop(Zix,Nix)%preeqpop(0:numJ,-1:1,0:nexalloc))
+!       pop(Zix,Nix)%preeqpop = 0.
+!     endif
+!     if (flagfission .and. Zix <= maxZ .and. Nix <= maxN) then
+!       allocate(pop(Zix,Nix)%fisfeedJP(0:nexalloc+1,0:numJ,-1:1))
+!       pop(Zix,Nix)%fisfeedJP = 0.
+!     endif
+!   enddo
+! enddo
 
   allocate(popdecay(0:numJ,-1:1,0:nexalloc,-1:numpar))
 
