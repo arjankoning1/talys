@@ -180,7 +180,8 @@ subroutine exgrid(Zcomp, Ncomp)
 ! The highest possible excitation energy could be a discrete state.
 !
     do nex = 0, NL
-      if (nex > 0 .and. edis(Zix, Nix, nex) >= Exmax(Zix, Nix)) then
+      if (nex > 0 .and. edis(Zix, Nix, nex) >= Exmax(Zix, Nix) .and. &
+ &      .not. (Zix == parZ(k0) .and. Nix == parN(k0) .and. nex == Ltarget)) then
         maxex(Zix, Nix) = nex - 1
         goto 180
       endif
