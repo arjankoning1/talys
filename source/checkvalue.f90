@@ -1086,6 +1086,10 @@ subroutine checkvalue
     stop
   endif
   call range_integer_error('fymodel', fymodel, 1, 5)
+  if (flagastro .and. flagfission .and. flagmassdis) then
+    write(*, '(" TALYS-error: astro y with massdis y is not supported")')
+    error stop 1
+  endif
   call range_integer_error('ffmodel', ffmodel, 0, 4)
   call range_integer_error('pfnsmodel', pfnsmodel, 1, 2)
   call range_integer_error('gefran', gefran, 1000, 1000000)
