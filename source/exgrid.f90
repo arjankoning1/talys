@@ -156,7 +156,7 @@ subroutine exgrid(Zcomp, Ncomp)
 ! The Q-value for residual nuclides is determined, both for the ground state and for possible isomers.
 !
   do type = 0, 6
-    if (parskip(type)) cycle
+    if (parskip(type) .and. type /= 0) cycle
     Zix = Zindex(Zcomp, Ncomp, type)
     Nix = Nindex(Zcomp, Ncomp, type)
     NL = Nlast(Zix, Nix, 0)
@@ -226,7 +226,51 @@ subroutine exgrid(Zcomp, Ncomp)
     maxex(Zix, Nix) = NL + nexbins
     if (Zix == 0 .and. Nix == 0) Ex(maxex(0, 0) + 1, 0, 0) = Etotal
   180   nexmax(type) = maxex(Zix, Nix)
+! Allocate population arrays for this nucleus.
 !
+! A nucleus can appear as the residual of several
+! different mother nuclei. Do not reinitialize arrays
+! which have already been allocated.
+  if (.not. allocated(pop(Zix,Nix)%xspop)) then
+    allocate(pop(Zix,Nix)%xspop(0:numJ,-1:1,0:maxex(Zix,Nix)))
+    pop(Zix,Nix)%xspop = 0.d0
+  endif
+
+  if (.not. allocated(pop(Zix,Nix)%xspopex)) then
+    allocate(pop(Zix,Nix)%xspopex(0:maxex(Zix,Nix)))
+    pop(Zix,Nix)%xspopex = 0.d0
+  endif
+
+  if (.not. allocated(pop(Zix,Nix)%xspopexP)) then
+    allocate(pop(Zix,Nix)%xspopexP(0:maxex(Zix,Nix),-1:1))
+    pop(Zix,Nix)%xspopexP = 0.d0
+  endif
+
+  if (.not. allocated(pop(Zix,Nix)%preeqpopex)) then
+    allocate(pop(Zix,Nix)%preeqpopex(0:maxex(Zix,Nix)))
+    pop(Zix,Nix)%preeqpopex = 0.
+  endif
+
+  if (flagpreeq .and. Zix <= numZph .and. Nix <= numNph) then
+    if (.not. allocated(pop(Zix,Nix)%preeqpop)) then
+      allocate(pop(Zix,Nix)%preeqpop(0:numJ,-1:1,0:maxex(Zix,Nix)))
+      pop(Zix,Nix)%preeqpop = 0.
+    endif
+  endif
+
+  if (flagfission .and. Zix <= maxZ .and. Nix <= maxN) then
+    if (.not. allocated(pop(Zix,Nix)%fisfeedJP)) then
+      allocate(pop(Zix,Nix)%fisfeedJP(0:maxex(Zix,Nix)+1,0:numJ,-1:1))
+      pop(Zix,Nix)%fisfeedJP = 0.
+    endif
+  endif
+!
+  if (maxex(Zix,Nix) > NL) then
+    if (.not. allocated(pop(Zix,Nix)%rhogrid)) then
+      allocate(pop(Zix,Nix)%rhogrid(0:numJ,-1:1,NL+1:maxex(Zix,Nix)))
+      pop(Zix,Nix)%rhogrid = 0.d0
+    endif
+  endif
 ! ****** Determine level densities on basic excitation energy grid *****
 !
 ! The calculation of level densities can be done outside many loops of various quantum numbers performed in other subroutines.
