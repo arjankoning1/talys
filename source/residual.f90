@@ -62,10 +62,12 @@ subroutine residual
       if (xspopnuc(Zcomp, Ncomp) /= 0.) then
         xsresprod = xsresprod + xspopnuc(Zcomp, Ncomp)
         xsmassprod(Acomp) = xsmassprod(Acomp) + xspopnuc(Zcomp, Ncomp)
-        do nex = 0, Nlast(Zcomp, Ncomp, 0)
-          if (nex == 0 .or. tau(Zcomp, Ncomp, nex) /= 0.) &
- &          xsbranch(Zcomp, Ncomp, nex) = pop(Zcomp,Ncomp)%xspopex(nex) / xspopnuc(Zcomp, Ncomp)
-        enddo
+        if (allocated(pop(Zcomp,Ncomp)%xspopex)) then
+          do nex = 0, min(Nlast(Zcomp, Ncomp, 0), ubound(pop(Zcomp,Ncomp)%xspopex, 1))
+            if (nex == 0 .or. tau(Zcomp, Ncomp, nex) /= 0.) &
+ &            xsbranch(Zcomp, Ncomp, nex) = pop(Zcomp,Ncomp)%xspopex(nex) / xspopnuc(Zcomp, Ncomp)
+          enddo
+        endif
       endif
 !
 ! For non-threshold reactions (positive Q-value) we always assign a minimum value to the exclusive cross section.
@@ -75,10 +77,12 @@ subroutine residual
        if (Qres(Zcomp, Ncomp, 0) > 0..and. xspopnuc(Zcomp, Ncomp) <= xseps) xspopnuc(Zcomp, Ncomp) = xseps
        if (flagastro .and. Zcomp <= numZastro .and. Ncomp <= numNastro) then
          xsastro(Zcomp, Ncomp, nin) = xspopnuc(Zcomp, Ncomp)
-         do nex = 0, Nlast(Zcomp, Ncomp, 0)
-           if (nex == 0 .or. tau(Zcomp, Ncomp, nex) /= 0.) &
-             xsastroex(Zcomp, Ncomp, nin, nex) = pop(Zcomp,Ncomp)%xspopex(nex)
-         enddo
+         if (allocated(pop(Zcomp,Ncomp)%xspopex)) then
+           do nex = 0, min(Nlast(Zcomp, Ncomp, 0), ubound(pop(Zcomp,Ncomp)%xspopex, 1))
+             if (nex == 0 .or. tau(Zcomp, Ncomp, nex) /= 0.) &
+               xsastroex(Zcomp, Ncomp, nin, nex) = pop(Zcomp,Ncomp)%xspopex(nex)
+           enddo
+         endif
        endif
     enddo
   enddo
