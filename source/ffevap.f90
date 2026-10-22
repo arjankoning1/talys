@@ -263,12 +263,14 @@ subroutine ffevap
           iap = izp + inp
           xsZApost(izp, inp) = xsZApost(izp, inp) + xspopnuc(Zix, Nix)
           xsApost(iap) = xsApost(iap) + xspopnuc(Zix, Nix)
-          do nex = 0, Nlast(Zix, Nix, 0)
-            if (nex == 0 .or. tau(Zix, Nix, nex) /= 0.) then
-              nex0 = min(nex, 1)
-              xsfpex(izp, inp, nex0) = xsfpex(izp, inp, nex0) + pop(Zix,Nix)%xspopex(nex)
-            endif
-          enddo
+          if (allocated(pop(Zix,Nix)%xspopex)) then
+            do nex = 0, min(Nlast(Zix, Nix, 0), ubound(pop(Zix,Nix)%xspopex, 1))
+              if (nex == 0 .or. tau(Zix, Nix, nex) /= 0.) then
+                nex0 = min(nex, 1)
+                xsfpex(izp, inp, nex0) = xsfpex(izp, inp, nex0) + pop(Zix,Nix)%xspopex(nex)
+              endif
+            enddo
+          endif
         enddo
       enddo
 !
