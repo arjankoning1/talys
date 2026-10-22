@@ -401,24 +401,26 @@ subroutine thermal
           fxspopnuc(nen, Zcomp, Ncomp) = xs
         endif
         if ( .not. flagchannels) fxsnonel(nen) = fxsnonel(nen) + fxspopnuc(nen, Zcomp, Ncomp)
-        do nex = 0, Nlast(Zcomp, Ncomp, 0)
-          fxspopex(nen, Zcomp, Ncomp, nex) = 0.
-          if (eninc(nen) <= Ethresh(Zcomp, Ncomp, nex)) cycle
-          xsa = pop(Zcomp,Ncomp)%xspopex(nex)
-          if (xsa < xseps) cycle
-          if (eninc(nen) > E1v) then
-            xsres = xsa * Rres
-            if (xsres <= 0..or.xsa <= 0.) cycle
-            xsalog = log(xsa)
-            xsreslog = log(xsres)
-            call pol1(Ereslog, ealog, xsreslog, xsalog, elog, xs)
-            fxspopex(nen, Zcomp, Ncomp, nex) = exp(xs)
-          else
-            xs = xsa * R * Eratio
-            fxspopex(nen, Zcomp, Ncomp, nex) = xs
-          endif
-          fxsbranch(nen, Zcomp, Ncomp, nex) = xsbranch(Zcomp, Ncomp, nex)
-        enddo
+        if (allocated(pop(Zcomp,Ncomp)%xspopex)) then
+          do nex = 0, min(Nlast(Zcomp, Ncomp, 0), ubound(pop(Zcomp,Ncomp)%xspopex, 1))
+            fxspopex(nen, Zcomp, Ncomp, nex) = 0.
+            if (eninc(nen) <= Ethresh(Zcomp, Ncomp, nex)) cycle
+            xsa = pop(Zcomp,Ncomp)%xspopex(nex)
+            if (xsa < xseps) cycle
+            if (eninc(nen) > E1v) then
+              xsres = xsa * Rres
+              if (xsres <= 0..or.xsa <= 0.) cycle
+              xsalog = log(xsa)
+              xsreslog = log(xsres)
+              call pol1(Ereslog, ealog, xsreslog, xsalog, elog, xs)
+              fxspopex(nen, Zcomp, Ncomp, nex) = exp(xs)
+            else
+              xs = xsa * R * Eratio
+              fxspopex(nen, Zcomp, Ncomp, nex) = xs
+            endif
+            fxsbranch(nen, Zcomp, Ncomp, nex) = xsbranch(Zcomp, Ncomp, nex)
+          enddo
+        endif
         if (flagastro .and. Zcomp <= numZastro .and. Ncomp <= numNastro) xsastro(Zcomp, Ncomp, nen) = fxspopnuc(nen, Zcomp, Ncomp)
       enddo
     enddo
