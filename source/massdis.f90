@@ -12,6 +12,7 @@ subroutine massdis
 !
   use A0_talys_mod
   use A1_error_handling_mod
+  use A1_gef_mod
 !
 ! Definition of single and double precision variables
 !   sgl             ! single precision kind
@@ -424,6 +425,7 @@ subroutine massdis
                   Jtabtot(iz, in, Jgef) = Jtabtot(iz, in, Jgef) + term * Jtab(iza, Jgef)
                 enddo
               enddo
+              call gef_deallocate()
             enddo
           endif
         endif
