@@ -1062,6 +1062,14 @@ Loop1:  do type = 1, 6
         endif
       endif
     enddo
+! Release the completed mother's large arrays.
+
+  if (allocated(pop(Zcomp,Ncomp)%xspop)) deallocate(pop(Zcomp,Ncomp)%xspop)
+  if (allocated(pop(Zcomp,Ncomp)%rhogrid)) deallocate(pop(Zcomp,Ncomp)%rhogrid)
+  if (allocated(pop(Zcomp,Ncomp)%xspopexP)) deallocate(pop(Zcomp,Ncomp)%xspopexP)
+  if (allocated(pop(Zcomp,Ncomp)%preeqpop)) deallocate(pop(Zcomp,Ncomp)%preeqpop)
+  if (allocated(pop(Zcomp,Ncomp)%preeqpopex)) deallocate(pop(Zcomp,Ncomp)%preeqpopex)
+  if (.not.flagmassdis .and. allocated(pop(Zcomp,Ncomp)%fisfeedJP)) deallocate(pop(Zcomp,Ncomp)%fisfeedJP)
   enddo
   return
 end subroutine multiple
