@@ -408,7 +408,7 @@ subroutine compound(Zcomp, Ncomp, nex, J2, parity)
 ! Prevent trapping of cross section in the continuum.
 ! Any flux that is left in the compound nucleus bin is equally distributed over the discrete states.
 !
-        NL = Nlast(Zcomp, Ncomp, 0)
+        NL = min(Nlast(Zcomp, Ncomp, 0), maxex(Zcomp, Ncomp))
         feed = 0.
         leftover = pop(Zcomp,Ncomp)%xspop(J, parity, nex) / (NL + 1.)
         xspartial(0, nex) = xspartial(0, nex) + pop(Zcomp,Ncomp)%xspop(J, parity, nex)
