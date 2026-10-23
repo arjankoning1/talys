@@ -63,6 +63,7 @@ subroutine knockout
   integer           :: nen           ! energy counter
   integer           :: type          ! particle type
   integer           :: type2         ! particle type
+  integer           :: nenlast
   real(sgl)         :: AKO           ! Pauli correction factor
   real(sgl)         :: Ccl           ! adjustment factor
   real(sgl)         :: Ckn           ! adjustable parameter for knockout reactions
