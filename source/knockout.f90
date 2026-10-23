@@ -136,9 +136,9 @@ subroutine knockout
       if (parskip(type2)) cycle
       emax = eninccm + Q(type2)
       dE = emax - coulbar(type2)
+      nenlast = min(eend(type2), eendmax(type2))
       if (dE > 2.) then
         total = 0.
-        nenlast = min(eend(type2), eendmax(type2))
         do nen = ebegin(type2), eend(type2)
           Eout = egrid(nen)
           if (Eout < coulbar(type2)) cycle
