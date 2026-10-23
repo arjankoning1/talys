@@ -137,14 +137,16 @@ subroutine knockout
       dE = emax - coulbar(type2)
       if (dE > 2.) then
         total = 0.
+        nenlast = min(eend(type2), eendmax(type2))
         do nen = ebegin(type2), eend(type2)
           Eout = egrid(nen)
           if (Eout < coulbar(type2)) cycle
           total = total + xsreac(type2, nen) * deltaE(nen)
         enddo
+        if (total == 0.) total = xsreac(type2, nenlast) * dE
         sigav = total / dE
       else
-        sigav = xsreac(type2, eend(type2))
+        sigav = xsreac(type2, nenlast)
       endif
       denomki(type2) = (2. * parspin(type2) + 1.) * sigav * (emax + 2. * coulbar(type2)) * max(dE **2, 100.)
     enddo
