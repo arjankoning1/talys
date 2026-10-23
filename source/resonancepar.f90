@@ -92,8 +92,9 @@ subroutine resonancepar(Zix, Nix)
           if (Sf /= 0. .and. S0(Zix, Nix) == 0.) S0(Zix, Nix) = Sf
           if (dDf /= 0. .and. D0(Zix, Nix) == 0.) dD0(Zix, Nix) = dDf
           if (Df /= 0. .and. D0(Zix, Nix) == 0.) D0(Zix, Nix) = Df
-          if (dgamgamf /= 0. .and. gamgam(Zix, Nix) == 0.) dgamgam(Zix, Nix) = dgamgamf
-          if (gamgamf /= 0. .and. gamgam(Zix, Nix) == 0.) gamgam(Zix, Nix) = gamgamf
+! The resonance tables give gamgam and dgamgam in keV; gamgam is used in eV.
+          if (dgamgamf /= 0. .and. gamgam(Zix, Nix) == 0.) dgamgam(Zix, Nix) = 1000. * dgamgamf
+          if (gamgamf /= 0. .and. gamgam(Zix, Nix) == 0.) gamgam(Zix, Nix) = 1000. * gamgamf
           if (dRf /= 0. .and. Rscat(Zix, Nix) == 0.) dRscat(Zix, Nix) = dRf
           if (Rf /= 0. .and. Rscat(Zix, Nix) == 0.) Rscat(Zix, Nix) = Rf
           if (Nrrf /= 0) Nrr(Zix, Nix) = Nrrf
