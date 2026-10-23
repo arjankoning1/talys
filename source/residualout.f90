@@ -135,14 +135,24 @@ subroutine residualout
 !
       Z = ZZ(Zcomp, Ncomp, 0)
       A = AA(Zcomp, Ncomp, 0)
+      xslevel = 0._dbl
+      if (allocated(pop(Zcomp,Ncomp)%xspopex)) then
+        if (lbound(pop(Zcomp,Ncomp)%xspopex, 1) <= 0 .and. ubound(pop(Zcomp,Ncomp)%xspopex, 1) >= 0) &
+ &        xslevel = pop(Zcomp,Ncomp)%xspopex(0)
+      endif
       write(*, '(1x, 2i4, " (", i3, a2, ")", es12.5, "    0   ", es12.5, f9.5)') Z, A, A, nuc(Z), xspopnuc(Zcomp, Ncomp), &
- &      pop(Zcomp,Ncomp)%xspopex(0), xsbranch(Zcomp, Ncomp, 0)
+ &      xslevel, xsbranch(Zcomp, Ncomp, 0)
 !
 ! B. Per isomer
 !
       do nex = 1, Nlast(Zcomp, Ncomp, 0)
         if (tau(Zcomp, Ncomp, nex) /= 0.) then
-          write(*, '(31x, i3, 3x, es12.5, f9.5, 2x, es12.5, " sec. ")')  levnum(Zcomp, Ncomp, nex), pop(Zcomp,Ncomp)%xspopex(nex), &
+          xslevel = 0._dbl
+          if (allocated(pop(Zcomp,Ncomp)%xspopex)) then
+            if (nex >= lbound(pop(Zcomp,Ncomp)%xspopex, 1) .and. nex <= ubound(pop(Zcomp,Ncomp)%xspopex, 1)) &
+ &          xslevel = pop(Zcomp,Ncomp)%xspopex(nex)
+          endif
+          write(*, '(31x, i3, 3x, es12.5, f9.5, 2x, es12.5, " sec. ")')  levnum(Zcomp, Ncomp, nex), xslevel, &
  &          xsbranch(Zcomp, Ncomp, nex), tau(Zcomp, Ncomp, nex)
         endif
       enddo
