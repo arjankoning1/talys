@@ -91,6 +91,7 @@ subroutine densitymatch(Zix, Nix)
   real(dbl) :: fermi           ! function for Fermi gas level density formula
   real(dbl) :: rhomatch        ! level density at matching point
   real(sgl) :: val             ! help variable
+  logical   :: Tfree           ! flag for temperature not given in the input (to be derived from the Fermi gas)
 !
 ! ************* Determine level density matching parameters ************
 !
@@ -181,6 +182,7 @@ subroutine densitymatch(Zix, Nix)
     endif
     do
       Tm = T(Zix, Nix, ibar)
+      Tfree = (Tm == 0.)
       Exm = Exmatchadjust(Zix, Nix, ibar) * Exmatch(Zix, Nix, ibar)
       E0m = E0(Zix, Nix, ibar)
       E0save = E0m
@@ -246,9 +248,17 @@ subroutine densitymatch(Zix, Nix)
         call locate(temprho, Nstart, nEx - 1, Tm, i)
         if (i > 0) call pol1(temprho(i), temprho(i + 1), i * dEx, (i + 1) * dEx, Tm, Exm)
         ald = ignatyuk(Zix, Nix, Exm, ibar)
-        if (Exm <= max(2.25 / ald + P, 0.) + 0.11) Exm = Exmemp
-        if (Exm == 0.) Exm = Exmemp
-        if (Exm > 3. * Exmemp) Exm = Exmemp
+!
+! If Exm is reset to the empirical value while T is not given in the input, T is taken as the Fermi-gas temperature at Exm,
+! so that the level density has a continuous logarithmic derivative at the matching point (light nuclides: see above).
+!
+        if (Exm <= max(2.25 / ald + P, 0.) + 0.11 .or. Exm > 3. * Exmemp) then
+          Exm = Exmemp
+          if (Tfree .and. A > 18) then
+            i = int(Exm / dEx)
+            if (i > 0) call pol1(i * dEx, (i + 1) * dEx, temprho(i), temprho(i + 1), Exm, Tm)
+          endif
+        endif
       endif
       if (Tm == 0.) then
         ald = ignatyuk(Zix, Nix, Exm, ibar)
