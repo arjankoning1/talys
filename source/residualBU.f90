@@ -36,6 +36,7 @@ subroutine residualBU
   integer   :: Acomp            ! mass number index for compound nucleus
   integer   :: Ncomp            ! neutron number index for compound nucleus
   integer   :: nex              ! excitation energy bin of compound nucleus
+  integer   :: nexlast          ! last allocated discrete level
   integer   :: Zcomp            ! proton number index for compound nucleus
   real(sgl) :: branch(0:numlev) ! branching ratio to a given excited state
 !
@@ -46,14 +47,15 @@ subroutine residualBU
       Ncomp = Acomp - Zcomp
       if (Ncomp < 0 .or. Ncomp > maxN) cycle
       if (xspopnuc(Zcomp, Ncomp) == 0.) cycle
-      do nex = 0, Nlast(Zcomp, Ncomp, 0)
+      nexlast = min(Nlast(Zcomp, Ncomp, 0), ubound(pop(Zcomp,Ncomp)%xspopex, 1))
+      do nex = 0, nexlast
         branch(nex) = 0.
         if (nex == 0 .or. tau(Zcomp, Ncomp, nex) /= 0.) then
           branch(nex) = pop(Zcomp,Ncomp)%xspopex(nex) / xspopnuc(Zcomp, Ncomp)
         endif
       enddo
       xspopnuc(Zcomp, Ncomp) = xspopnuc(Zcomp, Ncomp) + xsBFnuc(Zcomp, Ncomp)
-      do nex = 0, Nlast(Zcomp, Ncomp, 0)
+      do nex = 0, nexlast
         if (nex == 0 .or. tau(Zcomp, Ncomp, nex) /= 0.) then
           pop(Zcomp,Ncomp)%xspopex(nex) = branch(nex) * xspopnuc(Zcomp, Ncomp)
         endif
