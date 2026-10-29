@@ -252,7 +252,7 @@ subroutine levels(Zix, Nix)
   if (Lisoinp ==  - 1 .and. Ltarget /= 0) then
     if (Zix == parZ(k0) .and. Nix == parN(k0) .and. Ltarget > nlev(Zix, Nix)) then
       write(*, '(" TALYS-error: excited level of target does not exist")')
-      stop
+      stop 1
     endif
   endif
 !
