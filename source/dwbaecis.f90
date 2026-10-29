@@ -129,7 +129,7 @@ subroutine dwbaecis
       inquire (file = 'ecis.msdin', exist = lexist)
       if ( .not. lexist) then
         write(*, '(" TALYS-error: The first calculation of a run should always be done with ecissave y and ecisdwba y")')
-        stop
+        stop 1
       endif
       open (unit = 8, file = 'ecis.msdang', status = 'unknown')
       open (unit = 10, file = 'ecis.msdin', status = 'unknown')
