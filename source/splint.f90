@@ -42,7 +42,7 @@ subroutine splint(xa, ya, y2a, i, x, y)
   hsp = xa(khi) - xa(klo)
   if (hsp == 0.) then
     write(*, *) 'bad xa input in splint'
-    stop
+    stop 1
   endif
   a = (xa(khi) - x) / hsp
   b = (x - xa(klo)) / hsp
