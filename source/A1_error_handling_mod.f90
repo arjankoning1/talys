@@ -73,7 +73,7 @@ subroutine read_error(errfile, istat, eor, eof, error, ival, xval, cval)
       endif
     endif
   endif
-  stop
+  stop 1
   return
 end subroutine read_error
 ! Copyright A.J. Koning 2021
@@ -145,7 +145,7 @@ subroutine range_integer_error(varname, variable, vmin, vmax, default, unit, fla
         return
       endif
     endif
-    stop
+    stop 1
   endif
   return
 end subroutine range_integer_error
@@ -193,7 +193,7 @@ subroutine range_index_error(varname, indexname, variable, vmin, vmax, flagoutsi
         return
       endif
     endif
-    stop
+    stop 1
   endif
   return
 end subroutine range_index_error
@@ -250,7 +250,7 @@ subroutine range_real_error(varname, variable, vmin, vmax, default, unit, index1
     if (present(index3) .and. present(name3)) write(*, '("             ",a," = ",i9)') trim(name3),index3
     if (present(index4) .and. present(name4)) write(*, '("             ",a," = ",i9)') trim(name4),index4
     if (present(index5) .and. present(name5)) write(*, '("             ",a," = ",i9)') trim(name5),index5
-    stop
+    stop 1
   endif
   return
 end subroutine range_real_error
