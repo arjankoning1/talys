@@ -166,19 +166,19 @@ subroutine input_main
 !
   if ( .not. projexist) then
     write(*, '(" TALYS-error: projectile must be given")')
-    stop
+    stop 1
   endif
   if ( .not. massexist) then
     write(*, '(" TALYS-error: mass must be given")')
-    stop
+    stop 1
   endif
   if ( .not. elemexist) then
     write(*, '(" TALYS-error: element must be given")')
-    stop
+    stop 1
   endif
   if ( .not. enerexist) then
     write(*, '(" TALYS-error: energy must be given")')
-    stop
+    stop 1
   endif
 !
 ! Identification of target and nucleus
