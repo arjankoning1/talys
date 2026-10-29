@@ -201,7 +201,7 @@ subroutine masses
 !
   if (nucmass(parZ(k0), parN(k0)) == 0. .and. .not.flagduflo) then
     write(*, '(" TALYS-error: Target nucleus not in masstable")')
-    stop
+    stop 1
   endif
 !
 ! ********* Use analytical mass formula for remaining nuclei ***********
