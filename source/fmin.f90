@@ -53,7 +53,7 @@ function fmin(extern, k, psh, pd, pa, pe, ncall, eps)
   if (k <= mmax) goto 4
   write ( * , 5) k, mmax
  5    format( / 1x, "from fmin: introduced number of parameters", i4, "    larger than allowed number", i3 / )
-  stop
+  stop 1
  4    icall = 0
   do i = 1, k
     if (psh(i) < pa(i)) psh(i) = pa(i)
