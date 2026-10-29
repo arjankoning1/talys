@@ -80,7 +80,7 @@ subroutine machine
     write(*, '(a)') '  export TALYS_DIR=/path/to/talys'
     write(*, '(a)') 'Alternatively, edit code_dir in source/machine.f90'
     write(*, '(a)') 'and rebuild TALYS.'
-    error stop 77
+    stop 1
   endif
 !
 ! Set date
