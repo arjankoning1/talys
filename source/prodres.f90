@@ -91,7 +91,7 @@ subroutine prodres
         inquire (file = nonfile, exist = lexist)
         if (.not. lexist) then
           write(*,'(" TALYS-error: non-elastic cross section file nonelastic.tot does not exist")')
-          stop
+          stop 1
         endif
         open (unit = 1, file = nonfile, status = 'old')
         iE = 0
