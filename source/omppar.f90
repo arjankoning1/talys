@@ -340,7 +340,7 @@ Loop1: do
           enddo
           close (unit = 31)
           write(*, '(" TALYS-warning: RIPL OMP ",i4," for ",i3,a2," out of range")') riplomp(k), At, nuc(Zt)
-          if ( .not. flagriplrisk) stop
+          if ( .not. flagriplrisk) stop 1
 !
 ! Create input file for RIPL OMP retrieval code
 !
@@ -395,7 +395,7 @@ Loop1: do
         if (eferm > 0.) ef(Zix, Nix, k) = eferm
         if (omplines(Zix, Nix, k) > numomp) then
           write(*, '(" TALYS-error: number of lines in OMP file > ", i4)') numomp
-          stop
+          stop 1
         endif
         call range_integer_error(optmodfile, omplines(Zix, Nix, k), 0, numomp, index1 = Z, name1 = 'Z', index2 = A, name2 = 'A', &
  &        index3 = k, name3 = 'k')
