@@ -75,7 +75,7 @@ subroutine abundance
   inquire (file = abfile, exist = lexist)
   if ( .not. lexist) then
     write(*, '(" TALYS-error: No natural isotopes for this element, the mass keyword must be different from 0")')
-    stop
+    stop 1
   endif
 !
 ! Read abundances from file
