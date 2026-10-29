@@ -289,7 +289,7 @@ Loop1:  do type = 2, 6
     inquire (file = 'incident.cs', exist = lexist)
     if ( .not. lexist) then
       write(*, '(" TALYS-error: The first calculation of a run should always be done with ecissave y and inccalc y")')
-      stop
+      stop 1
     endif
     open (unit = 13, file = 'incident.cs', status = 'old', iostat = istat)
     if (istat /= 0) call read_error('incident.cs', istat)
@@ -306,7 +306,7 @@ Loop1:  do type = 2, 6
     inquire (file = 'endf.cs', exist = lexist)
     if ( .not. lexist) then
       write(*, '(" TALYS-error: The first calculation of a run should always be done with ecissave y and endfecis y")')
-      stop
+      stop 1
     endif
     open (unit = 23, file = 'endf.cs', status = 'old', iostat = istat)
     if (istat /= 0) call read_error('endf.cs', istat)
@@ -337,7 +337,7 @@ Loop1:  do type = 2, 6
             if (nen > 1) then
               if (Erescue(mt, is, nen) <= Erescue(mt, is, nen - 1)) then
                 write(*, '(" TALYS-error: energies in rescuefile must be given in ascending order")')
-                stop
+                stop 1
               endif
             endif
             nen = nen + 1
