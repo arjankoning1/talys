@@ -369,19 +369,19 @@ subroutine getvalues(class, word, Zix, Nix, type, ibar, irad, lval, igr, val, iv
 ! Error and warning messages
 !
   100 write(*, '(" TALYS-error: Wrong input for: ", a)') trim(key)
-  stop
+  stop 1
   140 write(*, '(" TALYS-error: parameter file ", a, " does not exist for keyword ", a)') trim(adfile), trim(key)
-  stop
+  stop 1
   150 write(*, '(" TALYS-error: parameter file ", a, " has wrong format for keyword ", a)') trim(adfile), trim(key)
-  stop
+  stop 1
   160 write(*, '(" TALYS-error: parameter file ", a, " must have energies in increasing order for keyword ", a)') &
  &  trim(adfile), trim(key)
-  stop
+  stop 1
   170 write(*, '(" TALYS-error: parameter file ", a, " has more than ", i6, " energies for keyword ", a)') &
  &  trim(adfile), numenadj, trim(key)
-  stop
+  stop 1
   180 write(*, '(" TALYS-error: wrong particle symbol for: ", a)') trim(key)
-  stop
+  stop 1
   200 write(*, '(" TALYS-warning: Z, N index out of range, keyword ignored: ", a)') trim(key)
   return
 end subroutine getvalues
