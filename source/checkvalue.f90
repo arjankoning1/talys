@@ -389,12 +389,12 @@ subroutine checkvalue
   enddo
   if (ptype0 == '0') goto 20
   write(*, '(" TALYS-error: Wrong symbol for projectile: ", a1)') ptype0
-  stop
+  stop 1
    20 do i = 3, numelem
     if (Starget == nuc(i)) goto 40
    enddo
   write(*, '(" TALYS-error: Wrong symbol for element: ", a2)') Starget
-  stop
+  stop 1
 40 call range_integer_error('Target mass', Atarget, 6, nummass)
   call range_integer_error('CN Z', Zinit, 3, numelem)
   call range_integer_error('CN N', Ninit, 3, numneu)
@@ -412,23 +412,23 @@ subroutine checkvalue
   call range_integer_error('segment', segment, 1, 4)
   if (segment > 1 .and. enincmax > 100.) then
     write(*, '(" TALYS-error: segment = 1 for incident energy of ", f8.3, " MeV")') enincmax
-    stop
+    stop 1
   endif
   if (segment > 2 .and. enincmax > 40.) then
     write(*, '(" TALYS-error: 1 <= segment = 2 for incident energy of ", f8.3, " MeV")') enincmax
-    stop
+    stop 1
   endif
   if (segment > 3 .and. enincmax > 20.) then
     write(*, '(" TALYS-error: 1 <= segment = 3 for incident energy of ", f8.3, " MeV")') enincmax
-    stop
+    stop 1
   endif
   if (segment > 1 .and. flagastro) then
     write(*, '(" TALYS-error: segment = 1 for astrophysical calculations")')
-    stop
+    stop 1
   endif
   if (flagnatural .and. Ltarget > 0) then
     write(*,'(" TALYS-error: Excited level for target not possible for natural targets")')
-    stop
+    stop 1
   endif
   if (Lisoinp ==  -1) then
     call range_integer_error('maxlevelstar', nlevmax, 0, numlev)
@@ -458,7 +458,7 @@ subroutine checkvalue
     inquire (file = massfile, exist = lexist)
     if (.not.lexist) then
       write(*, '(" TALYS-error: Non-existent mass file ", a)') trim(massfile)
-      stop
+      stop 1
     endif
     massfile = trim(massdir)//'/'//trim(Starget)//'.mass'
     inquire (file = massfile, exist = lexist)
@@ -470,7 +470,7 @@ subroutine checkvalue
   call range_integer_error('core', core, -1, 1)
   if (core ==  0) then
     write(*, '(" TALYS-error: core = -1 or 1")')
-    stop
+    stop 1
   endif
   call range_integer_error('transpower', transpower, 2, 20)
   call range_real_error('transeps', real(transeps), 0., 1.)
@@ -492,7 +492,7 @@ subroutine checkvalue
   call range_real_error('astroE', astroE, 0.00001, 1., default = 0.)
   if (astroE /= 0..and.astroT9 /= 0.) then
     write(*, '(" TALYS-error: Only astroE OR astroT can be given")')
-    stop
+    stop 1
   endif
   if (astroE /= 0.) astroT9 = astroE / kT
   if (astroT9 /= 0.) astroE = astroT9 * kT
@@ -500,11 +500,11 @@ subroutine checkvalue
   if (flagprod) then
     if (k0 <= 1) then
       write(*, '(" TALYS-error: isotope production not yet enabled for incident photons or neutrons)")')
-      stop
+      stop 1
     endif
     if (Ebeam ==  -1.) then
       write(*, '(" TALYS-error: accelerator energy Ebeam must be given for isotope production (production y)")')
-      stop
+      stop 1
     endif
     call range_real_error('Ebeam', Ebeam, 0., Emaxtalys, unit = 'MeV')
     if (Eback ==  -1.) then
@@ -516,22 +516,22 @@ subroutine checkvalue
     if (Ebeam > enincmax + 1.e-4) then
       write(*, '(" TALYS-error: Ebeam is not in the energy range ", &
  &      "with TALYS results, Ebeam = ", f10.5, " Ein(max) = ", f10.5, ". Rerun with wider energy grid")') Ebeam, enincmax
-      stop
+      stop 1
     endif
     if (Eback < eninc(1) - 1.e-4) then
       write(*, '(" TALYS-error: Eback is not in the energy range ", &
  &      "with TALYS results, Eback = ", f10.5, " Ein(1) = ", f10.5, ". Rerun with wider energy grid")') Eback, eninc(1)
-      stop
+      stop 1
     endif
     if (radiounit /= 'bq' .and. radiounit /= 'kbq' .and. radiounit /= 'mbq' .and. radiounit /= 'gbq' .and. &
       radiounit /= 'mci' .and. radiounit /= 'ci' .and. radiounit /= 'kci') then
       write(*, '(" TALYS-error: radiounit should be equal to Bq, kBq, MBq, Gbq, mCi, Ci or kCi")')
-      stop
+      stop 1
     endif
     if (yieldunit /= 'num' .and. yieldunit /= 'mug' .and. yieldunit /= 'mg' .and. yieldunit /= 'g' .and. yieldunit /= 'kg') &
       then
       write(*, '(" TALYS-error: yieldunit should be equal to num (number), mug (micro-gram), mg, g, or kg")')
-      stop
+      stop 1
     endif
     call range_real_error('Ibeam', Ibeam, 0., 10000., unit = 'mA')
     call range_real_error('Area', Area, 0., 10000., unit = 'cm^2')
@@ -543,12 +543,12 @@ subroutine checkvalue
       if (unitTirrad(k) /= ' ' .and. unitTirrad(k) /= 'y' .and. unitTirrad(k) /= 'd' .and. unitTirrad(k) /= 'h' .and. &
         unitTirrad(k) /= 'm' .and. unitTirrad(k) /= 's') then
         write(*, '(" TALYS-error: wrong unit for Tirrad = ", i9)') Tirrad(k)
-        stop
+        stop 1
       endif
       if (unitTcool(k) /= ' ' .and. unitTcool(k) /= 'y' .and. unitTcool(k) /= 'd' .and. unitTcool(k) /= 'h' .and. &
         unitTcool(k) /= 'm' .and. unitTcool(k) /= 's') then
         write(*, '(" TALYS-error: wrong unit for Tcool = ", i9)') Tcool(k)
-        stop
+        stop 1
       endif
     enddo
     call range_real_error('rhotarget', rhotarget, 0., 100., default = -1.)
@@ -564,7 +564,7 @@ subroutine checkvalue
         inquire (file = optmod(Zix, Nix, type), exist = lexist)
         if ( .not. lexist) then
           write(*, '(" TALYS-error: Non-existent optical model file: ", a)') trim(optmod(Zix, Nix, type))
-          stop
+          stop 1
         endif
       enddo
     enddo
@@ -572,21 +572,21 @@ subroutine checkvalue
       inquire (file = optmodfileN(Zix), exist = lexist)
       if ( .not. lexist) then
         write(*, '(" TALYS-error: Non-existent optical model file: ", a)') trim(optmodfileN(Zix))
-        stop
+        stop 1
       endif
     endif
     if (optmodfileP(Zix)(1:1) /= ' ') then
       inquire (file = optmodfileP(Zix), exist = lexist)
       if ( .not. lexist) then
         write(*, '(" TALYS-error: Non-existent optical model file: ", a)') trim(optmodfileP(Zix))
-        stop
+        stop 1
       endif
     endif
     if (radialfile(Zix)(1:1) /= ' ') then
       inquire (file = radialfile(Zix), exist = lexist)
       if ( .not. lexist) then
         write(*, '(" TALYS-error: Non-existent radial file: ", a)') trim(radialfile(Zix))
-        stop
+        stop 1
       endif
     endif
 !
@@ -596,14 +596,14 @@ subroutine checkvalue
       inquire (file = levelfile(Zix), exist = lexist)
       if ( .not. lexist) then
         write(*, '(" TALYS-error: Non-existent level file: ", a)') trim(levelfile(Zix))
-        stop
+        stop 1
       endif
     endif
     if (deformfile(Zix)(1:1) /= ' ') then
       inquire (file = deformfile(Zix), exist = lexist)
       if ( .not. lexist) then
         write(*, '(" TALYS-error: Non-existent deformation parameter file: ", a)') trim(deformfile(Zix))
-        stop
+        stop 1
       endif
     endif
     do Nix = 0, numN
@@ -614,7 +614,7 @@ subroutine checkvalue
             if ( .not. lexist) then
               write(*, '(" TALYS-error: Non-existent strength ", &
  &              "function file irad = ", i1, " l = ", i2, " : ", a)') irad, l, trim(Exlfile(Zix, Nix, irad, l))
-              stop
+              stop 1
             endif
           endif
         enddo
@@ -623,7 +623,7 @@ subroutine checkvalue
         inquire (file=densfile(Zix,Nix),exist=lexist)
         if (.not.lexist) then
           write(*,'(" TALYS-error: Non-existent level density file: ",a)') trim(densfile(Zix,Nix))
-          stop
+          stop 1
         endif
         if (ctable(Zix,Nix,0) == 1.e-20) ctable(Zix,Nix,0)=0.
         if (ptable(Zix,Nix,0) == 1.e-20) ptable(Zix,Nix,0)=0.
@@ -639,14 +639,14 @@ subroutine checkvalue
         inquire (file = hbtransfile(Zix, Nix), exist = lexist)
         if ( .not. lexist) then
           write(*, '(" TALYS-error: Non-existent head band transition state file: ", a)') trim(hbtransfile(Zix, Nix))
-          stop
+          stop 1
         endif
       endif
       if (clas2file(Zix, Nix)(1:1) /= ' ') then
         inquire (file = clas2file(Zix, Nix), exist = lexist)
         if ( .not. lexist) then
           write(*, '(" TALYS-error: Non-existent class 2 transition state file: ", a)') trim(clas2file(Zix, Nix))
-          stop
+          stop 1
         endif
       endif
     enddo
@@ -655,7 +655,7 @@ subroutine checkvalue
     inquire (file = ompenergyfile, exist = lexist)
     if ( .not. lexist) then
       write(*, '(" TALYS-error: Non-existent ompenergyfile: ", a)') trim(ompenergyfile)
-      stop
+      stop 1
     endif
   endif
   do mt = 1, nummt
@@ -664,7 +664,7 @@ subroutine checkvalue
         inquire (file = rescuefile(mt, is), exist = lexist)
         if ( .not. lexist) then
           write(*, '(" TALYS-error: Non-existent rescue file: ", a)') trim(rescuefile(mt, is))
-          stop
+          stop 1
         endif
       endif
       call range_real_error('grescue', grescue(mt, is), 0.001, 1000., index1 = mt, name1 = 'MT', index2 = is, name2 = 'iso')
@@ -719,7 +719,7 @@ subroutine checkvalue
           if (ompadjustE1(type, omptype, nr) > ompadjustE1(type, omptype, nr2) .and. &
             ompadjustE1(type, omptype, nr) < ompadjustE2(type, omptype, nr2)) then
             write(*, '(" TALYS-error: ompadjustE1 and ompadjustE2 overlapping")')
-            stop
+            stop 1
           endif
         enddo
         call range_real_error('ompadjustD', ompadjustD(type, omptype, nr), -100., 100., &
@@ -751,7 +751,7 @@ subroutine checkvalue
   call range_integer_error('maxrot', maxrot, 0, 20)
   if (k0 == 0 .and. flaggiant0) then
     write(*, '(" TALYS-error: No giant resonance sumrules for photonuclear reactions")')
-    stop
+    stop 1
   endif
 !
 ! 4. Check of values for compound nucleus
@@ -763,27 +763,27 @@ subroutine checkvalue
   call range_integer_error('lurr', lurr, 0, numl)
   if (k0 == 0 .and. ewfc > 0.) then
     write(*, '(" TALYS-error: No width fluctuations for photonuclear reactions")')
-    stop
+    stop 1
   endif
   if (k0 /= 1 .and. flagres) then
     write(*, '(" TALYS-error: resonance calculation only possible for incident neutrons")')
-    stop
+    stop 1
   endif
   if (k0 /= 1 .and. (eurr > 0..or.flagurr)) then
     write(*, '(" TALYS-error: URR calculation only possible for incident neutrons")')
-    stop
+    stop 1
   endif
   if ( .not. flagcomp .and. eurr > 0.) then
     write(*, '(" TALYS-error: URR calculation only possible if compound nucleus model enabled")')
-    stop
+    stop 1
   endif
   if (k0 == 0..and.flageciscomp) then
     write(*, '(" TALYS-error: No compound calculation by ECIS for incident photons")')
-    stop
+    stop 1
   endif
   if (enincmax > 20..and.flageciscomp) then
     write(*, '(" TALYS-error: No compound calculation by ECIS for E > 20 MeV")')
-    stop
+    stop 1
   endif
 !
 ! 5. Check of values for gamma emission
@@ -792,25 +792,25 @@ subroutine checkvalue
   call range_integer_error('strength', strength, 1, 13)
   if (strength /= 11 .and. flagstrengthjp) then
     write(*,'(" TALYS-error: strengthjp must be n for strength /= 11")')
-    stop
+    stop 1
   endif
   if ((strengthM1 < 1 .or. strengthM1 > 4) .and. strengthM1 /= 8 .and. strengthM1 /= 10 .and. &
  &    strengthM1 /= 11 .and. strengthM1 /= 12) then
     write(*,'(" TALYS-error: strengthM1 = 1, 2, 3, 4, 8, 10, 11 or 12")')
-    stop
+    stop 1
   endif
   if (strengthM1 /= 11 .and. flagstrengthjp) then
     write(*,'(" TALYS-error: strengthjp must be n for strengthM1 /= 11")')
-    stop
+    stop 1
   endif
   if (.not. flaglegacy) then
     if (strength <= 7) then
       write(*,'(" TALYS-error: strength = 8, 9, 10, 11, 12 or 13 are recommended. If you want to use legacy models put legacy y")')
-      stop
+      stop 1
     endif
     if (strengthM1 /= 3 .and. strengthM1 /= 8 .and. strengthM1 /= 10 .and. strengthM1 /= 11 .and. strengthM1 /= 12) then
       write(*,'(" TALYS-error: strengthM1 = 3, 8, 10, 11 or 12 are recommended. If you want to use legacy models put legacy y")')
-      stop
+      stop 1
     endif
   endif
   do Zix = 0, numZ
@@ -886,7 +886,7 @@ subroutine checkvalue
   call range_real_error('RprimeU', RprimeU, 0., 10.)
   if (flagracap .and. k0 == 0) then
     write(*, '(" TALYS-error: Radiative capture model not possible for incident photons")')
-    stop
+    stop 1
   endif
   call range_integer_error('ldmodelracap', ldmodelracap, 1, 3)
   call range_real_error('levinger', levinger, 0.01, 100.)
@@ -927,7 +927,7 @@ subroutine checkvalue
   call range_real_error('xsalphatherm', xsalphatherm(-1), 1.e-20, 1.e10, default = 0.)
   if (k0 == 0 .and. flagpecomp) then
     write(*, '(" TALYS-error: No pick-up and knock-out mechanism for photonuclear reactions")')
-    stop
+    stop 1
   endif
   do type = 0, 6
     call range_real_error('Cstrip', Cstrip(type), 0., 100., index1 = type, name1 = 'type')
@@ -956,7 +956,7 @@ subroutine checkvalue
   if (.not. flaglegacy) then
     if (ldmodelCN == 3 .or. ldmodelCN == 4 .or. ldmodelCN == 6) then
       write(*,'(" TALYS-error: ldmodelCN = 1, 2, 5, or 7 are recommended. If you want to use legacy models put legacy y")')
-      stop
+      stop 1
     endif
   endif
   do Zix = 0, numZ
@@ -967,14 +967,14 @@ subroutine checkvalue
       if (.not. flaglegacy) then
         if (ldmodel(Zix, Nix) == 3 .or. ldmodel(Zix, Nix) == 4 .or. ldmodel(Zix, Nix) == 6) then
           write(*,'(" TALYS-error: ldmodel = 1, 2, 5, or 7 are recommended. If you want to use legacy models put legacy y")')
-          stop
+          stop 1
         endif
       endif
       if (ldmodel(Zix, Nix) >= 4) then
         inquire (file = trim(path) // 'density/ground/hilaire/Sn.tab', exist = lexist)
         if ( .not. lexist) then
           write(*, '(" TALYS-error: Microscopic HFB tables are not installed: download the full TALYS package from www.talys.eu")')
-          stop
+          stop 1
         endif
       endif
       call range_real_error('a', alev(Zix, Nix), 1., 100., default = 0.,  index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
@@ -1037,7 +1037,7 @@ subroutine checkvalue
       call range_real_error('betald', betald(Zix, Nix), -0.5, 0.5, index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
       if (betald(Zix, Nix) < 0..and. abs(betald(Zix, Nix)) > alphald(Zix, Nix)) then
         write(*, '(" TALYS-error: if betald<0, |betald|<alphald")')
-        stop
+        stop 1
       endif
       call range_real_error('gammashell1', gammashell1(Zix, Nix), 0., 1., index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
       call range_real_error('Pshiftconstant', Pshiftconstant(Zix, Nix), -5., 5., index1 = Z, name1 = 'Z', index2 = A, name2 = 'A')
@@ -1057,7 +1057,7 @@ subroutine checkvalue
           alimit(Zix, Nix) /= 0 .and. gammald(Zix, Nix) /=  -1.) then
           write(*, '(" TALYS-error: Level density conflict - a, deltaW, alimit and gammald are ALL given", &
  &          " in the input for Z=", i3, " A=", i3, " fission barrier = ", i3)') Zinit-Zix, Ainit-Zix-Nix, ibar
-          stop
+          stop 1
         endif
       enddo
     enddo
@@ -1073,22 +1073,22 @@ subroutine checkvalue
 !
   if ((flagfission .or. flagfisout) .and. Atarget <= 150) then
     write(*, '(" TALYS-error: Fission not allowed for A <= 150")')
-    stop
+    stop 1
   endif
   if (flagfission .and. flagmassdis .and. flagnatural) then
     write(*, '(" TALYS-error: Fission yield calculation not possible for natural targets")')
-    stop
+    stop 1
   endif
   call range_integer_error('fismodel', fismodel, 1, 6)
   call range_integer_error('fismodelalt', fismodelalt, 3, 4)
   if (fismodel < 5 .and. flagfispartdamp) then
     write(*,'(" TALYS-error: Fission partial damping only allowed for fismodel 5 or 6")')
-    stop
+    stop 1
   endif
   call range_integer_error('fymodel', fymodel, 1, 5)
   if (flagastro .and. flagfission .and. flagmassdis) then
     write(*, '(" TALYS-error: astro y with massdis y is not supported")')
-    error stop 1
+    stop 1
   endif
   call range_integer_error('ffmodel', ffmodel, 0, 4)
   call range_integer_error('pfnsmodel', pfnsmodel, 1, 2)
@@ -1102,7 +1102,7 @@ subroutine checkvalue
     inquire (file = yieldfile, exist = lexist)
     if ( .not. lexist) then
       write(*, '(" TALYS-error: Non-existent yieldfile: ", a)') trim(yieldfile)
-      stop
+      stop 1
     endif
   endif
   do Zix = 0, numZ
@@ -1144,7 +1144,7 @@ subroutine checkvalue
       if (flagsffactor) then
         if (rmiufiscor(Zix, Nix) /= -1. .and. vfiscor(Zix, Nix) /= -1.) then
           write(*,'(" TALYS-error: if sffactor y one can not give both vfiscor and rmiufiscor in the input")')
-          stop
+          stop 1
         endif
       else
         if (vfiscor(Zix, Nix) == -1.) vfiscor(Zix, Nix) = 1.
@@ -1181,7 +1181,7 @@ subroutine checkvalue
     if ((Ea >= Eb) .or. (Ea >= Em) .or. (Em >= Eb)) then
       write(*, '(" TALYS-error: energy range for adjustment should", &
  &      " be given as follows: Ea Eb Em D, with Ea < Em < Eb for keyword ", a)') trim(adjustkey(n))
-      stop
+      stop 1
     endif
     call range_real_error(adjustkey(n), D, 0., 10., index1 = n, name1 = 'n')
     do m = 1, Nadjust
@@ -1191,7 +1191,7 @@ subroutine checkvalue
       Eb2 = adjustpar(m, 2)
       if ((Ea2 > Ea .and. Ea2 < Eb) .or. (Eb2 > Ea .and. Eb2 < Eb)) then
         write(*, '(" TALYS-error: overlapping energy ranges for keyword ", a)') trim(adjustkey(n))
-        stop
+        stop 1
       endif
     enddo
   enddo
@@ -1206,7 +1206,7 @@ subroutine checkvalue
     if (trim(reslib) == 'cendl3.2') return
     if (trim(reslib) == 'jendl5.0') return
     write(*, '(" TALYS-error: Wrong library name: ", a)') trim(reslib)
-    stop
+    stop 1
   endif
   return
 end subroutine checkvalue
