@@ -87,7 +87,7 @@ subroutine inverseread(Zcomp, Ncomp)
   if ( .not. lexist) then
     write(*, '(" TALYS-error: The first calculation of a run", " should always be done with ecissave y and", &
  &    " eciscalc y. Non-existent file: ", a13)') csfile
-    stop
+    stop 1
   endif
   open (unit = 3, file = csfile, status = 'unknown')
   do type = 1, 6
