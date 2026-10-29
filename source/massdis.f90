@@ -601,7 +601,7 @@ subroutine massdis
       inquire (file=Efile,exist=lexist)
       if (.not.lexist) then
         write(*,'(" TALYS-error: Non-existent FF file ",a)') trim(Efile)
-        stop
+        stop 1
       endif
       open (unit = 1, file = Efile, status = 'unknown')
       i = 1
@@ -645,7 +645,7 @@ subroutine massdis
       inquire (file=Yfile(k),exist=lexist)
       if (.not.lexist) then
         write(*,'(" TALYS-error: Non-existent FF file ",a)') trim(Yfile(k))
-        stop
+        stop 1
       endif
       open (unit = 1, file = Yfile(k), status = 'unknown')
       read(1, '(///13x, i6)') Ntotal(k)
@@ -729,15 +729,15 @@ subroutine massdis
         if (istat /= 0) call read_error(fffile, istat)
         if (npopEfile < 1 .or. npopEfile > numpop) then
           write(*, '(" TALYS-error: invalid number of population energies in ",a)') trim(fffile)
-          stop
+          stop 1
         endif
         if (npopJfile < 1 .or. npopJfile > numJ + 1) then
           write(*, '(" TALYS-error: invalid number of spins in ",a)') trim(fffile)
-          stop
+          stop 1
         endif
         if (npopPfile < 1 .or. npopPfile > 2) then
           write(*, '(" TALYS-error: fymodel 5 requires one or two parities in ",a)') trim(fffile)
-          stop
+          stop 1
         endif
         xsfisFF = 0.
         popJ = 0.
