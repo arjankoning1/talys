@@ -90,7 +90,7 @@ subroutine read_energies
     inquire (file = energyfile, exist = lexist)
     if ( .not. lexist) then
       write(*, '(" TALYS-error: if projectile 0, specify a range of excitation energies in a file ", a)') trim(energyfile)
-      stop
+      stop 1
     endif
     open (unit = 2, file = energyfile, status = 'old', iostat = istat)
     if (istat /= 0) call read_error(energyfile, istat)
@@ -127,7 +127,7 @@ subroutine read_energies
           if (EdistE(1) == 0.) cycle
           write(*, '(" TALYS-error: excitation energies must be given in ascending order, or the number", &
  &          " of population bins is not correct")')
-          stop
+          stop 1
         endif
       enddo
       if (npopP == 1) then
@@ -161,7 +161,7 @@ subroutine read_energies
           write(*, '(" TALYS-error: give a single incident energy in the input file using the energy keyword ")')
           write(*, '(14x, "or specify a range of incident energies in a file ")')
           write(*, '(14x, "or give a correct name for a pre-defined energy grid ", a)') trim(energyfile)
-          stop
+          stop 1
         endif
       endif
       nen = 0
@@ -182,7 +182,7 @@ subroutine read_energies
       close (unit = 2)
       if (nen == 0) then
         write(*, '(" TALYS-error: there are no incident energies in file ", a)') trim(energyfile)
-        stop
+        stop 1
       endif
 !
 ! Sort incident energies in ascending order and remove double points
