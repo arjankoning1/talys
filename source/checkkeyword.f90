@@ -101,7 +101,7 @@ Loop1:  do i = 1, nlines
       if (keyword(j) == key) cycle Loop1
     enddo
     write(*, '(/" TALYS-error: Wrong keyword: ", a20)') key
-    stop
+    stop 1
   enddo Loop1
   return
 end subroutine checkkeyword
