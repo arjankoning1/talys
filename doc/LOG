@@ -96,3 +96,8 @@ Hauser-Feshbach contributions from insignificant bins.
 Changed multiple.f90 for this, before we go into Ex,J,Pi loops
 we first determine the insignificant contributions. Later corrected
 by GuySten and Claude.
+
+- October 29 2026
+
+Changed many 'stop' statement into 'stop 1' so there is an exit code
+even when TALYS gracefully stops becaue of wrong user input.
