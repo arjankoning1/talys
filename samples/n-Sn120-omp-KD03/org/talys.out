@@ -6,7 +6,7 @@
  Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees
 
  User: Arjan Koning
- Date: 2026-10-20
+ Date: 2026-11-01
 
  ########## USER INPUT ##########
 
@@ -808,7 +808,7 @@ file: populationE0000.020.out
  Discrete    (n,g)  :               0.00000    30.53030    30.53030
  Continuum   (n,g)  :               0.00000    45.38008    45.38008
                                   ---------   ---------   ---------
- Total       (n,g)  :               0.00000    75.91039    75.91039
+ Total       (n,g)  :               0.00000    75.91038    75.91039
 
 
  ########## RESULTS FOR E=   0.05000 ##########
@@ -2206,7 +2206,7 @@ file: populationE0000.750.out
   121 2.98902E+01
   120 2.18514E-01
 
- Total residual production cross section:    30.1087246
+ Total residual production cross section:    30.1087227
  Non-elastic cross section              :    30.2352295
 
  5. Binary reactions to discrete levels and continuum
@@ -3668,7 +3668,7 @@ file: binE0003.500.out
  Final production cross section of Z= 50 N= 71 (121Sn):
 
  Total       : 1.10213E+01
- Ground state: 6.89130E+00
+ Ground state: 6.89129E+00
  Level  1    : 4.13002E+00
 
 file: populationE0003.500.out
@@ -3726,7 +3726,7 @@ file: populationE0003.500.out
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   50 121 (121Sn) 1.10213E+01    0    6.89130E+00  0.62527
+   50 121 (121Sn) 1.10213E+01    0    6.89129E+00  0.62527
                                  1    4.13002E+00  0.37473   1.38500E+09 sec. 
    50 120 (120Sn) 1.88392E+03    0    1.88392E+03  1.00000
    48 117 (117Cd) 1.00000E-07    0    0.00000E+00  0.00000
@@ -3825,7 +3825,7 @@ file: populationE0003.500.out
  29   2.90222   0.56853   10.0+     0.00000     0.00051     0.00051    Direct
  30   2.93053   0.54022    2.0+     0.56734    39.42337    39.99070    Direct
                                   ---------   ---------   ---------
- Discrete  Inelastic:              90.81370  1187.79907  1278.61279
+ Discrete  Inelastic:              90.81370  1187.79895  1278.61267
  Continuum Inelastic:               7.26428   592.67413   599.93842
                                   ---------   ---------   ---------
  Total     Inelastic:              98.07798  1780.47314  1878.55334
@@ -4145,7 +4145,7 @@ file: populationE0004.000.out
  30   2.93053   1.03603    2.0+     0.85591    29.79454    30.65045    Direct
                                   ---------   ---------   ---------
  Discrete  Inelastic:             100.26015   792.07965   892.33978
- Continuum Inelastic:              18.18070  1138.99390  1157.17456
+ Continuum Inelastic:              18.18070  1138.99377  1157.17444
                                   ---------   ---------   ---------
  Total     Inelastic:             118.44085  1931.07349  2049.51343
 
@@ -4280,7 +4280,7 @@ file: directE0004.500.out
  Parity=+  J= 3.5  j= 3.5  l= 4  T(j,l)= 4.25982E-01  Sum over outgoing channels= 4.25982E-01  Ratio= 1.00000
  Parity=+  J= 4.5  j= 4.5  l= 4  T(j,l)= 7.37087E-01  Sum over outgoing channels= 7.37086E-01  Ratio= 1.00000
  Parity=+  J= 5.5  j= 5.5  l= 6  T(j,l)= 5.72835E-03  Sum over outgoing channels= 5.72834E-03  Ratio= 1.00000
- Parity=+  J= 6.5  j= 6.5  l= 6  T(j,l)= 8.20860E-03  Sum over outgoing channels= 8.20861E-03  Ratio= 1.00000
+ Parity=+  J= 6.5  j= 6.5  l= 6  T(j,l)= 8.20860E-03  Sum over outgoing channels= 8.20860E-03  Ratio= 1.00000
  Parity=+  J= 7.5  j= 7.5  l= 8  T(j,l)= 1.18334E-05  Sum over outgoing channels= 1.18334E-05  Ratio= 1.00000
  Parity=+  J= 8.5  j= 8.5  l= 8  T(j,l)= 1.31117E-05  Sum over outgoing channels= 1.31117E-05  Ratio= 1.00000
 file: initial_population.out
@@ -4441,7 +4441,7 @@ file: populationE0004.500.out
   5   2.17300   2.28937    3.0+     0.00000    31.32155    31.32155    Preeq 
   6   2.19430   2.26807    4.0+     1.72694    27.13378    28.86072    Direct
   7   2.28427   2.17810    5.0-     0.31148    18.36318    18.67466    Direct
-  8   2.29700   2.16537    1.0+     0.00000    20.32620    20.32620    Preeq 
+  8   2.29700   2.16537    1.0+     0.00000    20.32621    20.32621    Preeq 
   9   2.35538   2.10699    2.0+     1.54817    28.16017    29.70834    Direct
  10   2.40030   2.06207    3.0-    24.54330    28.14783    52.69114    Direct
  11   2.42090   2.04147    2.0+     1.49851    27.33498    28.83349    Direct
@@ -4911,7 +4911,7 @@ file: directE0005.500.out
  Parity=-  J= 2.5  j= 2.5  l= 3  T(j,l)= 5.08529E-01  Sum over outgoing channels= 5.08528E-01  Ratio= 1.00000
  Parity=-  J= 3.5  j= 3.5  l= 3  T(j,l)= 4.04373E-01  Sum over outgoing channels= 4.04372E-01  Ratio= 1.00000
  Parity=-  J= 4.5  j= 4.5  l= 5  T(j,l)= 7.77890E-02  Sum over outgoing channels= 7.77887E-02  Ratio= 1.00000
- Parity=-  J= 5.5  j= 5.5  l= 5  T(j,l)= 8.09810E-02  Sum over outgoing channels= 8.09809E-02  Ratio= 1.00000
+ Parity=-  J= 5.5  j= 5.5  l= 5  T(j,l)= 8.09810E-02  Sum over outgoing channels= 8.09808E-02  Ratio= 1.00000
  Parity=-  J= 6.5  j= 6.5  l= 7  T(j,l)= 8.78722E-04  Sum over outgoing channels= 8.78721E-04  Ratio= 1.00000
  Parity=-  J= 7.5  j= 7.5  l= 7  T(j,l)= 1.40307E-03  Sum over outgoing channels= 1.40307E-03  Ratio= 1.00000
  Parity=-  J= 8.5  j= 8.5  l= 9  T(j,l)= 3.79821E-06  Sum over outgoing channels= 3.79821E-06  Ratio= 1.00000
@@ -5097,7 +5097,7 @@ file: populationE0005.500.out
  19   2.69594   2.75805    4.0-     0.00000     7.51852     7.51852    Preeq 
  20   2.72812   2.72587    2.0+     1.46975     7.82647     9.29622    Direct
  21   2.74971   2.70428    6.0-     0.00000     3.09764     3.09764    Preeq 
- 22   2.75100   2.70299    4.0+     0.75382     7.58986     8.34368    Direct
+ 22   2.75100   2.70299    4.0+     0.75382     7.58986     8.34369    Direct
  23   2.80005   2.65394    5.0-     0.35558     5.24335     5.59892    Direct
  24   2.80200   2.65199    7.0-     0.10688     1.38826     1.49513    Direct
  25   2.83539   2.61860    1.0+     0.00000     5.20696     5.20696    Preeq 
@@ -5107,10 +5107,10 @@ file: populationE0005.500.out
  29   2.90222   2.55177   10.0+     0.00095     0.01918     0.02013    Direct
  30   2.93053   2.52346    2.0+     1.34800     7.27020     8.61820    Direct
                                   ---------   ---------   ---------
- Discrete  Inelastic:             111.90018   173.23897   285.13916
- Continuum Inelastic:              58.02637  1845.18201  1903.20837
+ Discrete  Inelastic:             111.90018   173.23898   285.13916
+ Continuum Inelastic:              58.02637  1845.18213  1903.20850
                                   ---------   ---------   ---------
- Total     Inelastic:             169.92654  2018.42102  2188.34814
+ Total     Inelastic:             169.92654  2018.42114  2188.34839
 
  (n,gn) cross section:     6.68969
 
@@ -5473,7 +5473,7 @@ file: populationE0006.000.out
  27   2.84434   3.10545    6.0-     0.00000     1.84839     1.84839    Preeq 
  28   2.85761   3.09218    0.0+     0.00000     1.12927     1.12927    Preeq 
  29   2.90222   3.04757   10.0+     0.00258     0.02505     0.02764    Direct
- 30   2.93053   3.01926    2.0+     1.40121     4.14701     5.54821    Direct
+ 30   2.93053   3.01926    2.0+     1.40121     4.14700     5.54821    Direct
                                   ---------   ---------   ---------
  Discrete  Inelastic:             110.53304    99.67376   210.20680
  Continuum Inelastic:              71.79136  1877.55127  1949.34265
@@ -5649,7 +5649,7 @@ file: directE0007.000.out
  Parity=-  J= 6.5  j= 6.5  l= 7  T(j,l)= 4.49426E-03  Sum over outgoing channels= 4.49428E-03  Ratio= 1.00000
  Parity=-  J= 7.5  j= 7.5  l= 7  T(j,l)= 7.98748E-03  Sum over outgoing channels= 7.98746E-03  Ratio= 1.00000
  Parity=-  J= 8.5  j= 8.5  l= 9  T(j,l)= 2.86279E-05  Sum over outgoing channels= 2.86277E-05  Ratio= 1.00001
- Parity=-  J= 9.5  j= 9.5  l= 9  T(j,l)= 3.00221E-05  Sum over outgoing channels= 3.00222E-05  Ratio= 0.99999
+ Parity=-  J= 9.5  j= 9.5  l= 9  T(j,l)= 3.00221E-05  Sum over outgoing channels= 3.00222E-05  Ratio= 1.00000
  Parity=+  J= 0.5  j= 0.5  l= 0  T(j,l)= 7.59255E-01  Sum over outgoing channels= 7.59255E-01  Ratio= 1.00000
  Parity=+  J= 1.5  j= 1.5  l= 2  T(j,l)= 8.22487E-01  Sum over outgoing channels= 8.22501E-01  Ratio= 0.99998
  Parity=+  J= 2.5  j= 2.5  l= 2  T(j,l)= 8.74795E-01  Sum over outgoing channels= 8.74781E-01  Ratio= 1.00002
@@ -6543,7 +6543,7 @@ file: populationE0009.000.out
  Discrete    (n,g)  :               0.45769     0.00796     0.46566
  Continuum   (n,g)  :               0.25406     4.87917     5.13323
                                   ---------   ---------   ---------
- Total       (n,g)  :               0.71175     4.88713     5.59889
+ Total       (n,g)  :               0.71175     4.88714     5.59889
 
 
  Inelastic cross sections:
@@ -6586,7 +6586,7 @@ file: populationE0009.000.out
  Discrete  Inelastic:              88.43593     2.55949    90.99542
  Continuum Inelastic:             190.48376  1753.64185  1944.12561
                                   ---------   ---------   ---------
- Total     Inelastic:             278.91968  1756.20129  2035.12073
+ Total     Inelastic:             278.91968  1756.20129  2035.12085
 
  (n,gn) cross section:     4.29102
 
@@ -13806,6 +13806,6 @@ file: na.L28
 file: na.L29
 file: na.L30
 
- Execution time:  0 hours  0 minutes  4.03 seconds 
+ Execution time:  0 hours  0 minutes  4.16 seconds 
 
  The TALYS team congratulates you with this successful calculation.

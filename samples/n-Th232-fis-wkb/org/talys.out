@@ -10,7 +10,7 @@
  Dimensions - Cross sections: mb, Energies: MeV, Angles: degrees
 
  User: Arjan Koning
- Date: 2026-10-20
+ Date: 2026-11-01
 
  ########## USER INPUT ##########
 
@@ -1578,18 +1578,18 @@ file: pfns0003.000.fis
     n   p   d   t   h   a                                        cross section   ratio
     0   0   0   0   0   0    1.92976E+01  (n,g)                                                     5.40986E-03
     1   0   0   0   0   0    3.42079E+03  (n,n')                                                    9.58980E-01
-    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     2.80339E-11
-    1   0   0   0   0   1    1.00000E-07  (n,na)                                                    2.80339E-11
-    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    2.80339E-11
-    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    2.80339E-11
-    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   2.80339E-11
-    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   2.80339E-11
-    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   2.80339E-11
-    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   2.80339E-11
-    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   2.80339E-11
-    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    2.80339E-11
-    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  2.80339E-11
-    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   2.80339E-11
+    0   0   0   0   0   1    1.00000E-07  (n,a)                                                     2.80338E-11
+    1   0   0   0   0   1    1.00000E-07  (n,na)                                                    2.80338E-11
+    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    2.80338E-11
+    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    2.80338E-11
+    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   2.80338E-11
+    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   2.80338E-11
+    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   2.80338E-11
+    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   2.80338E-11
+    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   2.80338E-11
+    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    2.80338E-11
+    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  2.80338E-11
+    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   2.80338E-11
 
  6a2. Exclusive fission cross sections 
 
@@ -1599,9 +1599,9 @@ file: pfns0003.000.fis
 
  Absorption cross section                 :   146.32179
 
- Sum over exclusive channel cross sections:  3567.11572
+ Sum over exclusive channel cross sections:  3567.11621
  (n,gn) + (n,gp) +...(n,ga) cross sections:    20.93295
- Total                                    :  3588.04858
+ Total                                    :  3588.04907
  Non-elastic cross section                :  3584.42798
 
  ########## RESULTS FOR E=   4.00000 ##########
@@ -3687,9 +3687,9 @@ file: pfns0008.000.fis
 
  Absorption cross section                 :   376.55103
 
- Sum over exclusive channel cross sections:  3251.23560
+ Sum over exclusive channel cross sections:  3251.23584
  (n,gn) + (n,gp) +...(n,ga) cross sections:     5.07438
- Total                                    :  3256.31006
+ Total                                    :  3256.31030
  Non-elastic cross section                :  3246.44995
 
  ########## RESULTS FOR E=   9.00000 ##########
@@ -6722,35 +6722,35 @@ file: pfns0015.000.fis
  Total           = 5.96704E+03
    Shape elastic   = 2.91473E+03
    Reaction        = 3.05231E+03
-     Compound elastic= 1.09530E-07
+     Compound elastic= 1.09533E-07
      Non-elastic     = 3.05231E+03
-       Direct          = 1.93901E+02
-       Pre-equilibrium = 6.86175E+02
+       Direct          = 1.93730E+02
+       Pre-equilibrium = 6.85609E+02
        Giant resonance = 4.19018E+01
-       Compound non-el = 2.13033E+03
+       Compound non-el = 2.13107E+03
      Total elastic   = 2.91473E+03
 
  2. Binary non-elastic cross sections (non-exclusive)
 
- fission = 1.98376E+01
- gamma   = 4.92745E+00
- neutron = 3.02482E+03
+ fission = 1.98445E+01
+ gamma   = 4.92834E+00
+ neutron = 3.02555E+03
  proton  = 1.56233E+00
  deuteron= 7.81744E-02
  triton  = 3.45973E-02
  helium-3= 1.11589E-13
- alpha   = 1.03150E+00
+ alpha   = 2.94126E-01
 
  3. Total particle production cross sections
 
- gamma   = 3.98626E+03    Multiplicity= 1.30598E+00
- neutron = 6.83075E+03    Multiplicity= 2.23790E+00
+ gamma   = 3.98631E+03    Multiplicity= 1.30600E+00
+ neutron = 6.83251E+03    Multiplicity= 2.23847E+00
  proton  = 1.56233E+00    Multiplicity= 5.11853E-04
  deuteron= 7.81744E-02    Multiplicity= 2.56116E-05
  triton  = 3.45973E-02    Multiplicity= 1.13348E-05
  helium-3= 1.11589E-13    Multiplicity= 3.65589E-17
- alpha   = 1.03152E+00    Multiplicity= 3.37946E-04
- fission = 4.21677E+02
+ alpha   = 2.94139E-01    Multiplicity= 9.63660E-05
+ fission = 4.21795E+02
 
  4. Residual production cross sections
 
@@ -6759,15 +6759,15 @@ file: pfns0015.000.fis
    Z   A  nuclide    total     level   isomeric    isomeric    lifetime
                  cross section       cross section  ratio
 
-   90 233 (233Th) 7.45817E-01    0    7.45817E-01  1.00000
+   90 233 (233Th) 7.45818E-01    0    7.45818E-01  1.00000
    90 232 (232Th) 3.57100E+02    0    3.57100E+02  1.00000
    89 232 (232Ac) 1.53232E+00    0    1.53232E+00  1.00000
-   90 231 (231Th) 1.01875E+03    0    1.01875E+03  1.00000
+   90 231 (231Th) 1.01897E+03    0    1.01897E+03  1.00000
    89 231 (231Ac) 1.27508E-01    0    1.27508E-01  1.00000
-   90 230 (230Th) 1.26378E+03    0    1.26378E+03  1.00000
+   90 230 (230Th) 1.26418E+03    0    1.26418E+03  1.00000
    89 230 (230Ac) 3.46088E-02    0    3.46088E-02  1.00000
-   88 229 (229Ra) 9.35536E-01    0    9.35536E-01  1.00000
-   88 228 (228Ra) 1.21798E-01    0    1.21798E-01  1.00000
+   88 229 (229Ra) 2.48198E-01    0    2.48198E-01  1.00000
+   88 228 (228Ra) 5.20206E-02    0    5.20206E-02  1.00000
    87 228 (228Fr) 1.00000E-07    0    0.00000E+00  0.00000
    86 225 (225Rn) 1.00000E-07    0    0.00000E+00  0.00000
    86 224 (224Rn) 1.00000E-07    0    0.00000E+00  0.00000
@@ -6776,26 +6776,26 @@ file: pfns0015.000.fis
 
    A  cross section
 
-  233 7.45817E-01
-  232 3.58632E+02
-  231 1.01888E+03
-  230 1.26382E+03
-  229 9.35536E-01
-  228 1.21798E-01
+  233 7.45818E-01
+  232 3.58633E+02
+  231 1.01910E+03
+  230 1.26421E+03
+  229 2.48198E-01
+  228 5.20206E-02
 
- Total residual production cross section:  2643.1264648
- Total fission cross section            :   421.6773682
- Fission + res. production cross section:  3064.8037109
+ Total residual production cross section:  2642.9885254
+ Total fission cross section            :   421.7953186
+ Fission + res. production cross section:  3064.7839355
  Non-elastic cross section              :  3052.3100586
 
  4b. Fission cross section per fissioning nuclide
 
-   90 233 (233Th) 2.01298E+01
-   90 232 (232Th) 1.46882E+02
-   89 232 (232Ac) 2.91408E-05
-   90 231 (231Th) 2.54666E+02
-   89 231 (231Ac) 1.59575E-11
-   88 229 (229Ra) 1.28898E-06
+   90 233 (233Th) 2.01367E+01
+   90 232 (232Th) 1.46913E+02
+   89 232 (232Ac) 2.91409E-05
+   90 231 (231Th) 2.54746E+02
+   89 231 (231Ac) 1.59576E-11
+   88 229 (229Ra) 1.03468E-06
 file: rp090233.fis
 file: rp090232.fis
 file: rp089232.fis
@@ -7111,42 +7111,42 @@ file: pfns0016.000.fis
 
      Emitted particles     cross section reaction         level    isomeric    isomeric    lifetime relative yield
     n   p   d   t   h   a                                        cross section   ratio
-    0   0   0   0   0   0    7.45817E-01  (n,g)                                                     2.43679E-04
+    0   0   0   0   0   0    7.45818E-01  (n,g)                                                     2.43680E-04
     1   0   0   0   0   0    3.54365E+02  (n,n')                                                    1.15781E-01
-    0   1   0   0   0   0    1.53232E+00  (n,p)                                                     5.00651E-04
-    0   0   1   0   0   0    7.82452E-02  (n,d)                                                     2.55648E-05
-    0   0   0   1   0   0    3.46088E-02  (n,t)                                                     1.13076E-05
-    0   0   0   0   0   1    9.35536E-01  (n,a)                                                     3.05665E-04
-    2   0   0   0   0   0    1.01755E+03  (n,2n)                                                    3.32462E-01
-    1   1   0   0   0   0    4.92624E-02  (n,np)                                                    1.60954E-05
-    1   0   0   0   0   1    1.21798E-01  (n,na)                                                    3.97947E-05
-    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.26727E-11
-    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.26727E-11
-    3   0   0   0   0   0    1.26377E+03  (n,3n)                                                    4.12907E-01
-    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.26727E-11
-    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.26727E-11
-    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.26727E-11
-    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.26727E-11
-    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.26727E-11
-    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.26727E-11
-    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.26727E-11
-    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.26727E-11
+    0   1   0   0   0   0    1.53232E+00  (n,p)                                                     5.00655E-04
+    0   0   1   0   0   0    7.82452E-02  (n,d)                                                     2.55650E-05
+    0   0   0   1   0   0    3.46088E-02  (n,t)                                                     1.13077E-05
+    0   0   0   0   0   1    2.48198E-01  (n,a)                                                     8.10934E-05
+    2   0   0   0   0   0    1.01778E+03  (n,2n)                                                    3.32538E-01
+    1   1   0   0   0   0    4.92633E-02  (n,np)                                                    1.60957E-05
+    1   0   0   0   0   1    5.20206E-02  (n,na)                                                    1.69966E-05
+    0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.26729E-11
+    0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.26729E-11
+    3   0   0   0   0   0    1.26416E+03  (n,3n)                                                    4.13038E-01
+    1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.26729E-11
+    0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.26729E-11
+    0   0   1   0   0   2    1.00000E-07  (n,d2a)                                                   3.26729E-11
+    0   0   0   1   0   2    1.00000E-07  (n,t2a)                                                   3.26729E-11
+    0   0   0   0   1   2    1.00000E-07  (n,h2a)                                                   3.26729E-11
+    0   0   0   0   0   3    1.00000E-07  (n,3a)                                                    3.26729E-11
+    2   0   0   0   0   2    1.00000E-07  (n,2n2a)                                                  3.26729E-11
+    1   0   0   0   0   3    1.00000E-07  (n,n3a)                                                   3.26729E-11
 
  6a2. Exclusive fission cross sections 
 
      Emitted particles     cross section reaction
     n   p   d   t   h   a
-    0   0   0   0   0   0    2.01298E+01  (n,gf)           
-    1   0   0   0   0   0    1.46682E+02  (n,n'f)          
-    0   1   0   0   0   0    2.91408E-05  (n,pf)           
-    0   0   0   0   0   1    1.28898E-06  (n,af)           
-    2   0   0   0   0   0    2.54664E+02  (n,2nf)          
+    0   0   0   0   0   0    2.01367E+01  (n,gf)           
+    1   0   0   0   0   0    1.46713E+02  (n,n'f)          
+    0   1   0   0   0   0    2.91409E-05  (n,pf)           
+    0   0   0   0   0   1    1.03468E-06  (n,af)           
+    2   0   0   0   0   0    2.54744E+02  (n,2nf)          
 
- Absorption cross section                 :   424.80237
+ Absorption cross section                 :   424.23276
 
- Sum over exclusive channel cross sections:  3060.65991
- (n,gn) + (n,gp) +...(n,ga) cross sections:     4.40889
- Total                                    :  3065.06885
+ Sum over exclusive channel cross sections:  3060.63818
+ (n,gn) + (n,gp) +...(n,ga) cross sections:     4.40977
+ Total                                    :  3065.04785
  Non-elastic cross section                :  3052.31006
 
  ########## RESULTS FOR E=  17.00000 ##########
@@ -7230,7 +7230,7 @@ file: pfns0016.000.fis
   228 1.60341E-01
 
  Total residual production cross section:  2591.5749512
- Total fission cross section            :   454.2856445
+ Total fission cross section            :   454.2856750
  Fission + res. production cross section:  3045.8605957
  Non-elastic cross section              :  3033.3400879
 
@@ -8013,7 +8013,7 @@ file: pfns0018.000.fis
     0   1   0   0   0   0    4.13341E+00  (n,p)                                                     1.36879E-03
     0   0   1   0   0   0    6.55877E-01  (n,d)                                                     2.17196E-04
     0   0   0   1   0   0    3.04390E-01  (n,t)                                                     1.00800E-04
-    0   0   0   0   0   1    7.84985E-01  (n,a)                                                     2.59950E-04
+    0   0   0   0   0   1    7.84986E-01  (n,a)                                                     2.59950E-04
     2   0   0   0   0   0    5.68514E+02  (n,2n)                                                    1.88265E-01
     1   1   0   0   0   0    5.59315E-01  (n,np)                                                    1.85219E-04
     1   0   0   0   0   1    4.24732E-01  (n,na)                                                    1.40651E-04
@@ -8129,7 +8129,7 @@ file: pfns0018.000.fis
   228 1.01840E+00
 
  Total residual production cross section:  2563.7646484
- Total fission cross section            :   447.1235657
+ Total fission cross section            :   447.1235046
  Fission + res. production cross section:  3010.8881836
  Non-elastic cross section              :  3001.8200684
 
@@ -8935,7 +8935,7 @@ file: pfns0020.000.fis
     0   1   0   0   0   1    1.00000E-07  (n,pa)                                                    3.34673E-11
     0   0   0   0   0   2    1.00000E-07  (n,2a)                                                    3.34673E-11
     3   0   0   0   0   0    1.77534E+03  (n,3n)                                                    5.94159E-01
-    2   1   0   0   0   0    7.06784E-05  (n,2np)                                                   2.36542E-08
+    2   1   0   0   0   0    7.06784E-05  (n,2np)                                                   2.36541E-08
     2   0   0   0   0   1    7.05837E-03  (n,2na)                                                   2.36225E-06
     1   0   0   0   0   2    1.00000E-07  (n,n2a)                                                   3.34673E-11
     0   1   0   0   0   2    1.00000E-07  (n,p2a)                                                   3.34673E-11
@@ -8963,9 +8963,9 @@ file: pfns0020.000.fis
 
  Absorption cross section                 :   519.53210
 
- Sum over exclusive channel cross sections:  2987.99023
+ Sum over exclusive channel cross sections:  2987.98999
  (n,gn) + (n,gp) +...(n,ga) cross sections:     5.48844
- Total                                    :  2993.47876
+ Total                                    :  2993.47852
  Non-elastic cross section                :  2988.75000
 
  ########## EXCITATION FUNCTIONS ###########
@@ -9083,6 +9083,6 @@ file: xs400000.fis
 file: xs200002.fis
 file: xs100003.fis
 
- Execution time:  0 hours  0 minutes 40.34 seconds 
+ Execution time:  0 hours  0 minutes 40.74 seconds 
 
  The TALYS team congratulates you with this successful calculation.
