@@ -237,6 +237,7 @@ Loop1: do i2 = 2, 40
       cycle
     endif
   enddo
+  if ((flagffruns .or. flagrpruns) .and. k0 == 0) flaggiant0 = .false.
   return
 end subroutine input_directmodel
 ! Copyright A.J. Koning 2021
