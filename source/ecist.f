@@ -3422,8 +3422,9 @@ c input of level description.                                           lecl-097
       wv(4,1)=dsqrt(ck*wv(3,1)*wv(1,1)*wv(2,1)/(wv(1,1)+wv(2,1)))       lecl-121
       go to 7                                                           lecl-122
 c relativistic c.-m. energy ecm=sqrt((m1+m2)**2+2*m2*elab))-m1-m2.      lecl-123
-    6 wv(3,1)=cm*(dsqrt((wv(1,1)+wv(2,1))**2+2.d0*wv(2,1)*e/cm)-wv(1,1)-lecl-124
-     1wv(2,1))                                                          lecl-125
+c cancellation-free form of the same expression (exact at low e)
+    6 wv(3,1)=2.d0*wv(2,1)*e/(dsqrt((wv(1,1)+wv(2,1))**2+2.d0*          lecl-124
+     1wv(2,1)*e/cm)+wv(1,1)+wv(2,1))                                    lecl-125
       wv(4,1)=dsqrt(0.125d0*ck*wv(3,1)*(wv(3,1)/cm+2.d0*wv(1,1)+2.d0*wv(lecl-126
      12,1))*(wv(3,1)/cm+2.d0*wv(1,1))*(wv(3,1)/cm+2.d0*wv(2,1)))/(wv(3,1lecl-127
      2)/cm+wv(1,1)+wv(2,1))                                             lecl-128
@@ -22601,8 +22602,9 @@ c energy in the laboratory system.                                      eval-158
       dw(nwv+2)=ey*dw(nwv+1)/(dw(nwv)+dw(nwv+1))                        eval-165
       go to 3                                                           eval-166
 c relativistic c.-m. energy ecm=sqrt((m1+m2)**2+2*m2*elab))-m1-m2.      eval-167
-    2 dw(nwv+2)=cm*(dsqrt((dw(nwv)+dw(nwv+1))**2+2.d0*dw(nwv+1)*ey/cm)-deval-168
-     1w(nwv)-dw(nwv+1))                                                 eval-169
+c cancellation-free form of the same expression (exact at low ey)
+    2 dw(nwv+2)=2.d0*dw(nwv+1)*ey/(dsqrt((dw(nwv)+dw(nwv+1))**2+        eval-168
+     &2.d0*dw(nwv+1)*ey/cm)+dw(nwv)+dw(nwv+1))                          eval-169
     3 write (mw,1006) i,j,ey,dw(2*i+ncx-1),dw(nwv+2),ex                 eval-170
       if (ncolx.eq.1) go to 50                                          eval-171
       do 5 j=2,ncolx                                                    eval-172
