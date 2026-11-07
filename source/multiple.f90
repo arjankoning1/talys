@@ -288,6 +288,7 @@ subroutine multiple
       un = ''
       if (skipCN(Zcomp, Ncomp) == 1) cycle
       if (xspopnuc(Zcomp, Ncomp) < cutnuc) then
+        nucpruned(Zcomp,Ncomp) = .true.
         xspopnuc(Zcomp, Ncomp) = 0.
         goto 500
       endif
