@@ -425,6 +425,7 @@ subroutine reacinitial
   xsbinspec  = 0.
   xsmpe      = 0.
   xspartial  = 0.
+  nucpruned  = .false.
 !
 ! *************** Initialize pre-equilibrium arrays ********************
 !
