@@ -6,7 +6,7 @@ module A0_talys_mod
 ! Author    : Arjan Koning
 !
 ! 2025-12-30: Original code
-! 2026-10-20: Current version
+! 2026-11-07: Current version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -2018,6 +2018,7 @@ module A0_talys_mod
   real(sgl), dimension(0:numZ,0:numN)                 :: xspopcomp  ! compound population cross section per nucleus
   real(sgl), dimension(0:numZ,0:numN)                 :: xspoppreeq ! preequilibrium population cross section per nucleus
   real(dbl), dimension(numelem,nummass)               :: xspopnuc0  ! population cross section per nucleus
+  logical, dimension(0:numZ,0:numN) :: nucpruned
 !
 ! cascade
 !
