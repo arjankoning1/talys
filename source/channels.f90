@@ -196,6 +196,7 @@ subroutine channels
   idnum = -1
   do Zix = 0, Zend
     do Nix = 0, Nend
+      if (nucpruned(Zix,Nix)) cycle
 !
 ! 2. To minimize the loops, the maximal possible number of each particle type is determined, given Zix and Nix.
 !    E.g. for Zix=1, Nix=2 there can be at most one proton, 2 neutrons, one deuteron or 1 triton in the exit channel.
