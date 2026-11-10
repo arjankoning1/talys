@@ -192,7 +192,7 @@ subroutine gammaout(Zcomp, Ncomp)
         col(1)='E'
         un(1)='MeV'
         col(2)='f('//radtype//')'
-        un(2)='MeV^-3'
+        write(un(2), '("MeV^-",i0)') 2*l+1
         col(3)='T('//radtype//')'
         un(3)=''
         Ncol=3
@@ -248,7 +248,7 @@ subroutine gammaout(Zcomp, Ncomp)
         call write_datablock(id2,Ncol,Npsf,col,un)
         do nen = 1, Npsf
           e = Epsf(nen)
-          write(1,'(3es15.6)') e, fstrength(Zcomp, Ncomp, 0., e, irad, 1, 0, 0),Tjl(0, nen, irad, l)
+          write(1,'(3es15.6)') e, fstrength(Zcomp, Ncomp, 0., e, irad, l, 0, 0), Tjl(0, nen, irad, l)
         enddo
         close (unit=1)
         call write_outfile(psffile,flagoutall)      
