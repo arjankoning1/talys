@@ -387,12 +387,16 @@ function fstrength(Zcomp, Ncomp, Efs, Egamma, irad, l, J, parity)
 !
 ! for Eg > U --> fstrength=0 --> for interpolation use is made of the photoabs PSF (jt=1)
 !
-            if (eb <= et) then
+! The column index jt is an excitation energy U only for strength 11 (d1m-intra tables, zero for Eg > U).
+! For the temperature-dependent tables of strength 6, 7, 9 and 10, et is a temperature T and the columns are
+! defined at all Eg, so comparing Eg with T would drop the temperature dependence for Eg > T.
+!
+            if (eb <= et .or. (.not. model11 .and. qrpa(Zcomp,Ncomp)%f(nen,jt,irad,1) > 0.)) then
               gamb = qrpa(Zcomp,Ncomp)%f(nen,jt,irad,1)
             else
               gamb = qrpa(Zcomp,Ncomp)%f(nen,1,irad,1)
             endif
-            if (ee <= et) then
+            if (ee <= et .or. (.not. model11 .and. qrpa(Zcomp,Ncomp)%f(nen+1,jt,irad,1) > 0.)) then
               game = qrpa(Zcomp,Ncomp)%f(nen+1,jt,irad,1)
             else
               game = qrpa(Zcomp,Ncomp)%f(nen+1,1,irad,1)
