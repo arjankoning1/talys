@@ -6,7 +6,7 @@ subroutine gammaout(Zcomp, Ncomp)
 ! Author    : Arjan Koning
 !
 ! 2021-12-30: Original code
-! 2024-12-08: revised version
+! 2026-11-10: revised version
 !-----------------------------------------------------------------------------------------------------------------------------------
 !
 ! *** Use data from other modules
