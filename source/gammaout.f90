@@ -73,7 +73,7 @@ subroutine gammaout(Zcomp, Ncomp)
   character(len=15) :: col(4)    ! header
   character(len=15) :: un(4)    ! header
   character(len=80) :: quantity   ! quantity
-  character(len=132) :: topline   ! topline
+  character(len=132):: topline   ! topline
   character(len=2 ) :: radtype      ! radiation type
   character(len=12) :: psffile      ! photon strength function file
   character(len=25) :: modelM1      ! string for gamma-ray strength function
