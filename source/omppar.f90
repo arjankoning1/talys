@@ -100,6 +100,7 @@ subroutine omppar(Zix, Nix)
   logical           :: lexist        ! logical to determine existence
   character(len=1)  :: omptype       ! type of optical model (spherical or coupled)
   character(len=1)  :: Rpart         !
+  character(len=2)  :: Rtype         ! type of RIPL OMP (CC for coupled-channels)
   character(len=8)  :: ompchar       ! help variable
   character(len=132):: optmodfile    ! file with optical model parameters
   character(len=132):: ompfile       ! optical model parameter file
@@ -324,8 +325,8 @@ Loop1: do
           open (unit = 31, file = ompfile, status = 'old')
           read(31, '(//)')
           do
-            read(31, '(i4, 3x, a1, 23x, i2, 1x, i2, 2x, i3, 1x, i3, 1x, f5.1, 1x, f5.1)', iostat = istat) &
- &            Rnum, Rpart, Zbeg, Zend, Abeg, Aend, Ebeg, Efin
+            read(31, '(i4, 3x, a1, 4x, a2, 17x, i2, 1x, i2, 2x, i3, 1x, i3, 1x, f5.1, 1x, f5.1)', iostat = istat) &
+ &            Rnum, Rpart, Rtype, Zbeg, Zend, Abeg, Aend, Ebeg, Efin
             if (istat ==  -1) exit
             if (riplomp(k) == Rnum) then
               if (parsym(k) == Rpart .and. Zt >= Zbeg .and. Zt <= Zend .and. At >= Abeg .and. At <= Aend) then
@@ -339,6 +340,7 @@ Loop1: do
             endif
           enddo
           close (unit = 31)
+          Rtype = '  '
           write(*, '(" TALYS-warning: RIPL OMP ",i4," for ",i3,a2," out of range")') riplomp(k), At, nuc(Zt)
           if ( .not. flagriplrisk) stop 1
 !
@@ -355,6 +357,16 @@ Loop1: do
           write( * , * ) "RIPL OMP for ", Zt, At
           call riplomp_mod(NE, Zt, At, Eripl, riplomp(k), - 2, 0)
           close (unit = 35)
+!
+! For a coupled-channels RIPL OMP, only the potential is taken from RIPL. The coupled levels and deformation parameters still
+! come from structure/deformation (or deformfile), not from the RIPL potential (written by the retrieval code to cclev-omp.dat).
+!
+          if (Rtype == 'CC' .and. deformfile(Zix)(1:1) == ' ') then
+            write(*, '(" TALYS-warning: RIPL OMP ",i4," is a coupled-channels potential, but the coupling scheme and", &
+ &            " deformations for ",i3,a," are taken from structure/deformation, not from the RIPL potential")') &
+ &            riplomp(k), At, trim(nuc(Zt))
+            write(*, '(" TALYS-warning: use deformfile to couple with the deformations of the potential, see cclev-omp.dat")')
+          endif
 !
 ! Retrieve  RIPL OMP parameters on energy grid
 !
