@@ -78,7 +78,7 @@ function densitytotP(Zix, Nix, Eex, parity, ibar, ldmod)
     Eshift = Eex - pt
     if (Eshift > 0.) then
       if (ldmod <= 3 .or. .not. ldexist(Zix, Nix, ibar)) then
-        dens = densitytot(Zix, Nix, Eex, ibar, ldmod) * pardis
+        densitytotP = densitytot(Zix, Nix, Eex, ibar, ldmod) * pardis
       else
 !
 ! Tabulated level densities
@@ -104,10 +104,10 @@ function densitytotP(Zix, Nix, Eex, parity, ibar, ldmod)
         else
           dens = ldb + (Eshift - eb) / (ee - eb) * (lde - ldb)
         endif
+        expo = min(ct * sqrt(Eshift), 80.)
+        cctable = exp(dble(expo))
+        densitytotP = cctable * dens
       endif
-      expo = min(ct * sqrt(Eshift), 80.)
-      cctable = exp(dble(expo))
-      densitytotP = cctable * dens
     endif
   endif
   densitytotP = max(densitytotP, 1.d-30)
