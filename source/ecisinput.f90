@@ -107,7 +107,7 @@ subroutine ecisinput(Zix, Nix, kopt, e, rotational, vibrational, jlmloc)
   if (e >= 0.01) then
     Eformat='(f5.2,2i2,a1,5f10.5)'
   else
-    Eformat='(f5.2,2i2,a1,es10.3,4f10.5)'
+    Eformat='(f5.2,2i2,a1,es10.4,4f10.5)'
   endif
   write(9, fmt = Eformat) tarspin, idvib(1), 1, tarparity, e, spin, projmass, resmass, prodZ
   if (vibrational) write(9, '()')
@@ -139,25 +139,13 @@ subroutine ecisinput(Zix, Nix, kopt, e, rotational, vibrational, jlmloc)
     do i = 1, npp
       eopt = e - real(Elevel(i) * (resmass + projmass) / resmass)
       call optical(Zix, Nix, kopt, eopt)
-      if (abs(v) >= 1000.) then
-        write(9, '(es10.3, 2f10.5)') v, rv, av
-      else
-        write(9, '(3f10.5)') v, rv, av
-      endif
-      if (abs(w) >= 1000.) then
-        write(9, '(es10.3, 2f10.5)') w, rw, aw
-      else
-        write(9, '(3f10.5)') w, rw, aw
-      endif
-      write(9, '(3f10.5)') vd, rvd, avd
-      if (abs(wd) >= 1000.) then
-        write(9, '(es10.3, 2f10.5)') wd, rwd, awd
-      else
-        write(9, '(3f10.5)') wd, rwd, awd
-      endif
-      write(9, '(3f10.5)') vso, rvso, avso
-      write(9, '(3f10.5)') wso, rwso, awso
-      write(9, '(3f10.5)') rc, 0., 0.
+      write(9, '(3a10)') f10(v), f10(rv), f10(av)
+      write(9, '(3a10)') f10(w), f10(rw), f10(aw)
+      write(9, '(3a10)') f10(vd), f10(rvd), f10(avd)
+      write(9, '(3a10)') f10(wd), f10(rwd), f10(awd)
+      write(9, '(3a10)') f10(vso), f10(rvso), f10(avso)
+      write(9, '(3a10)') f10(wso), f10(rwso), f10(awso)
+      write(9, '(a10, 2f10.5)') f10(rc), 0., 0.
       write(9, '(3f10.5)') 0., 0., 0.
     enddo
     write(9, '(3f10.5)') angbeg, anginc, angend
@@ -228,5 +216,22 @@ subroutine ecisinput(Zix, Nix, kopt, e, rotational, vibrational, jlmloc)
     endif
   endif
   return
+contains
+  function f10(x)
+!
+! Write a number in an F10 field with as many digits as fit, so that small adjustments of the OMP parameters are not rounded away
+!
+    character(len=10) :: f10          ! number in F10 field
+    real(sgl)         :: x            ! number
+    if (abs(x) < 9.999999) then
+      write(f10, '(f10.7)') x
+    else if (abs(x) < 99.99999) then
+      write(f10, '(f10.6)') x
+    else if (abs(x) < 1000.) then
+      write(f10, '(f10.5)') x
+    else
+      write(f10, '(es10.3)') x
+    endif
+  end function f10
 end subroutine ecisinput
 ! Copyright A.J. Koning 2021
