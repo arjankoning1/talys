@@ -292,10 +292,10 @@ subroutine densitypar(Zix, Nix)
         if (ctable(Zix,Nix,0) == 1.e-20) ctable(Zix, Nix, 0) = ald0
         if (ptable(Zix,Nix,0) == 1.e-20) ptable(Zix, Nix, 0) = pshift0
       endif
-      ctable(Zix, Nix, 0) = ctable(Zix, Nix, 0) + ctableadjust(Zix, Nix, 0)
-      ptable(Zix, Nix, 0) = ptable(Zix, Nix, 0) + ptableadjust(Zix, Nix, 0)
     endif
   endif
+  ctable(Zix, Nix, 0) = ctable(Zix, Nix, 0) + ctableadjust(Zix, Nix, 0)
+  ptable(Zix, Nix, 0) = ptable(Zix, Nix, 0) + ptableadjust(Zix, Nix, 0)
 !
 ! Matching levels
 !
