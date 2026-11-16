@@ -27,6 +27,7 @@ subroutine comptarget
 !   flagpop         ! flag for output of population
 ! Variables for compound reactions
 !   adjustTJ        ! logical for energy-dependent TJ adjustment
+!   TJadjust        ! adjustable factor for TJ (default 1.)
 !   ewfc            ! off - set incident energy for width fluctuation
 !   flageciscomp    ! flag for compound nucleus calculation by ECIS
 !   flagurr         ! flag for output of unresolved resonance parameters
@@ -335,7 +336,7 @@ subroutine comptarget
     else
       factor = 1.
     endif
-    Fnorm(type) = factor / fiso(type)
+    Fnorm(type) = factor * TJadjust(Zcomp, Ncomp, type) / fiso(type)
   enddo
   call densprepare(Zcomp, Ncomp, 1)
 !

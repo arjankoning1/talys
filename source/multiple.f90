@@ -50,6 +50,7 @@ subroutine multiple
 !   flagspec        ! flag for output of spectra
 ! Variables for compound reactions
 !   adjustTJ        ! logical for energy-dependent TJ adjustment
+!   TJadjust        ! adjustable factor for TJ (default 1.)
 !   flagcomp        ! flag for compound angular distribution calculation
 !   skipCN          ! flag to skip compound nucleus in evaporation chain
 ! Variables for preequilibrium
@@ -464,7 +465,7 @@ subroutine multiple
         else
           factor = 1.
         endif
-        Fnorm(type) = factor / fisom(type)
+        Fnorm(type) = factor * TJadjust(Zcomp, Ncomp, type) / fisom(type)
       enddo
       if (flagpop) then
         quantity='Isospin factors to reduce emission'
