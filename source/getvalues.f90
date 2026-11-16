@@ -347,7 +347,7 @@ subroutine getvalues(class, word, Zix, Nix, type, ibar, irad, lval, igr, val, iv
   nenadjust(Nadjust) = k - 1
   do j = 1, nenadjust(Nadjust)
     Eadjust(Nadjust, j) = Eadj(j)
-    Dadjust(Nadjust, j) = val * Dadj(j)
+    Dadjust(Nadjust, j) = Dadj(j)
   enddo
   adjustkey(Nadjust) = key
   adjustfile(Nadjust) = adfile
