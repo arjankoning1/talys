@@ -103,6 +103,7 @@ subroutine deformpar(Zix, Nix)
   integer           :: natpar               ! natural parity
   integer           :: ndisc                ! number of lines on discrete level file for nucleus
   integer           :: nex                  ! excitation energy bin of compound nucleus
+  integer           :: ngsrot               ! number of ground-state band levels of even-even nucleus
   integer           :: Nix                  ! neutron number index for residual nucleus
   integer           :: nrotlev              ! number of rotational levels
   integer           :: odd                  ! odd (1) or even (0) nucleus
@@ -163,6 +164,7 @@ subroutine deformpar(Zix, Nix)
         deftype(Zix, Nix) = deftype1
         idef = 0
         irot = 0
+        ngsrot = 0
         ii = 0
         do i = 1, ndisc
           read(2, '(i4, 3x, a1, 4i4, 4f9.5)') nex, leveltype1, vibband1, lband1, Kmag1, iphonon1, (deform1(k), k = 1, iirot)
@@ -176,6 +178,17 @@ subroutine deformpar(Zix, Nix)
             leveltype(Zix, Nix, nex) = leveltype1
             vibband(Zix, Nix, i) = vibband1
             if (colltype(Zix, Nix) == 'R' .and. vibband1 > maxband) leveltype1 = 'D'
+!
+! Check that the ground-state band of an even-even nucleus is 0+, 2+, 4+, ... (catches level numbers that are out of date)
+!
+            if (colltype(Zix, Nix) == 'R' .and. leveltype1 == 'R' .and. vibband1 == 0 .and. &
+ &            mod(Z, 2) == 0 .and. mod(N, 2) == 0) then
+              if (nint(2. * jdis(Zix, Nix, nex)) /= 4 * ngsrot .or. parlev(Zix, Nix, nex) /= 1) &
+ &              write(*, '(" TALYS-warning: level ", i3, " (J = ", f4.1, ") of Z = ", i3, " A = ", i3, &
+ &              " is coupled as J = ", i2, "+ member of the ground-state band in ", a)') &
+ &              nex, jdis(Zix, Nix, nex), Z, A, 2 * ngsrot, trim(deffile)
+              ngsrot = ngsrot + 1
+            endif
             iphonon(Zix, Nix, i) = max(iphonon1, 1)
 !
 ! Default: read deformation parameters from mass table
