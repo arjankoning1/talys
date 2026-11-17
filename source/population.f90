@@ -184,14 +184,14 @@ subroutine population
           do J = 0, maxJph
             xsa = xspreeqJP(type, na1, J, parity) + xscollcontJP(type, J, parity, na1)
             xsb = xspreeqJP(type, nb1, J, parity) + xscollcontJP(type, J, parity, nb1)
-            if (flaggiant .and. J <= 3) then
+            if (flaggiant .and. J <= 3 .and. parity == (-1)**J) then
               xsa = xsa + xsgrstate(type, J, 1, na1) + xsgrstate(type, J, 2, na1)
               xsb = xsb + xsgrstate(type, J, 1, nb1) + xsgrstate(type, J, 2, nb1)
             endif
             call pol1(Ea1, Eb1, xsa, xsb, Elow, xslow)
             xsa = xspreeqJP(type, na2, J, parity) + xscollcontJP(type, J, parity, na2)
             xsb = xspreeqJP(type, nb2, J, parity) + xscollcontJP(type, J, parity, nb2)
-            if (flaggiant .and. J <= 3) then
+            if (flaggiant .and. J <= 3 .and. parity == (-1)**J) then
               xsa = xsa + xsgrstate(type, J, 1, na2) + xsgrstate(type, J, 2, na2)
               xsb = xsb + xsgrstate(type, J, 1, nb2) + xsgrstate(type, J, 2, nb2)
             endif
