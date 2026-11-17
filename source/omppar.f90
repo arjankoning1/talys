@@ -366,9 +366,9 @@ Loop1: do
               read(45, '(/a)', iostat = istat) string
               i = index(string, 'betas:')
               if (i > 0) then
-              read(string(i + 6:), *, iostat = istat) riplbeta
-              if (istat == 0) then
-                if (deftype(Zix, Nix) == 'D') riplbeta = riplbeta * 1.24 * real(At) **onethird
+                read(string(i + 6:), *, iostat = istat) riplbeta
+                if (istat == 0) then
+                  deftype(Zix, Nix) = 'B'
                   rotpar(Zix, Nix, 1:3) = riplbeta
                   nrot(Zix, Nix) = 3
                 endif
