@@ -100,6 +100,7 @@ subroutine omppar(Zix, Nix)
   logical           :: lexist        ! logical to determine existence
   character(len=1)  :: omptype       ! type of optical model (spherical or coupled)
   character(len=1)  :: Rpart         !
+  real(sgl)         :: riplbeta(3)
   character(len=8)  :: ompchar       ! help variable
   character(len=132):: optmodfile    ! file with optical model parameters
   character(len=132):: ompfile       ! optical model parameter file
@@ -355,6 +356,26 @@ Loop1: do
           write( * , * ) "RIPL OMP for ", Zt, At
           call riplomp_mod(NE, Zt, At, Eripl, riplomp(k), - 2, 0)
           close (unit = 35)
+!
+! Use the RIPL beta2, beta4 and beta6 for rigid-rotor nuclei.
+! Preserve an explicitly supplied deformfile.
+!
+          if (riplomp(k) == 2408 .and. colltype(Zix, Nix) == 'R' .and. deformfile(Zix)(1:1) == ' ') then
+            open(unit = 45, file = 'cclev-omp.dat', status = 'old', action = 'read', iostat = istat)
+            if (istat == 0) then
+              read(45, '(/a)', iostat = istat) string
+              i = index(string, 'betas:')
+              if (i > 0) then
+              read(string(i + 6:), *, iostat = istat) riplbeta
+              if (istat == 0) then
+                if (deftype(Zix, Nix) == 'D') riplbeta = riplbeta * 1.24 * real(At) **onethird
+                  rotpar(Zix, Nix, 1:3) = riplbeta
+                  nrot(Zix, Nix) = 3
+                endif
+                close(45)
+              endif
+            endif
+          endif
 !
 ! Retrieve  RIPL OMP parameters on energy grid
 !
