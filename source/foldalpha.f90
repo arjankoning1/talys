@@ -113,6 +113,11 @@ subroutine foldalpha(Zix, Nix, E)
 !
 ! ************************ Alpha Optical potential *************************
 !
+! ATOMKI-V2 is an externally tabulated real folding potential.
+  if (alphaomp == 10) then
+    call atomki_foldalpha(Zix, Nix, E)
+    return
+  endif
   a = AA(Zix, Nix, 0)
   z = ZZ(Zix, Nix, 0)
   ee = E
@@ -349,3 +354,147 @@ subroutine foldalpha(Zix, Nix, E)
   return
 end subroutine foldalpha
 ! Copyright A.J. Koning 2021
+
+!=======================================================================
+! ATOMKI-V2 alpha optical potential (alphaomp = 10)
+! P. Mohr et al., Atomic Data and Nuclear Data Tables 142, 101453 (2021).
+! The real folding potential is tabulated, the imaginary potential has
+! W0=50 MeV, rW=1.0 fm, aW=0.1 fm; no surface imaginary component.
+!=======================================================================
+subroutine atomki_initgrid(Zix, Nix)
+  use A0_talys_mod
+  implicit none
+  integer :: Zix, Nix, i
+!
+! No JLM densities are required by ATOMKI-V2.  Use the existing JLM
+! radial grid if one was loaded for nucleons, or a 0.1--20.0 fm grid.
+!
+  if (radjlm(Zix, Nix, 1) <= 0.) then
+    do i = 1, numjlm
+      radjlm(Zix, Nix, i) = 20. * real(i, sgl) / real(numjlm, sgl)
+    enddo
+  endif
+  jlmexist(Zix, Nix, 6) = .true.
+end subroutine atomki_initgrid
+
+subroutine atomki_foldalpha(Zix, Nix, E)
+  use A0_talys_mod
+  implicit none
+  integer, parameter :: ntab = 800
+  integer :: Zix, Nix, Z, A, i, j, ilo, ihi, ios
+  real(sgl) :: E, A13, rc_file, f_radius, f_depth
+  real(sgl) :: rtab(ntab), vtab(ntab), r, rquery, frac, vn, x
+  character(len=512) :: filename
+  character(len=512) :: header
+  character(len=132) :: key
+!
+  Z = ZZ(Zix, Nix, 0)
+  A = AA(Zix, Nix, 0)
+  A13 = real(A, sgl) ** onethird
+!
+! The original ATOMKI supplementary filenames contain 'alphaomp9real'.
+! This suffix is retained although the TALYS keyword is alphaomp=10.
+! Important: select the nucleus for this Zix,Nix, not the original
+! incident Ztarget, Atarget; inverse alpha channels use other nuclei.
+!
+  write(filename, '("optical/atomki/z",i3.3,"a",i3.3, ".txt")') Z, A
+  filename = trim(path)//trim(filename)
+  open(unit=77, file=trim(filename), status='old', action='read', iostat=ios)
+  if (ios /= 0) then
+    write(*, '(" TALYS-error: missing ATOMKI-V2 real-potential file: ",a)') trim(filename)
+    stop 1
+  endif
+  read(77, '(a)', iostat=ios) header
+  if (ios == 0) read(77, '(a)', iostat=ios) header
+  if (ios == 0) read(77, *, iostat=ios) rc_file
+  if (ios /= 0) then
+    write(*, '(" TALYS-error: malformed ATOMKI-V2 header: ",a)') trim(filename)
+    close(77)
+    stop 1
+  endif
+  if (rc_file <= 0.5 .or. rc_file >= 2.) then
+    write(*, '(" TALYS-error: ATOMKI-V2 reduced Coulomb radius outside 0.5-2 fm: ",a)') trim(filename)
+    close(77)
+    stop 1
+  endif
+  do i = 1, ntab
+    read(77, *, iostat=ios) rtab(i), vtab(i)
+    if (ios /= 0) then
+      write(*, '(" TALYS-error: ATOMKI-V2 file requires 800 radial points: ",a)') trim(filename)
+      close(77)
+      stop 1
+    endif
+    if (i > 1) then
+      if (rtab(i) <= rtab(max(1, i-1))) then
+        write(*, '(" TALYS-error: ATOMKI-V2 radii are not strictly increasing: ",a)') trim(filename)
+        close(77)
+        stop 1
+      endif
+    endif
+  enddo
+  close(77)
+!
+! Retain the existing folding potential adjustment convention.
+!
+  if (ompadjustp(6)) then
+    key = 'aradialcor'
+    call adjust(E, key, Zix, Nix, 0, 0, f_radius)
+    key = 'adepthcor'
+    call adjust(E, key, Zix, Nix, 0, 0, f_depth)
+  else
+    f_radius = 1.
+    f_depth = 1.
+  endif
+  f_radius = f_radius * aradialcor
+  f_depth = f_depth * adepthcor
+  if (f_radius <= 0. .or. avadjust(6) <= 0.) then
+    write(*, '(" TALYS-error: non-positive ATOMKI-V2 radius/diffuseness correction")')
+    stop 1
+  endif
+!
+! Interpolate the real DFOLD potential to the ECIS radial grid.
+! R -> R/f_radius is equivalent to rescaling the tabulated radii.
+!
+  do j = 1, numjlm
+    r = radjlm(Zix, Nix, j)
+    rquery = r / f_radius
+    if (rquery <= rtab(1)) then
+      vn = vtab(1)
+    elseif (rquery >= rtab(ntab)) then
+      vn = vtab(ntab)
+    else
+      ilo = 1
+      ihi = ntab
+      do while (ihi - ilo > 1)
+        i = (ihi + ilo) / 2
+        if (rtab(i) > rquery) then
+          ihi = i
+        else
+          ilo = i
+        endif
+      enddo
+      frac = (rquery - rtab(ilo)) / (rtab(ihi) - rtab(ilo))
+      vn = vtab(ilo) + frac * (vtab(ihi) - vtab(ilo))
+    endif
+    potjlm(Zix, Nix, j, 1) = f_depth * vn
+!
+! Strong-absorption Woods-Saxon volume imaginary part, no surface.
+! Following the older ATOMKI implementation, the rvadjust and
+! avadjust alpha corrections control this radial imaginary shape.
+! Their default values of 1 reproduce the published potential.
+!
+    x = (r - rvadjust(6) * A13) / (avadjust(6) * 0.1)
+    if (x > 80.) then
+      potjlm(Zix, Nix, j, 2) = 0.
+    elseif (x < -80.) then
+      potjlm(Zix, Nix, j, 2) = -50. * w1adjust(6)
+    else
+      potjlm(Zix, Nix, j, 2) = -50. * w1adjust(6) / (1. + exp(x))
+    endif
+    potjlm(Zix, Nix, j, 3:6) = 0.
+  enddo
+!
+! Reduced Coulomb radius is supplied with the folding table.
+!
+  rc = rc_file
+end subroutine atomki_foldalpha
