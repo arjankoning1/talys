@@ -295,7 +295,11 @@ subroutine opticalcomp(Zix, Nix, k, eopt)
 !
 ! Alternative options for complex particle OMP
 !
-  if (altomp(k)) then
+! Atomki-V2 alphaomp=10 is not a parameterised Woods-Saxon model.
+! Its tabulated radial potential is passed to ECIS by foldalpha.
+! Keep the Watanabe parameters only as auxiliary scalar values.
+!
+  if (altomp(k) .and. .not. (k == 6 .and. alphaomp == 10)) then
     vkd = v
     rvkd = rv
     avkd = av
@@ -320,7 +324,7 @@ subroutine opticalcomp(Zix, Nix, k, eopt)
       call opticaldeut(Zix, Nix, eopt)
       i = deuteronomp
     endif
-    if (k == 6 .and. (alphaomp == 2 .or. alphaomp >= 6)) then
+    if (k == 6 .and. (alphaomp == 2 .or. (alphaomp >= 6 .and. alphaomp <= 9))) then
       call opticalalpha(Zix, Nix, eopt)
       i = alphaomp
     endif
