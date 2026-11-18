@@ -462,7 +462,7 @@ subroutine inputout
   write(*, '(" radialmodel        ", i2, "     radialmodel  model for radial matter densities (JLM OMP only)")') radialmodel
   write(*, '(" jlmmode            ", i2, "     jlmmode      option for JLM imaginary potential normalization")') jlmmode
   write(*, '(" alphaomp           ", i2, "     alphaomp     alpha OMP (1=normal, 2= McFadden-Satchler,", &
- &  " 3-5= folding pot., 6,8= Avrigeanu, 7=Nolte)")') alphaomp
+ &  " 3-5= folding pot., 6,8= Avrigeanu, 7=Nolte, 9=Basak, 10=ATOMKI)")') alphaomp
   write(*, '(" deuteronomp        ", i2, "     deuteronomp  deuteron OMP (1=normal, 2=Daehnick,", &
  &  " 3=Bojowald, 4=Han-Shi-Shen, 5=An-Cai)")') deuteronomp
   write(*, '(" ecisstep        ", es9.2, " ecisstep     integration step size for ECIS OMP calculation")') ecisstep
