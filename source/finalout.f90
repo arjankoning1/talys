@@ -277,7 +277,7 @@
       write(51, '("lwsoadjust     ", f10.5)') lwsoadjust
     endif
     write(51, '("deuteronomp    ", i1)') deuteronomp
-    write(51, '("alphaomp       ", i1)') alphaomp
+    write(51, '("alphaomp       ", i2)') alphaomp
     if (alphaomp >= 3 .and. alphaomp <= 5) then
       write(51, '("aradialcor     ", f10.5)') aradialcor
       write(51, '("adepthcor      ", f10.5)') adepthcor
