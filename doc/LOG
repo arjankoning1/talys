@@ -107,6 +107,12 @@ even when TALYS gracefully stops becaue of wrong user input.
 Corrected an error found by Frank Gunsing in the printing of the E2 psf,
 it had the L=1 column printed.
 
+- November 17
+
+Repalced all deformation lengths (delta) by deformation parameters (beta)
+in talys/strudture/deformation. Also now read deformation parameters 
+connected to RIPL OMP for actinides in case that is selected.
+
 - November 18
 
 Added alphaomp 9 (Basak) and 10 (ATOMKI) for the alpha OMPs
