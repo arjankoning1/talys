@@ -670,7 +670,7 @@ subroutine checkvalue
       call range_real_error('grescue', grescue(mt, is), 0.001, 1000., index1 = mt, name1 = 'MT', index2 = is, name2 = 'iso')
     enddo
   enddo
-  call range_integer_error('alphaomp', alphaomp, 1, 8)
+  call range_integer_error('alphaomp', alphaomp, 1, 10)
   call range_integer_error('deuteronomp', deuteronomp, 1, 5)
   call range_integer_error('radialmodel', radialmodel, 1, 2)
 !
