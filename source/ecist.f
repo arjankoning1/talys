@@ -28,7 +28,7 @@ c                                                                       ecis-024
 c***********************************************************************ecis-025
       implicit real*8 (a-h,o-z)                                         ecis-026
 c     parameter (idmx=600000)                                           ecis-027
-      parameter (idmx=8000000)                                          ak000000
+      parameter (idmx=10000000)                                         ak000000
       character*4 cw(2,idmx)                                            ecis-028
       character*13 ecisinp,ecisout,eciscs,ecisin,ecistr,                ak000000
      +  ecisang,ecisleg,ecispot                                         ak000000
