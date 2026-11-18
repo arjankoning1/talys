@@ -72,6 +72,9 @@ subroutine opticalalpha(Zix, Nix, eopt)
   real(sgl) :: e2opt ! energy for alpha OMP
   real(sgl) :: e3opt ! energy for alpha OMP
   real(sgl) :: e4opt ! energy for alpha OMP
+  real(sgl) :: ecm   ! alpha-target centre-of-mass energy
+  real(sgl) :: Ecu   ! Coulomb barrier energy used by Basak and Basu
+  real(sgl) :: fbasak ! Basak and Basu Fermi reduction factor
   real(sgl) :: eopt  ! incident energy
   real(sgl) :: rb    ! maximum radius value
 !
@@ -190,6 +193,27 @@ subroutine opticalalpha(Zix, Nix, eopt)
     vso = 0.
     wso = 0.
     rc = 1.3
+  endif
+!
+! alphaomp=8 --> Basak and Basu alpha OMP (2022)
+! Basak and Basu, European Physical Journal A (2022), DOI: 10.1140/epja/s10050-022-00798-4
+! alphaomp=9  : modified real and imaginary depths
+!
+  if (alphaomp == 9) then
+    ecm = eopt * real(A, sgl) / (real(A, sgl) + 4.)
+    Ecu = 2. * real(Z, sgl) * e2 / (1.30 * (A13 + 4. **onethird))
+    fbasak = 1. / (1. + exp((0.9 * Ecu - ecm) / 10.))
+    v = 185. * fbasak
+    w = 25. * fbasak
+    rv = 1.40
+    av = 0.52
+    rw = rv
+    aw = av
+    vd = 0.
+    wd = 0.
+    vso = 0.
+    wso = 0.
+    rc = 1.30
   endif
 !
 ! Possible adjustment of parameters
