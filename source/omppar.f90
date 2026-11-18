@@ -475,7 +475,7 @@ Loop1: do
 !
 ! Alpha OMPs
 !
-  do i = 2, 8
+  do i = 2, 10
     Eompbeg0(6, i) = 0.
     Eompbeg1(6, i) = 0.
     Eompend1(6, i) = 200.
@@ -483,6 +483,11 @@ Loop1: do
   enddo
   Eompend1(6, 2) = 25.
   Eompend0(6, 2) = 50.
+! Include the new models exactly at zero energy (do not blend with Watanabe).
+  Eompbeg0(6, 9) = -1.
+! Preserve the McFadden-Satchler 25-50 MeV high-energy transition.
+  Eompend1(6, 9) = 25.
+  Eompend0(6, 9) = 50.
   return
 end subroutine omppar
 ! Copyright A.J. Koning 2021
