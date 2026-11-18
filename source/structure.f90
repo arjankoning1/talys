@@ -84,6 +84,7 @@ subroutine structure(Zix, Nix)
   endif
   if ((Zix + Nix > 0 .and. Zix <= 2 .and. Nix <= 2) .or. flagompall) call omppar(Zix, Nix)
   if (flagjlm .or. alphaomp >= 3 .and. alphaomp <= 5) call radialtable(Zix, Nix)
+  if (alphaomp == 10) call atomki_initgrid(Zix, Nix)
   if (flagomponly .and. .not. flagcomp) return
   if (flagfission) call fissionpar(Zix, Nix)
   call densitypar(Zix, Nix)
