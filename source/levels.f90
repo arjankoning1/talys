@@ -96,6 +96,12 @@ subroutine levels(Zix, Nix)
   integer           :: nnn               ! number of levels in discrete level file
   integer           :: Z                 ! charge number of target nucleus
   integer           :: Zix               ! charge number index for residual nucleus
+  integer           :: NLdead            ! last discrete level before the dead-end check
+  integer           :: idead             ! last discrete level below the neutron separation energy
+  logical           :: deadend           ! flag for radiative dead end of the s-wave capture states
+  real(sgl)         :: Sndead            ! neutron separation energy
+  real(sgl)         :: Itdead            ! ground-state spin of the target (Z, A-1)
+  real(sgl)         :: Jdead             ! s-wave neutron-capture entry spin
   real(sgl)         :: br(numlev)        ! branching ratio multiplied by initial flux
   real(sgl)         :: con(numlev)       ! conversion factor
   real(sgl)         :: sum               ! help variable
@@ -240,6 +246,41 @@ subroutine levels(Zix, Nix)
   close (unit = 2)
   nlev(Zix, Nix) = min(nlev(Zix, Nix), nlev2)
   nlev(Zix, Nix) = max(nlev(Zix, Nix), 1)
+!
+! Radiative dead end: if the discrete levels used in the decay run past the neutron separation energy and none of the
+! levels below it is dipole-connected (|J - Jlev| <= 1, not 0 -> 0) to an s-wave neutron-capture entry spin, the capture
+! states have no gamma decay (<Gamma_gamma> -> 0). The decay list is then cut at the last level below the separation
+! energy, so that the continuum opens below it. Ntop (level density matching) is not changed.
+!
+  Sndead = S(Zix, Nix, 1)
+  NLdead = nlev(Zix, Nix)
+  if (Sndead > 0. .and. NLdead >= 1 .and. Nix + 1 <= numN) then
+    if (edis(Zix, Nix, NLdead) > Sndead) then
+      Itdead = gsspin(Zix, Nix + 1)
+      deadend = .true.
+      do k = 1, 2
+        if (k == 1) Jdead = abs(Itdead - 0.5)
+        if (k == 2) then
+          if (Itdead < 0.25) cycle
+          Jdead = Itdead + 0.5
+        endif
+        do i = 0, NLdead
+          if (edis(Zix, Nix, i) < Sndead .and. abs(Jdead - jdis(Zix, Nix, i)) <= 1. .and. &
+ &          .not. (Jdead == 0. .and. jdis(Zix, Nix, i) == 0.)) deadend = .false.
+        enddo
+      enddo
+      if (deadend) then
+        idead = 0
+        do i = NLdead, 1, -1
+          if (edis(Zix, Nix, i) < Sndead) then
+            idead = i
+            exit
+          endif
+        enddo
+        if (idead >= 1) nlev(Zix, Nix) = idead
+      endif
+    endif
+  endif
 !
 ! The maximal value of Ntop is always given by the last discrete level of the discrete level file.
 !
