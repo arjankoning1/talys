@@ -230,10 +230,10 @@ subroutine densitypar(Zix, Nix)
       if (istat /= 0) call read_error(denfile1, istat)
       if (A == ia) then
         ldfound1 = .true.
-        close (unit = 2)
         exit
       endif
     enddo
+    close (unit = 2)
   endif
   if (ext2 > 0.) then
     extstring='   '
@@ -249,11 +249,11 @@ subroutine densitypar(Zix, Nix)
         if (istat /= 0) call read_error(denfile2, istat)
         if (A == ia) then
           ldfound2 = .true.
-          close (unit = 2)
           exit
         endif
       enddo
     endif
+    close (unit = 2)
   endif
   if (ldfound1 .and. ldfound2) then
     if (abs(ext1 - 1.) <= abs(ext2 - 1.)) then
