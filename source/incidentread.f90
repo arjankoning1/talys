@@ -340,8 +340,11 @@ subroutine incidentread
     do k = 1, nL
       read(infileleg, '(2i5, e20.10)') i, l, ddl
       if (l > 3 * numl) cycle
-      ii = i - 1
-      if (i /= 1) ii = indexcc(Zix, Nix, i)
+      if (i == 1) then
+        ii = Ltarget
+      else
+        ii = indexcc(Zix, Nix, i)
+      endif
       dleg(k0, ii, l) = real(ddl)
     enddo
   enddo
