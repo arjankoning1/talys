@@ -138,7 +138,7 @@ subroutine angdis
   enddo
   if (k0 == 1) then
     do LL = 0, J2end
-      tlegnor(k0, 0, LL) = tleg(k0, 0, LL) / xselastot
+      tlegnor(k0, Ltarget, LL) = tleg(k0, Ltarget, LL) / xselastot
     enddo
   endif
 !
