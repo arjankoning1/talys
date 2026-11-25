@@ -109,7 +109,7 @@ subroutine angleout
 ! Write results to separate file
 !
     if (flagblockangle) then
-      legfile = '  leg.L00'
+      legfile = '  leg.L00'//natstring(iso)
       write(legfile(1:2), '(2a1)') parsym(k0), parsym(k0)
       write(legfile(8:9), '(i2.2)') Ltarget
       if (.not. legexist(k0, k0, Ltarget)) then
@@ -119,7 +119,7 @@ subroutine angleout
         open (unit=1, file=legfile, status='unknown', position='append')
       endif
     else
-      legfile = '          leg.L00'
+      legfile = '          leg.L00'//natstring(iso)
       write(legfile(1:2), '(2a1)') parsym(k0), parsym(k0)
       write(legfile(3:10), '(f8.3)') Einc
       write(legfile(3:6), '(i4.4)') int(Einc)
@@ -159,7 +159,7 @@ subroutine angleout
 ! Write results to separate file
 !
     if (flagblockangle) then
-      discfile = 'nnang.L00'
+      discfile = 'nnang.L00'//natstring(iso)
       write(discfile(1:2), '(2a1)') parsym(k0), parsym(k0)
       write(discfile(8:9), '(i2.2)') Ltarget
       if (.not. angexist(k0, k0, Ltarget)) then
@@ -169,7 +169,7 @@ subroutine angleout
         open (unit=1, file=discfile, status='unknown', position='append')
       endif
     else
-      discfile = 'nn        ang.L00'
+      discfile = 'nn        ang.L00'//natstring(iso)
       write(discfile(3:10), '(f8.3)') Einc
       write(discfile(3:6), '(i4.4)') int(Einc)
       write(discfile(16:17), '(i2.2)') Ltarget
@@ -203,7 +203,7 @@ subroutine angleout
 ! Write results to separate file
 !
     if (flagblockangle) then
-      discfile = '  ang.L00'
+      discfile = '  ang.L00'//natstring(iso)
       write(discfile(1:2), '(2a1)') parsym(k0), parsym(k0)
       write(discfile(8:9), '(i2.2)') Ltarget
       if (.not. angexist(k0, k0, Ltarget)) then
@@ -213,7 +213,7 @@ subroutine angleout
         open (unit=1, file=discfile, status='unknown', position='append')
       endif
     else
-      discfile = '          ang.L00'
+      discfile = '          ang.L00'//natstring(iso)
       write(discfile(1:2), '(2a1)') parsym(k0), parsym(k0)
       write(discfile(3:10), '(f8.3)') Einc
       write(discfile(3:6), '(i4.4)') int(Einc)
