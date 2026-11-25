@@ -122,6 +122,7 @@
   integer            :: keyix
   integer            :: n1                            ! number of coordinate grid points
   integer            :: n2                            ! counter
+  integer            :: Nangread  ! Number of angles read from file
   integer            :: indent
   integer            :: id2
   integer            :: id4
@@ -414,7 +415,7 @@
             key='entries'
             keyix=index(line,trim(key))
             if (keyix > 0) then
-              read(line(keyix+len_trim(key)+2:80),*, iostat = istat) Ninc
+              read(line(keyix+len_trim(key)+2:80),*, iostat = istat) Nangread
               if (istat /= 0) call read_error(discfile, istat, eor = 'continue', eof = 'continue')
               read(2,'(/)')
               do iang = 0, nangle
@@ -441,7 +442,7 @@
         col(3)='Direct'
         col(4)='Compound'
         Ncol=4
-        open (1, file = discfile(1:16), status = 'replace')
+        open (1, file = discfile(1:17), status = 'replace')
         call write_header(indent,topline,source,user,date,oformat)
         call write_target(indent)
         call write_reaction(indent,reaction,0.D0,0.D0,4,2)
